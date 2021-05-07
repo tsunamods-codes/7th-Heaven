@@ -53,18 +53,27 @@ $SDKVersionPath = $SDKVersionPath+"\"+$sdkArch;
 $signPath = $SDKVersionPath+"\signtool.exe";
 "Signtool Path: "+$SDKVersionPath+"\signtool.exe";
 
-# create alias to the discovered path so we can invoke with args
+# create alias to the discovered path so we can invoke with arguments
 new-alias signtool $signPath;
 
 # basic aguments for sign tool
-$args = 'sign',
+$appArgs = 'sign',
 	'/fd',	
 	'sha256',
-	'/n',
-	$cert;
+	'/n';
+
+# support adding a password for the certificate if it's required supplied from the args to this script
+if($args[0] -ne $null){
+	"Certificate Password detected"
+	$passSupp = '/p', 
+				$args[1];
+	$appArgs = $appArgs + $passSupp;
+}
+
+$appArgs = $appArgs + $cert;
 
 # add the files to be signed to the end of the args array
-$args = $args + $files;
+$appArgs = $appArgs + $files;
 
 #run the signtool
-signtool $args;
+signtool $appArgs;
