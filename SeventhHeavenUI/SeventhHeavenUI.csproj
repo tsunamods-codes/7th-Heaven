@@ -909,6 +909,9 @@
     <Content Include="Resources\VBusDriver\System\x86\ScpVBus.sys">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="sign.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="7H.ico" />
     <Content Include="7thHeaven.var">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
