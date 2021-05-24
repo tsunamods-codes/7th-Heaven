@@ -939,7 +939,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
 
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Vérification des mises à jour sur</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Vérification des mises à jour en utilisant le canal</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Échec de vérification des mises à jour sur</system:String>
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->

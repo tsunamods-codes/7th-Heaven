@@ -1242,8 +1242,6 @@ namespace SeventhHeaven.ViewModels
             string uniqueFileName = $"cattemp{Path.GetRandomFileName()}.xml"; // save temp catalog update to unique filename so multiple catalog updates can download async
             string path = Path.Combine(Sys.PathToTempFolder, uniqueFileName);
 
-            Directory.CreateDirectory(Sys.PathToTempFolder); // temp folder could be missing so ensure its created
-
             Action onCancel = () =>
             {
                 // delete temp file on cancel if it exists

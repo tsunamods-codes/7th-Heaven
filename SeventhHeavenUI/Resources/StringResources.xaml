@@ -944,7 +944,7 @@ Do you want to apply the setting and try again?</system:String>
     
     
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Checking for updates at</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Checking for updates using channel</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Failed to check for updates at</system:String>
 
     

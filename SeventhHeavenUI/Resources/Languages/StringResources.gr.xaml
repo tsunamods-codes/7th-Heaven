@@ -943,7 +943,7 @@
 
 
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Έλεγχος για ενημερώσεις στο</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Έλεγχος για ενημερώσεις μέσω καναλιού</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Αποτυχία ελέγχου για ενημερώσεις στο</system:String>
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->

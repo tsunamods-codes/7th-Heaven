@@ -424,7 +424,7 @@
         MissingShadersComplexMultiShaderFolderCreatingDirectory,
         MissingShadersFolderCreatingDirectory,
         MissingShadersFilesCopyingFrom,
-        CheckingForUpdatesAt,
+        CheckingForUpdatesUsingChannel,
         FailedToCheckForUpdatesAt,
         MakeSureToCopyToTheRootFolder,
         Info,

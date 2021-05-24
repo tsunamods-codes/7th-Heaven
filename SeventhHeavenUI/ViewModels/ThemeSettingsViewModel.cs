@@ -213,6 +213,7 @@ namespace SeventhHeaven.ViewModels
             {
                 return new Dictionary<string, AppTheme>
                 {
+                    { "Tsunamods", AppTheme.Tsunamods },
                     { "Dark Mode", AppTheme.DarkMode },
                     { "Dark Mode w/ Background", AppTheme.DarkModeWithBackground },
                     { "Light Mode", AppTheme.LightMode },
@@ -249,7 +250,7 @@ namespace SeventhHeaven.ViewModels
             // dark theme w/ background will be applied as the default when theme.xml file does not exist
             if (!File.Exists(pathToThemeFile))
             {
-                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(AppTheme.DarkModeWithBackground);
+                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(AppTheme.Tsunamods);
                 return;
             }
 
@@ -265,7 +266,7 @@ namespace SeventhHeaven.ViewModels
 
             if (!File.Exists(pathToThemeFile))
             {
-                return ThemeSettings.GetThemeFromEnum(AppTheme.DarkModeWithBackground);
+                return ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods);
             }
 
             try
@@ -276,7 +277,7 @@ namespace SeventhHeaven.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                return ThemeSettings.GetThemeFromEnum(AppTheme.DarkModeWithBackground);
+                return ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods);
             }
         }
 
@@ -533,7 +534,7 @@ namespace SeventhHeaven.ViewModels
 
                 if (!File.Exists(pathToThemeFile))
                 {
-                    savedTheme = ThemeSettings.GetThemeFromEnum(AppTheme.DarkModeWithBackground) as ThemeSettings;
+                    savedTheme = ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods) as ThemeSettings;
                 }
                 else
                 {

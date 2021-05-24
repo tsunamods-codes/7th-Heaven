@@ -604,6 +604,8 @@ namespace SeventhHeavenUI.ViewModels
 
         #endregion
 
+        private UpdateChecker updater = new UpdateChecker();
+        
         public MainWindowViewModel()
         {
             SearchText = "";
@@ -721,31 +723,17 @@ namespace SeventhHeavenUI.ViewModels
                 DS4ControllerService.Instance.StartService();
             }
 
-            UpdateChecker.Instance.UpdateCheckCompleted += AppUpdater_UpdateCheckCompleted;
+            // Ensure temp directory exists
+            Directory.CreateDirectory(Sys.PathToTempFolder);
+
             if (Sys.Settings.HasOption(GeneralOptions.CheckForUpdates))
             {
                 Task.Factory.StartNew(() =>
                 {
                     System.Threading.Thread.Sleep(5000); // wait 5 seconds after init before checking for update to let UI render
                     Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CheckingForUpdates), WMessageLogLevel.LogOnly));
-                    UpdateChecker.Instance.CheckForUpdates();
+                    updater.CheckForUpdates(AppUpdateChannelOptions.Stable);
                 });
-            }
-        }
-
-        private void AppUpdater_UpdateCheckCompleted(bool wasSuccessful)
-        {
-            if (wasSuccessful && UpdateChecker.IsNewVersionAvailable(Sys.LastCheckedVersion))
-            {
-                string message = string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", Sys.LastCheckedVersion.Version, Sys.LastCheckedVersion.ReleaseNotes);
-                var dialogResult = MessageDialogWindow.Show(message, ResourceHelper.Get(StringKey.NewVersionAvailable), MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-
-                if (dialogResult.Result == MessageBoxResult.Yes)
-                {
-                    ProcessStartInfo startInfo = new ProcessStartInfo(Sys.LastCheckedVersion.ReleaseDownloadLink);
-                    Process.Start(startInfo);
-                    App.ShutdownApp();
-                }
             }
         }
 

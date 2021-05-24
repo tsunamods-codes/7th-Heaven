@@ -28,6 +28,12 @@ namespace Iros._7th.Workshop {
         AutoUpdateMods
     }
 
+    public enum AppUpdateChannelOptions
+    {
+        Stable = 0,
+        Canary
+    }
+
     public enum FFNxUpdateChannelOptions
     {
         Stable = 0,

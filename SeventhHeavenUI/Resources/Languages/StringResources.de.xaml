@@ -952,7 +952,7 @@ Aktivieren und erneut versuchen?</system:String>
     
     
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Prüfe auf Updates in</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Prüfen auf Updates über Kanal</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Fehler beim prüfen auf Updates in</system:String>
 
     

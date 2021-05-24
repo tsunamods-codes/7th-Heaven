@@ -1,59 +1,33 @@
-# 7th Heaven 2.2
+<div align="center">
+  <img src="https://github.com/julianxhokaxhiu/FFNx/blob/master/.logo/tsunamods.png" alt="">
+  <br><small>7thHeaven is now officially part of the <strong>Tsunamods</strong> initiative!</small>
+</div>
+
+# 7th Heaven
 
 Mod manager for Final Fantasy VII PC.
 
-## Getting Started
+## Introduction
 
-### Downloads
-* Latest installer is available on the [Qhimm forums](http://forums.qhimm.com/index.php?topic=19533.0).
-* Latest portable .exe version is available on the [Qhimm forums](http://forums.qhimm.com/index.php?topic=19533.0).
+This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) release, maintained now by the Tsunamods team.
 
-### Installing
+## Download
 
-#### Using the Installer
-1. Download the installer from the [Qhimm forums](http://forums.qhimm.com/index.php?topic=19533.0).
-2. Run the setup.exe file.
+- [Latest stable release](https://github.com/tsunamods-codes/7th-Heaven/releases/latest)
+- [Latest canary release](https://github.com/tsunamods-codes/7th-Heaven/releases/tag/canary)
 
-#### Portable .Exe
-1. Download the latest release of the zipped up .exe from the [Qhimm forums](http://forums.qhimm.com/index.php?topic=19533.0).
+## Install
+
+1. Download the latest release using one of the links above
 2. Extract the .zip file to your preferred location e.g. C:\7th Heaven.
-3. After extracting, run `7th Heaven.exe`
+3. Run `7th Heaven.exe`
 
-## Building From Source
-1. Use Visual Studio 2017 or 2019.
-2. Open the solution, get the NuGet packages, and build.
+## Build
+
+0. Download the the latest [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) installer
+1. Run the installer and import this [.vsconfig](.vsconfig) file in the installer to pick the required components to build this project
+2. Once installed, open the file [`7thHeaven.sln`](7thHeaven.sln) in Visual Studio 2019 and click the build button
 
 ## License
 
-This project is licensed under the MPT License.
-
-## Acknowledgements and Thanks
-## 7th Heaven Developers
-* **rodriada, unab0mb (2.x)**
-* **Ficedula, Iros, TrueOdin, TurBoss (1.x)**
-
-## Catalogs and Hosting
-* **Chrysalis, EQ2Alyza, Lord UrQuan,**
-* **Strife98, Sega Chief**
-
-## FFNx Game Driver
-* **Aali, Chrysalis, DLPB, Extapathy,**
-* **Maki, myst6re, Nax, OatBran**
-* **quantumpencial, Sebanisu, sithlord48,**
-* **TrueOdin**
-
-## Language Translations/Proofreading
-* **DBZFan102/Andre1070, Dragoon_2004, Franckie,**
-* **Kaldarasha, Khrone, Leonhart, LittleTale/youffie,**
-* **OatBran, Rukenu, Satsuki**
-
-## Trailer and Tutorial Videos
-* **Creation - Tsunamix**
-* **Trailer Voice - James Garris**
-
-## UltraSound Plugin
-* **ficedula, Martin Barker**
-
-## Additional Acknowledgments
-* Thanks to Jusete for the installer/web artwork!
-* Thank you to the entire Qhimm and Tsunamods communities for their contributions and participation, whether it be donations, offering support to each other, creating mods/software, feedback, using mods, exchanging ideas, or testing mods/software.
+See [LICENSE.txt](LICENSE.txt)

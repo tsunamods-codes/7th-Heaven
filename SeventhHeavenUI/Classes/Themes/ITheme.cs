@@ -14,6 +14,7 @@ namespace SeventhHeaven.Classes.Themes
         LightMode,
         LightModeWithBackground,
         Classic7H,
+        Tsunamods
     }
 
     public interface ITheme

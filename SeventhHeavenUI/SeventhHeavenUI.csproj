@@ -150,6 +150,7 @@
     <Compile Include="Classes\Themes\DarkTheme.cs" />
     <Compile Include="Classes\Themes\ITheme.cs" />
     <Compile Include="Classes\Themes\ThemeSettings.cs" />
+    <Compile Include="Classes\Themes\TsunamodsTheme.cs" />
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\GameDiscMounter.cs" />
     <Compile Include="Classes\WCF\ServiceHost.cs" />

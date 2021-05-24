@@ -592,7 +592,7 @@ namespace SeventhHeaven.ViewModels
         {
             int MidiDevIDFromReg = GetMidiDeviceInRegistry();
 
-            if (MidiDevIDFromReg > MidiDevices.Count - 1)
+            if (MidiDevIDFromReg < MidiDevices.Count - 1)
             {
                 SelectedMidiDevice = MidiDevices.ElementAt(0);
             }
