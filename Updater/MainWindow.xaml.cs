@@ -19,7 +19,6 @@ namespace Updater
 
         public MainWindow()
         {
-            Console.WriteLine(Args.ToString());
             if (!Directory.Exists(Args[0]))
             {
                 System.Windows.Application.Current.Shutdown(1);
