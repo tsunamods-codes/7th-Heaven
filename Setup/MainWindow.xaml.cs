@@ -87,6 +87,7 @@ namespace Setup
             try
             {
                 Process proc = Process.Start(startInfo);
+                proc.WaitForExit();
             }
             catch (System.ComponentModel.Win32Exception ex)
             {
@@ -119,7 +120,6 @@ namespace Setup
                 {
                     return;
                 }
-                System.Windows.Application.Current.Shutdown(1);
             }
         }
 
