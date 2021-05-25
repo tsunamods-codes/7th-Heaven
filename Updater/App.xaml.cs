@@ -13,10 +13,11 @@ namespace Updater
     /// </summary>
     public partial class App : Application
     {
+        public static string[] Args;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Updater.MainWindow.Args = e.Args;
             MainWindow wnd = new MainWindow();
-            wnd.args = e.Args;
         }
     }
 }

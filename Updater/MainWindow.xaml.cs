@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Updater.GitHub;
 
 namespace Updater
@@ -22,25 +13,53 @@ namespace Updater
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string[] args;
+        public static string[] Args;
+        private string extractPath;
+        private Releases.Channel releaseChannel;
 
         public MainWindow()
         {
-            this.Initialized += MainWindow_Initialized;
-            InitializeComponent();
+            Console.WriteLine(Args.ToString());
+            if (!Directory.Exists(Args[0]))
+            {
+                System.Windows.Application.Current.Shutdown(1);
+            }
+            extractPath = Args[0];
+            switch (Args[1].ToLower())
+            {
+                case "alpha":
+                    releaseChannel = Releases.Channel.Alpha;
+                    break;
+                case "beta":
+                    releaseChannel = Releases.Channel.Beta;
+                    break;
+                case "canary":
+                    releaseChannel = Releases.Channel.Canary;
+                    break;
+                default:
+                case "stable":
+                    releaseChannel = Releases.Channel.Stable;
+                    break;
+            }
+            Initialized += MainWindow_Initialized;
         }
 
         private void MainWindow_Initialized(object sender, EventArgs e)
         {
+            AppReady();
+        }
+
+        private void AppReady()
+        {
             Releases releases = new Releases();
-            string downloadUrl = releases.GetReleaseJSON(Releases.Channel.Stable);
+            string downloadUrl = releases.GetReleaseJSON(releaseChannel);
             if (downloadUrl != null)
             {
                 Progress_Text.Content = String.Format("Fetching: {0}", downloadUrl.Split(new char[] { '/' }).Last());
             }
             else
             {
-                // something went wrong close the updater.exe
+                System.Windows.Application.Current.Shutdown(2);
             }
 
             Download download = new Download();
@@ -53,19 +72,41 @@ namespace Updater
         private void Download_downloadFailed()
         {
             Progress_Text.Content = String.Format("Downloading Failed");
-            // something went wrong close the updater.exr
+            System.Windows.Application.Current.Shutdown(3);
+        }
+
+        private void Download_downloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        {
+            ProgressBar.Value = e.ProgressPercentage;
         }
 
         private void Download_downloadFinished(string path)
         {
             Progress_Text.Content = String.Format("Downloading Finished: {0}", path.Split(new char[] { '\\' }).Last());
             ProgressBar.Value = 100;
-            Console.WriteLine(path);
+            Core.Zip zip = new Core.Zip();
+            zip.ZipExtractProgress += Zip_ZipExtractProgress;
+            zip.ZipExtractComplete += Zip_ZipExtractComplete;
+            zip.ExtractZipFileToDirectory(path, extractPath, true);
         }
 
-        private void Download_downloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        private void Zip_ZipExtractProgress(int percent, int curr, int total, string fileCompleted)
         {
-            ProgressBar.Value = e.ProgressPercentage;
+            Progress_Text.Content = String.Format("Processed {0} of {1} files.", curr, total);
+            // if more details want to be showed could add info using fileCompleted;
+            ProgressBar.Value = percent;
+        }
+
+        private void Zip_ZipExtractComplete()
+        {
+            Progress_Text.Content = String.Format("Files Successfully installed.");
+
+            var startInfo = new ProcessStartInfo(Args[0] + "\\7th Heaven.exe");
+            startInfo.UseShellExecute = true;
+            Process.Start(startInfo);
+            Environment.Exit(0);
+
+            System.Windows.Application.Current.Shutdown(0);
         }
     }
 }
