@@ -12,10 +12,20 @@ namespace Setup.registry
         private static string path = "";
         public static bool getFF7SteamInstalled()
         {
-            if (path != "")
+            if (path == "")
             {
-                string regPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 39140", "InstallLocation", "INVALIDPATH");
-                if (regPath == "INVALIDPATH")
+                RegistryKey localKey;
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    localKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry64);
+                }
+                else
+                {
+                    localKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry32);
+                }
+                RegistryKey key = localKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 39140");
+                string regPath = key.GetValue("InstallLocation").ToString();
+                if (regPath == "INVALIDPATH" || regPath == null)
                 {
                     return false;
                 }
