@@ -58,6 +58,7 @@ namespace Setup
                 if (Steam.getFF7SteamInstalled())
                 {
                     PathInp.Text = Steam.getFF7SteamPath();
+                    InstallBtn.IsEnabled = true;
                 }
             }
 
