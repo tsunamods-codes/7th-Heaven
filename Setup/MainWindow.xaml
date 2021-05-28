@@ -6,11 +6,51 @@
         xmlns:local="clr-namespace:Setup"
         mc:Ignorable="d"
         Title="7th Heaven Setup" Height="450" Width="400">
-    <Grid>
-        <Button IsEnabled="False" x:Name="InstallBtn" HorizontalAlignment="Center" Margin="0,333,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="InstallBtn_Click"/>
-        <Label Content="Final Fantasy 7 Install Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,172,0,0"/>
-        <TextBox Name="PathInp" IsEnabled="False" HorizontalAlignment="Left" Height="20" Margin="10,198,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
-        <Button Content="Browse" HorizontalAlignment="Left" Margin="136,223,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="Button_Click"/>
+    <Grid Background="Black">
+        <Button IsEnabled="False" x:Name="InstallBtn" HorizontalAlignment="Center" Margin="136,335,136,0" VerticalAlignment="Top" Width="120" Height="40" Click="InstallBtn_Click" Foreground="White">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#FF151515"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Label Content="Final Fantasy 7 Install Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,172,0,0" Foreground="White"/>
+        <TextBox Name="PathInp" IsEnabled="False" HorizontalAlignment="Left" Height="20" Margin="10,198,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" BorderBrush="#FF343434" Background="#FF535353" Foreground="White"/>
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="136,223,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="Button_Click" Foreground="White" BorderBrush="#FF343434">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#FF151515"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Window>

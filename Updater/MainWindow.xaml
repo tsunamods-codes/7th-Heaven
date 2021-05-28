@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Updater"
         mc:Ignorable="d"
         Title="7th Heaven Installer" Height="135" Width="612">
-    <Grid>
-        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Left" Height="45" Margin="10,40,0,0" VerticalAlignment="Top" Width="577" Minimum="0" Maximum="100"/>
-        <Label x:Name="Progress_Text" Content="Getting release information" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top"/>
+    <Grid Background="Black">
+        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Left" Height="45" Margin="10,40,0,0" VerticalAlignment="Top" Width="577" Minimum="0" Maximum="100" Foreground="#FF7818B0" Background="#FF2B2B2B" BorderBrush="#FF151515"/>
+        <Label x:Name="Progress_Text" Content="Getting release information" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>
