@@ -1,4 +1,4 @@
-if ($env:_BUILD_BRANCH -eq "refs/heads/develop" -Or $env:_BUILD_BRANCH -eq "refs/tags/canary") {
+if ($env:_BUILD_BRANCH -eq "refs/heads/master" -Or $env:_BUILD_BRANCH -eq "refs/tags/canary") {
   $env:_IS_BUILD_CANARY = "true"
 }
 elseif ($env:_BUILD_BRANCH -like "refs/tags/*") {
