@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{75106A03-8384-4E27-9536-B628ACD2021A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup", "Setup\Setup.csproj", "{610E82A2-EAF8-4C1E-AABE-54D4F29AE962}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75106A03-8384-4E27-9536-B628ACD2021A} = {75106A03-8384-4E27-9536-B628ACD2021A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

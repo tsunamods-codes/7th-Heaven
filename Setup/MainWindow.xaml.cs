@@ -31,6 +31,12 @@ namespace Setup
         [DllImport("user32.dll")]
         static extern IntPtr LoadImage(IntPtr hinst,string lpszName,uint uType,int cxDesired,int cyDesired,uint fuLoad);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -88,6 +94,12 @@ namespace Setup
             try
             {
                 Process proc = Process.Start(startInfo);
+                IntPtr hWnd = proc.MainWindowHandle;
+                if (hWnd != IntPtr.Zero)
+                {
+                    SetForegroundWindow(hWnd);
+                    ShowWindow(hWnd, int.Parse("9"));
+                }
                 proc.WaitForExit();
             }
             catch (System.ComponentModel.Win32Exception ex)
@@ -116,6 +128,7 @@ namespace Setup
                 try
                 {
                     Process proc = Process.Start(startInfo);
+                    System.Windows.Application.Current.Shutdown(0);
                 }
                 catch (System.ComponentModel.Win32Exception ex)
                 {
@@ -127,7 +140,7 @@ namespace Setup
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "FF7 Game (ff7.exe)|ff7.exe";
+            openFileDialog.Filter = "FF7 Game (ff7.exe)|ff7*.exe";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 PathInp.Text = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
