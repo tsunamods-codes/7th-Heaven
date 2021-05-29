@@ -52,8 +52,8 @@
             </Button.Style>
         </Button>
         <Image HorizontalAlignment="Left" Height="160" Margin="10,10,0,0" VerticalAlignment="Top" Width="162" Source="logo.png"/>
-        <Label Content="7th Heaven" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="184,67,0,0" FontSize="22"/>
-        <Label Content="Installer" HorizontalAlignment="Left" Margin="223,88,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="7th Heaven" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="176,55,0,0" FontSize="40"/>
+        <Label Content="Installer" HorizontalAlignment="Left" Margin="249,94,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
 
     </Grid>
 </Window>
