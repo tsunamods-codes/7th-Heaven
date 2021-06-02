@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace Updater.GitHub
 {
+    public class ReleaseInfo
+    {
+        public string version;
+        public string url;
+        public string channel;
+    }
+
     public class Releases
     {
         public enum Channel
@@ -44,33 +51,38 @@ namespace Updater.GitHub
             return String.Empty;
         }
 
-        public string GetReleaseJSON(Channel channel)
+        public ReleaseInfo GetReleaseJSON(Channel channel)
         {
+            ReleaseInfo ri = new ReleaseInfo();
             string filePath = GetUpdateInfoPath();
             string url;
             signed = false;
             switch (channel)
             {
                 case Channel.Beta:
+                    ri.channel = "beta";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/beta";
                     break;
                 case Channel.Alpha:
+                    ri.channel = "alpha";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/alpha";
                     break;
                 case Channel.Canary:
+                    ri.channel = "canary";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/canary";
                     break;
                 default:
                 case Channel.Stable:
+                    ri.channel = "stable";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/latest";
                     signed = true;
                     break;
             }
-
             WebClient wc = new WebClient();
             wc.Headers.Add(HttpRequestHeader.UserAgent, "7th Heaven Updater - Tsunamods Community");
             string jsontext = wc.DownloadString(url);
             dynamic release = JValue.Parse(jsontext);
+            ri.version = release.name.ToString().Split(new char[] { '-' })[1];
             foreach(dynamic asset in release.assets)
             {
                 if (signed)
@@ -78,11 +90,12 @@ namespace Updater.GitHub
                     string name = asset.name.ToString();
                     if (name.ToLower().IndexOf("signed") > -1)
                     {
-                        return asset.browser_download_url.ToString();
+                        ri.url = asset.browser_download_url.ToString();
+                        return ri;
                     }
                 }
             }
-            return null;
+            return ri;
         }
     }
 }

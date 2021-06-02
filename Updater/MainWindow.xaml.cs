@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,11 @@ namespace Updater
         private string extractPath;
         private Releases.Channel releaseChannel;
 
+        private ReleaseInfo ri;
+
         public MainWindow()
         {
+
             if (!Directory.Exists(Args[0]))
             {
                 System.Windows.Application.Current.Shutdown(1);
@@ -51,7 +55,8 @@ namespace Updater
         private void AppReady()
         {
             Releases releases = new Releases();
-            string downloadUrl = releases.GetReleaseJSON(releaseChannel);
+            ri = releases.GetReleaseJSON(releaseChannel);
+            string downloadUrl = ri.url;
             if (downloadUrl != null)
             {
                 Progress_Text.Content = String.Format("Fetching: {0}", downloadUrl.Split(new char[] { '/' }).Last());
@@ -99,6 +104,9 @@ namespace Updater
         private void Zip_ZipExtractComplete()
         {
             Progress_Text.Content = String.Format("Files Successfully installed.");
+
+            string jsonString = JsonConvert.SerializeObject(ri);
+            File.WriteAllText(extractPath+"\\updater.json", jsonString);
 
             var startInfo = new ProcessStartInfo(Args[0] + "\\7th Heaven.exe");
             startInfo.UseShellExecute = true;
