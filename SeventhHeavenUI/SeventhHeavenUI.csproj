@@ -935,9 +935,17 @@
       <Project>{f80db232-4102-4249-8b31-2ddd5c7fa404}</Project>
       <Name>7thWrapperLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Setup\Setup.csproj">
+      <Project>{610e82a2-eaf8-4c1e-aabe-54d4f29ae962}</Project>
+      <Name>Setup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TurBoLog\TurBoLog.csproj">
       <Project>{03eede27-0abb-4cda-a7f2-f746e2083202}</Project>
       <Name>TurBoLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Updater\Updater.csproj">
+      <Project>{75106a03-8384-4e27-9536-b628acd2021a}</Project>
+      <Name>Updater</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
