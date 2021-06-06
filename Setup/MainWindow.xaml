@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Setup"
         mc:Ignorable="d"
-        Title="7th Heaven Setup" Height="365.465" Width="400" Icon="7H.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="7th Heaven Setup" Height="365" Width="403" Icon="7H.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FF1A191B">
         <Button x:Name="InstallBtn" HorizontalAlignment="Center" Margin="136,281,138,0" VerticalAlignment="Top" Width="120" Height="40" Click="InstallBtn_Click" Foreground="White">
             <Button.Style>
@@ -28,9 +28,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label Content="Install Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,175,0,0" Foreground="White"/>
-        <TextBox Name="PathInp" IsEnabled="False" HorizontalAlignment="Left" Height="20" Margin="10,201,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" BorderBrush="#FF343434" Background="#FF535353" Foreground="White"/>
-        <Button Content="Browse" HorizontalAlignment="Left" Margin="136,226,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="Button_Click" Foreground="White" BorderBrush="#FF343434">
+        <Label Content="Install Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,175,0,0" Foreground="White"/>
+        <TextBox Name="PathInp" IsEnabled="False" HorizontalAlignment="Left" Height="20" Margin="8,201,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" BorderBrush="#FF343434" Background="#FF535353" Foreground="White"/>
+        <Button x:Name="BrowserBtn" Content="Browse" HorizontalAlignment="Left" Margin="136,226,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="Button_Click" Foreground="White" BorderBrush="#FF343434">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#FF151515"/>

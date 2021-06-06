@@ -913,9 +913,7 @@
     <None Include="sign.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Resource Include="7H.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="7H.ico" />
     <Content Include="7thHeaven.var">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

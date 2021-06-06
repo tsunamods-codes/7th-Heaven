@@ -51,8 +51,17 @@ namespace Setup
                 Orientation = System.Windows.Controls.Orientation.Horizontal,
             };
             sp.Children.Add(new Image { Source = imageSource, Stretch = Stretch.None });
-            sp.Children.Add(new TextBlock { Text = repair?"REPAIR":"INSTALL", Margin = new Thickness(5, 0, 0, 0) });
+            sp.Children.Add(new TextBlock { Text = repair?"Repair":"Install", Margin = new Thickness(5, 0, 0, 0) });
             InstallBtn.Content = sp;
+
+            if (repair)
+            {
+                PathInp.Text = Registry.Uninstall.GetInstallLocation();
+                BrowserBtn.Visibility = Visibility.Hidden;
+                Thickness instBtnPos = InstallBtn.Margin;
+                instBtnPos.Top = 253;
+                InstallBtn.Margin = instBtnPos;
+            }
 
             if(Args.Length > 1)
             {
@@ -83,14 +92,17 @@ namespace Setup
 
         private void beginSetup()
         {
-            Directory.CreateDirectory(PathInp.Text);
+            if (!Directory.Exists(PathInp.Text))
+            {
+                Directory.CreateDirectory(PathInp.Text);
+            }
             Registry.Uninstall.CreateUninstallerKeys(PathInp.Text);
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Environment.CurrentDirectory;
             startInfo.FileName = "updater.exe";
-            startInfo.Arguments = "\"" + PathInp.Text + "\\\" stable";
+            startInfo.Arguments = "\"" + PathInp.Text + "\\\" canary";
             try
             {
                 Process proc = Process.Start(startInfo);

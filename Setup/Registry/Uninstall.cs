@@ -31,11 +31,11 @@ namespace Setup.Registry
                 key.SetValue("DisplayIcon", installPath + "7th Heaven.exe");
                 key.SetValue("DisplayName", "7th Heaven");
                 key.SetValue("InstallLocation", installPath);
-                key.SetValue("NoModify", 1);
-                key.SetValue("NoRepair", 0);
+                key.SetValue("NoModify", 0);
+                key.SetValue("NoRepair", 1);
                 key.SetValue("URLInfoAbout", "https://7thheaven.rocks/");
                 key.SetValue("UninstallString", "\"" + installPath + "setup.exe\" uninstall");
-                key.SetValue("RepairPath", "\"" + installPath + "7th Heaven.exe\"");
+                key.SetValue("ModifyPath", "\"" + installPath + "7th Heaven.exe\"");
             }
             catch (Exception) { }
         }

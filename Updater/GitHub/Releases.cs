@@ -94,6 +94,15 @@ namespace Updater.GitHub
                         return ri;
                     }
                 }
+                else
+                {
+                    string name = asset.name.ToString();
+                    if (name.ToLower().IndexOf("signed") == -1 && name.ToLower().IndexOf(".zip") > -1)
+                    {
+                        ri.url = asset.browser_download_url.ToString();
+                        return ri;
+                    }
+                }
             }
             return ri;
         }

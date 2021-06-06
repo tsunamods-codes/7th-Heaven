@@ -16,6 +16,12 @@ namespace Updater.Core
         public event ZipExtractProgressEventHandler ZipExtractProgress;
         public event ZipExtractCompleteEventHandler ZipExtractComplete;
 
+        private string excludeFromPath
+        {
+            get;
+            set;
+        }
+
         public void ExtractZipFileToDirectory(string sourceZipFilePath, string destinationDirectoryName, bool overwrite)
         {
             using (var archive = ZipFile.Open(sourceZipFilePath, ZipArchiveMode.Read))
@@ -32,14 +38,12 @@ namespace Updater.Core
                 int totalFiles = archive.Entries.Count;
                 int current = 0;
 
-                string excludeFromPath = "";
-
                 foreach (ZipArchiveEntry file in archive.Entries)
                 {
                     current++;
-                    if (current > 1)
+                    if (current > 0)
                     {
-                        string completeFileName = Path.GetFullPath(Path.Combine(destinationDirectoryFullPath, file.FullName)).Replace(excludeFromPath, "");
+                        string completeFileName = Path.GetFullPath(Path.Combine(destinationDirectoryFullPath, file.FullName));
 
                         if (!completeFileName.StartsWith(destinationDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
                         {

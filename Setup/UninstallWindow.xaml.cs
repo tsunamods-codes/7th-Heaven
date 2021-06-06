@@ -48,7 +48,7 @@ namespace Setup
             };
 
             sp.Children.Add(new Image { Source = imageSource, Stretch = Stretch.None });
-            sp.Children.Add(new TextBlock { Text = "UNINSTALL", Margin = new Thickness(5, 0, 0, 0) });
+            sp.Children.Add(new TextBlock { Text = "Uninstall", Margin = new Thickness(5, 0, 0, 0) });
             InstallBtn.Content = sp;
 
             if(Args.Length > 1)
