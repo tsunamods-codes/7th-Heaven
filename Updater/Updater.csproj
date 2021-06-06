@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\SelfDeletion.cs" />
     <Compile Include="Core\Zip.cs" />
     <Compile Include="GitHub\Download.cs" />
     <Compile Include="GitHub\Releases.cs" />

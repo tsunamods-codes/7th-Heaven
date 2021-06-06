@@ -16,9 +16,28 @@ namespace Setup
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            Setup.MainWindow.Args = e.Args;
+            if (e.Args.Length > 0)
+            {
+                switch (e.Args[0])
+                {
+                    case "uninstall":
+                        Setup.UninstallWindow.Args = e.Args;
+                        this.StartupUri = new Uri("UninstallWindow.xaml", UriKind.Relative);
+                        break;
+                    case "install":
+                        Setup.MainWindow.Args = e.Args;
+                        this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
+                        break;
+                }
+            }
+            else
+            {
+                Setup.MainWindow.Args =  (new string[] { "install" }).Union(e.Args).ToArray();
+                Setup.MainWindow.repair = true;
+                this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
+            }
         }
     }
 }

@@ -24,21 +24,17 @@ namespace Setup
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UninstallWindow : Window
     {
         public static string[] Args;
-        public static bool repair;
 
         [DllImport("user32.dll")]
         static extern IntPtr LoadImage(IntPtr hinst,string lpszName,uint uType,int cxDesired,int cyDesired,uint fuLoad);
 
-        [DllImport("user32.dll")]
-        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+        [DllImport("shell32.dll")]
+        public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
-        [DllImport("user32.dll")]
-        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        public MainWindow()
+        public UninstallWindow()
         {
             InitializeComponent();
 
@@ -50,26 +46,16 @@ namespace Setup
             {
                 Orientation = System.Windows.Controls.Orientation.Horizontal,
             };
+
             sp.Children.Add(new Image { Source = imageSource, Stretch = Stretch.None });
-            sp.Children.Add(new TextBlock { Text = repair?"REPAIR":"INSTALL", Margin = new Thickness(5, 0, 0, 0) });
+            sp.Children.Add(new TextBlock { Text = "UNINSTALL", Margin = new Thickness(5, 0, 0, 0) });
             InstallBtn.Content = sp;
 
             if(Args.Length > 1)
             {
-                PathInp.Text = Args[1];
-            }
-
-            if(PathInp.Text == "")
-            {
-                PathInp.Text = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\7th Heaven\\";
-            }
-
-            if(Args.Length > 2)
-            {
-                if (isRunningAsAdmin() && Args[2] == "begin")
+                if (isRunningAsAdmin() && Args[1] == "begin")
                 {
-                    PathInp.Text = Args[1];
-                    beginSetup();
+                    beginRemoval();
                 }
             }
         }
@@ -81,33 +67,58 @@ namespace Setup
             return p.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
-        private void beginSetup()
+        private void beginRemoval()
         {
-            Directory.CreateDirectory(PathInp.Text);
-            Registry.Uninstall.CreateUninstallerKeys(PathInp.Text);
+            string installPath = Registry.Uninstall.GetInstallLocation();
+            DirectoryInfo dirInfo = new DirectoryInfo(installPath);
+            Process[] procs = Process.GetProcessesByName("7th Heaven");
 
+            if (procs.Length > 0)
+            {
+                foreach(Process procc in procs)
+                {
+                    procc.Kill();
+                    procc.WaitForExit();
+                }
+            }
+            
+            // remove all file in the install location
+            foreach (FileInfo file in dirInfo.EnumerateFiles())
+            {
+                if (file.Name.ToLower() != "setup.exe")
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir in dirInfo.EnumerateDirectories())
+                {
+                    dir.Delete(true);
+                }
+            }
+            // remove the registry keys
+            Registry.Uninstall.RemoveUninstallerKeys();
+            Registry.Uninstall.removeShellIntegration();
+
+            // tell windows to refresh shell caches
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+            string batchCommands = string.Empty;
+            string exeFileName = installPath + "setup.exe";
+
+            batchCommands += "@ECHO OFF\n";
+            batchCommands += "del /F \"";
+            batchCommands +=  exeFileName + "\"\n";
+            batchCommands += "rmdir \"" + installPath + "\" \n";
+            batchCommands += "PowerShell -Command \"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('7th Heaven has been successfully removed from your machine', '7th Heaven Setup')\"\n";
+            batchCommands += "del deleteMyProgram.bat\n pause";
+                        
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
-            startInfo.WorkingDirectory = Environment.CurrentDirectory;
-            startInfo.FileName = "updater.exe";
-            startInfo.Arguments = "\"" + PathInp.Text + "\\\" stable";
-            try
-            {
-                Process proc = Process.Start(startInfo);
-                IntPtr hWnd = proc.MainWindowHandle;
-                if (hWnd != IntPtr.Zero)
-                {
-                    SetForegroundWindow(hWnd);
-                    ShowWindow(hWnd, int.Parse("9"));
-                }
-                proc.WaitForExit(); 
-            }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                return;
-            }
-            System.Windows.Application.Current.Shutdown(0);
+            startInfo.WorkingDirectory = System.IO.Path.GetTempPath();
+            startInfo.FileName = "deleteMyProgram.bat";
 
+            File.WriteAllText(startInfo.WorkingDirectory+startInfo.FileName, batchCommands);
+            Process proc = Process.Start(startInfo);
+            System.Windows.Application.Current.Shutdown(0);
         }
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
@@ -115,7 +126,7 @@ namespace Setup
             InstallBtn.IsEnabled = false;
             if (isRunningAsAdmin())
             {
-                beginSetup();
+                beginRemoval();
             }
             else
             {
@@ -123,7 +134,6 @@ namespace Setup
                 startInfo.UseShellExecute = true;
                 startInfo.WorkingDirectory = Environment.CurrentDirectory;
                 startInfo.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                startInfo.Arguments = "install \""+ PathInp.Text + "\\\" begin";
                 startInfo.Verb = "runas";
                 try
                 {
@@ -134,16 +144,6 @@ namespace Setup
                 {
                     return;
                 }
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                PathInp.Text = System.IO.Path.GetDirectoryName(folderBrowserDialog1.SelectedPath);
-                InstallBtn.IsEnabled = true;
             }
         }
     }

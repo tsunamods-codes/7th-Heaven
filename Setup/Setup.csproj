@@ -60,7 +60,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="registry\Steam.cs" />
+    <Compile Include="UninstallWindow.xaml.cs">
+      <DependentUpon>UninstallWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registry\Uninstall.cs" />
+    <Page Include="UninstallWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
