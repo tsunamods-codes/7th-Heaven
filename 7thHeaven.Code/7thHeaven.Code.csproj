@@ -132,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpCompress">
-      <Version>0.28.1</Version>
+      <Version>0.28.2</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
       <Version>0.1.2</Version>
