@@ -4,6 +4,7 @@
 */
 
 using _7thHeaven.Code;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,7 +100,7 @@ namespace Iros._7th.Workshop {
         public List<Subscription> Subscriptions { get; set; }
 
         public string LibraryLocation { get; set; }
-        
+
         public string FF7Exe { get; set; }
         [System.Xml.Serialization.XmlElement("AlsoLaunch")]
         public List<ProgramLaunchInfo> ProgramsToLaunchPrior { get; set; }
@@ -116,6 +117,51 @@ namespace Iros._7th.Workshop {
         public decimal AutoUpdateOffered { get; set; }
 
         public string DateTimeStringFormat { get; set; }
+
+        private Updater.GitHub.Releases.Channel _updateChannel;
+        public Updater.GitHub.Releases.Channel UpdateChannel { 
+            get {
+                if (File.Exists("updater.json"))
+                {
+                    dynamic json = JValue.Parse(File.ReadAllText("updater.json"));
+                    switch (json.channel.Value)
+                    {
+                        case "locked":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Locked;
+                            return _updateChannel;
+                        case "canary":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Canary;
+                            return _updateChannel;
+                        default:
+                        case "stable":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Stable;
+                            return _updateChannel;
+                    }
+                }
+                else
+                {
+                    _updateChannel = Updater.GitHub.Releases.Channel.Stable;
+                    return _updateChannel;
+                }
+            } 
+            set
+            {
+                JObject json = JObject.Parse(File.ReadAllText("updater.json"));
+                switch (value)
+                {
+                    case Updater.GitHub.Releases.Channel.Canary:
+                        json["channel"] = "canary";
+                        break;
+                    case Updater.GitHub.Releases.Channel.Locked:
+                        json["channel"] = "locked";
+                        break;
+                    case Updater.GitHub.Releases.Channel.Stable:
+                        json["channel"] = "stable";
+                        break;
+                }
+                File.WriteAllText("updater.json", json.ToString());
+            }
+        }
 
         /// <summary>
         /// Flag to determine if the app is being launched for the first time.
@@ -172,6 +218,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("ambient");
 
             defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
+            defaultSettings.UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
 
             defaultSettings.UserColumnSettings = ColumnSettings.GetDefaultSettings();
 

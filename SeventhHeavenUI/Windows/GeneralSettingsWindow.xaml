@@ -14,17 +14,6 @@
         LocationChanged="Window_LocationChanged"
         Height="751.061" Width="825">
     <Window.Resources>
-
-        <DataTemplate x:Key="selectedOptionTemplate">
-            <Grid x:Name="gd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
-                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.FFNxUpdateChannel, FallbackValue='Dark Mode'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
-            </Grid>
-        </DataTemplate>
-
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
-            <Setter Property="ItemTemplate" Value="{StaticResource selectedOptionTemplate}"/>
-        </Style>
-
         <Style x:Key="MultiLineTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource PrimaryTextBoxStyle}">
             <Setter Property="MinWidth" Value="325"/>
             <Setter Property="Height" Value="115"/>
@@ -116,7 +105,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox x:Name="grpOptions" Header="{DynamicResource OptionsHeader}" Grid.Row="1" Margin="10,10,0,0"
+        <GroupBox x:Name="grpOptions" Header="{DynamicResource OptionsHeader}" Grid.Row="1" Margin="10,5,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top">
             <StackPanel Margin="3" HorizontalAlignment="Left">
@@ -130,18 +119,18 @@
         </GroupBox>
 
         <GroupBox x:Name="grpShell"
-                  Header="{DynamicResource ShellIntegrationHeader}" Grid.Row="2" Margin="10,10,0,0" 
+                  Header="{DynamicResource ShellIntegrationHeader}" Grid.Row="2" Margin="10,5,0,0" 
                   Width="{Binding ElementName=grpOptions, Path=ActualWidth}"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Top" Height="126" Grid.RowSpan="2">
-            <StackPanel Margin="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+                  VerticalAlignment="Top" Height="106" Grid.RowSpan="2">
+            <StackPanel Margin="0,-7,3,-1" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <CheckBox Height="25" Content="{DynamicResource OpenIrosLinksWith7thHeaven}" IsChecked="{Binding OpenIrosLinks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox Height="25" Content="{DynamicResource OpenModFilesWith7thHeaven}" IsChecked="{Binding OpenModFilesWith7H, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox Height="25" Content="{DynamicResource ContextMenuInExplorer}" IsChecked="{Binding ShowContextMenuInExplorer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="{DynamicResource CatalogSubscriptionsHeader}" Margin="25,10,10,0" MinWidth="350">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="{DynamicResource CatalogSubscriptionsHeader}" Margin="25,5,10,0" MinWidth="350">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -408,15 +397,40 @@
 
             </Grid>
         </Popup>
-        <GroupBox Header="FFNx Management" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
-            <Grid>
-                <TextBlock HorizontalAlignment="Left" Margin="10,24,0,0" TextWrapping="Wrap" Text="Current Channel:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cmbFFNxChannel" HorizontalAlignment="Left" Margin="126,21,0,0" VerticalAlignment="Top" Width="254" SelectionChanged="cmbFFNxChannel_SelectionChanged">
+        <GroupBox Header="FFNx Management" HorizontalAlignment="Left" Height="80" Margin="10,0,0,87" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
+            <Grid Margin="0,0,0,15">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap" Text="FFNx Channel:" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmbFFNxChannel" HorizontalAlignment="Left" Margin="109,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbFFNxChannel_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                            <Grid x:Name="gd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
+                                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.FFNxUpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                     <ComboBoxItem Content="Stable"/>
-                    <ComboBoxItem Content="Canary"/>
-                </ComboBox>
-                <Button x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="126,71,0,0" VerticalAlignment="Top" Width="254" Click="btnFFNxCheckForUpdate_Click"/>
-            </Grid>
+                        <ComboBoxItem Content="Canary"/>
+                    </ComboBox>
+                    <Button x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="234,9,0,-1" VerticalAlignment="Top" Width="146" Click="btnFFNxCheckForUpdate_Click" Height="30"/>
+                </Grid>
+        </GroupBox>
+        <GroupBox Header="7th Heaven Managment" HorizontalAlignment="Left" Height="80" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
+            
+                <Grid Margin="0,0,0,-1">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap" Text="Release Channel:" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmb7thHChannel" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmb7thHChannel_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="gd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
+                                    <TextBlock Text="{Binding ElementName=gd, Path=DataContext.UpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <ComboBoxItem Content="Stable"/>
+                        <ComboBoxItem Content="Canary"/>
+                        <ComboBoxItem Content="Locked"/>
+                    </ComboBox>
+                </Grid>
         </GroupBox>
     </Grid>
 </Window>

@@ -435,5 +435,16 @@ namespace SeventhHeaven.Windows
         {
             updater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
         }
+
+        private void cmb7thHChannel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.UpdateChannel = (Updater.GitHub.Releases.Channel)cmb7thHChannel.SelectedIndex;
+
+                // Bypass the default save button in order to make the Check for Updates button work instantly
+                Sys.Settings.UpdateChannel = ViewModel.UpdateChannel;
+            }
+        }
     }
 }
