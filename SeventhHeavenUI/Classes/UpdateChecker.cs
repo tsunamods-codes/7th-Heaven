@@ -23,7 +23,21 @@ namespace SeventhHeaven.Classes
         internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
+        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private string GetUpdateInfoPath()
+        {
+            return Path.Combine(Sys.PathToTempFolder, "7thheavenupdateinfo.json");
+        }
+
+        private string GetCurrentAppVersion()
+        {
+            return "1.0.0.0";
+            return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
+        }
 
         public void CheckForUpdates(Updater.GitHub.Releases.Channel channel)
         {
@@ -33,7 +47,6 @@ namespace SeventhHeaven.Classes
                     Path.Combine(Sys._7HFolder, $"{App.GetAppName()}.exe")
                 );
             }
-			
             catch (FileNotFoundException e)
             {
                 _currentAppVersion = null;

@@ -161,7 +161,7 @@ namespace Setup
             FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
             if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                PathInp.Text = folderBrowserDialog1.SelectedPath + "\\7th Heaven";
+                PathInp.Text = folderBrowserDialog1.SelectedPath + "\\7th Heaven\\";
                 InstallBtn.IsEnabled = true;
             }
         }

@@ -56,6 +56,7 @@ namespace Updater
             {
                 ri = releases.GetReleaseJSON(releaseChannel);
             }
+			
             catch (Exception e)
             {
                 MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
@@ -112,7 +113,7 @@ namespace Updater
             Progress_Text.Content = String.Format("Files Successfully installed.");
             string jsonString = JsonConvert.SerializeObject(ri);
             File.WriteAllText(extractPath+"\\updater.json", jsonString);
-
+			
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Args[0];
