@@ -62,11 +62,20 @@ namespace Updater.Core
                             }
                             continue;
                         }
-                        if (!file.FullName.Contains("7thWorkshop/") && !file.FullName.Contains("Newtonsoft.Json.dll"))
+                        if (!file.FullName.Contains("7thWorkshop/"))
                         {
-                            file.ExtractToFile(completeFileName, true);
-                            File.SetCreationTimeUtc(completeFileName, file.LastWriteTime.UtcDateTime);
-                            ZipExtractProgress((current / totalFiles) * 100, current, totalFiles, file.FullName);
+                            try
+                            {
+                                file.ExtractToFile(completeFileName, true);
+                                File.SetCreationTimeUtc(completeFileName, file.LastWriteTime.UtcDateTime);
+                                ZipExtractProgress((current / totalFiles) * 100, current, totalFiles, file.FullName);
+                            }catch(Exception e)
+                            {
+                                if (!file.FullName.Contains("Newtonsoft.Json.dll"))
+                                {
+                                    throw e;
+                                }
+                            }
                         }
                     }
                     else

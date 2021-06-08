@@ -437,6 +437,7 @@ namespace SeventhHeaven.ViewModels
             OpenModFilesWith7H = settings.HasOption(GeneralOptions.OpenModFilesWith7H);
             WarnAboutModCode = settings.HasOption(GeneralOptions.WarnAboutModCode);
             ShowContextMenuInExplorer = settings.HasOption(GeneralOptions.Show7HInFileExplorerContextMenu);
+            reload = false;
         }
 
         public static void AutoDetectSystemPaths(Settings settings)
