@@ -732,7 +732,7 @@ namespace SeventhHeavenUI.ViewModels
                 {
                     System.Threading.Thread.Sleep(5000); // wait 5 seconds after init before checking for update to let UI render
                     Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CheckingForUpdates), WMessageLogLevel.LogOnly));
-                    updater.CheckForUpdates(Updater.GitHub.Releases.Channel.Stable);
+                    updater.CheckForUpdates(Sys.Settings.UpdateChannel);
                 });
             }
         }
