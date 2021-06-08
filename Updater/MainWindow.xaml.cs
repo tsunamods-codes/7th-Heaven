@@ -60,7 +60,7 @@ namespace Updater
             catch (Exception)
             {
                 MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
-                System.Windows.Application.Current.Shutdown(0);
+                Application.Current.Shutdown(0);
             }
             string downloadUrl = ri.url;
             if (downloadUrl != null)
@@ -69,7 +69,7 @@ namespace Updater
             }
             else
             {
-                System.Windows.Application.Current.Shutdown(2);
+                Application.Current.Shutdown(2);
             }
 
             Download download = new Download();
@@ -82,7 +82,7 @@ namespace Updater
         private void Download_downloadFailed()
         {
             Progress_Text.Content = String.Format("Downloading Failed");
-            System.Windows.Application.Current.Shutdown(3);
+            Application.Current.Shutdown(3);
         }
 
         private void Download_downloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
@@ -110,7 +110,6 @@ namespace Updater
         private void Zip_ZipExtractComplete()
         {
             Progress_Text.Content = String.Format("Files Successfully installed.");
-
             string jsonString = JsonConvert.SerializeObject(ri);
             File.WriteAllText(extractPath+"\\updater.json", jsonString);
 

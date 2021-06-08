@@ -64,10 +64,10 @@ namespace Updater.GitHub
             wc.Headers.Add(HttpRequestHeader.UserAgent, "7th Heaven Updater - Tsunamods Community");
             string jsontext = wc.DownloadString(url);
             dynamic release = JValue.Parse(jsontext);
-            string name = release.name.toString();
+            string name = release.name.Value;
             // NameFormat: 7thHeaven-v2.3.1.0 (split on -v and use right half of split)
             Version remoteVersion = new Version(name.Split(new string[] { "-v" }, StringSplitOptions.RemoveEmptyEntries)[1]);
-            return new NewReleaseVersionInfo(remoteVersion > ver, remoteVersion > ver? release.body:null, remoteVersion);
+            return new NewReleaseVersionInfo(remoteVersion > ver, remoteVersion > ver? release.body.Value:null, remoteVersion);
         }
 
         private bool signed = false;
@@ -119,7 +119,7 @@ namespace Updater.GitHub
                     signed = true;
                     break;
                 case Channel.Custom:
-                    ri.channel = "Locked";
+                    ri.channel = "locked";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/"+version;
                     signed = true;
                     break;

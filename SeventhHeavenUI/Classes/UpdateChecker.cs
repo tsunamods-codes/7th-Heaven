@@ -35,57 +35,6 @@ namespace SeventhHeaven.Classes
             return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
         }
 
-        private string GetUpdateChannel(AppUpdateChannelOptions channel)
-        {
-            switch (channel)
-            {
-                case AppUpdateChannelOptions.Stable:
-                    return "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/latest";
-                case AppUpdateChannelOptions.Canary:
-                    return "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/canary";
-                default:
-                    return "";
-            }
-        }
-
-        private string GetUpdateVersion(string name)
-        {
-            return name.Replace("7thHeaven-v", "");
-        }
-
-        private string GetUpdateReleaseUrl(dynamic assets)
-        {
-            for (int i = 0; i < assets.Count - 1; i++)
-            {
-                string url = assets[i].browser_download_url.Value;
-
-                if (url.Contains("7thHeaven-v"))
-                    return url;
-            }
-
-            return String.Empty;
-        }
-
-        private void SwitchToDownloadPanel()
-        {
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                MainWindow window = App.Current.MainWindow as MainWindow;
-
-                window.tabCtrlMain.SelectedIndex = 1;
-            });
-        }
-
-        private void SwitchToModPanel()
-        {
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                MainWindow window = App.Current.MainWindow as MainWindow;
-
-                window.tabCtrlMain.SelectedIndex = 0;
-            });
-        }
-
         public void CheckForUpdates(Updater.GitHub.Releases.Channel channel)
         {
             try
@@ -102,7 +51,7 @@ namespace SeventhHeaven.Classes
             
             if(_currentAppVersion != null)
             {
-                Updater.GitHub.NewReleaseVersionInfo releaseVersioninfo = Updater.GitHub.Releases.isNewerVersion(new Version(_currentAppVersion.FileVersion), channel);
+                Updater.GitHub.NewReleaseVersionInfo releaseVersioninfo = Updater.GitHub.Releases.isNewerVersion(new Version(GetCurrentAppVersion()), channel);
                 if (releaseVersioninfo.isNewer)
                 {
                     if(MessageDialogWindow.Show(
@@ -114,10 +63,11 @@ namespace SeventhHeaven.Classes
                     {
                         Sys.Message(new WMessage() { Text = "Sarting updater application" });
                         ProcessStartInfo startInfo = new ProcessStartInfo();
-                        startInfo.UseShellExecute = true;
+                        startInfo.UseShellExecute = false;
                         startInfo.WorkingDirectory = Environment.CurrentDirectory;
                         startInfo.FileName = "updater.exe";
-                        startInfo.Arguments = "\"" + System.AppDomain.CurrentDomain.BaseDirectory + "\\\" v"+ releaseVersioninfo.version.Major + releaseVersioninfo.version.Minor + releaseVersioninfo.version.Build;
+                        startInfo.Arguments = "\"" + System.AppDomain.CurrentDomain.BaseDirectory + "\\\" v"+ 
+                            String.Format("{0}.{1}.{2}", releaseVersioninfo.version.Major, releaseVersioninfo.version.Minor, releaseVersioninfo.version.Build);
                         Process proc = Process.Start(startInfo);
                         IntPtr hWnd = proc.MainWindowHandle;
                         if (hWnd != IntPtr.Zero)
