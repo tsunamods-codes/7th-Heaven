@@ -30,11 +30,16 @@ namespace Setup
                         Setup.MainWindow.Args = e.Args;
                         this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
                         break;
+                    case "repair":
+                        Setup.MainWindow.Args = e.Args;
+                        Setup.MainWindow.repair = true;
+                        this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
+                        break;
                 }
             }
             else
             {
-                Setup.MainWindow.Args =  (new string[] { "install" }).Union(e.Args).ToArray();
+                Setup.MainWindow.Args =  (new string[] { "repair" }).Union(e.Args).ToArray();
                 Setup.MainWindow.repair = true;
                 this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
             }

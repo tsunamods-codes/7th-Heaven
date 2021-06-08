@@ -134,6 +134,7 @@ namespace Setup
                 startInfo.UseShellExecute = true;
                 startInfo.WorkingDirectory = Environment.CurrentDirectory;
                 startInfo.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                startInfo.Arguments = "uninstall begin";
                 startInfo.Verb = "runas";
                 try
                 {
@@ -145,6 +146,7 @@ namespace Setup
                     return;
                 }
             }
+        }
         }
     }
 }

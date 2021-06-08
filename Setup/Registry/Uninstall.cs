@@ -35,7 +35,7 @@ namespace Setup.Registry
                 key.SetValue("NoRepair", 1);
                 key.SetValue("URLInfoAbout", "https://7thheaven.rocks/");
                 key.SetValue("UninstallString", "\"" + installPath + "setup.exe\" uninstall");
-                key.SetValue("ModifyPath", "\"" + installPath + "7th Heaven.exe\"");
+                key.SetValue("ModifyPath", "\"" + installPath + "setup.exe\"");
             }
             catch (Exception) { }
         }

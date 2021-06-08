@@ -102,7 +102,7 @@ namespace Setup
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Environment.CurrentDirectory;
             startInfo.FileName = "updater.exe";
-            startInfo.Arguments = "\"" + PathInp.Text + "\\\" canary";
+            startInfo.Arguments = "\"" + PathInp.Text + "\\\" stable";
             try
             {
                 Process proc = Process.Start(startInfo);
@@ -135,7 +135,14 @@ namespace Setup
                 startInfo.UseShellExecute = true;
                 startInfo.WorkingDirectory = Environment.CurrentDirectory;
                 startInfo.FileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                startInfo.Arguments = "install \""+ PathInp.Text + "\\\" begin";
+                if (repair)
+                {
+                    startInfo.Arguments = "repair \"" + PathInp.Text + "\\\" begin";
+                }
+                else
+                {
+                    startInfo.Arguments = "install \"" + PathInp.Text + "\\\" begin";
+                }
                 startInfo.Verb = "runas";
                 try
                 {
