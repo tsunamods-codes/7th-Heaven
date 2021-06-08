@@ -24,6 +24,7 @@ namespace Updater
 
         public MainWindow()
         {
+            MessageBox.Show("debug");
             if (!Directory.Exists(Args[0]))
             {
                 System.Windows.Application.Current.Shutdown(1);
@@ -56,7 +57,6 @@ namespace Updater
             {
                 ri = releases.GetReleaseJSON(releaseChannel);
             }
-			
             catch (Exception e)
             {
                 MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
