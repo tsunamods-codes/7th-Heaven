@@ -567,7 +567,15 @@ namespace SeventhHeaven.ViewModels
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
             Sys.Settings.UpdateChannel = UpdateChannel;
 
-            if(reload && UpdateChannel != Updater.GitHub.Releases.Channel.Locked)
+            Sys.Settings.Options = GetUpdatedOptions();
+
+            ApplyOptions();
+
+            Directory.CreateDirectory(Sys.Settings.LibraryLocation);
+
+            Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
+
+            if (reload && UpdateChannel != Updater.GitHub.Releases.Channel.Locked)
             {
                 MessageDialogWindow.Show("You have changed release version just going update and restart.", "Change of Release Version");
                 Sys.Message(new WMessage() { Text = "Sarting updater application" });
@@ -585,15 +593,6 @@ namespace SeventhHeaven.ViewModels
                 }
                 App.ShutdownApp();
             }
-
-
-            Sys.Settings.Options = GetUpdatedOptions();
-
-            ApplyOptions();
-
-            Directory.CreateDirectory(Sys.Settings.LibraryLocation);
-
-            Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
 
             return true;
         }

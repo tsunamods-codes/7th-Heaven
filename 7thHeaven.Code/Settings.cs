@@ -118,7 +118,50 @@ namespace Iros._7th.Workshop {
 
         public string DateTimeStringFormat { get; set; }
 
-        public Updater.GitHub.Releases.Channel UpdateChannel { get; set; }
+        private Updater.GitHub.Releases.Channel _updateChannel;
+        public Updater.GitHub.Releases.Channel UpdateChannel { 
+            get {
+                if (File.Exists("updater.json"))
+                {
+                    dynamic json = JValue.Parse(File.ReadAllText("updater.json"));
+                    switch (json.channel.Value)
+                    {
+                        case "locked":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Locked;
+                            return _updateChannel;
+                        case "canary":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Canary;
+                            return _updateChannel;
+                        default:
+                        case "stable":
+                            _updateChannel = Updater.GitHub.Releases.Channel.Stable;
+                            return _updateChannel;
+                    }
+                }
+                else
+                {
+                    _updateChannel = Updater.GitHub.Releases.Channel.Stable;
+                    return _updateChannel;
+                }
+            } 
+            set
+            {
+                JObject json = JObject.Parse(File.ReadAllText("updater.json"));
+                switch (value)
+                {
+                    case Updater.GitHub.Releases.Channel.Canary:
+                        json["channel"] = "canary";
+                        break;
+                    case Updater.GitHub.Releases.Channel.Locked:
+                        json["channel"] = "locked";
+                        break;
+                    case Updater.GitHub.Releases.Channel.Stable:
+                        json["channel"] = "stable";
+                        break;
+                }
+                File.WriteAllText("updater.json", json.ToString());
+            }
+        }
 
         /// <summary>
         /// Flag to determine if the app is being launched for the first time.
@@ -139,23 +182,6 @@ namespace Iros._7th.Workshop {
             IsFirstStart = false;
             GameLaunchSettings = LaunchSettings.DefaultSettings();
             UserColumnSettings = new ColumnSettings();
-            UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
-
-            if (File.Exists("updater.json")) {
-                dynamic json = JValue.Parse(File.ReadAllText("updater.json"));
-                switch (json.channel)
-                {
-                    case "locked":
-                        UpdateChannel = Updater.GitHub.Releases.Channel.Locked;
-                        break;
-                    case "stable":
-                        UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
-                        break;
-                    case "canary":
-                        UpdateChannel = Updater.GitHub.Releases.Channel.Canary;
-                        break;
-                }
-            }
         }
 
         public bool HasOption(GeneralOptions option)
