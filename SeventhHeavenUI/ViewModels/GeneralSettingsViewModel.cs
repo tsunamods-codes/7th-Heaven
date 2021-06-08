@@ -603,13 +603,6 @@ namespace SeventhHeaven.ViewModels
         /// </summary>
         private void ApplyOptions()
         {
-            // ensure direct and music folder exist since they are defaults and can not be removed
-            foreach (string folder in Settings.UseDefaultSettings().ExtraFolders)
-            {
-                string pathToFf7 = Path.GetDirectoryName(Sys.Settings.FF7Exe);
-                Directory.CreateDirectory(Path.Combine(pathToFf7, folder));
-            }
-
             if (Sys.Settings.HasOption(GeneralOptions.OpenIrosLinksWith7H))
             {
                 AssociateIrosUrlWith7H();
