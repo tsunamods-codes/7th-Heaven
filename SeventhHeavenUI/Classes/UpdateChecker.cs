@@ -35,7 +35,6 @@ namespace SeventhHeaven.Classes
 
         private string GetCurrentAppVersion()
         {
-            return "1.0.0.0";
             return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
         }
 
