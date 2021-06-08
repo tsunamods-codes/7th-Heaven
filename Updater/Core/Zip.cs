@@ -62,7 +62,7 @@ namespace Updater.Core
                             }
                             continue;
                         }
-                        if (!file.FullName.Contains("7thWorkshop/"))
+                        if (!file.FullName.Contains("7thWorkshop/") && !file.FullName.Contains("Newtonsoft.Json.dll"))
                         {
                             file.ExtractToFile(completeFileName, true);
                             File.SetCreationTimeUtc(completeFileName, file.LastWriteTime.UtcDateTime);

@@ -4,6 +4,7 @@
 */
 
 using _7thHeaven.Code;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,7 +100,7 @@ namespace Iros._7th.Workshop {
         public List<Subscription> Subscriptions { get; set; }
 
         public string LibraryLocation { get; set; }
-        
+
         public string FF7Exe { get; set; }
         [System.Xml.Serialization.XmlElement("AlsoLaunch")]
         public List<ProgramLaunchInfo> ProgramsToLaunchPrior { get; set; }
@@ -116,6 +117,8 @@ namespace Iros._7th.Workshop {
         public decimal AutoUpdateOffered { get; set; }
 
         public string DateTimeStringFormat { get; set; }
+
+        public Updater.GitHub.Releases.Channel UpdateChannel { get; set; }
 
         /// <summary>
         /// Flag to determine if the app is being launched for the first time.
@@ -136,6 +139,23 @@ namespace Iros._7th.Workshop {
             IsFirstStart = false;
             GameLaunchSettings = LaunchSettings.DefaultSettings();
             UserColumnSettings = new ColumnSettings();
+            UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
+
+            if (File.Exists("updater.json")) {
+                dynamic json = JValue.Parse(File.ReadAllText("updater.json"));
+                switch (json.channel)
+                {
+                    case "locked":
+                        UpdateChannel = Updater.GitHub.Releases.Channel.Locked;
+                        break;
+                    case "stable":
+                        UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
+                        break;
+                    case "canary":
+                        UpdateChannel = Updater.GitHub.Releases.Channel.Canary;
+                        break;
+                }
+            }
         }
 
         public bool HasOption(GeneralOptions option)
@@ -172,6 +192,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("ambient");
 
             defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
+            defaultSettings.UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
 
             defaultSettings.UserColumnSettings = ColumnSettings.GetDefaultSettings();
 

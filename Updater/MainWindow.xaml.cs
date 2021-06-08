@@ -24,7 +24,6 @@ namespace Updater
 
         public MainWindow()
         {
-
             if (!Directory.Exists(Args[0]))
             {
                 System.Windows.Application.Current.Shutdown(1);
@@ -39,7 +38,7 @@ namespace Updater
                     releaseChannel = Releases.Channel.Stable;
                     break;
                 default:
-                    releaseChannel = Releases.Channel.Custom;
+                    releaseChannel = Releases.Channel.Locked;
                     break;
             }
             Initialized += MainWindow_Initialized;

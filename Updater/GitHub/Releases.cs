@@ -35,9 +35,9 @@ namespace Updater.GitHub
     {
         public enum Channel
         {
-            Stable = 0,
-            Canary = 1,
-            Custom = 3
+            Stable,
+            Canary,
+            Locked
         }
 
         public static NewReleaseVersionInfo isNewerVersion(Version ver, Channel channel)
@@ -118,7 +118,7 @@ namespace Updater.GitHub
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/latest";
                     signed = true;
                     break;
-                case Channel.Custom:
+                case Channel.Locked:
                     ri.channel = "locked";
                     url = "https://api.github.com/repos/tsunamods-codes/7th-Heaven/releases/tags/"+version;
                     signed = true;
