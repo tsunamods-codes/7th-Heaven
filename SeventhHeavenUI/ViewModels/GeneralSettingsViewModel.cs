@@ -569,7 +569,7 @@ namespace SeventhHeaven.ViewModels
 
             if(reload && UpdateChannel != Updater.GitHub.Releases.Channel.Locked)
             {
-                MessageBox.Show("You have changed release version just going update and restart.", "Change of Release Version");
+                MessageDialogWindow.Show("You have changed release version just going update and restart.", "Change of Release Version");
                 Sys.Message(new WMessage() { Text = "Sarting updater application" });
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.UseShellExecute = false;
