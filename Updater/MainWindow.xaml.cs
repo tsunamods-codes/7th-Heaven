@@ -20,6 +20,8 @@ namespace Updater
 
         private ReleaseInfo ri;
 
+        private bool finished = false;
+
         public MainWindow()
         {
 
@@ -30,18 +32,14 @@ namespace Updater
             extractPath = Args[0];
             switch (Args[1].ToLower())
             {
-                case "alpha":
-                    releaseChannel = Releases.Channel.Alpha;
-                    break;
-                case "beta":
-                    releaseChannel = Releases.Channel.Beta;
-                    break;
                 case "canary":
                     releaseChannel = Releases.Channel.Canary;
                     break;
-                default:
                 case "stable":
                     releaseChannel = Releases.Channel.Stable;
+                    break;
+                default:
+                    releaseChannel = Releases.Channel.Custom;
                     break;
             }
             Initialized += MainWindow_Initialized;
@@ -55,7 +53,15 @@ namespace Updater
         private void AppReady()
         {
             Releases releases = new Releases();
-            ri = releases.GetReleaseJSON(releaseChannel);
+            try
+            {
+                ri = releases.GetReleaseJSON(releaseChannel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
+                System.Windows.Application.Current.Shutdown(0);
+            }
             string downloadUrl = ri.url;
             if (downloadUrl != null)
             {
@@ -112,8 +118,16 @@ namespace Updater
             startInfo.UseShellExecute = true;
             Process.Start(startInfo);
             Environment.Exit(0);
-
+            finished = true;
             System.Windows.Application.Current.Shutdown(0);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!finished)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

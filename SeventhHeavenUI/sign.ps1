@@ -3,7 +3,7 @@ $files = '7th Heaven.exe',
 	 'TurBoLog.exe',
 	 '7thHeaven.Code.dll',
 	 '7thWrapperLib.dll',
-	 'Setup.exe'
+	 'Setup.exe',
 	 'Updater.exe';
 	 
 #certificate Common Name

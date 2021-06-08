@@ -37,6 +37,7 @@
   <PropertyGroup>
     <ApplicationIcon>7H.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -114,6 +115,7 @@
     <ProjectReference Include="..\Updater\Updater.csproj">
       <Project>{75106a03-8384-4e27-9536-b628acd2021a}</Project>
       <Name>Updater</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

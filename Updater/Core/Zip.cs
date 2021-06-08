@@ -44,6 +44,10 @@ namespace Updater.Core
                     if (current > 0)
                     {
                         string completeFileName = Path.GetFullPath(Path.Combine(destinationDirectoryFullPath, file.FullName));
+                        if(file.FullName.ToLower() == "updater.exe")
+                        {
+                            completeFileName = Path.GetFullPath(Path.Combine(destinationDirectoryFullPath, "Updater001.exe"));
+                        }
 
                         if (!completeFileName.StartsWith(destinationDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
                         {
@@ -58,9 +62,12 @@ namespace Updater.Core
                             }
                             continue;
                         }
-                        file.ExtractToFile(completeFileName, true);
-                        File.SetCreationTimeUtc(completeFileName, file.LastWriteTime.UtcDateTime);
-                        ZipExtractProgress((current / totalFiles) * 100, current, totalFiles, file.FullName);
+                        if (!file.FullName.Contains("7thWorkshop/"))
+                        {
+                            file.ExtractToFile(completeFileName, true);
+                            File.SetCreationTimeUtc(completeFileName, file.LastWriteTime.UtcDateTime);
+                            ZipExtractProgress((current / totalFiles) * 100, current, totalFiles, file.FullName);
+                        }
                     }
                     else
                     {

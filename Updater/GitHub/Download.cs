@@ -18,6 +18,8 @@ namespace Updater.GitHub
         public event DownloadFinished downloadFinished;
         public event DownloadFailed downloadFailed;
 
+        private WebClient webClient;
+
         private string GetUpdateUpdatePath()
         {
             return Path.Combine(Path.GetTempPath(), "update.zip");
@@ -25,7 +27,7 @@ namespace Updater.GitHub
 
         public void downloadToTemp(string url)
         {
-            WebClient webClient = new WebClient();
+            webClient = new WebClient();
             if (downloadProgressChanged != null)
             {
                 webClient.DownloadProgressChanged += this.downloadProgressChanged;

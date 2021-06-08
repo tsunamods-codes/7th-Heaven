@@ -147,6 +147,5 @@ namespace Setup
                 }
             }
         }
-        }
     }
 }
