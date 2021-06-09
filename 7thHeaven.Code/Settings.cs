@@ -146,20 +146,27 @@ namespace Iros._7th.Workshop {
             } 
             set
             {
-                JObject json = JObject.Parse(File.ReadAllText("updater.json"));
-                switch (value)
+                try
                 {
-                    case Updater.GitHub.Releases.Channel.Canary:
-                        json["channel"] = "canary";
-                        break;
-                    case Updater.GitHub.Releases.Channel.Locked:
-                        json["channel"] = "locked";
-                        break;
-                    case Updater.GitHub.Releases.Channel.Stable:
-                        json["channel"] = "stable";
-                        break;
+                    JObject json = JObject.Parse(File.ReadAllText("updater.json"));
+                    switch (value)
+                    {
+                        case Updater.GitHub.Releases.Channel.Canary:
+                            json["channel"] = "canary";
+                            break;
+                        case Updater.GitHub.Releases.Channel.Locked:
+                            json["channel"] = "locked";
+                            break;
+                        case Updater.GitHub.Releases.Channel.Stable:
+                            json["channel"] = "stable";
+                            break;
+                    }
+                    File.WriteAllText("updater.json", json.ToString());
                 }
-                File.WriteAllText("updater.json", json.ToString());
+                catch (Exception)
+                {
+                    File.WriteAllText("updater.json", "{\"channel\":\"stable\"}");
+                }
             }
         }
 
