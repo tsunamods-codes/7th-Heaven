@@ -62,7 +62,7 @@ namespace Updater.Core
                             }
                             continue;
                         }
-                        if (!file.FullName.Contains("7thWorkshop/"))
+                        if (!file.FullName.Contains("7thWorkshop/") || !File.Exists(completeFileName))
                         {
                             try
                             {
