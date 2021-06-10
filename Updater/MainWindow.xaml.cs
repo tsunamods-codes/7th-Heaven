@@ -24,7 +24,6 @@ namespace Updater
 
         public MainWindow()
         {
-            MessageBox.Show("debug");
             if (!Directory.Exists(Args[0]))
             {
                 System.Windows.Application.Current.Shutdown(1);
