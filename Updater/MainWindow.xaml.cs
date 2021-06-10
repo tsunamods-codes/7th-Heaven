@@ -112,11 +112,21 @@ namespace Updater
             string jsonString = JsonConvert.SerializeObject(ri);
             File.WriteAllText(extractPath+"\\updater.json", jsonString);
 
-            var startInfo = new ProcessStartInfo(Args[0] + "\\7th Heaven.exe");
+            //var startInfo = new ProcessStartInfo(Args[0] + "\\7th Heaven.exe");
+            ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
-            Process.Start(startInfo);
-            Environment.Exit(0);
-            finished = true;
+            startInfo.WorkingDirectory = Args[0];
+            startInfo.FileName = "powershell";
+            startInfo.Arguments = "-windowstyle hidden start-sleep 1; start \\\"7th Heaven.exe\\\"";
+            try
+            {
+                Process proc = Process.Start(startInfo);
+                IntPtr hWnd = proc.MainWindowHandle;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return;
+            }
             System.Windows.Application.Current.Shutdown(0);
         }
 
