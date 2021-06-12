@@ -113,7 +113,6 @@ namespace Updater
             string jsonString = JsonConvert.SerializeObject(ri);
             File.WriteAllText(extractPath+"\\updater.json", jsonString);
 
-            //var startInfo = new ProcessStartInfo(Args[0] + "\\7th Heaven.exe");
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Args[0];
