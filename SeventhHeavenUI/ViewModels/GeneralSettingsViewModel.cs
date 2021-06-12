@@ -9,6 +9,7 @@ using SeventhHeavenUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -20,6 +21,12 @@ namespace SeventhHeaven.ViewModels
 {
     public class GeneralSettingsViewModel : ViewModelBase
     {
+                [DllImport("user32.dll")]
+        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private bool reload = false;
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         private string _fF7ExePathInput;
@@ -47,6 +54,7 @@ namespace SeventhHeaven.ViewModels
         private string _statusMessage;
 
         private FFNxUpdateChannelOptions _ffnxUpdateChannel;
+        private Updater.GitHub.Releases.Channel _updateChannel;
 
         public delegate void OnListDataChanged();
 
@@ -129,6 +137,20 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _ffnxUpdateChannel = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Updater.GitHub.Releases.Channel UpdateChannel
+        {
+            get
+            {
+                return _updateChannel;
+            }
+            set
+            {
+                _updateChannel = value;
+                reload = true;
                 NotifyPropertyChanged();
             }
         }
@@ -404,6 +426,7 @@ namespace SeventhHeaven.ViewModels
             TexturesPathInput = settings.AaliFolder;
 
             FFNxUpdateChannel = settings.FFNxUpdateChannel;
+            UpdateChannel = settings.UpdateChannel;
 
             AutoUpdateModsByDefault = settings.HasOption(GeneralOptions.AutoUpdateMods);
             ActivateInstalledModsAuto = settings.HasOption(GeneralOptions.AutoActiveNewMods);
@@ -414,6 +437,7 @@ namespace SeventhHeaven.ViewModels
             OpenModFilesWith7H = settings.HasOption(GeneralOptions.OpenModFilesWith7H);
             WarnAboutModCode = settings.HasOption(GeneralOptions.WarnAboutModCode);
             ShowContextMenuInExplorer = settings.HasOption(GeneralOptions.Show7HInFileExplorerContextMenu);
+            reload = false;
         }
 
         public static void AutoDetectSystemPaths(Settings settings)
@@ -542,7 +566,7 @@ namespace SeventhHeaven.ViewModels
             Sys.Settings.MovieFolder = MoviesPathInput;
             Sys.Settings.AaliFolder = TexturesPathInput;
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
-
+            Sys.Settings.UpdateChannel = UpdateChannel;
 
             Sys.Settings.Options = GetUpdatedOptions();
 
@@ -552,6 +576,25 @@ namespace SeventhHeaven.ViewModels
 
             Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
 
+            if (reload && UpdateChannel != Updater.GitHub.Releases.Channel.Locked)
+            {
+                MessageDialogWindow.Show("You have just changed the release version, just going to update and restart.", "Change of Release Version");
+                Sys.Message(new WMessage() { Text = "Sarting updater application" });
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.UseShellExecute = false;
+                startInfo.WorkingDirectory = Environment.CurrentDirectory;
+                startInfo.FileName = "updater.exe";
+                startInfo.Arguments = "\"" + System.AppDomain.CurrentDomain.BaseDirectory + "\\\" " + UpdateChannel.ToString();
+                Process proc = Process.Start(startInfo);
+                IntPtr hWnd = proc.MainWindowHandle;
+                if (hWnd != IntPtr.Zero)
+                {
+                    SetForegroundWindow(hWnd);
+                    ShowWindow(hWnd, int.Parse("9"));
+                }
+                App.ShutdownApp();
+            }
+
             return true;
         }
 
@@ -560,13 +603,6 @@ namespace SeventhHeaven.ViewModels
         /// </summary>
         private void ApplyOptions()
         {
-            // ensure direct and music folder exist since they are defaults and can not be removed
-            foreach (string folder in Settings.UseDefaultSettings().ExtraFolders)
-            {
-                string pathToFf7 = Path.GetDirectoryName(Sys.Settings.FF7Exe);
-                Directory.CreateDirectory(Path.Combine(pathToFf7, folder));
-            }
-
             if (Sys.Settings.HasOption(GeneralOptions.OpenIrosLinksWith7H))
             {
                 AssociateIrosUrlWith7H();

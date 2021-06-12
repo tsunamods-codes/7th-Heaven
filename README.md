@@ -29,5 +29,5 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 2. Once installed, open the file [`7thHeaven.sln`](7thHeaven.sln) in Visual Studio 2019 and click the build button
 
 ## License
-
 See [LICENSE.txt](LICENSE.txt)
+
