@@ -112,7 +112,6 @@ namespace Updater
             Progress_Text.Content = String.Format("Files Successfully installed.");
             string jsonString = JsonConvert.SerializeObject(ri);
             File.WriteAllText(extractPath+"\\updater.json", jsonString);
-			
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = Args[0];
