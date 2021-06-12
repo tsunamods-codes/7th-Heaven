@@ -43,8 +43,18 @@
 
     <Color x:Key="ClassicControlDisabledBackground">#FF696969</Color>
     <Color x:Key="ClassicControlDisabledForeground">#FFCADCD3</Color>
+    
+    <!-- COLORS - Tsunamods Theme -->
+    <Color x:Key="TsunamodsBackgroundColor">#FF181818</Color>
+    <Color x:Key="TsunamodsSecondaryBackgroundColor">#FF0C0C0C</Color>
 
+    <Color x:Key="TsunamodsControlBackground">#FF333333</Color>
+    <Color x:Key="TsunamodsControlForeground">#FFFFECDB</Color>
+    <Color x:Key="TsunamodsControlPressed">#FF78A7AF</Color>
+    <Color x:Key="TsunamodsControlMouseOver">#FF78A7AF</Color>
 
+    <Color x:Key="TsunamodsControlDisabledBackground">#FFFFECDB</Color>
+    <Color x:Key="TsunamodsControlDisabledForeground">#FFFFECDB</Color>
 
     <!-- APP BRUSHES - These are used in all the below styles to have a consistent color theme across all controls. The color of these brushes can be changed in the "Color Theme" settings of the app -->
     <Color x:Key="PrimaryControlMouseOverColor">#5e5e5e</Color>

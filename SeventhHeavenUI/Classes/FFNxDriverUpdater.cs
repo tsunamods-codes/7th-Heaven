@@ -19,6 +19,11 @@ namespace SeventhHeaven.Classes
     {
         private FileVersionInfo _currentDriverVersion = null;
 
+        private string GetUpdateInfoPath()
+        {
+            return Path.Combine(Sys.PathToTempFolder, "ffnxupdateinfo.json");
+        }
+
         private string GetCurrentDriverVersion()
         {
             return _currentDriverVersion != null ? _currentDriverVersion.FileVersion : "0.0.0.0";
@@ -91,7 +96,7 @@ namespace SeventhHeaven.Classes
             DownloadItem download = new DownloadItem()
             {
                 Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },
-                SaveFilePath = Path.Combine(Sys.SysFolder, "temp", "ffnxupdateinfo.json"),
+                SaveFilePath = GetUpdateInfoPath(),
                 Category = DownloadCategory.AppUpdate,
                 ItemName = $"Checking for FFNx Updates using channel {Sys.Settings.FFNxUpdateChannel.ToString()}..."
             };
@@ -160,7 +165,7 @@ namespace SeventhHeaven.Classes
             DownloadItem download = new DownloadItem()
             {
                 Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },
-                SaveFilePath = Path.Combine(Sys.SysFolder, "temp", "ffnxupdateinfo.json"),
+                SaveFilePath = GetUpdateInfoPath(),
                 Category = DownloadCategory.AppUpdate,
                 ItemName = $"Fetching the latest FFNx version using channel {Sys.Settings.FFNxUpdateChannel.ToString()}..."
             };
@@ -206,7 +211,7 @@ namespace SeventhHeaven.Classes
                 DownloadItem download = new DownloadItem()
                 {
                     Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
-                    SaveFilePath = Path.Combine(Sys.SysFolder, "temp", url.Substring(url.LastIndexOf("/") + 1)),
+                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
                     Category = DownloadCategory.AppUpdate,
                     ItemName = $"Downloading FFNx Update {url}..."
                 };

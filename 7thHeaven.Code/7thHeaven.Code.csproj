@@ -129,10 +129,17 @@
       <Project>{f80db232-4102-4249-8b31-2ddd5c7fa404}</Project>
       <Name>7thWrapperLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Updater\Updater.csproj">
+      <Project>{75106a03-8384-4e27-9536-b628acd2021a}</Project>
+      <Name>Updater</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
     <PackageReference Include="SharpCompress">
-      <Version>0.28.1</Version>
+      <Version>0.28.2</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
       <Version>0.1.2</Version>

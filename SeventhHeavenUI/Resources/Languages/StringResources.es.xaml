@@ -942,7 +942,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
 
 
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Comprobando actualizaciones en</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Comprobación de las actualizaciones mediante el canal</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Error al comprobar actualizaciones en</system:String>
 
 

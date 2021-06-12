@@ -943,7 +943,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
 
 
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Controllo degli aggiornamenti in</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Controllo degli aggiornamenti usando il canale</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Controllo degli aggiornamenti fallito in</system:String>
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->

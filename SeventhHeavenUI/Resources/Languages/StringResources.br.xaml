@@ -944,7 +944,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
 
 
     <!--UpdateChecker Class Strings-->
-    <system:String x:Key="CheckingForUpdatesAt">Procurando atualizações em</system:String>
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Verificação de atualizações usando o canal</system:String>
     <system:String x:Key="FailedToCheckForUpdatesAt">Não foi possível procurar atualizações em</system:String>
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->

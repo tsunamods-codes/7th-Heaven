@@ -1,101 +1,84 @@
 ﻿using _7thHeaven.Code;
 using Iros._7th;
 using Iros._7th.Workshop;
+using Newtonsoft.Json.Linq;
+using SeventhHeaven.Windows;
 using SeventhHeavenUI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SeventhHeaven.Classes
 {
-    /// <summary>
-    /// Use <see cref="Instance"/> of this class to check for updates
-    /// </summary>
     public class UpdateChecker
     {
-        /// <summary>
-        /// Link to version xml that provides information about available updates.
-        /// </summary>
-        /// <remarks>
-        /// This xml is updated from the github repo 
-        /// </remarks>
-        public const string linkToVersionXml = "https://pastebin.com/raw/4dpJapEH";
-        private static UpdateChecker _instance;
+        private FileVersionInfo _currentAppVersion = null;
 
-        public delegate void OnUpdateChecked(bool wasSuccessful);
-        public event OnUpdateChecked UpdateCheckCompleted;
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
-        public static UpdateChecker Instance
+        [DllImport("user32.dll")]
+        internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private string GetUpdateInfoPath()
         {
-            get
-            {
-                if (_instance == null)
-                    _instance = new UpdateChecker();
-
-                return _instance;
-            }
-            set
-            {
-                _instance = value;
-            }
+            return Path.Combine(Sys.PathToTempFolder, "7thheavenupdateinfo.json");
         }
 
-        /// <summary>
-        /// Downloads the file at <see cref="linkToVersionXml"/> and attempts to deserialize it into <see cref="Sys.LastCheckedVersion"/>.
-        /// Uses the download queue so this happens asynchronously. <see cref="UpdateCheckCompleted"/> is raised when the download is complete.
-        /// </summary>
-        public void CheckForUpdates()
+        private string GetCurrentAppVersion()
         {
-            string path = Path.Combine(Sys.PathToTempFolder, "version.xml");
-            Directory.CreateDirectory(Sys.PathToTempFolder);
-
-            DownloadItem download = new DownloadItem()
-            {
-                Links = new List<string>() { LocationUtil.FormatHttpUrl(linkToVersionXml) },
-                SaveFilePath = path,
-                Category = DownloadCategory.AppUpdate,
-                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesAt)} {linkToVersionXml}"
-            };
-
-            download.IProc = new Install.InstallProcedureCallback(e =>
-            {
-                bool success = (e.Error == null && e.Cancelled == false);
-
-                if (success)
-                {
-                    try
-                    {
-                        Sys.LastCheckedVersion = Util.Deserialize<AvailableUpdate>(path);
-                    }
-                    catch (Exception ex)
-                    {
-                        Sys.LastCheckedVersion = Sys.LastCheckedVersion ?? new AvailableUpdate(); // if currently null then initialize new instance
-                        Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.FailedToCheckForUpdatesAt)} {linkToVersionXml}: {ex.Message}", LoggedException = ex });
-                    }
-                }
-                else
-                {
-                    Sys.LastCheckedVersion = Sys.LastCheckedVersion ?? new AvailableUpdate();
-                    Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.FailedToCheckForUpdatesAt)} {linkToVersionXml}", LoggedException = e.Error });
-                }
-
-                UpdateCheckCompleted?.Invoke(success);
-            });
-
-            Sys.Downloads.AddToDownloadQueue(download);
+            return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
         }
 
-        public static bool IsNewVersionAvailable(AvailableUpdate availableUpdate)
+        public void CheckForUpdates(Updater.GitHub.Releases.Channel channel)
         {
-            if (Version.TryParse(availableUpdate.Version, out Version availableVersion))
+            try
             {
-                return availableVersion.CompareTo(App.GetAppVersion()) > 0;
+                _currentAppVersion = FileVersionInfo.GetVersionInfo(
+                    Path.Combine(Sys._7HFolder, $"{App.GetAppName()}.exe")
+                );
             }
-
-            return false;
+            catch (FileNotFoundException e)
+            {
+                _currentAppVersion = null;
+                Sys.Message(new WMessage() { Text = $"Could not get application version ", LoggedException = e });
+            }
+            
+            if(_currentAppVersion != null)
+            {
+                Updater.GitHub.NewReleaseVersionInfo releaseVersioninfo = Updater.GitHub.Releases.isNewerVersion(new Version(GetCurrentAppVersion()), channel);
+                if (releaseVersioninfo.isNewer)
+                {
+                    if(MessageDialogWindow.Show(
+                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", releaseVersioninfo.version.ToString(), releaseVersioninfo.changeLog),
+                        ResourceHelper.Get(StringKey.NewVersionAvailable),
+                        System.Windows.MessageBoxButton.YesNo,
+                        System.Windows.MessageBoxImage.Question
+                    ).Result == System.Windows.MessageBoxResult.Yes)
+                    {
+                        Sys.Message(new WMessage() { Text = "Sarting updater application" });
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.UseShellExecute = false;
+                        startInfo.WorkingDirectory = Environment.CurrentDirectory;
+                        startInfo.FileName = "updater.exe";
+                        startInfo.Arguments = "\"" + System.AppDomain.CurrentDomain.BaseDirectory + "\\\" v"+ 
+                            String.Format("{0}.{1}.{2}", releaseVersioninfo.version.Major, releaseVersioninfo.version.Minor, releaseVersioninfo.version.Build);
+                        Process proc = Process.Start(startInfo);
+                        IntPtr hWnd = proc.MainWindowHandle;
+                        if (hWnd != IntPtr.Zero)
+                        {
+                            SetForegroundWindow(hWnd);
+                            ShowWindow(hWnd, int.Parse("9"));
+                        }
+                        App.ShutdownApp();
+                    }
+                }
+            }
         }
     }
 

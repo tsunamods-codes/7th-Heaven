@@ -1,0 +1,59 @@
+﻿<Window x:Class="Setup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Setup"
+        mc:Ignorable="d"
+        Title="7th Heaven Setup" Height="365" Width="403" Icon="7H.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FF1A191B">
+        <Button x:Name="InstallBtn" HorizontalAlignment="Center" Margin="136,281,138,0" VerticalAlignment="Top" Width="120" Height="40" Click="InstallBtn_Click" Foreground="White">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#FF151515"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Label Content="Install Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,175,0,0" Foreground="White"/>
+        <TextBox Name="PathInp" IsEnabled="False" HorizontalAlignment="Left" Height="20" Margin="8,201,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372" BorderBrush="#FF343434" Background="#FF535353" Foreground="White"/>
+        <Button x:Name="BrowserBtn" Content="Browse" HorizontalAlignment="Left" Margin="136,226,0,0" VerticalAlignment="Top" Width="120" Height="40" Click="Button_Click" Foreground="White" BorderBrush="#FF343434">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#FF151515"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF555555"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Image HorizontalAlignment="Left" Height="160" Margin="10,10,0,0" VerticalAlignment="Top" Width="162" Source="logo.png"/>
+        <Label Content="7th Heaven" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="176,55,0,0" FontSize="40"/>
+        <Label Content="Installer" HorizontalAlignment="Left" Margin="249,94,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+
+    </Grid>
+</Window>

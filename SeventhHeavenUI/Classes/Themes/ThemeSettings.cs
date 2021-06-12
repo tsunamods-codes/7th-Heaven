@@ -50,6 +50,9 @@ namespace SeventhHeaven.Classes.Themes
                 case AppTheme.Custom:
                     return new ThemeSettings();
 
+                case AppTheme.Tsunamods:
+                    return new TsunamodsTheme();
+
                 default:
                     return null;
             }
