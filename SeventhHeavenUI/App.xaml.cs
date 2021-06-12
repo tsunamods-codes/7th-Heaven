@@ -35,6 +35,16 @@ namespace SeventhHeavenUI
 
         public App()
         {
+            if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "Updater001.exe"))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.UseShellExecute = true;
+                startInfo.WorkingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+                startInfo.FileName = "powershell.exe";
+                startInfo.Arguments = "-WindowStyle hidden start-sleep 5;Remove-Item -Path .\\Updater.exe; Move-Item -Path .\\Updater001.exe -Destination .\\Updater.exe;";
+                Process.Start(startInfo);
+            }
+
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
             uniqueMutex = new Mutex(true, uniqueAppGuid, out bool gotMutex);
