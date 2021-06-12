@@ -59,6 +59,7 @@ namespace Updater
             catch (Exception e)
             {
                 MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
+                Console.WriteLine(String.Format("Tried to download for {0} but failed to", releaseChannel.ToString()));
                 Application.Current.Shutdown(0);
             }
             string downloadUrl = ri.url;
