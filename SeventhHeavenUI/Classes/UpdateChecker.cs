@@ -25,16 +25,6 @@ namespace SeventhHeaven.Classes
         [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        private string GetUpdateInfoPath()
-        {
-            return Path.Combine(Sys.PathToTempFolder, "7thheavenupdateinfo.json");
-        }
-
-        private string GetCurrentAppVersion()
-        {
-            return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
-        }
-
         public void CheckForUpdates(Updater.GitHub.Releases.Channel channel)
         {
             try
@@ -43,6 +33,7 @@ namespace SeventhHeaven.Classes
                     Path.Combine(Sys._7HFolder, $"{App.GetAppName()}.exe")
                 );
             }
+			
             catch (FileNotFoundException e)
             {
                 _currentAppVersion = null;
