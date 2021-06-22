@@ -56,7 +56,7 @@ namespace Updater
             {
                 ri = releases.GetReleaseJSON(releaseChannel);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Version requested could not be found no changes have occured.", "Version Not Found");
                 Console.WriteLine(String.Format("Tried to download for {0} but failed to", releaseChannel.ToString()));

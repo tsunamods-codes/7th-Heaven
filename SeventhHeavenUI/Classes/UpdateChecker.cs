@@ -23,9 +23,6 @@ namespace SeventhHeaven.Classes
         internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         private string GetUpdateInfoPath()
