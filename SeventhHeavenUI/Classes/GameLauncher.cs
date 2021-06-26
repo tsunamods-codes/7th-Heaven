@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
@@ -82,6 +83,8 @@ namespace SeventhHeaven.Classes
 
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        private static Process ff7Proc;
 
         public static bool LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false, bool LaunchWithNoValidation = false)
         {
@@ -560,7 +563,6 @@ namespace SeventhHeaven.Classes
             //
             // Attempt to Create FF7 Proc and Inject with EasyHook
             //
-            int pid;
             try
             {
                 SetCompatibilityFlagsInRegistry();
@@ -585,15 +587,11 @@ namespace SeventhHeaven.Classes
                 bool didInject = false;
                 int attemptCount = 0;
                 int totalAttempts = 14;
-                pid = -1;
 
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AttemptingToInjectWithEasyHook));
 
-
                 while (!didInject && attemptCount < totalAttempts)
                 {
-                    didInject = false;
-
                     try
                     {
 
@@ -601,7 +599,8 @@ namespace SeventhHeaven.Classes
                         // a successful injection should only take ~3 seconds
                         var waitTask = Task.Factory.StartNew(() =>
                         {
-                            EasyHook.RemoteHooking.CreateAndInject(Sys.Settings.FF7Exe, String.Empty, 0, lib, null, out pid, parms);
+                            LaunchFF7Exe();
+                            EasyHook.RemoteHooking.Inject(GameLauncher.ff7Proc.Id, lib, null, parms);
                         }).ContinueWith((taskResult) =>
                         {
                             if (taskResult.IsFaulted)
@@ -662,8 +661,7 @@ namespace SeventhHeaven.Classes
 
 
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.GettingFf7Proc));
-                Process ff7Proc = Process.GetProcessById(pid);
-
+               
                 if (ff7Proc == null)
                 {
                     Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToGetFf7Proc)}", NLog.LogLevel.Error);
@@ -1010,9 +1008,7 @@ namespace SeventhHeaven.Classes
                 {
                     WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe)
                 };
-
-                Process ff7Proc = Process.Start(startInfo);
-
+                ff7Proc = Process.Start(startInfo);
                 ff7Proc.EnableRaisingEvents = true;
                 ff7Proc.Exited += (o, e) =>
                 {

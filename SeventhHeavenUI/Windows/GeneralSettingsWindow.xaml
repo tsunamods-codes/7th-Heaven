@@ -15,15 +15,17 @@
         Height="751.061" Width="825">
     <Window.Resources>
 
-        <DataTemplate x:Key="selectedOptionTemplate">
-            <Grid x:Name="gd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
-                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.FFNxUpdateChannel, FallbackValue='Dark Mode'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+        <DataTemplate x:Key="AppChannelDataTemplate">
+            <Grid x:Name="AppGd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=AppGd, Path=DataContext.AppUpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
             </Grid>
         </DataTemplate>
-
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
-            <Setter Property="ItemTemplate" Value="{StaticResource selectedOptionTemplate}"/>
-        </Style>
+        
+        <DataTemplate x:Key="FFNxChannelDataTemplate">
+            <Grid x:Name="FFNxGd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=FFNxGd, Path=DataContext.FFNxUpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
 
         <Style x:Key="MultiLineTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource PrimaryTextBoxStyle}">
             <Setter Property="MinWidth" Value="325"/>
@@ -408,14 +410,21 @@
 
             </Grid>
         </Popup>
-        <GroupBox Header="FFNx Management" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
+        <GroupBox Header="Channel Management" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
             <Grid>
-                <TextBlock HorizontalAlignment="Left" Margin="10,24,0,0" TextWrapping="Wrap" Text="Current Channel:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cmbFFNxChannel" HorizontalAlignment="Left" Margin="126,21,0,0" VerticalAlignment="Top" Width="254" SelectionChanged="cmbFFNxChannel_SelectionChanged">
+                <TextBlock HorizontalAlignment="Left" Margin="7,24,0,0" TextWrapping="Wrap" Text="7th Heaven:" VerticalAlignment="Top"/>
+                <ComboBox x:Name="cmb7thChannel" HorizontalAlignment="Left" Margin="123,19,0,0" VerticalAlignment="Top" Width="105" SelectionChanged="cmb7thChannel_SelectionChanged" Height="32" ItemTemplate="{StaticResource AppChannelDataTemplate}">
                     <ComboBoxItem Content="Stable"/>
                     <ComboBoxItem Content="Canary"/>
                 </ComboBox>
-                <Button x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="126,71,0,0" VerticalAlignment="Top" Width="254" Click="btnFFNxCheckForUpdate_Click"/>
+                <Button x:Name="btn7thCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="250,17,0,0" VerticalAlignment="Top" Width="130" Click="btn7thCheckForUpdate_Click" Height="38"/>
+                <!---->
+                <TextBlock HorizontalAlignment="Left" Margin="7,75,0,0" TextWrapping="Wrap" Text="FFNx:" VerticalAlignment="Top"/>
+                <ComboBox x:Name="cmbFFNxChannel" HorizontalAlignment="Left" Margin="123,70,0,0" VerticalAlignment="Top" Width="105" SelectionChanged="cmbFFNxChannel_SelectionChanged" Height="32" ItemTemplate="{StaticResource FFNxChannelDataTemplate}">
+                    <ComboBoxItem Content="Stable"/>
+                    <ComboBoxItem Content="Canary"/>
+                </ComboBox>
+                <Button x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="250,68,0,0" VerticalAlignment="Top" Width="130" Click="btnFFNxCheckForUpdate_Click" Height="38"/>
             </Grid>
         </GroupBox>
     </Grid>

@@ -47,6 +47,7 @@ namespace SeventhHeaven.ViewModels
         private string _statusMessage;
 
         private FFNxUpdateChannelOptions _ffnxUpdateChannel;
+        private AppUpdateChannelOptions _appUpdateChannel;
 
         public delegate void OnListDataChanged();
 
@@ -129,6 +130,19 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _ffnxUpdateChannel = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public AppUpdateChannelOptions AppUpdateChannel
+        {
+            get
+            {
+                return _appUpdateChannel;
+            }
+            set
+            {
+                _appUpdateChannel = value;
                 NotifyPropertyChanged();
             }
         }
@@ -404,6 +418,7 @@ namespace SeventhHeaven.ViewModels
             TexturesPathInput = settings.AaliFolder;
 
             FFNxUpdateChannel = settings.FFNxUpdateChannel;
+            AppUpdateChannel = settings.AppUpdateChannel;
 
             AutoUpdateModsByDefault = settings.HasOption(GeneralOptions.AutoUpdateMods);
             ActivateInstalledModsAuto = settings.HasOption(GeneralOptions.AutoActiveNewMods);
@@ -542,6 +557,7 @@ namespace SeventhHeaven.ViewModels
             Sys.Settings.MovieFolder = MoviesPathInput;
             Sys.Settings.AaliFolder = TexturesPathInput;
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
+            Sys.Settings.AppUpdateChannel = AppUpdateChannel;
 
 
             Sys.Settings.Options = GetUpdatedOptions();

@@ -17,8 +17,10 @@ namespace SeventhHeaven.Windows
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public GeneralSettingsViewModel ViewModel { get; set; }
+        
+        private UpdateChecker CoreUpdater = new UpdateChecker();
 
-        private FFNxDriverUpdater updater = new FFNxDriverUpdater();
+        private FFNxDriverUpdater FFNxUpdater = new FFNxDriverUpdater();
 
         public GeneralSettingsWindow()
         {
@@ -431,9 +433,25 @@ namespace SeventhHeaven.Windows
             }
         }
 
+        private void cmb7thChannel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.AppUpdateChannel = (AppUpdateChannelOptions)cmb7thChannel.SelectedIndex;
+
+                // Bypass the default save button in order to make the Check for Updates button work instantly
+                Sys.Settings.AppUpdateChannel = ViewModel.AppUpdateChannel;
+            }
+        }
+
         private void btnFFNxCheckForUpdate_Click(object sender, RoutedEventArgs e)
         {
-            updater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
+            FFNxUpdater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
+        }
+
+        private void btn7thCheckForUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            CoreUpdater.CheckForUpdates(Sys.Settings.AppUpdateChannel, true);
         }
     }
 }
