@@ -8,7 +8,7 @@
     <Description>Establece el software de renderizado. Elije la mejor opción automáticamente en función de tu GPU. Se pueden producir bloqueos al usar OpenGL con tarjetas AMD.</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
-      <Text>Auto</Text>
+      <Text>Automático</Text>
       <Settings>renderer_backend = 0</Settings>
     </Option>
     <Option>
@@ -62,14 +62,14 @@
   <Setting xsi:type="DropDown">
     <Group>Gráficos</Group>
     <Name>Relación de Aspecto</Name>
-    <Description>Conserva la relación de aspecto añadiendo bordes negros para mantener el radio 4:3</Description>
+    <Description>Conserva la relación de aspecto añadiendo bordes negros para mantener el ratio 4:3.</Description>
     <DefaultValue>preserve_aspect = true</DefaultValue>
     <Option>
-      <Text>mantener el radio 4:3</Text>
+      <Text>Nativo (4:3)</Text>
       <Settings>preserve_aspect = true</Settings>
     </Option>
     <Option>
-      <Text>Estirar la imagen para rellenar</Text>
+      <Text>Estirar imagen</Text>
       <Settings>preserve_aspect = false</Settings>
     </Option>
   </Setting>
@@ -104,7 +104,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Gráficos</Group>
     <Name>Filtro Anisotrópico</Name>
-    <Description>Utiliza los mipmaps para las texturas de alta resolución. Puede que esto mejore el rendimiento y la calidad de imagen, pero usa mas Memoria de Texturas.</Description>
+    <Description>Aplica un filtro a las texturas de alta resolución para tener una imagen más nítida. Puede que esto afecte al rendimiento debido al aumento del uso de memoria.</Description>
     <DefaultValue>enable_anisotropic = true</DefaultValue>
     <TrueSetting>enable_anisotropic = true</TrueSetting>
     <FalseSetting>enable_anisotropic = false</FalseSetting>
@@ -113,7 +113,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Gráficos</Group>
     <Name>Sincronización Vertical</Name>
-    <Description>Sincroniza la velocidad de fotogramas del juego con la tasa de refresco de tu monitor. Puede reducir el rendimiento o romper Mods de 60 Fps. Activa esta opción si experimentas cortes en la pantalla. *¡Limita el Truco de Velocidad!*</Description>
+    <Description>Sincroniza la velocidad de fotogramas del juego con la tasa de refresco de tu monitor. Puede reducir el rendimiento o romper Mods de 60fps. Activa esta opción si experimentas cortes en la pantalla. *¡Limita el Truco de Velocidad!*</Description>
     <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
@@ -123,7 +123,7 @@
   <Setting xsi:type="DropDown">
     <Group>Trucos</Group>
     <Name>Encuentros Aleatorios</Name>
-    <Description>No configurable. Activa o desactiva los encuentros aleatorios mientras juegas.{0}Uso: CTRL+B o L3+R3</Description>
+    <Description>No configurable. Activa o desactiva los encuentros aleatorios mientras juegas.{0}Uso: CTRL+B o L3+R3.</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Ver la Descripción</Text>
@@ -134,7 +134,7 @@
   <Setting xsi:type="DropDown">
     <Group>Trucos</Group>
     <Name>Saltar Cinemáticas</Name>
-    <Description>No configurable. Salta inmediatamente al final de una cinemática.{0}Uso: CTRL+S o Seleccionar+Iniciar</Description>
+    <Description>No configurable. Salta inmediatamente al final de una cinemática.{0}Uso: CTRL+S o Seleccionar+Iniciar.</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Ver la Descripción</Text>
@@ -145,7 +145,7 @@
   <Setting xsi:type="DropDown">
     <Group>Trucos</Group>
     <Name>Reinicio Rápido</Name>
-    <Description>No configurable. Reinicia rápidamente el juego con un game over.{0}Uso: CTRL+R o L1+L2+R1+R2+Seleccionar+Iniciar</Description>
+    <Description>No configurable. Reinicia rápidamente el juego con un game over.{0}Uso: CTRL+R o L1+L2+R1+R2+Seleccionar+Iniciar.</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Ver la Descripción</Text>
@@ -156,7 +156,7 @@
   <Setting xsi:type="DropDown">
     <Group>Trucos</Group>
     <Name>Aumento de Velocidad</Name>
-    <Description>Cantidad para aumentar o disminuir la velocidad en cada combinación.{0}Uso: CTRL+Arriba/Abajo o L2+R2+Arriba/Abajo para cambiar la velocidad, CTRL+Izquierda/Derecha o L2+R2+Izquierda/Derecha para activar/desactivar.</Description>
+    <Description>Cantidad para aumentar o disminuir la velocidad en cada pulsación.{0}Uso: CTRL+Arriba/Abajo o L2+R2+Arriba/Abajo para cambiar la velocidad, CTRL+Izquierda/Derecha o L2+R2+Izquierda/Derecha para activar/desactivar.</Description>
     <DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
@@ -207,7 +207,7 @@
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
     <Name>Opciones de Música</Name>
-    <Description>Utiliza VGMStream para reproducir música de alta calidad OOG de Vorbis. Necesario para Mods de música. De lo contrario, usa el MIDI estándar.</Description>
+    <Description>Utiliza VGMStream para reproducir música de alta calidad OGG de Vorbis. Necesario para Mods de música. De lo contrario, usa el MIDI estándar.</Description>
     <DefaultValue>use_external_music = true</DefaultValue>
     <Option>
       <Text>VGMStream (Recomendado)</Text>
@@ -222,7 +222,7 @@
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
     <Name>SFX Option</Name>
-    <Description>Use VGMStream to play OGG Vorbis high-quality SFX effects. Required for SFX mods. Otherwise, native audio.dat is used.</Description>
+    <Description>Usa VGMStream para reproducir sonidos de efectos (SFX) de alta calidad en formato OGG Vorbis. Necesario para los Mods con sonidos SFX. En otro caso, se una el audio.dat nativo.</Description>
     <DefaultValue>use_external_sfx = true</DefaultValue>
     <Option>
       <Text>VGMStream (Recomendado)</Text>
@@ -237,10 +237,10 @@
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
     <Name>Opciones para Cinemáticas</Name>
-    <Description>Utiliza FFMPEG para las reproducciones de las cinemáticas dentro del juego (FMVs). O utiliza el renderizador original, el cual puede no soportar tantos codecs de vídeo.</Description>
+    <Description>Utiliza FFMPEG para reproducir las cinemáticas dentro del juego (FMVs). O utiliza el renderizador original, el cual puede no soportar tantos codecs de vídeo.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
     <Option>
-      <Text>Autodetect (Recommended)</Text>
+      <Text>Autodetectar (Recomendado)</Text>
       <Settings>enable_ffmpeg_videos = -1</Settings>
     </Option>
     <Option>
@@ -255,8 +255,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
-    <Name>Animated Textures</Name>
-    <Description>Enable support for high quality animated textures. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <Name>Texturas Animadas</Name>
+    <Description>Activa el soporte para las texturas animadas de alta calidad. NOTA: Esta característica necesita una CPU MODERNA. Si tienes ralentizaciones, DESACTIVA esta opción.</Description>
     <DefaultValue>enable_animated_textures = false</DefaultValue>
     <TrueSetting>enable_animated_textures = true</TrueSetting>
     <FalseSetting>enable_animated_textures = false</FalseSetting>
@@ -283,7 +283,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
     <Name>Mostrar FPS</Name>
-    <Description>Muestra los Cuadros Por Segundo en una interfaz transparente ubicada en la esquina superior derecha de la pantalla.</Description>
+    <Description>Muestra los Cuadros Por Segundo en una superposición o en la barra de título.</Description>
     <DefaultValue>show_fps = false</DefaultValue>
     <TrueSetting>show_fps = true</TrueSetting>
     <FalseSetting>show_fps = false</FalseSetting>
@@ -292,7 +292,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
     <Name>Mostrar API de gráficos</Name>
-    <Description>Muestra la API gráfica utilizada actualmente (OpenGL / DirectX11) en una superposición o en la barra de título.</Description>
+    <Description>Muestra la API gráfica utilizada actualmente (OpenGL/DirectX11) en una superposición o en la barra de título.</Description>
     <DefaultValue>show_renderer_backend = false</DefaultValue>
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
