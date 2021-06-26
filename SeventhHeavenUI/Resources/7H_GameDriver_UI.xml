@@ -42,66 +42,6 @@
         <Text>Auto</Text>
         <Settings>window_size_x = 0,window_size_y = 0</Settings>
       </Option>
-      <Option>
-        <Text>640x480</Text>
-        <Settings>window_size_x = 640,window_size_y = 480</Settings>
-      </Option>
-      <Option>
-        <Text>800x600</Text>
-        <Settings>window_size_x = 800,window_size_y = 600</Settings>
-      </Option>
-      <Option>
-        <Text>1024x768</Text>
-        <Settings>window_size_x = 1024,window_size_y = 768</Settings>
-      </Option>
-      <Option>
-        <Text>1280x720</Text>
-        <Settings>window_size_x = 1280,window_size_y = 720</Settings>
-      </Option>
-      <Option>
-        <Text>1280x960</Text>
-        <Settings>window_size_x = 1280,window_size_y = 960</Settings>
-      </Option>
-      <Option>
-        <Text>1400x1050</Text>
-        <Settings>window_size_x = 1400,window_size_y = 1050</Settings>
-      </Option>
-      <Option>
-        <Text>1440x1080</Text>
-        <Settings>window_size_x = 1440,window_size_y = 1080</Settings>
-      </Option>
-      <Option>
-        <Text>1600x1200</Text>
-        <Settings>window_size_x = 1600,window_size_y = 1200</Settings>
-      </Option>
-      <Option>
-        <Text>1920x1080</Text>
-        <Settings>window_size_x = 1920,window_size_y = 1080</Settings>
-      </Option>
-      <Option>
-        <Text>1920x1440</Text>
-        <Settings>window_size_x = 1920,window_size_y = 1440</Settings>
-      </Option>
-      <Option>
-        <Text>2048x1536</Text>
-        <Settings>window_size_x = 2048,window_size_y = 1536</Settings>
-      </Option>
-      <Option>
-        <Text>2560x1440</Text>
-        <Settings>window_size_x = 2560,window_size_y = 1440</Settings>
-      </Option>
-      <Option>
-        <Text>2560x1920</Text>
-        <Settings>window_size_x = 2560,window_size_y = 1920</Settings>
-      </Option>
-      <Option>
-        <Text>2880x2160</Text>
-        <Settings>window_size_x = 2880,window_size_y = 2160</Settings>
-      </Option>
-      <Option>
-        <Text>3840x2160</Text>
-        <Settings>window_size_x = 3840,window_size_y = 2160</Settings>
-      </Option>
     </Setting>
 
   <Setting xsi:type="DropDown">

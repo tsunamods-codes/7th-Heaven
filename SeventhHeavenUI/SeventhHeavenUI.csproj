@@ -141,8 +141,10 @@
     <Compile Include="Classes\GameLauncher.cs" />
     <Compile Include="Classes\KeyboardInputSender.cs" />
     <Compile Include="Classes\OpenFolderDialog.cs" />
+    <Compile Include="Classes\PrimaryScreen.cs" />
     <Compile Include="Classes\ReloadListOption.cs" />
     <Compile Include="Classes\ResourceHelper.cs" />
+    <Compile Include="Classes\SupportedResolution.cs" />
     <Compile Include="Classes\Themes\Classic7HTheme.cs" />
     <Compile Include="Classes\Themes\DarkThemeWithBackground.cs" />
     <Compile Include="Classes\Themes\LightThemeWithBackground.cs" />
