@@ -67,7 +67,7 @@ namespace SeventhHeaven.Windows
             }
 
             // find the resolutions option
-            Iros._7th.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros._7th.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(itm => { return itm.Name == "Resolution"; });
+            Iros._7th.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros._7th.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => { return item.Name == "Resolution"; });
             // over ride it with OS reported suported resolutions
             ResolutionDD.Options = DigitalResolutions;
 
