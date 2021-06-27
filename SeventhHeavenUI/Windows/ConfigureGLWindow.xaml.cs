@@ -56,6 +56,23 @@ namespace SeventhHeaven.Windows
                 return false;
             }
 
+            // build new DDOption for resolutions
+            List<Iros._7th.Workshop.ConfigSettings.DDOption> DigitalResolutions = new List<Iros._7th.Workshop.ConfigSettings.DDOption>();
+            DigitalResolutions.Add(new Iros._7th.Workshop.ConfigSettings.DDOption() { Settings = "window_size_x = 0,window_size_y = 0", Text = "Auto" });
+
+            List<SupportedResolution> supportedResolutions = PrimaryScreen.GetSupportedResolutions();
+            foreach(SupportedResolution sr in supportedResolutions)
+            {
+                DigitalResolutions.Add(new Iros._7th.Workshop.ConfigSettings.DDOption() { Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}", Text = $"{sr.H}x{sr.V}"});
+            }
+
+            // find the resolutions option
+            Iros._7th.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros._7th.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
+                return item.DefaultValue == "window_size_x = 1280,window_size_y = 720";
+            });
+            // over ride it with OS reported suported resolutions
+            ResolutionDD.Options = DigitalResolutions;
+
             _settings = new Iros._7th.Workshop.ConfigSettings.Settings(_file);
             _settings.SetMissingDefaults(_spec.Settings);
 

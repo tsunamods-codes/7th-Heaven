@@ -139,7 +139,7 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="SharpCompress">
-      <Version>0.28.2</Version>
+      <Version>0.28.3</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
       <Version>0.1.2</Version>

@@ -135,7 +135,7 @@ namespace SeventhHeaven.Classes
                             case -1: // OLDER
                                 if (
                                     MessageDialogWindow.Show(
-                                        $"Your current FFNx driver versions seems newer to the one currently available.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install it anyway?",
+                                        $"Your current FFNx driver version seems newer than the one presently available.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install it anyway?",
                                         "Update found!",
                                         System.Windows.MessageBoxButton.YesNo,
                                         System.Windows.MessageBoxImage.Question
@@ -236,7 +236,7 @@ namespace SeventhHeaven.Classes
 
                         SwitchToModPanel();
 
-                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nRemember to configure again your driver as settings have been resetted.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nRemember to reconfigure your game driver as the settings have now been reset.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                         Sys.Message(new WMessage() { Text = $"Successfully updated FFNx to version {version}" });
 
                         File.Delete(download.SaveFilePath);
