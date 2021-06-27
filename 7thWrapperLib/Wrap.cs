@@ -359,20 +359,21 @@ namespace _7thWrapperLib {
                     DebugLogger.WriteLine($"Loading library DLL {LL}");
                     LoadLibrary(LL);
                 }
+                profile.Mods.Reverse();
                 foreach (var mod in profile.Mods) {
-                    foreach (string LA in mod.GetLoadAssemblies()) {
+                    foreach (string LA in mod.GetLoadAssemblies())
+                    {
                         DebugLogger.WriteLine($"Loading assembly DLL {LA}");
                         var asm = System.Reflection.Assembly.LoadFrom(LA);
-                        try {
+                        try
+                        {
                             string path = mod.BaseFolder;
                             asm.GetType("_7thHeaven.Main")
                                 .GetMethod("Init", new[] { typeof(RuntimeMod) })
                                 .Invoke(null, new object[] { mod });
-                        } catch { }
+                        }
+                        catch { }
                     }
-                }
-
-                foreach (var mod in profile.Mods) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
                         foreach (var of in mod.GetOverrides("hext\\" + file)) {
                             System.IO.Stream s;
@@ -390,6 +391,7 @@ namespace _7thWrapperLib {
                         }
                     }
                 }
+                profile.Mods.Reverse();
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
                 return;
