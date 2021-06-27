@@ -732,11 +732,7 @@ namespace SeventhHeavenUI.ViewModels
                 {
                     System.Threading.Thread.Sleep(5000); // wait 5 seconds after init before checking for update to let UI render
                     Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CheckingForUpdates), WMessageLogLevel.LogOnly));
-<<<<<<< HEAD
-                    updater.CheckForUpdates(Sys.Settings.UpdateChannel);
-=======
-                    updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
+                    updater.CheckForUpdates(AppUpdateChannelOptions.Stable);
                 });
             }
         }

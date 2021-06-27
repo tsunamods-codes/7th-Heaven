@@ -225,11 +225,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("ambient");
 
             defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
-<<<<<<< HEAD
-            defaultSettings.UpdateChannel = Updater.GitHub.Releases.Channel.Stable;
-=======
             defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Stable;
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
 
             defaultSettings.UserColumnSettings = ColumnSettings.GetDefaultSettings();
 

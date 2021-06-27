@@ -54,11 +54,7 @@ namespace SeventhHeaven.ViewModels
         private string _statusMessage;
 
         private FFNxUpdateChannelOptions _ffnxUpdateChannel;
-<<<<<<< HEAD
-        private Updater.GitHub.Releases.Channel _updateChannel;
-=======
         private AppUpdateChannelOptions _appUpdateChannel;
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
 
         public delegate void OnListDataChanged();
 
@@ -141,33 +137,6 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _ffnxUpdateChannel = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public Updater.GitHub.Releases.Channel UpdateChannel
-        {
-            get
-            {
-                return _updateChannel;
-            }
-            set
-            {
-                _updateChannel = value;
-                reload = true;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public AppUpdateChannelOptions AppUpdateChannel
-        {
-            get
-            {
-                return _appUpdateChannel;
-            }
-            set
-            {
-                _appUpdateChannel = value;
                 NotifyPropertyChanged();
             }
         }
@@ -443,11 +412,6 @@ namespace SeventhHeaven.ViewModels
             TexturesPathInput = settings.AaliFolder;
 
             FFNxUpdateChannel = settings.FFNxUpdateChannel;
-<<<<<<< HEAD
-            UpdateChannel = settings.UpdateChannel;
-=======
-            AppUpdateChannel = settings.AppUpdateChannel;
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
 
             AutoUpdateModsByDefault = settings.HasOption(GeneralOptions.AutoUpdateMods);
             ActivateInstalledModsAuto = settings.HasOption(GeneralOptions.AutoActiveNewMods);
@@ -587,12 +551,7 @@ namespace SeventhHeaven.ViewModels
             Sys.Settings.MovieFolder = MoviesPathInput;
             Sys.Settings.AaliFolder = TexturesPathInput;
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
-<<<<<<< HEAD
-            Sys.Settings.UpdateChannel = UpdateChannel;
-=======
-            Sys.Settings.AppUpdateChannel = AppUpdateChannel;
 
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
 
             Sys.Settings.Options = GetUpdatedOptions();
 

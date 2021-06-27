@@ -11,12 +11,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-<<<<<<< HEAD
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-=======
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
 
 namespace SeventhHeaven.Classes
 {
@@ -40,9 +36,6 @@ namespace SeventhHeaven.Classes
             return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
         }
 
-<<<<<<< HEAD
-        public void CheckForUpdates(Updater.GitHub.Releases.Channel channel)
-=======
         private string GetUpdateChannel(AppUpdateChannelOptions channel)
         {
             switch (channel)
@@ -63,9 +56,9 @@ namespace SeventhHeaven.Classes
 
         private string GetUpdateReleaseUrl(dynamic assets)
         {
-            foreach (dynamic asset in assets)
+            for (int i = 0; i < assets.Count - 1; i++)
             {
-                string url = asset.browser_download_url.Value;
+                string url = assets[i].browser_download_url.Value;
 
                 if (url.Contains("7thHeaven-v"))
                     return url;
@@ -94,8 +87,7 @@ namespace SeventhHeaven.Classes
             });
         }
 
-        public void CheckForUpdates(AppUpdateChannelOptions channel, bool manualCheck = false)
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
+        public void CheckForUpdates(AppUpdateChannelOptions channel)
         {
             try
             {
@@ -111,31 +103,30 @@ namespace SeventhHeaven.Classes
             
             if(_currentAppVersion != null)
             {
-                Updater.GitHub.NewReleaseVersionInfo releaseVersioninfo = Updater.GitHub.Releases.isNewerVersion(new Version(GetCurrentAppVersion()), channel);
-                if (releaseVersioninfo.isNewer)
+                Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },
+                SaveFilePath = GetUpdateInfoPath(),
+                Category = DownloadCategory.AppUpdate,
+                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} {channel.ToString()}"
+            };
+
+            download.IProc = new Install.InstallProcedureCallback(e =>
+            {
+                bool success = (e.Error == null && e.Cancelled == false);
+
+                if (success)
                 {
-                    if(MessageDialogWindow.Show(
-                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", releaseVersioninfo.version.ToString(), releaseVersioninfo.changeLog),
-                        ResourceHelper.Get(StringKey.NewVersionAvailable),
-                        System.Windows.MessageBoxButton.YesNo,
-                        System.Windows.MessageBoxImage.Question
-                    ).Result == System.Windows.MessageBoxResult.Yes)
+                    try
                     {
-                        Sys.Message(new WMessage() { Text = "Sarting updater application" });
-                        ProcessStartInfo startInfo = new ProcessStartInfo();
-                        startInfo.UseShellExecute = false;
-                        startInfo.WorkingDirectory = Environment.CurrentDirectory;
-                        startInfo.FileName = "updater.exe";
-                        startInfo.Arguments = "\"" + System.AppDomain.CurrentDomain.BaseDirectory + "\\\" v"+ 
-                            String.Format("{0}.{1}.{2}", releaseVersioninfo.version.Major, releaseVersioninfo.version.Minor, releaseVersioninfo.version.Build);
-                        Process proc = Process.Start(startInfo);
-                        IntPtr hWnd = proc.MainWindowHandle;
-                        if (hWnd != IntPtr.Zero)
+                        StreamReader file = File.OpenText(download.SaveFilePath);
+                        dynamic release = JValue.Parse(file.ReadToEnd());
+                        file.Close();
+                        File.Delete(download.SaveFilePath);
+
+                        Version curVersion = new Version(GetCurrentAppVersion());
+                        Version newVersion = new Version(GetUpdateVersion(release.name.Value));
+
+                        switch (newVersion.CompareTo(curVersion))
                         {
-<<<<<<< HEAD
-                            SetForegroundWindow(hWnd);
-                            ShowWindow(hWnd, int.Parse("9"));
-=======
                             case 1: // NEWER
                                 if (
                                     MessageDialogWindow.Show(
@@ -144,86 +135,33 @@ namespace SeventhHeaven.Classes
                                         System.Windows.MessageBoxButton.YesNo,
                                         System.Windows.MessageBoxImage.Question
                                     ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(release.assets), newVersion.ToString());
+                                {
+                                    ProcessStartInfo startInfo = new ProcessStartInfo(GetUpdateChannel(channel).Replace("api.github.com/repos", "github.com"));
+                                    Process.Start(startInfo);
+                                    App.ShutdownApp();
+                                }
                                 break;
-                            case 0: // SAME
-                                if (manualCheck)
-                                    MessageDialogWindow.Show("You seem to be up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                            default:
+                                // Nothing to do here
                                 break;
-                            case -1: // OLDER
-                                if (
-                                    MessageDialogWindow.Show(
-                                        $"Your current version seems newer to the one currently available.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install it anyway?",
-                                        "Update found!",
-                                        System.Windows.MessageBoxButton.YesNo,
-                                        System.Windows.MessageBoxImage.Question
-                                    ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(release.assets), newVersion.ToString());
-                                break;
->>>>>>> d966b12ca916a5904bebd931a0980cb18943446f
                         }
-                        App.ShutdownApp();
+                    }
+                    catch (Exception)
+                    {
+                        MessageDialogWindow.Show("Something went wrong while checking for App updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not parse the 7thHeaven release json at {GetUpdateChannel(channel)}", LoggedException = e.Error });
                     }
                 }
-            }
-        }
-
-        private void DownloadAndExtract(string url, string version)
-        {
-            if (url != String.Empty)
-            {
-                SwitchToDownloadPanel();
-
-                DownloadItem download = new DownloadItem()
+                else
                 {
-                    Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
-                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
-                    Category = DownloadCategory.AppUpdate,
-                    ItemName = $"Downloading 7thHeaven Update {url}..."
-                };
+                    MessageDialogWindow.Show("Something went wrong while checking for App updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    Sys.Message(new WMessage() { Text = $"Could not fetch for 7thHeaven updates at {GetUpdateChannel(channel)}", LoggedException = e.Error });
+                }
+            });
 
-                download.IProc = new Install.InstallProcedureCallback(e =>
-                {
-                    bool success = (e.Error == null && e.Cancelled == false);
-
-                    if (success)
-                    {
-                        string ExtractPath = Path.Combine(Sys.PathToTempFolder, $"7thHeaven-v{version}");
-
-                        using (var archive = ZipArchive.Open(download.SaveFilePath))
-                        {
-                            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
-                            {
-                                entry.WriteToDirectory(ExtractPath, new ExtractionOptions()
-                                {
-                                    ExtractFullPath = true,
-                                    Overwrite = true
-                                });
-                            }
-                        }
-
-                        SwitchToModPanel();
-
-                        MessageDialogWindow.Show($"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update will be completed.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        Sys.Message(new WMessage() { Text = $"Successfully extracted the 7thHeaven version {version}. Ready to launch the update." });
-
-                        File.Delete(download.SaveFilePath);
-                        StartUpdate(ExtractPath);
-                    }
-                    else
-                    {
-                        MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not download the 7thHeaven update {url}", LoggedException = e.Error });
-                    }
-                });
-
-                Sys.Downloads.AddToDownloadQueue(download);
-            }
-            else
-            {
-                MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-            }
+            Sys.Downloads.AddToDownloadQueue(download);
         }
+    }
 
         private void StartUpdate(string sourcePath)
         {
