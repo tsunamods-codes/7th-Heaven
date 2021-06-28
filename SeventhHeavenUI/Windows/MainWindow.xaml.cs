@@ -48,6 +48,15 @@ namespace SeventhHeavenUI
             App.ProcessCommandLineArgs(Environment.GetCommandLineArgs(), true);
 
             InitColumnSettings();
+
+#if LIGHT
+            this.tabCtrlMain.Visibility = Visibility.Hidden;
+            this.gbModInfo.Visibility = Visibility.Hidden;
+            this.btnTools.Visibility = Visibility.Hidden;
+            this.txtSearch.Visibility = Visibility.Hidden;
+            this.txtPlaceholder.Visibility = Visibility.Hidden;
+            this.btnFilters.Visibility = Visibility.Hidden;
+#endif
         }
 
         private void InitColumnSettings()
