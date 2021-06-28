@@ -16,25 +16,45 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Light-Debug|Any CPU = Light-Debug|Any CPU
+		Light-Release|Any CPU = Light-Release|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Light-Debug|Any CPU.ActiveCfg = Light-Debug|Any CPU
+		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Light-Debug|Any CPU.Build.0 = Light-Debug|Any CPU
+		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Light-Release|Any CPU.ActiveCfg = Light-Release|Any CPU
+		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Light-Release|Any CPU.Build.0 = Light-Release|Any CPU
 		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F80DB232-4102-4249-8B31-2DDD5C7FA404}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A64400A1-1E22-4F22-884E-568A776141C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64400A1-1E22-4F22-884E-568A776141C5}.Light-Debug|Any CPU.ActiveCfg = Light-Debug|Any CPU
+		{A64400A1-1E22-4F22-884E-568A776141C5}.Light-Release|Any CPU.ActiveCfg = Light-Release|Any CPU
 		{A64400A1-1E22-4F22-884E-568A776141C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Light-Debug|Any CPU.ActiveCfg = Light-Debug|x86
+		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Light-Debug|Any CPU.Build.0 = Light-Debug|x86
+		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Light-Release|Any CPU.ActiveCfg = Light-Release|x86
+		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Light-Release|Any CPU.Build.0 = Light-Release|x86
 		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Light-Debug|Any CPU.ActiveCfg = Light-Debug|Any CPU
+		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Light-Debug|Any CPU.Build.0 = Light-Debug|Any CPU
+		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Light-Release|Any CPU.ActiveCfg = Light-Release|Any CPU
+		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Light-Release|Any CPU.Build.0 = Light-Release|Any CPU
 		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Light-Debug|Any CPU.ActiveCfg = Light-Debug|x86
+		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Light-Debug|Any CPU.Build.0 = Light-Debug|x86
+		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Light-Release|Any CPU.ActiveCfg = Light-Release|x86
+		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Light-Release|Any CPU.Build.0 = Light-Release|x86
 		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F6C267D-0F93-4C71-BA58-0C1AD6242383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
