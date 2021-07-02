@@ -264,6 +264,15 @@
   
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>
+    <Name>Footsteps</Name>
+    <Description>Enable footstep sounds when the controllable character walks/runs.</Description>
+    <DefaultValue>ff7_footsteps = false</DefaultValue>
+    <TrueSetting>ff7_footsteps = true</TrueSetting>
+    <FalseSetting>ff7_footsteps = false</FalseSetting>
+  </Setting>
+  
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
     <Name>Show Debug Info</Name>
     <Description>Displays realtime information about the rendering process/performance on an overlay or in the title bar.</Description>
     <DefaultValue>show_stats = false</DefaultValue>
