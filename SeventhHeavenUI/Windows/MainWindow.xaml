@@ -113,7 +113,7 @@
                                      Padding="0,8,10,0"
                                      IsEnabled="{Binding IsPlayButtonEnabled}"
                                      TemplateSource="{StaticResource iconPlay}" 
-                                     ImageForeground="ForestGreen"/>
+                                     ImageForeground="ForestGreen" Background="#FF1F1F1F"/>
                 <ToggleButton x:Name="btnPlayOptions" 
                               Click="btnPlayOptions_Click" 
                               Style="{StaticResource DownArrowToggleButton}" 
@@ -220,7 +220,7 @@
                             <TextBlock Text="{Binding PreviewModVersion, FallbackValue='1.3'}"
                                        Margin="2,0,3,1"
                                        Style="{StaticResource ModInfoDetailsStyle}"/>
-                            
+
                             <Button x:Name="btnUpdateMod" 
                                     Content="{Binding UpdateModButtonText, FallbackValue='Update Available'}"
                                     IsEnabled="{Binding IsUpdateModButtonEnabled}"
@@ -355,7 +355,7 @@
                                PreviewMouseRightButtonUp="MyModsTabItem_MouseRightButtonUp"
                                Padding="0"/>
                 </TabItem.Header>
-                
+
                 <ctrl:MyModsUserControl x:Name="ctrlMyMods"/>
             </TabItem>
             <TabItem MouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
@@ -365,7 +365,7 @@
                                PreviewMouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
                                Padding="0"/>
                 </TabItem.Header>
-                
+
                 <ctrl:CatalogUserControl x:Name="ctrlCatalog"/>
             </TabItem>
         </TabControl>
@@ -374,7 +374,7 @@
               Margin="0,25,56,0"
               HorizontalAlignment="Right"
               VerticalAlignment="Top">
-            
+
             <TextBox x:Name="txtSearch"
                      Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      TextChanged="txtSearch_TextChanged"

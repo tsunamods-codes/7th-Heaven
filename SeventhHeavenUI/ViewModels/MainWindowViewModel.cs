@@ -109,8 +109,9 @@ namespace SeventhHeavenUI.ViewModels
 
 
         public MyModsViewModel MyMods { get; set; }
-
         public CatalogViewModel CatalogMods { get; set; }
+
+        private List<Mod> _missingMods;
 
         private Visibility _loadingGifVisibility;
         private bool _isFlashingStatus;
@@ -735,7 +736,65 @@ namespace SeventhHeavenUI.ViewModels
                     updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
                 });
             }
+            GetGameContent();
+            // GetMissingContent();
         }
+
+        /*  START CODE HACK */
+
+        public void GetGameContent()
+        {
+            Console.WriteLine("Checking for missing content");
+            Catalog catalog = Sys.GetCatalog();
+            Profile profile = Sys.ActiveProfile;
+
+            if (_missingMods == null)
+            {
+                _missingMods = new List<Mod>();
+            }
+
+            foreach (Mod mod in catalog.Mods)
+            {
+                ProfileItem v = profile.GetItem(mod.ID);
+
+                if (v == null)
+                {
+                    if (!_missingMods.Contains(mod))
+                    {
+                        _missingMods.Add(mod);
+                    }
+                }
+            }
+        }
+
+        public void GetMissingContent()
+        {
+            if (_missingMods != null)
+            {
+                Console.WriteLine("Installing content");
+                foreach (Mod missingMod in _missingMods)
+                {
+                    Console.WriteLine(missingMod.ID);
+
+                    Install.DownloadAndInstall(missingMod, false);
+                }
+            }
+
+            MyMods.AutoSortBasedOnCategory();
+            MyMods.ScanForModUpdates();
+        }
+
+       public bool isOkToPlay()
+        {
+            if (_missingMods.Count == 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /*  END CODE HACK */
 
         private void CatalogList_RefreshRequested()
         {

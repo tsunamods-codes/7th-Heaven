@@ -23,6 +23,7 @@ namespace SeventhHeavenUI
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         internal MainWindowViewModel ViewModel { get; set; }
+        internal MyModsViewModel ModsModel { get; set; }
 
         private int _currentTabIndex = 0;
 
@@ -56,7 +57,20 @@ namespace SeventhHeavenUI
             this.txtSearch.Visibility = Visibility.Hidden;
             this.txtPlaceholder.Visibility = Visibility.Hidden;
             this.btnFilters.Visibility = Visibility.Hidden;
+            this.btnPlayOptions.Visibility = Visibility.Hidden;
+
+            if (ViewModel.isOkToPlay())
+            {
+                this.btnPlay.Content = "Play";
+            }
+            else
+            {
+                this.btnPlay.Content = "Install";
+            }
+
 #endif
+
+
         }
 
         private void InitColumnSettings()
@@ -133,9 +147,20 @@ namespace SeventhHeavenUI
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
+#if LIGHT
+            if (ViewModel.isOkToPlay())
+            {
+                ViewModel.LaunchGame(variableDump: false, debugLogging: false);
+            }
+            else
+            {
+                ViewModel.GetMissingContent();
+            }
+#else
             ViewModel.LaunchGame(variableDump: false, debugLogging: false);
-        }
 
+#endif
+        }
         private void txtSearch_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

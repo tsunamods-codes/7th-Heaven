@@ -206,6 +206,9 @@
     <Compile Include="UserControls\CreateModUserControl.xaml.cs">
       <DependentUpon>CreateModUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Downloading.xaml.cs">
+      <DependentUpon>Downloading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MegaLinkGenUserControl.xaml.cs">
       <DependentUpon>MegaLinkGenUserControl.xaml</DependentUpon>
     </Compile>
@@ -441,6 +444,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CreateModUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Downloading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
