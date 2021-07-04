@@ -740,8 +740,6 @@ namespace SeventhHeavenUI.ViewModels
             // GetMissingContent();
         }
 
-        /*  START CODE HACK */
-
         public void GetGameContent()
         {
             Console.WriteLine("Checking for missing content");
@@ -793,8 +791,6 @@ namespace SeventhHeavenUI.ViewModels
             else
                 return false;
         }
-
-        /*  END CODE HACK */
 
         private void CatalogList_RefreshRequested()
         {
