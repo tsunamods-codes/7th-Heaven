@@ -319,6 +319,15 @@ namespace Iros._7th.Workshop
         }
 
         /// <summary>
+        /// Returns the Catalog in <see cref="Catalog"/>
+        /// <returns>Catalog</returns>
+        public static Catalog GetCatalog()
+        {
+
+            return Catalog;
+        }
+
+        /// <summary>
         /// Returns a Mod in <see cref="Catalog"/>
         /// ... uses <see cref="CatalogLock"/> to ensure the catalog does not change
         /// when multiple threads are accessing/modifying it at once.

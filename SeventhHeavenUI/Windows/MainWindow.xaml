@@ -165,7 +165,7 @@
         </Viewbox>
 
 
-        <GroupBox Header="{DynamicResource ModInfoHeader}"
+        <GroupBox x:Name="gbModInfo" Header="{DynamicResource ModInfoHeader}"
                   Background="{DynamicResource SecondaryAppBackground}"
                   Grid.Row="1"
                   Margin="5,-7,3,1" Grid.ColumnSpan="2">
@@ -387,7 +387,7 @@
                      Width="260"
                      Height="24"/>
 
-            <TextBlock Text="{DynamicResource SearchHint}"
+            <TextBlock x:Name="txtPlaceholder" Text="{DynamicResource SearchHint}"
                        Foreground="{DynamicResource PrimaryControlDisabledForeground}"
                        Grid.Column="2"
                        IsHitTestVisible="False"
