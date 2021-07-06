@@ -261,6 +261,15 @@
     <TrueSetting>enable_animated_textures = true</TrueSetting>
     <FalseSetting>enable_animated_textures = false</FalseSetting>
   </Setting>
+  
+  <Setting xsi:type="Checkbox">
+    <Group>Avancé</Group>
+    <Name>Footsteps</Name>
+    <Description>Enable footstep sounds when the controllable character walks/runs.</Description>
+    <DefaultValue>ff7_footsteps = false</DefaultValue>
+    <TrueSetting>ff7_footsteps = true</TrueSetting>
+    <FalseSetting>ff7_footsteps = false</FalseSetting>
+  </Setting>
 
   <Setting xsi:type="Checkbox">
     <Group>Avancé</Group>
