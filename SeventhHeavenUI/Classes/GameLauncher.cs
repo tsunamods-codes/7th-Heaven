@@ -753,8 +753,11 @@ namespace SeventhHeaven.Classes
                         if (Sys.Settings.GameLaunchSettings.AutoUnmountGameDisc && Instance.DidMountVirtualDisc)
                         {
                             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoUnmountingGameDisc));
-                            Instance.DiscMounter.UnmountVirtualGameDisc();
-                            Instance.DiscMounter = null;
+                            if (Instance.DiscMounter != null)
+                            {
+                                Instance.DiscMounter.UnmountVirtualGameDisc();
+                                Instance.DiscMounter = null;
+                            }
                         }
 
                         // ensure Reunion is re-enabled when ff7 process exits in case it failed above for any reason
