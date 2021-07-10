@@ -92,6 +92,7 @@
     <Compile Include="DownloadItem.cs" />
     <Compile Include="DuplicateModException.cs" />
     <Compile Include="FF7FileLister.cs" />
+    <Compile Include="FFNxConfigManager.cs" />
     <Compile Include="FileDownloadTask.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="GDrive.cs" />

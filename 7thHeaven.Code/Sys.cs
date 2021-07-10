@@ -4,6 +4,7 @@
 */
 
 using _7thHeaven.Code;
+using Iros._7th.Workshop.ConfigSettings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -203,7 +204,26 @@ namespace Iros._7th.Workshop
                 return Path.Combine(PathToVBusDriver, "ScpDriver.exe");
             }
         }
+        public static string PathToFFNxToml
+        {
+            get
+            {
+                return Path.Combine(Sys.InstallPath, "FFNx.toml");
+            }
+        }
+        public static string PathToGameDriverUiXml(string appLanguage = null)
+        {
+            if (string.IsNullOrWhiteSpace(appLanguage) || appLanguage.StartsWith("en") || appLanguage.StartsWith("ja"))
+            {
+                return Path.Combine(Sys._7HFolder, "Resources", "7H_GameDriver_UI.xml");
+            }
+            else
+            {
+                appLanguage = (appLanguage == "pt-BR") ? "br" : appLanguage.Substring(0, 2);
 
+                return Path.Combine(Sys._7HFolder, "Resources", "Languages", $"7H_GameDriver_UI.{appLanguage}.xml");
+            }
+        }
 
         public static Catalog Catalog { get; set; }
         public static Library Library { get; set; }
@@ -211,6 +231,7 @@ namespace Iros._7th.Workshop
         public static IDownloader Downloads { get; set; }
         public static Profile ActiveProfile { get; set; }
         public static Version AppVersion { get; set; }
+        public static FFNxConfigManager FFNxConfig { get; private set; }
 
 
         public static event EventHandler<ModStatusEventArgs> StatusChanged;
@@ -390,6 +411,8 @@ namespace Iros._7th.Workshop
             ImageCache = new ImageCache(Path.Combine(SysFolder, "cache"));
 
             AppVersion = new Version();
+
+            FFNxConfig = new FFNxConfigManager();
 
             string pathToVersions = Path.Combine(SysFolder, "version.xml");
             if (File.Exists(pathToVersions))
