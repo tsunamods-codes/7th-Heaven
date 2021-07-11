@@ -225,6 +225,8 @@ namespace Iros._7th.Workshop.ConfigSettings
 
         public void Backup()
         {
+            if (File.Exists(_pathToFFNxTomlBak)) File.Delete(_pathToFFNxTomlBak);
+
             File.Copy(_pathToFFNxToml, _pathToFFNxTomlBak);
         }
 
@@ -232,7 +234,8 @@ namespace Iros._7th.Workshop.ConfigSettings
         {
             if (File.Exists(_pathToFFNxTomlBak))
             {
-                File.Copy(_pathToFFNxTomlBak, _pathToFFNxToml);
+                File.Delete(_pathToFFNxToml);
+                File.Move(_pathToFFNxTomlBak, _pathToFFNxToml);
                 Reload();
             }
         }
