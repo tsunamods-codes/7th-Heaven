@@ -483,12 +483,30 @@ namespace SeventhHeaven.Classes
                 // Inherit FFNx Config keys from each mod
                 //
                 Sys.FFNxConfig.Backup();
-                foreach(var mod in runtimeProfile.Mods)
+                foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
-                    foreach(var config in mod.FFNxConfig)
+                    foreach(FFNxFlag flag in mod.FFNxConfig)
                     {
-                        if (Sys.FFNxConfig.HasKey(config.Key))
-                            Sys.FFNxConfig.Set(config.Key, config.Value);
+                        bool addConfig = true;
+
+                        if (flag.Attributes.Count > 0)
+                        {
+                            foreach (var attr in flag.Attributes)
+                            {                                
+                                foreach(Iros._7th.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
+                                {
+                                    foreach(ProfileSetting setting in item.Settings)
+                                    {
+                                        if (setting.ID == attr.Key && setting.Value != attr.Value) addConfig = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (addConfig)
+                        {
+                            if (Sys.FFNxConfig.HasKey(flag.Key)) Sys.FFNxConfig.Set(flag.Key, flag.Value);
+                        }
                     }
                 }
                 Sys.FFNxConfig.Save();

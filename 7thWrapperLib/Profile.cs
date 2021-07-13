@@ -155,7 +155,7 @@ namespace _7thWrapperLib
         public List<string> LoadAssemblies { get; private set; }
         public List<string> LoadPlugins { get; private set; }
         public List<ProgramInfo> LoadPrograms { get; private set; }
-        public Dictionary<string, string> FFNxConfig { get; private set; }
+        public List<FFNxFlag> FFNxConfig { get; private set; }
 
         [NonSerialized]
         public Wpf32Window WpfWindowInterop;
@@ -874,7 +874,7 @@ namespace _7thWrapperLib
             LoadAssemblies = new List<string>();
             LoadPlugins = new List<string>();
             LoadPrograms = new List<ProgramInfo>();
-            FFNxConfig = new Dictionary<string, string>();
+            FFNxConfig = new List<FFNxFlag>();
 
             Guid.TryParse(doc.SelectSingleNode("/ModInfo/ID").NodeText(), out Guid parsedId);
             ID = parsedId;
@@ -912,7 +912,18 @@ namespace _7thWrapperLib
             foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/FFNxConfig"))
             {
                 foreach(XmlNode child in xmlNode)
-                    FFNxConfig.Add(child.Name, child.InnerText);
+                {
+                    var flag = new FFNxFlag();
+
+                    flag.Key = child.Name;
+                    flag.Value = child.InnerText;
+
+                    foreach (XmlAttribute attr in child.Attributes)
+                        flag.Attributes.Add(attr.Name, int.Parse(attr.Value));
+
+                    FFNxConfig.Add(flag);
+                }
+                    
             }
 
             XmlNode loadPrograms = doc.SelectSingleNode("/ModInfo/LoadPrograms");
@@ -975,7 +986,7 @@ namespace _7thWrapperLib
             OrderAfter = new List<Guid>();
             OrderBefore = new List<Guid>();
             Compatibility = null;
-            FFNxConfig = new Dictionary<string, string>();
+            FFNxConfig = new List<FFNxFlag>();
         }
 
         public Guid ID { get; set; }
@@ -1004,7 +1015,7 @@ namespace _7thWrapperLib
         public Compatibility Compatibility { get; set; }
         public List<Guid> OrderBefore { get; set; }
         public List<Guid> OrderAfter { get; set; }
-        public Dictionary<string, string> FFNxConfig { get; set; }
+        public List<FFNxFlag> FFNxConfig { get; set; }
 
     }
 
@@ -1283,6 +1294,21 @@ namespace _7thWrapperLib
         public override bool IsActive()
         {
             return !_child.IsActive();
+        }
+    }
+
+    [Serializable]
+    public class FFNxFlag
+    {
+        public string Key;
+        public string Value;
+        public Dictionary<string, int> Attributes;
+
+        public FFNxFlag()
+        {
+            Key = String.Empty;
+            Value = String.Empty;
+            Attributes = new Dictionary<string, int>();
         }
     }
 }
