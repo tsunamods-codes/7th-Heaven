@@ -208,7 +208,7 @@ namespace Iros._7th.Workshop
         {
             get
             {
-                return Path.Combine(Sys.InstallPath, "FFNx.toml");
+                return Sys.InstallPath != null ? Path.Combine(Sys.InstallPath, "FFNx.toml") : null;
             }
         }
         public static string PathToGameDriverUiXml(string appLanguage = null)
