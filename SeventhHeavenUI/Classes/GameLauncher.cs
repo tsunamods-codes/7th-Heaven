@@ -482,6 +482,7 @@ namespace SeventhHeaven.Classes
                 //
                 // Inherit FFNx Config keys from each mod
                 //
+                Sys.FFNxConfig.Reload();
                 Sys.FFNxConfig.Backup();
                 foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
