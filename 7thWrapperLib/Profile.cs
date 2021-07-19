@@ -156,6 +156,7 @@ namespace _7thWrapperLib
         public List<string> LoadPlugins { get; private set; }
         public List<ProgramInfo> LoadPrograms { get; private set; }
         public List<FFNxFlag> FFNxConfig { get; private set; }
+        public List<Variable> Variables { get; private set; }
 
         [NonSerialized]
         public Wpf32Window WpfWindowInterop;
@@ -177,6 +178,8 @@ namespace _7thWrapperLib
             LoadPlugins = modInfo.LoadPlugins.ToList();
             LoadPrograms = modInfo.LoadPrograms.ToList();
             FFNxConfig = modInfo.FFNxConfig;
+            Variables = modInfo.Variables;
+
         }
 
         private void ScanChunk()
@@ -875,6 +878,7 @@ namespace _7thWrapperLib
             LoadPlugins = new List<string>();
             LoadPrograms = new List<ProgramInfo>();
             FFNxConfig = new List<FFNxFlag>();
+            Variables = new List<Variable>();
 
             Guid.TryParse(doc.SelectSingleNode("/ModInfo/ID").NodeText(), out Guid parsedId);
             ID = parsedId;
@@ -924,6 +928,17 @@ namespace _7thWrapperLib
                     FFNxConfig.Add(flag);
                 }
                     
+            }
+
+            foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+            {
+
+                Variable var = new Variable();
+
+                var.Name = xmlNode.Attributes.GetNamedItem("Name").Value;
+                var.Value = xmlNode.InnerText.Trim();
+
+                Variables.Add(var);
             }
 
             XmlNode loadPrograms = doc.SelectSingleNode("/ModInfo/LoadPrograms");
@@ -987,6 +1002,7 @@ namespace _7thWrapperLib
             OrderBefore = new List<Guid>();
             Compatibility = null;
             FFNxConfig = new List<FFNxFlag>();
+            Variables = new List<Variable>();
         }
 
         public Guid ID { get; set; }
@@ -1016,7 +1032,7 @@ namespace _7thWrapperLib
         public List<Guid> OrderBefore { get; set; }
         public List<Guid> OrderAfter { get; set; }
         public List<FFNxFlag> FFNxConfig { get; set; }
-
+        public List<Variable> Variables { get; set; }
     }
 
     [Serializable]
@@ -1310,5 +1326,15 @@ namespace _7thWrapperLib
             Value = String.Empty;
             Attributes = new Dictionary<string, int>();
         }
+    }
+
+    [Serializable]
+    public class Variable
+    {
+        [XmlAttribute("Name")]
+        public string Name;
+
+        [XmlElement("Value")]
+        public string Value;
     }
 }

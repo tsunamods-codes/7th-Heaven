@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Iros._7th.Workshop
 {
@@ -464,18 +465,56 @@ namespace Iros._7th.Workshop
                 VarAliases = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             };
 
-            string varFile = Path.Combine(_7HFolder, "7thHeaven.var");
+            // construct dynamic vars file
+            string baseVarFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources\\7thHeaven.var");
+            List<_7thWrapperLib.Variable> vars = new List<_7thWrapperLib.Variable>();
 
-
-            if (File.Exists(varFile))
+            // create the list in memory
+            foreach (string line in File.ReadAllLines(baseVarFile))
             {
-                foreach (string line in File.ReadAllLines(varFile))
-                {
-                    string[] parts = line.Split(new[] { '=' }, 2);
+                string[] defVar = line.Split('=');
+                vars.Add(new _7thWrapperLib.Variable() { Name = defVar[0], Value = defVar[1] });
+            }
 
-                    if (parts.Length == 2)
-                        _context.VarAliases[parts[0]] = parts[1];
+            foreach(var itm in Sys.Library.Items)
+            {
+                var mod = Sys.Library.GetItem(itm.ModID);
+                if (mod == null) continue;
+                string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+                if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
+                {
+                    using (var arc = new _7thWrapperLib.IrosArc(location))
+                    {
+                        if (arc.HasFile("mod.xml"))
+                        {
+                            var doc = new System.Xml.XmlDocument();
+                            doc.Load(arc.GetData("mod.xml"));
+                            foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                            {
+                                vars.Add(new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                            }
+                        }
+                    }
                 }
+                else
+                {
+                    string mfile = System.IO.Path.Combine(location, "mod.xml");
+                    if (System.IO.File.Exists(mfile))
+                    {
+                        var doc = new System.Xml.XmlDocument();
+                        doc.Load(mfile);
+                        foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                        {
+                            vars.Add(new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                        }
+                    }
+                        
+                }
+            }
+
+            foreach (_7thWrapperLib.Variable var in vars)
+            {
+                _context.VarAliases[var.Name] = var.Value;
             }
         }
 
