@@ -235,8 +235,11 @@ namespace SeventhHeaven.Classes
                         }
 
                         SwitchToModPanel();
+                        Sys.FFNxConfig.Reload();
+                        Sys.FFNxConfig.ResetTo7thHeavenDefaults();
+                        Sys.FFNxConfig.Save();
 
-                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nRemember to reconfigure your game driver as the settings have now been reset.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                         Sys.Message(new WMessage() { Text = $"Successfully updated FFNx to version {version}" });
 
                         File.Delete(download.SaveFilePath);

@@ -478,6 +478,38 @@ namespace SeventhHeaven.Classes
                 //
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CopyingEasyHookToFf7PathIfNotFoundOrOlder));
                 CopyEasyHookDlls();
+
+                //
+                // Inherit FFNx Config keys from each mod
+                //
+                Sys.FFNxConfig.Backup();
+                foreach (RuntimeMod mod in runtimeProfile.Mods)
+                {
+                    foreach(FFNxFlag flag in mod.FFNxConfig)
+                    {
+                        bool addConfig = true;
+
+                        if (flag.Attributes.Count > 0)
+                        {
+                            foreach (var attr in flag.Attributes)
+                            {                                
+                                foreach(Iros._7th.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
+                                {
+                                    foreach(ProfileSetting setting in item.Settings)
+                                    {
+                                        if (setting.ID == attr.Key && setting.Value != attr.Value) addConfig = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (addConfig)
+                        {
+                            if (Sys.FFNxConfig.HasKey(flag.Key)) Sys.FFNxConfig.Set(flag.Key, flag.Value);
+                        }
+                    }
+                }
+                Sys.FFNxConfig.Save();
             }
 
             //
@@ -770,6 +802,8 @@ namespace SeventhHeaven.Classes
                         Logger.Error(ex);
                     }
 
+                    // Restore FFNx config after the game is closed
+                    Sys.FFNxConfig.RestoreBackup();
                 };
 
                 int secondsToWait = 120;

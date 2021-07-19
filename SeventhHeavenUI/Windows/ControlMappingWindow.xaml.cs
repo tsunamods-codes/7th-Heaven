@@ -89,6 +89,10 @@ namespace SeventhHeaven.Windows
             else
             {
                 ViewModel.SaveChangesToFile();
+                MessageDialogWindow.Show(
+                    "In-Game Controls have been successfully updated",
+                    "Controls Saved"
+                );
             }
         }
 

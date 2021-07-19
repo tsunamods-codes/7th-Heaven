@@ -141,8 +141,20 @@ namespace SeventhHeaven.Classes
                                     App.ShutdownApp();
                                 }
                                 break;
+<<<<<<< HEAD
                             default:
                                 // Nothing to do here
+=======
+                            case -1: // OLDER
+                                if (
+                                    MessageDialogWindow.Show(
+                                        $"Your current version seems newer than the one presently available.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install it anyway?",
+                                        "Update found!",
+                                        System.Windows.MessageBoxButton.YesNo,
+                                        System.Windows.MessageBoxImage.Question
+                                    ).Result == System.Windows.MessageBoxResult.Yes)
+                                    DownloadAndExtract(GetUpdateReleaseUrl(release.assets), newVersion.ToString());
+>>>>>>> be6f60609122fa46b18f19704a28a8526de2f0cd
                                 break;
                         }
                     }
@@ -163,6 +175,66 @@ namespace SeventhHeaven.Classes
         }
     }
 
+<<<<<<< HEAD
+=======
+        private void DownloadAndExtract(string url, string version)
+        {
+            if (url != String.Empty)
+            {
+                SwitchToDownloadPanel();
+
+                DownloadItem download = new DownloadItem()
+                {
+                    Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
+                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
+                    Category = DownloadCategory.AppUpdate,
+                    ItemName = $"Downloading 7thHeaven Update {url}..."
+                };
+
+                download.IProc = new Install.InstallProcedureCallback(e =>
+                {
+                    bool success = (e.Error == null && e.Cancelled == false);
+
+                    if (success)
+                    {
+                        string ExtractPath = Path.Combine(Sys.PathToTempFolder, $"7thHeaven-v{version}");
+
+                        using (var archive = ZipArchive.Open(download.SaveFilePath))
+                        {
+                            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                            {
+                                entry.WriteToDirectory(ExtractPath, new ExtractionOptions()
+                                {
+                                    ExtractFullPath = true,
+                                    Overwrite = true
+                                });
+                            }
+                        }
+
+                        SwitchToModPanel();
+
+                        MessageDialogWindow.Show($"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update is completed.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        Sys.Message(new WMessage() { Text = $"Successfully extracted the 7thHeaven version {version}. Ready to launch the update." });
+
+                        File.Delete(download.SaveFilePath);
+                        StartUpdate(ExtractPath);
+                    }
+                    else
+                    {
+                        MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not download the 7thHeaven update {url}", LoggedException = e.Error });
+                    }
+                });
+
+                Sys.Downloads.AddToDownloadQueue(download);
+            }
+            else
+            {
+                MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        }
+
+>>>>>>> be6f60609122fa46b18f19704a28a8526de2f0cd
         private void StartUpdate(string sourcePath)
         {
             string fileName = Path.Combine(Sys.PathToTempFolder, "update.bat");
