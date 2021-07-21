@@ -887,6 +887,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="IncompatibleMod">Mod incompatible</system:String>
     <system:String x:Key="ModIsNotCompatibleWithTheVersionYouHaveInstalled">El Mod {0} no es compatible con la versión de {1} que tienes instalada. ¿Quieres intentar actualizarlo?</system:String>
     <system:String x:Key="ModIsNotCompatibleWithYouWillNeedToDisableIt">El Mod {0} no es compatible con {1}. Tendrás que desactivarlo.</system:String>
+    <system:String x:Key="ModIsNotCompatibleAnotherModVariableUsed">El Mod {0} no es compatible con {1} mod ya que la variable '{2}' está definida en ambos. Deberá deshabilitar uno de ellos.</system:String>
 
     <system:String x:Key="TheFollowingModsWillNotWorkProperlyInTheCurrentOrder">Los siguientes Mods no funcionarán correctamente con el orden actual. ¿Quieres continuar de todos modos?</system:String>
     <system:String x:Key="LoadOrderIncompatible">Orden de carga incompatible</system:String>

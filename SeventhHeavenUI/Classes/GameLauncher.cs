@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using System.Xml;
 
 namespace SeventhHeaven.Classes
 {
@@ -1118,10 +1119,63 @@ namespace SeventhHeaven.Classes
             }
 
             List<InstalledItem> activeInstalledMods = Sys.ActiveProfile.ActiveItems.Select(pi => Sys.Library.GetItem(pi.ModID)).ToList();
+            var vars = new List<_7thWrapperLib.Variable>();
 
             foreach (InstalledItem item in activeInstalledMods)
             {
                 ModInfo info = item.GetModInfo();
+                var mod = Sys.Library.GetItem(item.ModID);
+                string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+
+                if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
+                {
+                    using (var arc = new _7thWrapperLib.IrosArc(location))
+                    {
+                        if (arc.HasFile("mod.xml"))
+                        {
+                            var doc = new System.Xml.XmlDocument();
+                            doc.Load(arc.GetData("mod.xml"));
+                            foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                            {
+                                var currentVar = new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = item.ModID.ToString() };
+                                var test = vars.Find(var => var.Name == currentVar.Name);
+                                if (test == null){
+                                    vars.Add(currentVar);
+                                }
+                                else
+                                {
+                                    //@todo create StringKey resource for unknown incompatible mod
+                                    MessageDialogWindow.Show(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleAnotherModVariableUsed), item.CachedDetails.Name, Sys.Library.GetItem(new Guid(test.Value)).CachedDetails.Name, currentVar.Name), ResourceHelper.Get(StringKey.IncompatibleMod));
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string mfile = System.IO.Path.Combine(location, "mod.xml");
+                    if (System.IO.File.Exists(mfile))
+                    {
+                        var doc = new System.Xml.XmlDocument();
+                        doc.Load(mfile);
+                        foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                        {
+                            var currentVar = new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = item.ModID.ToString() };
+                            var test = vars.Find(var => var.Name == currentVar.Name);
+                            if (test == null)
+                            {
+                                vars.Add(currentVar);
+                            }
+                            else
+                            {
+                                MessageDialogWindow.Show(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleAnotherModVariableUsed), item.CachedDetails.Name, Sys.Library.GetItem(new Guid(test.Value)).CachedDetails.Name, currentVar.Name), ResourceHelper.Get(StringKey.IncompatibleMod));
+                                return false;
+                            }
+                        }
+                    }
+
+                }
 
                 if (info == null)
                 {
