@@ -460,24 +460,42 @@ namespace Iros._7th.Workshop
 
         public static void InitLoaderContext()
         {
-            _context = new _7thWrapperLib.LoaderContext()
-            {
-                VarAliases = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
-            };
+            _context = new _7thWrapperLib.LoaderContext();
+
+            rebuildVars();
+        }
+
+        private static List<_7thWrapperLib.Variable> baseVars;
+
+        public static void rebuildVars()
+        {
+            List<_7thWrapperLib.Variable> vars;
 
             // construct dynamic vars file
-            string baseVarFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources\\7thHeaven.var");
-            List<_7thWrapperLib.Variable> vars = new List<_7thWrapperLib.Variable>();
-
-            // create the list in memory
-            foreach (string line in File.ReadAllLines(baseVarFile))
+            if (baseVars == null)
             {
-                string[] defVar = line.Split('=');
-                vars.Add(new _7thWrapperLib.Variable() { Name = defVar[0], Value = defVar[1] });
+                baseVars = new List<_7thWrapperLib.Variable>();
+                string baseVarFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources\\7thHeaven.var");
+                vars = new List<_7thWrapperLib.Variable>();
+
+                // create the list in memory
+                foreach (string line in File.ReadAllLines(baseVarFile))
+                {
+                    string[] defVar = line.Split('=');
+                    var currentVariable = new _7thWrapperLib.Variable() { Name = defVar[0], Value = defVar[1] };
+                    vars.Add(currentVariable);
+                    baseVars.Add(currentVariable);
+                }
+            }
+            else
+            {
+                vars = new List<_7thWrapperLib.Variable>();
+                baseVars.ForEach(var => vars.Add(var));
             }
 
+
             // go this installed mods
-            foreach(var itm in Sys.Library.Items)
+            foreach (var itm in Sys.Library.Items)
             {
                 var mod = Sys.Library.GetItem(itm.ModID);
                 if (mod == null) continue;
@@ -511,52 +529,15 @@ namespace Iros._7th.Workshop
                             vars.Add(new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
                         }
                     }
-                        
+
                 }
             }
 
+            _context.VarAliases = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
             foreach (_7thWrapperLib.Variable var in vars)
             {
                 _context.VarAliases[var.Name] = var.Value;
             }
-        }
-
-        public static void newItemInstalled(InstalledItem iItem)
-        {
-            var mod = Sys.Library.GetItem(iItem.ModID);
-            if (mod == null) return;
-            string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
-
-            if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
-            {
-                using (var arc = new _7thWrapperLib.IrosArc(location))
-                {
-                    if (arc.HasFile("mod.xml"))
-                    {
-                        var doc = new System.Xml.XmlDocument();
-                        doc.Load(arc.GetData("mod.xml"));
-                        foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
-                        {
-                            _context.VarAliases.Add(xmlNode.Attributes.GetNamedItem("Name").Value, xmlNode.InnerText.Trim());
-                        }
-                    }
-                }
-            }
-            else
-            {
-                string mfile = System.IO.Path.Combine(location, "mod.xml");
-                if (System.IO.File.Exists(mfile))
-                {
-                    var doc = new System.Xml.XmlDocument();
-                    doc.Load(mfile);
-                    foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
-                    {
-                        _context.VarAliases.Add(xmlNode.Attributes.GetNamedItem("Name").Value, xmlNode.InnerText.Trim());
-                    }
-                }
-
-            }
-
         }
 
         public static Task TryAutoImportModsAsync()
