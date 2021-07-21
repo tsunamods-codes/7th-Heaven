@@ -476,11 +476,14 @@ namespace Iros._7th.Workshop
                 vars.Add(new _7thWrapperLib.Variable() { Name = defVar[0], Value = defVar[1] });
             }
 
+            // go this installed mods
             foreach(var itm in Sys.Library.Items)
             {
                 var mod = Sys.Library.GetItem(itm.ModID);
                 if (mod == null) continue;
                 string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+
+                // is this an IRO
                 if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
                 {
                     using (var arc = new _7thWrapperLib.IrosArc(location))
@@ -516,6 +519,44 @@ namespace Iros._7th.Workshop
             {
                 _context.VarAliases[var.Name] = var.Value;
             }
+        }
+
+        public static void newItemInstalled(InstalledItem iItem)
+        {
+            var mod = Sys.Library.GetItem(iItem.ModID);
+            if (mod == null) return;
+            string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+
+            if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
+            {
+                using (var arc = new _7thWrapperLib.IrosArc(location))
+                {
+                    if (arc.HasFile("mod.xml"))
+                    {
+                        var doc = new System.Xml.XmlDocument();
+                        doc.Load(arc.GetData("mod.xml"));
+                        foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                        {
+                            _context.VarAliases.Add(xmlNode.Attributes.GetNamedItem("Name").Value, xmlNode.InnerText.Trim());
+                        }
+                    }
+                }
+            }
+            else
+            {
+                string mfile = System.IO.Path.Combine(location, "mod.xml");
+                if (System.IO.File.Exists(mfile))
+                {
+                    var doc = new System.Xml.XmlDocument();
+                    doc.Load(mfile);
+                    foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                    {
+                        _context.VarAliases.Add(xmlNode.Attributes.GetNamedItem("Name").Value, xmlNode.InnerText.Trim());
+                    }
+                }
+
+            }
+
         }
 
         public static Task TryAutoImportModsAsync()

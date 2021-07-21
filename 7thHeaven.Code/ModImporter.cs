@@ -175,14 +175,17 @@ namespace _7thHeaven.Code
 
             RaiseProgressChanged("Finalizing import", 95);
 
-            Sys.Library.AddInstall(new InstalledItem()
+            InstalledItem installedItem = new InstalledItem()
             {
                 CachedDetails = m,
                 CachePreview = String.Empty,
                 ModID = m.ID,
                 UpdateType = Sys.Library.DefaultUpdate,
                 Versions = new List<InstalledVersion>() { new InstalledVersion() { VersionDetails = m.LatestVersion, InstalledLocation = destFileName } },
-            });
+            };
+
+            Sys.Library.AddInstall(installedItem);
+            Sys.newItemInstalled(installedItem);
 
             if (!Sys.ActiveProfile.HasItem(m.ID))
             {
