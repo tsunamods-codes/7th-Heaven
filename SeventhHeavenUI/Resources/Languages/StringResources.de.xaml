@@ -895,6 +895,7 @@ Aktivieren und erneut versuchen?</system:String>
     <system:String x:Key="IncompatibleMod">Mod ist nicht kompatibel</system:String>
     <system:String x:Key="ModIsNotCompatibleWithTheVersionYouHaveInstalled">Mod {0} ist nicht kompatibel mit der aktuell installierten Version von {1} . Versuche den Mod zu aktuallisieren.</system:String>
     <system:String x:Key="ModIsNotCompatibleWithYouWillNeedToDisableIt">Mod {0} ist nicht kompatibel mit {1}. Du musst ihn deaktivieren.</system:String>
+    <system:String x:Key="ModIsNotCompatibleAnotherModVariableUsed">Mod {0} ist nicht mit dem {1}-Mod kompatibel, da die Variable '{2}' in beiden definiert ist. Sie müssen einen von ihnen deaktivieren.</system:String>
 
     <system:String x:Key="TheFollowingModsWillNotWorkProperlyInTheCurrentOrder">Die folgenden Mods werden warscheinlich nicht richtig funktionieren in der aktuellen Ladereihenfolge. Trotzdem fortfahren?</system:String>
     <system:String x:Key="LoadOrderIncompatible">Ladereihenfolge Inkompatibel</system:String>

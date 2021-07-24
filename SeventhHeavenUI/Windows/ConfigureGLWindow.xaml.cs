@@ -22,7 +22,6 @@ namespace SeventhHeaven.Windows
 
         private Iros._7th.Workshop.ConfigSettings.Settings _settings;
         private Iros._7th.Workshop.ConfigSettings.ConfigSpec _spec;
-        private string _file;
 
         private List<GLSettingViewModel> ViewModels { get; set; }
 
@@ -41,10 +40,8 @@ namespace SeventhHeaven.Windows
         }
 
 
-        public bool Init(string cfgSpec, string cfgFile)
+        public bool Init(string cfgSpec)
         {
-            _file = cfgFile;
-
             try
             {
                 _spec = Util.Deserialize<Iros._7th.Workshop.ConfigSettings.ConfigSpec>(cfgSpec);
@@ -73,7 +70,7 @@ namespace SeventhHeaven.Windows
             // over ride it with OS reported suported resolutions
             ResolutionDD.Options = DigitalResolutions;
 
-            _settings = new Iros._7th.Workshop.ConfigSettings.Settings(_file);
+            _settings = new Iros._7th.Workshop.ConfigSettings.Settings();
             _settings.SetMissingDefaults(_spec.Settings);
 
             Dictionary<string, int> tabOrders = new Dictionary<string, int>()
@@ -212,7 +209,7 @@ namespace SeventhHeaven.Windows
                     item.Save(_settings);
                 }
 
-                _settings.Save(_file);
+                _settings.Save();
 
                 Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GameDriverSettingsSaved)));
                 this.Close();

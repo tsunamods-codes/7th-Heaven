@@ -221,15 +221,15 @@
 
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
-    <Name>SFX Option</Name>
-    <Description>Usa VGMStream para reproducir sonidos de efectos (SFX) de alta calidad en formato OGG Vorbis. Necesario para los Mods con sonidos SFX. En otro caso, se una el audio.dat nativo.</Description>
+    <Name>Opciones de Sonido/FX</Name>
+    <Description>Usa VGMStream para reproducir efectos de sonido (SFX) de alta calidad en formato OGG Vorbis. Necesario para los Mods con sonidos SFX. En otro caso, se una el audio.dat nativo.</Description>
     <DefaultValue>use_external_sfx = true</DefaultValue>
     <Option>
       <Text>VGMStream (Recomendado)</Text>
       <Settings>use_external_sfx = true</Settings>
     </Option>
     <Option>
-      <Text>Original audio.dat</Text>
+      <Text>audio.dat Original</Text>
       <Settings>use_external_sfx = false</Settings>
     </Option>
   </Setting>

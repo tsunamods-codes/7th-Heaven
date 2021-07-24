@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using System.Xml;
 
 namespace SeventhHeaven.Classes
 {
@@ -478,6 +479,39 @@ namespace SeventhHeaven.Classes
                 //
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CopyingEasyHookToFf7PathIfNotFoundOrOlder));
                 CopyEasyHookDlls();
+
+                //
+                // Inherit FFNx Config keys from each mod
+                //
+                Sys.FFNxConfig.Reload();
+                Sys.FFNxConfig.Backup();
+                foreach (RuntimeMod mod in runtimeProfile.Mods)
+                {
+                    foreach(FFNxFlag flag in mod.FFNxConfig)
+                    {
+                        bool addConfig = true;
+
+                        if (flag.Attributes.Count > 0)
+                        {
+                            foreach (var attr in flag.Attributes)
+                            {                                
+                                foreach(Iros._7th.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
+                                {
+                                    foreach(ProfileSetting setting in item.Settings)
+                                    {
+                                        if (setting.ID == attr.Key && setting.Value != attr.Value) addConfig = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (addConfig)
+                        {
+                            if (Sys.FFNxConfig.HasKey(flag.Key)) Sys.FFNxConfig.Set(flag.Key, flag.Value);
+                        }
+                    }
+                }
+                Sys.FFNxConfig.Save();
             }
 
             //
@@ -770,6 +804,8 @@ namespace SeventhHeaven.Classes
                         Logger.Error(ex);
                     }
 
+                    // Restore FFNx config after the game is closed
+                    Sys.FFNxConfig.RestoreBackup();
                 };
 
                 int secondsToWait = 120;
@@ -1084,10 +1120,63 @@ namespace SeventhHeaven.Classes
             }
 
             List<InstalledItem> activeInstalledMods = Sys.ActiveProfile.ActiveItems.Select(pi => Sys.Library.GetItem(pi.ModID)).ToList();
+            var vars = new List<_7thWrapperLib.Variable>();
 
             foreach (InstalledItem item in activeInstalledMods)
             {
                 ModInfo info = item.GetModInfo();
+                var mod = Sys.Library.GetItem(item.ModID);
+                string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+
+                if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
+                {
+                    using (var arc = new _7thWrapperLib.IrosArc(location))
+                    {
+                        if (arc.HasFile("mod.xml"))
+                        {
+                            var doc = new System.Xml.XmlDocument();
+                            doc.Load(arc.GetData("mod.xml"));
+                            foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                            {
+                                var currentVar = new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = item.ModID.ToString() };
+                                var test = vars.Find(var => var.Name == currentVar.Name);
+                                if (test == null){
+                                    vars.Add(currentVar);
+                                }
+                                else
+                                {
+                                    //@todo create StringKey resource for unknown incompatible mod
+                                    MessageDialogWindow.Show(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleAnotherModVariableUsed), item.CachedDetails.Name, Sys.Library.GetItem(new Guid(test.Value)).CachedDetails.Name, currentVar.Name), ResourceHelper.Get(StringKey.IncompatibleMod));
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string mfile = System.IO.Path.Combine(location, "mod.xml");
+                    if (System.IO.File.Exists(mfile))
+                    {
+                        var doc = new System.Xml.XmlDocument();
+                        doc.Load(mfile);
+                        foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                        {
+                            var currentVar = new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = item.ModID.ToString() };
+                            var test = vars.Find(var => var.Name == currentVar.Name);
+                            if (test == null)
+                            {
+                                vars.Add(currentVar);
+                            }
+                            else
+                            {
+                                MessageDialogWindow.Show(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleAnotherModVariableUsed), item.CachedDetails.Name, Sys.Library.GetItem(new Guid(test.Value)).CachedDetails.Name, currentVar.Name), ResourceHelper.Get(StringKey.IncompatibleMod));
+                                return false;
+                            }
+                        }
+                    }
+
+                }
 
                 if (info == null)
                 {

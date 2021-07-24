@@ -382,6 +382,7 @@
         IncompatibleMod,
         ModIsNotCompatibleWithTheVersionYouHaveInstalled,
         ModIsNotCompatibleWithYouWillNeedToDisableIt,
+        ModIsNotCompatibleAnotherModVariableUsed,
         TheFollowingModsWillNotWorkProperlyInTheCurrentOrder,
         LoadOrderIncompatible,
         ModIsMeantToComeBelowModInTheLoadOrder,

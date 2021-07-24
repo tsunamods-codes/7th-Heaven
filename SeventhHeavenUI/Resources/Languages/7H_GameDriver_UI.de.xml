@@ -112,15 +112,6 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
-    <Name>Lineares Filtern</Name>
-    <Description>Kann low Texturen verbessern. Nicht mit High Quallity Texturen verwenden. Bei Grafikfehlern, deaktivieren.</Description>
-    <DefaultValue>linear_filter = false</DefaultValue>
-    <TrueSetting>linear_filter = true</TrueSetting>
-    <FalseSetting>linear_filter = false</FalseSetting>
-  </Setting>
-
-  <Setting xsi:type="Checkbox">
-    <Group>Grafik</Group>
     <Name>Vertikale Syncronisierung</Name>
     <Description>Bildwiederholungsrate mit dem Monitor syncronisieren. Kann negative auswirkungen auf die Leistung haben. Ausschalten, fals Bildstörungen auftreten. *Grenzen Geschwindigkeit Betrügen!*</Description>
     <DefaultValue>enable_vsync = false</DefaultValue>

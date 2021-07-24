@@ -887,6 +887,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
     <system:String x:Key="IncompatibleMod">Mod Incompatível</system:String>
     <system:String x:Key="ModIsNotCompatibleWithTheVersionYouHaveInstalled">Mod {0} não é compatível com a versão de {1} que você tem instalada. Tente atualizar?</system:String>
     <system:String x:Key="ModIsNotCompatibleWithYouWillNeedToDisableIt">Mod {0} não é compatível com {1}. Você terá que desativá-lo.</system:String>
+    <system:String x:Key="ModIsNotCompatibleAnotherModVariableUsed">Mod {0} não é compatível com {1} porque a variável '{2}' é definida em ambos. Você precisará desativar um deles.</system:String>
 
     <system:String x:Key="TheFollowingModsWillNotWorkProperlyInTheCurrentOrder">Os seguintes mods não funcionarão direito na ordem atual. Quer continuar mesmo assim?</system:String>
     <system:String x:Key="LoadOrderIncompatible">Ordem de Carregamento Incompatível</system:String>

@@ -962,7 +962,7 @@
     </Content>
     <None Include="sign.ps1" />
     <Resource Include="7H.ico" />
-    <Content Include="7thHeaven.var">
+    <Content Include="Resources\7thHeaven.var">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="app.manifest" />

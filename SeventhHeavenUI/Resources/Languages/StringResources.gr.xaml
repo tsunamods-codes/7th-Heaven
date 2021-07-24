@@ -886,6 +886,7 @@
     <system:String x:Key="IncompatibleMod">Μη συμβατή Τροποποίηση</system:String>
     <system:String x:Key="ModIsNotCompatibleWithTheVersionYouHaveInstalled">Η τροποποίηση {0} δεν είναι συμβατή με την έκδοση της τροποποίησης {1} που έχετε εγκαταστήσει. Δοκιμάστε να την ενημερώσετε.</system:String>
     <system:String x:Key="ModIsNotCompatibleWithYouWillNeedToDisableIt">Η τροποποίηση {0} δεν είναι συμβατή με την τροποίηση {1}. Θα χρειαστεί να την απενεργοποιήσετε.</system:String>
+    <system:String x:Key="ModIsNotCompatibleAnotherModVariableUsed">Η τροποποίηση {0} δεν είναι συμβατή με την τροποίηση {1} καθώς η μεταβλητή "{2}" ορίζεται και στα δύο. Θα πρέπει να απενεργοποιήσετε ένα από αυτά</system:String>
 
     <system:String x:Key="TheFollowingModsWillNotWorkProperlyInTheCurrentOrder">Οι ακόλουθες τροποποιήσεις δεν θα λειτουργούν σωστά με την τρέχουσα σειρά. Θέλετε να συνεχίσετε ούτως ή άλλως;</system:String>
     <system:String x:Key="LoadOrderIncompatible">Μη συμβατή σειρά φόρτωσης</system:String>
