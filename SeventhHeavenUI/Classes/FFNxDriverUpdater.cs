@@ -237,6 +237,7 @@ namespace SeventhHeaven.Classes
                         SwitchToModPanel();
                         Sys.FFNxConfig.Reload();
                         Sys.FFNxConfig.ResetTo7thHeavenDefaults();
+                        Sys.FFNxConfig.OverrideInternalKeys();
                         Sys.FFNxConfig.Save();
 
                         MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);

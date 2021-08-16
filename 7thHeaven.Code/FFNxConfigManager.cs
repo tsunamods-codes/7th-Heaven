@@ -104,19 +104,6 @@ namespace Iros._7th.Workshop.ConfigSettings
             List<string> _read = File.ReadAllLines(_pathToFFNxToml).ToList();
             List<string> _write = new List<string>();
 
-            // Override known internal keys on save to preserve mod behavior override logic
-            _toml["external_sfx_path"] = "sfx";
-            _toml["external_sfx_ext"] = "ogg";
-            _toml["external_music_path"] = "music/vgmstream";
-            _toml["external_music_ext"] = "ogg";
-            _toml["external_voice_path"] = "voice";
-            _toml["external_voice_ext"] = "ogg";
-            _toml["external_ambient_path"] = "ambient";
-            _toml["external_ambient_ext"] = "ogg";
-            _toml["ffmpeg_video_ext"] = "avi";
-            _toml["mod_path"] = "mods/Textures";
-            _toml["direct_mode_path"] = "direct";
-
             foreach (string line in _read)
             {
                 string[] parts = line.Split(new[] { "=" }, 2, StringSplitOptions.None);
@@ -198,6 +185,22 @@ namespace Iros._7th.Workshop.ConfigSettings
             }
 
             File.WriteAllLines(_pathToFFNxToml, _write);
+        }
+
+        public void OverrideInternalKeys()
+        {
+            // Override known internal keys on save to preserve mod behavior override logic
+            _toml["external_sfx_path"] = "sfx";
+            _toml["external_sfx_ext"] = "ogg";
+            _toml["external_music_path"] = "music/vgmstream";
+            _toml["external_music_ext"] = "ogg";
+            _toml["external_voice_path"] = "voice";
+            _toml["external_voice_ext"] = "ogg";
+            _toml["external_ambient_path"] = "ambient";
+            _toml["external_ambient_ext"] = "ogg";
+            _toml["ffmpeg_video_ext"] = "avi";
+            _toml["mod_path"] = "mods/Textures";
+            _toml["direct_mode_path"] = "direct";
         }
 
         public void ResetTo7thHeavenDefaults()

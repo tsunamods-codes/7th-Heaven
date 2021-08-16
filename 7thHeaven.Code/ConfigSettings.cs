@@ -27,7 +27,7 @@ namespace Iros._7th.Workshop.ConfigSettings {
 
                     if (!Sys.FFNxConfig.IsSetWithValue(trimmedName, trimmedVal))
                         return false;
-                }                    
+                }
             }
 
             return true;
@@ -86,6 +86,7 @@ namespace Iros._7th.Workshop.ConfigSettings {
 
         public void Save()
         {
+            Sys.FFNxConfig.OverrideInternalKeys();
             Sys.FFNxConfig.Save();
         }
     }

@@ -121,7 +121,7 @@ namespace SeventhHeaven.Classes
 
             //
             // GAME CONVERTER - Make sure game is ready for mods
-            // 
+            //
             GameConverter converter = new GameConverter(Path.GetDirectoryName(Sys.Settings.FF7Exe));
             converter.MessageSent += GameConverter_MessageSent;
 
@@ -390,7 +390,7 @@ namespace SeventhHeaven.Classes
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoMountingVirtualGameDisc));
 
 
-                Instance.DiscMounter = new GameDiscMounter(Sys.Settings.GameLaunchSettings.MountingOption); 
+                Instance.DiscMounter = new GameDiscMounter(Sys.Settings.GameLaunchSettings.MountingOption);
                 bool didMount = Instance.DiscMounter.MountVirtualGameDisc();
 
                 if (!didMount)
@@ -430,7 +430,7 @@ namespace SeventhHeaven.Classes
 
             //
             // Update Registry with new launch settings
-            // 
+            //
             Instance.SetRegistryValues();
 
             //
@@ -485,6 +485,7 @@ namespace SeventhHeaven.Classes
                 //
                 Sys.FFNxConfig.Reload();
                 Sys.FFNxConfig.Backup();
+                Sys.FFNxConfig.OverrideInternalKeys();
                 foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
                     foreach(FFNxFlag flag in mod.FFNxConfig)
@@ -494,7 +495,7 @@ namespace SeventhHeaven.Classes
                         if (flag.Attributes.Count > 0)
                         {
                             foreach (var attr in flag.Attributes)
-                            {                                
+                            {
                                 foreach(Iros._7th.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
                                 {
                                     foreach(ProfileSetting setting in item.Settings)
@@ -695,7 +696,7 @@ namespace SeventhHeaven.Classes
 
 
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.GettingFf7Proc));
-               
+
                 if (ff7Proc == null)
                 {
                     Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToGetFf7Proc)}", NLog.LogLevel.Error);
