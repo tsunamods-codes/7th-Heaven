@@ -540,6 +540,8 @@
         </Grid>
         <Grid>
             <Image x:Name="light_bg_image" Margin="31,42,49,175" x:FieldModifier="public" Panel.ZIndex="1"/>
+            <ProgressBar Height="30" Margin="153,0,151,73" VerticalAlignment="Bottom" Value="25"/>
+            <Label Content="MODNAME" HorizontalAlignment="Left" Height="30" Margin="154,406,0,0" VerticalAlignment="Top" Width="223" Foreground="#FFBF0000" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Window>

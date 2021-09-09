@@ -1,4 +1,4 @@
-﻿using _7thHeaven.Code;
+using _7thHeaven.Code;
 using Iros._7th;
 using Iros._7th.Workshop;
 using SeventhHeaven.Classes;
@@ -772,6 +772,7 @@ namespace SeventhHeavenUI.ViewModels
         {
             if (_isGameDownloading)
             {
+                Console.WriteLine("Already Downloading");
                 return;
             }
 
@@ -783,6 +784,7 @@ namespace SeventhHeavenUI.ViewModels
                 Console.WriteLine("Installing content");
                 foreach (Mod missingMod in _missingMods)
                 {
+                    Console.WriteLine(missingMod.Name);
                     Console.WriteLine(missingMod.ID);
 
                     Install.DownloadAndInstall(missingMod, false);
