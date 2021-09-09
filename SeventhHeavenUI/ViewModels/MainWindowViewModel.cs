@@ -736,8 +736,9 @@ namespace SeventhHeavenUI.ViewModels
                     updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
                 });
             }
+#if LIGHT
             GetGameContent();
-            // GetMissingContent();
+#endif
         }
 
         public void GetGameContent()
@@ -767,6 +768,7 @@ namespace SeventhHeavenUI.ViewModels
 
         public void GetMissingContent()
         {
+            Console.WriteLine("Start Downloading");
             if (_missingMods != null)
             {
                 Console.WriteLine("Installing content");
@@ -782,14 +784,25 @@ namespace SeventhHeavenUI.ViewModels
             MyMods.ScanForModUpdates();
         }
 
-       public bool isOkToPlay()
+        public bool isOkToPlay()
         {
-            if (_missingMods.Count == 0)
+            if (_missingMods != null)
             {
-                return true;
+                if (_missingMods.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
             }
+
             else
+            {
                 return false;
+            }
         }
 
         private void CatalogList_RefreshRequested()
