@@ -98,6 +98,7 @@ namespace SeventhHeavenUI
 
             if (ViewModel.isOkToPlay())
             {
+                ViewModel.endDownload();
                 this.btnPlay.Content = "Play";
             }
             else

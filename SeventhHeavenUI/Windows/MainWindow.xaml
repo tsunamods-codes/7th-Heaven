@@ -539,7 +539,7 @@
             </StatusBar>
         </Grid>
         <Grid>
-            <Image x:Name="light_bg_image" Margin="31,42,49,223" x:FieldModifier="public" Panel.ZIndex="1"/>
+            <Image x:Name="light_bg_image" Margin="31,42,49,175" x:FieldModifier="public" Panel.ZIndex="1"/>
         </Grid>
     </Grid>
 </Window>

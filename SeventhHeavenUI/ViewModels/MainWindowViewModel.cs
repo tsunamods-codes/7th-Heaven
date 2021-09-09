@@ -118,6 +118,7 @@ namespace SeventhHeavenUI.ViewModels
         private Visibility _noImageTextVisibility;
         private bool _isGameLaunching;
         private bool _isPlayToggleButtonEnabled;
+        private bool _isGameDownloading;
 
         public string WindowTitle
         {
@@ -738,6 +739,7 @@ namespace SeventhHeavenUI.ViewModels
             }
 #if LIGHT
             GetGameContent();
+            _isGameDownloading = false;
 #endif
         }
 
@@ -768,9 +770,16 @@ namespace SeventhHeavenUI.ViewModels
 
         public void GetMissingContent()
         {
+            if (_isGameDownloading)
+            {
+                return;
+            }
+
+
             Console.WriteLine("Start Downloading");
             if (_missingMods != null)
             {
+                _isGameDownloading = true;
                 Console.WriteLine("Installing content");
                 foreach (Mod missingMod in _missingMods)
                 {
@@ -779,7 +788,6 @@ namespace SeventhHeavenUI.ViewModels
                     Install.DownloadAndInstall(missingMod, false);
                 }
             }
-
             MyMods.AutoSortBasedOnCategory();
             MyMods.ScanForModUpdates();
         }
@@ -803,6 +811,11 @@ namespace SeventhHeavenUI.ViewModels
             {
                 return false;
             }
+        }
+
+        public void endDownload()
+        {
+            _isGameDownloading = false;
         }
 
         private void CatalogList_RefreshRequested()
