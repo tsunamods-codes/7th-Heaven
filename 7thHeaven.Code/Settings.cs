@@ -162,7 +162,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.Options.Add(GeneralOptions.OpenModFilesWith7H);
             defaultSettings.Options.Add(GeneralOptions.CheckForUpdates);
 
-            defaultSettings.Subscriptions.Add(new Subscription() { Url = "iros://Url/https$ff7ovaremake.com/catalog/ova.xml", Name = "Qhimm Catalog" });
+            defaultSettings.Subscriptions.Add(new Subscription() { Url = "iros://Url/https$ff7ovaremake.com/catalog/ova.xml", Name = "FF7 OVA Remake" });
 
             defaultSettings.ExtraFolders.Add("direct");
             defaultSettings.ExtraFolders.Add("music");
