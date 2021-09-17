@@ -513,18 +513,21 @@ namespace Iros._7th.Workshop
                 // is this an IRO
                 if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
                 {
-                    using (var arc = new _7thWrapperLib.IrosArc(location))
+                    try
                     {
-                        if (arc.HasFile("mod.xml"))
+                        using (var arc = new _7thWrapperLib.IrosArc(location))
                         {
-                            var doc = new System.Xml.XmlDocument();
-                            doc.Load(arc.GetData("mod.xml"));
-                            foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                            if (arc.HasFile("mod.xml"))
                             {
-                                vars.Add(new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                                var doc = new System.Xml.XmlDocument();
+                                doc.Load(arc.GetData("mod.xml"));
+                                foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
+                                {
+                                    vars.Add(new _7thWrapperLib.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                                }
                             }
                         }
-                    }
+                    }catch(Exception) { }
                 }
                 else
                 {
