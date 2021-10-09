@@ -1,4 +1,4 @@
-﻿using _7thHeaven.Code;
+using _7thHeaven.Code;
 using Iros._7th;
 using Iros._7th.Workshop;
 using SeventhHeaven.Classes;
@@ -75,9 +75,9 @@ namespace SeventhHeaven.Windows
 
             Dictionary<string, int> tabOrders = new Dictionary<string, int>()
             {
-                {ResourceHelper.Get(StringKey.Graphics), 0},
-                {ResourceHelper.Get(StringKey.Cheats), 1},
-                {ResourceHelper.Get(StringKey.Advanced), 2}
+                {"Graphics" , 0},
+                {"Cheats", 1},
+                {"Advanced", 2}
             };
 
             foreach (var items in _spec.Settings.GroupBy(s => s.Group)
