@@ -2,21 +2,16 @@
 using Iros._7th;
 using Iros._7th.Workshop;
 using SeventhHeaven.Classes;
-using SeventhHeaven.Classes.Themes;
 using SeventhHeaven.ViewModels;
 using SeventhHeaven.Windows;
 using SeventhHeavenUI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace SeventhHeavenUI
 {
@@ -27,9 +22,7 @@ namespace SeventhHeavenUI
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        internal CatalogViewModel CatalogModel { get; set; }
         internal MainWindowViewModel ViewModel { get; set; }
-        internal MyModsViewModel ModsModel { get; set; }
 
         private int _currentTabIndex = 0;
 
@@ -44,37 +37,6 @@ namespace SeventhHeavenUI
             ctrlCatalog.SetDataContext(ViewModel.CatalogMods);
         }
 
-
-        internal void UpdateBackgroundImage(byte[] newImage)
-        {
-#if LIGHT
-            try
-            {
-                if (newImage == null || newImage.Length == 0)
-                {
-                    this.light_bg_image.Source = new BitmapImage();
-                    return;
-                }
-
-                using (var stream = new MemoryStream(newImage))
-                {
-                    BitmapImage bi = new BitmapImage();
-                    bi.BeginInit();
-                    bi.CacheOption = BitmapCacheOption.OnLoad;
-                    bi.StreamSource = stream;
-                    bi.EndInit();
-                    this.light_bg_image.Source = bi;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.Warn(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToSetBackgroundImageFromTheme), true));
-
-            }
-#endif
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.InitViewModel();
@@ -86,48 +48,6 @@ namespace SeventhHeavenUI
             App.ProcessCommandLineArgs(Environment.GetCommandLineArgs(), true);
 
             InitColumnSettings();
-
-#if LIGHT
-
-            this.tabCtrlMain.Visibility = Visibility.Hidden;
-            this.gbModInfo.Visibility = Visibility.Hidden;
-            this.btnTools.Visibility = Visibility.Hidden;
-            this.txtSearch.Visibility = Visibility.Hidden;
-            this.txtPlaceholder.Visibility = Visibility.Hidden;
-            this.btnFilters.Visibility = Visibility.Hidden;
-            this.btnPlayOptions.Visibility = Visibility.Hidden;
-
-            if (ViewModel.isOkToPlay())
-            {
-                ViewModel.endDownload();
-                this.btnPlay.Content = "Play";
-            }
-            else
-            {
-                this.btnPlay.Content = "Install";
-            }
-
-
-#endif
-
-            ThemeSettingsViewModel.LoadThemeFromFile();
-            ITheme themeSettings = ThemeSettingsViewModel.GetThemeSettingsFromFile();
-
-
-
-            if (!string.IsNullOrEmpty(themeSettings.BackgroundImageBase64))
-            {
-                try
-                {
-                    byte[] imageBytes = Convert.FromBase64String(themeSettings.BackgroundImageBase64);
-                    UpdateBackgroundImage(imageBytes);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn(ex);
-                    UpdateBackgroundImage(null);
-                }
-            }
         }
 
         private void InitColumnSettings()
@@ -204,21 +124,9 @@ namespace SeventhHeavenUI
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-#if LIGHT
-            if (ViewModel.isOkToPlay())
-            {
-                ViewModel.LaunchGame(variableDump: false, debugLogging: false);
-            }
-            else
-            {
-                this.btnPlay.Content = "Downloading...";
-                ViewModel.GetMissingContent();
-            }
-#else
             ViewModel.LaunchGame(variableDump: false, debugLogging: false);
-
-#endif
         }
+
         private void txtSearch_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
