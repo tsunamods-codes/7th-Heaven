@@ -47,6 +47,7 @@ namespace SeventhHeavenUI
 
         internal void UpdateBackgroundImage(byte[] newImage)
         {
+#if LIGHT
             try
             {
                 if (newImage == null || newImage.Length == 0)
@@ -71,7 +72,7 @@ namespace SeventhHeavenUI
                 Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToSetBackgroundImageFromTheme), true));
 
             }
-
+#endif
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
