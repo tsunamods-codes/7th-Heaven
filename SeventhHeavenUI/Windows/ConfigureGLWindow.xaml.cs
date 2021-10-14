@@ -75,13 +75,13 @@ namespace SeventhHeaven.Windows
 
             Dictionary<string, int> tabOrders = new Dictionary<string, int>()
             {
-                {"Graphics" , 0},
-                {"Cheats", 1},
-                {"Advanced", 2}
+                {ResourceHelper.Get(StringKey.Graphics), 0},
+                {ResourceHelper.Get(StringKey.Cheats), 1},
+                {ResourceHelper.Get(StringKey.Advanced), 2}
             };
 
             foreach (var items in _spec.Settings.GroupBy(s => s.Group)
-                                                .Select(g => new { settingGroup = g, SortOrder = tabOrders[g.Key] })
+                                                .Select(g => new { settingGroup = g, SortOrder = tabOrders[ResourceHelper.Get((StringKey)Enum.Parse(typeof(StringKey), g.Key))] })
                                                 .OrderBy(g => g.SortOrder)
                                                 .Select(g => g.settingGroup))
             {
