@@ -221,21 +221,6 @@
 
   <Setting xsi:type="DropDown">
     <Group>Advanced</Group>
-    <Name>SFX Option</Name>
-    <Description>Use VGMStream to play OGG Vorbis high-quality SFX effects. Required for SFX mods. Otherwise, native audio.dat is used.</Description>
-    <DefaultValue>use_external_sfx = false</DefaultValue>
-    <Option>
-      <Text>VGMStream (Recommended)</Text>
-      <Settings>use_external_sfx = true</Settings>
-    </Option>
-    <Option>
-      <Text>Original audio.dat</Text>
-      <Settings>use_external_sfx = false</Settings>
-    </Option>
-  </Setting>
-
-  <Setting xsi:type="DropDown">
-    <Group>Advanced</Group>
     <Name>Movie Option</Name>
     <Description>Use FFMPEG for in-game movies (FMVs) playback. Or, use original renderer, which may not support as many movie codecs.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
