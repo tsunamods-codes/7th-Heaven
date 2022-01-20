@@ -118,6 +118,24 @@
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
+  
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>Advanced Lighting</Name>
+    <Description>Enable support for realtime lighting. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <DefaultValue>enable_lighting = false</DefaultValue>
+    <TrueSetting>enable_lighting = true</TrueSetting>
+    <FalseSetting>enable_lighting = false</FalseSetting>
+  </Setting>
+  
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>Animated Textures</Name>
+    <Description>Enable support for high quality animated textures. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <DefaultValue>enable_animated_textures = false</DefaultValue>
+    <TrueSetting>enable_animated_textures = true</TrueSetting>
+    <FalseSetting>enable_animated_textures = false</FalseSetting>
+  </Setting>
 
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
@@ -240,11 +258,11 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>
-    <Name>Animated Textures</Name>
-    <Description>Enable support for high quality animated textures. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
-    <DefaultValue>enable_animated_textures = false</DefaultValue>
-    <TrueSetting>enable_animated_textures = true</TrueSetting>
-    <FalseSetting>enable_animated_textures = false</FalseSetting>
+    <Name>Analogue Controls</Name>
+    <Description>Enable support for full omni-directional anaglogue control.</Description>
+    <DefaultValue>enable_analogue_controls = false</DefaultValue>
+    <TrueSetting>enable_analogue_controls = true</TrueSetting>
+    <FalseSetting>enable_analogue_controls = false</FalseSetting>
   </Setting>
   
   <Setting xsi:type="Checkbox">
