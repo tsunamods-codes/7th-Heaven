@@ -920,7 +920,19 @@ namespace _7thWrapperLib
                     var flag = new FFNxFlag();
 
                     flag.Key = child.Name;
-                    flag.Value = child.InnerText;
+                    if (child.ChildNodes.Count > 1)
+                    {
+                        List<string> items = new List<string>();
+                        foreach (XmlNode item in child.ChildNodes)
+                        {
+                            items.Add(item.InnerText);
+                        }
+                        flag.Values = items;
+                    }
+                    else
+                    {
+                        flag.Value = child.InnerText;
+                    }
 
                     foreach (XmlAttribute attr in child.Attributes)
                         flag.Attributes.Add(attr.Name, int.Parse(attr.Value));
@@ -1318,12 +1330,14 @@ namespace _7thWrapperLib
     {
         public string Key;
         public string Value;
+        public List<string> Values;
         public Dictionary<string, int> Attributes;
 
         public FFNxFlag()
         {
             Key = String.Empty;
             Value = String.Empty;
+            Values = new List<string>();
             Attributes = new Dictionary<string, int>();
         }
     }
