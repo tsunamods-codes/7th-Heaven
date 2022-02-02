@@ -216,7 +216,7 @@ namespace _7thHeaven.Code
                 }catch (Exception ex)
                 {
                     downloadItem.OnCancel?.Invoke();
-                    throw new Exception("Failed to download");
+                    throw new Exception("Failed to download - Please report this to 7th-Heaven-Bugs channel in the Tsunamods Discord");
                 }
             }
 
