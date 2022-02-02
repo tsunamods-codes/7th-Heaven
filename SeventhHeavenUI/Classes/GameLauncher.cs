@@ -1249,7 +1249,7 @@ namespace SeventhHeaven.Classes
                 {
                     if (Sys.ActiveProfile.ActiveItems.Skip(i).Any(pi => pi.ModID.Equals(after)))
                     {
-                        problems.Add(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleWithYouWillNeedToDisableIt), details[mod.ModID].Mod.CachedDetails.Name, details[after].Mod.CachedDetails.Name));
+                        problems.Add(string.Format(ResourceHelper.Get(StringKey.ModIsMeantToComeBelowModInTheLoadOrder), details[mod.ModID].Mod.CachedDetails.Name, details[after].Mod.CachedDetails.Name));
                     }
                 }
 
@@ -1257,7 +1257,7 @@ namespace SeventhHeaven.Classes
                 {
                     if (Sys.ActiveProfile.ActiveItems.Take(i).Any(pi => pi.ModID.Equals(before)))
                     {
-                        problems.Add(string.Format(ResourceHelper.Get(StringKey.ModIsNotCompatibleWithYouWillNeedToDisableIt), details[mod.ModID].Mod.CachedDetails.Name, details[before].Mod.CachedDetails.Name));
+                        problems.Add(string.Format(ResourceHelper.Get(StringKey.ModIsMeantToComeAboveModInTheLoadOrder), details[mod.ModID].Mod.CachedDetails.Name, details[before].Mod.CachedDetails.Name));
                     }
                 }
             }
