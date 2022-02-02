@@ -620,8 +620,6 @@ namespace Iros._7th.Workshop
 
         public static bool ValidateAndRemoveDeletedMods()
         {
-            bool deletedInvalidMod = false;
-
             foreach (InstalledItem mod in Sys.Library.Items.ToList())
             {
                 if (!mod.ModExistsOnFileSystem())
@@ -630,11 +628,10 @@ namespace Iros._7th.Workshop
                     Sys.ActiveProfile.Items.RemoveAll(p => p.ModID == mod.ModID);
                     Mod details = mod.CachedDetails ?? new Mod();
                     Sys.Message(new WMessage { Text = $"{details.Name} - [{StringKey.ModCouldNotBeFoundHasItBeenDeleted}]", TextTranslationKey = StringKey.ModCouldNotBeFoundHasItBeenDeleted });
-                    deletedInvalidMod = true;
                 }
             }
 
-            return deletedInvalidMod;
+            return false;
         }
     }
 }

@@ -497,7 +497,17 @@ namespace SeventhHeaven.Classes
 
                         if (addConfig)
                         {
-                            if (Sys.FFNxConfig.HasKey(flag.Key)) Sys.FFNxConfig.Set(flag.Key, flag.Value);
+                            if (Sys.FFNxConfig.HasKey(flag.Key))
+                            {
+                                if (flag.Values.Count > 0)
+                                {
+                                    Sys.FFNxConfig.Set(flag.Key, flag.Values);
+                                }
+                                else
+                                {
+                                    Sys.FFNxConfig.Set(flag.Key, flag.Value);
+                                }
+                            }
                         }
                     }
                 }
@@ -777,7 +787,10 @@ namespace SeventhHeaven.Classes
                         if (Sys.Settings.GameLaunchSettings.AutoUnmountGameDisc && Instance.DidMountVirtualDisc)
                         {
                             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoUnmountingGameDisc));
-                            Instance.DiscMounter.UnmountVirtualGameDisc();
+                            if (Instance.DiscMounter != null)
+                            {
+                                Instance.DiscMounter.UnmountVirtualGameDisc();
+                            }
                             Instance.DiscMounter = null;
                         }
 
