@@ -88,7 +88,9 @@ namespace _7thHeaven.Code
 
         public bool IsStarted { get => _isStarted; }
 
-        public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null,int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
+        public DownloadItem downloadItem { get; set; }
+
+        public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null, int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
         {
             System.Net.ServicePointManager.Expect100Continue = false; // ensure this is set to false
             AllowedToRun = true;
@@ -148,38 +150,41 @@ namespace _7thHeaven.Code
             if (IsPaused || IsCanceled)
                 return;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_sourceUrl);
-            request.Method = "GET";
-            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)";
-            request.KeepAlive = false;
-            request.Proxy = null;
-            request.AddRange(range);
-
-            if (_cookies != null)
-            {
-                request.CookieContainer = _cookies;
-            }
-
-            if (Headers != null)
-            {
-                request.Referer = Headers["Referer"];
-            }
-
             if (_contentLength == null)
             {
                 _contentLength = await GetContentLengthAsync();
             }
 
-            using (WebResponse response = await request.GetResponseAsync())
+            if (range != _contentLength)
             {
-                if (ContentLength == -1 && !_checkedContentRange)
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_sourceUrl);
+                request.Method = "GET";
+                request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)";
+                request.KeepAlive = false;
+                request.Proxy = null;
+                request.AddRange(range);
+
+                if (_cookies != null)
                 {
-                    _checkedContentRange = true;
-                    _contentLength = GetContentRange(response);
+                    request.CookieContainer = _cookies;
                 }
 
-                using (Stream responseStream = response.GetResponseStream())
+                if (Headers != null)
                 {
+                    request.Referer = Headers["Referer"];
+                }
+
+                try
+                {
+                    WebResponse response = await request.GetResponseAsync();
+                    if (ContentLength == -1 && !_checkedContentRange)
+                    {
+                        _checkedContentRange = true;
+                        _contentLength = GetContentRange(response);
+                    }
+
+                    Stream responseStream = response.GetResponseStream();
+
                     FileMode fileMode = FileMode.Append;
 
                     if (!IsStarted)
@@ -187,28 +192,35 @@ namespace _7thHeaven.Code
                         fileMode = FileMode.Create;
                     }
 
-                    using (FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite))
+                    FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
+
+                    while (AllowedToRun && !IsCanceled)
                     {
-                        while (AllowedToRun && !IsCanceled)
-                        {
-                            _isStarted = true;
-                            byte[] buffer = new byte[_chunkSize];
-                            int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                        _isStarted = true;
+                        byte[] buffer = new byte[_chunkSize];
+                        int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
 
-                            if (bytesRead == 0) break;
+                        if (bytesRead == 0) break;
 
-                            await fs.WriteAsync(buffer, 0, bytesRead);
-                            BytesWritten += bytesRead;
+                        await fs.WriteAsync(buffer, 0, bytesRead);
+                        BytesWritten += bytesRead;
 
-                            float prog = (float)BytesWritten / (float)ContentLength;
-                            var e = new ProgressChangedEventArgs((int) (prog * 100), _userState);
-                            DownloadProgressChanged?.Invoke(this, e);
-                        }
-
-                        await fs.FlushAsync();
+                        float prog = (float)BytesWritten / (float)ContentLength;
+                        var e = new ProgressChangedEventArgs((int)(prog * 100), _userState);
+                        DownloadProgressChanged?.Invoke(this, e);
                     }
+
+                    await fs.FlushAsync();
+                    fs.Close();
+                    responseStream.Close();
+                }catch (Exception ex)
+                {
+                    downloadItem.OnCancel?.Invoke();
+                    throw new Exception("Failed to download");
                 }
             }
+
+
 
             if (AllowedToRun && !IsCanceled && (BytesWritten == ContentLength) || (ContentLength == -1)) // -1 is returned when response doesnt have the content-length
             {
@@ -239,18 +251,24 @@ namespace _7thHeaven.Code
         public Task Start()
         {
             AllowedToRun = true;
-            Task downloadTask = Start(BytesWritten);
-
-            // wire up async task to handle exceptions that may occurr
-            downloadTask.ContinueWith((result) =>
+            try
             {
-                if (result.IsFaulted)
-                {
-                    DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(result.Exception.GetBaseException(), false, _userState));
-                }
-            });
+                Task downloadTask = Start(BytesWritten);
 
-            return downloadTask;
+                // wire up async task to handle exceptions that may occurr does not work because using bloc
+                downloadTask.ContinueWith((result) =>
+                {
+                    if (result.IsFaulted)
+                    {
+                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(result.Exception.GetBaseException(), false, _userState));
+                    }
+                });
+
+                return downloadTask;
+            }
+            catch (Exception ex) {
+                throw new Exception("Failed to download", ex);
+            }
         }
 
         public void Pause()
