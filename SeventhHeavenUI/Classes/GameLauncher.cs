@@ -797,34 +797,18 @@ namespace SeventhHeaven.Classes
                     // Restore FFNx config after the game is closed
                     Sys.FFNxConfig.RestoreBackup();
                 };
-
-                int secondsToWait = 120;
-                Instance.RaiseProgressChanged(string.Format(ResourceHelper.Get(StringKey.WaitingForFF7WindowToBeVisible), secondsToWait));
-                DateTime start = DateTime.Now;
-                while (ff7Proc.MainWindowHandle == IntPtr.Zero)
-                {
-                    TimeSpan elapsed = DateTime.Now.Subtract(start);
-                    if (elapsed.TotalSeconds > secondsToWait)
-                        break;
-
-                    ff7Proc.Refresh();
-                }
-
-                if (didDisableReunion)
-                {
-                    Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ReenablingReunionMod));
-                    EnableOrDisableReunionMod(doEnable: true);
-                }
+            
 
                 // ensure ff7 window is active at end of launching
                 if (ff7Proc.MainWindowHandle != IntPtr.Zero)
                 {
+                    int secondsToWait = 120;
                     // setting the ff7 proc as the foreground window makes it the active window and thus can start processing mods (this will usually cause a 'Not Responding...' window when loading a lot of mods)
                     SetForegroundWindow(ff7Proc.MainWindowHandle);
                     Instance.RaiseProgressChanged(string.Format(ResourceHelper.Get(StringKey.WaitingForFf7ExeToRespond), secondsToWait));
 
                     // after setting as active window, wait to ensure the window loads all mods and becomes responsive
-                    start = DateTime.Now;
+                    DateTime start = DateTime.Now;
                     while (ff7Proc.Responding == false)
                     {
                         TimeSpan elapsed = DateTime.Now.Subtract(start);
@@ -833,6 +817,14 @@ namespace SeventhHeaven.Classes
 
                         ff7Proc.Refresh();
                     }
+
+                    ff7Proc.Exited += (object sender, EventArgs e) => {
+                        if (didDisableReunion)
+                        {
+                            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ReenablingReunionMod));
+                            EnableOrDisableReunionMod(doEnable: true);
+                        }
+                    };
 
                     SetForegroundWindow(ff7Proc.MainWindowHandle); // activate window again
                 }
