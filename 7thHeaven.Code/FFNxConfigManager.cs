@@ -61,6 +61,16 @@ namespace Iros._7th.Workshop.ConfigSettings
             }
         }
 
+        public void Set<T>(string key, List<T> value)
+        {
+            TomlArray ta = new TomlArray();
+            foreach (T s in value)
+            {
+                ta.Add(s);
+            }
+            _toml[key] = ta;
+        }
+
         public bool IsSetWithValue(string key, string value)
         {
             switch (_toml[key])

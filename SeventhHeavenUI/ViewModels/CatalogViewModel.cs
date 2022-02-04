@@ -872,9 +872,9 @@ namespace SeventhHeavenUI.ViewModels
                         }
 
                         downloadInfo.FileDownloadTask = fileDownload;
-
-
+                        fileDownload.downloadItem = downloadInfo;
                         fileDownload.Start();
+
                         break;
 
                     case LocationType.GDrive:
