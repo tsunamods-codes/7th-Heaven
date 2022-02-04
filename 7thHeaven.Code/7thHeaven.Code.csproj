@@ -133,10 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SharpCompress">
-      <Version>0.28.3</Version>
+      <Version>0.30.1</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
-      <Version>0.1.2</Version>
+      <Version>0.10.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
