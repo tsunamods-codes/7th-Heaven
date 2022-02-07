@@ -163,6 +163,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("sfx");
             defaultSettings.ExtraFolders.Add("voice");
             defaultSettings.ExtraFolders.Add("ambient");
+            defaultSettings.ExtraFolders.Add("lighting");
 
             defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Stable;
 
