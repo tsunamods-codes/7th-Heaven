@@ -1024,9 +1024,32 @@ namespace SeventhHeavenUI.ViewModels
                 return;
             }
 
-            if (item.Category == DownloadCategory.Image && download.ContentLength > (5 * 1024*1024))
+            int allowedSize = 0;
+            string displaySize = "Unlimited";
+            switch (Sys.Settings.DownloadPreviewSize)
             {
-                Logger.Warn("preview image greater than 5MB, cancelling download");
+                case 0:
+                    allowedSize = 3;
+                    displaySize = "3MB";
+                    break;
+                case 1:
+                    allowedSize = 5;
+                    displaySize = "5MB";
+                    break;
+                case 2:
+                    allowedSize = 10;
+                    displaySize = "10MB";
+                    break;
+                case 3:
+                    allowedSize = 50;
+                    displaySize = "50MB";
+                    break;
+            }
+            allowedSize *= (1024 * 1024);
+
+            if ( item.Category == DownloadCategory.Image && ( Sys.Settings.DownloadPreviewSize >= 4 || download.ContentLength <= allowedSize ) )
+            {
+                Logger.Warn("cancelled download, preview image greater than " + displaySize+" you can change this in the settings.");
                 item.PerformCancel?.Invoke();
                 return;
             }

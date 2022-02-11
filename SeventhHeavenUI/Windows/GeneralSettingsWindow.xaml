@@ -20,10 +20,16 @@
                 <TextBlock Text="{Binding ElementName=AppGd, Path=DataContext.AppUpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
             </Grid>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="FFNxChannelDataTemplate">
             <Grid x:Name="FFNxGd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
                 <TextBlock Text="{Binding ElementName=FFNxGd, Path=DataContext.FFNxUpdateChannel, FallbackValue='Stable'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PreviewSettingsTemplate">
+            <Grid x:Name="previewGd" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentControl}, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=previewGd, Path=DataContext.PrevImageDownloadSizeString, FallbackValue='3MB'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
             </Grid>
         </DataTemplate>
 
@@ -410,9 +416,17 @@
 
             </Grid>
         </Popup>
-        <GroupBox Header="Channel Management" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
+        
+        <GroupBox Header="Misc Settings" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
             <Grid>
-                <!---->
+                <TextBlock Margin="20,10,135,86" HorizontalAlignment="Right">Preview image size limit</TextBlock>
+                <ComboBox SelectedIndex="{Binding PrevImageDownloadSize}" ItemTemplate="{StaticResource PreviewSettingsTemplate}" x:Name="PrevDownloadSize" SelectionChanged="PrevDownloadSize_SelectionChanged" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" Width="120">
+                    <ComboBoxItem>3MB</ComboBoxItem>
+                    <ComboBoxItem>5MB</ComboBoxItem>
+                    <ComboBoxItem>10MB</ComboBoxItem>
+                    <ComboBoxItem>50MB</ComboBoxItem>
+                    <ComboBoxItem>Unlimited</ComboBoxItem>
+                </ComboBox>
             </Grid>
         </GroupBox>
     </Grid>

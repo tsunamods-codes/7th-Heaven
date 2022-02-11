@@ -45,6 +45,7 @@ namespace SeventhHeaven.ViewModels
         private bool _subscriptionNameTextBoxIsEnabled;
         private ObservableCollection<string> _extraFolderList;
         private string _statusMessage;
+        private int _prevImageDownloadSize;
 
         private AppUpdateChannelOptions _appUpdateChannel;
 
@@ -65,6 +66,27 @@ namespace SeventhHeaven.ViewModels
             {
                 _fF7ExePathInput = value;
                 NotifyPropertyChanged();
+            }
+        }
+
+        public int PrevImageDownloadSize
+        {
+            get { 
+                return _prevImageDownloadSize; 
+            }
+            set { 
+                _prevImageDownloadSize = value;
+                Sys.Settings.DownloadPreviewSize = value;
+                NotifyPropertyChanged("PrevImageDownloadSize");
+                NotifyPropertyChanged("PrevImageDownloadSizeString");
+            }
+        }
+
+        public string PrevImageDownloadSizeString
+        {
+            get
+            {
+                return ((PreviewDownloadSizes)_prevImageDownloadSize).ToString().Substring(1);
             }
         }
 
@@ -250,6 +272,7 @@ namespace SeventhHeaven.ViewModels
             }
         }
 
+
         public ObservableCollection<string> ExtraFolderList
         {
             get
@@ -399,6 +422,7 @@ namespace SeventhHeaven.ViewModels
             ExtraFolderList = new ObservableCollection<string>(settings.ExtraFolders.ToList());
 
             FF7ExePathInput = settings.FF7Exe;
+            PrevImageDownloadSize = settings.DownloadPreviewSize;
             LibraryPathInput = settings.LibraryLocation;
             MoviesPathInput = settings.MovieFolder;
             TexturesPathInput = settings.AaliFolder;
@@ -553,6 +577,21 @@ namespace SeventhHeaven.ViewModels
             Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
 
             return true;
+        }
+
+        private enum PreviewDownloadSizes
+        {
+            s3MB        = 0,
+            s5MB        = 1,
+            s10MB       = 2,
+            s50MB       = 3,
+            unlimited   = 4
+        }
+
+        public void PrevImageDownloadSizeUpdate(int index)
+        {
+            _prevImageDownloadSize = index;
+            NotifyPropertyChanged();
         }
 
         /// <summary>
