@@ -417,5 +417,10 @@ namespace SeventhHeaven.Windows
         {
             ViewModel.ResetToDefaults();
         }
+
+        private void PrevDownloadSize_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if(ViewModel != null) ViewModel.PrevImageDownloadSizeUpdate((int)((ComboBox)sender).SelectedIndex);
+        }
     }
 }

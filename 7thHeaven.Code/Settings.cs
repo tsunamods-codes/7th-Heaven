@@ -119,6 +119,8 @@ namespace Iros._7th.Workshop {
 
         public ColumnSettings UserColumnSettings { get; set; }
 
+        public int DownloadPreviewSize { get; set; }
+
         public Settings() {
             ExtraFolders = new List<string>();
             ProgramsToLaunchPrior = new List<ProgramLaunchInfo>();
@@ -129,6 +131,7 @@ namespace Iros._7th.Workshop {
             IsFirstStart = false;
             GameLaunchSettings = LaunchSettings.DefaultSettings();
             UserColumnSettings = new ColumnSettings();
+            DownloadPreviewSize = 0;
         }
 
         public bool HasOption(GeneralOptions option)
