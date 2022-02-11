@@ -327,6 +327,15 @@ namespace Iros._7th.Workshop
                 Util.Serialize(Settings, fs);
         }
 
+        /// <summary> 
+        /// Returns the Catalog in <see cref="Catalog"/> 
+        /// <returns>Catalog</returns> 
+        public static Catalog GetCatalog()
+        {
+
+            return Catalog;
+        }
+
         /// <summary>
         /// Updates <see cref="Catalog"/> to <paramref name="newCatalog"/>; 
         /// thread safe by locking the object
