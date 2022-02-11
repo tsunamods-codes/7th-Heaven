@@ -69,27 +69,6 @@ namespace SeventhHeaven.ViewModels
             }
         }
 
-        public int PrevImageDownloadSize
-        {
-            get { 
-                return _prevImageDownloadSize; 
-            }
-            set { 
-                _prevImageDownloadSize = value;
-                Sys.Settings.DownloadPreviewSize = value;
-                NotifyPropertyChanged("PrevImageDownloadSize");
-                NotifyPropertyChanged("PrevImageDownloadSizeString");
-            }
-        }
-
-        public string PrevImageDownloadSizeString
-        {
-            get
-            {
-                return ((PreviewDownloadSizes)_prevImageDownloadSize).ToString().Substring(1);
-            }
-        }
-
         public string MoviesPathInput
         {
             get
