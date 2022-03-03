@@ -213,7 +213,8 @@ namespace _7thHeaven.Code
                     await fs.FlushAsync();
                     fs.Close();
                     responseStream.Close();
-                }catch (Exception ex)
+                }
+                catch (Exception)
                 {
                     downloadItem.OnCancel?.Invoke();
                     throw new Exception("Failed to download - Please report this to 7th-Heaven-Bugs channel in the Tsunamods Discord");
