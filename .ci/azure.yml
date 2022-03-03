@@ -23,7 +23,7 @@ variables:
   _BUILD_BRANCH: $(Build.SourceBranch)
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 steps:
 - checkout: self
@@ -41,6 +41,10 @@ steps:
     VersionNumber: $(_BUILD_VERSION)
     FileVersionNumber: $(_BUILD_VERSION)
     InformationalVersion: $(_BUILD_VERSION)
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 5.x
+    checkLatest: true
 - task: NuGetCommand@2
   displayName: 'Restore $(_RELEASE_NAME) NuGet Packages'
   inputs:
