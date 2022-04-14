@@ -291,5 +291,36 @@
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
+  
+  <Setting xsi:type="DropDown">
+    <Group>Advanced</Group>
+    <Name>Internal Resolution Scaler</Name>
+    <Description>Leave this on Auto unless you know what you doing.  Multiply 640x480 by following amount. Higher values need more powerful GPU</Description>
+    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
+    <Option>
+      <Text>Auto (Highly Reccomended)</Text>
+      <Settings>internal_resolution_scale = 0</Settings>
+    </Option>
+    <Option>
+      <Text>1 (may cause artefacts)</Text>
+      <Settings>internal_resolution_scale = 1</Settings>
+    </Option>
+    <Option>
+      <Text>2</Text>
+      <Settings>internal_resolution_scale = 2</Settings>
+    </Option>
+    <Option>
+      <Text>3</Text>
+      <Settings>internal_resolution_scale = 3</Settings>
+    </Option>
+    <Option>
+      <Text>4</Text>
+      <Settings>internal_resolution_scale = 4</Settings>
+    </Option>
+    <Option>
+      <Text>5</Text>
+      <Settings>internal_resolution_scale = 5</Settings>
+    </Option>
+  </Setting>
 
 </ConfigSpec>
