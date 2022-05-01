@@ -46,7 +46,7 @@ Name: "{group}\TurBoLog"; Filename: {app}\TurBoLog.exe;
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"; IconFilename: "{app}\uninstall.ico"
 
 [Run]
-Filename: "{app}\7th Heaven.exe"; Flags: nowait postinstall runascurrentuser; Description: "Launch {#MyAppName}"
+Filename: "{app}\7th Heaven.exe"; Flags: nowait postinstall runascurrentuser skipifsilent; Description: "Launch {#MyAppName}"
 
 [InstallDelete]
 Name: {app}\7thWorkshop\catalog.xml; Type: files
