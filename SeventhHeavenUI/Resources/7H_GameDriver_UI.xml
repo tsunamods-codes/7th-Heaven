@@ -295,31 +295,31 @@
   <Setting xsi:type="DropDown">
     <Group>Advanced</Group>
     <Name>Internal Resolution Scaler</Name>
-    <Description>Leave this on Auto unless you know what you doing.  Multiply 640x480 by following amount. Higher values need more powerful GPU</Description>
+    <Description>Multiply 640x480 internal resolution by following amount. Higher values need more powerful GPU.  Higher values can remove scaling artefacts, * Values are optimal performance quality tradeoff.</Description>
     <DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
-      <Text>Auto (Highly Reccomended)</Text>
+      <Text>Auto</Text>
       <Settings>internal_resolution_scale = 0</Settings>
     </Option>
     <Option>
-      <Text>1 (may cause artefacts)</Text>
+      <Text>1x (May cause artefacts)</Text>
       <Settings>internal_resolution_scale = 1</Settings>
     </Option>
     <Option>
-      <Text>2</Text>
+      <Text>2x</Text>
       <Settings>internal_resolution_scale = 2</Settings>
     </Option>
     <Option>
-      <Text>3</Text>
-      <Settings>internal_resolution_scale = 3</Settings>
-    </Option>
-    <Option>
-      <Text>4</Text>
+      <Text>*4x</Text>
       <Settings>internal_resolution_scale = 4</Settings>
     </Option>
     <Option>
-      <Text>5</Text>
-      <Settings>internal_resolution_scale = 5</Settings>
+      <Text>*6x</Text>
+      <Settings>internal_resolution_scale = 6</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>internal_resolution_scale = 8</Settings>
     </Option>
   </Setting>
 
