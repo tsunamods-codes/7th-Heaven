@@ -255,6 +255,15 @@
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
   </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>Steam Compatibility</Name>
+    <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
+    <DefaultValue>enable_steam_achievements = false</DefaultValue>
+    <TrueSetting>enable_steam_achievements = true</TrueSetting>
+    <FalseSetting>enable_steam_achievements = false</FalseSetting>
+  </Setting>
   
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>

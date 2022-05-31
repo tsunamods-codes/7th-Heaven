@@ -10,7 +10,7 @@
         Title="{DynamicResource GameDriverWindowTitle}" 
         Closed="Window_Closed"
         ResizeMode="NoResize"
-        Height="460" Width="475">
+        Height="500" Width="475">
     <Window.Resources>
 
         <DataTemplate x:Key="selectedOptionTemplate">
@@ -114,7 +114,7 @@
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    TextWrapping="Wrap"
-                   Margin="10,312,10.333,5"
+                   Margin="10,352,10.333,5"
                    MaxWidth="420"
                    Text="{Binding StatusMessage, FallbackValue='This is a description of a option or message to the user'}"/>
 
