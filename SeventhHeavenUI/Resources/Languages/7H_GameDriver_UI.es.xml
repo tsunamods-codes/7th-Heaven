@@ -118,6 +118,15 @@
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
+  
+  <Setting xsi:type="Checkbox">
+    <Group>Gráficos</Group>
+    <Name>Advanced Lighting</Name>
+    <Description>Enable support for realtime lighting. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <DefaultValue>enable_lighting = false</DefaultValue>
+    <TrueSetting>enable_lighting = true</TrueSetting>
+    <FalseSetting>enable_lighting = false</FalseSetting>
+  </Setting>
 
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
@@ -221,21 +230,6 @@
 
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
-    <Name>Opciones de Sonido/FX</Name>
-    <Description>Usa VGMStream para reproducir efectos de sonido (SFX) de alta calidad en formato OGG Vorbis. Necesario para los Mods con sonidos SFX. En otro caso, se una el audio.dat nativo.</Description>
-    <DefaultValue>use_external_sfx = true</DefaultValue>
-    <Option>
-      <Text>VGMStream (Recomendado)</Text>
-      <Settings>use_external_sfx = true</Settings>
-    </Option>
-    <Option>
-      <Text>audio.dat Original</Text>
-      <Settings>use_external_sfx = false</Settings>
-    </Option>
-  </Setting>
-
-  <Setting xsi:type="DropDown">
-    <Group>Avanzado</Group>
     <Name>Opciones para Cinemáticas</Name>
     <Description>Utiliza FFMPEG para reproducir las cinemáticas dentro del juego (FMVs). O utiliza el renderizador original, el cual puede no soportar tantos codecs de vídeo.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
@@ -251,6 +245,24 @@
       <Text>Renderizador Original</Text>
       <Settings>enable_ffmpeg_videos = 0</Settings>
     </Option>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Avanzado</Group>
+    <Name>Analogue Controls</Name>
+    <Description>Enable support for full omni-directional anaglogue control.</Description>
+    <DefaultValue>enable_analogue_controls = false</DefaultValue>
+    <TrueSetting>enable_analogue_controls = true</TrueSetting>
+    <FalseSetting>enable_analogue_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Avanzado</Group>
+    <Name>Steam Compatibility</Name>
+    <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
+    <DefaultValue>enable_steam_achievements = false</DefaultValue>
+    <TrueSetting>enable_steam_achievements = true</TrueSetting>
+    <FalseSetting>enable_steam_achievements = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
@@ -288,5 +300,36 @@
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
-
+	
+  <Setting xsi:type="DropDown">
+    <Group>Avanzado</Group>
+    <Name>Internal Resolution Scaler</Name>
+    <Description>Multiply 640x480 internal resolution by following amount. Higher values need more powerful GPU.  Higher values can remove scaling artefacts, * Values are optimal performance quality tradeoff.</Description>
+    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
+    <Option>
+      <Text>Auto</Text>
+      <Settings>internal_resolution_scale = 0</Settings>
+    </Option>
+    <Option>
+      <Text>1x (May cause artefacts)</Text>
+      <Settings>internal_resolution_scale = 1</Settings>
+    </Option>
+    <Option>
+      <Text>2x</Text>
+      <Settings>internal_resolution_scale = 2</Settings>
+    </Option>
+    <Option>
+      <Text>*4x</Text>
+      <Settings>internal_resolution_scale = 4</Settings>
+    </Option>
+    <Option>
+      <Text>*6x</Text>
+      <Settings>internal_resolution_scale = 6</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>internal_resolution_scale = 8</Settings>
+    </Option>
+  </Setting>
+	
 </ConfigSpec>
