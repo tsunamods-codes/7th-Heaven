@@ -14,7 +14,7 @@
         Loaded="Window_Loaded"
         SizeChanged="Window_SizeChanged"
         Closing="Window_Closing"
-        Height="600" Width="1250"
+        Height="600" Width="1100"
         MinHeight="520" MinWidth="870">
     <Window.Resources>
 
