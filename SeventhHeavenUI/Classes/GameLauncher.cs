@@ -1742,7 +1742,7 @@ namespace SeventhHeaven.Classes
 
         private void CollectCrashReport()
         {
-            var zipOutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"7thCrashReport-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip");
+            var zipOutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"7thCrashReport-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip");
 
             // Flush logs before saving in order to obtain any possible leftover in memory
             Logger.Factory.Flush(0);
