@@ -26,6 +26,10 @@
 
     <system:String x:Key="Help">Ayuda</system:String>
 
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 23/06/20-->
+    <system:String x:Key="HelpOpen">Abrir ayuda</system:String>
+    <system:String x:Key="HelpOpenAbout">Acerca de</system:String>
+
     <system:String x:Key="MyMods">Mis Mods</system:String>
     <system:String x:Key="MyModsTooltip">Haz clic derecho en la pestaña 'Mis Mods' para abrir la carpeta de la Biblioteca de Mods.</system:String>
 
