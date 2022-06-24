@@ -125,8 +125,8 @@
   
   <Setting xsi:type="Checkbox">
     <Group>Gráficos</Group>
-    <Name>Advanced Lighting</Name>
-    <Description>Enable support for realtime lighting. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <Name>Iluminación avanzada</Name>
+    <Description>Activa el soporte para la iluminación en tiempo real. NOTA: Esta opción necesita una CPU MODERNA. Si detectas ralentizaciones, DESACTIVA esta opción.</Description>
     <DefaultValue>enable_lighting = false</DefaultValue>
     <TrueSetting>enable_lighting = true</TrueSetting>
     <FalseSetting>enable_lighting = false</FalseSetting>
@@ -253,8 +253,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
-    <Name>Analogue Controls</Name>
-    <Description>Enable support for full omni-directional anaglogue control.</Description>
+    <Name>Control analógico</Name>
+    <Description>Activa el soporte para un control analógico completo en todas las direcciones.</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
@@ -262,8 +262,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
-    <Name>Steam Compatibility</Name>
-    <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
+    <Name>Compatibilidad con Steam</Name>
+    <Description>Activar las opciones de Steam (Actividad del juego, mando y logros). ES NECESARIO que Steam esté en ejecución.</Description>
     <DefaultValue>enable_steam_achievements = false</DefaultValue>
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
@@ -307,15 +307,15 @@
 	
   <Setting xsi:type="DropDown">
     <Group>Avanzado</Group>
-    <Name>Internal Resolution Scaler</Name>
-    <Description>Multiply 640x480 internal resolution by following amount. Higher values need more powerful GPU.  Higher values can remove scaling artefacts, * Values are optimal performance quality tradeoff.</Description>
+    <Name>Escalado de resolución interna</Name>
+    <Description>Multiplica la resolución interna de 640x480 por el valor siguiente. Un valor más alto necesita una GPU más potente. Los valores más altos puede que eliminen los artefactos en el escalado, * Los valores son para conseguir una calidad del rendimiento óptima.</Description>
     <DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
       <Text>Auto</Text>
       <Settings>internal_resolution_scale = 0</Settings>
     </Option>
     <Option>
-      <Text>1x (May cause artefacts)</Text>
+      <Text>1x (Puede causar artefactos)</Text>
       <Settings>internal_resolution_scale = 1</Settings>
     </Option>
     <Option>
