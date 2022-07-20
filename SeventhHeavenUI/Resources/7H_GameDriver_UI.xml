@@ -136,7 +136,18 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Random Battles</Name>
-    <Description>Not configurable. Toggle on/off random battle encounters while playing the game.{0}Usage: CTRL+B or L3+R3</Description>
+    <Description>Not configurable. Toggle on/off random battle encounters while playing the game.{0}Usage: 'CTRL+B' or 'L3, then Circle'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>See Description</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+  
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>Auto-Attack</Name>
+    <Description>Not configurable. Toggle on/off auto-attack while playing the game.{0}Usage: 'CTRL+A' or 'L3, then Triangle'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>See Description</Text>
@@ -147,7 +158,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Skip Movies</Name>
-    <Description>Not configurable. Immediately skips to end of a movie.{0}Usage: CTRL+S or Select+Start</Description>
+    <Description>Not configurable. Immediately skips to end of a movie.{0}Usage: 'CTRL+S' or 'L3, then Square'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>See Description</Text>
@@ -158,7 +169,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Soft Reset</Name>
-    <Description>Not configurable. Quickly reset the game with a game over.{0}Usage: CTRL+R or L1+L2+R1+R2+Select+Start</Description>
+    <Description>Not configurable. Quickly reset the game with a game over. *Do not reset during battle.*{0}Usage: 'CTRL+R' or 'L3, then Select+Start'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>See Description</Text>
@@ -169,7 +180,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Speed Hack Stepping</Name>
-    <Description>Amount to increase or decrease speed on each trigger.{0}Usage: CTRL+Up/Down or L2+R2+Up/Down to change speed, CTRL+Left/Right or L2+R2+Left/Right to turn on/off.</Description>
+    <Description>Amount to increase or decrease speed on each trigger.{0}Usage: 'CTRL+Up/Down' or 'L3, then L1/R1' to change speed, 'CTRL+Left/Right' or 'L3, then L2/R2' to turn on/off.</Description>
     <DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
