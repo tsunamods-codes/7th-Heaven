@@ -87,6 +87,7 @@ namespace Iros._7th.Workshop {
             }
         }
 
+        public string AppLanguage { get; set; }
 
         public List<string> SubscribedUrls
         {

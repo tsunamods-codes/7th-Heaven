@@ -430,6 +430,12 @@ namespace SeventhHeaven.Windows
 
                 // Bypass the default save button in order to make the Check for Updates button work instantly
                 Sys.Settings.FFNxUpdateChannel = ViewModel.FFNxUpdateChannel;
+
+                // Inform the user about canary being unstable
+                if (Sys.Settings.FFNxUpdateChannel == FFNxUpdateChannelOptions.Canary)
+                {
+                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.CanaryWarningMessage), ResourceHelper.Get(StringKey.CanaryWarningTitle), System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                }
             }
         }
 
@@ -441,6 +447,12 @@ namespace SeventhHeaven.Windows
 
                 // Bypass the default save button in order to make the Check for Updates button work instantly
                 Sys.Settings.AppUpdateChannel = ViewModel.AppUpdateChannel;
+
+                // Inform the user about canary being unstable
+                if (Sys.Settings.AppUpdateChannel == AppUpdateChannelOptions.Canary)
+                {
+                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.CanaryWarningMessage), ResourceHelper.Get(StringKey.CanaryWarningTitle), System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                }
             }
         }
 

@@ -775,44 +775,6 @@ namespace SeventhHeaven.Classes
                 SendMessage($"FFNx seems to be present.");
             }
 
-            // ================================================================================================
-            // Always cleanup these files if present, to avoid conflict with various mods
-            // ================================================================================================
-
-            Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>(){
-                    { "hext\\ff8", true },
-                    { "hext\\ff7\\de", true },
-                    { "hext\\ff7\\fr", true },
-                    { "hext\\ff7\\es", true },
-                    { "hext\\ff7\\en\\FFNx._GLOBALS.txt", false },
-                    { "hext\\ff7\\en\\FFNx.BATTLE.fullscreen.txt", false },
-                    { "hext\\ff7\\en\\FFNx.BATTLE.restore_modals.txt", false },
-                    { "hext\\ff7\\en\\FFNx.BATTLE.transparent_modals.txt", false },
-                    { "hext\\ff7\\en\\FFNx.FIELD.transparent_modals.txt", false },
-                    { "hext\\ff7\\en\\FFNx.MENU.cursor_vertical_center.txt", false },
-                    { "hext\\ff7\\en\\FFNx.MENU.save_everywhere.txt", false },
-                };
-
-
-            string entryPath = "";
-            bool entryDeleteRecursive = false;
-
-            foreach (var entry in pathsToDelete)
-            {
-                entryPath = Sys.InstallPath + "\\" + entry.Key;
-                entryDeleteRecursive = entry.Value;
-
-                // Delete recursively
-                if (entryDeleteRecursive)
-                {
-                    if (Directory.Exists(entryPath)) Directory.Delete(entryPath, true);
-                }
-                else
-                {
-                    if (File.Exists(entryPath)) File.Delete(entryPath);
-                }
-            }
-
             return true;
         }
 

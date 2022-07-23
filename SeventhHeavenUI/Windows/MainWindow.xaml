@@ -489,6 +489,7 @@
                                         <Grid>
                                             <Button x:Name="btnOpenAppLog" 
                                                     Click="btnOpenAppLog_Click"
+                                                    PreviewMouseRightButtonUp="btnOpenAppLog_PreviewMouseRightButtonUp"
                                                     Height="{TemplateBinding Height}"
                                                     Style="{StaticResource MainButtonStyleWithNoTriggers}"
                                                     Cursor="Hand"

@@ -227,6 +227,10 @@ namespace SeventhHeaven.Windows
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
+            Sys.FFNxConfig.RestoreBackup();
+            Sys.FFNxConfig.ResetTo7thHeavenDefaults();
+            Sys.FFNxConfig.Save();
+
             foreach (var item in ViewModels)
             {
                 item.ResetToDefault(_settings);

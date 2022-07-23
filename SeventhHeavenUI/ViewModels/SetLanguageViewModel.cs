@@ -1,4 +1,5 @@
 ﻿using _7thHeaven.Code;
+using Iros._7th.Workshop;
 using SeventhHeaven.Classes;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,7 @@ namespace SeventhHeavenUI.ViewModels
             //LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Japanese)} (\u65e5\u672c\u8a9e)", "ja");
 
 
-            string defaultLang = ConfigurationManager.AppSettings["DefaultAppLanguage"];
+            string defaultLang = Sys.Settings.AppLanguage;
 
             if (string.IsNullOrWhiteSpace(defaultLang))
             {
@@ -72,7 +73,7 @@ namespace SeventhHeavenUI.ViewModels
             }
             else if (defaultLang.Length >= 2)
             {
-                SelectedLanguage = LanguagesMap.Where(kv => kv.Value == defaultLang).Select(k => k.Key).FirstOrDefault();
+                SelectedLanguage = LanguagesMap.Where(kv => kv.Value == defaultLang.Substring(0, 2)).Select(k => k.Key).FirstOrDefault();
             }
         }
 
@@ -80,21 +81,9 @@ namespace SeventhHeavenUI.ViewModels
         {
             try
             {
-                Configuration appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                Sys.Settings.AppLanguage = LanguagesMap[SelectedLanguage];
 
-                if (!appConfig.AppSettings.Settings.AllKeys.Any(k => k == "DefaultAppLanguage"))
-                {
-                    appConfig.AppSettings.Settings.Add("DefaultAppLanguage", LanguagesMap[SelectedLanguage]);
-                }
-                else
-                {
-                    appConfig.AppSettings.Settings["DefaultAppLanguage"].Value = LanguagesMap[SelectedLanguage];
-                }
-
-                appConfig.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection("appSettings");
-
-                (App.Current as SeventhHeavenUI.App).SetLanguageDictionary(LanguagesMap[SelectedLanguage]);
+                (App.Current as SeventhHeavenUI.App).SetLanguageDictionary(Sys.Settings.AppLanguage);
             }
             catch (Exception e)
             {

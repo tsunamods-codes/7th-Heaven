@@ -11,7 +11,7 @@ namespace SeventhHeaven.Classes
         {
             try
             {
-                return App.Current.Resources[key.ToString()].ToString();
+                return App.Current.Resources[key.ToString()].ToString().Replace("\\n", "\n");
             }
             catch (Exception)
             {

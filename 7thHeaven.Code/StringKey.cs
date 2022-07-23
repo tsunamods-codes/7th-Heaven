@@ -641,5 +641,7 @@
         Button13,
         Button14,
         DoNotMount,
+        CanaryWarningTitle,
+        CanaryWarningMessage,
     }
 }

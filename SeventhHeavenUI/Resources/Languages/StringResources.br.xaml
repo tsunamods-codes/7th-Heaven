@@ -1246,4 +1246,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
     <system:String x:Key="UpdatingPathsInSysSettings">Atualizando caminhos em Sys.Settings com novo caminho de instalação</system:String>
     <system:String x:Key="ForceMinimizingProgram">forçando programa a minimizar ...</system:String>
     <system:String x:Key="FailedToStartAdditionalProgram">Incapaz de inicializar programa adicional: {0}</system:String>
+
+    <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
+    <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
 </ResourceDictionary>

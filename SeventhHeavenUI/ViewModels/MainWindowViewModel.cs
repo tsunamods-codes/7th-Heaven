@@ -763,6 +763,9 @@ namespace SeventhHeavenUI.ViewModels
                 DS4ControllerService.Instance.StartService();
             }
 
+            // Ensure game driver directory exists
+            Directory.CreateDirectory(Sys.PathToGameDriverFolder);
+
             // Ensure temp directory exists
             Directory.CreateDirectory(Sys.PathToTempFolder);
 
@@ -1822,7 +1825,7 @@ namespace SeventhHeavenUI.ViewModels
                 Sys.FFNxConfig.Reload();
 
                 ConfigureGLWindow gLWindow = new ConfigureGLWindow();
-                if (gLWindow.Init(Sys.PathToGameDriverUiXml(System.Configuration.ConfigurationManager.AppSettings["DefaultAppLanguage"])))
+                if (gLWindow.Init(Sys.PathToGameDriverUiXml(Sys.Settings.AppLanguage)))
                 {
                     gLWindow.ShowDialog();
                 }

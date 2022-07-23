@@ -251,6 +251,7 @@ namespace SeventhHeaven.Classes
                         }
 
                         SwitchToModPanel();
+                        Sys.FFNxConfig.Backup();
                         Sys.FFNxConfig.Reload();
                         Sys.FFNxConfig.ResetTo7thHeavenDefaults();
                         Sys.FFNxConfig.OverrideInternalKeys();
@@ -273,6 +274,47 @@ namespace SeventhHeaven.Classes
             else
             {
                 MessageDialogWindow.Show("Something went wrong while downloading the FFNx update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        }
+
+        public static void CleanupUnnecessaryFiles()
+        {
+            // ================================================================================================
+            // Always cleanup these files if present, to avoid conflict with various mods
+            // ================================================================================================
+
+            Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>(){
+                    { "hext\\ff8", true },
+                    { "hext\\ff7\\de", true },
+                    { "hext\\ff7\\fr", true },
+                    { "hext\\ff7\\es", true },
+                    { "hext\\ff7\\en\\FFNx._GLOBALS.txt", false },
+                    { "hext\\ff7\\en\\FFNx.BATTLE.fullscreen.txt", false },
+                    { "hext\\ff7\\en\\FFNx.BATTLE.restore_modals.txt", false },
+                    { "hext\\ff7\\en\\FFNx.BATTLE.transparent_modals.txt", false },
+                    { "hext\\ff7\\en\\FFNx.FIELD.transparent_modals.txt", false },
+                    { "hext\\ff7\\en\\FFNx.MENU.cursor_vertical_center.txt", false },
+                    { "hext\\ff7\\en\\FFNx.MENU.save_everywhere.txt", false },
+                };
+
+
+            string entryPath = "";
+            bool entryDeleteRecursive = false;
+
+            foreach (var entry in pathsToDelete)
+            {
+                entryPath = Sys.InstallPath + "\\" + entry.Key;
+                entryDeleteRecursive = entry.Value;
+
+                // Delete recursively
+                if (entryDeleteRecursive)
+                {
+                    if (Directory.Exists(entryPath)) Directory.Delete(entryPath, true);
+                }
+                else
+                {
+                    if (File.Exists(entryPath)) File.Delete(entryPath);
+                }
             }
         }
     }

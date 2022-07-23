@@ -1245,4 +1245,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     <system:String x:Key="UpdatingPathsInSysSettings">Aggiorno i percorsi in Sys.settings per la nuova installazione</system:String>
     <system:String x:Key="ForceMinimizingProgram">forzo la riduzione del programma nella barra delle applicazioni ...</system:String>
     <system:String x:Key="FailedToStartAdditionalProgram">Avvio del programma aggiuntivo non riuscito: {0}</system:String>
+
+    <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
+    <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
 </ResourceDictionary>

@@ -5,6 +5,7 @@ using Iros._7th.Workshop;
 using Microsoft.Win32;
 using SeventhHeaven.Windows;
 using SeventhHeavenUI;
+using SeventhHeavenUI.ViewModels;
 using SharpCompress.Archives;
 using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
@@ -91,6 +92,9 @@ namespace SeventhHeaven.Classes
 
         public static bool LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false, bool LaunchWithNoValidation = false)
         {
+            MainWindowViewModel.SaveActiveProfile();
+            Sys.Save();
+
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingFf7IsNotRunning));
             if (IsFF7Running())
             {
@@ -127,6 +131,7 @@ namespace SeventhHeaven.Classes
             GameConverter converter = new GameConverter(Path.GetDirectoryName(Sys.Settings.FF7Exe));
             converter.MessageSent += GameConverter_MessageSent;
 
+            FFNxDriverUpdater.CleanupUnnecessaryFiles();
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingInstalledGameIsCompatible));
             if (converter.IsGamePirated())
@@ -166,6 +171,9 @@ namespace SeventhHeaven.Classes
                 converter.InstallPath = newInstallationPath;
             }
 
+            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CreatingMissingRequiredDirectories));
+            converter.CreateMissingDirectories();
+
             // if launching with no (minimal) validation checks, skip ahead
             if (LaunchWithNoValidation)
             {
@@ -179,18 +187,12 @@ namespace SeventhHeaven.Classes
                 converter.ConvertToEnglishInstall();
             }
 
-
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameIsMaxInstall));
             if (!converter.VerifyFullInstallation())
             {
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.YourFf7InstallationFolderIsMissingCriticalFiles), NLog.LogLevel.Error);
                 return false;
             }
-
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CreatingMissingRequiredDirectories));
-            converter.CreateMissingDirectories();
-
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingAdditionalFilesForBattleAndKernelFoldersExist));
             if (!converter.VerifyAdditionalFilesExist())
@@ -331,9 +333,6 @@ namespace SeventhHeaven.Classes
                     return false;
                 }
             }
-
-
-
 
             //
             // GAME SHOULD BE FULLY 'CONVERTED' AND READY TO LAUNCH FOR MODS AT THIS POINT
@@ -1746,6 +1745,14 @@ namespace SeventhHeaven.Classes
 
         private void CollectCrashReport()
         {
+            // Cleanup any old report older than 1 day
+
+            DirectoryInfo dir = new DirectoryInfo(Sys.PathToCrashReports);
+            FileInfo[] files = dir.GetFiles().Where(file => file.CreationTime < DateTime.Now.AddDays(-1)).ToArray();
+            foreach (FileInfo file in files) file.Delete();
+
+            // Create the new report
+
             var zipOutPath = Path.Combine(Sys.PathToCrashReports, $"7thCrashReport-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip");
 
             // Flush logs before saving in order to obtain any possible leftover in memory
@@ -1772,12 +1779,6 @@ namespace SeventhHeaven.Classes
                 // =================================================================================================
 
                 archive.SaveTo(zipOutPath, CompressionType.Deflate);
-
-                // Inform the user about the generated file
-                MessageDialogWindow.Show($"Your game crashed and a new report has been generated at this path:\n\n{zipOutPath}\n\nRemember to attach this file when reporting this issue. Thank you!", "Crash report generated!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-
-                // Open the crash reports explorer window
-                Process.Start(Sys.PathToCrashReports);
             }
         }
 

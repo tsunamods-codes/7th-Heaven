@@ -187,7 +187,7 @@ namespace Iros._7th.Workshop
         {
             get
             {
-                return Path.Combine(_7HFolder, "Resources", "Game Driver");
+                return Path.Combine(SysFolder, "GameDriver");
             }
         }
 

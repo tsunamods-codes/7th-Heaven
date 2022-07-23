@@ -7,6 +7,7 @@ using SeventhHeaven.Windows;
 using SeventhHeavenUI.ViewModels;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -96,6 +97,12 @@ namespace SeventhHeavenUI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (GameLauncher.IsFF7Running())
+            {
+                e.Cancel = true;
+                return;
+            }
+
             if (ViewModel.CatalogMods.DownloadList.Count > 0)
             {
                 var result = MessageDialogWindow.Show(ResourceHelper.Get(StringKey.AreYouSureYouWantToExitPendingDownloads), ResourceHelper.Get(StringKey.ConfirmExit), MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -333,6 +340,11 @@ namespace SeventhHeavenUI
         private void btnOpenAppLog_Click(object sender, RoutedEventArgs e)
         {
             Sys.OpenAppLog();
+        }
+
+        private void btnOpenAppLog_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(Sys.PathToCrashReports);
         }
 
         private void MyModsTabItem_MouseRightButtonUp(object sender, MouseButtonEventArgs e)

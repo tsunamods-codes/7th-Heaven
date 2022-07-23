@@ -12,7 +12,7 @@ namespace Iros._7th.Workshop.ConfigSettings
     public class FFNxConfigManager
     {
         private string _pathToFFNxToml = Sys.PathToFFNxToml;
-        private string _pathToFFNxTomlBak = Sys.PathToFFNxToml + ".bak";
+        private string _pathToFFNxTomlBak = Path.Combine(Sys.PathToGameDriverFolder, "FFNx.toml.bak");
         private Exception _lastException = null;
 
         private TomlTable _toml = null;
@@ -274,7 +274,7 @@ namespace Iros._7th.Workshop.ConfigSettings
             if (File.Exists(_pathToFFNxTomlBak))
             {
                 File.Delete(_pathToFFNxToml);
-                File.Move(_pathToFFNxTomlBak, _pathToFFNxToml);
+                File.Copy(_pathToFFNxTomlBak, _pathToFFNxToml);
                 Reload();
             }
         }
