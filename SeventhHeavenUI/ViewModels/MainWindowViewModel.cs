@@ -1824,10 +1824,18 @@ namespace SeventhHeavenUI.ViewModels
             {
                 Sys.FFNxConfig.Reload();
 
-                ConfigureGLWindow gLWindow = new ConfigureGLWindow();
-                if (gLWindow.Init(Sys.PathToGameDriverUiXml(Sys.Settings.AppLanguage)))
+                try
                 {
-                    gLWindow.ShowDialog();
+                    ConfigureGLWindow gLWindow = new ConfigureGLWindow();
+                    if (gLWindow.Init(Sys.PathToGameDriverUiXml(Sys.Settings.AppLanguage)))
+                    {
+                        gLWindow.ShowDialog();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e);
+                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.PleaseUpdateFFNx), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

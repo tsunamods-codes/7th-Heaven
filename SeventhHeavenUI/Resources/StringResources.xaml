@@ -290,11 +290,7 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="FollowingErrorsFoundInConfiguration">The following errors were found in your configuration:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Errors found in general settings. View app.log for details on error(s).</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}
-Click 'Yes' to open the download page in a browser.
-        
-{1} Release Notes: {2}
-    </system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}\nClick 'Yes' to open the download page in a browser.\n\n{1} Release Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">New Version Available!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">This mod '{0}' contains data that could potentially harm your computer. You should only activate mods you trust.
@@ -1257,4 +1253,6 @@ Do you want to apply the setting and try again?</system:String>
 
     <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
     <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
 </ResourceDictionary>

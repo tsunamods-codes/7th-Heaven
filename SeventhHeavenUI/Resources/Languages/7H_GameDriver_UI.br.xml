@@ -67,14 +67,18 @@
     <Group>Gráficos</Group>
     <Name>Relação de Aspecto</Name>
     <Description>Preservar relação de aspecto adiciona bordas pretas como necessário para preservar uma relação de aspecto 4:3.</Description>
-    <DefaultValue>preserve_aspect = true</DefaultValue>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
       <Text>preservar uma proporção de 4:3</Text>
-      <Settings>preserve_aspect = true</Settings>
+      <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
       <Text>Alongar para preencher</Text>
-      <Settings>preserve_aspect = false</Settings>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Widescreen (16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
     </Option>
   </Setting>
 

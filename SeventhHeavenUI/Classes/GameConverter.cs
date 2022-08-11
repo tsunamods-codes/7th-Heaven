@@ -812,6 +812,7 @@ namespace SeventhHeaven.Classes
                 Path.Combine(InstallPath, "shaders"),
                 Path.Combine(InstallPath, "voice"),
                 Path.Combine(InstallPath, "ambient"),
+                Path.Combine(InstallPath, "widescreen"),
             };
 
             foreach (string dir in requiredFolders)

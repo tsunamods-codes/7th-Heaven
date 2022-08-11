@@ -13,6 +13,7 @@ namespace Iros._7th.Workshop.ConfigSettings
     {
         private string _pathToFFNxToml = Sys.PathToFFNxToml;
         private string _pathToFFNxTomlBak = Path.Combine(Sys.PathToGameDriverFolder, "FFNx.toml.bak");
+        private string _pathToFFNxTomlTmp = Path.Combine(Sys.PathToGameDriverFolder, "FFNx.toml.tmp");
         private Exception _lastException = null;
 
         private TomlTable _toml = null;
@@ -259,22 +260,26 @@ namespace Iros._7th.Workshop.ConfigSettings
             }
         }
 
-        public void Backup()
+        public void Backup(bool isTemporary = false)
         {
+            string _path = isTemporary ? _pathToFFNxTomlTmp : _pathToFFNxTomlBak;
+
             if (File.Exists(_pathToFFNxToml))
             {
-                if (File.Exists(_pathToFFNxTomlBak)) File.Delete(_pathToFFNxTomlBak);
+                if (File.Exists(_path)) File.Delete(_path);
 
-                File.Copy(_pathToFFNxToml, _pathToFFNxTomlBak);
+                File.Copy(_pathToFFNxToml, _path);
             }
         }
 
-        public void RestoreBackup()
+        public void RestoreBackup(bool isTemporary = false)
         {
-            if (File.Exists(_pathToFFNxTomlBak))
+            string _path = isTemporary ? _pathToFFNxTomlTmp : _pathToFFNxTomlBak;
+
+            if (File.Exists(_path))
             {
                 File.Delete(_pathToFFNxToml);
-                File.Copy(_pathToFFNxTomlBak, _pathToFFNxToml);
+                File.Copy(_path, _pathToFFNxToml);
                 Reload();
             }
         }

@@ -552,6 +552,11 @@ namespace SeventhHeaven.ViewModels
                 Sys.Settings.ExtraFolders.Add("ambient");
             }
 
+            if (!Sys.Settings.ExtraFolders.Contains("widescreen", StringComparer.InvariantCultureIgnoreCase))
+            {
+                Sys.Settings.ExtraFolders.Add("widescreen");
+            }
+
             Sys.Settings.FF7Exe = FF7ExePathInput;
             Sys.Settings.LibraryLocation = LibraryPathInput;
             Sys.Settings.MovieFolder = MoviesPathInput;

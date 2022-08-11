@@ -121,7 +121,8 @@ namespace SeventhHeaven.Classes
                             case 1: // NEWER
                                 if (
                                     MessageDialogWindow.Show(
-                                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", newVersion.ToString(), release.body.Value),
+                                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", newVersion.ToString()),
+                                        release.body.Value,
                                         ResourceHelper.Get(StringKey.NewVersionAvailable),
                                         System.Windows.MessageBoxButton.YesNo,
                                         System.Windows.MessageBoxImage.Question

@@ -286,11 +286,7 @@ Vous ne devez utiliser cette option que lors du dépannage d'un seul mod actif a
     <system:String x:Key="FollowingErrorsFoundInConfiguration">Les erreurs suivantes ont été trouvées dans votre configuration :</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Erreurs trouvées dans les paramètres généraux. Voir le journal des applications (app.log) pour plus de détails sur les erreurs.</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Une mise à jour est disponible pour {0}
-Cliquer sur 'Oui' pour ouvrir la page de téléchargement dans un navigateur.
-
-{1} Notes : {2}
-    </system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Une mise à jour est disponible pour {0}\nCliquer sur 'Oui' pour ouvrir la page de téléchargement dans un navigateur.\n\n{1} Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">Nouvelle Version Disponible !</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Ce mod '{0}' contient des données qui pourraient potentiellement endommager votre ordinateur. Vous ne devez activer que les mods auxquels vous faites confiance.
@@ -1244,4 +1240,6 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
     <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
 </ResourceDictionary>

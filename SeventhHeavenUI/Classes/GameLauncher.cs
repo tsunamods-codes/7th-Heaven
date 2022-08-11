@@ -485,7 +485,7 @@ namespace SeventhHeaven.Classes
                 // Inherit FFNx Config keys from each mod
                 //
                 Sys.FFNxConfig.Reload();
-                Sys.FFNxConfig.Backup();
+                Sys.FFNxConfig.Backup(true);
                 Sys.FFNxConfig.OverrideInternalKeys();
                 foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
@@ -831,7 +831,7 @@ namespace SeventhHeaven.Classes
                     }
 
                     // Restore FFNx config after the game is closed
-                    Sys.FFNxConfig.RestoreBackup();
+                    Sys.FFNxConfig.RestoreBackup(true);
                 };
             
 

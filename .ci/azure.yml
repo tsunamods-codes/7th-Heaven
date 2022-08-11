@@ -1,6 +1,6 @@
 # Azure Pipeline YAML file
 
-name: 2.5.0$(Rev:.r)
+name: 2.6.1$(Rev:.r)
 
 trigger:
   batch: true

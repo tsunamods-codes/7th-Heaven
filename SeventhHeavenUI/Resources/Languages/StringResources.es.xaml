@@ -292,11 +292,7 @@ Usa solo esta opción mientras buscas algún problema en Mods específicos y as�
     <system:String x:Key="FollowingErrorsFoundInConfiguration">Los siguientes errores se encontraron en tu configuración:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Errores encontrados en "Opciones generales". Revisa el archivo app.log para mas detalles.</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Hay una actualización disponible para {0}
-Haz Clic en 'Sí' para abrir la pagina de descarga en un navegador.
-        
-{1} Notas de Lanzamiento: {2}
-    </system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Hay una actualización disponible para {0}\nHaz Clic en 'Sí' para abrir la pagina de descarga en un navegador.\n\n{1} Notas de Lanzamiento:</system:String>
     <system:String x:Key="NewVersionAvailable">¡Nueva Versión Disponible!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Este Mod '{0}' contiene datos que pueden dañar potencialmente tu ordenador. Solo debes activar aquellos Mods en los que confíes.
@@ -1258,4 +1254,6 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
 
     <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
     <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
 </ResourceDictionary>

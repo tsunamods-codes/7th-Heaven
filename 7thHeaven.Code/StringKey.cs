@@ -643,5 +643,6 @@
         DoNotMount,
         CanaryWarningTitle,
         CanaryWarningMessage,
+        PleaseUpdateFFNx
     }
 }

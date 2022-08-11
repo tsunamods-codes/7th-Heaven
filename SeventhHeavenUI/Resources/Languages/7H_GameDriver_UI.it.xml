@@ -67,14 +67,18 @@
     <Group>Grafica</Group>
     <Name>Rateo d'Aspetto</Name>
     <Description>Mantiene il rateo d'aspetto in 4:3 aggiungendo dei bordi neri ai lati.</Description>
-    <DefaultValue>preserve_aspect = true</DefaultValue>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
       <Text>Mantieni Aspetto</Text>
-      <Settings>preserve_aspect = true</Settings>
+      <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
       <Text>Estendi a Schermo Intero</Text>
-      <Settings>preserve_aspect = false</Settings>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Widescreen (16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
     </Option>
   </Setting>
 

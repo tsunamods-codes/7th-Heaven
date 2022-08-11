@@ -67,14 +67,18 @@
     <Group>Grafik</Group>
     <Name>Seitenverhältniss</Name>
     <Description>Seitenverhältniss beibehalten fügt links und rechts schwarze Balken hinzu um das 4:3 Format beizubehalten.</Description>
-    <DefaultValue>preserve_aspect = true</DefaultValue>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
       <Text>Seitenverhältnis beibehalten 4:3</Text>
-      <Settings>preserve_aspect = true</Settings>
+      <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
       <Text>Zum Füllen dehnen</Text>
-      <Settings>preserve_aspect = false</Settings>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Widescreen (16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
     </Option>
   </Setting>
 

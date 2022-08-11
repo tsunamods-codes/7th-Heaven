@@ -288,11 +288,7 @@ Dovresti utilizzare questa opzione solo mentre cerchi di individuare problemi in
     <system:String x:Key="FollowingErrorsFoundInConfiguration">Sono stati riscontrati i seguenti errori nella tua configurazione:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Errori individuati nelle impostazioni generali. Visualizza app.log per maggiori dettagli.</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">È disponibile un aggiornamento per {0}
-Clicca 'Sì' per aprire la pagina di download in un browser.
-        
-{1} Note di Rilascio: {2}
-    </system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">È disponibile un aggiornamento per {0}\nClicca 'Sì' per aprire la pagina di download in un browser.\n\n{1} Note di Rilascio:</system:String>
     <system:String x:Key="NewVersionAvailable">Nuova Versione Disponibile!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">La mod '{0}' contiene dati potenzialmente capaci di danneggiare il tuo sistema. Attiva solo mod di cui ti fidi.
@@ -1248,4 +1244,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
 
     <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
     <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
 </ResourceDictionary>

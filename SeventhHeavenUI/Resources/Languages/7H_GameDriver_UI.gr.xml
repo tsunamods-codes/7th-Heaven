@@ -67,14 +67,18 @@
     <Group>Γραφικά</Group>
     <Name>Αναλογία διαστάσεων</Name>
     <Description>Η διατήρηση της αναλογίας διαστάσεων προσθέτει μαύρες μπάρες όπως απαιτείται για τη διατήρηση της αναλογίας διαστάσεων 4:3.</Description>
-    <DefaultValue>preserve_aspect = true</DefaultValue>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
       <Text>Πηγαία (4:3)</Text>
-      <Settings>preserve_aspect = true</Settings>
+      <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
       <Text>Τέντωμα για συμπλήρωση</Text>
-      <Settings>preserve_aspect = false</Settings>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Widescreen (16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
     </Option>
   </Setting>
 

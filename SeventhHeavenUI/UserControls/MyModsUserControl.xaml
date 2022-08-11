@@ -132,7 +132,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                    <Button Style="{StaticResource ConfigureModMiscButtonStyle}" Content="{DynamicResource ConfigureMod}" Click="btnConfigure_Click" Margin="0,0,5,0" Padding="5"/>
+                                    <Button Style="{StaticResource ConfigureModMiscButtonStyle}" Content="{DynamicResource ConfigureMod}" IsEnabled="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Click="btnConfigure_Click" Margin="0,0,5,0" Padding="5"/>
                                     <Button Style="{StaticResource UpdateModMiscButtonStyle}" Content="{DynamicResource UpdateAvailable}" Click="btnUpdateMod_Click" Margin="0,0,5,0" Padding="5"/>
                                 </WrapPanel>
                             </DataTemplate>

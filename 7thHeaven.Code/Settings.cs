@@ -175,6 +175,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("voice");
             defaultSettings.ExtraFolders.Add("ambient");
             defaultSettings.ExtraFolders.Add("lighting");
+            defaultSettings.ExtraFolders.Add("widescreen");
 
             defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
             defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Stable;

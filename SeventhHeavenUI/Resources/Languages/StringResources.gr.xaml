@@ -289,11 +289,7 @@
     <system:String x:Key="FollowingErrorsFoundInConfiguration">Τα εξής σφάλματα εντοπίστηκαν στη διαμόρφωση που κάνατε:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Σφάλματα εντοπίστηκαν στις γενικές ρυθμίσεις. Δες το app.log για λεπτομέρειες σχετικά με σφάλμα(τα).</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Μια ενημέρωση είναι διαθέσιμη για {0}
-Κάντε κλικ στο 'Ναι' για να ανοίξετε τη σελίδα των λήψεων σε μια μηχανή αναζήτησης.
-
-{1} Σημειώσεις έκδοσης: {2}
-    </system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Μια ενημέρωση είναι διαθέσιμη για {0}\nΚάντε κλικ στο 'Ναι' για να ανοίξετε τη σελίδα των λήψεων σε μια μηχανή αναζήτησης.\n\n{1} Σημειώσεις έκδοσης:</system:String>
     <system:String x:Key="NewVersionAvailable">Νέα έκδοση διαθέσιμη!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Αυτή τη τροποποίηση '{0}' περιέχει δεδομένα που ενδεχομένως να βλάψουν τον υπολογιστή σας. Καλύτερα να ενεργοποιείς μόνο τροποποιήσεις που εμπιστεύεσαι.
@@ -1252,4 +1248,6 @@
 
     <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
     <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
 </ResourceDictionary>
