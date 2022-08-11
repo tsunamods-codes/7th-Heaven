@@ -61,7 +61,7 @@
     <system:String x:Key="LinkLabel">Enlace:</system:String>
     <system:String x:Key="ReadmeLabel">Léeme:</system:String>
     <system:String x:Key="ReleaseNotesLabel">Notas de la versión:</system:String>
-    <system:String x:Key="DonationLinkLabel">Donation Link:</system:String>
+    <system:String x:Key="DonationLinkLabel">Enlace de donativos:</system:String>
 
     <system:String x:Key="NoPreviewImage">Sin imagen previa</system:String>
 
@@ -276,13 +276,13 @@ Usa solo esta opción mientras buscas algún problema en Mods específicos y as�
     <system:String x:Key="ConfirmExit">Confirmar Salida</system:String>
 
     <!--MainWindowViewModel Strings-->
-    <system:String x:Key="StartedClickHereToViewAppLog">iniciado - Haz clic aquí para ver el registro de la aplicación.</system:String>
+    <system:String x:Key="StartedClickHereToViewAppLog">Iniciado - Haz clic aquí para ver el registro de la aplicación.</system:String>
     <system:String x:Key="HintLabel">Consejo:</system:String>
     <system:String x:Key="CheckingForUpdates">Buscando actualizaciones de la app ...</system:String>
     <system:String x:Key="SelectAll">Seleccionar Todo</system:String>
     <system:String x:Key="Unknown">Desconocido</system:String>
 
-    <system:String x:Key="UpdateAvailable">Actualización disponible</system:String>
+    <system:String x:Key="UpdateAvailable">Actualizar</system:String>
     <system:String x:Key="UpdateDownloading">Descargando actualización</system:String>
 
     <system:String x:Key="NoUpdates">Sin actualizaciones</system:String>
@@ -1252,8 +1252,8 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="ForceMinimizingProgram">forzando el minimizado del programa ....</system:String>
     <system:String x:Key="FailedToStartAdditionalProgram">Fallo al iniciar el programa adicional: {0}</system:String>
 
-    <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
-    <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+    <system:String x:Key="CanaryWarningTitle">¡LEER ESTO POR FAVOR!</system:String>
+    <system:String x:Key="CanaryWarningMessage">Gracias por cambiar al canal Canary.\n\nEste canal se ha preparado para usuarios avanzados que estén dispuestos a dar soporte en el desarrollo y reportar errores. NO USES ESTE CANAL si quieres tener una experiencia del juego Estable.\n\nPor favor, ten en cuenta que pueden ocurrir saltos a escritorio y que NADIE lo ha probado. ¡Úsalo bajo tu propio RIESGO!</system:String>
 
-    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
+    <system:String x:Key="PleaseUpdateFFNx">No se ha podido cargar la configuración del archivo FFNx.toml. Esto habitualmente sucede cuando tu versión actual de FFNx está desactualizada. Considera actualizar FFNx a la última versión disponible para tu Canal elegido y vuélvelo a intentar.</system:String>
 </ResourceDictionary>

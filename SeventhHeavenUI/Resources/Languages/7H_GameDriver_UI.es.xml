@@ -50,15 +50,15 @@
     <Description>Muestra el juego en modo ventana, o en pantalla completa sin bordes.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>Windowed</Text>
+      <Text>Modo ventana</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
-      <Text>Fullscreen</Text>
+      <Text>Pantalla completa</Text>
       <Settings>fullscreen = true,borderless = false</Settings>
     </Option>
     <Option>
-      <Text>Borderless</Text>
+      <Text>Ventana sin bordes</Text>
       <Settings>fullscreen = false,borderless = true</Settings>
     </Option>
   </Setting>
@@ -77,7 +77,7 @@
       <Settings>aspect_ratio = 1</Settings>
     </Option>
     <Option>
-      <Text>Widescreen (16:9)</Text>
+      <Text>Panorámica (16:9)</Text>
       <Settings>aspect_ratio = 2</Settings>
     </Option>
   </Setting>
