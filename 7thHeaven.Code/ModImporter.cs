@@ -150,9 +150,24 @@ namespace _7thHeaven.Code
 
                 if (iroMode)
                 {
-                    RaiseProgressChanged("Copying .iro file to library", 75);
-                    destFileName += ".iro";
-                    File.Copy(source, Path.Combine(Sys.Settings.LibraryLocation, destFileName), true);
+                    using (_7thWrapperLib.IrosArc arc = new _7thWrapperLib.IrosArc(source))
+                    {
+                        string _dest = Path.Combine(Sys.Settings.LibraryLocation, destFileName);
+                        List<string> files = arc.AllFileNames().ToList();
+                        int count = 0;
+                        foreach (string file in files)
+                        {
+                            string path = Path.Combine(_dest, file);
+
+                            Directory.CreateDirectory(Path.GetDirectoryName(path));
+                            File.WriteAllBytes(path, arc.GetBytes(file));
+
+                            count++;
+                            
+                            double newProgress = 50.0 + (((double)count / files.Count) * 40); // start at 50 and eventually increment to 90 (i.e. 50 + 40 = 90)
+                            RaiseProgressChanged($"Extracting .iro file to library... {count} / {files.Count}", newProgress);
+                        }
+                    }
                 }
                 else
                 {

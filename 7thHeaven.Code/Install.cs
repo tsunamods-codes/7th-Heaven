@@ -340,15 +340,29 @@ namespace Iros._7th.Workshop
 
                     if (isig == _7thWrapperLib.IrosArc.SIG)
                     {
-                        //plain IRO file, just move into place
+                        //plain IRO file, extract as folder
                         using (var iro = new _7thWrapperLib.IrosArc(source))
                             if (!iro.CheckValid())
                                 throw new Exception("IRO archive appears to be invalid: corrupted download?");
 
                         SetPercentComplete?.Invoke(50);
 
-                        File.Copy(source, _dest, overwrite: true);
-                        File.Delete(source);
+                        if (_dest.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase)) _dest = _dest.Substring(0, _dest.Length - 4);
+                        using (_7thWrapperLib.IrosArc arc = new _7thWrapperLib.IrosArc(source))
+                        {
+                            List<string> files = arc.AllFileNames().ToList();
+                            int count = 0;
+                            foreach (string file in files)
+                            {
+                                string path = Path.Combine(_dest, file);
+
+                                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                                File.WriteAllBytes(path, arc.GetBytes(file));
+
+                                count++;
+                                SetPercentComplete?.Invoke((int)(50 * count / files.Count) + 50); // start at 50% go up to 100%
+                            }
+                        }
                     }
                     else
                     {
@@ -388,16 +402,15 @@ namespace Iros._7th.Workshop
                             }
                             fs.Close();
                         }
-
-                        File.Delete(source);
                     }
+
+                    File.Delete(source);
                 }
                 catch (Exception e)
                 {
                     Error(e);
                     return;
                 }
-
 
                 HasProcessed = true; // if reached this point then successfully processed the download with no error
                 SetPercentComplete?.Invoke(100);
