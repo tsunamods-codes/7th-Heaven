@@ -141,14 +141,10 @@ namespace _7thHeaven.Code
             }
 
 
-            string destFileName = Path.GetFileName(source);
-
-            if (!noCopy)
+            string destFileName = String.Format("{0}_{1}", m.ID, name);
+            if (iroMode)
             {
-                // copy .iro or mod files to library location
-                destFileName = String.Format("{0}_{1}", m.ID, name);
-
-                if (iroMode)
+                if (source.EndsWith(".iro"))
                 {
                     using (_7thWrapperLib.IrosArc arc = new _7thWrapperLib.IrosArc(source))
                     {
@@ -163,28 +159,31 @@ namespace _7thHeaven.Code
                             File.WriteAllBytes(path, arc.GetBytes(file));
 
                             count++;
-                            
+
                             double newProgress = 50.0 + (((double)count / files.Count) * 40); // start at 50 and eventually increment to 90 (i.e. 50 + 40 = 90)
                             RaiseProgressChanged($"Extracting .iro file to library... {count} / {files.Count}", newProgress);
                         }
                     }
+
+                    // Safely delete original IRO files in the library folder when importing to avoid duplicate discovery
+                    if (noCopy) File.Delete(source);
                 }
-                else
+            }
+            else if (!noCopy)
+            {
+                int i = 1;
+                string[] allFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
+                foreach (string file in allFiles)
                 {
-                    int i = 1;
-                    string[] allFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
-                    foreach (string file in allFiles)
-                    {
-                        string part = file.Substring(source.Length).Trim('\\', '/');
-                        string absoluteDestinationPath = Path.Combine(Sys.Settings.LibraryLocation, destFileName, part);
+                    string part = file.Substring(source.Length).Trim('\\', '/');
+                    string absoluteDestinationPath = Path.Combine(Sys.Settings.LibraryLocation, destFileName, part);
 
-                        Directory.CreateDirectory(Path.GetDirectoryName(absoluteDestinationPath));
-                        File.Copy(file, absoluteDestinationPath, true);
+                    Directory.CreateDirectory(Path.GetDirectoryName(absoluteDestinationPath));
+                    File.Copy(file, absoluteDestinationPath, true);
 
-                        double newProgress = 50.0 + (((double)i / allFiles.Length) * 40); // start at 50 and eventually increment to 90 (i.e. 50 + 40 = 90)
-                        RaiseProgressChanged($"Copying files from folder {i} / {allFiles.Length}", newProgress);
-                        i++;
-                    }
+                    double newProgress = 50.0 + (((double)i / allFiles.Length) * 40); // start at 50 and eventually increment to 90 (i.e. 50 + 40 = 90)
+                    RaiseProgressChanged($"Copying files from folder {i} / {allFiles.Length}", newProgress);
+                    i++;
                 }
             }
 
