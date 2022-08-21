@@ -46,8 +46,6 @@ namespace TurBoLog.UI
 				return;
 			}
 
-			Debug.WriteLine(System.Runtime.InteropServices.Marshal.SizeOf(typeof(int)));
-
 			if (Debugger.IsAttached) {
 				AppendText(-1, "You are currently debugging TurBoLog so you won't get any 'Debug.WriteLine's from it.");
 			} else {

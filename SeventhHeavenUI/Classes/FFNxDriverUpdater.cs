@@ -24,8 +24,19 @@ namespace SeventhHeaven.Classes
             return Path.Combine(Sys.PathToTempFolder, "ffnxupdateinfo.json");
         }
 
-        private string GetCurrentDriverVersion()
+        public string GetCurrentDriverVersion()
         {
+            try
+            {
+                _currentDriverVersion = FileVersionInfo.GetVersionInfo(
+                    Path.Combine(Sys.InstallPath, "FFNx.dll")
+                );
+            }
+            catch (FileNotFoundException)
+            {
+                _currentDriverVersion = null;
+            }
+
             return _currentDriverVersion != null ? _currentDriverVersion.FileVersion : "0.0.0.0";
         }
 
@@ -82,17 +93,6 @@ namespace SeventhHeaven.Classes
 
         public void CheckForUpdates(FFNxUpdateChannelOptions channel, bool manualCheck = false)
         {
-            try
-            {
-                _currentDriverVersion = FileVersionInfo.GetVersionInfo(
-                    Path.Combine(Sys.InstallPath, "FFNx.dll")
-                );
-            }
-            catch (FileNotFoundException)
-            {
-                _currentDriverVersion = null;
-            }
-
             DownloadItem download = new DownloadItem()
             {
                 Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },

@@ -128,6 +128,9 @@ namespace SeventhHeaven.Windows
                     stackPanel.Children.Add(btnClearTextureCache);
                 }
 
+                // Update driver version label
+                FFNxDriverUpdater ffnxUpdater = new FFNxDriverUpdater();
+                txtDriverVersion.Text = $"FFNx v{ffnxUpdater.GetCurrentDriverVersion()}";
 
                 scrollViewer.Content = stackPanel;
                 tab.Content = scrollViewer;

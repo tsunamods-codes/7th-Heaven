@@ -293,7 +293,7 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}\nClick 'Yes' to open the download page in a browser.\n\n{1} Release Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">New Version Available!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">This mod '{0}' contains data that could potentially harm your computer. You should only activate mods you trust.
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' has the ability to inject code into an EXE. This process could also be used to harm your computer. To be safe, you should only activate mods from sources you trust. IE; directly from the catalog.
         
 Do you still want to activate this mod?</system:String>
 

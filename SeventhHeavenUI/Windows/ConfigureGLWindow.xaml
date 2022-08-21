@@ -118,6 +118,14 @@
                    MaxWidth="420"
                    Text="{Binding StatusMessage, FallbackValue='This is a description of a option or message to the user'}"/>
 
+        <TextBlock x:Name="txtDriverVersion"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextWrapping="Wrap"
+                   Margin="10,10,0,0"
+                   MaxWidth="100"
+                   Text="{Binding StatusMessage, FallbackValue='FFNx v0.0.0.0'}" Grid.Row="1"/>
+
         <Button Grid.Row="1"
                 Click="btnReset_Click"
                 x:Name="btnReset"

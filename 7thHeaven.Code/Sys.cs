@@ -490,13 +490,12 @@ namespace Iros._7th.Workshop
         /// </summary>
         public static void OpenAppLog()
         {
-            string pathToLog = Path.Combine(Sys.SysFolder, "applog.txt");
-            if (!File.Exists(pathToLog))
+            if (!File.Exists(Sys.PathToApplog))
             {
                 return;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(pathToLog);
+            ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToApplog);
             Process.Start(startInfo);
         }
 
