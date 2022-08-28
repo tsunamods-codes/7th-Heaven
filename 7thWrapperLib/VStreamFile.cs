@@ -17,15 +17,15 @@ namespace _7thWrapperLib {
             _source = source;
         }
 
-        public long SetPosition(long pos, Wrap.EMoveMethod type) {
+        public long SetPosition(long pos, Win32.EMoveMethod type) {
             switch (type) {
-                case Wrap.EMoveMethod.Begin:
+                case Win32.EMoveMethod.Begin:
                     _position = pos;
                     break;
-                case Wrap.EMoveMethod.Current:
+                case Win32.EMoveMethod.Current:
                     _position += pos;
                     break;
-                case Wrap.EMoveMethod.End:
+                case Win32.EMoveMethod.End:
                     _position = _source.Length + pos;
                     break;
             }

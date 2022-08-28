@@ -1,0 +1,4 @@
+X(hostfxr_initialize_for_runtime_config)
+X(hostfxr_get_runtime_delegate)
+X(hostfxr_set_error_writer)
+X(hostfxr_close)

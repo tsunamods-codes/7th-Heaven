@@ -18,14 +18,14 @@ namespace TurBoLog.UI
 		private System.Windows.Forms.ColumnHeader colTimeStamp;
 		private System.Windows.Forms.ColumnHeader colPid;
 		private System.Windows.Forms.ColumnHeader colText;
-		private System.Windows.Forms.MainMenu mnuMain;
-		private System.Windows.Forms.MenuItem mnuFile;
-		private System.Windows.Forms.MenuItem mnuFileExit;
+		private System.Windows.Forms.MenuStrip mnuMain;
+		private System.Windows.Forms.ToolStripMenuItem mnuFile;
+		private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
 		private System.Windows.Forms.ColumnHeader colProcessName;
-		private System.Windows.Forms.MenuItem mnuDebug;
-		private System.Windows.Forms.MenuItem mnuDebugCapture;
-        private MenuItem mnuFileExport;
-        private MenuItem menuItem2;
+		private System.Windows.Forms.ToolStripMenuItem mnuDebug;
+		private System.Windows.Forms.ToolStripMenuItem mnuDebugCapture;
+        private ToolStripMenuItem mnuFileExport;
+        private ToolStripSeparator menuItem2;
         private IContainer components;
 
         public FMonitor()
@@ -124,39 +124,40 @@ namespace TurBoLog.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FMonitor));
             this.lsvOutput = new System.Windows.Forms.ListView();
-            this.colTimeStamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colPid = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colProcessName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colText = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.mnuMain = new System.Windows.Forms.MainMenu(this.components);
-            this.mnuFile = new System.Windows.Forms.MenuItem();
-            this.mnuFileExport = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.mnuFileExit = new System.Windows.Forms.MenuItem();
-            this.mnuDebug = new System.Windows.Forms.MenuItem();
-            this.mnuDebugCapture = new System.Windows.Forms.MenuItem();
+            this.colTimeStamp = new System.Windows.Forms.ColumnHeader();
+            this.colPid = new System.Windows.Forms.ColumnHeader();
+            this.colProcessName = new System.Windows.Forms.ColumnHeader();
+            this.colText = new System.Windows.Forms.ColumnHeader();
+            this.mnuMain = new System.Windows.Forms.MenuStrip();
+            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDebug = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDebugCapture = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // lsvOutput
             // 
+            this.lsvOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsvOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lsvOutput.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colTimeStamp,
             this.colPid,
             this.colProcessName,
             this.colText});
-            this.lsvOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lsvOutput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lsvOutput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lsvOutput.FullRowSelect = true;
             this.lsvOutput.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lsvOutput.HideSelection = false;
             this.lsvOutput.HoverSelection = true;
-            this.lsvOutput.Location = new System.Drawing.Point(0, 0);
+            this.lsvOutput.Location = new System.Drawing.Point(0, 30);
             this.lsvOutput.Name = "lsvOutput";
-            this.lsvOutput.Size = new System.Drawing.Size(880, 382);
+            this.lsvOutput.Size = new System.Drawing.Size(880, 352);
             this.lsvOutput.TabIndex = 0;
             this.lsvOutput.UseCompatibleStateImageBehavior = false;
             this.lsvOutput.View = System.Windows.Forms.View.Details;
@@ -184,63 +185,83 @@ namespace TurBoLog.UI
             // 
             // mnuMain
             // 
-            this.mnuMain.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile,
             this.mnuDebug});
+            this.mnuMain.Location = new System.Drawing.Point(0, 0);
+            this.mnuMain.Name = "mnuMain";
+            this.mnuMain.Size = new System.Drawing.Size(880, 24);
+            this.mnuMain.TabIndex = 0;
             // 
             // mnuFile
             // 
-            this.mnuFile.Index = 0;
-            this.mnuFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFileExport,
             this.menuItem2,
             this.mnuFileExit});
+            this.mnuFile.MergeIndex = 0;
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
             // 
             // mnuFileExport
             // 
-            this.mnuFileExport.Index = 0;
+            this.mnuFileExport.MergeIndex = 0;
+            this.mnuFileExport.Name = "mnuFileExport";
+            this.mnuFileExport.Size = new System.Drawing.Size(108, 22);
             this.mnuFileExport.Text = "Export";
             this.mnuFileExport.Click += new System.EventHandler(this.mnuFileExport_Click);
             // 
             // menuItem2
             // 
-            this.menuItem2.Index = 1;
-            this.menuItem2.Text = "-";
+            this.menuItem2.MergeIndex = 1;
+            this.menuItem2.Name = "menuItem2";
+            this.menuItem2.Size = new System.Drawing.Size(105, 6);
             // 
             // mnuFileExit
             // 
-            this.mnuFileExit.Index = 2;
+            this.mnuFileExit.MergeIndex = 2;
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.Size = new System.Drawing.Size(108, 22);
             this.mnuFileExit.Text = "&Exit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
             // mnuDebug
             // 
-            this.mnuDebug.Index = 1;
-            this.mnuDebug.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mnuDebug.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuDebugCapture});
+            this.mnuDebug.MergeIndex = 1;
+            this.mnuDebug.Name = "mnuDebug";
+            this.mnuDebug.Size = new System.Drawing.Size(54, 20);
             this.mnuDebug.Text = "&Debug";
             // 
             // mnuDebugCapture
             // 
             this.mnuDebugCapture.Checked = true;
-            this.mnuDebugCapture.Index = 0;
+            this.mnuDebugCapture.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuDebugCapture.MergeIndex = 0;
+            this.mnuDebugCapture.Name = "mnuDebugCapture";
+            this.mnuDebugCapture.Size = new System.Drawing.Size(116, 22);
             this.mnuDebugCapture.Text = "&Capture";
             this.mnuDebugCapture.Click += new System.EventHandler(this.mnuDebugCapture_Click);
             // 
             // FMonitor
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 16);
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(880, 382);
+            this.Controls.Add(this.mnuMain);
             this.Controls.Add(this.lsvOutput);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Menu = this.mnuMain;
+            this.MainMenuStrip = this.mnuMain;
             this.Name = "FMonitor";
             this.Text = "FF7 Debug Log";
             this.SizeChanged += new System.EventHandler(this.FMonitor_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FMonitor_KeyDown);
+            this.mnuMain.ResumeLayout(false);
+            this.mnuMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 		#endregion

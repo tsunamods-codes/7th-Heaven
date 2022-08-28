@@ -1,19 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F6C267D-0F93-4C71-BA58-0C1AD6242383}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SeventhHeaven</RootNamespace>
     <AssemblyName>7th Heaven</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,40 +19,24 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowedReferenceRelatedFileExtensions>
-      <!-- Prevent default XML and PDB files copied to output in RELEASE. 
-           Only *.allowedextension files will be included, which doesn't exist in my case.
-           refrence: https://stackoverflow.com/questions/2011434/preventing-referenced-assembly-pdb-and-xml-files-copied-to-output
-       -->
       .allowedextension
     </AllowedReferenceRelatedFileExtensions>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>SeventhHeavenUI.App</StartupObject>
   </PropertyGroup>
-  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -70,828 +44,90 @@
     <ApplicationIcon>7H.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DS4WindowsCore">
       <HintPath>.\DS4WindowsCore.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Classes\BoolWithMessage.cs" />
-    <Compile Include="Classes\ButtonWithImage.cs" />
-    <Compile Include="Classes\Constraint.cs" />
-    <Compile Include="Classes\ControlConfiguration.cs" />
-    <Compile Include="Classes\ControlInputSetting.cs" />
-    <Compile Include="Classes\ControllerInterceptor.cs" />
-    <Compile Include="Classes\ControlMapper.cs" />
-    <Compile Include="Classes\DateTimeComparer.cs" />
-    <Compile Include="Classes\DS4ControllerService.cs" />
-    <Compile Include="Classes\FFNxDriverUpdater.cs" />
-    <Compile Include="Classes\FileDialogHelper.cs" />
-    <Compile Include="Classes\GameController.cs" />
-    <Compile Include="Classes\GameConverter.cs" />
-    <Compile Include="Classes\GameLauncher.cs" />
-    <Compile Include="Classes\KeyboardInputSender.cs" />
-    <Compile Include="Classes\OpenFolderDialog.cs" />
-    <Compile Include="Classes\PrimaryScreen.cs" />
-    <Compile Include="Classes\ReloadListOption.cs" />
-    <Compile Include="Classes\ResourceHelper.cs" />
-    <Compile Include="Classes\SupportedResolution.cs" />
-    <Compile Include="Classes\Themes\Classic7HTheme.cs" />
-    <Compile Include="Classes\Themes\DarkThemeWithBackground.cs" />
-    <Compile Include="Classes\Themes\LightThemeWithBackground.cs" />
-    <Compile Include="Classes\Themes\LightTheme.cs" />
-    <Compile Include="Classes\Themes\DarkTheme.cs" />
-    <Compile Include="Classes\Themes\ITheme.cs" />
-    <Compile Include="Classes\Themes\ThemeSettings.cs" />
-    <Compile Include="Classes\Themes\TsunamodsTheme.cs" />
-    <Compile Include="Classes\UpdateChecker.cs" />
-    <Compile Include="Classes\GameDiscMounter.cs" />
-    <Compile Include="Classes\WCF\ServiceHost.cs" />
-    <Compile Include="UserControls\CatalogUserControl.xaml.cs">
-      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CreateCatalogUserControl.xaml.cs">
-      <DependentUpon>CreateCatalogUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CreateModUserControl.xaml.cs">
-      <DependentUpon>CreateModUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\MegaLinkGenUserControl.xaml.cs">
-      <DependentUpon>MegaLinkGenUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\MyModsUserControl.xaml.cs">
-      <DependentUpon>MyModsUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PatchIroAdvancedUserControl.xaml.cs">
-      <DependentUpon>PatchIroAdvancedUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PatchIroUserControl.xaml.cs">
-      <DependentUpon>PatchIroUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UnpackIroUserControl.xaml.cs">
-      <DependentUpon>UnpackIroUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PackIroUserControl.xaml.cs">
-      <DependentUpon>PackIroUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\AllowModToRunViewModel.cs" />
-    <Compile Include="ViewModels\ControlMappingViewModel.cs" />
-    <Compile Include="ViewModels\MegaLinkGenViewModel.cs" />
-    <Compile Include="ViewModels\ModCreationViewModel.cs" />
-    <Compile Include="ViewModels\CatalogCreationViewModel.cs" />
-    <Compile Include="ViewModels\GameLaunchSettingsViewModel.cs" />
-    <Compile Include="ViewModels\GameLaunchViewModel.cs" />
-    <Compile Include="ViewModels\ProgramToRunViewModel.cs" />
-    <Compile Include="Classes\SilenceWaveProvider.cs" />
-    <Compile Include="ViewModels\DownloadLinkViewModel.cs" />
-    <Compile Include="ViewModels\MovieImportViewModel.cs" />
-    <Compile Include="ViewModels\SetLanguageViewModel.cs" />
-    <Compile Include="ViewModels\SubscriptionSettingViewModel.cs" />
-    <Compile Include="ViewModels\GLSettingViewModel.cs" />
-    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
-    <Compile Include="ViewModels\PatchIroViewModel.cs" />
-    <Compile Include="ViewModels\ThemeSettingsViewModel.cs" />
-    <Compile Include="ViewModels\UnpackIroViewModel.cs" />
-    <Compile Include="ViewModels\PackIroViewModel.cs" />
-    <Compile Include="ViewModels\FilterItemViewModel.cs" />
-    <Compile Include="ViewModels\ChunkToolViewModel.cs" />
-    <Compile Include="ViewModels\DownloadItemViewModel.cs" />
-    <Compile Include="ViewModels\CatalogModItemViewModel.cs" />
-    <Compile Include="ViewModels\ConfigureModViewModel.cs" />
-    <Compile Include="ViewModels\ImportModViewModel.cs" />
-    <Compile Include="ViewModels\OpenProfileViewModel.cs" />
-    <Compile Include="ViewModels\InputTextViewModel.cs" />
-    <Compile Include="ViewModels\GeneralSettingsViewModel.cs" />
-    <Compile Include="ViewModels\InstalledModViewModel.cs" />
-    <Compile Include="ViewModels\CatalogViewModel.cs" />
-    <Compile Include="ViewModels\MyModsViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Windows\CatalogCreationToolWindow.xaml.cs">
-      <DependentUpon>CatalogCreationToolWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ChunkToolWindow.xaml.cs">
-      <DependentUpon>ChunkToolWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigureGLWindow.xaml.cs">
-      <DependentUpon>ConfigureGLWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigureModWindow.xaml.cs">
-      <DependentUpon>ConfigureModWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ControlMappingWindow.xaml.cs">
-      <DependentUpon>ControlMappingWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\GameLaunchSettingsWindow.xaml.cs">
-      <DependentUpon>GameLaunchSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\GameLaunchWindow.xaml.cs">
-      <DependentUpon>GameLaunchWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ImportModWindow.xaml.cs">
-      <DependentUpon>ImportModWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AllowModToRunWindow.xaml.cs">
-      <DependentUpon>AllowModToRunWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MessageDialogWindow.xaml.cs">
-      <DependentUpon>MessageDialogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\IroCreateWindow.xaml.cs">
-      <DependentUpon>IroCreateWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MovieImportWindow.xaml.cs">
-      <DependentUpon>MovieImportWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\OpenProfileWindow.xaml.cs">
-      <DependentUpon>OpenProfileWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SetLanguageWindow.xaml.cs">
-      <DependentUpon>SetLanguageWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ThemeSettingsWindow.xaml.cs">
-      <DependentUpon>ThemeSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\UnhandledErrorWindow.xaml.cs">
-      <DependentUpon>UnhandledErrorWindow.xaml</DependentUpon>
-    </Compile>
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Triangle_Y.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Circle_B.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Cross_A.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\L1_LB.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\L2_LT.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Options_Start.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\R1_RB.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\R2_RT.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Share_Back.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\Square_X.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Down.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Left.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Right.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Up.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Click.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Down.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Left.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Right.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Up.png" />
-    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_RS_Click.png" />
-    <Content Include="Resources\Help\images\buttons\appbar.reset.png">
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Triangle_Y.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-08.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Circle_B.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\controls.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Cross_A.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\language.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\L1_LB.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Icons\PS_Xbox_Icons\LS_DPad_Down.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\L2_LT.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Icons\PS_Xbox_Icons\LS_DPad_Left.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Options_Start.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Icons\PS_Xbox_Icons\LS_DPad_Right.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\R1_RB.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Icons\PS_Xbox_Icons\LS_DPad_Up.png">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\R2_RT.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.br.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.es.xml">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Share_Back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.de.xml">
-      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\Square_X.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.fr.xml">
-      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Down.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.gr.xml">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\7H_GameDriver_UI.it.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\Condor_Tran\ehelp1_pal.tga">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\Condor_Tran\ehelp_pal.tga">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XBOne_DPad_Up.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.de.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.fr.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.es.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Licenses\icons_license.txt">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Click.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Licenses\naudio_LICENSE">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Down.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Resources\SupportUkraine.png" />
-    <Content Include="Resources\ulgp_v1.3.2\ulgp.exe">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.gr.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.br.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\DIFxAPI\amd64\DIFxAPI.dll">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_LS_Up.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\DIFxAPI\x86\DIFxAPI.dll">
+    </Resource>
+    <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_RS_Click.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\ScpDriver.exe">
+    </Resource>
+    <Resource Include="Resources\SupportUkraine.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\System\ScpVBus.inf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WinCDEmu\LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\WinCDEmu\PortableWinCDEmu.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Languages\StringResources.it.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Page Include="Resources\StringResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CreateCatalogUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CreateModUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\MegaLinkGenUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PatchIroAdvancedUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\PatchIroUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\UnpackIroUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\PackIroUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\CatalogCreationToolWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ChunkToolWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ConfigureGLWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ConfigureModWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ControlMappingWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\GameLaunchSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\GameLaunchWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\GeneralSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ImportModWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AllowModToRunWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\AboutWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\MessageDialogWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\InputTextWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\IroCreateWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Windows\GeneralSettingsWindow.xaml.cs">
-      <DependentUpon>GeneralSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\InputTextWindow.xaml.cs">
-      <DependentUpon>InputTextWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Resources\Icons\IconResourceDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\SharedStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CatalogUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\MyModsUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\MovieImportWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\OpenProfileWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\SetLanguageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ThemeSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\UnhandledErrorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Content Include="Resources\audio_test_file.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\FF7_1.02_Eng_Patch\ff7.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\FF7_1.02_Eng_Patch\FF7Config.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\FF7_1.02_Eng_Patch\readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\favicon-16x16.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\favicon-32x32.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\getstarted.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.add.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.arrow.down.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.arrow.up.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cabinet.in.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cancel.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cd.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.checkmark.thick.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.chevron.down.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.chevron.up.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cloud.delete.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cloud.pause.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.cloud.play.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.control.play.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.copy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.delete.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.download.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.edit.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.eye.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.folder.ellipsis.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.folder.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.layout.header.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.minus.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.question.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.refresh.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.save.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.search.filter.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.settings.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.sort.numeric.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.sound.left.right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\appbar.sound.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\slider.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\toggle.off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\buttons\toggle.on.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-03.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-04.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-05.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-05b.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-05c.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-05d.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-06.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-07.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-08.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\1998-runsetup.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-03.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-04.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-05.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-06.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\7H-07.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-03.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-04.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-05.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-06.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-07.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-08.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\installs\Steam-09.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\catalog.downloader.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\catalog.view.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\catalogmodcreation.tool.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\command.line.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\config.gamedriver.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\config.mod.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\game.launcher.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\game.launcher.settings.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\import.movies.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\importmod.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\infobar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\irotools.pack.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\launcher.settings.audiodevice.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\launcher.settings.options.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\main_overview.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\menubar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\modinfo.panel.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\mymods.category.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\mymods.view.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\profiles.details.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\profiles.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\search.box.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\search.filters.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.catalogs.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.general.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.monitorfolders.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.options.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.paths.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.programstorun.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\settings.shell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\shell.integration.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\shell.integration.shortcut.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\tab.browsecatalog.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\tab.mymods.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\themes.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\images\screens\tool.chunk.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\modhelp.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\troubleshooting.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\userhelp.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Help\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <Content Include="Resources\Controls\1998 KB+PlayStation %28Stock%29.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -910,56 +146,444 @@
     <Content Include="Resources\Controls\[Default] Steam KB+PlayStation %28Stock%29.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\FF7DISC1.ISO">
+    <None Update="Resources\7H_GameDriver_UI.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Resources\FF7_1.02_Eng_Patch\readme.doc">
+    <None Update="Resources\7thHeaven.var">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\FF7_1.02_Eng_Patch\readme.rtf">
+    </None>
+    <None Update="Resources\audio_test_file.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\System\amd64\ScpVBus.sys">
+    </None>
+    <None Update="Resources\FF7DISC1.ISO">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\System\ScpVBus.cat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\VBusDriver\System\x86\ScpVBus.sys">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Resource Include="7H.ico" />
-    <Content Include="Resources\7thHeaven.var">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="app.manifest" />
-    <None Include="NLog.config">
+    <None Update="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Update="Resources\FF7_1.02_Eng_Patch\ff7.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FF7_1.02_Eng_Patch\FF7Config.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FF7_1.02_Eng_Patch\readme.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FF7_1.02_Eng_Patch\readme.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FF7_1.02_Eng_Patch\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\favicon-16x16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\favicon-32x32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\getstarted.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.arrow.down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.arrow.up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cabinet.in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.checkmark.thick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.chevron.down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.chevron.up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cloud.delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cloud.pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.cloud.play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.control.play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.folder.ellipsis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.layout.header.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.reset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.search.filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.sort.numeric.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.sound.left.right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\appbar.sound.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\slider.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\toggle.off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\buttons\toggle.on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-05b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-05c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-05d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\1998-runsetup.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\7H-08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\installs\Steam-09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\catalog.downloader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\catalog.view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\catalogmodcreation.tool.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\command.line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\config.gamedriver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\config.mod.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\controls.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\game.launcher.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\game.launcher.settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\import.movies.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\importmod.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\infobar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\irotools.pack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\language.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\launcher.settings.audiodevice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\launcher.settings.options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\main_overview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\menubar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\modinfo.panel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\mymods.category.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\mymods.view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\profiles.details.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\profiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\search.box.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\search.filters.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.catalogs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.general.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.monitorfolders.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.paths.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.programstorun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\settings.shell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\shell.integration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\shell.integration.shortcut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\tab.browsecatalog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\tab.mymods.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\themes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\images\screens\tool.chunk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\modhelp.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\troubleshooting.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Help\userhelp.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Icons\PS_Xbox_Icons\LS_DPad_Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Icons\PS_Xbox_Icons\LS_DPad_Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Icons\PS_Xbox_Icons\LS_DPad_Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Icons\PS_Xbox_Icons\LS_DPad_Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.br.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.de.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.es.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.fr.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.gr.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.it.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Languages\7H_GameDriver_UI.ja.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Licenses\icons_license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Licenses\naudio_LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ulgp_v1.3.2\ulgp.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\DIFxAPI\amd64\DIFxAPI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\DIFxAPI\x86\DIFxAPI.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\ScpDriver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\System\amd64\ScpVBus.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\System\ScpVBus.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\System\ScpVBus.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\VBusDriver\System\x86\ScpVBus.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\WinCDEmu\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\WinCDEmu\PortableWinCDEmu.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\7thHeaven.Code\7thHeaven.Code.csproj">
-      <Project>{cd2f4ccb-4735-4dee-8867-b0ed2ca04303}</Project>
-      <Name>7thHeaven.Code</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\7thWrapperLib\7thWrapperLib.csproj">
-      <Project>{f80db232-4102-4249-8b31-2ddd5c7fa404}</Project>
-      <Name>7thWrapperLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TurBoLog\TurBoLog.csproj">
-      <Project>{03eede27-0abb-4cda-a7f2-f746e2083202}</Project>
-      <Name>TurBoLog</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\7thHeaven.Code\7thHeaven.Code.csproj" />
+    <ProjectReference Include="..\7thWrapperLib\7thWrapperLib.csproj" />
+    <ProjectReference Include="..\7thWrapperProxy\7thWrapperProxy.csproj" />
+    <ProjectReference Include="..\TurBoLog\TurBoLog.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\7H_GameDriver_UI.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\circleLoader.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -977,18 +601,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EasyHook">
-      <Version>2.7.7097</Version>
-    </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>4.4.0</Version>
     </PackageReference>
     <PackageReference Include="MegaApiClient">
       <Version>1.10.2</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies">
-      <Version>1.1.0</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NAudio">
       <Version>2.1.0</Version>
     </PackageReference>
@@ -999,27 +618,27 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="NVorbis">
-      <Version>0.10.4</Version>
-    </PackageReference>
-    <PackageReference Include="SharpDX">
-      <Version>4.2.0</Version>
+      <Version>5.0.4</Version>
     </PackageReference>
     <PackageReference Include="SharpDX.DirectInput">
       <Version>4.2.0</Version>
     </PackageReference>
-    <PackageReference Include="System.ValueTuple">
-      <Version>4.5.0</Version>
-    </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="XamlAnimatedGif">
       <Version>2.0.2</Version>
     </PackageReference>
+    <PackageReference Include="PowerShellStandard.Library" Version="7.0.0-preview.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

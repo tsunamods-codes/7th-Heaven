@@ -28,7 +28,7 @@ namespace _7thWrapperLib {
             string file = System.IO.Path.Combine(_base, path, name);
             if (!_files.TryGetValue(file, out lf)) {
                 lf = new LoadedFile();
-                lf.Handle = Wrap.CreateFileW(file.Replace('/', '\\'), System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
+                lf.Handle = Win32.CreateFileW(file.Replace('/', '\\'), System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
                 if (lf.Handle == IntPtr.Zero || lf.Handle == new IntPtr(-1)) {
                     lf.Missing = true;
                     lf.Tag = DateTime.MaxValue;

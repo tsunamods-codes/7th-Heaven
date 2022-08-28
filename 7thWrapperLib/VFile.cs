@@ -287,7 +287,7 @@ namespace _7thWrapperLib {
                 _lastInit = init;
             }
             if (_current != null && _handle.Equals(IntPtr.Zero) && _current.Archive == null) {
-                _handle = Wrap.CreateFileW(_current.File, System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
+                _handle = Win32.CreateFileW(_current.File, System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
             }
             _lastHeader = header;
             _access = DateTime.Now;
@@ -313,7 +313,7 @@ namespace _7thWrapperLib {
                 } else {
                     offset -= 24;
                     if (_current.Archive == null) {
-                        Wrap.SetFilePointer(_handle, (int)offset, IntPtr.Zero, Wrap.EMoveMethod.Begin);
+                        Win32.SetFilePointer(_handle, (int)offset, IntPtr.Zero, Win32.EMoveMethod.Begin);
                         Win32.ReadFile(_handle, dest, length, ref bytesRead, IntPtr.Zero);
                         //DebugLogger.WriteLine("Conditional {1} reading from cfile - {0} bytes read", bytesRead, Name);
                     } else {
@@ -350,9 +350,9 @@ namespace _7thWrapperLib {
         private DateTime _access;
 
         public override void Read(uint offset, uint length, IntPtr dest, ref uint bytesRead) {
-            if (_handle == IntPtr.Zero) _handle = Wrap.CreateFileW(Filename, System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
+            if (_handle == IntPtr.Zero) _handle = Win32.CreateFileW(Filename, System.IO.FileAccess.Read, System.IO.FileShare.Read, IntPtr.Zero, System.IO.FileMode.Open, System.IO.FileAttributes.Normal, IntPtr.Zero);
             _access = DateTime.Now;
-            Wrap.SetFilePointer(_handle, (int)offset, IntPtr.Zero, Wrap.EMoveMethod.Begin);
+            Win32.SetFilePointer(_handle, (int)offset, IntPtr.Zero, Win32.EMoveMethod.Begin);
             Win32.ReadFile(_handle, dest, length, ref bytesRead, IntPtr.Zero);
         }
 
@@ -583,15 +583,15 @@ namespace _7thWrapperLib {
             _position = 0;
         }
 
-        public int SetFilePointer(long offset, Wrap.EMoveMethod method) {
+        public int SetFilePointer(long offset, Win32.EMoveMethod method) {
             switch (method) {
-                case Wrap.EMoveMethod.Begin:
+                case Win32.EMoveMethod.Begin:
                     _position = offset;
                     break;
-                case Wrap.EMoveMethod.End:
+                case Win32.EMoveMethod.End:
                     _position = _size + offset;
                     break;
-                case Wrap.EMoveMethod.Current:
+                case Win32.EMoveMethod.Current:
                     _position += offset;
                     break;
             }
@@ -599,11 +599,11 @@ namespace _7thWrapperLib {
             if (_position > _size) return -1;
             return (int)_position;
         }
-        public bool SetFilePointerEx(IntPtr hFile, long liDistanceToMove, IntPtr lpNewFilePointer, uint dwMoveMethod) {
-            SetFilePointer(liDistanceToMove, (Wrap.EMoveMethod)dwMoveMethod);
+        public ulong SetFilePointerEx(IntPtr hFile, long liDistanceToMove, IntPtr lpNewFilePointer, uint dwMoveMethod) {
+            SetFilePointer(liDistanceToMove, (Win32.EMoveMethod)dwMoveMethod);
             if (lpNewFilePointer != IntPtr.Zero)
                 System.Runtime.InteropServices.Marshal.WriteInt64(lpNewFilePointer, _position);
-            return true;
+            return 1;
         }
         public unsafe int ReadFile(IntPtr bytes, uint numBytesToRead, ref uint numBytesRead) {
             numBytesRead = Math.Min(numBytesToRead, (uint)(_size - _position));
@@ -636,16 +636,16 @@ namespace _7thWrapperLib {
             _size = arc.GetFileSize(filename);
         }
 
-        public int SetFilePointer(long offset, Wrap.EMoveMethod method) {
+        public int SetFilePointer(long offset, Win32.EMoveMethod method) {
             DebugLogger.WriteLine($"VArchive SetFilePointer on {_filename} to {offset} from {method}");
             switch (method) {
-                case Wrap.EMoveMethod.Begin:
+                case Win32.EMoveMethod.Begin:
                     _position = offset;
                     break;
-                case Wrap.EMoveMethod.End:
+                case Win32.EMoveMethod.End:
                     _position = _size + offset;
                     break;
-                case Wrap.EMoveMethod.Current:
+                case Win32.EMoveMethod.Current:
                     _position += offset;
                     break;
             }
@@ -656,7 +656,7 @@ namespace _7thWrapperLib {
 
         public bool SetFilePointerEx(IntPtr hFile, long liDistanceToMove, IntPtr lpNewFilePointer, uint dwMoveMethod) {
             DebugLogger.WriteLine("VArchive SetFilePointerEx");
-            SetFilePointer(liDistanceToMove, (Wrap.EMoveMethod)dwMoveMethod);
+            SetFilePointer(liDistanceToMove, (Win32.EMoveMethod)dwMoveMethod);
             if (lpNewFilePointer != IntPtr.Zero)
                 System.Runtime.InteropServices.Marshal.WriteInt64(lpNewFilePointer, _position);
             return true;

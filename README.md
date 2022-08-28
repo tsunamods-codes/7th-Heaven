@@ -30,6 +30,17 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 1. Run the installer and import this [.vsconfig](.vsconfig) file in the installer to pick the required components to build this project
 2. Once installed, open the file [`7thHeaven.sln`](7thHeaven.sln) in Visual Studio and click the build button
 
+## Special thanks
+
+The .NET 6 migration would not have been possibile without the help of these people. The order is purely Alphabetical.
+
+These people are:
+
+- [Benjamin Moir](https://github.com/DaZombieKiller):
+  - For figuring out various .NET internals
+  - For the Detours examples and logics to be used in C#
+  - For the patience to guide through nitty gritty low level details
+
 ## License
 
 See [LICENSE.txt](LICENSE.txt)

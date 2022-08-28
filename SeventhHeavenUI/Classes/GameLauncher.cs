@@ -476,10 +476,10 @@ namespace SeventhHeaven.Classes
 
 
                 //
-                // Copy EasyHook.dll to FF7
+                // Copy 7thWrapper* dlls to FF7
                 //
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CopyingEasyHookToFf7PathIfNotFoundOrOlder));
-                CopyEasyHookDlls();
+                Copy7thWrapperDlls();
 
                 //
                 // Inherit FFNx Config keys from each mod
@@ -618,7 +618,7 @@ namespace SeventhHeaven.Classes
 
                 RuntimeParams parms = new RuntimeParams
                 {
-                    ProfileFile = Path.GetTempFileName()
+                    ProfileFile = Path.Combine(Path.GetDirectoryName(Sys.Settings.FF7Exe), ".7thWrapperProfile")
                 };
 
                 Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.WritingTemporaryRuntimeProfileFileTo)} {parms.ProfileFile} ...");
@@ -628,64 +628,16 @@ namespace SeventhHeaven.Classes
 
                 // attempt to launch the game a few times in the case of an ApplicationException that can be thrown by EasyHook it seems randomly at times
                 // ... The error tends to go away the second time trying but we will try multiple times before failing
-                string lib = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "7thWrapperLib.dll");
-
                 bool didInject = false;
-                int attemptCount = 0;
-                int totalAttempts = 5;
 
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AttemptingToInjectWithEasyHook));
 
-                while (!didInject && attemptCount < totalAttempts)
+                while (!didInject)
                 {
                     try
                     {
-
-                        // attempt to inject on background thread so we can have a timeout if the process does not return in 10 seconds
-                        // a successful injection should only take ~3 seconds
-                        var waitTask = Task.Factory.StartNew(() =>
-                        {
-                            LaunchFF7Exe();
-                            EasyHook.RemoteHooking.Inject(GameLauncher.ff7Proc.Id, lib, lib, parms);
-                        }).ContinueWith((taskResult) =>
-                        {
-                            if (taskResult.IsFaulted)
-                            {
-                                // an error occurred when injecting so concatenate all errors to display in output
-                                didInject = false;
-                                string errors = "";
-                                foreach (Exception ex in taskResult.Exception.InnerExceptions)
-                                {
-                                    if (ex is AggregateException)
-                                    {
-                                        errors += string.Join("; ", (ex as AggregateException).InnerExceptions.Select(s => s.Message));
-                                    }
-                                    else
-                                    {
-                                        errors += $"{ex.Message}; ";
-                                    }
-                                }
-
-                                Logger.Warn($"\t{ResourceHelper.Get(StringKey.ReceivedErrors)}: {errors} ...");
-                            }
-                            else
-                            {
-                                didInject = true;
-                            }
-                        }).ConfigureAwait(false);
-
-                        // Wait 10 seconds for the injection to complete
-                        DateTime startTime = DateTime.Now;
-                        while (!waitTask.GetAwaiter().IsCompleted)
-                        {
-                            TimeSpan elapsed = DateTime.Now.Subtract(startTime);
-                            if (elapsed.TotalSeconds > 10)
-                            {
-                                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.ReachedTimeoutWaitingForInjection)}", NLog.LogLevel.Warn);
-                                didInject = false;
-                                break;
-                            }
-                        }
+                        LaunchFF7Exe();
+                        didInject = true;
                     }
                     catch (Exception e)
                     {
@@ -695,17 +647,10 @@ namespace SeventhHeaven.Classes
                         }catch { }
                         Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.ReceivedUnknownError)}: {e.Message} ...", NLog.LogLevel.Warn);
                     }
-                    finally
-                    {
-                        attemptCount++;
-                    }
                 }
 
                 if (!didInject)
                 {
-                    Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.FailedToInjectAfterMaxAmountOfTries)} ({totalAttempts}) ...", NLog.LogLevel.Error);
-                    Instance.RaiseProgressChanged("NativeAPI:"+EasyHook.NativeAPI.RtlGetLastErrorString(),NLog.LogLevel.Error);
-
                     return false;
                 }
 
@@ -826,7 +771,7 @@ namespace SeventhHeaven.Classes
                     // Did the game crash? If yes, generate a report
                     if (ff7Proc.ExitCode < 0)
                     {
-                        Logger.Error($"FF7.exe Crashed while exiting with code {ff7Proc.ExitCode}. Generating report...");
+                        Logger.Error($"FF7.exe Crashed while exiting with code 0x{ff7Proc.ExitCode.ToString("X8")}. Generating report...");
                         Instance.CollectCrashReport();
                     }
 
@@ -957,70 +902,27 @@ namespace SeventhHeaven.Classes
             return runtimeProfiles;
         }
 
-        private static void CopyEasyHookDlls()
+        private static void Copy7thWrapperDlls()
         {
-            string source = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string src = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
-            string dir = Path.GetDirectoryName(Sys.Settings.FF7Exe);
-            string pathToTargetEasyHook = Path.Combine(dir, "EasyHook.dll");
-            string pathToSourceEasyHook = Path.Combine(source, "EasyHook.dll");
+            File.Copy(Path.Combine(src, "7thWrapperProxy.dll"), Path.Combine(dest, "7thWrapperProxy.dll"), true);
+            File.Copy(Path.Combine(src, "SharpCompress.dll"), Path.Combine(dest, "SharpCompress.dll"), true);
+            File.Copy(Path.Combine(src, "7thWrapperLib.dll"), Path.Combine(dest, "7thWrapperLib.dll"), true);
+            File.Copy(Path.Combine(src, "7thWrapperLoader.dll"), Path.Combine(dest, "dinput.dll"), true);
+            File.Copy(Path.Combine(src, "nethost.dll"), Path.Combine(dest, "nethost.dll"), true);
+        }
 
-            // compare file versions to determine if file can be skipped
-            bool hasOldVersion = false;
+        private static void Delete7thWrapperDlls()
+        {
+            string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
-            if (File.Exists(pathToTargetEasyHook))
-            {
-                FileVersionInfo sourceVersion = FileVersionInfo.GetVersionInfo(pathToSourceEasyHook);
-                FileVersionInfo targetVersion = FileVersionInfo.GetVersionInfo(pathToTargetEasyHook);
-
-                if (new Version(targetVersion.FileVersion).CompareTo(new Version(sourceVersion.FileVersion)) < 0)
-                {
-                    Instance.RaiseProgressChanged($"\tEasyHook.dll {ResourceHelper.Get(StringKey.DetectedToBeOlderVersion)} ...");
-                    hasOldVersion = true;
-                }
-            }
-
-
-
-            if (!File.Exists(pathToTargetEasyHook) || hasOldVersion)
-            {
-                File.Copy(pathToSourceEasyHook, pathToTargetEasyHook, true);
-                Instance.RaiseProgressChanged($"\tEasyHook.dll {ResourceHelper.Get(StringKey.Copied)} ...");
-            }
-            else
-            {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.SkippedCopying)} EasyHook.dll ...");
-
-            }
-
-
-
-            string pathToTargetEasyHook32 = Path.Combine(dir, "EasyHook32.dll");
-            string pathToSourceEasyHook32 = Path.Combine(source, "EasyHook32.dll");
-            hasOldVersion = false;
-
-            if (File.Exists(pathToTargetEasyHook32))
-            {
-                FileVersionInfo sourceVersion = FileVersionInfo.GetVersionInfo(pathToSourceEasyHook32);
-                FileVersionInfo targetVersion = FileVersionInfo.GetVersionInfo(pathToTargetEasyHook32);
-
-                if (new Version(targetVersion.FileVersion).CompareTo(new Version(sourceVersion.FileVersion)) < 0)
-                {
-                    Instance.RaiseProgressChanged($"\tEasyHook32.dll {ResourceHelper.Get(StringKey.DetectedToBeOlderVersion)} ...");
-                    hasOldVersion = true;
-                }
-            }
-
-
-            if (!File.Exists(pathToTargetEasyHook32) || hasOldVersion)
-            {
-                File.Copy(pathToSourceEasyHook32, pathToTargetEasyHook32, true);
-                Instance.RaiseProgressChanged($"\tEasyHook32.dll {ResourceHelper.Get(StringKey.Copied)} ...");
-            }
-            else
-            {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.SkippedCopying)} EasyHook32.dll ...");
-            }
+            File.Delete(Path.Combine(dest, "7thWrapperProxy.dll"));
+            File.Delete(Path.Combine(dest, "SharpCompress.dll"));
+            File.Delete(Path.Combine(dest, "7thWrapperLib.dll"));
+            File.Delete(Path.Combine(dest, "dinput.dll"));
+            File.Delete(Path.Combine(dest, "nethost.dll"));
         }
 
         private static void StartTurboLogForVariableDump(RuntimeProfile runtimeProfiles)
@@ -1086,6 +988,9 @@ namespace SeventhHeaven.Classes
                         {
                             EnableOrDisableReunionMod(doEnable: true);
                         }
+
+                        // cleanup
+                        Delete7thWrapperDlls();
                     }
                     catch (Exception ex)
                     {

@@ -2,7 +2,7 @@
 using Iros._7th;
 using Iros._7th.Workshop;
 using SeventhHeaven.Classes;
-using SeventhHeaven.Classes.WCF;
+//using SeventhHeaven.Classes.WCF;
 using SeventhHeaven.ViewModels;
 using SeventhHeaven.Windows;
 using System;
@@ -40,15 +40,16 @@ namespace SeventhHeavenUI
             uniqueMutex = new Mutex(true, uniqueAppGuid, out bool gotMutex);
             GC.KeepAlive(App.uniqueMutex);
 
-            if (SingleInstance.IsFirstInstance(uniqueAppGuid, true))
-            {
-                SingleInstance.OnSecondInstanceStarted += SingleInstance_OnSecondInstanceStarted;
-            }
-            else
-            {
-                // second instance so notify first instance
-                SingleInstance.NotifyFirstInstance(uniqueAppGuid);
-            }
+            //TODO: Add support for .NET 6.0
+            //if (SingleInstance.IsFirstInstance(uniqueAppGuid, true))
+            //{
+            //    SingleInstance.OnSecondInstanceStarted += SingleInstance_OnSecondInstanceStarted;
+            //}
+            //else
+            //{
+            //    // second instance so notify first instance
+            //    SingleInstance.NotifyFirstInstance(uniqueAppGuid);
+            //}
 
             if (!gotMutex)
             {
@@ -57,11 +58,12 @@ namespace SeventhHeavenUI
             }
         }
 
-        private void SingleInstance_OnSecondInstanceStarted(object sender, SecondInstanceStartedEventArgs e)
-        {
-            // e.Args[0] = path to 7th Heaven .exe
-            ProcessCommandLineArgs(e.Args);
-        }
+        //TODO: Add support for .NET 6.0
+        //private void SingleInstance_OnSecondInstanceStarted(object sender, SecondInstanceStartedEventArgs e)
+        //{
+        //    // e.Args[0] = path to 7th Heaven .exe
+        //    ProcessCommandLineArgs(e.Args);
+        //}
 
         internal static void ProcessCommandLineArgs(string[] args, bool closeAfterProcessing = false)
         {
