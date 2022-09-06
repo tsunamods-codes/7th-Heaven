@@ -512,7 +512,7 @@ namespace _7thWrapperLib {
             if (isFF7GameFile)
             {
                 lpFileName = lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\");
-                DebugLogger.DetailedWriteLine($"CreateFile for {lpFileName}...");
+                DebugLogger.DetailedWriteLine($"CreateFileW for {lpFileName}...");
                 if (lpFileName.IndexOf('\\') < 0)
                 {
                     //DebugLogger.WriteLine("No path: curdir is {0}", System.IO.Directory.GetCurrentDirectory(), 0);

@@ -13,6 +13,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using static System.Net.WebRequestMethods;
 
 namespace _7thWrapperLib
 {
@@ -148,6 +149,8 @@ namespace _7thWrapperLib
     [Serializable]
     public class RuntimeMod
     {
+        /* SERIALIZED */
+        private HashSet<string> _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
         public string BaseFolder { get; private set; }
         public List<string> ExtraFolders { get; private set; }
         public List<ConditionalFolder> Conditionals { get; private set; }
@@ -158,11 +161,9 @@ namespace _7thWrapperLib
         public List<FFNxFlag> FFNxConfig { get; private set; }
         public List<Variable> Variables { get; private set; }
 
+        /* NON SERIALIZED */
         [NonSerialized]
-        public Wpf32Window WpfWindowInterop;
-
-
-        private HashSet<string> _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        public Wpf32Window WpfWindowInterop;        
         [NonSerialized]
         private HashSet<string> _chunkFiles;
         [NonSerialized]
@@ -217,6 +218,22 @@ namespace _7thWrapperLib
                 DebugLogger.WriteLine("      Loading archive " + BaseFolder);
                 _archive = new IrosArc(BaseFolder);
                 ScanChunk();
+            }
+            else
+            {
+                DirectoryInfo di = new DirectoryInfo(BaseFolder);
+
+                foreach(FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    if (!_activated.Contains(fi.DirectoryName))
+                    {
+                        _activated.Add(fi.DirectoryName);
+                        //DebugLogger.DetailedWriteLine("      Added folder " + fi.DirectoryName);
+                    }
+                    
+                    _activated.Add(fi.FullName);
+                    //DebugLogger.DetailedWriteLine("      Added file " + fi.FullName);
+                }
             }
         }
 
@@ -336,11 +353,9 @@ namespace _7thWrapperLib
             }
         }
 
-        public static bool DirExists(string dir)
+        public bool DirExists(string dir)
         {
-            bool exist = System.IO.Directory.Exists(dir);
-            DebugLogger.DetailedWriteLine($"MOD: Check if directory exists {dir}: {exist}");
-            return exist;
+            return _activated.Contains(dir);
         }
 
         public bool OverridesFolder(string which)
@@ -370,16 +385,7 @@ namespace _7thWrapperLib
 
         private bool FileExists(string file)
         {
-            bool exist;
-            if (_activated.Contains(file))
-                exist = true;
-            else
-            {
-                exist = System.IO.File.Exists(file);
-                if (exist) _activated.Add(file);
-            }
-            DebugLogger.DetailedWriteLine($"MOD: Check if file exists {file}: {exist}");
-            return exist;
+            return _activated.Contains(file);
         }
 
         public bool HasFile(string file)
@@ -387,7 +393,7 @@ namespace _7thWrapperLib
             if (_archive != null)
                 return _archive.HasFile(file);
             else
-                return System.IO.File.Exists(System.IO.Path.Combine(BaseFolder, file));
+                return _activated.Contains(file);
         }
 
         public System.IO.Stream Read(string file)
@@ -487,7 +493,6 @@ namespace _7thWrapperLib
                 if (DirExists(spath))
                     foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                     {
-                        _activated.Add(file);
                         yield return file.Substring(spath.Length).TrimStart('\\');
                     }
                 foreach (string extra in ExtraFolders)
@@ -496,7 +501,6 @@ namespace _7thWrapperLib
                     if (DirExists(spath))
                         foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                         {
-                            _activated.Add(file);
                             yield return file.Substring(spath.Length).TrimStart('\\');
                         }
                 }
@@ -506,7 +510,6 @@ namespace _7thWrapperLib
                     if (DirExists(spath))
                         foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                         {
-                            _activated.Add(file);
                             yield return file.Substring(spath.Length).TrimStart('\\');
                         }
                 }
