@@ -344,7 +344,11 @@ namespace SeventhHeavenUI
 
         private void btnOpenAppLog_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(Sys.PathToCrashReports);
+            ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToCrashReports)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         }
 
         private void MyModsTabItem_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -428,7 +432,11 @@ namespace SeventhHeavenUI
 
         private void SupportUkraine_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://war.ukraine.ua/support-ukraine/");
+            ProcessStartInfo startInfo = new ProcessStartInfo("https://war.ukraine.ua/support-ukraine/")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         }
     }
 }

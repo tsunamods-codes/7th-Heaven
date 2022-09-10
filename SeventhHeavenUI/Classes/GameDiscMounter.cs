@@ -240,7 +240,7 @@ namespace _7thHeaven.Code
             ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToWinCDEmuExe, arguments)
             {
                 WorkingDirectory = Path.GetDirectoryName(Sys.PathToWinCDEmuExe),
-                UseShellExecute = false,
+                UseShellExecute = true,
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Normal
             };

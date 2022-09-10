@@ -677,7 +677,8 @@ namespace SeventhHeaven.Classes
                             ProcessStartInfo debugTxtProc = new ProcessStartInfo()
                             {
                                 WorkingDirectory = Path.GetDirectoryName(runtimeProfile.LogFile),
-                                FileName = runtimeProfile.LogFile
+                                FileName = runtimeProfile.LogFile,
+                                UseShellExecute = true
                             };
                             Process.Start(debugTxtProc);
                         }
@@ -945,7 +946,8 @@ namespace SeventhHeaven.Classes
 
             ProcessStartInfo psi = new ProcessStartInfo(turboLogProcName)
             {
-                WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe)
+                WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                UseShellExecute = true,
             };
             Process aproc = Process.Start(psi);
 
@@ -964,7 +966,8 @@ namespace SeventhHeaven.Classes
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
                 {
-                    WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe)
+                    WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                    UseShellExecute = true,
                 };
                 ff7Proc = Process.Start(startInfo);
                 ff7Proc.EnableRaisingEvents = true;
@@ -1708,7 +1711,7 @@ namespace SeventhHeaven.Classes
                         WorkingDirectory = Path.GetDirectoryName(program.PathToProgram),
                         FileName = program.PathToProgram,
                         Arguments = program.ProgramArgs,
-                        UseShellExecute = false,
+                        UseShellExecute = true,
                     };
                     Process aproc = Process.Start(psi);
 
@@ -1783,7 +1786,8 @@ namespace SeventhHeaven.Classes
                         {
                             WorkingDirectory = Path.GetDirectoryName(al.PathToProgram),
                             FileName = al.PathToProgram,
-                            Arguments = al.ProgramArgs
+                            Arguments = al.ProgramArgs,
+                            UseShellExecute = true,
                         };
                         Process aproc = Process.Start(psi);
 

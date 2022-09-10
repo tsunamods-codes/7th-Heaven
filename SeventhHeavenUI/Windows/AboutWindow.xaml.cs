@@ -27,7 +27,11 @@ namespace SeventhHeaven.Windows
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            ProcessStartInfo startInfo = new ProcessStartInfo(e.Uri.AbsoluteUri)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
             e.Handled = true;
         }
 

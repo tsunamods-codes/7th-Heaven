@@ -1074,7 +1074,7 @@ namespace SeventhHeaven.Classes
                     WorkingDirectory = Path.GetDirectoryName(Sys.PathToUlgpExe),
                     Arguments = $"\"{sourcePath}\" \"{destPath}\"",
                     CreateNoWindow = true,
-                    UseShellExecute = false,
+                    UseShellExecute = true,
                     Verb = "runas", // ensures the process is started as Admin
                 };
 

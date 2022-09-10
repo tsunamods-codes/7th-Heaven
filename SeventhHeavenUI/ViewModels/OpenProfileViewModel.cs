@@ -208,7 +208,11 @@ namespace SeventhHeaven.ViewModels
 
                 File.WriteAllLines(tempFile, profileDetails);
 
-                Process.Start("notepad.exe", tempFile);
+                ProcessStartInfo startInfo = new ProcessStartInfo(tempFile)
+                {
+                    UseShellExecute = true,
+                };
+                Process.Start(startInfo);
             }
             catch (Exception e)
             {

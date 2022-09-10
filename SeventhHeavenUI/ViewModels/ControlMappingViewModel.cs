@@ -1368,7 +1368,8 @@ namespace SeventhHeaven.ViewModels
         {
             Process.Start(new ProcessStartInfo("control.exe")
             {
-                Arguments = "joy.cpl"
+                Arguments = "joy.cpl",
+                UseShellExecute = true,
             });
         }
 
@@ -1418,6 +1419,7 @@ namespace SeventhHeaven.ViewModels
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToScpDriverExe, "si")
                 {
+                    UseShellExecute = true,
                     Verb = "runas",
                     WorkingDirectory = Sys.PathToVBusDriver // ensure the working directory is where the .exe is located
                 };

@@ -1297,9 +1297,9 @@ namespace SeventhHeavenUI.ViewModels
 
             try
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo()
+                ProcessStartInfo startInfo = new ProcessStartInfo(PreviewModLink)
                 {
-                    FileName = PreviewModLink
+                    UseShellExecute = true,
                 };
 
                 Process.Start(startInfo);
@@ -1321,9 +1321,9 @@ namespace SeventhHeavenUI.ViewModels
 
             try
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo()
+                ProcessStartInfo startInfo = new ProcessStartInfo(PreviewDonationModLink)
                 {
-                    FileName = PreviewDonationModLink
+                    UseShellExecute = true,
                 };
 
                 Process.Start(startInfo);
@@ -1398,18 +1398,11 @@ namespace SeventhHeavenUI.ViewModels
                     }
                 }
 
-                if (pathToTempFile.EndsWith(".txt"))
+                ProcessStartInfo startInfo = new ProcessStartInfo(pathToTempFile)
                 {
-                    Process.Start("notepad.exe", pathToTempFile);
-                }
-                else
-                {
-                    ProcessStartInfo startInfo = new ProcessStartInfo()
-                    {
-                        FileName = pathToTempFile
-                    };
-                    Process.Start(startInfo);
-                }
+                    UseShellExecute = true,
+                };
+                Process.Start(startInfo);
             }
             catch (Exception e)
             {
@@ -1597,9 +1590,9 @@ namespace SeventhHeavenUI.ViewModels
                 return;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo()
+            ProcessStartInfo startInfo = new ProcessStartInfo(helpFile)
             {
-                FileName = helpFile
+                UseShellExecute = true,
             };
 
             Process.Start(startInfo);

@@ -495,7 +495,10 @@ namespace Iros._7th.Workshop
                 return;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToApplog);
+            ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToApplog)
+            {
+                UseShellExecute = true
+            };
             Process.Start(startInfo);
         }
 
@@ -503,7 +506,10 @@ namespace Iros._7th.Workshop
         {
             if (Directory.Exists(Settings.LibraryLocation))
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(Settings.LibraryLocation);
+                ProcessStartInfo startInfo = new ProcessStartInfo(Settings.LibraryLocation)
+                {
+                    UseShellExecute = true,
+                };
                 Process.Start(startInfo);
             }
         }

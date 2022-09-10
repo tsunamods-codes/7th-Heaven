@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Iros._7th.Workshop;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -221,7 +222,12 @@ namespace _7thHeaven.Code
                 proc.StartInfo.FileName = "reg.exe";
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.CreateNoWindow = true;
-                proc = Process.Start("reg.exe", $"export \"{regKey}\" \"{savePath}\" /reg:{bitness} /y");
+                ProcessStartInfo startInfo = new ProcessStartInfo("reg.exe")
+                {
+                    Arguments = $"export \"{regKey}\" \"{savePath}\" /reg:{bitness} /y",
+                    UseShellExecute = true
+                };
+                proc = Process.Start(startInfo);
 
                 if (proc != null) proc.WaitForExit();
                 return true;

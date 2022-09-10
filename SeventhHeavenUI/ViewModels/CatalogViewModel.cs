@@ -857,7 +857,10 @@ namespace SeventhHeavenUI.ViewModels
                         if (dialogViewModel?.Result == MessageBoxResult.Yes)
                         {
                             Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.OpeningExternalUrlInBrowserFor)} {downloadInfo.ItemName} - {location}"));
-                            ProcessStartInfo startInfo = new ProcessStartInfo(location);
+                            ProcessStartInfo startInfo = new ProcessStartInfo(location)
+                            {
+                                UseShellExecute = true,
+                            };
                             Process.Start(startInfo);
                         }
 
