@@ -628,7 +628,6 @@
     <PackageReference Include="XamlAnimatedGif">
       <Version>2.0.2</Version>
     </PackageReference>
-    <PackageReference Include="PowerShellStandard.Library" Version="7.0.0-preview.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.0" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.0" />

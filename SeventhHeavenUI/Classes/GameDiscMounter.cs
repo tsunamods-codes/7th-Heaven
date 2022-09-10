@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Management.Automation;
 using System.Threading;
 
 namespace _7thHeaven.Code
@@ -127,13 +126,15 @@ namespace _7thHeaven.Code
                     return false;
                 }
 
-                using (PowerShell ps = PowerShell.Create())
+                ProcessStartInfo startInfo = new ProcessStartInfo("PowerShell.exe")
                 {
-                    ps.AddCommand("Mount-DiskImage");
-                    ps.AddParameter("ImagePath", isoPath);
+                    CreateNoWindow = false,
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Arguments = $"Mount-DiskImage -ImagePath '{isoPath}'"
 
-                    System.Collections.ObjectModel.Collection<PSObject> result = ps.Invoke();
-                }
+                };
+                Process.Start(startInfo);
 
                 return true;
             }
@@ -156,10 +157,14 @@ namespace _7thHeaven.Code
                     return false;
                 }
 
-                using (PowerShell ps = PowerShell.Create())
+                ProcessStartInfo startInfo = new ProcessStartInfo("PowerShell.exe")
                 {
-                    System.Collections.ObjectModel.Collection<PSObject> result = ps.AddCommand("Dismount-DiskImage").AddParameter("ImagePath", isoPath).Invoke();
-                }
+                    CreateNoWindow = false,
+                    UseShellExecute = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Arguments = $"Dismount-DiskImage -ImagePath '{isoPath}'",
+                };
+                Process.Start(startInfo);
 
                 return true;
             }
