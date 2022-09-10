@@ -907,6 +907,7 @@ namespace SeventhHeaven.Classes
             string src = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
+            File.Copy(Path.Combine(src, "7thWrapperProxy.runtimeconfig.json"), Path.Combine(dest, "7thWrapperProxy.runtimeconfig.json"), true);
             File.Copy(Path.Combine(src, "7thWrapperProxy.dll"), Path.Combine(dest, "7thWrapperProxy.dll"), true);
             File.Copy(Path.Combine(src, "SharpCompress.dll"), Path.Combine(dest, "SharpCompress.dll"), true);
             File.Copy(Path.Combine(src, "7thWrapperLib.dll"), Path.Combine(dest, "7thWrapperLib.dll"), true);
@@ -918,6 +919,7 @@ namespace SeventhHeaven.Classes
         {
             string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
+            File.Delete(Path.Combine(dest, "7thWrapperProxy.runtimeconfig.json"));
             File.Delete(Path.Combine(dest, "7thWrapperProxy.dll"));
             File.Delete(Path.Combine(dest, "SharpCompress.dll"));
             File.Delete(Path.Combine(dest, "7thWrapperLib.dll"));
