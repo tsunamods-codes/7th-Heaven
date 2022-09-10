@@ -641,4 +641,7 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  <Target Name="7thAfterBuild" AfterTargets="AfterBuild">
+    <Copy SourceFiles="../7thWrapperProxy/bin/$(Configuration)/$(TargetFramework)/7thWrapperProxy.runtimeconfig.json" DestinationFolder="$(OutputPath)" ContinueOnError="false" />
+  </Target>
 </Project>
