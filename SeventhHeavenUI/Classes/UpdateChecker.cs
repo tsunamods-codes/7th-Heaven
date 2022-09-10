@@ -239,14 +239,15 @@ namespace SeventhHeaven.Classes
 "
             );
 
-            // Execute temp batch script with admin privileges
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = fileName;
-            startInfo.Verb = "runas";
-            startInfo.UseShellExecute = true;
-            startInfo.CreateNoWindow = false;
             try
             {
+                // Execute temp batch script with admin privileges
+                ProcessStartInfo startInfo = new ProcessStartInfo(fileName)
+                {
+                    CreateNoWindow = false,
+                    UseShellExecute = true
+                };
+
                 // Launch process, wait and then save exit code
                 using (Process temp = Process.Start(startInfo))
                 {
