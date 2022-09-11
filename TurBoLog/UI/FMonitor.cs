@@ -26,7 +26,6 @@ namespace TurBoLog.UI
 		private System.Windows.Forms.ToolStripMenuItem mnuDebugCapture;
         private ToolStripMenuItem mnuFileExport;
         private ToolStripSeparator menuItem2;
-        private IContainer components;
 
         public FMonitor()
 		{
@@ -105,13 +104,6 @@ namespace TurBoLog.UI
 		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();					
-				}
-			}
 			base.Dispose( disposing );
 			
 			DebugMonitor.Stop();
