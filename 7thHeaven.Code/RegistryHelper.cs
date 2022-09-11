@@ -180,6 +180,34 @@ namespace _7thHeaven.Code
         /// </summary>
         public static bool SetValue(string key, string valueName, object value, RegistryValueKind regKind = RegistryValueKind.String)
         {
+            string regType = String.Empty;
+
+            switch (regKind)
+            {
+                case RegistryValueKind.Binary:
+                    regType = "REG_BINARY";
+                    break;
+                case RegistryValueKind.DWord:
+                    regType = "REG_DWORD";
+                    break;
+                case RegistryValueKind.ExpandString:
+                    regType = "REG_EXPAND_SZ";
+                    break;
+                case RegistryValueKind.MultiString:
+                    regType = "REG_MULTI_SZ";
+                    break;
+                case RegistryValueKind.None:
+                    regType = "REG_NONE";
+                    break;
+                case RegistryValueKind.QWord:
+                    regType = "REG_QWORD";
+                    break;
+                case RegistryValueKind.String:
+                case RegistryValueKind.Unknown:
+                    regType = "REG_SZ";
+                    break;
+            }
+
             RegistryKey rootKey = GetBaseKey(key);
 
             if (rootKey == null)
@@ -190,15 +218,7 @@ namespace _7thHeaven.Code
             // remove from key path if exists since not needed to open a Subkey
             string fullRegPath = RemoveBaseKeyFromPath(key);
 
-            RegistryKey regKey = rootKey.CreateSubKey(fullRegPath);
-
-            if (regKey == null)
-            {
-                return false;
-            }
-
-            regKey.SetValue(valueName, value, regKind);
-            return true;
+            return ExecReg($"add \"{key}\" /v {valueName} /d {value} /t {regType} /f"); ;
         }
 
         /// <summary>
@@ -209,38 +229,7 @@ namespace _7thHeaven.Code
         /// <returns></returns>
         public static bool ExportKey(string regKey, string savePath)
         {
-            string bitness = "32";
-            if (Environment.Is64BitOperatingSystem)
-            {
-                bitness = "64";
-            }
-
-            Process proc = new Process();
-
-            try
-            {
-                proc.StartInfo.FileName = "reg.exe";
-                proc.StartInfo.UseShellExecute = false;
-                proc.StartInfo.CreateNoWindow = true;
-                ProcessStartInfo startInfo = new ProcessStartInfo("reg.exe")
-                {
-                    Arguments = $"export \"{regKey}\" \"{savePath}\" /reg:{bitness} /y",
-                    UseShellExecute = true
-                };
-                proc = Process.Start(startInfo);
-
-                if (proc != null) proc.WaitForExit();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                if (proc != null) proc.Dispose();
-            }
-
+            return ExecReg($"export \"{regKey}\" \"{savePath}\" /y");
         }
 
         /// <summary>
@@ -259,8 +248,7 @@ namespace _7thHeaven.Code
             try
             {
                 string fullRegPath = RemoveBaseKeyFromPath(keyPath);
-                rootKey.DeleteSubKeyTree(fullRegPath, true);
-                return true;
+                return ExecReg($"delete \"{keyPath}\" /va /f");
             }
             catch (Exception)
             {
@@ -305,7 +293,6 @@ namespace _7thHeaven.Code
                 return false;
             }
 
-
             try
             {
                 string fullRegPath = RemoveBaseKeyFromPath(keyPath);
@@ -323,9 +310,7 @@ namespace _7thHeaven.Code
                     }
                 }
 
-                regKey.DeleteValue(valueName);
-
-                return true;
+                return ExecReg($"delete \"{keyPath}\" /v {valueName} /f");
             }
             catch (Exception)
             {
@@ -361,6 +346,44 @@ namespace _7thHeaven.Code
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Executes the Reg binary with admin permissions when required to do changes on Registry
+        /// Returns true if succeded.
+        /// </summary>
+        private static bool ExecReg(string args)
+        {
+            string bitness = "32";
+            if (Environment.Is64BitOperatingSystem)
+            {
+                bitness = "64";
+            }
+
+            Process proc = new Process();
+
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo("reg.exe")
+                {
+                    Arguments = $"{args} /reg:{bitness}",
+                    Verb = "runas",
+                    CreateNoWindow = true,
+                    UseShellExecute = true
+                };
+                proc = Process.Start(startInfo);
+
+                if (proc != null) proc.WaitForExit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                if (proc != null) proc.Dispose();
+            }
         }
     }
 }
