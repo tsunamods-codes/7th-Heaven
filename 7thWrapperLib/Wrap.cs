@@ -265,7 +265,7 @@ namespace _7thWrapperLib {
                     }
                 }
                 else
-                    DebugLogger.WriteLine($"Skipped file {_lpFileName}");
+                    DebugLogger.DetailedWriteLine($"Skipped file {_lpFileName}");
 
                 if (ret == null)
                     ret = s_Trampolines.CreateFileW((ushort*)Marshal.StringToHGlobalAuto(_lpFileName).ToPointer(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
