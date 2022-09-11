@@ -14,6 +14,10 @@
   #define MyAppRelease "Debug"
 #endif
 
+#ifndef MyAppTargetFramework
+  #define MyAppTargetFramework "net6.0-windows"
+#endif
+
 [Setup]
 AppId={{E66AE545-C285-4B8C-8BD0-67282E160BF4}
 AppName={#MyAppName}
@@ -37,7 +41,7 @@ UninstallDisplayName={#MyAppName}
 ArchitecturesInstallIn64BitMode=x64
 
 [Files]
-Source: "{#MyAppPath}\bin\{#MyAppRelease}\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "{#MyAppPath}\bin\{#MyAppRelease}\{#MyAppTargetFramework}\*"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "{#MyAppPath}\7H.ico"; DestDir: "{app}"; DestName: "uninstall.ico"
 
 [Icons]

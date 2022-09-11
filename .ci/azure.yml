@@ -1,6 +1,6 @@
 # Azure Pipeline YAML file
 
-name: 2.6.1$(Rev:.r)
+name: 2.9.9$(Rev:.r)
 
 trigger:
   batch: true
@@ -16,21 +16,29 @@ pr:
 
 variables:
   _IS_BUILD_CANARY: false
+  _IS_GITHUB_RELEASE: false
   _RELEASE_NAME: 7thHeaven
   _RELEASE_VERSION: v0
   _RELEASE_CONFIGURATION: Release
   _BUILD_VERSION: $(Build.BuildNumber)
   _BUILD_BRANCH: $(Build.SourceBranch)
+  # VCPKG: Enable Binary Caching
+  VCPKG_BINARY_SOURCES: clear;nuget,https://pkgs.dev.azure.com/julianxhokaxhiu/Github/_packaging/7thHeaven/nuget/v3/index.json,readwrite
+  # GIT: Fix reporting from stderr to stdout
+  GIT_REDIRECT_STDERR: 2>&1
 
 pool:
   vmImage: 'windows-2022'
 
 steps:
 - checkout: self
+- task: NuGetAuthenticate@0
 - task: PowerShell@2
   displayName: 'Prepare $(_RELEASE_NAME) Env'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.ci\prepare.ps1
+    failOnStderr: true
+    pwsh: true
 - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-Task.Assembly-Info-NetFramework@2
   displayName: 'Set $(_RELEASE_NAME) Assembly Manifest Data'
   inputs:
@@ -43,7 +51,7 @@ steps:
     InformationalVersion: $(_BUILD_VERSION)
 - task: NuGetToolInstaller@1
   inputs:
-    versionSpec: 5.x
+    versionSpec: 6.x
     checkLatest: true
 - task: NuGetCommand@2
   displayName: 'Restore $(_RELEASE_NAME) NuGet Packages'
@@ -56,12 +64,14 @@ steps:
     solution: $(Build.Repository.LocalPath)\$(_RELEASE_NAME).sln
     platform: Any CPU
     configuration: $(_RELEASE_CONFIGURATION)
-    msbuildArgs: /p:WindowsTargetPlatformVersion=10.0.19041.0
+    msbuildArgs: /p:WindowsTargetPlatformVersion=10.0.19041.0 /m
 - task: PowerShell@2
   condition: and(not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
   displayName: 'Package $(_RELEASE_NAME)'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.ci\package.ps1
+    failOnStderr: true
+    pwsh: true
   env:
     buildPath: $(Build.Repository.LocalPath)
 - task: PowerShell@2
@@ -69,10 +79,18 @@ steps:
   displayName: 'Prepare $(_RELEASE_NAME) Installer'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.iss\build.ps1
+    failOnStderr: true
+    pwsh: true
   env:
     buildPath: $(Build.Repository.LocalPath)
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish $(_RELEASE_NAME) Artifact'
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'false'), succeeded())
+  inputs:
+    targetPath: .dist\
+    artifactName: $(_RELEASE_NAME)-$(_RELEASE_VERSION)
 - task: GitHubRelease@0
-  condition: and(eq(variables._IS_BUILD_CANARY, 'true'), not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'true'), eq(variables._IS_BUILD_CANARY, 'true'), succeeded())
   displayName: 'Delete $(_RELEASE_NAME) Release (Canary)'
   continueOnError: true
   inputs:
@@ -81,7 +99,7 @@ steps:
     tagSource: manual
     tag: canary
 - task: GitHubRelease@0
-  condition: and(eq(variables._IS_BUILD_CANARY, 'true'), not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'true'), eq(variables._IS_BUILD_CANARY, 'true'), succeeded())
   displayName: 'Create $(_RELEASE_NAME) Release (Canary)'
   inputs:
     gitHubConnection: github_ci
@@ -94,14 +112,14 @@ steps:
     releaseNotes: |
       This is a canary build. Please be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!
 - task: GitHubRelease@0
-  condition: and(eq(variables._IS_BUILD_CANARY, 'false'), not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'true'), eq(variables._IS_BUILD_CANARY, 'false'), succeeded())
   displayName: 'Create $(_RELEASE_NAME) Release (Stable)'
   inputs:
     gitHubConnection: github_ci
     assets: $(Build.Repository.LocalPath)\.dist\*
     title: $(_RELEASE_NAME)-$(_RELEASE_VERSION)
 - task: PowerShell@2
-  condition: and(not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'true'), succeeded())
   displayName: 'Alert the $(_RELEASE_NAME) Release'
   inputs:
     filePath: .ci\alert.ps1
