@@ -3,6 +3,7 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
+using Iros._7th;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,7 +99,7 @@ namespace _7thWrapperLib {
                         {
                             if (prot == Protection.PAGE_EXECUTE || prot == Protection.PAGE_EXECUTE_READ)
                                 VirtualProtect(addr, (uint)bytes.Length, Protection.PAGE_EXECUTE_READWRITE, out prot);
-                            System.Runtime.InteropServices.Marshal.Copy(bytes, 0, addr, bytes.Length);
+                            Util.CopyToIntPtr(bytes, addr, bytes.Length);
                         }
                     }
                     else if (instruct.Contains(':'))

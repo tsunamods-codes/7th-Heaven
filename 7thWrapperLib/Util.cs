@@ -3,9 +3,12 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
+using _7thWrapperLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Iros._7th {
@@ -44,6 +47,23 @@ namespace Iros._7th {
         public static void Serialize(object o, System.IO.Stream s) {
             var ser = new System.Xml.Serialization.XmlSerializer(o.GetType());
             ser.Serialize(s, o);
+        }
+
+        public unsafe static void CopyFromIntPtr(IntPtr source, byte[] dest, int size, int offset = 0)
+        {
+            new Span<byte>(source.ToPointer(), size).CopyTo(new Span<byte>(dest, offset, size));
+        }
+
+        public unsafe static void CopyToIntPtr(byte[] source, IntPtr dest, int size, int offset = 0)
+        {
+            if (offset > 0)
+            {
+                byte[] tmp = new byte[size];
+                source.CopyTo(tmp, offset);
+                tmp.ToArray<byte>().CopyTo(new Span<byte>(dest.ToPointer(), size));
+            }
+            else
+                source.ToArray<byte>().CopyTo(new Span<byte>(dest.ToPointer(), size));
         }
     }
 

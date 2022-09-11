@@ -3,6 +3,7 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
+using Iros._7th;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
@@ -534,7 +535,7 @@ namespace _7thWrapperLib {
                 if ((e.Flags & FileFlags.COMPRESSION_FLAGS) != 0) {
                     var cache = GetCache(e);
                     uint readLen = Math.Min(length, (uint)cache.Data.Length - offset);
-                    System.Runtime.InteropServices.Marshal.Copy(cache.Data, (int)offset, dest, (int)readLen);
+                    Util.CopyToIntPtr(cache.Data, dest, (int)readLen, (int)offset);
                     bytesRead = readLen;
                     if (readLen == 0) {
                         DebugLogger.DetailedWriteLine($"IrosArc RawRead file {file} offset {offset} length {length} read {readLen} bytes - cache data size {cache.Data.Length}");

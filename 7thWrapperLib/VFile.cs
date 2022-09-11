@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
+using Iros._7th;
 
 namespace _7thWrapperLib {
     class VFileException : Exception {
@@ -122,7 +123,7 @@ namespace _7thWrapperLib {
         public byte[] Data { get; set; }
 
         public override void Read(uint offset, uint length, IntPtr dest, ref uint bytesRead) {
-            System.Runtime.InteropServices.Marshal.Copy(Data, (int)offset, dest, (int)length);
+            Util.CopyToIntPtr(Data, dest, (int)length, (int)offset);
             bytesRead = length;
         }
     }
@@ -133,7 +134,7 @@ namespace _7thWrapperLib {
         public override void Read(uint offset, uint length, IntPtr dest, ref uint bytesRead) {
             while(length > 0) {
                 uint len = Math.Min(length, 16384);
-                System.Runtime.InteropServices.Marshal.Copy(_zero, 0, dest, (int)len);
+                Util.CopyToIntPtr(_zero, dest, (int)len);
                 length -= len;
                 bytesRead += len;
             }
@@ -220,7 +221,7 @@ namespace _7thWrapperLib {
 
             if (offset < 24) {
                 length = Math.Min(length, 24 - offset);
-                System.Runtime.InteropServices.Marshal.Copy(_header, (int)offset, dest, (int)length);
+                Util.CopyToIntPtr(_header, dest, (int)length, (int)offset);
                 bytesRead = length;
                 DebugLogger.WriteLine($"Chunked {Name} reading from cheader - {bytesRead} bytes read [current size is {BitConverter.ToInt32(_header, 20)}]");
                 return;
@@ -230,7 +231,7 @@ namespace _7thWrapperLib {
                     bytesRead = length; return; //leave with garbage...
                 }
                 int len = Math.Min((int)length, _calculated.Length - (int)offset);
-                System.Runtime.InteropServices.Marshal.Copy(_calculated, (int)offset, dest, len);
+                Util.CopyToIntPtr(_calculated, dest, len, (int)offset);
                 bytesRead = (uint)len;
             }
         }
@@ -306,7 +307,7 @@ namespace _7thWrapperLib {
             } else {
                 if (offset < 24) {
                     length = Math.Min(length, 24 - offset);
-                    System.Runtime.InteropServices.Marshal.Copy(_header, (int)offset, dest, (int)length);
+                    Util.CopyToIntPtr(_header, dest, (int)length, (int)offset);
                     bytesRead = length;
                     //DebugLogger.WriteLine("Conditional {2} reading from cheader - {0} bytes read [current size is {1}]", bytesRead, BitConverter.ToInt32(_header, 20), Name);
                     return;

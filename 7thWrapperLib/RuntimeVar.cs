@@ -3,6 +3,7 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
+using Iros._7th;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,7 +143,7 @@ namespace _7thWrapperLib {
                 IntPtr address;
                 address = new IntPtr(Parse(parts[1]));
                 return () => {
-                    System.Runtime.InteropServices.Marshal.Copy(address, data, 0, size);
+                    Util.CopyFromIntPtr(address, data, size);
                     string s = FFText.Translate(data);
                     if (!s.Equals(last))
                         DebugLogger.WriteLine($"RuntimeVar {spec} became {s}");

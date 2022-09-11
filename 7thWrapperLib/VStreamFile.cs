@@ -3,6 +3,7 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
+using Iros._7th;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace _7thWrapperLib {
             if (willRead == 0) {
                 read = 0; return 1;
             }
-            System.Runtime.InteropServices.Marshal.Copy(_source, (int)_position, buffer, willRead);
+            Util.CopyToIntPtr(_source, buffer, willRead, (int)_position);
             _position += willRead;
             //DebugLogger.DetailedWriteLine("VStream reading {willRead} bytes, new position {_position}");
             read = (uint)willRead;
