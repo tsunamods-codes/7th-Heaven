@@ -149,8 +149,6 @@ namespace _7thWrapperLib
     [Serializable]
     public class RuntimeMod
     {
-        /* SERIALIZED */
-        private HashSet<string> _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
         public string BaseFolder { get; private set; }
         public List<string> ExtraFolders { get; private set; }
         public List<ConditionalFolder> Conditionals { get; private set; }
@@ -168,6 +166,8 @@ namespace _7thWrapperLib
         private HashSet<string> _chunkFiles;
         [NonSerialized]
         private IrosArc _archive;
+        [NonSerialized]
+        private HashSet<string> _activated;
 
         public RuntimeMod(string folder, IEnumerable<ConditionalFolder> conditionalFolders, IEnumerable<string> extraFolders, ModInfo modInfo)
         {
@@ -180,7 +180,6 @@ namespace _7thWrapperLib
             LoadPrograms = modInfo.LoadPrograms.ToList();
             FFNxConfig = modInfo.FFNxConfig;
             Variables = modInfo.Variables;
-
         }
 
         private void ScanChunk()
@@ -213,6 +212,8 @@ namespace _7thWrapperLib
         /// </summary>
         public void Startup()
         {
+            _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             if (BaseFolder.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase) && _archive == null)
             {
                 DebugLogger.WriteLine("      Loading archive " + BaseFolder);
@@ -228,11 +229,11 @@ namespace _7thWrapperLib
                     if (!_activated.Contains(fi.DirectoryName))
                     {
                         _activated.Add(fi.DirectoryName);
-                        //DebugLogger.DetailedWriteLine("      Added folder " + fi.DirectoryName);
+                        DebugLogger.DetailedWriteLine("      Added folder " + fi.DirectoryName);
                     }
                     
                     _activated.Add(fi.FullName);
-                    //DebugLogger.DetailedWriteLine("      Added file " + fi.FullName);
+                    DebugLogger.DetailedWriteLine("      Added file " + fi.FullName);
                 }
             }
         }
