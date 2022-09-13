@@ -163,10 +163,6 @@ namespace _7thWrapperLib
         [NonSerialized]
         public Wpf32Window WpfWindowInterop;        
         [NonSerialized]
-        private HashSet<string> _chunkFiles;
-        [NonSerialized]
-        private IrosArc _archive;
-        [NonSerialized]
         private HashSet<string> _activated;
 
         public RuntimeMod(string folder, IEnumerable<ConditionalFolder> conditionalFolders, IEnumerable<string> extraFolders, ModInfo modInfo)
@@ -182,31 +178,6 @@ namespace _7thWrapperLib
             Variables = modInfo.Variables;
         }
 
-        private void ScanChunk()
-        {
-            _chunkFiles = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-            foreach (string file in _archive.AllFileNames())
-            {
-                string[] parts = file.Split('\\');
-                if (parts.Length > 2)
-                {
-                    if (ExtraFolders.Contains(parts[0]) || Conditionals.Any(cf => cf.Folder.Equals(parts[0], StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        parts = parts.Skip(1).ToArray();
-                    }
-                    else
-                        continue;
-                }
-                if (parts.Length < 2) continue;
-                int chunk = parts[1].IndexOf(".chunk.", StringComparison.InvariantCultureIgnoreCase);
-                if (chunk > 0)
-                {
-                    _chunkFiles.Add(parts[0] + "\\" + parts[1].Substring(0, chunk));
-                }
-            }
-            DebugLogger.WriteLine("    Finished scan for chunks, found " + String.Join(",", _chunkFiles));
-        }
-
         /// <summary>
         /// Ensure the <see cref="_archive"/> is loaded if mod is an .iro
         /// </summary>
@@ -214,27 +185,18 @@ namespace _7thWrapperLib
         {
             _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            if (BaseFolder.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase) && _archive == null)
-            {
-                DebugLogger.WriteLine("      Loading archive " + BaseFolder);
-                _archive = new IrosArc(BaseFolder);
-                ScanChunk();
-            }
-            else
-            {
-                DirectoryInfo di = new DirectoryInfo(BaseFolder);
+            DirectoryInfo di = new DirectoryInfo(BaseFolder);
 
-                foreach(FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+            foreach(FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+            {
+                if (!_activated.Contains(fi.DirectoryName))
                 {
-                    if (!_activated.Contains(fi.DirectoryName))
-                    {
-                        _activated.Add(fi.DirectoryName);
-                        DebugLogger.DetailedWriteLine("      Added folder " + fi.DirectoryName);
-                    }
-                    
-                    _activated.Add(fi.FullName);
-                    DebugLogger.DetailedWriteLine("      Added file " + fi.FullName);
+                    _activated.Add(fi.DirectoryName);
+                    DebugLogger.DetailedWriteLine("      Added folder " + fi.DirectoryName);
                 }
+                    
+                _activated.Add(fi.FullName);
+                DebugLogger.DetailedWriteLine("      Added file " + fi.FullName);
             }
         }
 
@@ -260,43 +222,7 @@ namespace _7thWrapperLib
 
         private IEnumerable<string> GetDlls(IEnumerable<string> dlls, bool loadaside)
         {
-            if (_archive == null)
-            {
-                return dlls.Select(s => System.IO.Path.Combine(BaseFolder, s));
-            }
-            else
-            {
-                string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string libpath = System.IO.Path.Combine(appPath, "7thWorkshop", "LoadLibTemp");
-                System.IO.Directory.CreateDirectory(libpath);
-                List<string> saved = new List<string>();
-                if (loadaside)
-                {
-                    foreach (string path in dlls.Select(s => System.IO.Path.GetDirectoryName(s)).Distinct(StringComparer.InvariantCultureIgnoreCase))
-                    {
-                        foreach (string dll in _archive
-                            .AllFileNames()
-                            .Where(s => System.IO.Path.GetDirectoryName(s).Equals(path, StringComparison.InvariantCultureIgnoreCase))
-                            .Where(s => s.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
-                            )
-                        {
-                            string loc = System.IO.Path.Combine(libpath, dll);
-                            WriteIfNecessary(loc, _archive.GetBytes(dll));
-                            if (dlls.Contains(dll, StringComparer.InvariantCultureIgnoreCase)) saved.Add(loc);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (string LL in dlls)
-                    {
-                        string path = System.IO.Path.Combine(libpath, LL);
-                        WriteIfNecessary(path, _archive.GetBytes(LL));
-                        saved.Add(path);
-                    }
-                }
-                return saved;
-            }
+            return dlls.Select(s => System.IO.Path.Combine(BaseFolder, s));
         }
 
         public IEnumerable<string> GetLoadLibraries()
@@ -314,44 +240,8 @@ namespace _7thWrapperLib
 
         public IEnumerable<ProgramInfo> GetLoadPrograms()
         {
-            if (_archive == null)
-            {
-                LoadPrograms.ForEach(s => s.PathToProgram = Path.Combine(BaseFolder, s.PathToProgram));
-                return LoadPrograms.ToList();
-            }
-            else
-            {
-                string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string libpath = Path.Combine(appPath, "7thWorkshop", "LoadLibTemp");
-                Directory.CreateDirectory(libpath);
-                List<ProgramInfo> saved = new List<ProgramInfo>();
-                List<string> fileExtensions = new List<string>() { ".dll", ".exe" };
-
-                foreach (var prog in LoadPrograms)
-                {
-                    string dirPath = Path.GetDirectoryName(prog.PathToProgram);
-
-                    // copy all dll/exe files in same directory as the Program to run
-                    foreach (string dll in _archive.AllFileNames()
-                                                   .Where(s => Path.GetDirectoryName(s).Equals(dirPath, StringComparison.InvariantCultureIgnoreCase))
-                                                   .Where(s => fileExtensions.Any(ext => s.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase))))
-                    {
-                        string tempLibPath = Path.Combine(libpath, dll);
-                        WriteIfNecessary(tempLibPath, _archive.GetBytes(dll));
-                        saved.Add(new ProgramInfo()
-                        {
-                            PathToProgram = tempLibPath,
-                            ProgramArgs = prog.ProgramArgs,
-                            CloseAllInstances = prog.CloseAllInstances,
-                            WaitForWindowToShow = prog.WaitForWindowToShow,
-                            WaitTimeOutInSeconds = prog.WaitTimeOutInSeconds,
-                            WindowTitle = prog.WindowTitle
-                        });
-                    }
-                }
-
-                return saved;
-            }
+            LoadPrograms.ForEach(s => s.PathToProgram = Path.Combine(BaseFolder, s.PathToProgram));
+            return LoadPrograms.ToList();
         }
 
         public bool DirExists(string dir)
@@ -361,26 +251,16 @@ namespace _7thWrapperLib
 
         public bool OverridesFolder(string which)
         {
-            if (_archive != null)
+            string file = System.IO.Path.Combine(BaseFolder, which);
+            if (DirExists(file)) return true;
+            foreach (string extra in ExtraFolders)
+                if (DirExists(System.IO.Path.Combine(BaseFolder, extra, which))) return true;
+            foreach (var cf in Conditionals)
             {
-                if (_archive.HasFolder(which)) return true;
-                foreach (string extra in ExtraFolders)
-                    if (_archive.HasFolder(extra + "\\" + which)) return true;
-                foreach (var cf in Conditionals)
-                    if (_archive.HasFolder(cf.Folder + "\\" + which)) return true;
-            }
-            else
-            {
-                string file = System.IO.Path.Combine(BaseFolder, which);
+                file = System.IO.Path.Combine(BaseFolder, cf.Folder, which);
                 if (DirExists(file)) return true;
-                foreach (string extra in ExtraFolders)
-                    if (DirExists(System.IO.Path.Combine(BaseFolder, extra, which))) return true;
-                foreach (var cf in Conditionals)
-                {
-                    file = System.IO.Path.Combine(BaseFolder, cf.Folder, which);
-                    if (DirExists(file)) return true;
-                }
             }
+           
             return false;
         }
 
@@ -391,70 +271,29 @@ namespace _7thWrapperLib
 
         public bool HasFile(string file)
         {
-            if (_archive != null)
-                return _archive.HasFile(file);
-            else
-                return _activated.Contains(file);
+            return _activated.Contains(file);
         }
 
         public System.IO.Stream Read(string file)
         {
-            if (_archive != null)
-                return _archive.GetData(file);
-            else
-                return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
-
-        }
-
-        public bool SupportsChunks(string file)
-        {
-            if (_archive != null)
-            {
-                return _chunkFiles.Contains(file);
-            }
-            else
-            {
-                string path = System.IO.Path.GetDirectoryName(file);
-                string fn = System.IO.Path.GetFileName(file);
-                var files = GetPathOverrideNames(path);
-                bool chunked = files.Any(s => s.StartsWith(fn + ".chunk.", StringComparison.InvariantCultureIgnoreCase));
-                DebugLogger.DetailedWriteLine($"MOD: Check if any chunk files present in {file}: {chunked}");
-                return chunked;
-            }
+            return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
         }
 
         public IEnumerable<OverrideFile> GetOverrides(string path)
         {
-            if (_archive != null)
+            string file;
+            foreach (var cf in Conditionals)
             {
-                foreach (var cf in Conditionals)
-                {
-                    string file = System.IO.Path.Combine(cf.Folder, path);
-                    if (_archive.HasFile(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = _archive.GetFileSize(file), Archive = _archive };
-                }
-                foreach (string extra in ExtraFolders)
-                {
-                    string file = System.IO.Path.Combine(extra, path);
-                    if (_archive.HasFile(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = _archive.GetFileSize(file), Archive = _archive };
-                }
-                if (_archive.HasFile(path)) yield return new OverrideFile() { File = path, CName = path, CFolder = null, Size = _archive.GetFileSize(path), Archive = _archive };
+                file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
+                if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
             }
-            else
+            foreach (string extra in ExtraFolders)
             {
-                string file;
-                foreach (var cf in Conditionals)
-                {
-                    file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                    if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
-                }
-                foreach (string extra in ExtraFolders)
-                {
-                    file = System.IO.Path.Combine(BaseFolder, extra, path);
-                    if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
-                }
-                file = System.IO.Path.Combine(BaseFolder, path);
+                file = System.IO.Path.Combine(BaseFolder, extra, path);
                 if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
             }
+            file = System.IO.Path.Combine(BaseFolder, path);
+            if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
         }
 
         private Dictionary<string, string[]> _pathOverrideNames = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
@@ -470,50 +309,29 @@ namespace _7thWrapperLib
 
         private IEnumerable<string> GetPathOverrideNamesInt(string path)
         {
-            if (_archive != null)
-            {
-                string spath = path;
-                foreach (string file in _archive.AllFileNames())
-                    if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
-                foreach (var cf in Conditionals)
+            string spath = System.IO.Path.Combine(BaseFolder, path);
+            if (DirExists(spath))
+                foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                 {
-                    spath = System.IO.Path.Combine(cf.Folder, path);
-                    foreach (string file in _archive.AllFileNames())
-                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
+                    yield return file.Substring(spath.Length).TrimStart('\\');
                 }
-                foreach (string extra in ExtraFolders)
-                {
-                    spath = System.IO.Path.Combine(extra, path);
-                    foreach (string file in _archive.AllFileNames())
-                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
-                }
-            }
-            else
+            foreach (string extra in ExtraFolders)
             {
-                string spath = System.IO.Path.Combine(BaseFolder, path);
+                spath = System.IO.Path.Combine(BaseFolder, extra, path);
                 if (DirExists(spath))
                     foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                     {
                         yield return file.Substring(spath.Length).TrimStart('\\');
                     }
-                foreach (string extra in ExtraFolders)
-                {
-                    spath = System.IO.Path.Combine(BaseFolder, extra, path);
-                    if (DirExists(spath))
-                        foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
-                        {
-                            yield return file.Substring(spath.Length).TrimStart('\\');
-                        }
-                }
-                foreach (var cf in Conditionals)
-                {
-                    spath = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                    if (DirExists(spath))
-                        foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
-                        {
-                            yield return file.Substring(spath.Length).TrimStart('\\');
-                        }
-                }
+            }
+            foreach (var cf in Conditionals)
+            {
+                spath = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
+                if (DirExists(spath))
+                    foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
+                    {
+                        yield return file.Substring(spath.Length).TrimStart('\\');
+                    }
             }
         }
     }

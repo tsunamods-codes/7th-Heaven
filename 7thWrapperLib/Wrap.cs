@@ -16,11 +16,6 @@ using System.Diagnostics;
 
 namespace _7thWrapperLib {
     public static unsafe class Wrap {
-        private static Dictionary<IntPtr, LGPWrapper> _hMap = new Dictionary<IntPtr, LGPWrapper>();
-        private static Dictionary<IntPtr, string> _hNames = new Dictionary<IntPtr, string>();
-        private static Dictionary<IntPtr, VStreamFile> _streamFiles = new Dictionary<IntPtr, VStreamFile>();
-        //private static Dictionary<IntPtr, string> _saveFiles = new Dictionary<IntPtr, string>();
-        private static Dictionary<IntPtr, VArchiveData> _varchives = new Dictionary<IntPtr, VArchiveData>();
         private static RuntimeProfile _profile;
 
         [StructLayout(LayoutKind.Sequential)]
