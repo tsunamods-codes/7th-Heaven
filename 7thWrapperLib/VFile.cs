@@ -5,13 +5,15 @@
 
 namespace _7thWrapperLib {
     public class LGPWrapper {
-        public static OverrideFile MapFile(string file, RuntimeProfile profile) {
-            foreach (var item in profile.Mods) {
-                foreach(var entry in item.GetOverrides(file)) {
-                    if (entry.CFolder == null || entry.CFolder.IsActive(file)) {
-                        DebugLogger.WriteLine($"File {file} overridden by {entry.Archive}{entry.File}");
-                        return entry;
-                    }
+        public static OverrideFile MapFile(string file, RuntimeProfile profile)
+        {
+            foreach (var item in profile.Mods)
+            {
+                var entry = item.GetOverride(file);
+                if (entry != null)
+                {
+                    DebugLogger.WriteLine($"File {file} overridden by {entry.Archive}{entry.File}");
+                    return entry;
                 }
             }
             return null;

@@ -4,6 +4,7 @@
 */
 
 using Iros._7th.Workshop;
+using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -277,6 +278,43 @@ namespace _7thWrapperLib
         public System.IO.Stream Read(string file)
         {
             return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
+        }
+
+        public OverrideFile GetOverride(string path)
+        {
+            OverrideFile ret = null;
+
+            string file;
+            foreach (var cf in Conditionals)
+            {
+                file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
+                if (FileExists(file))
+                {
+                    if (cf.IsActive(path))
+                        ret = new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
+                    break;
+                }
+            }
+            if (ret == null)
+            {
+                foreach (string extra in ExtraFolders)
+                {
+                    file = System.IO.Path.Combine(BaseFolder, extra, path);
+                    if (FileExists(file))
+                    {
+                        ret = new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                        break;
+                    }
+                }
+            }
+
+            if (ret == null)
+            {
+                file = System.IO.Path.Combine(BaseFolder, path);
+                if (FileExists(file)) ret = new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+            }
+
+            return ret;
         }
 
         public IEnumerable<OverrideFile> GetOverrides(string path)
