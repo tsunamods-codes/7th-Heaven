@@ -23,7 +23,7 @@ namespace SeventhHeaven.Classes
             return Path.Combine(Sys.PathToTempFolder, "7thheavenupdateinfo.json");
         }
 
-        private string GetCurrentAppVersion()
+        public string GetCurrentAppVersion()
         {
             return _currentAppVersion != null ? _currentAppVersion.FileVersion : "0.0.0.0";
         }

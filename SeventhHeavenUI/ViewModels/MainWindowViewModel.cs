@@ -778,8 +778,8 @@ namespace SeventhHeavenUI.ViewModels
                 {
                     System.Threading.Thread.Sleep(5000); // wait 5 seconds after init before checking for update to let UI render
                     Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CheckingForUpdates), WMessageLogLevel.LogOnly));
-                    updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
-                    ffnxUpdater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
+                    if (updater.GetCurrentAppVersion() != "0.0.0.0") updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
+                    if (ffnxUpdater.GetCurrentDriverVersion() != "0.0.0.0") ffnxUpdater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
                 });
             }
 
