@@ -84,36 +84,34 @@ namespace _7thWrapperLib {
             try {
                 _exports = (HostExports*)exports;
 
-                RuntimeProfile profile;
                 using (var fs = new FileStream(profileFile, FileMode.Open))
                 {
-                    profile = Iros._7th.Util.DeserializeBinary<RuntimeProfile>(fs);
+                    _profile = Iros._7th.Util.DeserializeBinary<RuntimeProfile>(fs);
                 }
-                
+
                 File.Delete(profileFile);
 
-                if (!String.IsNullOrWhiteSpace(profile.LogFile)) {
+                if (!String.IsNullOrWhiteSpace(_profile.LogFile)) {
                     try {
-                        try { File.Delete(profile.LogFile); } catch { } // ensure old log is deleted since new run
+                        try { File.Delete(_profile.LogFile); } catch { } // ensure old log is deleted since new run
 
-                        DebugLogger.Init(profile.LogFile);
-                        DebugLogger.IsDetailedLogging = profile.Options.HasFlag(RuntimeOptions.DetailedLog);
+                        DebugLogger.Init(_profile.LogFile);
+                        DebugLogger.IsDetailedLogging = _profile.Options.HasFlag(RuntimeOptions.DetailedLog);
 
-                        DebugLogger.WriteLine("Logging debug output to " + profile.LogFile);
+                        DebugLogger.WriteLine("Logging debug output to " + _profile.LogFile);
                     } catch (Exception ex) {
                         DebugLogger.WriteLine("Failed to log debug output: " + ex.ToString());
                     }
                 }
 
-                DebugLogger.WriteLine($"Wrap run... PName: {currentProcess.ProcessName} PID: {currentProcess.Id} Path: {profile.ModPath} Capture: {String.Join(", ", profile.MonitorPaths)}");
-                _profile = profile;
+                DebugLogger.WriteLine($"Wrap run... PName: {currentProcess.ProcessName} PID: {currentProcess.Id} Path: {_profile.ModPath} Capture: {String.Join(", ", _profile.MonitorPaths)}");
                 for (int i = _profile.MonitorPaths.Count - 1; i >= 0; i--) {
                     if (!_profile.MonitorPaths[i].EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
                         _profile.MonitorPaths[i] += System.IO.Path.DirectorySeparatorChar;
                     if (String.IsNullOrWhiteSpace(_profile.MonitorPaths[i])) _profile.MonitorPaths.RemoveAt(i);
                 }
 
-                foreach (var item in profile.Mods) {
+                foreach (var item in _profile.Mods) {
                     DebugLogger.WriteLine($"  Mod: {item.BaseFolder} has {item.Conditionals.Count} conditionals");
                     DebugLogger.WriteLine("     Additional paths: " + String.Join(", ", item.ExtraFolders));
                     item.Startup();
@@ -129,15 +127,15 @@ namespace _7thWrapperLib {
                     DebugLogger.WriteLine(ex.ToString());
                 }
 
-                if (profile.MonitorVars != null)
-                    new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(profile);
+                if (_profile.MonitorVars != null)
+                    new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(_profile);
 
-                foreach (string LL in profile.Mods.SelectMany(m => m.GetLoadLibraries())) {
+                foreach (string LL in _profile.Mods.SelectMany(m => m.GetLoadLibraries())) {
                     DebugLogger.WriteLine($"Loading library DLL {LL}");
                     NativeLibrary.Load(LL);
                 }
 
-                foreach (var mod in profile.Mods) {
+                foreach (var mod in _profile.Mods) {
                     foreach (string LA in mod.GetLoadAssemblies()) {
                         DebugLogger.WriteLine($"Loading assembly DLL {LA}");
                         var asm = System.Reflection.Assembly.LoadFrom(LA);
@@ -150,7 +148,7 @@ namespace _7thWrapperLib {
                     }
                 }
 
-                foreach (var mod in profile.Mods.AsEnumerable().Reverse()) {
+                foreach (var mod in _profile.Mods.AsEnumerable().Reverse()) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
                         foreach (var hextPath in mod.GetOverrides("hext\\" + file)) {
                             System.IO.Stream s = new System.IO.FileStream(hextPath, FileMode.Open, FileAccess.Read);
