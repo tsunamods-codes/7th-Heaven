@@ -269,39 +269,24 @@ namespace _7thWrapperLib
 
         public string GetOverride(string path)
         {
-            string ret = null;
-
             string file;
+
             for(int i = 0; i < Conditionals.Count; i++)
             {
                 file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
-                if (FileExists(file) && Conditionals[i].IsActive(path))
-                {
-                    ret = file;
-                    break;
-                }
+                if (FileExists(file) && Conditionals[i].IsActive(path)) return file;
             }
 
-            if (ret == null)
+            for(int i = 0; i < ExtraFolders.Count; i++)
             {
-                for(int i = 0; i < ExtraFolders.Count; i++)
-                {
-                    file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
-                    if (FileExists(file))
-                    {
-                        ret = file;
-                        break;
-                    }
-                }
+                file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
+                if (FileExists(file)) return file;
             }
 
-            if (ret == null)
-            {
-                file = System.IO.Path.Combine(BaseFolder, path);
-                if (FileExists(file)) ret = file;
-            }
+            file = System.IO.Path.Combine(BaseFolder, path);
+            if (FileExists(file)) return file;
 
-            return ret;
+            return null;
         }
 
         public IEnumerable<string> GetOverrides(string path)
