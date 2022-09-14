@@ -152,13 +152,8 @@ namespace _7thWrapperLib {
 
                 foreach (var mod in profile.Mods.AsEnumerable().Reverse()) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
-                        foreach (var of in mod.GetOverrides("hext\\" + file)) {
-                            System.IO.Stream s;
-                            if (of.Archive == null) {
-                                s = new System.IO.FileStream(of.File, FileMode.Open, FileAccess.Read);
-                            } else {
-                                s = of.Archive.GetData(of.File);
-                            }
+                        foreach (var hextPath in mod.GetOverrides("hext\\" + file)) {
+                            System.IO.Stream s = new System.IO.FileStream(hextPath, FileMode.Open, FileAccess.Read);
                             DebugLogger.WriteLine($"Applying hext patch {file} from mod {mod.BaseFolder}");
                             try {
                                 HexPatch.Apply(s);
@@ -200,9 +195,21 @@ namespace _7thWrapperLib {
             }
         }
 
-        // ------------------------------------------------------------------------------------------------------
-        private static Dictionary<string, OverrideFile> mappedFilesCache = new Dictionary<string, OverrideFile>();
+        private static string MapFile(string file, RuntimeProfile profile)
+        {
+            foreach (var item in profile.Mods)
+            {
+                string entry = item.GetOverride(file);
+                if (entry != null)
+                {
+                    DebugLogger.WriteLine($"File {file} overridden by {entry}");
+                    return entry;
+                }
+            }
+            return null;
+        }
 
+        // ------------------------------------------------------------------------------------------------------
         [UnmanagedCallersOnly]
         static void* HCreateFileW(ushort* lpFileName, uint dwDesiredAccess, uint dwShareMode, void*lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, void* hTemplateFile)
         {
@@ -235,25 +242,24 @@ namespace _7thWrapperLib {
                         if (_lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                         {
                             string match = _lpFileName.Substring(path.Length);
-                            OverrideFile mapped = LGPWrapper.MapFile(match, _profile);
+                            string newPath = MapFile(match, _profile); ;
 
                             //DebugLogger.WriteLine($"Attempting match '{match}' for {_lpFileName}...");
 
-                            if (mapped == null)
+                            if (newPath == null)
                             {
                                 // Attempt a second round, this time relaxing the path match replacing only the game folder path.
                                 match = _lpFileName.Substring(_profile.FF7Path.Length + 1);
-                                mapped = LGPWrapper.MapFile(match, _profile);
+                                newPath = MapFile(match, _profile);
 
                                 //DebugLogger.WriteLine($"Attempting match '{match}' for {_lpFileName}...");
                             }
 
-                            if (mapped != null)
+                            if (newPath != null)
                             {
-                                DebugLogger.WriteLine($"Remapping {_lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+                                DebugLogger.WriteLine($"Remapping {_lpFileName} to {newPath} [ Matched: '{match}' ]");
 
-                                if (mapped.Archive == null)
-                                    _lpFileName = mapped.File;
+                                _lpFileName = newPath;
                             }
                         }
                     }

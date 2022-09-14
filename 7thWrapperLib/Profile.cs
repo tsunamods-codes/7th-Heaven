@@ -135,16 +135,6 @@ namespace _7thWrapperLib
     }
 
     [Serializable]
-    public class OverrideFile
-    {
-        public string File { get; set; }
-        public string CName { get; set; }
-        public ConditionalFolder CFolder { get; set; }
-        public int Size { get; set; }
-        public IrosArc Archive { get; set; }
-    }
-
-    [Serializable]
     public class RuntimeMod
     {
         public string BaseFolder { get; private set; }
@@ -277,18 +267,17 @@ namespace _7thWrapperLib
             return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
         }
 
-        public OverrideFile GetOverride(string path)
+        public string GetOverride(string path)
         {
-            OverrideFile ret = null;
+            string ret = null;
 
             string file;
             foreach (var cf in Conditionals)
             {
                 file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                if (FileExists(file))
+                if (FileExists(file) && cf.IsActive(path))
                 {
-                    if (cf.IsActive(path))
-                        ret = new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
+                    ret = file;
                     break;
                 }
             }
@@ -299,7 +288,7 @@ namespace _7thWrapperLib
                     file = System.IO.Path.Combine(BaseFolder, extra, path);
                     if (FileExists(file))
                     {
-                        ret = new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                        ret = file;
                         break;
                     }
                 }
@@ -308,27 +297,27 @@ namespace _7thWrapperLib
             if (ret == null)
             {
                 file = System.IO.Path.Combine(BaseFolder, path);
-                if (FileExists(file)) ret = new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                if (FileExists(file)) ret = file;
             }
 
             return ret;
         }
 
-        public IEnumerable<OverrideFile> GetOverrides(string path)
+        public IEnumerable<string> GetOverrides(string path)
         {
             string file;
             foreach (var cf in Conditionals)
             {
                 file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
+                if (FileExists(file)) yield return file;
             }
             foreach (string extra in ExtraFolders)
             {
                 file = System.IO.Path.Combine(BaseFolder, extra, path);
-                if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                if (FileExists(file)) yield return file;
             }
             file = System.IO.Path.Combine(BaseFolder, path);
-            if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+            if (FileExists(file)) yield return file;
         }
 
         private Dictionary<string, string[]> _pathOverrideNames = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
