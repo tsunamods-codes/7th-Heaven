@@ -50,7 +50,6 @@ namespace _7thWrapperLib {
 
             do
             {
-                System.Threading.Thread.Sleep(5000);
                 DebugLogger.WriteLine("MONITOR:");
                 for (int i = 0; i < accessors.Count; i++)
                 {
@@ -133,11 +132,11 @@ namespace _7thWrapperLib {
                 if (profile.MonitorVars != null)
                     new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(profile);
 
-                System.Threading.Thread.Sleep(1000);
                 foreach (string LL in profile.Mods.SelectMany(m => m.GetLoadLibraries())) {
                     DebugLogger.WriteLine($"Loading library DLL {LL}");
                     NativeLibrary.Load(LL);
                 }
+
                 foreach (var mod in profile.Mods) {
                     foreach (string LA in mod.GetLoadAssemblies()) {
                         DebugLogger.WriteLine($"Loading assembly DLL {LA}");
