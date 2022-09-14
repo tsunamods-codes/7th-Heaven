@@ -232,36 +232,6 @@ namespace _7thWrapperLib
             return LoadPrograms.ToList();
         }
 
-        public bool DirExists(string dir)
-        {
-            return _activated.Contains(dir);
-        }
-
-        public bool OverridesFolder(string which)
-        {
-            string file = System.IO.Path.Combine(BaseFolder, which);
-            if (DirExists(file)) return true;
-            foreach (string extra in ExtraFolders)
-                if (DirExists(System.IO.Path.Combine(BaseFolder, extra, which))) return true;
-            foreach (var cf in Conditionals)
-            {
-                file = System.IO.Path.Combine(BaseFolder, cf.Folder, which);
-                if (DirExists(file)) return true;
-            }
-           
-            return false;
-        }
-
-        private bool FileExists(string file)
-        {
-            return _activated.Contains(file);
-        }
-
-        public bool HasFile(string file)
-        {
-            return _activated.Contains(file);
-        }
-
         public System.IO.Stream Read(string file)
         {
             return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
@@ -274,17 +244,17 @@ namespace _7thWrapperLib
             for(int i = 0; i < Conditionals.Count; i++)
             {
                 file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
-                if (FileExists(file) && Conditionals[i].IsActive(path)) return file;
+                if (_activated.Contains(file) && Conditionals[i].IsActive(path)) return file;
             }
 
             for(int i = 0; i < ExtraFolders.Count; i++)
             {
                 file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
-                if (FileExists(file)) return file;
+                if (_activated.Contains(file)) return file;
             }
 
             file = System.IO.Path.Combine(BaseFolder, path);
-            if (FileExists(file)) return file;
+            if (_activated.Contains(file)) return file;
 
             return null;
         }
@@ -295,15 +265,15 @@ namespace _7thWrapperLib
             for (int i = 0; i < Conditionals.Count; i++)
             {
                 file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
-                if (FileExists(file)) yield return file;
+                if (_activated.Contains(file)) yield return file;
             }
             for (int i = 0; i < ExtraFolders.Count; i++)
             {
                 file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
-                if (FileExists(file)) yield return file;
+                if (_activated.Contains(file)) yield return file;
             }
             file = System.IO.Path.Combine(BaseFolder, path);
-            if (FileExists(file)) yield return file;
+            if (_activated.Contains(file)) yield return file;
         }
 
         private Dictionary<string, string[]> _pathOverrideNames = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
@@ -320,7 +290,7 @@ namespace _7thWrapperLib
         private IEnumerable<string> GetPathOverrideNamesInt(string path)
         {
             string spath = System.IO.Path.Combine(BaseFolder, path);
-            if (DirExists(spath))
+            if (_activated.Contains(spath))
                 foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                 {
                     yield return file.Substring(spath.Length).TrimStart('\\');
@@ -328,7 +298,7 @@ namespace _7thWrapperLib
             foreach (string extra in ExtraFolders)
             {
                 spath = System.IO.Path.Combine(BaseFolder, extra, path);
-                if (DirExists(spath))
+                if (_activated.Contains(spath))
                     foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                     {
                         yield return file.Substring(spath.Length).TrimStart('\\');
@@ -337,7 +307,7 @@ namespace _7thWrapperLib
             foreach (var cf in Conditionals)
             {
                 spath = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                if (DirExists(spath))
+                if (_activated.Contains(spath))
                     foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
                     {
                         yield return file.Substring(spath.Length).TrimStart('\\');
