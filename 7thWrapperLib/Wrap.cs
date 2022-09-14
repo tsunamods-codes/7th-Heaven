@@ -193,17 +193,18 @@ namespace _7thWrapperLib {
             }
         }
 
-        private static string MapFile(string file, RuntimeProfile profile)
+        private static string MapFile(string file)
         {
-            foreach (var item in profile.Mods)
+            for(int i = 0; i < _profile.Mods.Count; i++)
             {
-                string entry = item.GetOverride(file);
+                string entry = _profile.Mods[i].GetOverride(file);
                 if (entry != null)
                 {
                     DebugLogger.WriteLine($"File {file} overridden by {entry}");
                     return entry;
                 }
             }
+
             return null;
         }
 
@@ -240,7 +241,7 @@ namespace _7thWrapperLib {
                         if (_lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                         {
                             string match = _lpFileName.Substring(path.Length);
-                            string newPath = MapFile(match, _profile); ;
+                            string newPath = MapFile(match); ;
 
                             //DebugLogger.WriteLine($"Attempting match '{match}' for {_lpFileName}...");
 
@@ -248,7 +249,7 @@ namespace _7thWrapperLib {
                             {
                                 // Attempt a second round, this time relaxing the path match replacing only the game folder path.
                                 match = _lpFileName.Substring(_profile.FF7Path.Length + 1);
-                                newPath = MapFile(match, _profile);
+                                newPath = MapFile(match);
 
                                 //DebugLogger.WriteLine($"Attempting match '{match}' for {_lpFileName}...");
                             }

@@ -272,20 +272,21 @@ namespace _7thWrapperLib
             string ret = null;
 
             string file;
-            foreach (var cf in Conditionals)
+            for(int i = 0; i < Conditionals.Count; i++)
             {
-                file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                if (FileExists(file) && cf.IsActive(path))
+                file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
+                if (FileExists(file) && Conditionals[i].IsActive(path))
                 {
                     ret = file;
                     break;
                 }
             }
+
             if (ret == null)
             {
-                foreach (string extra in ExtraFolders)
+                for(int i = 0; i < ExtraFolders.Count; i++)
                 {
-                    file = System.IO.Path.Combine(BaseFolder, extra, path);
+                    file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
                     if (FileExists(file))
                     {
                         ret = file;
@@ -306,14 +307,14 @@ namespace _7thWrapperLib
         public IEnumerable<string> GetOverrides(string path)
         {
             string file;
-            foreach (var cf in Conditionals)
+            for (int i = 0; i < Conditionals.Count; i++)
             {
-                file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
+                file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
                 if (FileExists(file)) yield return file;
             }
-            foreach (string extra in ExtraFolders)
+            for (int i = 0; i < ExtraFolders.Count; i++)
             {
-                file = System.IO.Path.Combine(BaseFolder, extra, path);
+                file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
                 if (FileExists(file)) yield return file;
             }
             file = System.IO.Path.Combine(BaseFolder, path);
