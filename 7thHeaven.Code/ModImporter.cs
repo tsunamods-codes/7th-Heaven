@@ -195,7 +195,7 @@ namespace _7thHeaven.Code
                 CachePreview = String.Empty,
                 ModID = m.ID,
                 UpdateType = Sys.Library.DefaultUpdate,
-                Versions = new List<InstalledVersion>() { new InstalledVersion() { VersionDetails = m.LatestVersion, InstalledLocation = destFileName } },
+                Versions = new List<InstalledVersion>() { new InstalledVersion() { VersionDetails = m.LatestVersion, InstalledLocation = source } },
             });
 
             if (!Sys.ActiveProfile.HasItem(m.ID))
