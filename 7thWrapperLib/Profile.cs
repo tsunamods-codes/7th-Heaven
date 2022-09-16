@@ -138,8 +138,8 @@ namespace _7thWrapperLib
     public class RuntimeMod
     {
         public string BaseFolder { get; private set; }
-        public List<string> ExtraFolders { get; private set; }
-        public List<ConditionalFolder> Conditionals { get; private set; }
+        public HashSet<string> ExtraFolders { get; private set; }
+        public HashSet<ConditionalFolder> Conditionals { get; private set; }
         public List<string> LoadLibraries { get; private set; }
         public List<string> LoadAssemblies { get; private set; }
         public List<string> LoadPlugins { get; private set; }
@@ -156,8 +156,8 @@ namespace _7thWrapperLib
         public RuntimeMod(string folder, IEnumerable<ConditionalFolder> conditionalFolders, IEnumerable<string> extraFolders, ModInfo modInfo)
         {
             BaseFolder = folder;
-            Conditionals = conditionalFolders.ToList();
-            ExtraFolders = extraFolders.ToList();
+            Conditionals = conditionalFolders.ToHashSet();
+            ExtraFolders = extraFolders.ToHashSet();
             LoadLibraries = modInfo.LoadLibraries.ToList();
             LoadAssemblies = modInfo.LoadAssemblies.ToList();
             LoadPlugins = modInfo.LoadPlugins.ToList();
@@ -241,15 +241,15 @@ namespace _7thWrapperLib
         {
             string file;
 
-            for(int i = 0; i < Conditionals.Count; i++)
+            foreach(var item in Conditionals)
             {
-                file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
-                if (_activated.Contains(file) && Conditionals[i].IsActive(path)) return file;
+                file = System.IO.Path.Combine(BaseFolder, item.Folder, path);
+                if (_activated.Contains(file) && item.IsActive(path)) return file;
             }
 
-            for(int i = 0; i < ExtraFolders.Count; i++)
+            foreach(var item in ExtraFolders)
             {
-                file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
+                file = System.IO.Path.Combine(BaseFolder, item, path);
                 if (_activated.Contains(file)) return file;
             }
 
@@ -262,14 +262,14 @@ namespace _7thWrapperLib
         public IEnumerable<string> GetOverrides(string path)
         {
             string file;
-            for (int i = 0; i < Conditionals.Count; i++)
+            foreach (var item in Conditionals)
             {
-                file = System.IO.Path.Combine(BaseFolder, Conditionals[i].Folder, path);
+                file = System.IO.Path.Combine(BaseFolder, item.Folder, path);
                 if (_activated.Contains(file)) yield return file;
             }
-            for (int i = 0; i < ExtraFolders.Count; i++)
+            foreach (var item in ExtraFolders)
             {
-                file = System.IO.Path.Combine(BaseFolder, ExtraFolders[i], path);
+                file = System.IO.Path.Combine(BaseFolder, item, path);
                 if (_activated.Contains(file)) yield return file;
             }
             file = System.IO.Path.Combine(BaseFolder, path);
