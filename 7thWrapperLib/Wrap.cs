@@ -241,7 +241,7 @@ namespace _7thWrapperLib {
                         if (_lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                         {
                             string match = _lpFileName.Substring(path.Length);
-                            string newPath = MapFile(match); ;
+                            string newPath = MapFile(match);
 
                             //DebugLogger.WriteLine($"Attempting match '{match}' for {_lpFileName}...");
 
