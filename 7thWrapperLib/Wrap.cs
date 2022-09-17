@@ -161,6 +161,61 @@ namespace _7thWrapperLib {
                         }
                     }
                 }
+
+                foreach (var mod in _profile.Mods) {
+                    foreach(var folder in mod.Conditionals) {
+                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
+                        try
+                        {
+                            DirectoryInfo di = new DirectoryInfo(folderPath);
+                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                            {
+                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                {
+                                    overrideFiles.Add(new OverrideFile()
+                                    {
+                                        File = fi.FullName,
+                                        CFolder = folder
+                                    });
+                                }
+                            }
+                        } catch(DirectoryNotFoundException e) {
+                            DebugLogger.WriteLine(e.ToString());
+                        }
+
+                    }
+
+                    foreach (var folder in mod.ExtraFolders) {
+                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
+                        try
+                        {
+                            DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                            {
+                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                {
+                                    overrideFiles.Add(new OverrideFile()
+                                    {
+                                        File = fi.FullName,
+                                        CFolder = null
+                                    });
+                                }
+                            }
+                        } catch(DirectoryNotFoundException e) {
+                            DebugLogger.WriteLine(e.ToString());
+                        }
+                    }
+                }
+                DebugLogger.WriteLine($"Profile mappedFiles dictionary size is {_profile.mappedFiles.Count()}");
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
                 return;
@@ -195,13 +250,12 @@ namespace _7thWrapperLib {
 
         private static string MapFile(string file)
         {
-            for(int i = 0; i < _profile.Mods.Count; i++)
+            if (_profile.mappedFiles.TryGetValue(file.ToLower(), out List<OverrideFile> overrideFiles))
             {
-                string entry = _profile.Mods[i].GetOverride(file);
-                if (entry != null)
+                foreach (var overrideFile in overrideFiles)
                 {
-                    DebugLogger.WriteLine($"File {file} overridden by {entry}");
-                    return entry;
+                    if (overrideFile.CFolder == null || overrideFile.CFolder.IsActive(file))
+                        return overrideFile.File;
                 }
             }
 
