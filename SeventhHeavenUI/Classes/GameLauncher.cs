@@ -611,8 +611,6 @@ namespace SeventhHeaven.Classes
             //
             try
             {
-                SetCompatibilityFlagsInRegistry();
-
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.LaunchingAdditionalProgramsToRunIfAny));
                 Instance.LaunchAdditionalProgramsToRunPrior();
 
@@ -761,8 +759,6 @@ namespace SeventhHeaven.Classes
                         {
                             EnableOrDisableReunionMod(doEnable: true);
                         }
-
-                        DeleteCompatibilityFlagsInRegistry();
                     }
                     catch (Exception ex)
                     {
@@ -1529,44 +1525,6 @@ namespace SeventhHeaven.Classes
                 }
 
                 Instance.RaiseProgressChanged($"\t {regKeyPath}::{regValueName} = {valueFormatted}");
-            }
-        }
-
-        private static void SetCompatibilityFlagsInRegistry()
-        {
-            if (Sys.Settings.GameLaunchSettings.WorkaroundErrorCode5)
-            {
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ApplyingCompatibilityFlagsInRegistry));
-
-                RegistryKey ff7CompatKey;
-                string keyPath = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
-
-                ff7CompatKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-
-                if (ff7CompatKey != null)
-                {
-                    ff7CompatKey.SetValue(Sys.Settings.FF7Exe, "~ 640X480 HIGHDPIAWARE");
-                }
-
-                ff7CompatKey.Close();
-            }
-        }
-
-        private static void DeleteCompatibilityFlagsInRegistry()
-        {
-            if (Sys.Settings.GameLaunchSettings.WorkaroundErrorCode5)
-            {
-                RegistryKey ff7CompatKey;
-                string keyPath = @"Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
-
-                ff7CompatKey = Registry.CurrentUser.OpenSubKey(keyPath, true);
-
-                if (ff7CompatKey != null)
-                {
-                    ff7CompatKey.SetValue(Sys.Settings.FF7Exe, "");
-                }
-
-                ff7CompatKey.Close();
             }
         }
 

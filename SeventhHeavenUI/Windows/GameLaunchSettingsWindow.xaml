@@ -383,7 +383,6 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <ComboBox x:Name="cboMountOptions"
                           Style="{StaticResource MainComboBoxStyle}"
@@ -409,9 +408,6 @@
                 <CheckBox Height="25" Content="{DynamicResource ShowGameLauncher}" 
                           Grid.Row="4"
                           IsChecked="{Binding IsShowLauncherChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <CheckBox Height="25" Content="{DynamicResource Code5Fix}" 
-                          Grid.Row="5"
-                          IsChecked="{Binding DoWorkaroundErrorCode5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </GroupBox>
 

@@ -163,9 +163,6 @@
     <system:String x:Key="HighDpiScalingFix">High-DPI Scaling Fix</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">May fix game screen being cut off and/or not being centered. Use with high-DPI displays. Alternatively, change your Windows Display Settings to 100% scaling.</system:String>
 
-    <system:String x:Key="Code5Fix">Code 5 Fix</system:String>
-    <system:String x:Key="Code5FixTooltip">May fix problems with 'Code 5' error when clicking 'Play'. Multi-monitor setups may see open programs pushed to the secondary monitor when activated.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Reunion Driver Fix</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Temporarily renames ddraw.dll to Reunion.dll.bak on game launch, then immediately back again. Does not affect playability of Reunion outside of 7H.</system:String>
 
@@ -908,9 +905,7 @@ Do you want to apply the setting and try again?</system:String>
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Applying changed values to registry ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Applying compatibility flags in registry (if any) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Code 5 fix / High DPI fix set to false - deleting flags if exist ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">compatibility flags found - deleting</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Code 5 fix set to true - applying 640x480 compatibility flag in registry</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">High DPI Fix set to true - applying HIGHDPIAWARE compatibility flag in registry</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">using control configuration file</system:String>

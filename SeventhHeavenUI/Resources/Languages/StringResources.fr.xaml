@@ -159,9 +159,6 @@
     <system:String x:Key="HighDpiScalingFix">Correction d'affichage pour les DPI élevés</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Permet de corriger les bugs grahiques (écran coupé ou mal centré) si l'échelle de l'affichage de windows est supérieure a 100%. Vous pouvez également modifier les paramètres d'affichage de Windows pour une échelle de 100%.</system:String>
 
-    <system:String x:Key="Code5Fix">Correction du Code 5</system:String>
-    <system:String x:Key="Code5FixTooltip">Pourrait résoudre les problèmes liés à l'erreur 'Code 5' lorsque vous cliquez sur "Jouer". Peux déplacer les programmes ouverts sur le 2° écran en cas d'utilisation multi-écran.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Patch du pilote du mod Réunion</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Renomme temporairement ddraw.dll en Reunion.dll.bak au lancement du jeu, puis le renomme immédiatement après. N'affecte pas l'utilisation du mod Réunion en dehors de 7H.</system:String>
 
@@ -901,9 +898,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Application des valeurs modifiées dans le registre...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Application des réglages de compatibilité dans le registre (le cas échéant)...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">La correction du Code 5 / la correction d'affichage pour les DPI élevés sont désactivés - suppression des réglages s'ils existent...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">Réglages de compatibilité trouvés - suppression</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">La correction du Code 5 est activée - application du réglage de compatibilité 640x480 dans le registre</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">La correction d'affichage pour les DPI élevés est activée - application du réglage de compatibilité HIGHDPIAWARE dans le registre</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">en utilisant le fichier de configuration des contrôles</system:String>

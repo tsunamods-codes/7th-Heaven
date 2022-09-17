@@ -161,9 +161,6 @@
     <system:String x:Key="HighDpiScalingFix">High-DPI Scaling Korrektur</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Kann den Fehler beheben, dass das Bild abgeschnitten oder nicht zentriert ist bei der Verwendung von hohen Auflösungen. Alternativ setze die Fenster Scalierung auf 100%.</system:String>
 
-    <system:String x:Key="Code5Fix">Code 5 Korrektur</system:String>
-    <system:String x:Key="Code5FixTooltip">Kann den 'Code 5' Fehler beim starten des Spiels beheben. Beim nutzen mehrerer Monitore kann es vorkommen, dass das Spiel auf dem 2. Monitor gestartet wird, wenn aktiv.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Reunion Treiber Korrektur</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Benennt die ddraw.dll temporär in Reunion.dll.bak beim Spielstart um und stellt nach dem Spielen das Orginal wieder her. Beeinflusst nicht die Spielbarkeit von Reunion außerhalb von 7H.</system:String>
 
@@ -914,9 +911,7 @@ Aktivieren und erneut versuchen?</system:String>
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Wende in der Registry geänderte Werte an ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Wende Kompatibilitätsenstellungen in der Registry an (fals vorhanden) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Code 5 Korrektur / High DPI Korrektur deaktiviert - Lösche Einträge, fals vorhanden ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">Kompatibilitäts Einträge gefunden - Lösche Einträge</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Code 5 Korrektur aktiviert - Schreibe 640x480 kompatibilitäts Eintrag in die Registry</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">High DPI Korrektur aktiviert - Schreibe HIGHDPIAWARE kompatibilitäts Eintrag in die Registry</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">Nutze Kontroler Einstellungsdatei</system:String>

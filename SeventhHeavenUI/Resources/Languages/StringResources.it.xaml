@@ -162,9 +162,6 @@
     <system:String x:Key="HighDpiScalingFix">Fix Ridimensionamento DPI Elevati</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Può risolvere il problema qualora lo schermo di gioco si presenti tagliato o decentrato. Da usare solo con schermi a DPI elevati. In alternativa, cambia le Impostazioni dello Schermo di Windows portando il ridimensionamento a 100%.</system:String>
 
-    <system:String x:Key="Code5Fix">Fix Code 5</system:String>
-    <system:String x:Key="Code5FixTooltip">Può risolvere gli errori codificati con 'Code 5' qualora si presentino dopo aver cliccato su 'Gioca'. Chi dispone di più monitor potrebbe constatare lo spostamento di altre applicazioni aperte sul secondo monitor.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Fix Driver Reunion</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Rinomina temporaneamente ddraw.dll in Reunion.dll.bak all'avvio del gioco, per ripristinarlo alla chiusura. Non affligge in nessun modo la giocabilità di Reunion al di fuori di 7H.</system:String>
 
@@ -905,9 +902,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Applico cambiamenti al registro ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Applico impostazioni di compatibilità nel registro (se necessarie) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Fix Code 5 / DPI elevati impostata su false - cancello le impostazioni se presenti ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">impostazioni di compatibilità trovate - cancello</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Fix Code 5 impostata su true - applico l'impostazione di compatibilità 640x480 nel registro</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Fix DPI Elevati impostataa su true - applico l'impostazione di compatibilità HIGHDPIAWARE nel registro</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">utilizzo file di configurazione dei comandi</system:String>

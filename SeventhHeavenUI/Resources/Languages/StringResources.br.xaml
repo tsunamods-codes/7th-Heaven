@@ -162,9 +162,6 @@
     <system:String x:Key="HighDpiScalingFix">Correção de escala para alto DPI</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Pode corrigir a tela do jogo ficar cortada e/ou não centrada. Use com dispositivos de alto DPI. Você pode também mudar suas configurações de vídeo para 100% Escala.</system:String>
 
-    <system:String x:Key="Code5Fix">Correção Código 5</system:String>
-    <system:String x:Key="Code5FixTooltip">Pode consertar problemas com o erro 'Código 5' quando clica em Jogar. Usuários de multi-monitor poderão ver programas abertos sendo movidos para o monitor secundário quando ativado.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Correção de Driver para Reunion</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Temporariamente renomeia ddraw.dll para Reunion.dll.bak ao inicializar, e reverte imediamente após. Não afeta jogabilidade de Reunion fora do 7H.</system:String>
 
@@ -906,9 +903,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Aplicando valores alterados ao registro ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Aplicando flags de compatibilidade ao registro (se houverem) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Correção Código 5 / Correção de Alto DPI desabilitada - deletando flags existentes ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">encontradas flags de compatibilidade - deletando</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Correção Código 5 habilitada - aplicando flag de compatibilidade 640x480 ao registro</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Correção de Alto DPI habilitada - aplicando flag de compatibilidade HIGHDPIAWARE ao registro</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">usando arquivo de configuração de controles</system:String>

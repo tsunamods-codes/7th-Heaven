@@ -165,9 +165,6 @@
     <system:String x:Key="HighDpiScalingFix">Arreglo para el escalado de alta resolución de PPP</system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Puede arreglar la pantalla del juego si está cortada o descentrada. Activar en pantallas con una alta resolución de PPP. Alternativamente, cambia el escalado de la Configuración de la Pantalla de Windows al 100%.</system:String>
 
-    <system:String x:Key="Code5Fix">Arreglo del Code 5</system:String>
-    <system:String x:Key="Code5FixTooltip">Puede solucionar problemas con el error del "Code 5" al hacer clic en "Jugar". Las configuraciones con varios monitores puede que desplacen los programas abiertos al monitor secundario cuando está activo.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Arreglo para el 'Controlador de Reunion'</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Renombra temporalmente ddraw.dll a Reunion.dll.bak al iniciar el juego, acto seguido lo revierte de nuevo inmediatamente. No afecta a la jugabilidad de 'Reunion' fuera de 7H.</system:String>
 
@@ -910,9 +907,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Aplicando valores modificados en el registro ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Aplicando los valores de compatibilidad en el registro (si hay) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Arreglo del Código 5 / Resolución alta de PPP configurados a 'false' - borrando valores si existen ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">indicadores de compatibilidad encontrados - eliminando</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Arreglo del Código 5 configurado a 'true' - aplicando el valor de compatibilidad para 640x480 en el registro</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Arreglo de la Resolución alta de PPP configurado a 'true' - aplicando el valor de compatibilidad para HIGHDPIAWARE en el registro</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">utilizando el archivo de configuración de los controles</system:String>

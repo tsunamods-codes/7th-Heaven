@@ -162,9 +162,6 @@
     <system:String x:Key="HighDpiScalingFix">Διόρθωση Κλίμακας σε Υψηλές Αναλύσεις </system:String>
     <system:String x:Key="HighDpiScalingFixTooltip">Μπορεί να διορθώσει τις διακοπές στην οθόνη του παιχνιδιού ή/και την απουσία κεντραρίσματος. Να χρησιμοποιείται σε Οθόνες Υψηλής Ανάλυσης-DPI. Εναλλακτικά, αλλάξτε τις ρυθμίσεις της Οθόνης των Windows σε κλιμάκωση 100%.</system:String>
 
-    <system:String x:Key="Code5Fix">Διόρθωση λάθους 'Code 5'</system:String>
-    <system:String x:Key="Code5FixTooltip">Μπορεί να διορθώσει το πρόβλημα λάθους 'Code 5'  όταν κάνεις κλικ σε 'Εναρξη'. Πολυοθονικές εγκαταστάσεις μπορεί να δείχνουν ανοιχτά προγράμματα να ωθούνται στη δευτερεύουσα οθόνη όταν ενεργοποιείται.</system:String>
-
     <system:String x:Key="ReunionDriverFix">Διόρθωση για τους οδηγούς λειτουργίας του REUNION</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">Μετονομάζει προσωρινά το αρχείο ddraw.dll σε Reunion.dll.bak κατά την εκκίνηση του παιχνιδιού και άμεση επαναφορά ονομασίας. Δεν επηρρεάζει τη λειτουργικότητα του REUNION έξω από την εφαρμογή 7H.</system:String>
 
@@ -905,9 +902,7 @@
 
     <system:String x:Key="ApplyingChangedValuesToRegistry">Εφαρμογή των αλλαγμένων τιμών στο μητρώο ...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Εφαρμογή επισημάνσεων συμβατότητας στο μητρώο (εάν υπάρχουν) ...</system:String>
-    <system:String x:Key="Code5FixHighDpiFixSetToFalseDeletingFlags">Οι διορθώσεις Code 5 / Κλιμάκωσης σε Υψηλές Αναλύσεις ορίστηκαν σε 'false' (μη ενεργές) - διαγράφονται τυχόν επισημάνσεις ...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">βρέθηκαν επισημάνσεις συμβατότητας - διαγράφονται</system:String>
-    <system:String x:Key="Code5FixSetToTrueApplyingCompatibilityFlag">Η διόρθωση Code 5  ορίστηκε σε 'true' (ενεργή) - εφαρμογή επισήμανσης συμβατότητας για ανάλυση 640x480 στο μητρώο</system:String>
     <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Η διόρθωση Κλιμάκωσης σε Υψηλές Αναλύσεις ορίστηκε σε 'true' (ενεργή) - εφαρμογή επισήμανσης συμβατότητας HIGHDPIAWARE στο μητρώο</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">χρησιμοποίηση του αρχείου ρυθμίσεων ελέγχου</system:String>

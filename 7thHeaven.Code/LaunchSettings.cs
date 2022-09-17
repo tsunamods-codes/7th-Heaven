@@ -32,8 +32,6 @@ namespace _7thHeaven.Code
 
         public bool EnablePs4ControllerService { get; set; }
 
-        public bool WorkaroundErrorCode5 { get; set; }
-
         /// <summary>
         /// True means that the launcher will poll for input from a gamepad to intercept trigger/dpad presses
         /// </summary>
@@ -66,7 +64,6 @@ namespace _7thHeaven.Code
                 EnablePs4ControllerService = false,
                 MountingOption = MountDiscOption.MountWithPowerShell,
                 EnableGamepadPolling = false,
-                WorkaroundErrorCode5 = false,
             };
         }
     }
