@@ -8,9 +8,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
+using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
@@ -130,91 +129,128 @@ namespace _7thWrapperLib {
                 if (_profile.MonitorVars != null)
                     new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(_profile);
 
-                foreach (string LL in _profile.Mods.SelectMany(m => m.GetLoadLibraries())) {
-                    DebugLogger.WriteLine($"Loading library DLL {LL}");
-                    NativeLibrary.Load(LL);
-                }
-
-                foreach (var mod in _profile.Mods) {
-                    foreach (string LA in mod.GetLoadAssemblies()) {
-                        DebugLogger.WriteLine($"Loading assembly DLL {LA}");
-                        var asm = System.Reflection.Assembly.LoadFrom(LA);
-                        try {
-                            string path = mod.BaseFolder;
-                            asm.GetType("_7thHeaven.Main")
-                                .GetMethod("Init", new[] { typeof(RuntimeMod) })
-                                .Invoke(null, new object[] { mod });
-                        } catch { }
-                    }
-                }
-
-                foreach (var mod in _profile.Mods.AsEnumerable().Reverse()) {
-                    foreach (string file in mod.GetPathOverrideNames("hext")) {
-                        foreach (var hextPath in mod.GetOverrides("hext\\" + file)) {
-                            System.IO.Stream s = new System.IO.FileStream(hextPath, FileMode.Open, FileAccess.Read);
-                            DebugLogger.WriteLine($"Applying hext patch {file} from mod {mod.BaseFolder}");
-                            try {
-                                HexPatch.Apply(s);
-                            } catch (Exception ex) {
-                                DebugLogger.WriteLine("Error applying patch: " + ex.Message);
+                Parallel.Invoke(
+                    () =>
+                    {
+                        foreach (string LL in _profile.Mods.SelectMany(m => m.GetLoadLibraries()))
+                        {
+                            DebugLogger.WriteLine($"Loading library DLL {LL}");
+                            NativeLibrary.Load(LL);
+                        }
+                    },
+                    () =>
+                    {
+                        foreach (var mod in _profile.Mods)
+                        {
+                            foreach (string LA in mod.GetLoadAssemblies())
+                            {
+                                DebugLogger.WriteLine($"Loading assembly DLL {LA}");
+                                var asm = System.Reflection.Assembly.LoadFrom(LA);
+                                try
+                                {
+                                    string path = mod.BaseFolder;
+                                    asm.GetType("_7thHeaven.Main")
+                                        .GetMethod("Init", new[] { typeof(RuntimeMod) })
+                                        .Invoke(null, new object[] { mod });
+                                }
+                                catch { }
                             }
                         }
-                    }
-                }
-
-                foreach (var mod in _profile.Mods) {
-                    foreach(var folder in mod.Conditionals) {
-                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
-                        try
+                    },
+                    () =>
+                    {
+                        foreach (var mod in _profile.Mods.AsEnumerable().Reverse())
                         {
-                            DirectoryInfo di = new DirectoryInfo(folderPath);
-                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                            foreach (string file in mod.GetPathOverrideNames("hext"))
                             {
-                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                foreach (var hextPath in mod.GetOverrides("hext\\" + file))
                                 {
-                                    overrideFiles.Add(new OverrideFile()
+                                    System.IO.Stream s = new System.IO.FileStream(hextPath, FileMode.Open, FileAccess.Read);
+                                    DebugLogger.WriteLine($"Applying hext patch {file} from mod {mod.BaseFolder}");
+                                    try
                                     {
-                                        File = fi.FullName,
-                                        CFolder = folder
-                                    });
+                                        HexPatch.Apply(s);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        DebugLogger.WriteLine("Error applying patch: " + ex.Message);
+                                    }
                                 }
                             }
-                        } catch(DirectoryNotFoundException e) {
-                            DebugLogger.WriteLine(e.ToString());
                         }
-
-                    }
-
-                    foreach (var folder in mod.ExtraFolders) {
-                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
-                        try
+                    },
+                    () =>
+                    {
+                        foreach (var mod in _profile.Mods)
                         {
-                            DirectoryInfo di = new DirectoryInfo(folderPath);
-
-                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
-                            {
-                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                            Parallel.Invoke(
+                                () =>
                                 {
-                                    overrideFiles.Add(new OverrideFile()
+                                    foreach (var folder in mod.Conditionals)
                                     {
-                                        File = fi.FullName,
-                                        CFolder = null
-                                    });
+                                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
+                                        try
+                                        {
+                                            DirectoryInfo di = new DirectoryInfo(folderPath);
+                                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                                            {
+                                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                                if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                                {
+                                                    overrideFiles.Add(new OverrideFile()
+                                                    {
+                                                        File = fi.FullName,
+                                                        CFolder = folder
+                                                    });
+                                                }
+                                            }
+                                        }
+                                        catch (DirectoryNotFoundException e)
+                                        {
+                                            DebugLogger.WriteLine(e.ToString());
+                                        }
+
+                                    }
+                                },
+                                () =>
+                                {
+                                    foreach (var folder in mod.ExtraFolders)
+                                    {
+                                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
+                                        try
+                                        {
+                                            DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                                            {
+                                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                                if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                                {
+                                                    overrideFiles.Add(new OverrideFile()
+                                                    {
+                                                        File = fi.FullName,
+                                                        CFolder = null
+                                                    });
+                                                }
+                                            }
+                                        }
+                                        catch (DirectoryNotFoundException e)
+                                        {
+                                            DebugLogger.WriteLine(e.ToString());
+                                        }
+                                    }
                                 }
-                            }
-                        } catch(DirectoryNotFoundException e) {
-                            DebugLogger.WriteLine(e.ToString());
+                            );
                         }
                     }
-                }
+                );
+                
                 DebugLogger.WriteLine($"Profile mappedFiles dictionary size is {_profile.mappedFiles.Count()}");
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
