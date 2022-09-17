@@ -107,6 +107,13 @@ namespace _7thWrapperLib
     }
 
     [Serializable]
+    public class OverrideFile
+    {
+        public string File { get; set; }
+        public ConditionalFolder CFolder { get; set; }
+    }
+
+    [Serializable]
     public class RuntimeProfile
     {
         public string LogFile { get; set; }
@@ -119,6 +126,8 @@ namespace _7thWrapperLib
         public List<RuntimeMod> Mods { get; set; }
 
         public List<Tuple<string, string>> MonitorVars { get; set; }
+
+        public Dictionary<string, List<OverrideFile>> mappedFiles { get; set; }
     }
 
     public static class XmlUtil
