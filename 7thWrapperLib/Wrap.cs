@@ -326,7 +326,7 @@ namespace _7thWrapperLib {
                     }
                 }
 
-                foreach (var mod in profile.Mods) {
+                foreach (var mod in profile.Mods.AsEnumerable().Reverse()) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
                         foreach (var of in mod.GetOverrides("hext\\" + file)) {
                             System.IO.Stream s;
