@@ -183,70 +183,63 @@ namespace _7thWrapperLib {
                     {
                         foreach (var mod in _profile.Mods)
                         {
-                            Parallel.Invoke(
-                                () =>
+                            foreach (var folder in mod.Conditionals)
+                            {
+                                string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
+                                try
                                 {
-                                    foreach (var folder in mod.Conditionals)
+                                    DirectoryInfo di = new DirectoryInfo(folderPath);
+                                    foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
                                     {
-                                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
-                                        try
+                                        string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                        if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                            _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                        if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
                                         {
-                                            DirectoryInfo di = new DirectoryInfo(folderPath);
-                                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                                            overrideFiles.Add(new OverrideFile()
                                             {
-                                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                                if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
-                                                {
-                                                    overrideFiles.Add(new OverrideFile()
-                                                    {
-                                                        File = fi.FullName,
-                                                        CFolder = folder
-                                                    });
-                                                }
-                                            }
-                                        }
-                                        catch (DirectoryNotFoundException e)
-                                        {
-                                            DebugLogger.WriteLine(e.ToString());
-                                        }
-
-                                    }
-                                },
-                                () =>
-                                {
-                                    foreach (var folder in mod.ExtraFolders)
-                                    {
-                                        string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
-                                        try
-                                        {
-                                            DirectoryInfo di = new DirectoryInfo(folderPath);
-
-                                            foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
-                                            {
-                                                string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                                if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                                    _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                                if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
-                                                {
-                                                    overrideFiles.Add(new OverrideFile()
-                                                    {
-                                                        File = fi.FullName,
-                                                        CFolder = null
-                                                    });
-                                                }
-                                            }
-                                        }
-                                        catch (DirectoryNotFoundException e)
-                                        {
-                                            DebugLogger.WriteLine(e.ToString());
+                                                File = fi.FullName,
+                                                CFolder = folder
+                                            });
                                         }
                                     }
                                 }
-                            );
+                                catch (DirectoryNotFoundException e)
+                                {
+                                    DebugLogger.WriteLine(e.ToString());
+                                }
+
+                            }
+
+                            foreach (var folder in mod.ExtraFolders)
+                            {
+                                string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
+                                try
+                                {
+                                    DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                                    foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                                    {
+                                        string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                                        if (!_profile.mappedFiles.ContainsKey(fileKey))
+                                            _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                                        if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                                        {
+                                            overrideFiles.Add(new OverrideFile()
+                                            {
+                                                File = fi.FullName,
+                                                CFolder = null
+                                            });
+                                        }
+                                    }
+                                }
+                                catch (DirectoryNotFoundException e)
+                                {
+                                    DebugLogger.WriteLine(e.ToString());
+                                }
+                            }
                         }
                     }
                 );
