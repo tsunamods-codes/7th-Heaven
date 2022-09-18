@@ -266,6 +266,8 @@ Vous ne devez utiliser cette option que lors du dépannage d'un seul mod actif a
     <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">Êtes-vous sûr de vouloir quitter ? Vous avez des téléchargements en attente.</system:String>
     <system:String x:Key="ConfirmExit">Confirmer la sortie</system:String>
 
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
     <!--MainWindowViewModel Strings-->
     <system:String x:Key="StartedClickHereToViewAppLog">commencé - Cliquer ici pour voir le journal de l'application.</system:String>
     <system:String x:Key="HintLabel">Information :</system:String>

@@ -246,6 +246,7 @@
         SelectIroFile,
         AreYouSureYouWantToPlayDebugWarning,
         AreYouSureYouWantToExitPendingDownloads,
+        CannotExitWhileImporting,
         ConfirmExit,
         AreYouSureYouWantToDeleteSelectedProfile,
         SelectProfileToContinue,

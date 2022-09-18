@@ -272,6 +272,8 @@ Usa solo esta opción mientras buscas algún problema en Mods específicos y as�
     <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">¿Estás segur@ de que quieres salir? Aún tienes descargas pendientes.</system:String>
     <system:String x:Key="ConfirmExit">Confirmar Salida</system:String>
 
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
     <!--MainWindowViewModel Strings-->
     <system:String x:Key="StartedClickHereToViewAppLog">Iniciado - Haz clic aquí para ver el registro de la aplicación.</system:String>
     <system:String x:Key="HintLabel">Consejo:</system:String>

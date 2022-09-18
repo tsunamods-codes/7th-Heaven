@@ -269,6 +269,8 @@ Você deveria usar essa opção apenas para testar um único mod ativo para pode
     <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">Tem certeza de que quer sair? Você tem downloads pendentes.</system:String>
     <system:String x:Key="ConfirmExit">Confirmar Saída</system:String>
 
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
     <!--MainWindowViewModel Strings-->
     <system:String x:Key="StartedClickHereToViewAppLog">Iniciou - Clique aqui para ver o log do aplicativo.</system:String>
     <system:String x:Key="HintLabel">Dica:</system:String>

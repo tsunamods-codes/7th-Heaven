@@ -256,6 +256,8 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">Are you sure you want to exit? You have downloads pending.</system:String>
     <system:String x:Key="ConfirmExit">Confirm Exit</system:String>
 
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
     <!--MainWindowViewModel Strings-->
     <system:String x:Key="StartedClickHereToViewAppLog">started - Click here to view the app log.</system:String>
     <system:String x:Key="HintLabel">Hint:</system:String>

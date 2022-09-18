@@ -269,6 +269,8 @@
     <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">Είσαι σίγουρος πως θέλεις να βγεις; Υπάρχουν λήψεις που εκκρεμούν.</system:String>
     <system:String x:Key="ConfirmExit">Επιβεβαίωση Εξόδου</system:String>
 
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
     <!--MainWindowViewModel Strings-->
     <system:String x:Key="StartedClickHereToViewAppLog">Έγινε εκκίνηση - Κάντε κλικ εδώ για να δείτε το αρχείο καταγραφής της εφαρμογής.</system:String>
     <system:String x:Key="HintLabel">Συμβουλή:</system:String>

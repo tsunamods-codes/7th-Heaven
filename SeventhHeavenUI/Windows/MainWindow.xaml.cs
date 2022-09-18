@@ -103,6 +103,13 @@ namespace SeventhHeavenUI
                 return;
             }
 
+            if (Sys.IsImporting)
+            {
+                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.CannotExitWhileImporting), ResourceHelper.Get(StringKey.Warning), MessageBoxButton.OK, MessageBoxImage.Warning);
+                e.Cancel = true;
+                return;
+            }
+
             if (ViewModel.CatalogMods.DownloadList.Count > 0)
             {
                 var result = MessageDialogWindow.Show(ResourceHelper.Get(StringKey.AreYouSureYouWantToExitPendingDownloads), ResourceHelper.Get(StringKey.ConfirmExit), MessageBoxButton.YesNo, MessageBoxImage.Warning);
