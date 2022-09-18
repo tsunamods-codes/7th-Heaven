@@ -99,6 +99,7 @@ namespace Iros._7th.Workshop
 
         public static _7thWrapperLib.LoaderContext _context;
 
+        public static bool IsImporting = false;
 
         public static object CatalogLock = new object();
 
@@ -611,6 +612,8 @@ namespace Iros._7th.Workshop
 
         public static void TryAutoImportMods()
         {
+            Sys.IsImporting = true;
+
             if (Sys.Settings.HasOption(GeneralOptions.AutoImportMods) && Directory.Exists(Sys.Settings.LibraryLocation))
             {
                 foreach (string folder in Directory.GetDirectories(Sys.Settings.LibraryLocation))
@@ -672,6 +675,8 @@ namespace Iros._7th.Workshop
             ValidateAndRemoveDeletedMods();
 
             Sys.Library.AttemptDeletions();
+
+            Sys.IsImporting = false;
         }
 
         public static bool ValidateAndRemoveDeletedMods()
