@@ -626,9 +626,9 @@
     </PackageReference>
     <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="XamlAnimatedGif">
-      <Version>2.0.2</Version>
+      <Version>2.0.3</Version>
     </PackageReference>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>CA1416</NoWarn>
