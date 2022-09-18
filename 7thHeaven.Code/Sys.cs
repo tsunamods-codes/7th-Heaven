@@ -618,9 +618,9 @@ namespace Iros._7th.Workshop
                     string name = Path.GetFileName(folder);
                     if (!name.EndsWith("temp", StringComparison.InvariantCultureIgnoreCase) && !Sys.Library.PendingDelete.Contains(name, StringComparer.InvariantCultureIgnoreCase))
                     {
-                        if (!Sys.Library.Items.SelectMany(ii => ii.Versions).Any(v => v.InstalledLocation.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
+                        if (!Sys.Library.Items.SelectMany(ii => ii.Versions).Any(v => v.InstalledLocation.Equals(folder, StringComparison.InvariantCultureIgnoreCase)))
                         {
-                            Sys.Message(new WMessage("Trying to auto-import file " + folder, WMessageLogLevel.LogOnly));
+                            Sys.Message(new WMessage("Trying to auto-import folder " + folder, WMessageLogLevel.LogOnly));
                             try
                             {
                                 string modName = ModImporter.ParseNameFromFileOrFolder(Path.GetFileNameWithoutExtension(folder));
