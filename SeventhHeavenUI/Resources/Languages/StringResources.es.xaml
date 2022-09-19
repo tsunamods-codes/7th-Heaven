@@ -195,14 +195,14 @@
     <system:String x:Key="MusicVolumeLabel">Volumen de la música:</system:String>
     <system:String x:Key="MusicVolumeTooltip">Establece el volumen de la música en el juego.</system:String>
 
-    <system:String x:Key="VoiceVolumeLabel">Voice Volume:</system:String>
-    <system:String x:Key="VoiceVolumeTooltip">Set the in-game voice volume.</system:String>
+    <system:String x:Key="VoiceVolumeLabel">Volumen de las voces:</system:String>
+    <system:String x:Key="VoiceVolumeTooltip">Establece el volumen de las voces en el juego.</system:String>
 
-    <system:String x:Key="AmbientVolumeLabel">Ambient Volume:</system:String>
-    <system:String x:Key="AmbientVolumeTooltip">Set the in-game ambient volume.</system:String>
+    <system:String x:Key="AmbientVolumeLabel">Volumen ambiental:</system:String>
+    <system:String x:Key="AmbientVolumeTooltip">Establece el volumen de los sonidos ambientales en el juego.</system:String>
 
-    <system:String x:Key="MovieVolumeLabel">Movie Volume:</system:String>
-    <system:String x:Key="MovieVolumeTooltip">Set the in-game movie volume.</system:String>
+    <system:String x:Key="MovieVolumeLabel">Volumen de cinemáticas:</system:String>
+    <system:String x:Key="MovieVolumeTooltip">Establece el volumen de las cinemáticas en el juego.</system:String>
 
     <system:String x:Key="LogVolumeControl">Control de volumen digital</system:String>
     <system:String x:Key="LogVolumeControlTooltip">Desmarca esta opción si crees que el volumen no cambia con suavidad.</system:String>
