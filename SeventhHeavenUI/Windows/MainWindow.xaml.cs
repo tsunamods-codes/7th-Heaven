@@ -428,7 +428,7 @@ namespace SeventhHeavenUI
 
         private void SupportUkraine_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://helpukraine.simple.ink/");
+            System.Diagnostics.Process.Start("https://war.ukraine.ua/support-ukraine/");
         }
     }
 }

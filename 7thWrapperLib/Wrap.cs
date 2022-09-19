@@ -326,7 +326,7 @@ namespace _7thWrapperLib {
                     }
                 }
 
-                foreach (var mod in profile.Mods) {
+                foreach (var mod in profile.Mods.AsEnumerable().Reverse()) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
                         foreach (var of in mod.GetOverrides("hext\\" + file)) {
                             System.IO.Stream s;
@@ -489,8 +489,6 @@ namespace _7thWrapperLib {
             return dummy;
         }
 
-        private Dictionary<string, OverrideFile> mappedFilesCache = new Dictionary<string, OverrideFile>();
-
         private IntPtr HCreateFileW(
             [MarshalAs(UnmanagedType.LPWStr)] string lpFileName,
             [MarshalAs(UnmanagedType.U4)] FileAccess dwDesiredAccess,
@@ -524,10 +522,7 @@ namespace _7thWrapperLib {
                     if (lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                     {
                         string match = lpFileName.Substring(path.Length);
-                        OverrideFile mapped = null;
-
-                        if (!mappedFilesCache.TryGetValue(lpFileName, out mapped))
-                            mapped = LGPWrapper.MapFile(match, _profile);
+                        OverrideFile mapped = LGPWrapper.MapFile(match, _profile);
 
                         //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
 
@@ -543,10 +538,6 @@ namespace _7thWrapperLib {
                         if (mapped != null)
                         {
                             DebugLogger.WriteLine($"Remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
-
-                            // Cache only static resolutions
-                            if (mapped.CFolder == null)
-                                mappedFilesCache[lpFileName] = mapped;
 
                             if (mapped.Archive == null)
                                 lpFileName = mapped.File;
