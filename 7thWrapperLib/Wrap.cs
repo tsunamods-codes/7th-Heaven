@@ -183,63 +183,14 @@ namespace _7thWrapperLib {
                     {
                         foreach (var mod in _profile.Mods)
                         {
-                            foreach (var folder in mod.Conditionals)
-                            {
-                                string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder.Folder);
-                                try
-                                {
-                                    DirectoryInfo di = new DirectoryInfo(folderPath);
-                                    foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
-                                    {
-                                        string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                        if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                            _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                        if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
-                                        {
-                                            overrideFiles.Add(new OverrideFile()
-                                            {
-                                                File = fi.FullName,
-                                                CFolder = folder
-                                            });
-                                        }
-                                    }
-                                }
-                                catch (DirectoryNotFoundException e)
-                                {
-                                    DebugLogger.WriteLine(e.ToString());
-                                }
-
-                            }
+                            foreach (var cFolder in mod.Conditionals)
+                                AddAllFilesToProfileMappedFiles(System.IO.Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
 
                             foreach (var folder in mod.ExtraFolders)
-                            {
-                                string folderPath = System.IO.Path.Combine(mod.BaseFolder, folder);
-                                try
-                                {
-                                    DirectoryInfo di = new DirectoryInfo(folderPath);
+                                AddAllFilesToProfileMappedFiles(System.IO.Path.Combine(mod.BaseFolder, folder), null);
 
-                                    foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
-                                    {
-                                        string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
-                                        if (!_profile.mappedFiles.ContainsKey(fileKey))
-                                            _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
-
-                                        if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
-                                        {
-                                            overrideFiles.Add(new OverrideFile()
-                                            {
-                                                File = fi.FullName,
-                                                CFolder = null
-                                            });
-                                        }
-                                    }
-                                }
-                                catch (DirectoryNotFoundException e)
-                                {
-                                    DebugLogger.WriteLine(e.ToString());
-                                }
-                            }
+                            if (mod.ExtraFolders.Count() + mod.Conditionals.Count() == 0)
+                                AddAllFilesToProfileMappedFiles(mod.BaseFolder, null);
                         }
                     }
                 );
@@ -274,6 +225,34 @@ namespace _7thWrapperLib {
 
                 // Attach detours
                 transaction.Attach((void**)&targets->CreateFileW, s_Detours.CreateFileW);
+            }
+        }
+
+        private static void AddAllFilesToProfileMappedFiles(string folderPath, ConditionalFolder conditionalFolder)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    string fileKey = fi.FullName[(folderPath.Length + 1)..].ToLower();
+                    if (!_profile.mappedFiles.ContainsKey(fileKey))
+                        _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                    if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                    {
+                        overrideFiles.Add(new OverrideFile()
+                        {
+                            File = fi.FullName,
+                            CFolder = conditionalFolder
+                        });
+                    }
+                }
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                DebugLogger.WriteLine(e.ToString());
             }
         }
 
