@@ -121,6 +121,9 @@ namespace _7thWrapperLib
         public List<RuntimeMod> Mods { get; set; }
 
         public List<Tuple<string, string>> MonitorVars { get; set; }
+
+        public Dictionary<string, List<OverrideFile>> mappedFiles { get; set; }
+
     }
 
     public static class XmlUtil
@@ -514,6 +517,11 @@ namespace _7thWrapperLib
                         }
                 }
             }
+        }
+
+        public IrosArc getArchive()
+        {
+            return _archive;
         }
     }
 

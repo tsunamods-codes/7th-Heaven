@@ -344,12 +344,98 @@ namespace _7thWrapperLib {
                         }
                     }
                 }
+
+                foreach (var mod in _profile.Mods)
+                {
+                    foreach (var cFolder in mod.Conditionals)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
+                        else
+                            AddIROFilesToProfileMappedFiles(cFolder.Folder, cFolder, archive);
+                    }
+
+                    foreach (var folder in mod.ExtraFolders)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, folder), null);
+                        else
+                            AddIROFilesToProfileMappedFiles(folder, null, archive);
+                    }
+
+                    if (mod.Conditionals.Count + mod.ExtraFolders.Count == 0)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(mod.BaseFolder, null);
+                        else
+                            AddIROFilesToProfileMappedFiles("", null, archive);
+                    }
+                }
+                DebugLogger.WriteLine($"Profile mappedFiles dictionary size is {_profile.mappedFiles.Count()}");
+
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
                 return;
             }
             while (true) {
                 System.Threading.Thread.Sleep(500);
+            }
+        }
+
+        private void AddIROFilesToProfileMappedFiles(string folderPath, ConditionalFolder cFolder, IrosArc archive)
+        {
+            foreach (string filename in archive.AllFileNames())
+            {
+                if (filename.StartsWith(folderPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string fileKey = filename.Substring(folderPath.Length + 1).ToLower();
+                    if (!_profile.mappedFiles.ContainsKey(fileKey))
+                        _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                    if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                    {
+                        overrideFiles.Add(new OverrideFile()
+                        {
+                            File = filename,
+                            CFolder = cFolder,
+                            CName = fileKey,
+                            Size = archive.GetFileSize(filename),
+                            Archive = archive
+                        });
+                    }
+                }
+            }
+        }
+
+        private void AddFolderFilesToProfileMappedFiles(string folderPath, ConditionalFolder conditionalFolder)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    string fileKey = fi.FullName.Substring(folderPath.Length + 1).ToLower();
+                    if (!_profile.mappedFiles.ContainsKey(fileKey))
+                        _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                    if (_profile.mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                    {
+                        overrideFiles.Add(new OverrideFile()
+                        {
+                            File = fi.FullName,
+                            CFolder = conditionalFolder,
+                            CName = fileKey
+                        });
+                    }
+                }
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                DebugLogger.WriteLine(e.ToString());
             }
         }
 

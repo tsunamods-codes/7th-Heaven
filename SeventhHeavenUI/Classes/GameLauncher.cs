@@ -949,7 +949,8 @@ namespace SeventhHeaven.Classes
                 ModPath = Sys.Settings.LibraryLocation,
                 FF7Path = ff7Folder,
                 gameFiles = Directory.GetFiles(ff7Folder, "*.*", SearchOption.AllDirectories),
-                Mods = runtimeMods
+                Mods = runtimeMods,
+                mappedFiles = new Dictionary<string, List<OverrideFile>>()
             };
 
             Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AddingPathsToMonitor)}");

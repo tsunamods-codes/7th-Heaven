@@ -381,14 +381,15 @@ namespace _7thWrapperLib {
         }
 
         public static OverrideFile MapFile(string file, RuntimeProfile profile) {
-            foreach (var item in profile.Mods) {
-                foreach(var entry in item.GetOverrides(file)) {
-                    if (entry.CFolder == null || entry.CFolder.IsActive(file)) {
-                        DebugLogger.WriteLine($"File {file} overridden by {entry.Archive}{entry.File}");
-                        return entry;
-                    }
+            if (profile.mappedFiles.TryGetValue(file.ToLower(), out List<OverrideFile> mappedList))
+            {
+                foreach (var overrideFile in mappedList)
+                {
+                    if (overrideFile.CFolder == null || overrideFile.CFolder.IsActive(file))
+                        return overrideFile;
                 }
             }
+
             return null;
         }
 
