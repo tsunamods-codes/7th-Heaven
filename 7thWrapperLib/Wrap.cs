@@ -252,6 +252,8 @@ namespace _7thWrapperLib {
 
                 DebugLogger.WriteLine($"Wrap run... Host: {context.HostPID}  PID: {RemoteHooking.GetCurrentProcessId()}  TID: {RemoteHooking.GetCurrentThreadId()}   Path: {profile.ModPath}  Capture: {String.Join(", ", profile.MonitorPaths)}");
                 _profile = profile;
+                _profile.mappedFiles = null;
+
                 for (int i = _profile.MonitorPaths.Count - 1; i >= 0; i--) {
                     if (!_profile.MonitorPaths[i].EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
                         _profile.MonitorPaths[i] += System.IO.Path.DirectorySeparatorChar;
@@ -344,37 +346,6 @@ namespace _7thWrapperLib {
                         }
                     }
                 }
-
-                foreach (var mod in _profile.Mods)
-                {
-                    foreach (var cFolder in mod.Conditionals)
-                    {
-                        var archive = mod.getArchive();
-                        if (archive == null)
-                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
-                        else
-                            AddIROFilesToProfileMappedFiles(cFolder.Folder, cFolder, archive);
-                    }
-
-                    foreach (var folder in mod.ExtraFolders)
-                    {
-                        var archive = mod.getArchive();
-                        if (archive == null)
-                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, folder), null);
-                        else
-                            AddIROFilesToProfileMappedFiles(folder, null, archive);
-                    }
-
-                    if (mod.Conditionals.Count + mod.ExtraFolders.Count == 0)
-                    {
-                        var archive = mod.getArchive();
-                        if (archive == null)
-                            AddFolderFilesToProfileMappedFiles(mod.BaseFolder, null);
-                        else
-                            AddIROFilesToProfileMappedFiles("", null, archive);
-                    }
-                }
-                DebugLogger.WriteLine($"Profile mappedFiles dictionary size is {_profile.mappedFiles.Count()}");
 
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
@@ -583,6 +554,40 @@ namespace _7thWrapperLib {
             [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition,
             [MarshalAs(UnmanagedType.U4)] FileAttributes dwFlagsAndAttributes,
             IntPtr hTemplateFile) {
+
+            if(_profile.mappedFiles == null)
+            {
+                _profile.mappedFiles = new Dictionary<string, List<OverrideFile>>();
+                foreach (var mod in _profile.Mods)
+                {
+                    foreach (var cFolder in mod.Conditionals)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
+                        else
+                            AddIROFilesToProfileMappedFiles(cFolder.Folder, cFolder, archive);
+                    }
+
+                    foreach (var folder in mod.ExtraFolders)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(Path.Combine(mod.BaseFolder, folder), null);
+                        else
+                            AddIROFilesToProfileMappedFiles(folder, null, archive);
+                    }
+
+                    if (mod.Conditionals.Count + mod.ExtraFolders.Count == 0)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToProfileMappedFiles(mod.BaseFolder, null);
+                        else
+                            AddIROFilesToProfileMappedFiles("", null, archive);
+                    }
+                }
+            }
 
             // Usually this check should be enough...
             bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
