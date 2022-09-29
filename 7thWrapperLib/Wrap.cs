@@ -362,7 +362,10 @@ namespace _7thWrapperLib {
             {
                 if (filename.StartsWith(folderPath, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    string fileKey = filename.Substring(folderPath.Length + 1).ToLower();
+                    int pathOffset = 1;
+                    if (folderPath.Length == 0) // Fix the offset when folderPath is empty string (no need to skip "/")
+                        pathOffset = 0;
+                    string fileKey = filename.Substring(folderPath.Length + pathOffset).ToLower();
                     if (!_profile.mappedFiles.ContainsKey(fileKey))
                         _profile.mappedFiles.Add(fileKey, new List<OverrideFile>());
 
