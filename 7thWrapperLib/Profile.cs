@@ -512,6 +512,11 @@ namespace _7thWrapperLib
                 }
             }
         }
+
+        public IrosArc getArchive()
+        {
+            return _archive;
+        }
     }
 
     public abstract class ActiveWhen

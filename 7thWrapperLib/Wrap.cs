@@ -16,6 +16,7 @@ using Iros._7th;
 namespace _7thWrapperLib {
     public static class Wrap {
         private static Dictionary<IntPtr, VArchiveData> _varchives = new();
+        private static Dictionary<string, List<OverrideFile>> _mappedFiles = new();
         private static RuntimeProfile _profile;
         private static Process _process;
 
@@ -136,11 +137,99 @@ namespace _7thWrapperLib {
                         }
                     }
                 }
+
+                foreach (var mod in _profile.Mods)
+                {
+                    foreach (var cFolder in mod.Conditionals)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToMappedFiles(Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
+                        else
+                            AddIROFilesToMappedFiles(cFolder.Folder, cFolder, archive);
+                    }
+
+                    foreach (var folder in mod.ExtraFolders)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToMappedFiles(Path.Combine(mod.BaseFolder, folder), null);
+                        else
+                            AddIROFilesToMappedFiles(folder, null, archive);
+                    }
+
+                    if (mod.Conditionals.Count + mod.ExtraFolders.Count == 0)
+                    {
+                        var archive = mod.getArchive();
+                        if (archive == null)
+                            AddFolderFilesToMappedFiles(mod.BaseFolder, null);
+                        else
+                            AddIROFilesToMappedFiles("", null, archive);
+                    }
+                }
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
                 return;
             }
         }
+
+        private static void AddIROFilesToMappedFiles(string folderPath, ConditionalFolder cFolder, IrosArc archive)
+        {
+            foreach (string filename in archive.AllFileNames())
+            {
+                if (filename.StartsWith(folderPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    int pathOffset = 1;
+                    if (folderPath.Length == 0) // Fix the offset when folderPath is empty string (no need to skip "/")
+                        pathOffset = 0;
+                    string fileKey = filename.Substring(folderPath.Length + pathOffset).ToLower();
+                    if (!_mappedFiles.ContainsKey(fileKey))
+                        _mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                    if (_mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                    {
+                        overrideFiles.Add(new OverrideFile()
+                        {
+                            File = filename,
+                            CFolder = cFolder,
+                            CName = fileKey,
+                            Size = archive.GetFileSize(filename),
+                            Archive = archive
+                        });
+                    }
+                }
+            }
+        }
+
+        private static void AddFolderFilesToMappedFiles(string folderPath, ConditionalFolder conditionalFolder)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(folderPath);
+
+                foreach (FileInfo fi in di.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    string fileKey = fi.FullName.Substring(folderPath.Length + 1).ToLower();
+                    if (!_mappedFiles.ContainsKey(fileKey))
+                        _mappedFiles.Add(fileKey, new List<OverrideFile>());
+
+                    if (_mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
+                    {
+                        overrideFiles.Add(new OverrideFile()
+                        {
+                            File = fi.FullName,
+                            CFolder = conditionalFolder,
+                            CName = fileKey
+                        });
+                    }
+                }
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                DebugLogger.WriteLine(e.ToString());
+            }
+        }
+
 
         // ------------------------------------------------------------------------------------------------------
         public static int HCloseHandle(IntPtr hObject)
@@ -248,7 +337,7 @@ namespace _7thWrapperLib {
                     if (lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                     {
                         string match = lpFileName.Substring(path.Length);
-                        OverrideFile mapped = LGPWrapper.MapFile(match, _profile);
+                        OverrideFile mapped = LGPWrapper.MapFile(match, _mappedFiles);
 
                         //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
 
@@ -256,7 +345,7 @@ namespace _7thWrapperLib {
                         {
                             // Attempt a second round, this time relaxing the path match replacing only the game folder path.
                             match = lpFileName.Substring(_profile.FF7Path.Length + 1);
-                            mapped = LGPWrapper.MapFile(match, _profile);
+                            mapped = LGPWrapper.MapFile(match, _mappedFiles);
 
                             //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
                         }
