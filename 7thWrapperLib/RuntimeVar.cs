@@ -49,12 +49,14 @@ namespace _7thWrapperLib {
         CounterAdv,
         Random,
         CounterRnd,
+        RandomVarOnce,
     }
 
     static class RuntimeVar {
 
         private static Dictionary<string, Func<int>> _sys = new Dictionary<string, Func<int>>(StringComparer.InvariantCultureIgnoreCase);
         private static Dictionary<string, int> _counters = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+        private static Dictionary<string, int> _vars = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
         private static Random _r = new Random();
 
         static RuntimeVar() {
@@ -134,6 +136,14 @@ namespace _7thWrapperLib {
                     }, value, spec);
                 case VarType.Random:
                     return CompareInt(() => _r.Next(size), value, spec);
+                case VarType.RandomVarOnce:
+                    return CompareInt(() => {
+                        if (_vars.TryGetValue(parts[1], out int randomValue))
+                            return randomValue;
+                        
+                        _vars[parts[1]] = _r.Next(size);
+                        return _vars[parts[1]];
+                    }, value, spec);
             }
 
             if (type == VarType.FFString) {
