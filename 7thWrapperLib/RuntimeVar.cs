@@ -7,7 +7,6 @@ using Iros._7th;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace _7thWrapperLib {
 
@@ -50,13 +49,28 @@ namespace _7thWrapperLib {
         Random,
         CounterRnd,
         RandomVarOnce,
+        RandomVar
+    }
+
+    class RandomVar
+    {
+        public RandomVar(int randomValue)
+        {
+            value = randomValue;
+            lastGeneratedTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+            locked = true;
+        }
+
+        public int value { get; set; }
+        public bool locked { get; set; }
+        public long lastGeneratedTimestamp { get; set; }
     }
 
     static class RuntimeVar {
 
         private static Dictionary<string, Func<int>> _sys = new Dictionary<string, Func<int>>(StringComparer.InvariantCultureIgnoreCase);
         private static Dictionary<string, int> _counters = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
-        private static Dictionary<string, int> _vars = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+        private static Dictionary<string, RandomVar> _vars = new Dictionary<string, RandomVar>(StringComparer.InvariantCultureIgnoreCase);
         private static Random _r = new Random();
 
         static RuntimeVar() {
@@ -82,6 +96,22 @@ namespace _7thWrapperLib {
             return CompareInt(_sys[which], value, spec);
         }
 
+        private static Func<bool, bool> GetUnlockRandomVarWrapper(string runtimeVarSpec)
+        {
+            return isActive => {
+                if (isActive) {
+                    string[] parts = runtimeVarSpec.Split(':');
+                    if (Enum.TryParse<VarType>(parts[0], true, out VarType type)) {
+                        if (type == VarType.RandomVar) {
+                            if (_vars.TryGetValue(parts[1], out RandomVar randomVar))
+                                randomVar.locked = false;
+                        }
+                    }
+                }
+                return isActive;
+            };
+        }
+
         private static Func<bool> CompareInt(Func<int> reader, string value, string spec) {
             Func<int, bool> compare;
             int last = 0;
@@ -100,7 +130,9 @@ namespace _7thWrapperLib {
                     return values.Contains(i);
                 };
             }
-            return () => compare(reader());
+
+            Func<bool, bool> unlockRandomVarWrapper = GetUnlockRandomVarWrapper(spec);
+            return () => unlockRandomVarWrapper(compare(reader()));
         }
 
         public static Func<bool> MakeRuntimeVar(string spec, string value) {
@@ -138,11 +170,27 @@ namespace _7thWrapperLib {
                     return CompareInt(() => _r.Next(size), value, spec);
                 case VarType.RandomVarOnce:
                     return CompareInt(() => {
-                        if (_vars.TryGetValue(parts[1], out int randomValue))
-                            return randomValue;
+                        if (_vars.TryGetValue(parts[1], out RandomVar randomValue))
+                            return randomValue.value;
                         
-                        _vars[parts[1]] = _r.Next(size);
-                        return _vars[parts[1]];
+                        _vars[parts[1]] = new RandomVar(_r.Next(size));
+                        return _vars[parts[1]].value;
+                    }, value, spec);
+                case VarType.RandomVar:
+                    return CompareInt(() => {
+                        int timeToLiveSeconds = parts.Length > 3 ? int.Parse(parts[3]) : 0;
+                        if (_vars.TryGetValue(parts[1], out RandomVar randomVar)) {
+                            if (!randomVar.locked && DateTimeOffset.Now.ToUnixTimeSeconds() > randomVar.lastGeneratedTimestamp + timeToLiveSeconds) {
+                                randomVar.lastGeneratedTimestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+                                randomVar.value = _r.Next(size);
+                            }
+
+                            randomVar.locked = true;
+                            return randomVar.value;
+                        }
+
+                        _vars[parts[1]] = new RandomVar(_r.Next(size));
+                        return _vars[parts[1]].value;
                     }, value, spec);
             }
 
