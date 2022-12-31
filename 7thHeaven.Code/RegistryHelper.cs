@@ -435,6 +435,13 @@ namespace _7thHeaven.Code
 
         public static void CommitTransaction()
         {
+
+            string path = Sys.PathToTempFolder;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             string fileName = Path.Combine(Sys.PathToTempFolder, "registry_transaction.bat");
 
             System.IO.File.WriteAllText(
