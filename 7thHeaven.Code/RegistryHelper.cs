@@ -235,7 +235,8 @@ namespace _7thHeaven.Code
                 case RegistryValueKind.String:
                 case RegistryValueKind.Unknown:
                     regType = "REG_SZ";
-                    value = $"\"{value.ToString().Replace("\"", "\"\"").Replace("%", "%%").Replace("\\", "\\\\")}\"";
+                    bool lastCharIsEscape = value.ToString()[value.ToString().Length - 1].Equals('\\');
+                    value = $"\"{value.ToString().Replace("\"", "\"\"").Replace("%", "%%")}{(lastCharIsEscape ? "\\" : "")}\"";
                     break;
             }
 
