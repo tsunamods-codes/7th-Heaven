@@ -343,7 +343,7 @@ LONG WINAPI ExceptionHandler(EXCEPTION_POINTERS* ep)
     json data = json::parse(f);
 
     std::string version = data["runtimeOptions"]["framework"]["version"];
-    std::string msg = "Could not start the .NET Desktop Runtime version " + version + ".\nPlease make sure you have both the x86 and x64 editions installed. You can also try\nusing the 7H exe installer, or visit https://dotnet.microsoft.com for more information.";
+    std::string msg = "Could not start the .NET Desktop Runtime version " + version + ".\n\nPlease make sure you have both the x86 and x64 editions installed. Try using the 7th Heaven exe installer, or visit https://dotnet.microsoft.com for more information.";
     MessageBoxA(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
 
     // let OS handle the crash
