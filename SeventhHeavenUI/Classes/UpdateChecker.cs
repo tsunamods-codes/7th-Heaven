@@ -134,7 +134,7 @@ namespace SeventhHeaven.Classes
                             case -1: // OLDER
                                 if (
                                     MessageDialogWindow.Show(
-                                        $"Your current version seems newer than the one presently available. This is normal if you've installed a canary build, but your release path is set to stable.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install the older version anyway?",
+                                        $"Your current version seems newer than the one being offered. This is normal if you've installed a canary build, but your release path is set to stable.\n\nCurrently installed version: {curVersion.ToString()}\nVersion to be installed: {newVersion.ToString()}\n\nWould you like to install the older version anyway?",
                                         "Update found!",
                                         System.Windows.MessageBoxButton.YesNo,
                                         System.Windows.MessageBoxImage.Question
