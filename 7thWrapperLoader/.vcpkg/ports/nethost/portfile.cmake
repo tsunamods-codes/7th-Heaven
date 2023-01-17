@@ -1,16 +1,20 @@
-set(COMMIT_HASH v7.0.0)
+set(COMMIT_HASH v7.0.2)
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO dotnet/runtime
     REF ${COMMIT_HASH}
-    SHA512 59210df1d9541018a21a7e89e0f552ad35c849f49be31cf47e2a85086363cdabd2bf8ce652d2024479977ae059d658c3bd18de3bdaeb8cb3ddd71f2413f266bc
+    SHA512 cd63fca1ca41c824602acabd8130da56f890abf954a6aa4b0be211c4b365c4363eb9af0668c37350543cac3982d06ccef725ae07494ff484517191f88e0ee76e
     HEAD_REF master
     PATCHES
         0001-nethost-cmakelists.patch
 )
 
-set(PRODUCT_VERSION "7.0.0")
+set(PRODUCT_VERSION "7.0.2")
+
+if(NOT VCPKG_TARGET_IS_WINDOWS)
+  execute_process(COMMAND sh -c "mkdir -p ${SOURCE_PATH}/artifacts/obj && ${SOURCE_PATH}/eng/native/version/copy_version_files.sh")
+endif()
 
 if(VCPKG_TARGET_IS_WINDOWS)
   set(RID_PLAT "win")

@@ -365,9 +365,8 @@ namespace _7thHeaven.Code
 
             if (newValue is Guid)
             {
-                Guid currentConverted = currentValue == null ? new Guid() : new Guid(currentValue as byte[]);
-
-                isValuesEqual = currentConverted.Equals(newValue);
+                bool isCurrentValueValid = currentValue != null && (currentValue as byte[]).Length == 16;
+                isValuesEqual = isCurrentValueValid && new Guid(currentValue as byte[]).Equals(newValue);
             }
             else
             {

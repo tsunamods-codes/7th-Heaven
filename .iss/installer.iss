@@ -31,7 +31,8 @@ AppPublisherURL={#MyAppURL}
 AppCopyright="Microsoft Public License (MS-PL)"
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={sd}\{#MyAppName}
+DefaultDirName={userpf}\{#MyAppName}
+PrivilegesRequired=lowest
 DefaultGroupName={#MyAppName}
 Compression=lzma2/ultra
 InternalCompressLevel=ultra
@@ -42,9 +43,6 @@ SetupIconFile="{#MyAppPath}\7H.ico"
 UninstallDisplayIcon="{app}\uninstall.ico"
 UninstallDisplayName={#MyAppName}
 ArchitecturesInstallIn64BitMode=x64
-
-[Dirs]
-Name: "{app}\7thWorkshop"; Permissions: users-modify
 
 [Files]
 Source: "{#MyAppPath}\bin\{#MyAppRelease}\{#MyAppTargetFramework}\*"; DestDir: "{app}"; Flags: recursesubdirs

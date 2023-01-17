@@ -789,6 +789,22 @@ namespace SeventhHeavenUI.ViewModels
             {
                 MessageDialogWindow.Show("Something went wrong while parsing \"" + Sys.PathToFFNxToml + "\".\n\n" + Encoding.UTF8.GetString(Encoding.Default.GetBytes(FFNxConfigError.Message)), "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
+
+            // Cleanup the library temp folder if it exist
+            if (Sys.Settings.LibraryLocation != String.Empty)
+            {
+                // Create the temp folder if does not exist
+                if (!Directory.Exists(Sys.PathToLibraryTempFolder))
+                {
+                    Directory.CreateDirectory(Sys.PathToLibraryTempFolder);
+                }
+                else
+                {
+                    // Cleanup the temp folder and recreate it
+                    Directory.Delete(Sys.PathToLibraryTempFolder, true);
+                    Directory.CreateDirectory(Sys.PathToLibraryTempFolder);
+                }
+            }
         }
 
         private void CatalogList_RefreshRequested()

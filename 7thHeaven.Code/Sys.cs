@@ -170,6 +170,14 @@ namespace Iros._7th.Workshop
             }
         }
 
+        public static string PathToLibraryTempFolder
+        {
+            get
+            {
+                return Path.Combine(Sys.Settings.LibraryLocation, "temp");
+            }
+        }
+
         public static string PathToCrashReports
         {
             get

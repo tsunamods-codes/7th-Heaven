@@ -59,6 +59,7 @@ static inline void trim(std::string& s) {
 
 struct host_exports
 {
+    void (*Shutdown)();
 #define X(n) decltype(&n) n;
 #include "host_exports.x.h"
 #undef X
@@ -101,6 +102,9 @@ static DWORD(WINAPI* TrueGetFileSize)(HANDLE hFile, LPDWORD lpFileSizeHigh) = Ge
 
 // GetFileSizeEx
 static BOOL(WINAPI* TrueGetFileSizeEx)(HANDLE hFile, PLARGE_INTEGER lpFileSize) = GetFileSizeEx;
+
+// PostQuitMessage
+static VOID(WINAPI* TruePostQuitMessage)(int nExitCode) = PostQuitMessage;
 
 // VARS ------------------------------------------
 
@@ -276,6 +280,34 @@ BOOL WINAPI _GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize)
         ret = TrueGetFileSizeEx(hFile, lpFileSize);
 
     return ret;
+}
+
+VOID WINAPI _PostQuitMessage(int nExitCode)
+{
+    // Unhook Win32 APIs
+    DetourTransactionBegin();
+    DetourUpdateThread(GetCurrentThread());
+    // ------------------------------------
+    DetourDetach((PVOID*)&TrueCreateFileW, _CreateFileW);
+    DetourDetach((PVOID*)&TrueReadFile, _ReadFile);
+    DetourDetach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
+    DetourDetach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
+    DetourDetach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
+    DetourDetach((PVOID*)&TrueCloseHandle, _CloseHandle);
+    DetourDetach((PVOID*)&TrueGetFileType, _GetFileType);
+    DetourDetach((PVOID*)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
+    DetourDetach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
+    DetourDetach((PVOID*)&TrueGetFileSize, _GetFileSize);
+    DetourDetach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
+    DetourDetach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
+    // ------------------------------------
+    DetourTransactionCommit();
+
+    // Ask the .NET code to gracefully shutdown
+    if (exports.Shutdown) exports.Shutdown();
+
+    // Continue with the usual execution
+    TruePostQuitMessage(nExitCode);
 }
 
 // MAIN ------------------------------------------
@@ -468,8 +500,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
         DetourAttach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
         DetourAttach((PVOID*)&TrueGetFileSize, _GetFileSize);
         DetourAttach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
+        DetourAttach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
         // ------------------------------------
         DetourTransactionCommit();
+
+        PLOGI << "7thWrapperLoader started successfully";
 
         return target();
     };

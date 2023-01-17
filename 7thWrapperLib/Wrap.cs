@@ -173,6 +173,29 @@ namespace _7thWrapperLib {
             }
         }
 
+        public static void Shutdown()
+        {
+            foreach(var mf in _mappedFiles)
+            {
+                foreach(var of in mf.Value)
+                {
+                    of.Archive.Dispose();
+                }
+            }
+
+            _varchives.Clear();
+            _mappedFiles.Clear();
+
+            _varchives = null;
+            _mappedFiles = null;
+            _profile = null;
+            _process = null;
+
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+            System.GC.WaitForFullGCComplete();
+        }
+
         private static void AddIROFilesToMappedFiles(string folderPath, ConditionalFolder cFolder, IrosArc archive)
         {
             foreach (string filename in archive.AllFileNames())
