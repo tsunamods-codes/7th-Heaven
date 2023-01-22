@@ -815,7 +815,7 @@ Later, if you wish to use high quality .OGG files, switch the setting back to 'V
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">failed to create Runtime Profile for active mods ...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Variable Dump set to true. Starting TurBoLog ...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copying EasyHook.dll to FF7 path (if not found or older version detected) ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copying 7thWrapperLoader.dll to FF7 path (if not found or older version detected) ...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Copying ff7input.cfg to FF7 path ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Debug Logging set to true. Detailed logging will be written to</system:String>
@@ -828,20 +828,20 @@ Later, if you wish to use high quality .OGG files, switch the setting back to 'V
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Launching additional programs to run (if any) ...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Writing temporary runtime profile file to</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Attempting to inject with EasyHook ...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Attempting to inject with 7thWrapperLoader ...</system:String>
     <system:String x:Key="ReceivedErrors">received errors</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">reached timeout waiting for injection ...</system:String>
     <system:String x:Key="ReceivedUnknownError">received unknown error</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Failed to inject after max amount of tries</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Error - Failed To Start Game</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Failed to inject with EasyHook after trying multiple times. This is usually fixed by setting the 'Code 5 Fix' to 'On' in the Game Launcher Settings.
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Failed to inject with 7thWrapperLoader after trying multiple times. This is usually fixed by setting the 'Code 5 Fix' to 'On' in the Game Launcher Settings.
 
 Do you want to apply the setting and try again?</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Setting compatibility fix and trying again ...</system:String>
-    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Still failed to inject with EasyHook after setting compatibility fix. Aborting ...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Failed inject with EasyHook even after setting the compatibility flags</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Still failed to inject with 7thWrapperLoader after setting compatibility fix. Aborting ...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Failed inject with 7thWrapperLoader even after setting the compatibility flags</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">user chose not to set compatibility fix. Aborting ...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Getting FF7 proc ...</system:String>

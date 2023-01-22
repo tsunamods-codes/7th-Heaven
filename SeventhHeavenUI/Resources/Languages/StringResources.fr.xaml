@@ -820,7 +820,7 @@ Plus tard, si vous souhaitez utiliser des fichiers .OGG de haute qualité, remet
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">échec de la création d'un profil d'exécution pour les mods actifs...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Variable dump réglé activée. Démarrage du TurBoLog...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copie de EasyHook.dll dans le dossier de FF7 (si non trouvé ou si une version plus ancienne est détectée)...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copie de 7thWrapperLoader.dll dans le dossier de FF7 (si non trouvé ou si une version plus ancienne est détectée)...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Copie de ff7input.cfg dans le dossier de FF7...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Debug Logging actif. La journalisation détaillée sera écrite dans</system:String>
@@ -833,20 +833,20 @@ Plus tard, si vous souhaitez utiliser des fichiers .OGG de haute qualité, remet
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Lancement des programmes supplémentaires (le cas échéant)...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Création d'un fichier de profil d'exécution, temporaire, dans</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentative d'injection avec EasyHook : essai # {0} (de {1})...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentative d'injection avec 7thWrapperLoader : essai # {0} (de {1})...</system:String>
     <system:String x:Key="ReceivedErrors">erreurs reçues</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">le délai d'attente pour l'injection a été atteint...</system:String>
     <system:String x:Key="ReceivedUnknownError">erreur inconnue reçue</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Echec de l'injection après un nombre d'essais maximum</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Erreur - Le Jeu n'a pas Démarré</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Échec de l'injection avec EasyHook après plusieurs essais. Ce problème est généralement résolu en réglant le 'Correction du Code 5' sur 'Activé' dans les paramètres du lanceur du jeu.
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Échec de l'injection avec 7thWrapperLoader après plusieurs essais. Ce problème est généralement résolu en réglant le 'Correction du Code 5' sur 'Activé' dans les paramètres du lanceur du jeu.
 
 Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Activation de la correction et nouvel essai...</system:String>
-    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">L'injection avec EasyHook n'a toujours pas réussi après avoir activé le correctif. Abandon...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Échec de l'injection avec EasyHook, même après l'activation du réglage de compatibilité</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">L'injection avec 7thWrapperLoader n'a toujours pas réussi après avoir activé le correctif. Abandon...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Échec de l'injection avec 7thWrapperLoader, même après l'activation du réglage de compatibilité</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">L'utilisateur a choisi de ne pas activer de correctif de compatibilité. Abandon...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Obtention du processus de FF7...</system:String>

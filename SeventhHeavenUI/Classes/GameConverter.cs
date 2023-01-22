@@ -321,13 +321,6 @@ namespace SeventhHeaven.Classes
                     File.Move(fullPath, destPath);
                 }
             }
-
-            // copy EasyHook related files
-            foreach (string file in Directory.GetFiles(InstallPath, "EasyHook*.*"))
-            {
-                FileInfo info = new FileInfo(file);
-                File.Move(file, Path.Combine(pathToBackup, info.Name));
-            }
         }
 
         /// <summary>

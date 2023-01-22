@@ -442,7 +442,7 @@ namespace SeventhHeaven.Classes
 
         VanillaCheck:
             //
-            // Determine if game will be ran as 'vanilla' with mods so don't have to inject with EasyHook
+            // Determine if game will be ran as 'vanilla' with mods so don't have to inject with 7thWrapperLoader
             //
             bool runAsVanilla = false;
             string vanillaMsg = "";
@@ -607,7 +607,7 @@ namespace SeventhHeaven.Classes
             }
 
             //
-            // Attempt to Create FF7 Proc and Inject with EasyHook
+            // Attempt to Create FF7 Proc and Inject with 7thWrapperLoader
             //
             try
             {
@@ -624,7 +624,7 @@ namespace SeventhHeaven.Classes
                 using (FileStream fs = new FileStream(parms.ProfileFile, FileMode.Create))
                     Util.SerializeBinary(runtimeProfile, fs);
 
-                // attempt to launch the game a few times in the case of an ApplicationException that can be thrown by EasyHook it seems randomly at times
+                // attempt to launch the game a few times in the case of an ApplicationException that can be thrown by 7thWrapperLoader it seems randomly at times
                 // ... The error tends to go away the second time trying but we will try multiple times before failing
                 bool didInject = false;
 

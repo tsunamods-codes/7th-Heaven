@@ -825,7 +825,7 @@ Mais tarde, se quiser utilizar os arquivos de alta qualidade .OGG, mude a config
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">não foi possível criar Perfil de Execução para mods ativos ...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Despejo Variável ativado. Inicializando TurBoLog ...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copiando EasyHook.dll para caminho de FF7 (se não foi encontrado ou é versão mais antiga) ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copiando 7thWrapperLoader.dll para caminho de FF7 (se não foi encontrado ou é versão mais antiga) ...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Copiando ff7input.cfg para caminho de FF7 ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Registro de Depuração ativado. Registros detalhados serão salvos em</system:String>
@@ -838,20 +838,20 @@ Mais tarde, se quiser utilizar os arquivos de alta qualidade .OGG, mude a config
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Executando programas adicionais a rodar (se houver) ...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Salvando arquivo de perfil de execução temporário em</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentando injetar com EasyHook ...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentando injetar com 7thWrapperLoader ...</system:String>
     <system:String x:Key="ReceivedErrors">recebeu erros</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">limite de tempo alcançado esperando a injeção ...</system:String>
     <system:String x:Key="ReceivedUnknownError">recebeu erro desconhecido</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Injeção falhou após número máximo de tentativas</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Erro - Não foi Possível Iniciar o Jogo</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Não foi possível injetar com EasyHook após múltiplas tentativas. Isso é geralmente corrigível ativando a 'Correção Código 5' nas Configurações de Launcher de Jogo.
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Não foi possível injetar com 7thWrapperLoader após múltiplas tentativas. Isso é geralmente corrigível ativando a 'Correção Código 5' nas Configurações de Launcher de Jogo.
 
 Você quer aplicar essa configuração e tentar de novo?</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Ativando correção de compatibilidade e tentando de novo ...</system:String>
-    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Ainda não foi possível injetar com EasyHook mesmo com a correção de compatibilidade. Abortando ...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Injeção com EasyHook falhou mesmo depois de configurar as flags de compatibilidade</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Ainda não foi possível injetar com 7thWrapperLoader mesmo com a correção de compatibilidade. Abortando ...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Injeção com 7thWrapperLoader falhou mesmo depois de configurar as flags de compatibilidade</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">usuário escolheu não usar correção de compatibilidade. Abortando ...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Achando processo FF7 ...</system:String>

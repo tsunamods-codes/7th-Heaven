@@ -832,7 +832,7 @@ Wenn du im nachhinein doch einen Musik Mod benutzen willst, musst du diese Einst
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">Fehler beim erstellen des runtime Profils für die Mods ...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Variablen Log gewählt. Starte TurBoLog ...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Kopiere EasyHook.dll in den Final Fantasy 7 Ordner (fals nicht gefunden oder veraltete Version vorhanden) ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Kopiere 7thWrapperLoader.dll in den Final Fantasy 7 Ordner (fals nicht gefunden oder veraltete Version vorhanden) ...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Kopiere ff7input.cfg in den Final Fantasy 7 Ordner ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Debug Log aktiviert. Ausführlicher Log wird gespeichert in</system:String>
@@ -845,21 +845,21 @@ Wenn du im nachhinein doch einen Musik Mod benutzen willst, musst du diese Einst
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Starte zusätzliche Programme (fals ausgewählt) ...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Schreibe temporäres runtime Profil in</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Versuche EasyHook zu injizieren ...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Versuche 7thWrapperLoader zu injizieren ...</system:String>
     <system:String x:Key="ReceivedErrors">fehler erhalten</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">Timeout für das injizieren erhalten ...</system:String>
     <system:String x:Key="ReceivedUnknownError">Unbekannter Fehler aufgetreten</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Fehler beim injizieren. Maximale anzahl an Versuchen erreicht</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Fehler - Starten des Spiels fehlgeschlagen</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Injizieren von EasyHook nach mehreren Versuchen fehlgeschlagen. 
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Injizieren von 7thWrapperLoader nach mehreren Versuchen fehlgeschlagen. 
 Dies kann meißtens durch das aktivieren der "Code 5 Korrektur" in den Spielstart Einstellungen behoben.
 
 Aktivieren und erneut versuchen?</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Code 5 Korrektur wird aktiviert. Versuche das Spiel erneut zu starten ...</system:String>
     <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Start des Spiels trotz Code 5 Korrektur fehlgeschlagen. Abbruch ...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Injizieren von EasyHook trotz Code 5 Korrektur fehlgeschlagen</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Injizieren von 7thWrapperLoader trotz Code 5 Korrektur fehlgeschlagen</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">Aktivieren der Code 5 Korrektur vom Benutzer abgelehnt. Abbruch ...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Suche nach dem FF7.exe Prozesse  ...</system:String>

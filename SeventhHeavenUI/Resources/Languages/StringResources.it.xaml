@@ -824,7 +824,7 @@ Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMst
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">Creazione del Profilo Runtime per le mod attive non riuscita ...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Dump delle Variabili impostato su true. Eseguo TurBoLog ...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copio EasyHook.dll nel percorso di FF7 (se non sono state trovate versioni già esistenti o obsolete) ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Copio 7thWrapperLoader.dll nel percorso di FF7 (se non sono state trovate versioni già esistenti o obsolete) ...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Copio ff7input.cfg nella cartella di FF7 ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Log degli Eventi impostato su true. Un rapporto dettagliato sarà scritto in</system:String>
@@ -837,20 +837,20 @@ Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMst
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Lancio programmi aggiuntivi da eseguire (se presenti) ...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Scrivo profilo runtime provvisorio in</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentativo di iniezione tramite EasyHook ...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Tentativo di iniezione tramite 7thWrapperLoader ...</system:String>
     <system:String x:Key="ReceivedErrors">errori restituiti</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">raggiunto il timeout mentre si attendeva l'iniezione ...</system:String>
     <system:String x:Key="ReceivedUnknownError">restituito errore sconosciuto</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Iniezione fallita dopo numero massimo di tentativi</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Errore - Avvio del Gioco non Riuscito</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Iniezione con EasyHook fallita dopo più tentativi. Solitamente è possibile risolvere il problema attivando la 'Fix Code 5' in Impostazioni>Avvio del Gioco.
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Iniezione con 7thWrapperLoader fallita dopo più tentativi. Solitamente è possibile risolvere il problema attivando la 'Fix Code 5' in Impostazioni>Avvio del Gioco.
 
 Vuoi applicare questa modifica e riprovare?</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Imposto fix di compatibilità e riprovo ...</system:String>
-    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Iniezione con EasyHook fallita nuovamente dopo aver impostato la fix di compatibilità. Annullo ...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Iniezione con EasyHook fallita anche dopo aver impostato la fix di compatibilità</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Iniezione con 7thWrapperLoader fallita nuovamente dopo aver impostato la fix di compatibilità. Annullo ...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Iniezione con 7thWrapperLoader fallita anche dopo aver impostato la fix di compatibilità</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">l'utente ha scelto di non impostare la fix di compatibilità. Annullo ...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Individuo il processo di FF7 ...</system:String>

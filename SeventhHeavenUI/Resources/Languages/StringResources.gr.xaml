@@ -824,7 +824,7 @@
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">Αποτυχία δημιουργίας Προφίλ Χρόνου Εκτέλεσης για ενεργές τροποποιήσεις ...</system:String>
 
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Το αρχείο μεταβλητής χωρηστικότητας ορίστηκε σε 'true' (ενεργό). Εκκίνηση του TurBoLog ...</system:String>
-    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Αντιγραφή του αρχείου EasyHook.dll στη διαδρομή του FF7 (αν δεν βρέθηκε ή αν εντοπίστηκε παλαιότερη έκδοση) ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Αντιγραφή του αρχείου 7thWrapperLoader.dll στη διαδρομή του FF7 (αν δεν βρέθηκε ή αν εντοπίστηκε παλαιότερη έκδοση) ...</system:String>
 
     <system:String x:Key="CopyingFf7InputCfgToFf7Path">Αντιγραφή του αρχείου ff7input.cfg στη διαδρομή του FF7 ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Η καταγραφή εντοπισμού σφαλμάτων ορίστηκε σε 'true' (ενεργό). Λεπτομερής καταγραφή θα γραφεί σε</system:String>
@@ -837,20 +837,20 @@
     <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Εκκίνηση πρόσθετων προγραμμάτων για εκτέλεση (εάν υπάρχουν) ...</system:String>
     <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Γράφοντας προσωρινό αρχείο Προφίλ Χρόνου εκτέλεσης σε</system:String>
 
-    <system:String x:Key="AttemptingToInjectWithEasyHook">Απόπειρα εμβολής με το EasyHook ...</system:String>
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Απόπειρα εμβολής με το 7thWrapperLoader ...</system:String>
     <system:String x:Key="ReceivedErrors">σφάλματα που λήφθηκαν</system:String>
     <system:String x:Key="ReachedTimeoutWaitingForInjection">έφτασε το χρονικό όριο αναμονής για εμβολή ...</system:String>
     <system:String x:Key="ReceivedUnknownError">λήψη άγνωστου σφάλματος</system:String>
     <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Αποτυχία εμβολής μετά από μέγιστο αριθμό δοκιμών</system:String>
 
     <system:String x:Key="ErrorFailedToStartGame">Σφάλμα - Αποτυχία έναρξης παιχνιδιού</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Αποτυχία εμβολής με το EasyHook μετά από πολλαπλή δοκιμή. Αυτό συνήθως διορθώνεται ρυθμίζοντας το «Code 5 Fix» σε «On» στις Ρυθμίσεις εκκίνησης παιχνιδιού.
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Αποτυχία εμβολής με το 7thWrapperLoader μετά από πολλαπλή δοκιμή. Αυτό συνήθως διορθώνεται ρυθμίζοντας το «Code 5 Fix» σε «On» στις Ρυθμίσεις εκκίνησης παιχνιδιού.
 
 Θέλετε να εφαρμόσετε τη ρύθμιση και να δοκιμάσετε ξανά;</system:String>
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Ρύθμιση διόρθωσης συμβατότητας και επανάληψη της προσπάθειας ...</system:String>
-    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Επιμονή για αποτυχία εμβολής με το EasyHook μετά τον ορισμό διόρθωσης συμβατότητας. Ματαίωση ...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Αποτυχία εμβολής με το EasyHook ακόμα και μετά τον ορισμό επισημάνσεων συμβατότητας</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Επιμονή για αποτυχία εμβολής με το 7thWrapperLoader μετά τον ορισμό διόρθωσης συμβατότητας. Ματαίωση ...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Αποτυχία εμβολής με το 7thWrapperLoader ακόμα και μετά τον ορισμό επισημάνσεων συμβατότητας</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">Ο χρήστης επέλεξε να μην ορίσει διόρθωση συμβατότητας. Ματαίωση ...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Λήψη διεργασίας FF7 ...</system:String>

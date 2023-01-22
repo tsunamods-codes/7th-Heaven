@@ -59,6 +59,9 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="false" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DS4WindowsCore">
       <HintPath>.\DS4WindowsCore.dll</HintPath>
     </Reference>
