@@ -767,8 +767,8 @@ namespace SeventhHeaven.Classes
         {
             string[] requiredFolders = new string[]
             {
-                Sys.Settings.AaliFolder,
                 Path.Combine(InstallPath, "data"),
+                Path.Combine(InstallPath, "data", "movies"),
                 Path.Combine(InstallPath, "data", "kernel"),
                 Path.Combine(InstallPath, "data", "battle"),
                 Path.Combine(InstallPath, "direct"),

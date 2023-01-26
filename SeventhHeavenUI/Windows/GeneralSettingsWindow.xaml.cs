@@ -115,26 +115,6 @@ namespace SeventhHeaven.Windows
             }
         }
 
-        private void btnMovies_Click(object sender, RoutedEventArgs e)
-        {
-            string folderPath = FileDialogHelper.BrowseForFolder(ResourceHelper.Get(StringKey.SelectMoviesFolder), ViewModel.MoviesPathInput);
-
-            if (!string.IsNullOrEmpty(folderPath))
-            {
-                ViewModel.MoviesPathInput = folderPath;
-            }
-        }
-
-        private void btnTextures_Click(object sender, RoutedEventArgs e)
-        {
-            string folderPath = FileDialogHelper.BrowseForFolder(ResourceHelper.Get(StringKey.SelectTexturesFolder), ViewModel.TexturesPathInput);
-
-            if (!string.IsNullOrEmpty(folderPath))
-            {
-                ViewModel.TexturesPathInput = folderPath;
-            }
-        }
-
         private void btnLibrary_Click(object sender, RoutedEventArgs e)
         {
             string folderPath = FileDialogHelper.BrowseForFolder(ResourceHelper.Get(StringKey.Select7thHeavenLibraryFolder), ViewModel.LibraryPathInput);
@@ -169,21 +149,6 @@ namespace SeventhHeaven.Windows
             try
             {
                 // reference: https://stackoverflow.com/questions/11232438/single-line-wpf-textbox-horizontal-scroll-to-end
-                if (!string.IsNullOrWhiteSpace(ViewModel.MoviesPathInput))
-                {
-                    txtMovies.CaretIndex = ViewModel.MoviesPathInput.Length;
-                    var rect = txtMovies.GetRectFromCharacterIndex(txtMovies.CaretIndex);
-                    txtMovies.ScrollToHorizontalOffset(rect.Right);
-                }
-
-                if (!string.IsNullOrWhiteSpace(ViewModel.TexturesPathInput))
-                {
-                    txtTextures.CaretIndex = ViewModel.TexturesPathInput.Length;
-                    var rect = txtTextures.GetRectFromCharacterIndex(txtTextures.CaretIndex);
-                    txtTextures.ScrollToHorizontalOffset(rect.Right);
-
-                }
-
                 if (!string.IsNullOrWhiteSpace(ViewModel.LibraryPathInput))
                 {
                     txtLibrary.CaretIndex = ViewModel.LibraryPathInput.Length;

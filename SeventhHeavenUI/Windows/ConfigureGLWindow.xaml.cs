@@ -118,7 +118,7 @@ namespace SeventhHeaven.Windows
                     btnClearTextureCache = new Button()
                     {
                         Content = ResourceHelper.Get(StringKey.ClearTextureCache),
-                        ToolTip = $"{ResourceHelper.Get(StringKey.WillDeleteEverythingUnder)} {Path.Combine(Sys.Settings.AaliFolder, "cache")}",
+                        ToolTip = $"{ResourceHelper.Get(StringKey.WillDeleteEverythingUnder)} {Path.Combine(Sys.PathToFF7Textures, "cache")}",
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Top,
                         Margin = new Thickness(5, 0, 0, 0)
@@ -147,7 +147,7 @@ namespace SeventhHeaven.Windows
 
         private void ClearTextureCache()
         {
-            string pathToCache = Path.Combine(Sys.Settings.AaliFolder, "cache");
+            string pathToCache = Path.Combine(Sys.PathToFF7Textures, "cache");
 
             if (!Directory.Exists(pathToCache))
             {

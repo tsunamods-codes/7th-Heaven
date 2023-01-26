@@ -76,8 +76,6 @@ namespace Iros._7th.Workshop {
             if (!validexe) yield return "FF7 Exe: " + FF7Exe + " not found";
             foreach (var al in ProgramsToLaunchPrior.Where(s => !String.IsNullOrWhiteSpace(s.PathToProgram)))
                 if (!System.IO.File.Exists(al.PathToProgram)) yield return "AlsoLaunch: " + al.PathToProgram + " not found";
-            if (!System.IO.Directory.Exists(MovieFolder)) yield return "Movie Folder: " + MovieFolder + " not found";
-            if (!System.IO.Directory.Exists(AaliFolder)) yield return "Texture Path: " + AaliFolder + " not found";
             if (validexe) {
                 string ff7folder = System.IO.Path.GetDirectoryName(FF7Exe);
                 foreach (string extra in ExtraFolders.Where(s => !String.IsNullOrWhiteSpace(s))) {
@@ -105,8 +103,6 @@ namespace Iros._7th.Workshop {
         public string FF7Exe { get; set; }
         [System.Xml.Serialization.XmlElement("AlsoLaunch")]
         public List<ProgramLaunchInfo> ProgramsToLaunchPrior { get; set; }
-        public string AaliFolder { get; set; }
-        public string MovieFolder { get; set; }
         public FFNxUpdateChannelOptions FFNxUpdateChannel { get; set; }
         public AppUpdateChannelOptions AppUpdateChannel { get; set; }
         public DateTime LastUpdateCheck { get; set; }
@@ -194,13 +190,9 @@ namespace Iros._7th.Workshop {
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
             FF7Exe = Path.Combine(pathToFf7Install, "FF7.exe");
-            AaliFolder = Path.Combine(pathToFf7Install, "mods", @"Textures");
             LibraryLocation = Path.Combine(pathToFf7Install, "mods", @"7th Heaven");
-            MovieFolder = Path.Combine(pathToFf7Install, "data", @"movies");
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
-            LogAndCreateFolderIfNotExists(MovieFolder);
-            LogAndCreateFolderIfNotExists(AaliFolder);
 
             foreach (string folder in Settings.UseDefaultSettings().ExtraFolders)
             {

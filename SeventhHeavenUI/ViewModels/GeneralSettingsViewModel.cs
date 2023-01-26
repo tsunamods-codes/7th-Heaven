@@ -23,8 +23,6 @@ namespace SeventhHeaven.ViewModels
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         private string _fF7ExePathInput;
-        private string _moviesPathInput;
-        private string _texturesPathInput;
         private string _libraryPathInput;
         private bool _autoUpdateModsByDefault;
         private bool _activateInstalledModsAuto;
@@ -65,32 +63,6 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _fF7ExePathInput = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string MoviesPathInput
-        {
-            get
-            {
-                return _moviesPathInput;
-            }
-            set
-            {
-                _moviesPathInput = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string TexturesPathInput
-        {
-            get
-            {
-                return _texturesPathInput;
-            }
-            set
-            {
-                _texturesPathInput = value;
                 NotifyPropertyChanged();
             }
         }
@@ -414,8 +386,6 @@ namespace SeventhHeaven.ViewModels
 
             FF7ExePathInput = settings.FF7Exe;
             LibraryPathInput = settings.LibraryLocation;
-            MoviesPathInput = settings.MovieFolder;
-            TexturesPathInput = settings.AaliFolder;
 
             FFNxUpdateChannel = settings.FFNxUpdateChannel;
             AppUpdateChannel = settings.AppUpdateChannel;
@@ -559,8 +529,6 @@ namespace SeventhHeaven.ViewModels
 
             Sys.Settings.FF7Exe = FF7ExePathInput;
             Sys.Settings.LibraryLocation = LibraryPathInput;
-            Sys.Settings.MovieFolder = MoviesPathInput;
-            Sys.Settings.AaliFolder = TexturesPathInput;
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
             Sys.Settings.AppUpdateChannel = AppUpdateChannel;
 
@@ -721,18 +689,6 @@ namespace SeventhHeaven.ViewModels
             if (string.IsNullOrWhiteSpace(LibraryPathInput))
             {
                 validationMessage = ResourceHelper.Get(StringKey.MissingLibraryPath);
-                isValid = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(TexturesPathInput))
-            {
-                validationMessage = ResourceHelper.Get(StringKey.MissingTexturesPath);
-                isValid = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(MoviesPathInput))
-            {
-                validationMessage = ResourceHelper.Get(StringKey.MissingMoviePath);
                 isValid = false;
             }
 

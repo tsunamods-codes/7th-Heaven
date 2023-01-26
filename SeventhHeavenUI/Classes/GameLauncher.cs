@@ -201,49 +201,34 @@ namespace SeventhHeaven.Classes
                 return false;
             }
 
-            converter.CopyMovieFilesToFolder(Sys.Settings.MovieFolder);
+            converter.CopyMovieFilesToFolder(Sys.PathToFF7Movies);
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingAllMovieFilesExist));
-            if (!GameConverter.AllMovieFilesExist(Sys.Settings.MovieFolder))
+            if (!GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies))
             {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CouldNotFindAllMovieFilesAt)} {Sys.Settings.MovieFolder}", NLog.LogLevel.Warn);
+                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CouldNotFindAllMovieFilesAt)} {Sys.PathToFF7Movies}", NLog.LogLevel.Warn);
 
-                string otherMovieFolder = Path.Combine(converter.InstallPath, "data", "movies");
-                bool pathsAreSame = Sys.Settings.MovieFolder.Equals(otherMovieFolder);
-                if (!pathsAreSame && GameConverter.AllMovieFilesExist(otherMovieFolder)) // only check other location if different then what is already set in General Settings
+                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AttemptingToCopyMovieFiles)}");
+
+                if (!converter.CopyMovieFilesToFolder(Sys.PathToFF7Movies))
                 {
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AllFilesFoundAt)} {otherMovieFolder}. {ResourceHelper.Get(StringKey.UpdatingMoviePathSetting)}");
-                    Sys.Settings.MovieFolder = otherMovieFolder;
-                }
-                else
-                {
-                    if (!pathsAreSame)
+                    // skip warning if an active mod contains movie files
+                    bool activeModsHasMovies = Sys.ActiveProfile.ActiveItems.Any(a => Sys.Library.GetItem(a.ModID).CachedDetails.ContainsMovies);
+
+                    string title = ResourceHelper.Get(StringKey.MovieFilesAreMissing);
+                    string message = ResourceHelper.Get(StringKey.InOrderToSeeInGameMoviesYouWillNeedMessage);
+                    if (!Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning && !activeModsHasMovies)
                     {
-                        Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CouldNotFindAllMovieFilesAt)} {otherMovieFolder}", NLog.LogLevel.Warn);
+                        Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning = true;
+                        MessageDialogWindow.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
 
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AttemptingToCopyMovieFiles)}");
-
-                    if (!converter.CopyMovieFilesToFolder(Sys.Settings.MovieFolder))
+                    if (!activeModsHasMovies)
                     {
-                        // skip warning if an active mod contains movie files
-                        bool activeModsHasMovies = Sys.ActiveProfile.ActiveItems.Any(a => Sys.Library.GetItem(a.ModID).CachedDetails.ContainsMovies);
-
-                        string title = ResourceHelper.Get(StringKey.MovieFilesAreMissing);
-                        string message = ResourceHelper.Get(StringKey.InOrderToSeeInGameMoviesYouWillNeedMessage);
-                        if (!Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning && !activeModsHasMovies)
-                        {
-                            Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning = true;
-                            MessageDialogWindow.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-
-                        if (!activeModsHasMovies)
-                        {
-                            Instance.RaiseProgressChanged(title, NLog.LogLevel.Warn);
-                            Instance.RaiseProgressChanged(message, NLog.LogLevel.Warn);
-                        }
-
+                        Instance.RaiseProgressChanged(title, NLog.LogLevel.Warn);
+                        Instance.RaiseProgressChanged(message, NLog.LogLevel.Warn);
                     }
+
                 }
             }
 
@@ -865,8 +850,6 @@ namespace SeventhHeaven.Classes
 
         internal static RuntimeProfile CreateRuntimeProfile()
         {
-            string ff7Folder = Path.GetDirectoryName(Sys.Settings.FF7Exe);
-            string pathToDataFolder = Path.Combine(ff7Folder, "data");
             List<RuntimeMod> runtimeMods = null;
 
             try
@@ -884,18 +867,17 @@ namespace SeventhHeaven.Classes
             RuntimeProfile runtimeProfiles = new RuntimeProfile()
             {
                 MonitorPaths = new List<string>() {
-                    pathToDataFolder,
-                    Sys.Settings.AaliFolder,
-                    Sys.Settings.MovieFolder,
+                    Sys.PathToFF7Data,
+                    Sys.PathToFF7Textures,
                 },
                 ModPath = Sys.Settings.LibraryLocation,
-                FF7Path = ff7Folder,
-                gameFiles = Directory.GetFiles(ff7Folder, "*.*", SearchOption.AllDirectories),
+                FF7Path = Sys.InstallPath,
+                gameFiles = Directory.GetFiles(Sys.InstallPath, "*.*", SearchOption.AllDirectories),
                 Mods = runtimeMods
             };
 
             Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AddingPathsToMonitor)}");
-            runtimeProfiles.MonitorPaths.AddRange(Sys.Settings.ExtraFolders.Where(s => s.Length > 0).Select(s => Path.Combine(ff7Folder, s)));
+            runtimeProfiles.MonitorPaths.AddRange(Sys.Settings.ExtraFolders.Where(s => s.Length > 0).Select(s => Path.Combine(Sys.InstallPath, s)));
             return runtimeProfiles;
         }
 
@@ -1393,7 +1375,7 @@ namespace SeventhHeaven.Classes
 
             string installPath = Path.GetDirectoryName(Sys.Settings.FF7Exe);
             string pathToData = Path.Combine(installPath, @"data\");
-            string pathToMovies = Sys.Settings.MovieFolder;
+            string pathToMovies = Sys.PathToFF7Movies;
 
             if (installPath != null && !installPath.EndsWith(@"\"))
             {

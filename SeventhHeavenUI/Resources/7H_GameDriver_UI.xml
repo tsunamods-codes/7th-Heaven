@@ -269,7 +269,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>
     <Name>Analogue Controls</Name>
-    <Description>Enable support for full omni-directional anaglogue control.</Description>
+    <Description>Enable support for full omni-directional analogue control. This includes two features: Battle Free Camera Movement and Full 360 Degree Analogue Movement for Field.</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>

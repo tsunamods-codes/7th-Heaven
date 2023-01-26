@@ -87,9 +87,9 @@ namespace SeventhHeavenUI.ViewModels
 
             if (!string.IsNullOrEmpty(Sys.Settings.FF7Exe) & File.Exists(Sys.Settings.FF7Exe))
             {
-                ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.Settings.MovieFolder);
+                ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies);
 
-                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.Settings.MovieFolder);
+                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.PathToFF7Movies);
 
                 if (missingMovies.Count > 0)
                 {
@@ -125,7 +125,7 @@ namespace SeventhHeavenUI.ViewModels
 
         internal void ImportMissingMovies()
         {
-            string warningMessage = string.Format(ResourceHelper.Get(StringKey.ImportMissingMoviesWarningMessage), Sys.Settings.MovieFolder);
+            string warningMessage = string.Format(ResourceHelper.Get(StringKey.ImportMissingMoviesWarningMessage), Sys.PathToFF7Movies);
             MessageDialogViewModel result = MessageDialogWindow.Show(warningMessage, ResourceHelper.Get(StringKey.Warning), MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result.Result == MessageBoxResult.No)
@@ -142,7 +142,7 @@ namespace SeventhHeavenUI.ViewModels
 
             Task importTask = Task.Factory.StartNew(() =>
             {
-                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.Settings.MovieFolder);
+                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.PathToFF7Movies);
                 List<string> discsToInsert = GetDiscsToInsertForMissingMovies(missingMovies);
 
                 totalFiles = missingMovies.Count;
@@ -185,7 +185,7 @@ namespace SeventhHeavenUI.ViewModels
 
                         foreach (string drive in driveLetters)
                         {
-                            string fullTargetPath = Path.Combine(Sys.Settings.MovieFolder, movieFile);
+                            string fullTargetPath = Path.Combine(Sys.PathToFF7Movies, movieFile);
                             string sourceFilePath = Path.Combine(drive, "ff7", "movies", movieFile);
 
                             if (File.Exists(sourceFilePath))
@@ -235,7 +235,7 @@ namespace SeventhHeavenUI.ViewModels
                         SetImportStatus(ResourceHelper.Get(StringKey.FinishedCopyingMoviesSomeFailed));
                     }
 
-                    ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.Settings.MovieFolder);
+                    ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies);
                     ImportProgressValue = 0;
                     ImportProgressVisibility = Visibility.Hidden;
                 }
