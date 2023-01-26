@@ -20,7 +20,7 @@ namespace Iros._7th.Workshop {
                 var mutex = new System.Threading.Mutex(true, "UniqueAppId", out result);
                 if (!result)
                 {
-                  MessageBox.Show("Sorry, only one instance of 7thHeaven can be run at a time!  Please first close all instances of 7thHeaven if you are trying to import an IRO.");
+                  MessageBox.Show("Sorry, only one instance of 7th Heaven can be run at a time!  Please first close all instances of 7th Heaven if you are trying to import an IRO.");
                     return;
                 }
             Application.EnableVisualStyles();

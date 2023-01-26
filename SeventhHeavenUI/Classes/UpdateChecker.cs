@@ -129,12 +129,12 @@ namespace SeventhHeaven.Classes
                                 break;
                             case 0: // SAME
                                 if (manualCheck)
-                                    MessageDialogWindow.Show("You seem to be up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                                    MessageDialogWindow.Show("7th Heaven version is up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                                 break;
                             case -1: // OLDER
                                 if (
                                     MessageDialogWindow.Show(
-                                        $"Your current version seems newer than the one being offered. This is normal if you've installed a canary build, but your release path is set to stable.\n\nCurrently installed version: {curVersion.ToString()}\nVersion to be installed: {newVersion.ToString()}\n\nWould you like to install the older version anyway?",
+                                        $"Your 7th Heaven version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
                                         "Update found!",
                                         System.Windows.MessageBoxButton.YesNo,
                                         System.Windows.MessageBoxImage.Question
@@ -145,14 +145,14 @@ namespace SeventhHeaven.Classes
                     }
                     catch (Exception)
                     {
-                        MessageDialogWindow.Show("Something went wrong while checking for App updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not parse the 7thHeaven release json at {GetUpdateChannel(channel)}", LoggedException = e.Error });
+                        MessageDialogWindow.Show("Something went wrong while checking for 7th Heaven updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not parse the 7th Heaven release json at {GetUpdateChannel(channel)}", LoggedException = e.Error });
                     }
                 }
                 else
                 {
-                    MessageDialogWindow.Show("Something went wrong while checking for App updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                    Sys.Message(new WMessage() { Text = $"Could not fetch for 7thHeaven updates at {GetUpdateChannel(channel)}", LoggedException = e.Error });
+                    MessageDialogWindow.Show("Something went wrong while checking for 7th Heaven updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    Sys.Message(new WMessage() { Text = $"Could not fetch for 7th Heaven updates at {GetUpdateChannel(channel)}", LoggedException = e.Error });
                 }
             });
 
@@ -170,7 +170,7 @@ namespace SeventhHeaven.Classes
                     Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
                     SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
                     Category = DownloadCategory.AppUpdate,
-                    ItemName = $"Downloading 7thHeaven Update {url}..."
+                    ItemName = $"Downloading 7th Heaven Update {url}..."
                 };
 
                 download.IProc = new Install.InstallProcedureCallback(e =>
@@ -198,15 +198,15 @@ namespace SeventhHeaven.Classes
                         SwitchToModPanel();
 
                         MessageDialogWindow.Show($"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update is completed.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        Sys.Message(new WMessage() { Text = $"Successfully extracted the 7thHeaven version {version}. Ready to launch the update." });
+                        Sys.Message(new WMessage() { Text = $"Successfully extracted the 7th Heaven version {version}. Ready to launch the update." });
 
                         File.Delete(download.SaveFilePath);
                         StartUpdate(ExtractPath);
                     }
                     else
                     {
-                        MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not download the 7thHeaven update {url}", LoggedException = e.Error });
+                        MessageDialogWindow.Show("Something went wrong while downloading the 7th Heaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not download the 7th Heaven update {url}", LoggedException = e.Error });
                     }
                 });
 
@@ -214,7 +214,7 @@ namespace SeventhHeaven.Classes
             }
             else
             {
-                MessageDialogWindow.Show("Something went wrong while downloading the 7thHeaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageDialogWindow.Show("Something went wrong while downloading the 7th Heaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
 
@@ -255,7 +255,7 @@ namespace SeventhHeaven.Classes
             }
             catch (Exception e) {
                 MessageDialogWindow.Show("Something went wrong while trying to update 7th Heaven. See the error log for more details.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                Sys.Message(new WMessage() { Text = $"Error while trying to update 7thHeaven", LoggedException = e });
+                Sys.Message(new WMessage() { Text = $"Error while trying to update 7th Heaven", LoggedException = e });
             }
         }
     }

@@ -124,7 +124,7 @@ namespace SeventhHeaven.Classes
                                 {
                                     if (
                                         MessageDialogWindow.Show(
-                                            $"New FFNx Update driver found!\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to update?",
+                                            $"New FFNx driver version found!\n\nCurrently installed: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to update?",
                                             "Update found!",
                                             System.Windows.MessageBoxButton.YesNo,
                                             System.Windows.MessageBoxImage.Question
@@ -143,14 +143,14 @@ namespace SeventhHeaven.Classes
                                 break;
                             case 0: // SAME
                                 if (manualCheck)
-                                    MessageDialogWindow.Show("Your FFNx Driver version seems to be up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                                    MessageDialogWindow.Show("Your FFNx driver version is up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                                 break;
                             case -1: // OLDER
                                 if (manualCheck)
                                 {
                                     if (
                                         MessageDialogWindow.Show(
-                                            $"Your current FFNx driver version seems newer than the one presently available.\n\nCurrent Version: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to install it anyway?",
+                                            $"Your FFNx driver version is newer than the one offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
                                             "Update found!",
                                             System.Windows.MessageBoxButton.YesNo,
                                             System.Windows.MessageBoxImage.Question

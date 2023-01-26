@@ -464,7 +464,7 @@ namespace _7thHeaven.Code
                 }
                 catch (Exception e)
                 {
-                    Sys.Message(new WMessage() { Text = $"Error while trying to update 7thHeaven settings", LoggedException = e });
+                    Sys.Message(new WMessage() { Text = $"Error while trying to update 7th Heaven settings", LoggedException = e });
                 }
             }
 
