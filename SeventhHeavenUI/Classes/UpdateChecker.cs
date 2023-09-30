@@ -228,7 +228,7 @@ namespace SeventhHeaven.Classes
 @echo Waiting for 7th Heaven to be closed, please wait...
 @taskkill /IM ""7th Heaven.exe"" /F >NUL 2>NUL
 @timeout /t 5 /nobreak
-@robocopy ""{sourcePath}"" ""{Sys._7HFolder}"" /S /MOV >NUL 2>NUL
+@xcopy ""{sourcePath}"" ""{Sys._7HFolder}"" /S /Y >NUL 2>NUL
 @echo Waiting for the update to take place, please wait...
 @timeout /t 5 /nobreak
 @rmdir /s /q ""{sourcePath}""
