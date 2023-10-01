@@ -124,7 +124,7 @@ namespace SeventhHeaven.Classes
                                 {
                                     if (
                                         MessageDialogWindow.Show(
-                                            $"New FFNx driver version found!\n\nCurrently installed: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to update?\n(Remember to reconfigure your graphics settings if you do!)",
+                                            $"New FFNx driver version found!\n\nCurrently installed: {curVersion.ToString()}\nNew Version: {newVersion.ToString()}\n\nWould you like to update?",
                                             "Update found!",
                                             System.Windows.MessageBoxButton.YesNo,
                                             System.Windows.MessageBoxImage.Question
@@ -150,7 +150,7 @@ namespace SeventhHeaven.Classes
                                 {
                                     if (
                                         MessageDialogWindow.Show(
-                                            $"Your FFNx driver version is newer than the one offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?\n(Remember to reconfigure your graphics settings if you do!)",
+                                            $"Your FFNx driver version is newer than the one offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
                                             "Update found!",
                                             System.Windows.MessageBoxButton.YesNo,
                                             System.Windows.MessageBoxImage.Question
