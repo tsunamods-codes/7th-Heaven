@@ -257,7 +257,7 @@ namespace SeventhHeaven.Classes
                         Sys.FFNxConfig.OverrideInternalKeys();
                         Sys.FFNxConfig.Save();
 
-                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        MessageDialogWindow.Show($"Successfully updated FFNx to version {version}. All options have been set to default.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                         Sys.Message(new WMessage() { Text = $"Successfully updated FFNx to version {version}" });
 
                         File.Delete(download.SaveFilePath);
