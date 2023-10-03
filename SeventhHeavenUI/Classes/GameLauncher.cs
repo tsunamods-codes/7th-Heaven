@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Xml;
+using Profile = Iros._7th.Workshop.Profile;
 
 namespace SeventhHeaven.Classes
 {
@@ -1682,9 +1683,13 @@ namespace SeventhHeaven.Classes
                 // === 7th files ===
                 archive.AddEntry("7thWrapperLoader.log", Path.Combine(Sys.InstallPath, "7thWrapperLoader.log"));
                 archive.AddEntry("applog.txt", File.Open(Sys.PathToApplog, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
-                archive.AddEntry("profile.xml", Sys.PathToCurrentProfileFile);
                 archive.AddEntry("settings.xml", Sys.PathToSettings);
                 archive.AddEntry("registry_transaction.bat", Path.Combine(Sys.PathToTempFolder, "registry_transaction.bat"));
+                // Convert profile.xml to profile.txt
+                Profile currentProfile = Util.Deserialize<Profile>(Sys.PathToCurrentProfileFile);
+                IEnumerable<string> profileDetails = currentProfile.GetDetails();
+                File.WriteAllLines(Path.Combine(Sys.PathToTempFolder, "profile.txt"), profileDetails);
+                archive.AddEntry("profile.txt", Path.Combine(Sys.PathToTempFolder, "profile.txt"));
 
                 // =================================================================================================
 
