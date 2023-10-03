@@ -1688,7 +1688,7 @@ namespace SeventhHeaven.Classes
                 // Convert profile.xml to profile.txt
                 Profile currentProfile = Util.Deserialize<Profile>(Sys.PathToCurrentProfileFile);
                 IEnumerable<string> profileDetails = currentProfile.GetDetails();
-                File.WriteAllLines(Path.Combine(Sys.InstallPath, "profile.txt"), profileDetails);
+                File.WriteAllLines(Path.Combine(Sys.PathToTempFolder, "profile.txt"), profileDetails);
                 archive.AddEntry("profile.txt", Path.Combine(Sys.InstallPath, "profile.txt"));
 
                 // =================================================================================================
