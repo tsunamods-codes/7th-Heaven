@@ -290,6 +290,15 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>
+    <Name>Auto Run</Name>
+    <Description>Walk or run depending on how much the left analog stick is tilted.</Description>
+    <DefaultValue>enable_auto_run = false</DefaultValue>
+    <TrueSetting>enable_auto_run = true</TrueSetting>
+    <FalseSetting>enable_auto_run = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
     <Name>Steam Compatibility</Name>
     <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
     <DefaultValue>enable_steam_achievements = false</DefaultValue>
