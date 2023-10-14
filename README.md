@@ -42,6 +42,15 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 1. Run the installer and import this [.vsconfig](.vsconfig) file in the installer to pick the required components to build this project
 2. Once installed, open the file [`7thHeaven.sln`](7thHeaven.sln) in Visual Studio and click the build button
 
+### Visual Studio Code (Using Extension in Preview)
+
+0. Make sure to have done the first two steps of **Visual Studio** section
+1. Open VS Code and install the extension [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) (this will also install other dependent extensions)
+2. Open the 7thHeaven folder and there will be a new tab in **Explorer**, called **Solution Explorer**, that contains a similar project explorer of Visual Studio
+3. Build: right click on the solution **SeventhHeavenUI** and click on `Build`. Otherwise, run `dotnet build 7thHeaven.sln /target:SeventhHeavenUI`
+4. Run: `dotnet run --project SeventhHeavenUI`
+5. Debug: right click on the solution **SeventhHeavenUI** and click `Debug->Start New Instance`
+
 ## Special thanks
 
 The .NET 7 migration would not have been possibile without the help of these people. The order is purely Alphabetical.
