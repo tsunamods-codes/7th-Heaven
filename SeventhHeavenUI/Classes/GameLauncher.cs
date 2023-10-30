@@ -1438,18 +1438,26 @@ namespace SeventhHeaven.Classes
 
             // Add registry key values for paths and drive letter
             SetValueIfChanged(ff7KeyPath, "AppPath", installPath);
-            SetValueIfChanged(ff7KeyPath, "DataPath", pathToData);
-            SetValueIfChanged(ff7KeyPath, "MoviePath", pathToMovies);
+            SetValueIfChanged(virtualStorePath, "AppPath", installPath);
 
+            SetValueIfChanged(ff7KeyPath, "DataPath", pathToData);
+            SetValueIfChanged(virtualStorePath, "DataPath", pathToData);
+
+            SetValueIfChanged(ff7KeyPath, "MoviePath", pathToMovies);
+            SetValueIfChanged(virtualStorePath, "MoviePath", pathToMovies);
 
             // setting the drive letter may not happen if auto update disc path is not set
             if (Sys.Settings.GameLaunchSettings.AutoUpdateDiscPath && !string.IsNullOrWhiteSpace(DriveLetter))
             {
                 SetValueIfChanged(ff7KeyPath, "DataDrive", DriveLetter);
+                SetValueIfChanged(virtualStorePath, "DataDrive", DriveLetter);
             }
 
             SetValueIfChanged(ff7KeyPath, "DiskNo", 0, RegistryValueKind.DWord);
+            SetValueIfChanged(virtualStorePath, "DiskNo", 0, RegistryValueKind.DWord);
+
             SetValueIfChanged(ff7KeyPath, "FullInstall", 1, RegistryValueKind.DWord);
+            SetValueIfChanged(virtualStorePath, "FullInstall", 1, RegistryValueKind.DWord);
 
 
             if (Environment.Is64BitOperatingSystem)
