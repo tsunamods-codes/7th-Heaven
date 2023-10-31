@@ -1,7 +1,7 @@
 {
   "name": "7th-wrapper-loader",
   "version": "1.0.0",
-  "builtin-baseline": "ced4b6dbc1fcae4a30b39d004ba67242a79434a5",
+  "builtin-baseline": "8eb57355a4ffb410a2e94c07b4dca2dffbee8e50",
   "dependencies": [
     "detours",
     "nethost",
