@@ -449,6 +449,42 @@ begin
   end;
 end;
 
+procedure Dependency_AddDotNet80;
+begin
+  // https://dotnet.microsoft.com/download/dotnet/8.0
+  if not Dependency_IsNetCoreInstalled('Microsoft.NETCore.App 8.0.0') then begin
+    Dependency_Add('dotnet80' + Dependency_ArchSuffix + '.exe',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      '.NET Runtime 8.0.0' + Dependency_ArchTitle,
+      Dependency_String('https://dotnetcli.azureedge.net/dotnet/Runtime/8.0.0/dotnet-runtime-8.0.0-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/Runtime/8.0.0/dotnet-runtime-8.0.0-win-x64.exe'),
+      '', False, False);
+  end;
+end;
+
+procedure Dependency_AddDotNet80Asp;
+begin
+  // https://dotnet.microsoft.com/download/dotnet/8.0
+  if not Dependency_IsNetCoreInstalled('Microsoft.AspNetCore.App 8.0.0') then begin
+    Dependency_Add('dotnet80asp' + Dependency_ArchSuffix + '.exe',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      'ASP.NET Core Runtime 8.0.0' + Dependency_ArchTitle,
+      Dependency_String('https://dotnetcli.azureedge.net/dotnet/aspnetcore/Runtime/8.0.0/aspnetcore-runtime-8.0.0-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/aspnetcore/Runtime/8.0.0/aspnetcore-runtime-8.0.0-win-x64.exe'),
+      '', False, False);
+  end;
+end;
+
+procedure Dependency_AddDotNet80Desktop;
+begin
+  // https://dotnet.microsoft.com/download/dotnet/8.0
+  if not Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 8.0.0') then begin
+    Dependency_Add('dotnet80desktop' + Dependency_ArchSuffix + '.exe',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      '.NET Desktop Runtime 8.0.0' + Dependency_ArchTitle,
+      Dependency_String('https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.0/windowsdesktop-runtime-8.0.0-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.0/windowsdesktop-runtime-8.0.0-win-x64.exe'),
+      '', False, False);
+  end;
+end;
+
 procedure Dependency_AddVC2005;
 begin
   // https://www.microsoft.com/en-us/download/details.aspx?id=26347
