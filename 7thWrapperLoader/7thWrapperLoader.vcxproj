@@ -30,25 +30,25 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Debug\net7.0-windows\</OutDir>
+    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Debug\net8.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net7.0-windows\</OutDir>
+    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net8.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net7.0-windows\</OutDir>
+    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net8.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net7.0-windows\</OutDir>
+    <OutDir>$(SolutionDir)\SeventhHeavenUI\bin\Release\net8.0-windows7.0\</OutDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
