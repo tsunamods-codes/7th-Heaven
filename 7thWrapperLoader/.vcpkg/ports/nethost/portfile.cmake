@@ -1,18 +1,20 @@
-set(PRODUCT_VERSION "7.0.14")
+set(PRODUCT_VERSION "8.0.0")
 set(COMMIT_HASH "v${PRODUCT_VERSION}")
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO dotnet/runtime
     REF ${COMMIT_HASH}
-    SHA512 6a2b2aae28e46451dd9c44f7d62e01604efd93618b1ea0653b0f8b73d25bf2e59fd0ba7a08868d0de3f6bf31641ef28f918d5defd01e192ef72499d697dcc5e1
+    SHA512 a7de43bb294a62b661dd0b8f832c0ee64a6bd4a13deb4f65f51a8a8407cc5094d25cc703223d916451209284e013775a47da226098569e94694f3762a79e1de2
     HEAD_REF master
     PATCHES
         0001-nethost-cmakelists.patch
 )
 
 if(NOT VCPKG_TARGET_IS_WINDOWS)
-  execute_process(COMMAND sh -c "mkdir -p ${SOURCE_PATH}/artifacts/obj && ${SOURCE_PATH}/eng/native/version/copy_version_files.sh")
+  execute_process(COMMAND "sh" "-c" "mkdir -p ${SOURCE_PATH}/artifacts/obj && ${SOURCE_PATH}/eng/native/version/copy_version_files.sh")
+else()
+  execute_process(COMMAND "cmd.exe" "/c" "mkdir artifacts\\obj && eng\\native\\version\\copy_version_files.cmd" WORKING_DIRECTORY "${SOURCE_PATH}")
 endif()
 
 if(VCPKG_TARGET_IS_WINDOWS)
@@ -49,11 +51,8 @@ vcpkg_cmake_configure(
     NO_CHARSET_FLAG
     OPTIONS
         "-DSKIP_VERSIONING=1"
-        "-DCLI_CMAKE_HOST_POLICY_VER:STRING=${PRODUCT_VERSION}"
-        "-DCLI_CMAKE_HOST_FXR_VER:STRING=${PRODUCT_VERSION}"
-        "-DCLI_CMAKE_HOST_VER:STRING=${PRODUCT_VERSION}"
-        "-DCLI_CMAKE_COMMON_HOST_VER:STRING=${PRODUCT_VERSION}"
         "-DCLI_CMAKE_PKG_RID:STRING=${BASE_RID}"
+        "-DCLI_CMAKE_FALLBACK_OS:STRING=${RID_PLAT}"
         "-DCLI_CMAKE_COMMIT_HASH:STRING=${COMMIT_HASH}"
         "-DCLR_CMAKE_TARGET_ARCH_${ARCH_NAME}=1"
         "-DCLR_CMAKE_TARGET_ARCH=${RID_ARCH}"

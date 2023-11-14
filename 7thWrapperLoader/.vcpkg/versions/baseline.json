@@ -1,7 +1,7 @@
 {
   "default": {
     "nethost": {
-      "baseline": "7.0.14",
+      "baseline": "8.0.0",
       "port-version": 0
     },
     "stackwalker": {
