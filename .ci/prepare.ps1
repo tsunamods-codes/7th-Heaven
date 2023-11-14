@@ -32,7 +32,4 @@ git -C $vcpkgRoot clean -fxd
 
 cmd.exe /c "call $vcpkgRoot\bootstrap-vcpkg.bat"
 
-mkdir "C:\vcpkg\downloads\tools\yasm\1.3.0.6" | Out-Null
-Invoke-WebRequest -Uri "http://www.tortall.net/projects/yasm/snapshots/v1.3.0.6.g1962/yasm-1.3.0.6.g1962.exe" -SkipCertificateCheck -OutFile "C:\vcpkg\downloads\tools\yasm\1.3.0.6\yasm.exe"
-
 vcpkg integrate install
