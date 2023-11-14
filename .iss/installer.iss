@@ -15,7 +15,7 @@
 #endif
 
 #ifndef MyAppTargetFramework
-  #define MyAppTargetFramework "net7.0-windows"
+  #define MyAppTargetFramework "net8.0-windows7.0"
 #endif
 
 #define public Dependency_NoExampleSetup
@@ -75,11 +75,11 @@ function InitializeSetup: Boolean;
 begin
   Dependency_ForceX86 := True;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet70Desktop;
+  Dependency_AddDotNet80Desktop;
 
   Dependency_ForceX86 := False;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet70Desktop;
+  Dependency_AddDotNet80Desktop;
 
   Result := True;
 end;
