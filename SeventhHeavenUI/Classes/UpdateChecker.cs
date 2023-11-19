@@ -214,7 +214,7 @@ namespace SeventhHeaven.Classes
 @echo ----------------------------------------------------
 @echo Waiting for the update to take place, please wait...
 @echo ATTENTION: The update may ask you to install some dependencies. It is safe to proceed with the installation when prompted.
-@start """" /wait /d ""{Sys._7HFolder}"" ""{installerFullPath}"" /SILENT /DIR=""{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}""
+@start """" /wait /d ""{Sys._7HFolder}"" ""{installerFullPath}"" /SILENT /DIR=""{Sys._7HFolder}""
 @echo ----------------------------------------------------
 @echo Update completed. Restarting 7th Heaven now...
 @timeout /t 5 /nobreak >NUL 2>NUL
