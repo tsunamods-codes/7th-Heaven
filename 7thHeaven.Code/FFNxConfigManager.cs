@@ -236,6 +236,9 @@ namespace Iros._7th.Workshop.ConfigSettings
             _toml["ffmpeg_video_ext"] = "avi";
             _toml["mod_path"] = "mods/Textures";
             _toml["direct_mode_path"] = "direct";
+
+            if (Directory.EnumerateFiles(Path.Combine(Sys.InstallPath, "music/vgmstream"), "*.ogg").Any())
+                _toml["use_external_music"] = true;
         }
 
         public void ResetTo7thHeavenDefaults()

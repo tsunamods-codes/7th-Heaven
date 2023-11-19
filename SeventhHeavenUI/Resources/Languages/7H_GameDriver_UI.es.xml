@@ -234,40 +234,6 @@
   </Setting>
 
   <!-- ADVANCED TAB -->
-  <Setting xsi:type="DropDown">
-    <Group>Avanzado</Group>
-    <Name>Opciones de Música</Name>
-    <Description>Utiliza VGMStream para reproducir música de alta calidad OGG de Vorbis. Necesario para Mods de música. De lo contrario, usa el MIDI estándar.</Description>
-    <DefaultValue>use_external_music = true</DefaultValue>
-    <Option>
-      <Text>VGMStream (Recomendado)</Text>
-      <Settings>use_external_music = true</Settings>
-    </Option>
-    <Option>
-      <Text>MIDI estándar</Text>
-      <Settings>use_external_music = false</Settings>
-    </Option>
-  </Setting>
-
-  <Setting xsi:type="DropDown">
-    <Group>Avanzado</Group>
-    <Name>Opciones para Cinemáticas</Name>
-    <Description>Utiliza FFMPEG para reproducir las cinemáticas dentro del juego (FMVs). O utiliza el renderizador original, el cual puede no soportar tantos codecs de vídeo.</Description>
-    <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
-    <Option>
-      <Text>Autodetectar (Recomendado)</Text>
-      <Settings>enable_ffmpeg_videos = -1</Settings>
-    </Option>
-    <Option>
-      <Text>FFMPEG</Text>
-      <Settings>enable_ffmpeg_videos = 1</Settings>
-    </Option>
-    <Option>
-      <Text>Renderizador Original</Text>
-      <Settings>enable_ffmpeg_videos = 0</Settings>
-    </Option>
-  </Setting>
-
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
     <Name>Control analógico</Name>
