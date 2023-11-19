@@ -61,7 +61,7 @@ namespace SeventhHeaven.Classes
             {
                 string url = asset.browser_download_url.Value;
 
-                if (url.Contains("7thHeaven-v") && url.EndsWith(".zip"))
+                if (url.Contains("7thHeaven-v") && url.EndsWith(".exe"))
                     return url;
             }
 
@@ -179,29 +179,12 @@ namespace SeventhHeaven.Classes
 
                     if (success)
                     {
-                        string ExtractPath = Path.Combine(Sys.PathToTempFolder, $"7thHeaven-v{version}");
-
-                        Directory.CreateDirectory(ExtractPath);
-
-                        using (var archive = ZipArchive.Open(download.SaveFilePath))
-                        {
-                            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
-                            {
-                                entry.WriteToDirectory(ExtractPath, new ExtractionOptions()
-                                {
-                                    ExtractFullPath = true,
-                                    Overwrite = true
-                                });
-                            }
-                        }
-
                         SwitchToModPanel();
 
                         MessageDialogWindow.Show($"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update is completed.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                         Sys.Message(new WMessage() { Text = $"Successfully extracted the 7th Heaven version {version}. Ready to launch the update." });
 
-                        File.Delete(download.SaveFilePath);
-                        StartUpdate(ExtractPath);
+                        StartUpdate(download.SaveFilePath);
                     }
                     else
                     {
@@ -218,7 +201,7 @@ namespace SeventhHeaven.Classes
             }
         }
 
-        private void StartUpdate(string sourcePath)
+        private void StartUpdate(string installerFullPath)
         {
             string fileName = Path.Combine(Sys.PathToTempFolder, "update.bat");
 
@@ -227,12 +210,16 @@ namespace SeventhHeaven.Classes
                 $@"@echo off
 @echo Waiting for 7th Heaven to be closed, please wait...
 @taskkill /IM ""7th Heaven.exe"" /F >NUL 2>NUL
-@timeout /t 5 /nobreak
-@xcopy ""{sourcePath}"" ""{Sys._7HFolder}"" /S /Y >NUL 2>NUL
+@timeout /t 5 /nobreak >NUL 2>NUL
+@echo ----------------------------------------------------
 @echo Waiting for the update to take place, please wait...
-@timeout /t 5 /nobreak
-@rmdir /s /q ""{sourcePath}""
+@echo ATTENTION: The update may ask you to install some dependencies. It is safe to proceed with the installation when prompted.
+@start """" /wait /d ""{Sys._7HFolder}"" ""{installerFullPath}"" /SILENT /DIR=""{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}""
+@echo ----------------------------------------------------
+@echo Update completed. Restarting 7th Heaven now...
+@timeout /t 5 /nobreak >NUL 2>NUL
 @start """" /d ""{Sys._7HFolder}"" ""{Sys._7HExe}""
+@del ""{installerFullPath}""
 @del ""{fileName}""
 "
             );
