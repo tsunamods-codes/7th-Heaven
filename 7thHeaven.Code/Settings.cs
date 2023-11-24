@@ -168,6 +168,7 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("ambient");
             defaultSettings.ExtraFolders.Add("direct");
             defaultSettings.ExtraFolders.Add("lighting");
+            defaultSettings.ExtraFolders.Add("mesh");
             defaultSettings.ExtraFolders.Add("music");
             defaultSettings.ExtraFolders.Add("sfx");
             defaultSettings.ExtraFolders.Add("time");

@@ -232,6 +232,7 @@ namespace Iros._7th.Workshop.ConfigSettings
             _toml["external_voice_ext"] = "ogg";
             _toml["external_ambient_path"] = "ambient";
             _toml["external_ambient_ext"] = "ogg";
+            _toml["external_mesh_path"] = "mesh";
             _toml["ffmpeg_video_ext"] = "avi";
             _toml["mod_path"] = "mods/Textures";
             _toml["direct_mode_path"] = "direct";
