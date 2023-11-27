@@ -682,6 +682,7 @@ namespace SeventhHeaven.Classes
 
                 if (!didInject)
                 {
+                    Sys.FFNxConfig.RestoreBackup(true);
                     return false;
                 }
 
@@ -690,6 +691,8 @@ namespace SeventhHeaven.Classes
 
                 if (ff7Proc == null)
                 {
+                    Sys.FFNxConfig.RestoreBackup(true);
+
                     Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToGetFf7Proc)}", NLog.LogLevel.Error);
                     return false;
                 }
@@ -844,6 +847,8 @@ namespace SeventhHeaven.Classes
             }
             catch (Exception e)
             {
+                Sys.FFNxConfig.RestoreBackup(true);
+
                 Logger.Error(e);
 
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ExceptionOccurredWhileTryingToStart), NLog.LogLevel.Error);
