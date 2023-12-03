@@ -76,7 +76,7 @@
     <system:String x:Key="ResetColumnsTooltip">Tabs auf Standart zurück setzen</system:String>
 
     <system:String x:Key="Item">Aufgabe</system:String>
-    <system:String x:Key="Progress">Vortschritt</system:String>
+    <system:String x:Key="Progress">Fortschritt</system:String>
     <system:String x:Key="Speed">Geschwindigkeit</system:String>
     <system:String x:Key="TimeLeft">Benötigte Zeit</system:String>
 
