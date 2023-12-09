@@ -663,6 +663,7 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Activate Newly Installed Mods Automatically</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Import Mods From Library Automatically</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Warn When Mod Contains Code</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Auto Update Mods By Default</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignore Mod Compatibility Restrictions</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Check For 7th Heaven Updates Automatically</system:String>

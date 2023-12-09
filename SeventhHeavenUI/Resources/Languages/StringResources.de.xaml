@@ -662,6 +662,7 @@ Auf 'Abbrechen' klicken um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Aktiviere neu installierte Mods automatisch</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Importiere Mods aus der Library automatisch</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Warnen wenn ein Mod Codes enthält</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Automatisch Mod Updates als standart Einstellung aktivieren</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignoriere Mod Kompatibilitätsprobleme</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Automatisch auf 7th Heaven Updates prüfen</system:String>

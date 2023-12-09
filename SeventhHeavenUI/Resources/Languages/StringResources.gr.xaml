@@ -661,6 +661,7 @@
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Αυτόματη Ενεργοποίηση Πρόσφατα Εγκατεστημένων Τροποποιήσεων</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Αυτόματη Εισαγωγή Τροποποιήσεων από τη Βιβλιοθήκη</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Προειδοποίηση όταν η Τροποποίηση περιέχει Κώδικα</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Αυτόματη Ενημέρωση Τροποποιήσεων ως Προκαθορισμένη επιλογή</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Να αγνοηθούν οι περιορισμοί συμβατότητας της τροποποίησης</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Αυτόματος Ελεγχος Ενημερώσεων του 7th Heaven</system:String>

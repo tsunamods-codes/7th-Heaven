@@ -24,6 +24,7 @@ namespace SeventhHeaven.ViewModels
 
         private string _fF7ExePathInput;
         private string _libraryPathInput;
+        private bool _autoSortModsByDefault;
         private bool _autoUpdateModsByDefault;
         private bool _activateInstalledModsAuto;
         private bool _importLibraryFolderAuto;
@@ -115,6 +116,19 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _appUpdateChannel = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool AutoSortModsByDefault
+        {
+            get
+            {
+                return _autoSortModsByDefault;
+            }
+            set
+            {
+                _autoSortModsByDefault = value;
                 NotifyPropertyChanged();
             }
         }
@@ -390,6 +404,7 @@ namespace SeventhHeaven.ViewModels
             FFNxUpdateChannel = settings.FFNxUpdateChannel;
             AppUpdateChannel = settings.AppUpdateChannel;
 
+            AutoSortModsByDefault = settings.HasOption(GeneralOptions.AutoSortMods);
             AutoUpdateModsByDefault = settings.HasOption(GeneralOptions.AutoUpdateMods);
             ActivateInstalledModsAuto = settings.HasOption(GeneralOptions.AutoActiveNewMods);
             ImportLibraryFolderAuto = settings.HasOption(GeneralOptions.AutoImportMods);
@@ -617,6 +632,9 @@ namespace SeventhHeaven.ViewModels
         private List<GeneralOptions> GetUpdatedOptions()
         {
             List<GeneralOptions> newOptions = new List<GeneralOptions>();
+
+            if (AutoSortModsByDefault)
+                newOptions.Add(GeneralOptions.AutoSortMods);
 
             if (AutoUpdateModsByDefault)
                 newOptions.Add(GeneralOptions.AutoUpdateMods);

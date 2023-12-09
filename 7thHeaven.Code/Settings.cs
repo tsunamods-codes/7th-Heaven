@@ -26,7 +26,8 @@ namespace Iros._7th.Workshop {
         OpenModFilesWith7H,
         Show7HInFileExplorerContextMenu,
         WarnAboutModCode,
-        AutoUpdateMods
+        AutoUpdateMods,
+        AutoSortMods
     }
 
     public enum AppUpdateChannelOptions
@@ -155,6 +156,7 @@ namespace Iros._7th.Workshop {
         {
             Settings defaultSettings = new Settings();
 
+            defaultSettings.Options.Add(GeneralOptions.AutoSortMods);
             defaultSettings.Options.Add(GeneralOptions.AutoImportMods);
             defaultSettings.Options.Add(GeneralOptions.AutoActiveNewMods);
             defaultSettings.Options.Add(GeneralOptions.WarnAboutModCode);

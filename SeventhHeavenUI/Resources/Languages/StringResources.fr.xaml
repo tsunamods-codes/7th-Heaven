@@ -656,6 +656,7 @@ Cliquer sur 'Annuler' pour arrêter la copie.</system:String>
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Activer automatiquement les mods nouvellement installés</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Importer automatiquement des mods de la Bibliothèque</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Alerter quand le mod contient du code</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Mettre à jour automatiquement, les mods, par défaut</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignorer les restrictions de compatibilité entre les mods</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Vérifier automatiquement les mises à jour de 7th Heaven</system:String>

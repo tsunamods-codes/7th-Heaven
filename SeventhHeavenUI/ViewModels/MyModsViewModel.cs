@@ -155,6 +155,12 @@ namespace SeventhHeavenUI.ViewModels
         /// </summary>
         internal void ReloadModList(Guid? modToSelect = null, string searchText = "", IEnumerable<FilterItemViewModel> categories = null, IEnumerable<FilterItemViewModel> tags = null)
         {
+            // Auto Sort on refresh
+            if (Sys.Settings.HasOption(GeneralOptions.AutoSortMods))
+            {
+                AutoSortBasedOnCategory(false);
+            }
+
             // make sure to remove any deleted items and auto import mods first
             Sys.ActiveProfile.RemoveDeletedItems();
 
@@ -880,7 +886,7 @@ namespace SeventhHeavenUI.ViewModels
         /// This will sort <see cref="ModList"/> by categories based on <see cref="ModLoadOrder"/>.
         /// Mod order constraints in mod.xml is taken into account and takes precedence over the cateogry load sort
         /// </summary>
-        public void AutoSortBasedOnCategory()
+        public void AutoSortBasedOnCategory(bool reload = true)
         {
             List<InstalledModViewModel> sortedList = ModList.OrderBy(s => ModLoadOrder.Get(ResourceHelper.ModCategoryTranslations[s.Category]))
                                                             .ThenBy(m => m.Name)
@@ -951,7 +957,7 @@ namespace SeventhHeavenUI.ViewModels
             // update active profile with new sort order
             Sys.ActiveProfile.Items = ModList.Select(m => m.ActiveModInfo).ToList();
 
-            ReloadModList(GetSelectedMod()?.InstallInfo?.ModID);
+            if (reload) ReloadModList(GetSelectedMod()?.InstallInfo?.ModID);
         }
 
         internal void ScanForModUpdates()

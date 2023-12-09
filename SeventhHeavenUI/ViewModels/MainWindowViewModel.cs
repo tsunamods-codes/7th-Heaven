@@ -783,6 +783,12 @@ namespace SeventhHeavenUI.ViewModels
                 });
             }
 
+            // Auto sort mods on launch if user has the option active
+            if (Sys.Settings.HasOption(GeneralOptions.AutoSortMods))
+            {
+                MyMods.AutoSortBasedOnCategory();
+            }
+
             // Check if there are errors in the FFNx.toml file and show to the user the output
             Exception FFNxConfigError = Sys.FFNxConfig.GetLastError();
             if (FFNxConfigError != null)

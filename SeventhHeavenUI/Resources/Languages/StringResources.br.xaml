@@ -661,6 +661,7 @@ Clique em 'Cancelar' para parar o processo.</system:String>
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Ativar Mods Recém-Instalados Automaticamente</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Importar Mods Da Biblioteca Automaticamente</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Avisar Quando Mod Contém Código</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Auto Atualizar Mods Por Padrão</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignorar Restrições de Compatibilidade de Mods</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Procurar Atualizações de 7th Heaven Automatically</system:String>

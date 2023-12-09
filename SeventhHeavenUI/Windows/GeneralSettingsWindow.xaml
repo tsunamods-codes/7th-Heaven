@@ -12,7 +12,9 @@
         ResizeMode="NoResize"
         Deactivated="Window_Deactivated"
         LocationChanged="Window_LocationChanged"
-        Height="678" Width="825">
+        Width="auto"
+        Height="auto"
+        SizeToContent="WidthAndHeight">
     <Window.Resources>
 
         <DataTemplate x:Key="AppChannelDataTemplate">
@@ -50,7 +52,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -104,6 +105,7 @@
                 <CheckBox Height="25" Content="{DynamicResource ActivateNewlyInstalledModsAutomatically}" IsChecked="{Binding ActivateInstalledModsAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource ImportModsFromLibraryAutomatically}" IsChecked="{Binding ImportLibraryFolderAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource WarnWhenModContainsCode}" IsChecked="{Binding WarnAboutModCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
+                <CheckBox Height="25" Content="{DynamicResource AutoSortModsByDefault}" IsChecked="{Binding AutoSortModsByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='True'}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdateModsByDefault}" IsChecked="{Binding AutoUpdateModsByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='True'}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource IgnoreModCompatibilityRestrictions}" IsChecked="{Binding BypassCompatibilityLocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource CheckFor7thHeavenUpdatesAutomatically}" IsChecked="{Binding CheckForUpdatesAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
@@ -114,7 +116,7 @@
                   Header="{DynamicResource ShellIntegrationHeader}" Grid.Row="2" Margin="10,10,0,0" 
                   Width="{Binding ElementName=grpOptions, Path=ActualWidth}"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Top" Height="126" Grid.RowSpan="2">
+                  VerticalAlignment="Top" Height="126">
             <StackPanel Margin="3" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <CheckBox Height="25" Content="{DynamicResource OpenIrosLinksWith7thHeaven}" IsChecked="{Binding OpenIrosLinks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox Height="25" Content="{DynamicResource OpenModFilesWith7thHeaven}" IsChecked="{Binding OpenModFilesWith7H, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -204,7 +206,7 @@
                   MinWidth="350"
                   VerticalAlignment="Bottom"
                   Header="{DynamicResource AdditionalFoldersToMonitorHeader}" 
-                  Margin="25,0,10,0" Height="283" Grid.RowSpan="2">
+                  Margin="25,0,10,0" Height="283">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -269,7 +271,7 @@
         <TextBlock Grid.Row="4"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Margin="10,19,0,173"
+                   Margin="10,10,0,10"
                    TextTrimming="CharacterEllipsis"
                    Text="{Binding StatusMessage, FallbackValue='Select a subscription to edit.'}"/>
 
@@ -277,7 +279,7 @@
                    Grid.Column="1"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
-                   Margin="0,0,14,156">
+                   Margin="0,10,10,10">
             <Button x:Name="btnDefaults" 
                     Content="{DynamicResource ResetDefaults}" 
                     Click="btnDefaults_Click"
@@ -389,21 +391,31 @@
 
             </Grid>
         </Popup>
-        <GroupBox Header="Channel Management" HorizontalAlignment="Left" Height="143" Margin="10,11,0,0" Grid.Row="3" VerticalAlignment="Bottom" Width="402">
+        <GroupBox Header="Channel Management" HorizontalAlignment="Left" Margin="10,11,0,0" Grid.Row="2" VerticalAlignment="Bottom" Width="{Binding ElementName=grpOptions, Path=ActualWidth}">
             <Grid>
-                <TextBlock HorizontalAlignment="Left" Margin="7,24,0,0" TextWrapping="Wrap" Text="7th Heaven:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cmb7thChannel" HorizontalAlignment="Left" Margin="123,19,0,0" VerticalAlignment="Top" Width="105" SelectionChanged="cmb7thChannel_SelectionChanged" Height="32" ItemTemplate="{StaticResource AppChannelDataTemplate}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="7th Heaven:"/>
+                <ComboBox Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="cmb7thChannel" Margin="10" SelectionChanged="cmb7thChannel_SelectionChanged" ItemTemplate="{StaticResource AppChannelDataTemplate}">
                     <ComboBoxItem Content="Stable"/>
                     <ComboBoxItem Content="Canary"/>
                 </ComboBox>
-                <Button x:Name="btn7thCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="250,17,0,0" VerticalAlignment="Top" Width="130" Click="btn7thCheckForUpdate_Click" Height="38"/>
+                <Button Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" x:Name="btn7thCheckForUpdate" Content="Check for Updates" Margin="10" Click="btn7thCheckForUpdate_Click"/>
                 <!---->
-                <TextBlock HorizontalAlignment="Left" Margin="7,75,0,0" TextWrapping="Wrap" Text="FFNx:" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cmbFFNxChannel" HorizontalAlignment="Left" Margin="123,70,0,0" VerticalAlignment="Top" Width="105" SelectionChanged="cmbFFNxChannel_SelectionChanged" Height="32" ItemTemplate="{StaticResource FFNxChannelDataTemplate}">
+                <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="FFNx:"/>
+                <ComboBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="cmbFFNxChannel" Margin="10" SelectionChanged="cmbFFNxChannel_SelectionChanged" ItemTemplate="{StaticResource FFNxChannelDataTemplate}">
                     <ComboBoxItem Content="Stable"/>
                     <ComboBoxItem Content="Canary"/>
                 </ComboBox>
-                <Button x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" HorizontalAlignment="Left" Margin="250,68,0,0" VerticalAlignment="Top" Width="130" Click="btnFFNxCheckForUpdate_Click" Height="38"/>
+                <Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" Margin="10" Click="btnFFNxCheckForUpdate_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

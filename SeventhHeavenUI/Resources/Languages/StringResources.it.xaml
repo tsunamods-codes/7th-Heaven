@@ -660,6 +660,7 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Attiva le Mod Appena Installate Automaticamente</system:String>
     <system:String x:Key="ImportModsFromLibraryAutomatically">Importa le Mod dalla Libreria Automaticamente</system:String>
     <system:String x:Key="WarnWhenModContainsCode">Avvisa Quando una Mod Contiene Codice</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Imposta l'Auto-Aggiornamento delle Mod Automaticamente</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignora le Restrizioni di Compatibilità delle Mod</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Controlla Aggiornamenti per 7th Heaven Automaticamente</system:String>
