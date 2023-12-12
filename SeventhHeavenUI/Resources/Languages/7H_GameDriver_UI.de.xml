@@ -5,10 +5,10 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Grafik-API</Name>
-    <Description>Legt die Rendering-Software fest. Auto bestimmt die beste Wahl basierend auf Ihrer GPU. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
+    <Description>Legt die Rendering-Software fest. "Automatisch" bestimmt die beste Wahl basierend auf Ihrer GPU. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
-      <Text>Auto</Text>
+      <Text>Automatisch</Text>
       <Settings>renderer_backend = 0</Settings>
     </Option>
     <Option>
@@ -16,7 +16,7 @@
       <Settings>renderer_backend = 1</Settings>
     </Option>
     <Option>
-      <Text>DirectX 9 ( Experimentell )</Text>
+      <Text>DirectX 9 (experimentell)</Text>
       <Settings>renderer_backend = 2</Settings>
     </Option>
     <Option>
@@ -36,7 +36,7 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Auflösung</Name>
-    <Description>Fenstergröße (oder Vollbild auflösung) für FF/. Automatisch wählt die standart FF7 Auflösung für Fenstermodus und aktuelle Desktopauflösung für Vollbild aus.</Description>
+    <Description>Legt die Fenstergröße für das Spiel fest. "Automatisch" nutzt die Spielauflösung im Fenstermodus oder die aktuelle Desktopauflösung im Vollbildmodus.</Description>
     <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
     <Option>
     <Text>Automatisch</Text>
@@ -47,18 +47,18 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Fenstermodus</Name>
-    <Description>Spiel im Fenstermodus oder Vollbild Starten.</Description>
+    <Description>Zeigt das Spiel im "Fenster", "Vollbild" oder "Randlos" an.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>Windowed</Text>
+      <Text>Fenster</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
-      <Text>Fullscreen</Text>
+      <Text>Vollbild</Text>
       <Settings>fullscreen = true,borderless = false</Settings>
     </Option>
     <Option>
-      <Text>Borderless</Text>
+      <Text>Randlos</Text>
       <Settings>fullscreen = false,borderless = true</Settings>
     </Option>
   </Setting>
@@ -66,22 +66,22 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Seitenverhältniss</Name>
-    <Description>Seitenverhältniss beibehalten fügt links und rechts schwarze Balken hinzu um das 4:3 Format beizubehalten.</Description>
+    <Description>"Standard (4:3)" behält das Seitenverhältnis in 4:3 bei und füllt die linke und rechte Seite mit schwarzen Balken. "Strecken (anpassen)" füllt das Bild entsprechend der Größe. "Breitbild (16:9)" und "Breitbild (16:10)" zeigen das Bild im echten Widescreen an.</Description>
     <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
-      <Text>Seitenverhältnis beibehalten 4:3</Text>
+      <Text>Standard (4:3)</Text>
       <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
-      <Text>Zum Füllen dehnen</Text>
+      <Text>Strecken (anpassen)</Text>
       <Settings>aspect_ratio = 1</Settings>
     </Option>
     <Option>
-      <Text>Widescreen (16:9)</Text>
+      <Text>Breitbild (16:9)</Text>
       <Settings>aspect_ratio = 2</Settings>
     </Option>
     <Option>
-      <Text>Widescreen (16:10)</Text>
+      <Text>Breitbild (16:10)</Text>
       <Settings>aspect_ratio = 3</Settings>
     </Option>
   </Setting>
@@ -89,26 +89,26 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Kantenglättung</Name>
-    <Description>Wendet 2x / 4x / 8x / 16x MSAA-Filterung an. Reduziert gezackte Kanten und verbessert die Bildqualität. Kann die Leistung stark beeinträchtigen.</Description>
+    <Description>Stellt "2x/4x/8x/16xMSAA-Filterung" zur Verfügung. Dies reduziert gezackte Kanten und verbessert die Bildqualität, kann jedoch die Leistung stark beeinträchtigen.</Description>
     <DefaultValue>enable_antialiasing = 0</DefaultValue>
     <Option>
       <Text>aus</Text>
       <Settings>enable_antialiasing = 0</Settings>
     </Option>
     <Option>
-      <Text>2x MSAA</Text>
+      <Text>2xMSAA</Text>
       <Settings>enable_antialiasing = 2</Settings>
     </Option>
     <Option>
-      <Text>4x MSAA</Text>
+      <Text>4xMSAA</Text>
       <Settings>enable_antialiasing = 4</Settings>
     </Option>
     <Option>
-      <Text>8x MSAA</Text>
+      <Text>8xMSAA</Text>
       <Settings>enable_antialiasing = 8</Settings>
     </Option>
     <Option>
-      <Text>16x MSAA</Text>
+      <Text>16xMSAA</Text>
       <Settings>enable_antialiasing = 16</Settings>
     </Option>
   </Setting>
@@ -116,7 +116,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>Anisotropisches Filtern</Name>
-    <Description>Verwende mipmaps für high-res Texturen. Kann die Leistung und Qualität verbessern, aber benötigt mehr Texturspeicher.</Description>
+    <Description>Wendet einen Filter auf hochauflösende Texturen an, um ein schärferes Bild zu erzeugen. Kann aufgrund erhöhter Speichernutzung die Leistung beeinträchtigen.</Description>
     <DefaultValue>enable_anisotropic = true</DefaultValue>
     <TrueSetting>enable_anisotropic = true</TrueSetting>
     <FalseSetting>enable_anisotropic = false</FalseSetting>
@@ -124,17 +124,17 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
-    <Name>Vertikale Syncronisierung</Name>
-    <Description>Bildwiederholungsrate mit dem Monitor syncronisieren. Kann negative auswirkungen auf die Leistung haben. Ausschalten, fals Bildstörungen auftreten. *Grenzen Geschwindigkeit Betrügen!*</Description>
-    <DefaultValue>enable_vsync = false</DefaultValue>
+    <Name>Vertikale Synchronisierung</Name>
+    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
+   <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
   
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
-    <Name>Advanced Lighting</Name>
-    <Description>Enable support for realtime lighting. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
+    <Name>Echtzeitbeleuchtung</Name>
+    <Description>Aktiviert die Unterstützung für Echtzeitbeleuchtung. HINWEIS: Für diese Funktion ist eine moderne CPU erforderlich. Wenn Sie Verlangsamungen bemerken, deaktivieren Sie diese Funktion.</Description>
     <DefaultValue>enable_lighting = false</DefaultValue>
     <TrueSetting>enable_lighting = true</TrueSetting>
     <FalseSetting>enable_lighting = false</FalseSetting>
@@ -142,8 +142,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
-    <Name>NTSC-J Gamut Mode</Name>
-    <Description>Simulate the color gamut of the 1990s Japanese television sets that FF7 was originally designed for.</Description>
+    <Name>NTSC-J-Gamut-Modus</Name>
+    <Description>Simulieren den Farbraum der japanischen Fernsehgeräte der 1990er Jahre für die FF7 ursprünglich entwickelt wurde.</Description>
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
@@ -153,7 +153,18 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Zufällige Schlachten</Name>
-    <Description>Nicht konfigurierbar. Schaltet zufällige Kampfbegegnungen während des Spiels ein/aus.{0}Verwendung: STRG+B oder L3+R3</Description>
+    <Description>Nicht konfigurierbar.{0}Schaltet die zufälligen Kampfbegegnungen während des Spiels ein/aus.{0}Verwendung: "STRG+B" oder "L3, dann Kreis".</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>Siehe Beschreibung</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+  
+   <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>Automatisches Angreifen</Name>
+    <Description>Nicht konfigurierbar.{0}Schaltet den automatischen Angriff während des Spiels ein/aus.{0}Verwendung: "STRG+A" oder "L3, dann Dreieck".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -163,8 +174,8 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Movies Uberspringen</Name>
-    <Description>Nicht konfigurierbar. Springt sofort zum Ende eines Movies.{0}Verwendung: STRG+S oder Wählen Sie+Anfang</Description>
+    <Name>Videos überspringen</Name>
+    <Description>Nicht konfigurierbar.{0}Springt sofort zum Ende eines Videos.{0}Verwendung: "STRG+S" oder "L3, dann Quadrat".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -174,8 +185,8 @@
   
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Schnell Zurücksetzen</Name>
-    <Description>Nicht konfigurierbar. Resettet das Spiel durch ein sofortiges Game Over.{0}Verwendung: STRG+R oder L1+L2+R1+R2+Wählen Sie+Anfang</Description>
+    <Name>Soft-Reset</Name>
+    <Description>Nicht konfigurierbar. Setzet das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während der Schlacht nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -185,9 +196,9 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Geschwindigkeitssteigerung</Name>
-    <Description>Höhe der Spielgeschwindigkeitssteigerung pro Tastendruck. Verwendung: STRG+Auf/Ab oder L2+R2+Auf/Ab zum Ändern der Geschwindigkeit STRG+Links/Rechts oder L2+R2+Links/Rechts zum Ein- und Ausschalten.</Description>
-    <DefaultValue>speedhack_step = 0.5</DefaultValue>
+    <Name>Stufen vom Geschwindigkeitshack:</Name>
+    <Description>Betrag zur Änderung der Spielgeschwindigkeit pro Tastendruck.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
+	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
       <Settings>speedhack_step = 0.5</Settings>
@@ -204,8 +215,8 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Maximale Geschwindigkeit</Name>
-    <Description>Die maximale Geschwindigkeit, die eingestellt werden kann, bevor zur normalen Geschwindigkeit zurückgekehrt wird.</Description>
+    <Name>Maximaler Geschwindigkeitshack</Name>
+    <Description>Die maximal einstellbare Geschwindigkeit, bevor zur normalen Geschwindigkeit zurückgekehrt wird.</Description>
     <DefaultValue>speedhack_max = 8.0</DefaultValue>
     <Option>
       <Text>2x</Text>
@@ -234,10 +245,44 @@
   </Setting>
 
   <!-- ADVANCED TAB -->
+    <Setting xsi:type="DropDown">
+    <Group>Erweitert</Group>
+    <Name>Musikoptionen</Name>
+    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten werden "Originale MIDI" verwendet.</Description>
+    <DefaultValue>use_external_music = false</DefaultValue>
+    <Option>
+      <Text>VGMStream (empfohlen)</Text>
+      <Settings>use_external_music = true</Settings>
+    </Option>
+    <Option>
+      <Text>Originale MIDI</Text>
+      <Settings>use_external_music = false</Settings>
+    </Option>
+  </Setting>
+  
+    <Setting xsi:type="DropDown">
+    <Group>Erweitert</Group>
+    <Name>Videooptionen</Name>
+    <Description>Verwendet "FFMPEG" für die Wiedergabe von In-Game-Videos (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
+    <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
+    <Option>
+      <Text>Automatisch (empfohlen)</Text>
+      <Settings>enable_ffmpeg_videos = -1</Settings>
+    </Option>
+    <Option>
+      <Text>FFMPEG</Text>
+      <Settings>enable_ffmpeg_videos = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Original-Renderer</Text>
+      <Settings>enable_ffmpeg_videos = 0</Settings>
+    </Option>
+  </Setting>
+  
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
-    <Name>Analogue Controls</Name>
-    <Description>Enable support for full omni-directional anaglogue control.</Description>
+    <Name>Analoge Steuerung</Name>
+    <Description>Aktiviert die Unterstützung für eine vollständige omnidirektionale analoge Steuerung. Dazu gehören zwei Funktionen: kampffreie Kamerabewegung und vollständige analoge 360-Grad-Bewegung im Feld.</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
@@ -245,17 +290,17 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
-    <Name>Steam Compatibility</Name>
-    <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
-    <DefaultValue>enable_steam_achievements = false</DefaultValue>
+    <Name>Steam-Kompatibilität</Name>
+    <Description>Aktiviert Steam-Funktionen (Spielaktivität, Controller und Erfolge). Erfordert, dass Steam bereits gestartet wurde.</Description>
+	<DefaultValue>enable_steam_achievements = false</DefaultValue>
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
-    <Name>Status anzeigen</Name>
-    <Description>Blendet einen Overlayer mit aktuellen Debug Informationen.</Description>
+    <Name>Debug-Informationen anzeigen</Name>
+    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_stats = false</DefaultValue>
     <TrueSetting>show_stats = true</TrueSetting>
     <FalseSetting>show_stats = false</FalseSetting>
@@ -264,7 +309,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Treiberversion anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete Treiberversion in einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete Treiberversion auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_version = false</DefaultValue>
     <TrueSetting>show_version = true</TrueSetting>
     <FalseSetting>show_version = false</FalseSetting>
@@ -273,7 +318,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>FPS anzeigen</Name>
-    <Description>Zeigt die FPS Rechts oben in der Ecke an.</Description>
+    <Description>Zeigt die aktuellen Bilder pro Sekunde auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_fps = false</DefaultValue>
     <TrueSetting>show_fps = true</TrueSetting>
     <FalseSetting>show_fps = false</FalseSetting>
@@ -282,7 +327,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Grafik-API anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete Grafik-API (OpenGL / DirectX11) in einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete "Grafik-API" in einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_renderer_backend = false</DefaultValue>
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
@@ -290,15 +335,15 @@
 	
   <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
-    <Name>Internal Resolution Scaler</Name>
-    <Description>Multiply 640x480 internal resolution by following amount. Higher values need more powerful GPU.  Higher values can remove scaling artefacts, * Values are optimal performance quality tradeoff.</Description>
-    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
+    <Name>Interne Auflösungsskalierung</Name>
+    <Description>Multipliziert die interne Auflösung von 640x480 mit einem der folgenden Beträge. Höhere Werte erfordern eine leistungsfähigere GPU, können jedoch Skalierungsartefakte entfernen. HINWEIS: Gekennzeichnete Werte mit * sind ein optimaler Kompromiss zwischen Leistungseinbuße und Qualitätsteigerung.</Description>
+	<DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
-      <Text>Auto</Text>
+      <Text>Automatisch</Text>
       <Settings>internal_resolution_scale = 0</Settings>
     </Option>
     <Option>
-      <Text>1x (May cause artefacts)</Text>
+      <Text>1x</Text>
       <Settings>internal_resolution_scale = 1</Settings>
     </Option>
     <Option>
@@ -306,11 +351,11 @@
       <Settings>internal_resolution_scale = 2</Settings>
     </Option>
     <Option>
-      <Text>*4x</Text>
+      <Text>4x*</Text>
       <Settings>internal_resolution_scale = 4</Settings>
     </Option>
     <Option>
-      <Text>*6x</Text>
+      <Text>6x*</Text>
       <Settings>internal_resolution_scale = 6</Settings>
     </Option>
     <Option>
