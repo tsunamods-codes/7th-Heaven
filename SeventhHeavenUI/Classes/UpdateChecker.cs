@@ -213,7 +213,8 @@ namespace SeventhHeaven.Classes
 @timeout /t 5 /nobreak >NUL 2>NUL
 @echo ----------------------------------------------------
 @echo Waiting for the update to take place, please wait...
-@echo ATTENTION: The update may ask you to install some dependencies. It is safe to proceed with the installation when prompted.
+@echo ATTENTION: The update may ask you to install .NET or VCREDIST dependencies.
+@echo It is safe to continue with these installations if so prompted.
 @start """" /wait /d ""{Sys._7HFolder}"" ""{installerFullPath}"" /SILENT /DIR=""{Sys._7HFolder}""
 @echo ----------------------------------------------------
 @echo Update completed. Restarting 7th Heaven now...
