@@ -45,7 +45,7 @@
       <Version>0.32.2</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
-      <Version>0.16.2</Version>
+      <Version>0.17.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
