@@ -22,7 +22,7 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 
 > **HINT:** For an easier experience you can also use the setup .exe file in the release which will take care of doing the following steps for you.
 
-0. Download and install the latest [.NET Desktop Runtime 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) for BOTH x86 and x64
+0. Download and install the latest [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) for BOTH x86 and x64
 1. Download and install the latest [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) for BOTH x86 and x64
 2. Download the latest release using one of the links above
 3. Extract the .zip file to your preferred location e.g. C:\7th Heaven.
