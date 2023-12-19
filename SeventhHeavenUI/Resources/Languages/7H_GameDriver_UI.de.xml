@@ -5,7 +5,7 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Grafik-API</Name>
-    <Description>Legt die Rendering-Software fest. "Automatisch" bestimmt die beste Wahl basierend auf Ihrer GPU. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
+    <Description>Legt die Rendering-Software fest. "Automatisch" bestimmt die beste Wahl basierend auf Ihrer Grafikkarte. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
       <Text>Automatisch</Text>
@@ -50,7 +50,7 @@
     <Description>Zeigt das Spiel im "Fenster", "Vollbild" oder "Randlos" an.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>Fenster</Text>
+      <Text>Fenstermodus</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
@@ -66,7 +66,7 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Seitenverhältniss</Name>
-    <Description>"Standard (4:3)" behält das Seitenverhältnis in 4:3 bei und füllt die linke und rechte Seite mit schwarzen Balken. "Strecken (anpassen)" füllt das Bild entsprechend der Größe. "Breitbild (16:9)" und "Breitbild (16:10)" zeigen das Bild im echten Widescreen an.</Description>
+    <Description>"Standard (4:3)" behält das Seitenverhältnis in 4:3 bei und füllt die linke und rechte Seite mit schwarzen Balken. "Strecken (anpassen)" füllt das Bild entsprechend der Größe. "Breitbild (16:9)" und "Breitbild (16:10)" zeigen das Bild im echten Breitbild an.</Description>
     <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
       <Text>Standard (4:3)</Text>
@@ -125,7 +125,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>Vertikale Synchronisierung</Name>
-    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
+    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder die 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
    <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
@@ -143,7 +143,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>NTSC-J-Gamut-Modus</Name>
-    <Description>Simulieren den Farbraum der japanischen Fernsehgeräte der 1990er Jahre für die FF7 ursprünglich entwickelt wurde.</Description>
+    <Description>Simuliert den Farbraum der japanischen Fernsehgeräte der 1990er Jahre, für die FF7 ursprünglich entwickelt wurde.</Description>
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
@@ -186,7 +186,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Soft-Reset</Name>
-    <Description>Nicht konfigurierbar. Setzet das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während der Schlacht nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
+    <Description>Nicht konfigurierbar. Setzt das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während des Kampfs nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -196,8 +196,8 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Stufen vom Geschwindigkeitshack:</Name>
-    <Description>Betrag zur Änderung der Spielgeschwindigkeit pro Tastendruck.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
+    <Name>Turbo-Modus Stufen:</Name>
+    <Description>Geschwindigkeitsstufen des Turbo-Modus{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
 	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
@@ -215,7 +215,7 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Maximaler Geschwindigkeitshack</Name>
+    <Name>Maximale Turbo-Geschwindigkeit</Name>
     <Description>Die maximal einstellbare Geschwindigkeit, bevor zur normalen Geschwindigkeit zurückgekehrt wird.</Description>
     <DefaultValue>speedhack_max = 8.0</DefaultValue>
     <Option>
@@ -248,7 +248,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Musikoptionen</Name>
-    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten werden "Originale MIDI" verwendet.</Description>
+    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten wird "Originale MIDI" verwendet.</Description>
     <DefaultValue>use_external_music = false</DefaultValue>
     <Option>
       <Text>VGMStream (empfohlen)</Text>
@@ -263,7 +263,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Videooptionen</Name>
-    <Description>Verwendet "FFMPEG" für die Wiedergabe von In-Game-Videos (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
+    <Description>Verwendet "FFMPEG" für die Wiedergabe von Zwischensequenzen (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
     <Option>
       <Text>Automatisch (empfohlen)</Text>
@@ -291,7 +291,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Steam-Kompatibilität</Name>
-    <Description>Aktiviert Steam-Funktionen (Spielaktivität, Controller und Erfolge). Erfordert, dass Steam bereits gestartet wurde.</Description>
+    <Description>Aktiviert Steam-Funktionen (Spielaktivität, Controller und Errungenschaften). Erfordert, dass Steam bereits gestartet wurde.</Description>
 	<DefaultValue>enable_steam_achievements = false</DefaultValue>
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
@@ -300,7 +300,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Debug-Informationen anzeigen</Name>
-    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung auf einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung als Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_stats = false</DefaultValue>
     <TrueSetting>show_stats = true</TrueSetting>
     <FalseSetting>show_stats = false</FalseSetting>
@@ -309,7 +309,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Treiberversion anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete Treiberversion auf einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete Treiberversion als Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_version = false</DefaultValue>
     <TrueSetting>show_version = true</TrueSetting>
     <FalseSetting>show_version = false</FalseSetting>
@@ -318,7 +318,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>FPS anzeigen</Name>
-    <Description>Zeigt die aktuellen Bilder pro Sekunde auf einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuellen Bilder pro Sekunde als Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_fps = false</DefaultValue>
     <TrueSetting>show_fps = true</TrueSetting>
     <FalseSetting>show_fps = false</FalseSetting>
@@ -327,7 +327,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Grafik-API anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete "Grafik-API" in einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete "Grafik-API" als Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_renderer_backend = false</DefaultValue>
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
