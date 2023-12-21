@@ -196,7 +196,7 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Turbo-Modus Stufen:</Name>
+    <Name>Stufen vom Geschwindigkeitshack:</Name>
     <Description>Geschwindigkeitsstufen des Turbo-Modus{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
 	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
@@ -248,7 +248,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Musikoptionen</Name>
-    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten wird "Originale MIDI" verwendet.</Description>
+    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten werden "Originale MIDI" verwendet.</Description>
     <DefaultValue>use_external_music = false</DefaultValue>
     <Option>
       <Text>VGMStream (empfohlen)</Text>
@@ -300,7 +300,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Debug-Informationen anzeigen</Name>
-    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung als Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_stats = false</DefaultValue>
     <TrueSetting>show_stats = true</TrueSetting>
     <FalseSetting>show_stats = false</FalseSetting>
@@ -309,7 +309,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Treiberversion anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete Treiberversion als Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete Treiberversion auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_version = false</DefaultValue>
     <TrueSetting>show_version = true</TrueSetting>
     <FalseSetting>show_version = false</FalseSetting>
@@ -318,7 +318,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>FPS anzeigen</Name>
-    <Description>Zeigt die aktuellen Bilder pro Sekunde als Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuellen Bilder pro Sekunde auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_fps = false</DefaultValue>
     <TrueSetting>show_fps = true</TrueSetting>
     <FalseSetting>show_fps = false</FalseSetting>
@@ -327,7 +327,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Grafik-API anzeigen</Name>
-    <Description>Zeigt die aktuell verwendete "Grafik-API" als Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt die aktuell verwendete "Grafik-API" auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_renderer_backend = false</DefaultValue>
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
