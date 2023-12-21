@@ -909,7 +909,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ApplyingChangedValuesToRegistry">Anwendung von geänderten Werten in der Registry...</system:String>
     <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Anwendung von Kompatibilitätseinträge in der Registry (falls vorhanden)...</system:String>
     <system:String x:Key="CompatibilityFlagsFoundDeleting">Kompatibilitätseinträge gefunden. Lösche...</system:String>
-    <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Korrektur für hohe DPI wurde auf auf "true" gestellt. Anwendung des HIGHDPIAWARE-Kompatibilitätseintrags in der Registry.</system:String>
+    <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Korrektur für hohe DPI wurde auf "true" gestellt. Anwendung des HIGHDPIAWARE-Kompatibilitätseintrags in der Registry.</system:String>
 
     <system:String x:Key="UsingControlConfigurationFile">Verwendung der Steuerungskonfigurationsdatei</system:String>
     <system:String x:Key="InputCfgFileNotFoundAt">Die Datei "input.cfg" konnte nicht gefunden in</system:String>
