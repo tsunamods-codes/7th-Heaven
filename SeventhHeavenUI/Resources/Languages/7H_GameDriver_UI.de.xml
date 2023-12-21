@@ -5,7 +5,7 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Grafik-API</Name>
-    <Description>Legt die Rendering-Software fest. "Automatisch" bestimmt die beste Wahl basierend auf Ihrer GPU. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
+    <Description>Legt die Rendering-Software fest. "Automatisch" bestimmt die beste Wahl basierend auf Ihrer Grafikkarte. Bei Verwendung von OpenGL mit AMD-Karten können Abstürze auftreten.</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
       <Text>Automatisch</Text>
@@ -50,7 +50,7 @@
     <Description>Zeigt das Spiel im "Fenster", "Vollbild" oder "Randlos" an.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>Fenster</Text>
+      <Text>Fenstermodus</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
@@ -143,7 +143,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>NTSC-J-Gamut-Modus</Name>
-    <Description>Simulieren den Farbraum der japanischen Fernsehgeräte der 1990er Jahre für die FF7 ursprünglich entwickelt wurde.</Description>
+    <Description>Simuliert den Farbraum der japanischen Fernsehgeräte der 1990er Jahre für die FF7 ursprünglich entwickelt wurde.</Description>
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
@@ -186,7 +186,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Soft-Reset</Name>
-    <Description>Nicht konfigurierbar. Setzet das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während der Schlacht nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
+    <Description>Nicht konfigurierbar. Setzt das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während des Kampfes nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -197,7 +197,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Stufen vom Geschwindigkeitshack:</Name>
-    <Description>Betrag zur Änderung der Spielgeschwindigkeit pro Tastendruck.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
+    <Description>Multiplikator zur Änderung der Spielgeschwindigkeit.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
 	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
@@ -263,7 +263,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Videooptionen</Name>
-    <Description>Verwendet "FFMPEG" für die Wiedergabe von In-Game-Videos (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
+    <Description>Verwendet "FFMPEG" für die Wiedergabe von Zwischensequenzen (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
     <Option>
       <Text>Automatisch (empfohlen)</Text>
@@ -291,7 +291,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Steam-Kompatibilität</Name>
-    <Description>Aktiviert Steam-Funktionen (Spielaktivität, Controller und Erfolge). Erfordert, dass Steam bereits gestartet wurde.</Description>
+    <Description>Aktiviert Steam-Funktionen (Spielaktivität, Controller und Errungenschaften). Erfordert, dass Steam bereits gestartet wurde.</Description>
 	<DefaultValue>enable_steam_achievements = false</DefaultValue>
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
@@ -336,7 +336,7 @@
   <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Interne Auflösungsskalierung</Name>
-    <Description>Multipliziert die interne Auflösung von 640x480 mit einem der folgenden Beträge. Höhere Werte erfordern eine leistungsfähigere GPU, können jedoch Skalierungsartefakte entfernen. HINWEIS: Gekennzeichnete Werte mit * sind ein optimaler Kompromiss zwischen Leistungseinbuße und Qualitätsteigerung.</Description>
+    <Description>Multipliziert die interne Auflösung von 640x480 mit einem der folgenden Beträge. Höhere Werte erfordern eine leistungsfähigere Grafikkarte, können jedoch Skalierungsartefakte entfernen. HINWEIS: Gekennzeichnete Werte mit * sind ein optimaler Kompromiss zwischen Leistungseinbuße und Qualitätsteigerung.</Description>
 	<DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
       <Text>Automatisch</Text>
