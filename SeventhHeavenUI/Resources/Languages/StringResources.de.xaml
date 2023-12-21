@@ -415,7 +415,7 @@ Möchten Sie Ihren Webbrowser öffnen, um es jetzt herunterzuladen?</system:Stri
     <system:String x:Key="ConfigureMod">Mod konfigurieren</system:String>
 
     <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">Diese Option kann aufgrund von Kompatibilitätsproblemen mit anderen Mods nicht aktiviert werden.</system:String>
-    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Die Option {0} wurde auf aufgrund von Kompatibilitätsproblemen mit anderen Mods deaktiviert ({1})</system:String>
+    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Die Option {0} wurde aufgrund von Kompatibilitätsproblemen mit anderen Mods deaktiviert ({1})</system:String>
 
     <system:String x:Key="FailedToPlayPreviewAudio">Fehler beim Abspielen der Testaudio Datei</system:String>
 
