@@ -415,7 +415,7 @@ Möchten Sie Ihren Webbrowser öffnen, um es jetzt herunterzuladen?</system:Stri
     <system:String x:Key="ConfigureMod">Mod konfigurieren</system:String>
 
     <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">Diese Option kann aufgrund von Kompatibilitätsproblemen mit anderen Mods nicht aktiviert werden.</system:String>
-    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Die Option {0} wurde auf aufgrund von Kompatibilitätsproblemen mit anderen Mods deaktiviert ({1})</system:String>
+    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Die Option {0} wurde aufgrund von Kompatibilitätsproblemen mit anderen Mods deaktiviert ({1})</system:String>
 
     <system:String x:Key="FailedToPlayPreviewAudio">Fehler beim Abspielen der Testaudio Datei</system:String>
 
@@ -455,13 +455,13 @@ Möchten Sie fortfahren?</system:String>
     
     <system:String x:Key="PleaseInsertToContinueCopying" xml:space="preserve">Bitte {0} einlegen, um mit dem Kopieren der fehlenden Videos fortzufahren.
 
-Auf Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
+Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
 
     <system:String x:Key="FoundDiscAt">{0} gefunden in</system:String>
     <system:String x:Key="Overwriting">Überschreiben</system:String>
     <system:String x:Key="Copying">Kopieren</system:String>
     <system:String x:Key="FailedToFindAt">{0} konnte in {1} nicht gefunden werden.</system:String>
-    <system:String x:Key="AnErrorOccurredCopyingMovies">Beim kopieren der Videos trat ein Fehler auf.</system:String>
+    <system:String x:Key="AnErrorOccurredCopyingMovies">Beim Kopieren der Videos trat ein Fehler auf.</system:String>
     <system:String x:Key="SuccessfullyCopiedMovies">Die Videos wurden erfolgreich kopiert.</system:String>
     <system:String x:Key="FinishedCopyingMoviesSomeFailed">Die Videos wurden kopiert. Dabei traten allerdings einige Fehler auf. Bitte überprüfen Sie die Datei "app.log" für weitere Details.</system:String>
 
@@ -636,7 +636,7 @@ Auf Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="WillDeleteEverythingUnder">Löscht alle Datein im Ordner</system:String>
     <system:String x:Key="PathToCacheFolderDoesNotExist">Pfad zum Cache-Ordner existiert nicht.</system:String>
     <system:String x:Key="TextureCacheCleared">Texture-Cache geleert!</system:String>
-    <system:String x:Key="FailedToClearTextureCache">Leeren des Texturen-Cache fehlgeschlagen.</system:String>
+    <system:String x:Key="FailedToClearTextureCache">Leeren des Texturen-Caches fehlgeschlagen.</system:String>
     <system:String x:Key="GameDriverSettingsSaved">Einstellungen des 7H-Spieltreibers gespeichert!</system:String>
     <system:String x:Key="CouldNotWriteTo7HGameDriverCfg">In die Datei "FFNx.toml" konnte nicht geschrieben werden. Stellen Sie sicher, dass es nicht schreibgeschützt ist und dass FF7 in einem Ordner installiert ist, auf den Sie vollen Schreibzugriff haben.</system:String>
     <system:String x:Key="UnknownErrorWhileSaving">Unbekannter Fehler beim Speichern. Bitte überprüfen Sie die Datei "app.log" für weitere Details.</system:String>
