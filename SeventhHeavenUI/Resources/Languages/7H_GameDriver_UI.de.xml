@@ -50,7 +50,7 @@
     <Description>Zeigt das Spiel im "Fenster", "Vollbild" oder "Randlos" an.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>Fenstermodus</Text>
+      <Text>Fenster</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
