@@ -230,7 +230,7 @@
     <system:String x:Key="MoveProgramDownTooltip">Das ausgewählte Programm nach unten verschieben. Rechtsklick, um es nach ganz unten zu bewegen.</system:String>
     <system:String x:Key="BrowseProgramTooltip">Nach einem Programm suchen</system:String>
 
-    <system:String x:Key="ResetLauncherDefaultsTooltip">Standart Einstellungen wiederherstellen.</system:String>
+    <system:String x:Key="ResetLauncherDefaultsTooltip">Standard Einstellungen wiederherstellen.</system:String>
     
     <!--Catalog Creation Window-->
     <system:String x:Key="CreateMod">Mod erstellen</system:String>

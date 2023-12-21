@@ -125,7 +125,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>Vertikale Synchronisierung</Name>
-    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder die 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
+    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
    <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
@@ -197,7 +197,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Stufen vom Geschwindigkeitshack:</Name>
-    <Description>Geschwindigkeitsstufen des Turbo-Modus{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
+    <Description>Multiplikator zur Änderung der Spielgeschwindigkeit.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
 	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
