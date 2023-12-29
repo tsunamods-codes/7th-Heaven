@@ -290,7 +290,7 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="FollowingErrorsFoundInConfiguration">The following errors were found in your configuration:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Errors found in general settings. View app.log for details on error(s).</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}\nClick 'Yes' to open the download page in a browser.\n\n{1} Release Notes:</system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}\nClick 'Yes' to download the new installer and begin the update process.\n\n{1} Release Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">New Version Available!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' has the ability to inject code into an EXE. This process could also be used to harm your computer. To be safe, you should only activate mods from sources you trust. IE; directly from the catalog.
