@@ -277,7 +277,7 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Errors found in general settings. View app.log for details on error(s).</system:String>
 
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}
-Click 'Yes' to open the download page in a browser.
+Click 'Yes' to download the new installer and begin the update process.
         
 {1} Release Notes: {2}
     </system:String>
