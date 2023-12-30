@@ -39,7 +39,7 @@
     <Description>Legt die Fenstergröße für das Spiel fest. "Automatisch" nutzt die Spielauflösung im Fenstermodus oder die aktuelle Desktopauflösung im Vollbildmodus.</Description>
     <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
     <Option>
-    <Text>Automatisch</Text>
+      <Text>Automatisch</Text>
       <Settings>window_size_x = 0,window_size_y = 0</Settings>
     </Option>
   </Setting>
@@ -126,7 +126,7 @@
     <Group>Grafik</Group>
     <Name>Vertikale Synchronisierung</Name>
     <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
-   <DefaultValue>enable_vsync = false</DefaultValue>
+    <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
