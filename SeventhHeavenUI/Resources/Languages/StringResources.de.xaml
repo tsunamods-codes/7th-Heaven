@@ -290,7 +290,7 @@ Sie sollten diese Option nur bei der Fehlerbehebung eines einzelnen aktiven Mods
     <system:String x:Key="FollowingErrorsFoundInConfiguration">In Ihrer Konfiguration wurden folgende Fehler gefunden:</system:String>
     <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">In den allgemeinen Einstellungen wurden Fehler gefunden. Sehen Sie sich die Datei "app.log" an, um Einzelheiten zu Fehlern zu erfahren.</system:String>
 
-    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Für {0} ist eine Aktualisierung verfügbar.\nKlicken Sie auf "Ja", um die Download-Seite in einem Browser zu öffnen.\n\n{1} Versionshinweise:</system:String>
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Für {0} ist eine Aktualisierung verfügbar.\nKlicken Sie auf "Ja", um das neue Installationsprogramm herunterzuladen und den Aktualisierungsprozess zu starten.\n\n{1} Versionshinweise:</system:String>
     <system:String x:Key="NewVersionAvailable">Eine neue Version ist verfügbar!</system:String>
 
     <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Der Mod {0} hat die Möglichkeit, Code in eine EXE-Datei einzufügen. Dieser Vorgang könnte auch dazu verwendet werden, Ihrem Computer Schaden zuzufügen. Aus Sicherheitsgründen sollten Sie Mods nur von Quellen aktivieren, denen Sie vertrauen. IE; direkt aus dem Katalog.
