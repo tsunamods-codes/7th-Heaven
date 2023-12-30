@@ -37,7 +37,7 @@
     <system:String x:Key="SearchHint">Suchtext eingeben...</system:String>
     <system:String x:Key="FiltersTooltip">Hier klicken um die Suchergebnisse zu Filtern.</system:String>
 
-    <system:String x:Key="StatusBarTooltip">Hier klicken um die Datei "app.log" zu öffnen</system:String>
+    <system:String x:Key="StatusBarTooltip">Hier klicken um die Datei "app.log" zu öffnen.</system:String>
 
     
     <!--Mod Info Panel-->
@@ -156,15 +156,15 @@
 
     <system:String x:Key="ControlsLabel">Steuerung:</system:String>
 
-    <system:String x:Key="SaveControlsTooltip">Speichert deine aktuelle Controlereinstellung als neue Konfiguration.</system:String>
+    <system:String x:Key="SaveControlsTooltip">Speichert deine aktuelle Controllereinstellung als neue Konfiguration.</system:String>
     <system:String x:Key="DeleteControlsTooltip">Löscht die ausgewählte benutzerdefinierte Steuerungskonfiguration.</system:String>
     
-    <system:String x:Key="CompatibilityHeader" xml:space="preserve"> Kompatibilitäts Einstellungen </system:String>
+    <system:String x:Key="CompatibilityHeader" xml:space="preserve"> Kompatibilitätseinstellungen </system:String>
     <system:String x:Key="HighDpiScalingFix">Fehlerbehebung bei hoher DPI-Skalierung</system:String>
-    <system:String x:Key="HighDpiScalingFixTooltip">Kann den Fehler beheben, dass das Bild abgeschnitten oder nicht zentriert ist bei der Verwendung von hohen Auflösungen. Alternativ setze die Windows-Anzeigeeinstellungen auf 100% Skalierung.</system:String>
+    <system:String x:Key="HighDpiScalingFixTooltip">Kann den Fehler bei hohen Auflösungen beheben, durch den das Bild abgeschnitten oder nicht zentriert wird. Setzen Sie alternativ die Windows-Anzeigeeinstellungen auf eine Skalierung von 100%.</system:String>
 
-    <system:String x:Key="ReunionDriverFix">Fehlerbehebung beim Reunion Treiber</system:String>
-    <system:String x:Key="ReunionDriverFixTooltip">Führt beim Spielstart eine temporäre Umbenennung von "ddraw.dll" in "Reunion.dll.bak" durch, um und stellt nach dem Spielen das Orginal wieder her. Beeinflusst nicht die Spielbarkeit von Reunion außerhalb von 7H.</system:String>
+    <system:String x:Key="ReunionDriverFix">Fehlerbehebung beim Reunion-Treiber</system:String>
+    <system:String x:Key="ReunionDriverFixTooltip">Führt beim Spielstart eine temporäre Umbenennung von "ddraw.dll" in "Reunion.dll.bak" durch und stellt nach dem Spielen das Orginal wieder her. Beeinflusst nicht die Spielbarkeit von Reunion außerhalb von 7H.</system:String>
 
 
     <system:String x:Key="ImportMoviesHeader" xml:space="preserve"> Videos von der Spiele-Disc importieren </system:String>
@@ -176,9 +176,9 @@
     <system:String x:Key="SoundDeviceLabel">Audiotreiber:</system:String>
     <system:String x:Key="SoundDeviceTooltip">Wählt den Audiotreiber für FF7.</system:String>
 
-    <system:String x:Key="TestSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke. Test Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
-    <system:String x:Key="TestLeftSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke für den linken Lautsprecher. Test Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
-    <system:String x:Key="TestRightSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke für den rechten Lautsprecher. Test Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
+    <system:String x:Key="TestSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke. Test-Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
+    <system:String x:Key="TestLeftSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke für den linken Lautsprecher. Test-Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
+    <system:String x:Key="TestRightSoundTooltip">Testet den ausgewählten Audiotreiber sowie die Musik- und Tonlautstärke für den rechten Lautsprecher. Test-Audio wird von "Enrico Deiana" zur Verfügung gestellt.</system:String>
 
     <system:String x:Key="MidiDeviceLabel">MIDI-Treiber:</system:String>
     <system:String x:Key="MidiDataLabel">MIDI-Daten:</system:String>
@@ -293,7 +293,7 @@ Sie sollten diese Option nur bei der Fehlerbehebung eines einzelnen aktiven Mods
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Für {0} ist eine Aktualisierung verfügbar.\nKlicken Sie auf "Ja", um das neue Installationsprogramm herunterzuladen und den Aktualisierungsprozess zu starten.\n\n{1} Versionshinweise:</system:String>
     <system:String x:Key="NewVersionAvailable">Eine neue Version ist verfügbar!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Der Mod {0} hat die Möglichkeit, Code in eine EXE-Datei einzufügen. Dieser Vorgang könnte auch dazu verwendet werden, Ihrem Computer Schaden zuzufügen. Aus Sicherheitsgründen sollten Sie Mods nur von Quellen aktivieren, denen Sie vertrauen. IE; direkt aus dem Katalog.
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Der Mod {0} hat die Möglichkeit, Code in eine EXE-Datei einzufügen. Dieser Vorgang könnte auch dazu verwendet werden, Ihrem Computer Schaden zuzufügen. Aus Sicherheitsgründen sollten Sie Mods nur von Quellen aktivieren, denen Sie vertrauen (zum Beispiel direkt aus dem Katalog).
         
 Möchten Sie diesen Mod trotzdem aktivieren?</system:String>
 
@@ -301,7 +301,7 @@ Möchten Sie diesen Mod trotzdem aktivieren?</system:String>
 
     <system:String x:Key="SubscriptionIsAlreadyAdded">Das Abonnement {0} wurde bereits hinzugefügt.</system:String>
     <system:String x:Key="AddedToSubscriptions">Das Abonnement {0} wurde hinzugefügt.</system:String>
-    <system:String x:Key="IrosLinkMayBeFormatedIncorrectly">Der iros://-Link {0} ist möglicherweise falsch formatiert. Abonnements konnten nicht hinzugefügt werden.</system:String>
+    <system:String x:Key="IrosLinkMayBeFormatedIncorrectly">Der iros://-Link {0} ist möglicherweise falsch formatiert. Abonnemente konnten nicht hinzugefügt werden.</system:String>
 
     <system:String x:Key="FailedToSetBackgroundImageFromTheme">Das Hintergrundbild konnte nicht festgelegt werden.</system:String>
 
