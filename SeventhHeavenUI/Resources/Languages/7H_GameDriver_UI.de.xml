@@ -153,7 +153,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Zufällige Schlachten</Name>
-    <Description>Nicht konfigurierbar.{0}Schaltet die zufälligen Kampfbegegnungen während des Spiels ein/aus.{0}Verwendung: "STRG+B" oder "L3, dann Kreis".</Description>
+    <Description>Nicht konfigurierbar.{0}Schaltet die zufälligen Schlachtbegegnungen während des Spiels ein/aus.{0}Verwendung: "STRG+B" oder "L3, dann Kreis".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -186,7 +186,7 @@
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Soft-Reset</Name>
-    <Description>Nicht konfigurierbar. Setzt das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während des Kampfes nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
+    <Description>Nicht konfigurierbar. Setzt das Spiel mit einem "Game Over" zurück.{0}HINWEIS: Während der Schlacht nicht zurücksetzen.{0}Verwendung: "STRG+R" oder "L3, dann Select+Start".</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>Siehe Beschreibung</Text>
@@ -282,7 +282,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Analoge Steuerung</Name>
-    <Description>Aktiviert die Unterstützung für eine vollständige omnidirektionale analoge Steuerung. Dazu gehören zwei Funktionen: kampffreie Kamerabewegung und vollständige analoge 360-Grad-Bewegung im Feld.</Description>
+    <Description>Aktiviert die Unterstützung für eine vollständige omnidirektionale analoge Steuerung. Dazu gehören zwei Funktionen: Freie Kamerabewegung in der Schlacht und vollständige analoge 360-Grad-Bewegung im Feld.</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>

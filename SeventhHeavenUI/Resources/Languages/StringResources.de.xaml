@@ -1154,8 +1154,8 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <system:String x:Key="Miscellaneous">Verschiedenes</system:String>
     <system:String x:Key="Animations">Animationen</system:String>
-    <system:String x:Key="BattleModels">Kampfmodelle</system:String>
-    <system:String x:Key="BattleTextures">Kampftexturen</system:String>
+    <system:String x:Key="BattleModels">Schlachtmodelle</system:String>
+    <system:String x:Key="BattleTextures">Schlachttexturen</system:String>
     <system:String x:Key="FieldModels">Feldmodelle</system:String>
     <system:String x:Key="FieldTextures">Feldtexturen</system:String>
     <system:String x:Key="Gameplay">Spielmechanik</system:String>
