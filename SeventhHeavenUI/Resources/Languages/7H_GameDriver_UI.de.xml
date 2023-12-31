@@ -47,7 +47,7 @@
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Fenstermodus</Name>
-    <Description>Zeigt das Spiel im "Fenster", "Vollbild" oder "Randlos" an.</Description>
+    <Description>Zeigt das Spiel im "Fenster", als "Vollbild" oder "Randlos" an.</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
       <Text>Fenster</Text>
@@ -65,7 +65,7 @@
 
   <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
-    <Name>Seitenverhältniss</Name>
+    <Name>Seitenverhältnis</Name>
     <Description>"Standard (4:3)" behält das Seitenverhältnis in 4:3 bei und füllt die linke und rechte Seite mit schwarzen Balken. "Strecken (anpassen)" füllt das Bild entsprechend der Größe. "Breitbild (16:9)" und "Breitbild (16:10)" zeigen das Bild im echten Widescreen an.</Description>
     <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
@@ -196,7 +196,7 @@
 
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
-    <Name>Stufen vom Geschwindigkeitshack:</Name>
+    <Name>Stufen des Geschwindigkeitshacks:</Name>
     <Description>Multiplikator zur Änderung der Spielgeschwindigkeit.{0}Verwendung: "STRG+Oben/Unten" oder "L3, dann L1/R1" zum Ändern der Geschwindigkeit, "STRG+Links/Rechts" oder "L3, dann L2/R2" zum Ein- und Ausschalten.</Description>
 	<DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
@@ -282,7 +282,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Analoge Steuerung</Name>
-    <Description>Aktiviert die Unterstützung für eine vollständige omnidirektionale analoge Steuerung. Dazu gehören zwei Funktionen: Freie Kamerabewegung in der Schlacht und vollständige analoge 360-Grad-Bewegung im Feld.</Description>
+    <Description>Aktiviert die Unterstützung für eine vollständig omnidirektionale, analoge Steuerung. Dazu gehören zwei Funktionen: Freie Kamerabewegung in der Schlacht und vollständige analoge 360-Grad-Bewegung im Feld.</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
@@ -300,7 +300,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Erweitert</Group>
     <Name>Debug-Informationen anzeigen</Name>
-    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess/die Leistung auf einem Overlay oder in der Titelleiste an.</Description>
+    <Description>Zeigt Echtzeitinformationen über den Rendering-Prozess und die Leistung auf einem Overlay oder in der Titelleiste an.</Description>
     <DefaultValue>show_stats = false</DefaultValue>
     <TrueSetting>show_stats = true</TrueSetting>
     <FalseSetting>show_stats = false</FalseSetting>

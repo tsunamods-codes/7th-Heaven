@@ -334,7 +334,7 @@ Sie werden automatisch ausgeschaltet.</system:String>
     <system:String x:Key="MissingRequirements">Fehlende Vorraussetzung</system:String>
     <system:String x:Key="UnsupportedVersion">Nicht unterstützte Version</system:String>
     <system:String x:Key="MissingRequiredActiveMods">Es fehlen erforderliche aktive Mods</system:String>
-    <system:String x:Key="DeactivateModsWarning">Deaktiviere Mod Warnungen</system:String>
+    <system:String x:Key="DeactivateModsWarning">Deaktiviere Mod-Warnungen</system:String>
     <system:String x:Key="Uninstalled">Deinstalliert</system:String>
 
     <system:String x:Key="CanNotReOrderModItHasBeenRemoved">Kann Mod nicht neu laden. Scheinbar wurde {0} vom System entfernt.</system:String>
@@ -355,7 +355,7 @@ herunterladen und installieren?</system:String>
 
     <system:String x:Key="ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog" xml:space="preserve">Für diesen Mod müssen auch die folgenden Mods installiert sein, die jedoch in keinem Katalog gefunden werden konnten:
 {0}
-Es kann sein, dass der Mod nicht ordnungsgemäß funktioniert, wenn Sie die Anforderungen nicht finden und installieren.</system:String>
+Es kann sein, dass der Mod nicht ordnungsgemäß funktioniert, wenn Sie die geforderten Mods nicht finden und installieren.</system:String>
 
     <system:String x:Key="PauseResumeSelectedDownload">Pausieren/Fortsetzen des ausgewählten Downloads</system:String>
     <system:String x:Key="PauseSelectedDownload">Pausieren des ausgewählten Downloads</system:String>
@@ -393,9 +393,9 @@ Möchten Sie Ihren Webbrowser öffnen, um ihn jetzt herunterzuladen?</system:Str
 
     <system:String x:Key="ExternalUrlDownloadMessage2" xml:space="preserve">Automatisches Herunterladen des Mods fehlgeschlagen. Ein externer Link ist verfügbar.
 
-Möchten Sie Ihren Webbrowser öffnen, um es jetzt herunterzuladen?</system:String>
+Möchten Sie Ihren Webbrowser öffnen, um ihn jetzt herunterzuladen?</system:String>
 
-    <system:String x:Key="SwitchingToBackupUrl">wechseln zum alternativ Link</system:String>
+    <system:String x:Key="SwitchingToBackupUrl">wechseln zum Alternativ-Link</system:String>
     <system:String x:Key="Downloading">Lade herunter</system:String>
     <system:String x:Key="Installing">Installiere</system:String>
 
@@ -417,7 +417,7 @@ Möchten Sie Ihren Webbrowser öffnen, um es jetzt herunterzuladen?</system:Stri
     <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">Diese Option kann aufgrund von Kompatibilitätsproblemen mit anderen Mods nicht aktiviert werden.</system:String>
     <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Die Option {0} wurde aufgrund von Kompatibilitätsproblemen mit anderen Mods deaktiviert ({1})</system:String>
 
-    <system:String x:Key="FailedToPlayPreviewAudio">Fehler beim Abspielen der Testaudio Datei</system:String>
+    <system:String x:Key="FailedToPlayPreviewAudio">Fehler beim Abspielen der Testaudiodatei</system:String>
 
 
     <!--DownloadItemViewModel Strings-->
@@ -427,7 +427,7 @@ Möchten Sie Ihren Webbrowser öffnen, um es jetzt herunterzuladen?</system:Stri
     
     <!--GameLaunchSettingsViewModel Strings-->
     <system:String x:Key="InsertAndClickImport">{0} einlegen und "Importieren" klicken.</system:String>
-    <system:String x:Key="GameLauncherSettingsUpdated">Die Einstellungen des Spiel-Launchers wurden aktuallisiert!</system:String>
+    <system:String x:Key="GameLauncherSettingsUpdated">Die Einstellungen des Spiel-Launchers wurden aktualisiert!</system:String>
     <system:String x:Key="FailedToSaveLaunchSettings">Fehler beim Speichern der Einstellungen des Spiel-Launchers.</system:String>
 
     <system:String x:Key="ErrorCopyingFf7InputCfg">Fehler beim kopieren der ff7input.cfg.</system:String>
@@ -474,10 +474,10 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="ControlsWithThatNameAlreadyExist">Benutzerdefinierte Controllerkonfiguration mit diesem Namen ist bereits vorhanden.</system:String>
 
     <system:String x:Key="SuccessfullyCreatedCustomControls">Benutzerdefinierte Controllerkonfiguration wurde erfolgreich erstellt.</system:String>
-    <system:String x:Key="FailedToCreateCustomControls">Fehler beim erstellen der benutzerdefinierten Controllerkonfiguration.</system:String>
+    <system:String x:Key="FailedToCreateCustomControls">Fehler beim Erstellen der benutzerdefinierten Controllerkonfiguration.</system:String>
 
     <system:String x:Key="SuccessfullyDeletedCustomControls">Benutzerdefinierte Controllerkonfiguration wurde erfolgreich gelöscht.</system:String>
-    <system:String x:Key="FailedToDeleteCustomControls">Fehler beim löschen der benutzerdefinierten Controllerkonfiguration.</system:String>
+    <system:String x:Key="FailedToDeleteCustomControls">Fehler beim Löschen der benutzerdefinierten Controllerkonfiguration.</system:String>
     
     
     <!--GeneralSettingsViewModel Strings-->
@@ -589,7 +589,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="PathToSourceFolderIsRequired">Pfad zum Quellordner erforderlich.</system:String>
     <system:String x:Key="PathToOutputIroFileIsRequired">Pfad zum Zielordner der .iro-Datei erforderlich.</system:String>
     <system:String x:Key="SelectCompressionOption">Wählen Sie eine Kompressionsmethode.</system:String>
-    <system:String x:Key="InvalidPackIroOptions">ungültige .iro-Paket Einstellungen</system:String>
+    <system:String x:Key="InvalidPackIroOptions">Ungültige .iro-Paket Einstellungen.</system:String>
     <system:String x:Key="AnErrorOccuredWhilePacking">Fehler beim Erstellen der .iro-Datei.</system:String>
     <system:String x:Key="PackingComplete">Komprimierung erfolgreich!</system:String>
 
@@ -638,7 +638,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="TextureCacheCleared">Texture-Cache geleert!</system:String>
     <system:String x:Key="FailedToClearTextureCache">Leeren des Texturen-Caches fehlgeschlagen.</system:String>
     <system:String x:Key="GameDriverSettingsSaved">Einstellungen des 7H-Spieltreibers gespeichert!</system:String>
-    <system:String x:Key="CouldNotWriteTo7HGameDriverCfg">In die Datei "FFNx.toml" konnte nicht geschrieben werden. Stellen Sie sicher, dass es nicht schreibgeschützt ist und dass FF7 in einem Ordner installiert ist, auf den Sie vollen Schreibzugriff haben.</system:String>
+    <system:String x:Key="CouldNotWriteTo7HGameDriverCfg">In die Datei "FFNx.toml" konnte nicht geschrieben werden. Stellen Sie sicher, dass sie nicht schreibgeschützt ist und FF7 in einem Ordner installiert ist, auf den Sie vollen Schreibzugriff haben.</system:String>
     <system:String x:Key="UnknownErrorWhileSaving">Unbekannter Fehler beim Speichern. Bitte überprüfen Sie die Datei "app.log" für weitere Details.</system:String>
     <system:String x:Key="GameDriverSettingsResetToDefaults">Einstellungen des 7H-Spieltreibers wurden auf Standard zurückgesetzt. Drücken Sie "Speichern", um die Einstellungen zu speichern.</system:String>
 
@@ -675,7 +675,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="PathsHeader" xml:space="preserve"> Pfad-Einstellungen </system:String>
     <system:String x:Key="ShellIntegrationHeader" xml:space="preserve"> Shell-Integration </system:String>
     <system:String x:Key="CatalogSubscriptionsHeader" xml:space="preserve"> Katalogabonnemente </system:String>
-    <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve"> Zusätzliche Ordner zum Monitoren </system:String>
+    <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve"> Zusätzliche Ordner zum Überwachen </system:String>
 
     <system:String x:Key="Url">Url</system:String>
 
@@ -737,14 +737,14 @@ Klicken Sie auf "Ja", um alle aktuellen Instanzen von FF7 zu schließen. Klicken
     <system:String x:Key="FailedToCloseProcess">Fehler beim Beenden des Prozesses.</system:String>
     <system:String x:Key="CheckingFf7ExeExistsAt">Prüfe, ob "ff7.exe" existiert in</system:String>
     <system:String x:Key="FileNotFoundAborting">Datei nicht gefunden. Start wird abgebrochen...</system:String>
-    <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Die "ff7.exe" wurde nicht gefunden. Bitte prüfen Sie die 7H Einstellungen im Menü Einstellungen>Generelle Einstellungen.</system:String>
+    <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Die "ff7.exe" wurde nicht gefunden. Bitte prüfen Sie die 7H-Einstellungen im Menü "Einstellungen" > "Generelle Einstellungen".</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Prüfe, ob das installierte Spiel kompatibel ist...</system:String>
-    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehlercode: YARR! Fortfahren nicht möglich. Bei Ihrer Kopie von FF7 scheint es sich um eine Raubkopie zu handeln. Bitte erwerben Sie eine Originalkopie des Spiels. Falls Ihre Kopie von FF7 echt ist, wenden Sie sich bitte für Hilfe an das Qhimm Forum unter https://forums.qhimm.com oder den Qhimm Discord.</system:String>
+    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehlercode: YARR! Fortfahren nicht möglich. Bei Ihrer Kopie von FF7 scheint es sich um eine Raubkopie zu handeln. Bitte erwerben Sie eine Originalkopie des Spiels. Falls Ihre Kopie von FF7 echt ist, wenden Sie sich bitte an das Qhimm Forum unter https://forums.qhimm.com oder den Qhimm Discord.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Prüfe, ob das Spiel nicht in einem Systemordner oder geschützten Ordner installiert ist...</system:String>
 
-    <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 ist derzeit in einem Systemordner installiert, was dazu führen kann, dass Mods nicht funktionieren. Es wird empfohlen, es unter C:\Games\Final Fantasy VII zu installieren.
+    <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 ist derzeit in einem Systemordner installiert, was dazu führen kann, dass Mods nicht funktionieren. Es wird empfohlen, es unter "C:\Games\Final Fantasy VII" zu installieren.
 
-Möchten Sie Ihre Installation automatisch nach C:\Games\Final Fantasy VII kopieren, um fortzufahren?</system:String>
+Möchten Sie Ihre Installation automatisch nach "C:\Games\Final Fantasy VII" kopieren, um fortzufahren?</system:String>
 
     <system:String x:Key="CanNotContinueDueToFf7nstalledInProtectedFolder">Kann nicht fortfahren, da Final Fantasy 7 in einem Systemordner oder geschützten Ordner installiert ist. Abbruch...</system:String>
     <system:String x:Key="CannotContinue">Kann nicht fortfahren!</system:String>
@@ -854,7 +854,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Die Kompatibilitätskorrektur wird aktiviert. Versuche das Spiel erneut zu starten...</system:String>
     <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Die Injektion mit "7thWrapperLoader" ist nach dem Festlegen der Kompatibilitätskorrektur immer noch nicht möglich. Abbruch...</system:String>
-    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Die Injektion mit "7thWrapperLoader" ist selbst nachdem die Kompatibilitätseinträge gesetzt wurden fehlgeschlagen.</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Die Injektion mit "7thWrapperLoader" ist selbst nach dem Setzen der Kompatibilitätseinträge fehlgeschlagen.</system:String>
     <system:String x:Key="UserChoseNotToSetCompatibilityFix">Der Benutzer hat sich dafür entschieden, keine Kompatibilitätskorrektur festzulegen. Abbruch...</system:String>
 
     <system:String x:Key="GettingFf7Proc">Suche nach FF7-Prozessen...</system:String>
@@ -867,7 +867,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="SettingUpFf7ExeToStopPluginsAndModPrograms">Einrichten der "ff7.exe", damit Plugins und Programme nach dem Beenden gestoppt werden...</system:String>
 
     <system:String x:Key="StoppingOtherProgramsForMods">Stoppen anderer Programme für Mods, die von 7H gestartet wurden...</system:String>
-    <system:String x:Key="AutoUnmountingGameDisc">Automatisches Aushängen der Spiel-Disc...</system:String>
+    <system:String x:Key="AutoUnmountingGameDisc">Automatisches Auswerfen der Spiel-Disc...</system:String>
 
     <system:String x:Key="WaitingForFf7ExeToRespond">Warten auf Antwort der "ff7.exe" ({0} Sekunden maximal)...</system:String>
     <system:String x:Key="ExceptionOccurredWhileTryingToStart">Beim Versuch FF7 zu starten ist ein unerwarteter Fehler aufgetreten...</system:String>
@@ -876,7 +876,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="StartingPlugin">Plugin wird gestartet</system:String>
 
     <system:String x:Key="FailedToGetListOfRuntimeMods">Die Liste der Runtime-Mods konnte aufgrund einer fehlenden Variable für einen Mod nicht abgerufen werden.</system:String>
-    <system:String x:Key="AddingPathsToMonitor">Pfade zum Monitoren werden hinzugefügt...</system:String>
+    <system:String x:Key="AddingPathsToMonitor">Pfade zum Überwachen werden hinzugefügt...</system:String>
 
     <system:String x:Key="DetectedToBeOlderVersion">Es wurde festgestellt, dass es sich um eine ältere Version handelt.</system:String>
     <system:String x:Key="Copied">kopiert</system:String>
@@ -976,15 +976,15 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ErrorOccurredDownloadingInstalling">Beim Downloaden/Installieren ist ein Fehler aufgetreten</system:String>
 
     <system:String x:Key="Installed">installiert</system:String>
-    <system:String x:Key="Updated">aktuallisiert</system:String>
+    <system:String x:Key="Updated">aktualisiert</system:String>
     <system:String x:Key="ErrorUpdating">Fehler beim Aktualisieren</system:String>
 
     <system:String x:Key="FailedToGetModInfoDueToMissingVariable">WARNUNG: Mod-Informationen konnten aufgrund einer fehlenden Variable nicht abgerufen werden, was zu Problemen führen kann.</system:String>
 
-    <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved">Die folgenden Mod(s) wurden nicht installiert gefunden und wurden aus dem Profil entfernt.</system:String>
+    <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved">Die folgenden Mod(s) wurden nicht gefunden oder sind nicht installiert und wurden deshalb aus dem Profil entfernt.</system:String>
     <system:String x:Key="ErrorLoadingSettingsPleaseConfigure7H">Fehler beim Laden der Einstellungen. Bitte konfigurieren Sie 7H über "Einstellungen" > "Allgemeines einstellen...".</system:String>
     <system:String x:Key="ErrorLoadingLibraryFile">Fehler beim Laden der Bibliotheksdatei</system:String>
-    <system:String x:Key="FailedToImportMod">Fehler beim Importieren des Mod</system:String>
+    <system:String x:Key="FailedToImportMod">Fehler beim Importieren des Mods</system:String>
     <system:String x:Key="AutoImportedMod">Automatisch importierter Mod</system:String>
     <system:String x:Key="CouldNotImportIroFileIsCorrupt">Der .iro-Mod konnte nicht importiert werden, da die Datei beschädigt ist.</system:String>
     <system:String x:Key="ModCouldNotBeFoundHasItBeenDeleted">Mod wurde nicht gefunden. Wurde er gelöscht? Der Mod wird von der Liste entfernt.</system:String>
@@ -1010,14 +1010,14 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     
     <!--ThemeSettingsWindow Strings-->
     <system:String x:Key="ColorTheme">Farbschema:</system:String>
-    <system:String x:Key="AppBackground">Programm-Hintergrund:</system:String>
-    <system:String x:Key="SecondaryBackground">Sekundär-Hintergrund:</system:String>
-    <system:String x:Key="ControlsDisabledBackground">Hintergrund-Deaktivierung:</system:String>
-    <system:String x:Key="ControlsDisabledForeground">Vordergrund-Deaktivierung:</system:String>
+    <system:String x:Key="AppBackground">Programmhintergrund:</system:String>
+    <system:String x:Key="SecondaryBackground">Sekundärhintergrund:</system:String>
+    <system:String x:Key="ControlsDisabledBackground">Hintergrunddeaktivierung:</system:String>
+    <system:String x:Key="ControlsDisabledForeground">Vordergrunddeaktivierung:</system:String>
     <system:String x:Key="BackgroundImage">Hintergrundbild:</system:String>
-    <system:String x:Key="ControlsBackground">Hintergrund-Aktivierung:</system:String>
-    <system:String x:Key="ControlsForeground">Vordergrund-Aktivierung:</system:String>
-    <system:String x:Key="ControlsSecondary">Sekundär-Text:</system:String>
+    <system:String x:Key="ControlsBackground">Hintergrundaktivierung:</system:String>
+    <system:String x:Key="ControlsForeground">Vordergrundaktivierung:</system:String>
+    <system:String x:Key="ControlsSecondary">Sekundärtext:</system:String>
     <system:String x:Key="ControlsMouseOver">Mouse-over:</system:String>
     <system:String x:Key="ControlsPressed">Tastenbetätigung:</system:String>
     <system:String x:Key="ImportTheme">Schema importieren</system:String>
@@ -1045,7 +1045,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
-    <system:String x:Key="ModSettingNoCompatibleOptionFoundTheFollowingModsRestrictIt">Mod {0}, Einstellung {1}: keine kompatible Option gefunden. Die folgenden Mods schränken alle die Konfiguration ein:\n\n{2}</system:String>
+    <system:String x:Key="ModSettingNoCompatibleOptionFoundTheFollowingModsRestrictIt">Mod {0}, Einstellung {1}: keine kompatible Option gefunden. Die folgenden Mods schränken die Konfiguration ein:\n\n{2}</system:String>
     <system:String x:Key="ModChangedSettingTo">Mod {0}: Einstellung {1} in {2} geändert</system:String>
 
     <system:String x:Key="OutputsCurrentCatalogXmlToBelow">Gibt die aktuelle "Katalog.xml" im Textfeld unten aus.</system:String>
@@ -1057,7 +1057,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="SaveCatalogXml">Speichert "Katalog.xml".</system:String>
     <system:String x:Key="SelectCatalogXmlToLoad">Wählt "Katalog.xml" zum Laden.</system:String>
     <system:String x:Key="SelectModXmlOrIroFileToLoad">Wählt "mod.xml" oder .iro-Datei zum Laden.</system:String>
-    <system:String x:Key="SelectImageToUse">Wählt das zu nutzendes Bild aus.</system:String>
+    <system:String x:Key="SelectImageToUse">Wählt das zu nutzende Bild aus.</system:String>
     <system:String x:Key="SaveModXml">Speichert "mod.xml".</system:String>
     <system:String x:Key="SelectModXmlToLoad">Wählt "mod.xml" zum Laden.</system:String>
 
@@ -1123,7 +1123,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="AppHint24">Korrigieren Sie "Unbekannte" Mod-Kategorien, indem Sie auf den Pfeil in der Spalte unter "Kategorie" klicken.</system:String>
     <system:String x:Key="AppHint25">Antworten auf viele Fragen oder Probleme finden Sie im Forum unter https://forums.qhimm.com oder im Qhimm Discord.</system:String>
     <system:String x:Key="AppHint26">Antworten auf viele Fragen oder Probleme finden Sie im Hilfemenü.</system:String>
-    <system:String x:Key="AppHint27">Ändern Sie die Grafikeinstellungen Ihres Spiels, indem Sie zu "Einstellungen" > "Spieltreiber konfigurieren..." gehen.</system:String>
+    <system:String x:Key="AppHint27">Ändern Sie die Grafikeinstellungen Ihres Spiels, indem Sie zu "Einstellungen" > "Spieltreiber konfigurieren..." navigieren.</system:String>
     <system:String x:Key="AppHint28">Ändern Sie die Aktualisierungseinstellungen jedes Mods über den Dropdown-Pfeil im Mod-Info-Panel.</system:String>
     <system:String x:Key="AppHint29">7th Heaven wird die virtuelle Spiel-Disc automatisch für Sie ein- und auswerfen.</system:String>
     <system:String x:Key="AppHint30">7th Heaven benötigt nicht mehr den alten Game Converter. Jetzt läuft alles automatisch!</system:String>
@@ -1134,14 +1134,14 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="AppHint35">Sie können die Spalten Ihres Katalogs sortieren, indem Sie auf die Spaltenüberschriften klicken.</system:String>
     <system:String x:Key="AppHint36">Sie können Ihre Spalten neu anordnen, indem Sie die Spaltenüberschriften per Drag-und-Drop verschieben.</system:String>
     <system:String x:Key="AppHint37">Sie können Ihre Ansicht filtern, indem Sie auf den Pfeil neben dem Suchfeld klicken.</system:String>
-    <system:String x:Key="AppHint38">Wechseln Sie schnell zwischen den Tastatur-/Gamepad-Steuerungsoptionen unter "Einstellungen" > "Spielsteuerung festlegen...".</system:String>
-    <system:String x:Key="AppHint39">Wussten Sie? 7th Heaven unterstützt Befehlszeilenparameter (Schalter).</system:String>
+    <system:String x:Key="AppHint38">Wechseln Sie schnell zwischen Tastatur- und Gamepad-Steuerungsoptionen unter "Einstellungen" > "Spielsteuerung festlegen...".</system:String>
+    <system:String x:Key="AppHint39">Wussten Sie, dass 7th Heaven Befehlszeilenparameter (Schalter) unterstützt?</system:String>
     <system:String x:Key="AppHint40">Haben Sie die Spiele-Discs von 1998? Importieren Sie Ihre Videos automatisch mit "Videos Importieren".</system:String>
-    <system:String x:Key="AppHint41">Passen Sie die Farben vom "7. Himmels" an, indem Sie zu "Einstellungen" > "Farbschema wechseln..." gehen.</system:String>
+    <system:String x:Key="AppHint41">Passen Sie die Farben vom "7. Himmel" an, indem Sie zu "Einstellungen" > "Farbschema wechseln..." navigieren.</system:String>
     <system:String x:Key="AppHint42">Sie können auch Ihr benutzerdefiniertes Farbdesign exportieren und mit Anderen teilen.</system:String>
     <system:String x:Key="AppHint43">Sie können einige Downloads anhalten und fortsetzen.</system:String>
 
-    <system:String x:Key="ModManagerForFinalFantasy7">Mod Manager für Final Fantasy 7 ( Wird stetig erweitert vom "Tsunamods Team" )</system:String>
+    <system:String x:Key="ModManagerForFinalFantasy7">Mod Manager für Final Fantasy 7 (wird vom "Tsunamods Team" stetig erweitert)</system:String>
 
 
     <system:String x:Key="ReleaseDateLabel">Veröffentlicht am:</system:String>
@@ -1219,7 +1219,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ImportMoviesFromDisc">Videos importieren</system:String>
 
     <system:String x:Key="EnableTriggerDpadSupport">Dpad mit DInput</system:String>
-    <system:String x:Key="TriggerDpadSupportTooltip">Emuliert DPad im Spiel durch Senden der entsprechenden Tastaturtaste. Deaktivieren, wenn ein XInput-Controller oder ein externes Tool wie Joytokey verwendet wird.</system:String>
+    <system:String x:Key="TriggerDpadSupportTooltip">Emuliert Dpad im Spiel durch Senden der entsprechenden Tastaturtaste. Deaktivieren, wenn ein XInput-Controller oder ein externes Tool wie Joytokey verwendet wird.</system:String>
 
     <system:String x:Key="MountDiscWithPowershell">Spiele-Disc mit "PowerShell" einbinden</system:String>
 	<system:String x:Key="MountDiscWithWinCDEmu">Spiele-Disc mit "WinCDEmu" einbinden</system:String>
@@ -1242,17 +1242,17 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="EncodingNewLGPFiles">Erstelle neue .lgp-Dateien...</system:String>
     <system:String x:Key="DeletingTemporaryFiles">Lösche temporäre Dateien...</system:String>
     <system:String x:Key="BeginningToPollForGamePadInput">Beginne mit der Abfrage nach Gamepadeingaben...</system:String>
-    <system:String x:Key="WaitingForFF7WindowToBeVisible">Warten darauf, dass das FF7-Fenster angezeigt wird (maximal {0} Sekunden)...</system:String>
+    <system:String x:Key="WaitingForFF7WindowToBeVisible">Warte darauf, dass das FF7-Fenster angezeigt wird (maximal {0} Sekunden)...</system:String>
     <system:String x:Key="CouldNotFindFileToCopy">Datei zum Kopieren konnte nicht gefunden werden: {0}...</system:String>
     <system:String x:Key="AnErrorOccurredStartingULGP">Beim Starten von "ulgp.exe" ist ein Fehler aufgetreten...</system:String>
-    <system:String x:Key="UpdatingPathsInSysSettings">Aktualisieren der Pfade in "Sys.Settings" mit neuem Installationspfad...</system:String>
+    <system:String x:Key="UpdatingPathsInSysSettings">Aktualisiere der Pfade in "Sys.Settings" mit neuem Installationspfad...</system:String>
     <system:String x:Key="ForceMinimizingProgram">Erzwinge Minimierung des Programms...</system:String>
-    <system:String x:Key="FailedToStartAdditionalProgram">Fehler beim starten des zusätzlichen Programms: {0}</system:String>
+    <system:String x:Key="FailedToStartAdditionalProgram">Fehler beim Starten des zusätzlichen Programms: {0}</system:String>
 
     <system:String x:Key="CanaryWarningTitle">BITTE LESEN SIE DIES!</system:String>
     <system:String x:Key="CanaryWarningMessage">Vielen Dank, dass Sie zum "Canary-Kanal" gewechselt haben.\n\nDieser Kanal wird nur fortgeschrittenen Benutzern empfohlen, die bereit sind, die Entwicklung zu unterstützen und Fehler zu melden. VERWENDEN SIE diesen Kanal NICHT, wenn Sie ein stabiles Spielerlebnis wünschen.\n\nBitte beachten Sie, dass es zu Abstürzen kommen kann und von niemandem getestet wurde. Benutzen Sie diesen Build AUF EIGENE GEFAHR!</system:String>
 
-    <system:String x:Key="PleaseUpdateFFNx">Die Einstellungen konnten nicht aus der Datei "FFNx.toml" geladen werden. Dies geschieht wahrscheinlich, wenn Ihre aktuelle Version von "FFNx" veraltet ist. Erwägen Sie, "FFNx" auf die neueste Version ihres gewählten Kanals zu aktualisieren und versuchen Sie es erneut.</system:String>
+    <system:String x:Key="PleaseUpdateFFNx">Die Einstellungen konnten nicht aus der Datei "FFNx.toml" geladen werden. Dies kann geschehen, wenn Ihre aktuelle Version von "FFNx" veraltet ist. Erwägen Sie, "FFNx" auf die neueste Version ihres gewählten Kanals zu aktualisieren und versuchen Sie es erneut.</system:String>
 
     <system:String x:Key="CheckForSystemDEPStatus">Überprüfe den System-DEP-Status...</system:String>
     <system:String x:Key="DEPDetected">DEP erkannt</system:String>
