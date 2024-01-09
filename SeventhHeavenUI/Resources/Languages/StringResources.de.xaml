@@ -164,7 +164,7 @@
     <system:String x:Key="HighDpiScalingFixTooltip">Kann den Fehler bei hohen Auflösungen beheben, durch den das Bild abgeschnitten oder nicht zentriert wird. Setzen Sie alternativ die Windows-Anzeigeeinstellungen auf eine Skalierung von 100%.</system:String>
 
     <system:String x:Key="ReunionDriverFix">Fehlerbehebung beim Reunion-Treiber</system:String>
-    <system:String x:Key="ReunionDriverFixTooltip">Führt beim Spielstart eine temporäre Umbenennung von "ddraw.dll" in "Reunion.dll.bak" durch und stellt nach dem Spielen das Orginal wieder her. Beeinflusst nicht die Spielbarkeit von Reunion außerhalb von 7H.</system:String>
+    <system:String x:Key="ReunionDriverFixTooltip">Führt beim Spielstart eine temporäre Umbenennung von "ddraw.dll" in "Reunion.dll.bak" durch und stellt nach dem Spielen das Original wieder her. Beeinflusst nicht die Spielbarkeit von Reunion außerhalb von 7H.</system:String>
 
 
     <system:String x:Key="ImportMoviesHeader" xml:space="preserve"> Videos von der Spiele-Disc importieren </system:String>
@@ -194,7 +194,7 @@
     <system:String x:Key="VoiceVolumeTooltip">Stellt die Lautstärke der Sprache im Spiel ein.</system:String>
 
     <system:String x:Key="AmbientVolumeLabel">Umgebungslautstärke:</system:String>
-    <system:String x:Key="AmbientVolumeTooltip">Stellt die Lautstärke der Umgebungsgeräuche im Spiel ein.</system:String>
+    <system:String x:Key="AmbientVolumeTooltip">Stellt die Lautstärke der Umgebungsgeräusche im Spiel ein.</system:String>
 
     <system:String x:Key="MovieVolumeLabel">Videolautstärke:</system:String>
     <system:String x:Key="MovieVolumeTooltip">Stellt die Lautstärke der Videos im Spiel ein.</system:String>
@@ -211,12 +211,12 @@
     <system:String x:Key="RendererTooltip">Wählt den Grafiktreiber aus, der zum Rendern von FF7 verwendet werden soll. Mods funktionieren nur, wenn die Option "Custom 7H Game Driver" gewählt wird.</system:String>
 
     <system:String x:Key="QuarterScreen">Fenstermodus (Viertelbild)</system:String>
-    <system:String x:Key="QuarterScreenTooltip">Startet das Spiel im Fenstermodus (Viertelbild). Funktioniert nur bei "Software Renderer" oder "Direct3D Hardware Acceleration".</system:String>
+    <system:String x:Key="QuarterScreenTooltip">Startet das Spiel im Fenstermodus (Viertelbild). Funktioniert nur bei "Software-Renderer" oder "Direct3D-Hardware-Acceleration".</system:String>
 
     <system:String x:Key="FullScreen">Vollbild</system:String>
-    <system:String x:Key="FullScreenTooltip">Startet das Spiel im Vollbild. Funktioniert nur bei "Software Renderer" oder "Direct3D Hardware Acceleration".</system:String>
+    <system:String x:Key="FullScreenTooltip">Startet das Spiel im Vollbild. Funktioniert nur bei "Software-Renderer" oder "Direct3D-Hardware-Acceleration".</system:String>
 
-    <system:String x:Key="HardwareGraphicsTooltip">Legt die Option für die Hardwarebeschleunigung fest. Funktioniert nur bei "Direct3D Hardware Acceleration".</system:String>
+    <system:String x:Key="HardwareGraphicsTooltip">Legt die Option für die Hardwarebeschleunigung fest. Funktioniert nur bei "Direct3D-Hardware-Acceleration".</system:String>
 
 
     <system:String x:Key="ProgramsToRunHeader" xml:space="preserve"> Programme die vor FF7 gestartet werden </system:String>
@@ -404,7 +404,7 @@ Möchten Sie Ihren Webbrowser öffnen, um ihn jetzt herunterzuladen?</system:Str
     <system:String x:Key="PathToFlevelRequired">Pfad zur "flevel.lgp" benötigt.</system:String>
     <system:String x:Key="PathToOutputFolderRequired">Pfad zum Zielordner benötigt.</system:String>
     <system:String x:Key="SelectTheSectionsToExtract">Abschnitte zum Entpacken auswählen.</system:String>
-    <system:String x:Key="FlevelFileDoesNotExistAtGivenPath">Die "flevel.lgp" wurde am angebenenen Pfad nicht gefunden.</system:String>
+    <system:String x:Key="FlevelFileDoesNotExistAtGivenPath">Die "flevel.lgp" wurde am angegebenen Pfad nicht gefunden.</system:String>
     <system:String x:Key="OutputFolderDoesNotExist">Zielordner wurde nicht gefunden.</system:String>
 
     <system:String x:Key="Complete">Vollständig!</system:String>
@@ -430,8 +430,8 @@ Möchten Sie Ihren Webbrowser öffnen, um ihn jetzt herunterzuladen?</system:Str
     <system:String x:Key="GameLauncherSettingsUpdated">Die Einstellungen des Spiel-Launchers wurden aktualisiert!</system:String>
     <system:String x:Key="FailedToSaveLaunchSettings">Fehler beim Speichern der Einstellungen des Spiel-Launchers.</system:String>
 
-    <system:String x:Key="ErrorCopyingFf7InputCfg">Fehler beim kopieren der ff7input.cfg.</system:String>
-    <system:String x:Key="NoFf7InputCfgFoundAt">Keine ff7input.cfg gefunden in</system:String>
+    <system:String x:Key="ErrorCopyingFf7InputCfg">Fehler beim Kopieren der "ff7input.cfg".</system:String>
+    <system:String x:Key="NoFf7InputCfgFoundAt">Keine "ff7input.cfg" gefunden in</system:String>
     <system:String x:Key="AlreadyExistsAt">existiert bereits in</system:String>
 
     <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver">Die Auswahl einer anderen Option als "Benutzerdefinierter 7H-Spieletreiber" führt dazu, dass mit 7H installierte Mods nicht mehr funktionieren!</system:String>
@@ -443,7 +443,7 @@ Wenn Sie Reunion spielen möchten, tun Sie dies mit einer kompatiblen, modifizie
 Sind Sie sicher?</system:String>
 
     <system:String x:Key="YouShouldLeaveThisSettingOn">Diese Option sollte aktiviert bleiben!</system:String>
-    <system:String x:Key="ProgramToRunNotFound">Programm zum starten wurde nicht gefunden.</system:String>
+    <system:String x:Key="ProgramToRunNotFound">Programm zum Starten wurde nicht gefunden.</system:String>
 
     <system:String x:Key="ImportMissingMoviesWarningMessage" xml:space="preserve">Dadurch werden fehlende Videodateien von Ihren Spiele-Discs in Ihren Videopfad in "Allgemeines einstellen" kopiert.
 Dieser Vorgang überschreibt alle Videodateien, die sich bereits in {0} befinden.
@@ -487,7 +487,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="SettingsNotValid">Einstellungen sind nicht gültig</system:String>
     <system:String x:Key="MissingFf7ExePath">Pfad zur "ff7.exe" ist nicht vorhanden.</system:String>
     <system:String x:Key="MissingLibraryPath">Pfad zur Bibliothek ist nicht vorhanden.</system:String>
-    <system:String x:Key="MissingTexturesPath">Pfad zu den Texturen (Aali OpenGL) ist nicht vorhanden.</system:String>
+    <system:String x:Key="MissingTexturesPath">Pfad zu den Texturen (Aali-OpenGL) ist nicht vorhanden.</system:String>
     <system:String x:Key="MissingMoviePath">Pfad zu den Videos ist nicht vorhanden.</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Fehler beim Registrieren der .iro-Mod-Dateien bei 7th Heaven.</system:String>
@@ -552,7 +552,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="DeleteSelectedProfile">Ausgewähltes Profil löschen...</system:String>
     <system:String x:Key="ViewSelectedProfileDetails">Details des ausgewählten Profils anzeigen...</system:String>
 
-    <system:String x:Key="AreYouSureYouWantToDeleteSelectedProfile">Sind Sie Sicher, dass das ausgewählte Profil gelöscht werden soll?</system:String>
+    <system:String x:Key="AreYouSureYouWantToDeleteSelectedProfile">Sind Sie sicher, dass das ausgewählte Profil gelöscht werden soll?</system:String>
 
     <system:String x:Key="NoProfileSelected">Kein Profil ausgewählt</system:String>
     <system:String x:Key="SelectProfileToContinue">Profil auswählen, um fortzufahren</system:String>
@@ -633,7 +633,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="FailedToReadRequiredSpecXmlFile">Erforderliche Spezifikations-XML-Datei konnte nicht gelesen werden, um die Einstellungen anzuzeigen. Das Fenster wird geschlossen.</system:String>
-    <system:String x:Key="WillDeleteEverythingUnder">Löscht alle Datein im Ordner</system:String>
+    <system:String x:Key="WillDeleteEverythingUnder">Löscht alle Dateien im Ordner</system:String>
     <system:String x:Key="PathToCacheFolderDoesNotExist">Pfad zum Cache-Ordner existiert nicht.</system:String>
     <system:String x:Key="TextureCacheCleared">Texture-Cache geleert!</system:String>
     <system:String x:Key="FailedToClearTextureCache">Leeren des Texturen-Caches fehlgeschlagen.</system:String>
@@ -670,7 +670,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
 
     <system:String x:Key="OpenIrosLinksWith7thHeaven">Öffne iros:// Links mit 7th Heaven</system:String>
     <system:String x:Key="OpenModFilesWith7thHeaven">Öffne .iro-Datein mit 7th Heaven</system:String>
-    <system:String x:Key="ContextMenuInExplorer">Kontextmenü im Exlorer</system:String>
+    <system:String x:Key="ContextMenuInExplorer">Kontextmenü im Explorer</system:String>
 
     <system:String x:Key="PathsHeader" xml:space="preserve"> Pfad-Einstellungen </system:String>
     <system:String x:Key="ShellIntegrationHeader" xml:space="preserve"> Shell-Integration </system:String>
@@ -739,7 +739,7 @@ Klicken Sie auf "Ja", um alle aktuellen Instanzen von FF7 zu schließen. Klicken
     <system:String x:Key="FileNotFoundAborting">Datei nicht gefunden. Start wird abgebrochen...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Die "ff7.exe" wurde nicht gefunden. Bitte prüfen Sie die 7H-Einstellungen im Menü "Einstellungen" > "Generelle Einstellungen".</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Prüfe, ob das installierte Spiel kompatibel ist...</system:String>
-    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehlercode: YARR! Fortfahren nicht möglich. Bei Ihrer Kopie von FF7 scheint es sich um eine Raubkopie zu handeln. Bitte erwerben Sie eine Originalkopie des Spiels. Falls Ihre Kopie von FF7 echt ist, wenden Sie sich bitte an das Qhimm Forum unter https://forums.qhimm.com oder den Qhimm Discord.</system:String>
+    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehlercode: YARR! Fortfahren nicht möglich. Bei Ihrer Kopie von FF7 scheint es sich um eine Raubkopie zu handeln. Bitte erwerben Sie eine Originalkopie des Spiels. Falls Ihre Kopie von FF7 echt ist, wenden Sie sich bitte an das Qhimm-Forum unter https://forums.qhimm.com oder den Qhimm-Discord.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Prüfe, ob das Spiel nicht in einem Systemordner oder geschützten Ordner installiert ist...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 ist derzeit in einem Systemordner installiert, was dazu führen kann, dass Mods nicht funktionieren. Es wird empfohlen, es unter "C:\Games\Final Fantasy VII" zu installieren.
@@ -774,12 +774,12 @@ Alternativ können Sie Ihre Videodateien von einer Spiel-Disc importieren, indem
 
 Abschließend können Sie Ihren Videodateipfad in "Allgemeines einstellen" so wählen, dass er auf den Ordner "FF7\Movies" Ihrer Spiel-Disc verweist. Hierbei müssen Sie jedoch während des Spiels die Disc wechseln.</system:String>
 
-    <system:String x:Key="VerifyingMusicFilesExist">Prüfe, ob Musikdatein vorhanden sind...</system:String>
-    <system:String x:Key="CouldNotFindAllMusicFilesAt">Kann nicht alle Musikdatein finden in</system:String>
-    <system:String x:Key="AttemptingToCopyMusicFiles">Versuche Musikdatein zu kopieren ...</system:String>
+    <system:String x:Key="VerifyingMusicFilesExist">Prüfe, ob Musikdateien vorhanden sind...</system:String>
+    <system:String x:Key="CouldNotFindAllMusicFilesAt">Kann nicht alle Musikdateien finden in</system:String>
+    <system:String x:Key="AttemptingToCopyMusicFiles">Versuche Musikdateien zu kopieren ...</system:String>
 
-    <system:String x:Key="OggMusicFilesAreMissing">Es fehlen .ogg-Musikdatein!</system:String>
-    <system:String x:Key="InOrderToHearHighQualityMusicYouWillNeedMessage" xml:space="preserve">Um hochwertige Hintergrundmusik zu hören, müssen Sie einen Musik-Mod herunterladen und aktivieren.
+    <system:String x:Key="OggMusicFilesAreMissing">Es fehlen .ogg-Musikdateien!</system:String>
+    <system:String x:Key="InOrderToHearHighQualityMusicYouWillNeedMessage" xml:space="preserve">Um hochwertige Hintergrundmusik zu hören, müssen Sie einen Musikmod herunterladen und aktivieren.
 
 Alternativ können Sie sich die originale MIDI-Musik des Spiels in geringer Qualität anhören. Dazu müssen Sie jedoch "Originale MIDI" unter "Musikoptionen" auswählen. Diese Option finden Sie unter "Einstellungen" > "Spieltreiber konfigurieren..." > "Erweitert".
 
@@ -820,9 +820,9 @@ Wenn Sie später hochwertige .ogg-Dateien verwenden möchten, schalten Sie die E
     <system:String x:Key="LookingForGameDiscAfterMounting">Suche nach einer Spiele-Disc nach dem Einbinden...</system:String>
     <system:String x:Key="FailedToFindGameDiscAfterAutoMounting">Spiele-Disc konnte nach dem automatischen Einbinden nicht gefunden werden...</system:String>
 
-    <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla">Der Benutzer möchte ohne Mods spielen. Das Spiel wird als "Vanilla" gestartet...</system:String>
-    <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla">Es wurden keine Mods aktiviert. Das Spiel wird als "Vanilla" gestartet...</system:String>
-    <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla">Der ausgewählte Renderer ist nicht auf "Benutzerdefinierter 7H-Spieletreiber" eingestellt. Das Spiel wird als "Vanilla" gestartet...</system:String>
+    <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla">Der Benutzer möchte ohne Mods spielen. Das Spiel wird in seiner "Vanilla"-Version gestartet...</system:String>
+    <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla">Es wurden keine Mods aktiviert. Das Spiel wird in seiner "Vanilla"-Version gestartet...</system:String>
+    <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla">Der ausgewählte Renderer ist nicht auf "Benutzerdefinierter 7H-Spieletreiber" eingestellt. Das Spiel wird in seiner "Vanilla"-Version gestartet...</system:String>
 
     <system:String x:Key="CreatingRuntimeProfile">Laufzeitprofil wird erstellt...</system:String>
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">Es konnte kein Laufzeitprofil für aktive Mods erstellt werden...</system:String>
@@ -830,7 +830,7 @@ Wenn Sie später hochwertige .ogg-Dateien verwenden möchten, schalten Sie die E
     <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Variabler Dump wurde auf "true" gestellt. "TurBoLog" wird gestartet...</system:String>
     <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Kopieren von "7thWrapperLoader.dll" in den FF7-Pfad (falls nicht gefunden oder ältere Version erkannt)...</system:String>
 
-    <system:String x:Key="CopyingFf7InputCfgToFf7Path">Kopieren von ff7input.cfg in den FF7-Pfad ...</system:String>
+    <system:String x:Key="CopyingFf7InputCfgToFf7Path">Kopieren von "ff7input.cfg" in den FF7-Pfad ...</system:String>
     <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Debug-Protokollierung auf "true" gestellt. Die detaillierte Protokollierung wird geschrieben in</system:String>
 
     <system:String x:Key="CheckingIfReunionModIsInstalled">Prüfe, ob der Reunion-Mod installiert ist...</system:String>
@@ -1018,7 +1018,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ControlsBackground">Hintergrundaktivierung:</system:String>
     <system:String x:Key="ControlsForeground">Vordergrundaktivierung:</system:String>
     <system:String x:Key="ControlsSecondary">Sekundärtext:</system:String>
-    <system:String x:Key="ControlsMouseOver">Mouse-over:</system:String>
+    <system:String x:Key="ControlsMouseOver">Mouse-Over:</system:String>
     <system:String x:Key="ControlsPressed">Tastenbetätigung:</system:String>
     <system:String x:Key="ImportTheme">Schema importieren</system:String>
 
@@ -1121,7 +1121,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="AppHint22">Klicken Sie mit der rechten Maustaste auf die Pfeile in der Seitenleiste, um einen Mod nach oben oder unten zu verschieben.</system:String>
     <system:String x:Key="AppHint23">Haben Sie Ihre Spaltenansichten verfälscht? Klicken Sie in der Seitenleiste auf die Schaltfläche "Tab zurücksetzen".</system:String>
     <system:String x:Key="AppHint24">Korrigieren Sie "Unbekannte" Mod-Kategorien, indem Sie auf den Pfeil in der Spalte unter "Kategorie" klicken.</system:String>
-    <system:String x:Key="AppHint25">Antworten auf viele Fragen oder Probleme finden Sie im Forum unter https://forums.qhimm.com oder im Qhimm Discord.</system:String>
+    <system:String x:Key="AppHint25">Antworten auf viele Fragen oder Probleme finden Sie im Qhimm-Forum unter https://forums.qhimm.com oder im Qhimm-Discord.</system:String>
     <system:String x:Key="AppHint26">Antworten auf viele Fragen oder Probleme finden Sie im Hilfemenü.</system:String>
     <system:String x:Key="AppHint27">Ändern Sie die Grafikeinstellungen Ihres Spiels, indem Sie zu "Einstellungen" > "Spieltreiber konfigurieren..." navigieren.</system:String>
     <system:String x:Key="AppHint28">Ändern Sie die Aktualisierungseinstellungen jedes Mods über den Dropdown-Pfeil im Mod-Info-Panel.</system:String>
@@ -1180,10 +1180,10 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="SetInGameControls">Spielsteuerung festlegen</system:String>
     <system:String x:Key="Keyboard">TASTATUR</system:String>
     <system:String x:Key="Controller">CONTROLLER</system:String>
-    <system:String x:Key="ConfirmLabel">[O.K.]</system:String>
-    <system:String x:Key="CancelLabel">[ABBRUCH]</system:String>
+    <system:String x:Key="ConfirmLabel">[AUSWÄHLEN]</system:String>
+    <system:String x:Key="CancelLabel">[ABBRECHEN]</system:String>
     <system:String x:Key="MenuLabel">[MENÜ]</system:String>
-    <system:String x:Key="SwitchLabel">[WECHSELN]</system:String>
+    <system:String x:Key="SwitchLabel">[UMSCHALTEN]</system:String>
     <system:String x:Key="ScrollUpLabel">[BILD HOCH]</system:String>
     <system:String x:Key="ScrollDownLabel">[BILD RUNTER]</system:String>
 
@@ -1192,14 +1192,14 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="AssistLabel">[HILFE]</system:String>
     <system:String x:Key="StartLabel">[START]</system:String>
 
-    <system:String x:Key="UpLabel">[OBEN]</system:String>
-    <system:String x:Key="DownLabel">[UNTEN]</system:String>
+    <system:String x:Key="UpLabel">[HOCH]</system:String>
+    <system:String x:Key="DownLabel">[RUNTER]</system:String>
     <system:String x:Key="LeftLabel">[LINKS]</system:String>
     <system:String x:Key="RightLabel">[RECHTS]</system:String>
 
     <system:String x:Key="Presets">Voreinstellungen:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">PS4 mit XInput</system:String>
-    <system:String x:Key="PS4ControllerSupportTooltip">Ermöglicht die Verwendung eines PS4-Controllers mit dem Spiel als XInput-Gerät und die Steuerung der Maus mit dem Controller-Touchpad (SCP-Treiber muss installiert sein).</system:String>
+    <system:String x:Key="PS4ControllerSupportTooltip">Ermöglicht die Verwendung eines PS4-Controllers als XInput-Gerät und die Steuerung der Maus mit dem Controller-Touchpad im Spiel (SCP-Treiber muss installiert sein).</system:String>
     <system:String x:Key="SaveChangesTooltip">Steuerung speichern.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Öffnet die Controllereinstellungen</system:String>
@@ -1207,7 +1207,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ControlsTooltip">Legt Ihre Tastatur- und Gamepad-Steuerung im Spiel fest. Klicken Sie auf das Symbol "Speichern", um die oben genannten Steuerungszuordnungen als benutzerdefinierte Konfiguration zu speichern.</system:String>
 
 
-    <system:String x:Key="StartingPS4ControllerService">Starte PS4 Controller Dienst...</system:String>
+    <system:String x:Key="StartingPS4ControllerService">Starte den Dienst für PS4-Controller...</system:String>
     <system:String x:Key="ServiceAlreadyRunning">Dienst läuft bereits...</system:String>
 
     <system:String x:Key="RetryInstallTooltip">Mod-Installation wiederholen</system:String>
@@ -1219,7 +1219,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="ImportMoviesFromDisc">Videos importieren</system:String>
 
     <system:String x:Key="EnableTriggerDpadSupport">Dpad mit DInput</system:String>
-    <system:String x:Key="TriggerDpadSupportTooltip">Emuliert Dpad im Spiel durch Senden der entsprechenden Tastaturtaste. Deaktivieren, wenn ein XInput-Controller oder ein externes Tool wie Joytokey verwendet wird.</system:String>
+    <system:String x:Key="TriggerDpadSupportTooltip">Emuliert ein Dpad im Spiel durch Senden der entsprechenden Tastaturtasten. Deaktivieren Sie diese Funktion, wenn Sie einen XInput-Controller oder ein externes Tool wie "JoyToKey" verwenden.</system:String>
 
     <system:String x:Key="MountDiscWithPowershell">Spiele-Disc mit "PowerShell" einbinden</system:String>
 	<system:String x:Key="MountDiscWithWinCDEmu">Spiele-Disc mit "WinCDEmu" einbinden</system:String>
@@ -1235,7 +1235,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
     <system:String x:Key="VerifyingEnglishGameFilesExist">Prüfe, ob die englischen Spieldateien vorhanden sind...</system:String>
-    <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Installierte Spachdateien gefunden in: {0}. Erstelle englische Spieldateien...</system:String>
+    <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Installierte Sprachdateien gefunden in: {0}. Erstelle englische Spieldateien...</system:String>
     <system:String x:Key="ExtractingLGPFiles">Entpacke .lgp-Dateien...</system:String>
     <system:String x:Key="RenamingLanguageSpecificFiles">Bennene sprachbezogene Dateien um...</system:String>
     <system:String x:Key="CouldNotFindFileToRename">Datei zum Umbenennen konnte nicht gefunden werden: {0}...</system:String>
@@ -1245,7 +1245,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="WaitingForFF7WindowToBeVisible">Warte darauf, dass das FF7-Fenster angezeigt wird (maximal {0} Sekunden)...</system:String>
     <system:String x:Key="CouldNotFindFileToCopy">Datei zum Kopieren konnte nicht gefunden werden: {0}...</system:String>
     <system:String x:Key="AnErrorOccurredStartingULGP">Beim Starten von "ulgp.exe" ist ein Fehler aufgetreten...</system:String>
-    <system:String x:Key="UpdatingPathsInSysSettings">Aktualisiere der Pfade in "Sys.Settings" mit neuem Installationspfad...</system:String>
+    <system:String x:Key="UpdatingPathsInSysSettings">Aktualisiere der Pfade in "sys.settings" mit neuem Installationspfad...</system:String>
     <system:String x:Key="ForceMinimizingProgram">Erzwinge Minimierung des Programms...</system:String>
     <system:String x:Key="FailedToStartAdditionalProgram">Fehler beim Starten des zusätzlichen Programms: {0}</system:String>
 

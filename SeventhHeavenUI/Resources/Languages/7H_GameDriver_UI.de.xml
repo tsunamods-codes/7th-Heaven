@@ -125,7 +125,7 @@
   <Setting xsi:type="Checkbox">
     <Group>Grafik</Group>
     <Name>Vertikale Synchronisierung</Name>
-    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeits-Hack!*</Description>
+    <Description>Synchronisiert die Bildrate des Spiels mit der Bildwiederholfrequenz des Monitors. Kann sich negativ auf die Leistung auswirken oder den 60-fps-Mod beeinträchtigen. Schalten Sie die Funktion ein, wenn Bildstörungen auftreten. *Begrenzt den Geschwindigkeitshack!*</Description>
     <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
@@ -248,7 +248,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Musikoptionen</Name>
-    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musik-Mods. Ansonsten werden "Originale MIDI" verwendet.</Description>
+    <Description>Verwendet "VGMStream", um hochwertige Vorbis-Musik im .ogg-Format abzuspielen. Erforderlich für Musikmods. Ansonsten werden "Originale MIDI" verwendet.</Description>
     <DefaultValue>use_external_music = false</DefaultValue>
     <Option>
       <Text>VGMStream (empfohlen)</Text>
@@ -263,7 +263,7 @@
     <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Videooptionen</Name>
-    <Description>Verwendet "FFMPEG" für die Wiedergabe von Zwischensequenzen (FMVs). Oder verwendet den "Original-Renderer", der möglicherweise nicht so viele Videocodecs unterstützt.</Description>
+    <Description>Verwendet "FFMPEG" oder "Originaler Renderer" für die Wiedergabe von Zwischensequenzen (FMVs). Letzterer unterstützt möglicherweise nicht so viele Videocodecs.</Description>
     <DefaultValue>enable_ffmpeg_videos = 1</DefaultValue>
     <Option>
       <Text>Automatisch (empfohlen)</Text>
@@ -274,7 +274,7 @@
       <Settings>enable_ffmpeg_videos = 1</Settings>
     </Option>
     <Option>
-      <Text>Original-Renderer</Text>
+      <Text>Originaler Renderer</Text>
       <Settings>enable_ffmpeg_videos = 0</Settings>
     </Option>
   </Setting>
