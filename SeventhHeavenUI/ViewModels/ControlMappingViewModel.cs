@@ -47,8 +47,6 @@ namespace SeventhHeaven.ViewModels
         private bool _isPs4SupportChecked;
         private bool _isInstallingDriver;
 
-        private bool _isAutoRunChecked;
-
         private string _okKeyboardText;
         private string _cancelKeyboardText;
         private string _menuKeyboardText;
@@ -731,7 +729,7 @@ namespace SeventhHeaven.ViewModels
         }
 
 
-        public bool IsAutoRunChecked
+        public static bool IsAutoRunChecked
         {
             get
             {
