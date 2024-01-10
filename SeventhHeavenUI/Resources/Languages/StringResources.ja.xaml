@@ -1181,6 +1181,8 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="Presets">Presets:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">Enable PS4 Controller Support</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Allows to use a PS4 controller with the game (SCP driver must be installed)</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Save changes to controls.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Open Game Controllers Window</system:String>

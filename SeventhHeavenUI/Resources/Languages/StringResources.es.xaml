@@ -1202,6 +1202,8 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="Presets">Ajustes preestablecidos:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">Activar Driver XInput de PS4</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Permite usar un mando de PS4 con el juego como un dispositivo XInput y controlar el ratón con el panel táctil (debe estar instalado el driver SCP)</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Guardar los cambios de los controles.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Abrir la ventana Dispositivos de juego</system:String>

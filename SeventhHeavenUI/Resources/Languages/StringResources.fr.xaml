@@ -1189,6 +1189,8 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <system:String x:Key="Presets">Préréglages :</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">Activer le support des manettes PS4</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Permet d'utiliser une manette PS4 avec le jeu (le pilote SCP doit être installé)</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Enregistrer les modifications apportées aux contrôles.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Ouvrir la fenêtre des contôleurs de jeu</system:String>

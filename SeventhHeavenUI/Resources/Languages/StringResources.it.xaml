@@ -1193,6 +1193,8 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     <system:String x:Key="Presets">Preset:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">Abilita Supporto per Controller PS4</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Consente di usare un controller PS4 per giocare (i driver SCP devono essere già presenti)</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Salva cambiamenti.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Apri Finestra Controlli di Gioco</system:String>

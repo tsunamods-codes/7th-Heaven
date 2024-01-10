@@ -1200,6 +1200,8 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="Presets">Voreinstellungen:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">PS4 mit XInput</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Ermöglicht die Verwendung eines PS4-Controllers als XInput-Gerät und die Steuerung der Maus mit dem Controller-Touchpad im Spiel (SCP-Treiber muss installiert sein).</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Steuerung speichern.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Öffnet die Controllereinstellungen</system:String>

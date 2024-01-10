@@ -1195,6 +1195,8 @@
     <system:String x:Key="Presets">Προεπιλογές:</system:String>
     <system:String x:Key="EnablePS4ControllerSupport">Ενεργοποίηση υποστήριξης χειριστηρίου PS4</system:String>
     <system:String x:Key="PS4ControllerSupportTooltip">Επιτρέπει τη χρήση ενός χειριστηρίου PS4 με το παιχνίδι (πρέπει να είναι εγκατεστημένο το πρόγραμμα οδήγησης SCP)</system:String>
+    <system:String x:Key="EnableAutoRun">Enable Auto Run</system:String>
+    <system:String x:Key="AutoRunTooltip">This flag enables walking or running depending on how much the left analog stick is tilted (requires analog controls enabled)</system:String>
     <system:String x:Key="SaveChangesTooltip">Αποθήκευση αλλαγών στα στοιχεία ελέγχου.</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">Άνοιγμα Παραθύρου Χειριστηρίων Παιχνιδιού</system:String>
