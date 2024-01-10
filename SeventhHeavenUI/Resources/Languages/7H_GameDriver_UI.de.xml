@@ -336,7 +336,7 @@
   <Setting xsi:type="DropDown">
     <Group>Erweitert</Group>
     <Name>Interne Auflösungsskalierung</Name>
-    <Description>Multipliziert die interne Auflösung von 640x480 mit einem der folgenden Beträge. Höhere Werte erfordern eine leistungsfähigere Grafikkarte, können jedoch Skalierungsartefakte entfernen. HINWEIS: Gekennzeichnete Werte mit * sind ein optimaler Kompromiss zwischen Leistungseinbuße und Qualitätsteigerung.</Description>
+    <Description>Multipliziert die interne Auflösung von 640x480 mit einem der folgenden Beträge. Höhere Werte erfordern eine leistungsfähigere Grafikkarte, können jedoch Skalierungsartefakte entfernen. HINWEIS: Werte mit * sind ein optimaler Kompromiss zwischen Leistungseinbuße und Qualitätsteigerung.</Description>
 	<DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
       <Text>Automatisch</Text>
