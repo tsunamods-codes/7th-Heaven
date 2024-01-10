@@ -424,7 +424,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -532,7 +532,7 @@
                     Grid.ColumnSpan="4"
                     HorizontalAlignment="Left"
                     FontSize="11"
-                    Grid.Row="4"/>
+                    Grid.Row="5"/>
 
         </Grid>
     </Grid>
