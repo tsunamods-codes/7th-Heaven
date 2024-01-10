@@ -515,6 +515,16 @@
                       Grid.Row="2"
                       Grid.ColumnSpan="4"/>
 
+            <CheckBox x:Name="chkAutoRun"
+                      Style="{StaticResource ToggleSwitchCheckbox}"
+                      IsChecked="{Binding IsAutoRunChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      FontSize="13"
+                      Content="{DynamicResource EnableAutoRun}"
+                      ToolTip="{DynamicResource AutoRunTooltip}"
+                      HorizontalAlignment="Left"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="4"/>
+
             <Button x:Name="btnOpenGameControllersWindow"
                     Style="{StaticResource HyperlinkButton}"
                     Click="btnOpenGameControllersWindow_Click"

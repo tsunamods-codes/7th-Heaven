@@ -47,6 +47,8 @@ namespace SeventhHeaven.ViewModels
         private bool _isPs4SupportChecked;
         private bool _isInstallingDriver;
 
+        private bool _isAutoRunChecked;
+
         private string _okKeyboardText;
         private string _cancelKeyboardText;
         private string _menuKeyboardText;
@@ -725,6 +727,24 @@ namespace SeventhHeaven.ViewModels
             get
             {
                 return !_defaultControlNames.Any(s => s.Equals(SelectedGameConfigOption, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+
+        public bool IsAutoRunChecked
+        {
+            get
+            {
+                return Convert.ToBoolean(Sys.FFNxConfig.Get("enable_auto_run"));
+            }
+            set
+            {
+                if (value)
+                {
+                    Sys.FFNxConfig.Set("enable_analogue_controls", "true");
+                }
+                Sys.FFNxConfig.Set("enable_auto_run", value.ToString());
+                Sys.FFNxConfig.Save();
             }
         }
 
