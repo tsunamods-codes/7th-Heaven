@@ -66,14 +66,6 @@ steps:
     configuration: $(_RELEASE_CONFIGURATION)
     msbuildArgs: /p:WindowsTargetPlatformVersion=10.0.19041.0 /m
 - task: PowerShell@2
-  displayName: 'Package $(_RELEASE_NAME)'
-  inputs:
-    filePath: $(Build.Repository.LocalPath)\.ci\package.ps1
-    failOnStderr: true
-    pwsh: true
-  env:
-    buildPath: $(Build.Repository.LocalPath)
-- task: PowerShell@2
   displayName: 'Prepare $(_RELEASE_NAME) Installer'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.iss\build.ps1
