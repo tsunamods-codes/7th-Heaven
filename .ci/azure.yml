@@ -66,7 +66,6 @@ steps:
     configuration: $(_RELEASE_CONFIGURATION)
     msbuildArgs: /p:WindowsTargetPlatformVersion=10.0.19041.0 /m
 - task: PowerShell@2
-  condition: and(not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
   displayName: 'Package $(_RELEASE_NAME)'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.ci\package.ps1
@@ -75,7 +74,6 @@ steps:
   env:
     buildPath: $(Build.Repository.LocalPath)
 - task: PowerShell@2
-  condition: and(not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
   displayName: 'Prepare $(_RELEASE_NAME) Installer'
   inputs:
     filePath: $(Build.Repository.LocalPath)\.iss\build.ps1
@@ -85,7 +83,7 @@ steps:
     buildPath: $(Build.Repository.LocalPath)
 - task: PublishPipelineArtifact@1
   displayName: 'Publish $(_RELEASE_NAME) Artifact'
-  condition: and(eq(variables._IS_GITHUB_RELEASE, 'false'), not(contains(variables._BUILD_BRANCH, 'refs/pull/')), succeeded())
+  condition: and(eq(variables._IS_GITHUB_RELEASE, 'false'), succeeded())
   inputs:
     targetPath: .dist\
     artifactName: $(_RELEASE_NAME)-$(_RELEASE_VERSION)
