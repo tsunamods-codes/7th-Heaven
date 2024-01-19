@@ -85,7 +85,7 @@
   <Setting xsi:type="DropDown">
     <Group>Graphics</Group>
     <Name>Antialiasing</Name>
-    <Description>Applies 2x/4x/8x/16x MSAA filtering. Reduces jagged edges and improves image quality. Can severely impact performance.</Description>
+    <Description>Applies 2x or 4x MSAA filtering. Reduces jagged edges and improves image quality. Can severely impact performance.</Description>
     <DefaultValue>enable_antialiasing = 0</DefaultValue>
     <Option>
       <Text>Off</Text>
@@ -98,14 +98,6 @@
     <Option>
       <Text>4x MSAA</Text>
       <Settings>enable_antialiasing = 4</Settings>
-    </Option>
-    <Option>
-      <Text>8x MSAA</Text>
-      <Settings>enable_antialiasing = 8</Settings>
-    </Option>
-    <Option>
-      <Text>16x MSAA</Text>
-      <Settings>enable_antialiasing = 16</Settings>
     </Option>
   </Setting>
 
