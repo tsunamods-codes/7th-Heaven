@@ -16,10 +16,6 @@
       <Settings>renderer_backend = 1</Settings>
     </Option>
     <Option>
-      <Text>DirectX 9 (experimentell)</Text>
-      <Settings>renderer_backend = 2</Settings>
-    </Option>
-    <Option>
       <Text>DirectX 11</Text>
       <Settings>renderer_backend = 3</Settings>
     </Option>
