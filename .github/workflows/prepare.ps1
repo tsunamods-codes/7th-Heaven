@@ -21,11 +21,17 @@ Write-Output "VCPKG BRANCH: $vcpkgBranchName"
 Write-Output "VCPKG BASELINE: $vcpkgBaseline"
 Write-Output "--------------------------------------------------"
 
-Write-Host "##vso[task.setvariable variable=_BUILD_VERSION;]${env:_BUILD_VERSION}"
-Write-Host "##vso[task.setvariable variable=_RELEASE_VERSION;]${env:_RELEASE_VERSION}"
-Write-Host "##vso[task.setvariable variable=_IS_BUILD_CANARY;]${env:_IS_BUILD_CANARY}"
-Write-Host "##vso[task.setvariable variable=_IS_GITHUB_RELEASE;]${env:_IS_GITHUB_RELEASE}"
+Write-Output "_BUILD_VERSION=${env:_BUILD_VERSION}" >> ${env:GITHUB_ENV}
+Write-Output "_RELEASE_VERSION=${env:_RELEASE_VERSION}" >> ${env:GITHUB_ENV}
+Write-Output "_IS_BUILD_CANARY=${env:_IS_BUILD_CANARY}" >> ${env:GITHUB_ENV}
+Write-Output "_IS_GITHUB_RELEASE=${env:_IS_GITHUB_RELEASE}" >> ${env:GITHUB_ENV}
 
+# Add Github Packages registry
+nuget sources add -Name github -Source "https://nuget.pkg.github.com/${env:GITHUB_REPOSITORY_OWNER}/index.json" -Username ${env:GITHUB_REPOSITORY_OWNER} -Password ${env:GITHUB_PACKAGES_PAT} -StorePasswordInClearText
+nuget setApiKey ${env:GITHUB_PACKAGES_PAT} -Source "https://nuget.pkg.github.com/${env:GITHUB_REPOSITORY_OWNER}/index.json"
+nuget sources list
+
+# Vcpkg setup
 git -C $vcpkgRoot pull --all
 git -C $vcpkgRoot checkout $vcpkgBaseline
 git -C $vcpkgRoot clean -fxd
@@ -34,4 +40,5 @@ cmd.exe /c "call $vcpkgRoot\bootstrap-vcpkg.bat"
 
 vcpkg integrate install
 
+# Prepare for distribution
 mkdir ${env:buildPath}\.dist | Out-Null

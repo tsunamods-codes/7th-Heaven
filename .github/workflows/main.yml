@@ -1,0 +1,101 @@
+name: 7th-Heaven
+
+run-name: 3.3.1.${{ github.run_number }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+    tags:
+    - "*"
+  pull_request:
+    branches:
+    - master
+
+env:
+  _IS_BUILD_CANARY: false
+  _IS_GITHUB_RELEASE: false
+  _RELEASE_NAME: 7thHeaven
+  _RELEASE_VERSION: v0
+  _RELEASE_CONFIGURATION: Release
+  _BUILD_BRANCH: "${{ github.ref }}"
+  _BUILD_VERSION: "3.3.1.${{ github.run_number }}"
+  _CHANGELOG_VERSION: "0"
+  # VCPKG: Enable Binary Caching
+  VCPKG_BINARY_SOURCES: clear;nuget,github,readwrite
+  # GIT: Fix reporting from stderr to stdout
+  GIT_REDIRECT_STDERR: 2>&1
+
+jobs:
+  CICD:
+    runs-on: windows-latest
+    timeout-minutes: 1440
+    strategy:
+      max-parallel: 1
+    steps:
+    - name: Set Git Config
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.filemode false
+        git config --global core.longpaths true
+    - name: Checkout
+      uses: actions/checkout@v4.1.0
+    - name: Prepare Environment
+      run: ".github/workflows/prepare.ps1"
+      shell: pwsh
+      env:
+        GITHUB_PACKAGES_PAT: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set versions in AssemblyInfo.cs
+      id: set-assembly-version
+      uses: secondbounce/assemblyinfo-update@v2
+      with:
+        version: "${{ env._BUILD_VERSION }}"
+        recursive: true
+    - name: Restore NuGet Packages
+      run: nuget restore ${{ github.workspace }}\${{ env._RELEASE_NAME }}.sln
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.2
+    - name: Run MSBuild
+      run: msbuild ${{ github.workspace }}\${{ env._RELEASE_NAME }}.sln /p:WindowsTargetPlatformVersion=10.0.19041.0 /m -p:Configuration=${{ env._RELEASE_CONFIGURATION }} -p:Platform="Any CPU"
+    - name: Prepare Installer
+      env:
+        BUILDPATH: "${{ github.workspace }}"
+      run: "${{ github.workspace }}\\.iss\\build.ps1"
+      shell: pwsh
+    - name: Publish PR artifacts
+      if: env._IS_GITHUB_RELEASE == 'false' && success()
+      uses: actions/upload-artifact@v4.0.0
+      with:
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        path: ".dist/*.exe"
+    - name: Publish Canary release
+      uses: ncipollo/release-action@v1
+      if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'true' && success()
+      with:
+        artifacts: ".dist/*.exe"
+        allowUpdates: true
+        generateReleaseNotes: true
+        prerelease: true
+        removeArtifacts: true
+        tag: canary
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        body: |
+          This is a canary build. Please be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!
+    - name: Publish Stable release
+      uses: ncipollo/release-action@v1
+      if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'false' && success()
+      with:
+        artifacts: ".dist/*.exe"
+        generateReleaseNotes: true
+        makeLatest: true
+        removeArtifacts: true
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+    - name: Send alerts
+      if: env._IS_GITHUB_RELEASE == 'true' && success()
+      env:
+        _MAP_7TH_INTERNAL: "${{ secrets._7TH_INTERNAL }}"
+        _MAP_7TH_QHIMM: "${{ secrets._7TH_QHIMM }}"
+        _MAP_7TH_TSUNAMODS: "${{ secrets._7TH_TSUNAMODS }}"
+      run: ".github/workflows/alert.ps1"
+      shell: pwsh

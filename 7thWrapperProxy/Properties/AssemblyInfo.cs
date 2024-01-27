@@ -10,11 +10,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("7thWrapperLib")]
+[assembly: AssemblyTitle("7thWrapperProxy")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("7thWrapperLib")]
+[assembly: AssemblyProduct("7thWrapperProxy")]
 [assembly: AssemblyCopyright("Tsunamods © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("243e30d2-cd6a-424b-bd58-5356dfbe0e12")]
+[assembly: Guid("baa477a8-d4ca-42ca-beb0-4461baac8a23")]
 
 // Version information for an assembly consists of the following four values:
 //
