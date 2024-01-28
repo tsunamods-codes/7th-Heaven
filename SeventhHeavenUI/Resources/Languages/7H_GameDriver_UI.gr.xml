@@ -99,14 +99,6 @@
       <Text>4x MSAA</Text>
       <Settings>enable_antialiasing = 4</Settings>
     </Option>
-    <Option>
-      <Text>8x MSAA</Text>
-      <Settings>enable_antialiasing = 8</Settings>
-    </Option>
-    <Option>
-      <Text>16x MSAA</Text>
-      <Settings>enable_antialiasing = 16</Settings>
-    </Option>
   </Setting>
 
   <Setting xsi:type="Checkbox">
