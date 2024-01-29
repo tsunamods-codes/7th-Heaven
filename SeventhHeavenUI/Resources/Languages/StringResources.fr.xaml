@@ -953,6 +953,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">Graphismes</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
     <system:String x:Key="Cheats">Fonctions de triche</system:String>
     <system:String x:Key="Rendering">Rendu</system:String>
 	    <system:String x:Key="Advanced">Avancé</system:String>

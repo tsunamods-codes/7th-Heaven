@@ -958,6 +958,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
 
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">Gráficos</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
     <system:String x:Key="Cheats">Trapaça</system:String>
     <system:String x:Key="Rendering">Renderização</system:String>
     <system:String x:Key="Advanced">Avançado</system:String>

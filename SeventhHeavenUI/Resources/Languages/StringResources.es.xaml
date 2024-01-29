@@ -964,6 +964,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
 
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">Gráficos</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
     <system:String x:Key="Rendering">Renderizado</system:String>
     <system:String x:Key="Cheats">Trucos</system:String>
     <system:String x:Key="Advanced">Avanzado</system:String>

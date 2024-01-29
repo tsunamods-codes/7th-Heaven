@@ -947,6 +947,7 @@ Do you want to apply the setting and try again?</system:String>
 
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">Graphics</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
     <system:String x:Key="Rendering">Rendering</system:String>
     <system:String x:Key="Advanced">Advanced</system:String>
 

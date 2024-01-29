@@ -221,7 +221,7 @@
     </Option>
   </Setting>
 
-  <!-- ADVANCED TAB -->
+  <!-- CONTROLS TAB -->
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>
     <Name>Control analógico</Name>
@@ -230,6 +230,35 @@
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
   </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>Auto run</Name>
+    <Description>Enable the auto run behavior. This will make Cloud automatically run depending on how much the left analog stick is tilted.</Description>
+    <DefaultValue>enable_auto_run = false</DefaultValue>
+    <TrueSetting>enable_auto_run = true</TrueSetting>
+    <FalseSetting>enable_auto_run = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>Invert Horizontal Controls</Name>
+    <Description>Enable to invert the camera horizontal movement when controlling the camera in battles.</Description>
+    <DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>Invert Vertical Controls</Name>
+    <Description>Enable to invert the camera vertical movement when controlling the camera in battles.</Description>
+    <DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <!-- ADVANCED TAB -->
 
   <Setting xsi:type="Checkbox">
     <Group>Avanzado</Group>

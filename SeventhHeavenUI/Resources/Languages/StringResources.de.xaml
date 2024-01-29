@@ -962,6 +962,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">Grafik</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
     <system:String x:Key="Rendering">Renderer</system:String>
     <system:String x:Key="Cheats">Cheats</system:String>
     <system:String x:Key="Advanced">Erweitert</system:String>

@@ -436,6 +436,7 @@
         Active,
         Japanese,
         Graphics,
+        Controls,
         Cheats,
         Rendering,
         Advanced,
