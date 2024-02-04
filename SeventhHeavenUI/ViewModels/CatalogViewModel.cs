@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -894,18 +895,27 @@ namespace SeventhHeavenUI.ViewModels
                         break;
 
                     case LocationType.GDrive:
-                        var gd = new GDrive();
+                        FileDownloadTask gdriveDownload = new FileDownloadTask(location, downloadInfo.SaveFilePath, downloadInfo, new CookieContainer(), FileDownloadTaskMode.GDRIVE);
+
                         downloadInfo.PerformCancel = () =>
                         {
-                            gd.CancelAsync();
+                            gdriveDownload.CancelAsync();
                             downloadInfo.OnCancel?.Invoke();
                         };
 
-                        gd.DownloadProgressChanged += _wc_DownloadProgressChanged;
-                        gd.FileDownloadProgressChanged += WebRequest_DownloadProgressChanged;
-                        gd.DownloadFileCompleted += WebRequest_DownloadFileCompleted;
+                        gdriveDownload.DownloadProgressChanged += WebRequest_DownloadProgressChanged;
+                        gdriveDownload.DownloadFileCompleted += WebRequest_DownloadFileCompleted;
 
-                        gd.Download(location, downloadInfo.SaveFilePath, downloadInfo);
+                        if (downloadInfo.IsModOrPatchDownload)
+                        {
+                            // try resuming partial downloads for mods
+                            gdriveDownload.SetBytesWrittenFromExistingFile();
+                        }
+
+                        downloadInfo.FileDownloadTask = gdriveDownload;
+                        gdriveDownload.downloadItem = downloadInfo;
+                        gdriveDownload.Start();
+
                         break;
 
                     case LocationType.MegaSharedFolder:
@@ -1277,29 +1287,6 @@ namespace SeventhHeavenUI.ViewModels
                     Download(nextDownload.Download.Links, nextDownload.Download);
                 }
             }
-        }
-
-        void _wc_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
-        {
-            DownloadItem item = (DownloadItem)e.UserState;
-
-            long totalBytes = e.TotalBytesToReceive;
-
-            if (item.Category == DownloadCategory.Image && e.TotalBytesToReceive > 3 * 1000000)
-            {
-                Logger.Warn("preview image greater than 3MB, cancelling download");
-                item.PerformCancel?.Invoke();
-                return;
-            }
-
-            int prog = e.ProgressPercentage;
-            if ((e.TotalBytesToReceive < 0) && (sender is GDrive))
-            {
-                totalBytes = (sender as GDrive).GetContentLength();
-                prog = (int)(100 * e.BytesReceived / totalBytes);
-            }
-
-            UpdateDownloadProgress(item, prog, e.BytesReceived, totalBytes);
         }
 
         private void CompleteIProc(DownloadItem item, AsyncCompletedEventArgs e)

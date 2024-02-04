@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
@@ -8,6 +11,12 @@ using System.Threading.Tasks;
 
 namespace _7thHeaven.Code
 {
+    public enum FileDownloadTaskMode
+    {
+        HTTP = 0,
+        GDRIVE = 1
+    }
+
     /// <summary>
     /// Downloads a file using <see cref="WebRequest"/> which allows for pausing and resuming capability.
     /// </summary>
@@ -28,6 +37,8 @@ namespace _7thHeaven.Code
         private int _chunkSize;
         private long? _contentLength;
         private bool _checkedContentRange;
+        private FileDownloadTaskMode _fdtMode;
+        private Uri _responseUri;
 
         private object _userState;
         private object _lock = new object();
@@ -89,7 +100,7 @@ namespace _7thHeaven.Code
 
         public DownloadItem downloadItem { get; set; }
 
-        public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null, int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
+        public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null, FileDownloadTaskMode fdtMode = default, int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
         {
             System.Net.ServicePointManager.Expect100Continue = false; // ensure this is set to false
             AllowedToRun = true;
@@ -101,10 +112,21 @@ namespace _7thHeaven.Code
             _contentLength = null;
             _userState = userState;
             _isStarted = false;
+            _fdtMode = fdtMode;
 
             _cookies = cookies;
 
             BytesWritten = 0;
+
+            switch (_fdtMode)
+            {
+                case FileDownloadTaskMode.GDRIVE:
+                    // Examples:
+                    // - https://docs.google.com/uc?id=0B-Q_AObuWRSXNW9rb3FxS0F1Qk0&export=download
+                    // - https://docs.google.com/uc?export=download&confirm=_bQe&id=0B-Q_AObuWRSXNW9rb3FxS0F1Qk0
+                    _sourceUrl = String.Format("https://docs.google.com/uc?id={0}&export=download", source); ;
+                    break;
+            }
         }
 
         private async Task Start(long range)
@@ -114,7 +136,7 @@ namespace _7thHeaven.Code
 
             var handler = _cookies != null ? new HttpClientHandler() { CookieContainer = _cookies } : new HttpClientHandler();
             var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0");
             if (Headers != null)  client.DefaultRequestHeaders.Add("Referer", Headers["Referer"]);
             var request = new HttpRequestMessage { RequestUri = new Uri(_sourceUrl) };
             if (range > 0) request.Headers.Range = new RangeHeaderValue(0, range);
@@ -126,6 +148,7 @@ namespace _7thHeaven.Code
                 {
                     _checkedContentRange = true;
                     _contentLength = response.Content.Headers.ContentLength;
+                    _responseUri = response.RequestMessage.RequestUri;
                 }
 
                 Stream responseStream = response.Content.ReadAsStream();
@@ -151,13 +174,21 @@ namespace _7thHeaven.Code
                     BytesWritten += bytesRead;
 
                     float prog = (float)BytesWritten / (float)ContentLength;
-                    var e = new ProgressChangedEventArgs((int)(prog * 100), _userState);
-                    DownloadProgressChanged?.Invoke(this, e);
+                    DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
+
+                    if (IsCanceled) break;
                 }
 
                 await fs.FlushAsync();
                 fs.Close();
                 responseStream.Close();
+
+                switch (_fdtMode)
+                {
+                    case FileDownloadTaskMode.GDRIVE:
+                        await EnsureGDriveFile(_destination, response.Content.Headers.ContentType.MediaType);
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -229,6 +260,105 @@ namespace _7thHeaven.Code
 
             IsCanceled = true;
             AllowedToRun = false;
+        }
+
+        private async Task EnsureGDriveFile(string file, string contentType)
+        {
+            if (contentType.Contains("html"))
+            {
+                if (new FileInfo(file).Length < 100 * 1024)
+                {
+                    try
+                    {
+                        string html = File.ReadAllText(file);
+                        var document = await BrowsingContext.New().OpenAsync(m => m.Content(html));
+
+                        var url = _responseUri + String.Format("&confirm={0}&uuid={1}", document.QuerySelector("input[name=\"confirm\"]").Attributes["value"].Value, document.QuerySelector("input[name=\"uuid\"]").Attributes["value"].Value);
+
+                        DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                        File.Delete(_destination); // delete temp html file just downloaded
+                        BytesWritten = 0;
+
+                        var handler = _cookies != null ? new HttpClientHandler() { CookieContainer = _cookies } : new HttpClientHandler();
+                        var client = new HttpClient(handler);
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0");
+                        client.DefaultRequestHeaders.Add("Referer", _sourceUrl);
+                        var request = new HttpRequestMessage { RequestUri = new Uri(url) };
+
+                        try
+                        {
+                            HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                            _contentLength = response.Content.Headers.ContentLength;
+
+                            Stream responseStream = response.Content.ReadAsStream();
+
+                            FileMode fileMode = FileMode.Append;
+
+                            if (!IsStarted)
+                            {
+                                fileMode = FileMode.Create;
+                            }
+
+                            FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
+
+                            while (AllowedToRun && !IsCanceled)
+                            {
+                                _isStarted = true;
+                                byte[] buffer = new byte[_chunkSize];
+                                int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+
+                                if (bytesRead == 0) break;
+
+                                await fs.WriteAsync(buffer, 0, bytesRead);
+                                BytesWritten += bytesRead;
+
+                                float prog = (float)BytesWritten / (float)ContentLength;
+                                DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
+
+                                if (IsCanceled) break;
+                            }
+
+                            await fs.FlushAsync();
+                            fs.Close();
+                            responseStream.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            downloadItem.OnCancel?.Invoke();
+                            throw new Exception("Failed to download - Please report this to 7th-Heaven-Bugs channel in the Tsunamods Discord", ex);
+                        }
+
+                        if (AllowedToRun && !IsCanceled && (BytesWritten == ContentLength) || (ContentLength == -1)) // -1 is returned when response doesnt have the content-length
+                        {
+                            DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                        }
+                        else if (IsCanceled)
+                        {
+                            DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
+                        }
+
+                        return;
+                    }
+                    catch (HtmlParseException ex)
+                    {
+                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(ex, false, _userState));
+                    }
+                    finally
+                    {
+                        // the file downloaded without being redirected by google (to confirm the download)
+                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                    }
+                }
+                else
+                {
+                    DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                }
+            }
+            else
+            {
+                // actual file being downloaded has finished successfully at this point
+                DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+            }
         }
     }
 }

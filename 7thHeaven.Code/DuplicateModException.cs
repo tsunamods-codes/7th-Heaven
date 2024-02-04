@@ -17,9 +17,5 @@ namespace _7thHeaven.Code
         public DuplicateModException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        protected DuplicateModException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }
