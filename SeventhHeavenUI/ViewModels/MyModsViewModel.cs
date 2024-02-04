@@ -332,13 +332,16 @@ namespace SeventhHeavenUI.ViewModels
         internal void ReloadModListFromUIThread(Guid? modToSelect = null, string searchText = "", IEnumerable<FilterItemViewModel> categories = null, IEnumerable<FilterItemViewModel> tags = null)
         {
             App.Current.Dispatcher.Invoke(() =>
-            {
-                ReloadModList(modToSelect, searchText, categories, tags);
-                
+            {   
                 // Auto sort mods on launch if user has the option active
                 if (Sys.Settings.HasOption(GeneralOptions.AutoSortMods))
                 {
+                    ReloadModList(modToSelect, "", categories, tags);
                     AutoSortBasedOnCategory();
+                }
+                else
+                {
+                    ReloadModList(modToSelect, searchText, categories, tags);
                 }
             });
         }
