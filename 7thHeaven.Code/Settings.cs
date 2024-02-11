@@ -6,6 +6,7 @@
 using _7thHeaven.Code;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -177,8 +178,17 @@ namespace Iros._7th.Workshop {
             defaultSettings.ExtraFolders.Add("voice");
             defaultSettings.ExtraFolders.Add("widescreen");
 
-            defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
-            defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Stable;
+            FileVersionInfo appVersion = FileVersionInfo.GetVersionInfo(Sys._7HExe);
+            if (appVersion.FilePrivatePart > 0 || appVersion.ProductPrivatePart > 0)
+            {
+                defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Canary;
+                defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Canary;
+            }
+            else
+            {
+                defaultSettings.FFNxUpdateChannel = FFNxUpdateChannelOptions.Stable;
+                defaultSettings.AppUpdateChannel = AppUpdateChannelOptions.Stable;
+            }
 
             defaultSettings.UserColumnSettings = ColumnSettings.GetDefaultSettings();
 

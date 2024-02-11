@@ -743,8 +743,8 @@ namespace SeventhHeaven.Classes
                 {
                     FFNxDriverUpdater updater = new FFNxDriverUpdater();
 
-                    SendMessage($"Download and extracting the latest FFNx Stable version to {Sys.InstallPath}...");
-                    updater.DownloadAndExtractLatestVersion(FFNxUpdateChannelOptions.Stable);
+                    SendMessage($"Download and extracting the latest FFNx {Sys.Settings.FFNxUpdateChannel} version to {Sys.InstallPath}...");
+                    updater.DownloadAndExtractLatestVersion(Sys.Settings.FFNxUpdateChannel);
                 }
                 catch (Exception ex)
                 {
