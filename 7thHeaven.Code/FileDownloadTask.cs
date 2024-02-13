@@ -273,6 +273,8 @@ namespace _7thHeaven.Code
                         string html = File.ReadAllText(file);
                         var document = await BrowsingContext.New().OpenAsync(m => m.Content(html));
 
+                        if (document.Title.Contains("Quota exceeded")) throw new Exception(document.Title);
+                        
                         var url = _responseUri + String.Format("&confirm={0}&uuid={1}", document.QuerySelector("input[name=\"confirm\"]").Attributes["value"].Value, document.QuerySelector("input[name=\"uuid\"]").Attributes["value"].Value);
 
                         DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
@@ -285,48 +287,40 @@ namespace _7thHeaven.Code
                         client.DefaultRequestHeaders.Add("Referer", _sourceUrl);
                         var request = new HttpRequestMessage { RequestUri = new Uri(url) };
 
-                        try
+                        HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                        _contentLength = response.Content.Headers.ContentLength;
+
+                        Stream responseStream = response.Content.ReadAsStream();
+
+                        FileMode fileMode = FileMode.Append;
+
+                        if (!IsStarted)
                         {
-                            HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                            _contentLength = response.Content.Headers.ContentLength;
-
-                            Stream responseStream = response.Content.ReadAsStream();
-
-                            FileMode fileMode = FileMode.Append;
-
-                            if (!IsStarted)
-                            {
-                                fileMode = FileMode.Create;
-                            }
-
-                            FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
-
-                            while (AllowedToRun && !IsCanceled)
-                            {
-                                _isStarted = true;
-                                byte[] buffer = new byte[_chunkSize];
-                                int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
-
-                                if (bytesRead == 0) break;
-
-                                await fs.WriteAsync(buffer, 0, bytesRead);
-                                BytesWritten += bytesRead;
-
-                                float prog = (float)BytesWritten / (float)ContentLength;
-                                DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
-
-                                if (IsCanceled) break;
-                            }
-
-                            await fs.FlushAsync();
-                            fs.Close();
-                            responseStream.Close();
+                            fileMode = FileMode.Create;
                         }
-                        catch (Exception ex)
+
+                        FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
+
+                        while (AllowedToRun && !IsCanceled)
                         {
-                            downloadItem.OnCancel?.Invoke();
-                            throw new Exception("Failed to download - Please report this to 7th-Heaven-Bugs channel in the Tsunamods Discord", ex);
+                            _isStarted = true;
+                            byte[] buffer = new byte[_chunkSize];
+                            int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+
+                            if (bytesRead == 0) break;
+
+                            await fs.WriteAsync(buffer, 0, bytesRead);
+                            BytesWritten += bytesRead;
+
+                            float prog = (float)BytesWritten / (float)ContentLength;
+                            DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
+
+                            if (IsCanceled) break;
                         }
+
+                        await fs.FlushAsync();
+                        fs.Close();
+                        responseStream.Close();
 
                         if (AllowedToRun && !IsCanceled && (BytesWritten == ContentLength) || (ContentLength == -1)) // -1 is returned when response doesnt have the content-length
                         {
@@ -336,17 +330,14 @@ namespace _7thHeaven.Code
                         {
                             DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                        File.Delete(_destination); // delete temp html file just downloaded
+                        BytesWritten = 0;
 
-                        return;
-                    }
-                    catch (HtmlParseException ex)
-                    {
-                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(ex, false, _userState));
-                    }
-                    finally
-                    {
-                        // the file downloaded without being redirected by google (to confirm the download)
-                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                        throw new Exception($"Failed to download", ex);
                     }
                 }
                 else
