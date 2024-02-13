@@ -629,7 +629,7 @@
     </PackageReference>
     <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="XamlAnimatedGif">
-      <Version>2.2.1</Version>
+      <Version>2.2.2</Version>
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
