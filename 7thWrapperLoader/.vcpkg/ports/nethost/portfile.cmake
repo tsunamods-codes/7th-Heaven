@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO dotnet/runtime
     REF "v${VERSION}"
-    SHA512 3f9150698f0689a17d99c053b53e10010807f835fd404e19ffd0574a58d1529ffdef3bfa67fdf1afc494e96262c0b0b8e74164a7cf69d934c84ce5017a2f77c9
+    SHA512 3b358a4aeaae4c075e2db786a4f58a03ad3ca82aae11d2620e6dc857186d041f9f48faf86083422df06a7a843a806984e75b9fde1f9904aacb251204968d838a
     HEAD_REF master
     PATCHES
         0001-nethost-cmakelists.patch
