@@ -63,6 +63,31 @@ jobs:
         BUILDPATH: "${{ github.workspace }}"
       run: "${{ github.workspace }}\\.iss\\build.ps1"
       shell: pwsh
+    - name: VirusTotal Scan
+      id: vt-scan
+      if: env._IS_GITHUB_RELEASE == 'true' && success()
+      uses: crazy-max/ghaction-virustotal@v4
+      with:
+        vt_api_key: ${{ secrets._VT_API_KEY }}
+        files: ".dist/*.exe"
+    - name: Parse VirusTotal Results
+      id: vt-res
+      if: env._IS_GITHUB_RELEASE == 'true' && success()
+      uses: actions/github-script@v7
+      with:
+        result-encoding: string
+        script: |
+          let ret = `${{ steps.vt-scan.outputs.analysis }}`;
+
+          ret = '- ' + ret
+          .replaceAll('.dist/','')
+          .replaceAll('=h', ': h')
+          .replaceAll(',', "\n- ");
+
+          console.log('Results:');
+          console.log(ret);
+
+          return ret;
     - name: Publish PR artifacts
       if: env._IS_GITHUB_RELEASE == 'false' && success()
       uses: actions/upload-artifact@v4.0.0
@@ -82,6 +107,9 @@ jobs:
         name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
         body: |
           This is a canary build. Please be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!
+
+          🛡️ **VirusTotal analysis:**
+          ${{ steps.vt-res.outputs.result }}
     - name: Publish Stable release
       uses: ncipollo/release-action@v1
       if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'false' && success()
@@ -91,6 +119,9 @@ jobs:
         makeLatest: true
         removeArtifacts: true
         name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        body: |
+          🛡️ **VirusTotal analysis:**
+          ${{ steps.vt-res.outputs.result }}
     - name: Send alerts
       if: env._IS_GITHUB_RELEASE == 'true' && success()
       env:
