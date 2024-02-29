@@ -221,6 +221,30 @@ begin
   Result := Dependency_String(' (x86)', ' (x64)');
 end;
 
+function WizardVerySilent: Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+  for i := 1 to ParamCount do
+    if CompareText(ParamStr(i), '/verysilent') = 0 then
+    begin
+      Result := True;
+      Break;
+    end;
+end;
+
+function Dependency_SilentParameter(const SilentParam, VerySilentParam: String): String;
+begin
+  if WizardSilent then
+  begin
+    if WizardVerySilent then
+      Result := VerySilentParam
+    else
+      Result := SilentParam;
+  end;
+end;
+
 function Dependency_IsNetCoreInstalled(const Version: String): Boolean;
 var
   ResultCode: Integer;
@@ -454,7 +478,7 @@ begin
   // https://dotnet.microsoft.com/download/dotnet/8.0
   if not Dependency_IsNetCoreInstalled('Microsoft.NETCore.App 8.0.2') then begin
     Dependency_Add('dotnet80' + Dependency_ArchSuffix + '.exe',
-      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart' + Dependency_SilentParameter('', '/quiet'),
       '.NET Runtime 8.0.2' + Dependency_ArchTitle,
       Dependency_String('https://dotnetcli.azureedge.net/dotnet/Runtime/8.0.2/dotnet-runtime-8.0.2-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/Runtime/8.0.2/dotnet-runtime-8.0.2-win-x64.exe'),
       '', False, False);
@@ -466,7 +490,7 @@ begin
   // https://dotnet.microsoft.com/download/dotnet/8.0
   if not Dependency_IsNetCoreInstalled('Microsoft.AspNetCore.App 8.0.2') then begin
     Dependency_Add('dotnet80asp' + Dependency_ArchSuffix + '.exe',
-      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
       'ASP.NET Core Runtime 8.0.2' + Dependency_ArchTitle,
       Dependency_String('https://dotnetcli.azureedge.net/dotnet/aspnetcore/Runtime/8.0.2/aspnetcore-runtime-8.0.2-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/aspnetcore/Runtime/8.0.2/aspnetcore-runtime-8.0.2-win-x64.exe'),
       '', False, False);
@@ -478,7 +502,7 @@ begin
   // https://dotnet.microsoft.com/download/dotnet/8.0
   if not Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 8.0.2') then begin
     Dependency_Add('dotnet80desktop' + Dependency_ArchSuffix + '.exe',
-      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart',
+      '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
       '.NET Desktop Runtime 8.0.2' + Dependency_ArchTitle,
       Dependency_String('https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.2/windowsdesktop-runtime-8.0.2-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.2/windowsdesktop-runtime-8.0.2-win-x64.exe'),
       '', False, False);
@@ -550,7 +574,7 @@ begin
   // https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
   if not IsMsiProductInstalled(Dependency_String('{65E5BD06-6392-3027-8C26-853107D3CF1A}', '{36F68A90-239C-34DF-B58C-64B30153CE35}'), PackVersionComponents(14, 30, 30704, 0)) then begin
     Dependency_Add('vcredist2022' + Dependency_ArchSuffix + '.exe',
-      '/passive /norestart',
+      '/passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
       'Visual C++ 2015-2022 Redistributable' + Dependency_ArchTitle,
       Dependency_String('https://aka.ms/vs/17/release/vc_redist.x86.exe', 'https://aka.ms/vs/17/release/vc_redist.x64.exe'),
       '', False, False);
