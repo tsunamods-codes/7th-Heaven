@@ -93,12 +93,12 @@ jobs:
       uses: actions/upload-artifact@v4.0.0
       with:
         name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
-        path: ".dist/*.exe"
+        path: ".dist/*"
     - name: Publish Canary release
       uses: ncipollo/release-action@v1
       if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'true' && success()
       with:
-        artifacts: ".dist/*.exe"
+        artifacts: ".dist/*"
         allowUpdates: true
         generateReleaseNotes: true
         prerelease: true
@@ -114,7 +114,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'false' && success()
       with:
-        artifacts: ".dist/*.exe"
+        artifacts: ".dist/*"
         generateReleaseNotes: true
         makeLatest: true
         removeArtifacts: true

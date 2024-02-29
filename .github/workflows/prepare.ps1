@@ -39,6 +39,3 @@ git -C $vcpkgRoot clean -fxd
 cmd.exe /c "call $vcpkgRoot\bootstrap-vcpkg.bat"
 
 vcpkg integrate install
-
-# Prepare for distribution
-mkdir ${env:buildPath}\.dist | Out-Null
