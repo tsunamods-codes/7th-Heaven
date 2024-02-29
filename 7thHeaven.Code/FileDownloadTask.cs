@@ -203,6 +203,10 @@ namespace _7thHeaven.Code
             else if (IsCanceled)
             {
                 DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
+
+                DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                File.Delete(_destination); // delete temp file just downloaded
+                BytesWritten = 0;
             }
         }
 
