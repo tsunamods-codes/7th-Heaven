@@ -23,14 +23,6 @@ using Profile = Iros._7th.Workshop.Profile;
 
 namespace SeventhHeaven.Classes
 {
-    public enum FF7Version
-    {
-        Unknown = -1,
-        Steam,
-        ReRelease,
-        Original98
-    }
-
     internal enum GraphicsRenderer
     {
         SoftwareRenderer = 0,
@@ -65,7 +57,6 @@ namespace SeventhHeaven.Classes
         private Dictionary<_7thWrapperLib.ProgramInfo, Process> _sideLoadProcesses = new Dictionary<_7thWrapperLib.ProgramInfo, Process>();
 
         private ControllerInterceptor _controllerInterceptor;
-        private GameDiscMounter DiscMounter;
 
         public delegate void OnProgressChanged(string message);
         public event OnProgressChanged ProgressChanged;
@@ -91,7 +82,7 @@ namespace SeventhHeaven.Classes
 
         private static Process ff7Proc;
 
-        public static bool LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false, bool LaunchWithNoValidation = false)
+        public static async Task<bool> LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false, bool LaunchWithNoValidation = false)
         {
             MainWindowViewModel.SaveActiveProfile();
             Sys.Save();
@@ -131,7 +122,7 @@ namespace SeventhHeaven.Classes
 
                             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.SystemDEPDisabledPleaseReboot), NLog.LogLevel.Info);
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.SomethingWentWrongWhileDisablingDEP), NLog.LogLevel.Error);
                         }
@@ -189,36 +180,6 @@ namespace SeventhHeaven.Classes
                 return false;
             }
 
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameIsNotInstalledInProtectedFolder));
-            if (converter.IsGameLocatedInSystemFolders())
-            {
-                string message = ResourceHelper.Get(StringKey.Ff7IsCurrentlyInstalledInASystemFolder);
-                var result = MessageDialogWindow.Show(message, ResourceHelper.Get(StringKey.CannotContinue), MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result.Result == MessageBoxResult.No)
-                {
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CanNotContinueDueToFf7nstalledInProtectedFolder)}", NLog.LogLevel.Error);
-                    return false;
-                }
-
-
-                // copy installation and update settings with new path
-                string newInstallationPath = @"C:\Games\Final Fantasy VII";
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CopyingGameFilesTo)} {newInstallationPath}");
-                bool didCopy = converter.CopyGame(newInstallationPath);
-
-                if (!didCopy)
-                {
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCopyFf7To)} {newInstallationPath}. {ResourceHelper.Get(StringKey.Aborting)}", NLog.LogLevel.Error);
-                    return false;
-                }
-
-                // update settings with new path
-                Logger.Info($"\t{ResourceHelper.Get(StringKey.UpdatingPathsInSysSettings)}");
-                Sys.Settings.SetPathsFromInstallationPath(newInstallationPath);
-                converter.InstallPath = newInstallationPath;
-            }
-
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CreatingMissingRequiredDirectories));
             converter.CreateMissingDirectories();
 
@@ -231,139 +192,68 @@ namespace SeventhHeaven.Classes
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingEnglishGameFilesExist));
             if (!converter.IsEnglishGameInstalled())
             {
-                Instance.RaiseProgressChanged($"\t{string.Format(ResourceHelper.Get(StringKey.FoundLanguageInstalledCreatingEnglishGameFiles), converter.GetInstalledLanguage())}");
-                converter.ConvertToEnglishInstall();
-            }
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameIsMaxInstall));
-            if (!converter.VerifyFullInstallation())
-            {
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.YourFf7InstallationFolderIsMissingCriticalFiles), NLog.LogLevel.Error);
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ErrorOnlyEnglishLanguageSupported), NLog.LogLevel.Error);
                 return false;
             }
 
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingAdditionalFilesForBattleAndKernelFoldersExist));
-            if (!converter.VerifyAdditionalFilesExist())
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Original98)
             {
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.FailedToVerifyCopyMissingAdditionalFiles), NLog.LogLevel.Error);
-                return false;
-            }
-
-            converter.CopyMovieFilesToFolder(Sys.PathToFF7Movies);
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingAllMovieFilesExist));
-            if (!GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies))
-            {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CouldNotFindAllMovieFilesAt)} {Sys.PathToFF7Movies}", NLog.LogLevel.Warn);
-
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AttemptingToCopyMovieFiles)}");
-
-                if (!converter.CopyMovieFilesToFolder(Sys.PathToFF7Movies))
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameIsMaxInstall));
+                if (!converter.VerifyFullInstallation())
                 {
-                    // skip warning if an active mod contains movie files
-                    bool activeModsHasMovies = Sys.ActiveProfile.ActiveItems.Any(a => Sys.Library.GetItem(a.ModID).CachedDetails.ContainsMovies);
-
-                    string title = ResourceHelper.Get(StringKey.MovieFilesAreMissing);
-                    string message = ResourceHelper.Get(StringKey.InOrderToSeeInGameMoviesYouWillNeedMessage);
-                    if (!Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning && !activeModsHasMovies)
-                    {
-                        Sys.Settings.GameLaunchSettings.HasDisplayedMovieWarning = true;
-                        MessageDialogWindow.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-
-                    if (!activeModsHasMovies)
-                    {
-                        Instance.RaiseProgressChanged(title, NLog.LogLevel.Warn);
-                        Instance.RaiseProgressChanged(message, NLog.LogLevel.Warn);
-                    }
-
+                    Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.YourFf7InstallationFolderIsMissingCriticalFiles), NLog.LogLevel.Error);
+                    return false;
                 }
             }
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingMusicFilesExist));
-            if (!converter.AllMusicFilesExist())
-            {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.CouldNotFindAllMusicFilesAt)} {Path.Combine(converter.InstallPath, "music", "vgmstream")}", NLog.LogLevel.Warn);
+            converter.AllMusicFilesExist();
 
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.AttemptingToCopyMusicFiles)}");
-                converter.CopyMusicFiles();
-
-                if (!converter.AllMusicFilesExist())
-                {
-                    // skip warning if an active mod contains music files
-                    bool activeModsHasMusic = Sys.ActiveProfile.ActiveItems.Any(a => Sys.Library.GetItem(a.ModID).CachedDetails.ContainsMusic);
-
-                    string title = ResourceHelper.Get(StringKey.OggMusicFilesAreMissing);
-                    string message = ResourceHelper.Get(StringKey.InOrderToHearHighQualityMusicYouWillNeedMessage);
-                    if (!Sys.Settings.GameLaunchSettings.HasDisplayedOggMusicWarning && !activeModsHasMusic)
-                    {
-                        Sys.Settings.GameLaunchSettings.HasDisplayedOggMusicWarning = true;
-                        MessageDialogWindow.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-
-                    if (!activeModsHasMusic)
-                    {
-                        Instance.RaiseProgressChanged(title, NLog.LogLevel.Warn);
-                        Instance.RaiseProgressChanged(message, NLog.LogLevel.Warn);
-                    }
-
-                }
-            }
             string backupFolderPath = Path.Combine(converter.InstallPath, GameConverter.BackupFolderName, DateTime.Now.ToString("yyyyMMddHHmmss"));
 
-
-            converter.CheckAndCopyOldGameConverterFiles(backupFolderPath);
-
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingLatestGameDriverIsInstalled));
-            if (!converter.InstallLatestGameDriver(backupFolderPath))
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Original98)
             {
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.SomethingWentWrongTryingToDetectGameDriver), NLog.LogLevel.Error);
-                return false;
-            }
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameDriverShadersFoldersExist));
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingFf7Exe));
-            if (new FileInfo(Sys.Settings.FF7Exe).Name.Equals("ff7.exe", StringComparison.InvariantCultureIgnoreCase))
-            {
-                // only compare exes are different if ff7.exe set in Settings (and not something like ff7_bc.exe)
-                if (converter.IsExeDifferent())
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingFf7Exe));
+                if (new FileInfo(Sys.Settings.FF7Exe).Name.Equals("ff7.exe", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Ff7ExeDetectedToBeDifferent)}");
-                    if (converter.BackupExe(backupFolderPath))
+                    // only compare exes are different if ff7.exe set in Settings (and not something like ff7_bc.exe)
+                    if (converter.IsExeDifferent())
                     {
-                        bool didCopy = converter.CopyFF7ExeToGame();
+                        Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Ff7ExeDetectedToBeDifferent)}");
+                        if (converter.BackupExe(backupFolderPath))
+                        {
+                            bool didCopy = converter.CopyFF7ExeToGame();
+                            if (!didCopy)
+                            {
+                                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCopyFf7Exe)}", NLog.LogLevel.Error);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCreateBackupOfFf7Exe)}", NLog.LogLevel.Error);
+                            return false;
+                        }
+                    }
+                }
+
+                if (converter.IsConfigExeDifferent())
+                {
+                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Ff7ConfigExeDetectedToBeMissingOrDifferent)}");
+                    if (converter.BackupFF7ConfigExe(backupFolderPath))
+                    {
+                        bool didCopy = converter.CopyFF7ConfigExeToGame();
                         if (!didCopy)
                         {
-                            Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCopyFf7Exe)}", NLog.LogLevel.Error);
+                            Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCopyFf7ConfigExe)}", NLog.LogLevel.Error);
                             return false;
                         }
                     }
                     else
                     {
-                        Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCreateBackupOfFf7Exe)}", NLog.LogLevel.Error);
+                        Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCreateBackupOfFf7ConfigExe)}", NLog.LogLevel.Error);
                         return false;
                     }
-                }
-            }
-
-            if (converter.IsConfigExeDifferent())
-            {
-                Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Ff7ConfigExeDetectedToBeMissingOrDifferent)}");
-                if (converter.BackupFF7ConfigExe(backupFolderPath))
-                {
-                    bool didCopy = converter.CopyFF7ConfigExeToGame();
-                    if (!didCopy)
-                    {
-                        Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCopyFf7ConfigExe)}", NLog.LogLevel.Error);
-                        return false;
-                    }
-                }
-                else
-                {
-                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCreateBackupOfFf7ConfigExe)}", NLog.LogLevel.Error);
-                    return false;
                 }
             }
 
@@ -398,74 +288,6 @@ namespace SeventhHeaven.Classes
                 Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedModLoadOrderCheck)}", NLog.LogLevel.Error);
                 return false;
             }
-
-
-            //
-            // Get Drive Letter and auto mount if needed
-            //
-            Instance.DidMountVirtualDisc = false;
-
-            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.LookingForGameDisc));
-            Instance.DriveLetter = GetDriveLetter();
-
-            if (!string.IsNullOrEmpty(Instance.DriveLetter))
-            {
-                Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.FoundGameDiscAt)} {Instance.DriveLetter} ...");
-            }
-            else
-            {
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.FailedToFindGameDisc), NLog.LogLevel.Warn);
-
-                if (!Sys.Settings.GameLaunchSettings.AutoMountGameDisc)
-                {
-                    return false; // game disc not found and user is not trying to auto mount the disc so exit as failure
-                }
-
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoMountingVirtualGameDisc));
-
-
-                Instance.DiscMounter = new GameDiscMounter(Sys.Settings.GameLaunchSettings.MountingOption);
-                bool didMount = Instance.DiscMounter.MountVirtualGameDisc();
-
-                if (!didMount)
-                {
-                    Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.FailedToAutoMountVirtualDiscAt)} {Path.Combine(Sys._7HFolder, "Resources")} ...", NLog.LogLevel.Error);
-                    return false;
-                }
-
-                Instance.DidMountVirtualDisc = true;
-                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.LookingForGameDiscAfterMounting));
-
-                // when mounting with WinCDEmu it can take a few seconds (anywhere from 1 to 3 seconds from my experience) so add a fallback here to try mounting multiple times instead of once
-                int maxMountAttempts = 15;
-                int currentAttempt = 0;
-
-                do
-                {
-                    Instance.DriveLetter = GetDriveLetter();
-                    currentAttempt++;
-
-                    if (string.IsNullOrEmpty(Instance.DriveLetter))
-                    {
-                        System.Threading.Thread.Sleep(1000); // sleep for a second before looking for the drive letter again
-                    }
-
-                } while (string.IsNullOrEmpty(Instance.DriveLetter) && currentAttempt < maxMountAttempts);
-
-
-                if (string.IsNullOrEmpty(Instance.DriveLetter))
-                {
-                    Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.FailedToFindGameDiscAfterAutoMounting), NLog.LogLevel.Error);
-                    return false;
-                }
-
-                Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.FoundGameDiscAt)} {Instance.DriveLetter} ...");
-            }
-
-            //
-            // Update Registry with new launch settings
-            //
-            Instance.SetRegistryValues();
 
             //
             // Copy input.cfg to FF7
@@ -506,7 +328,6 @@ namespace SeventhHeaven.Classes
                     Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FailedToCreateRuntimeProfileForActiveMods)}", NLog.LogLevel.Error);
                     return false;
                 }
-
 
                 //
                 // Copy 7thWrapper* dlls to FF7
@@ -606,7 +427,7 @@ namespace SeventhHeaven.Classes
                         Instance._controllerInterceptor = new ControllerInterceptor();
                     }
 
-                    Instance._controllerInterceptor.PollForGamepadInput().ContinueWith((result) =>
+                    await Instance._controllerInterceptor.PollForGamepadInput().ContinueWith((result) =>
                     {
                         if (result.IsFaulted)
                         {
@@ -624,11 +445,11 @@ namespace SeventhHeaven.Classes
             if (runAsVanilla)
             {
                 Instance.RaiseProgressChanged(vanillaMsg);
-                LaunchFF7Exe();
+                await LaunchFF7Exe();
 
                 if (didDisableReunion)
                 {
-                    Task.Factory.StartNew(() =>
+                    await Task.Factory.StartNew(() =>
                     {
                         System.Threading.Thread.Sleep(5000); // wait 5 seconds before renaming the dll so the game and gl driver can fully initialize
                         Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ReenablingReunionMod));
@@ -667,7 +488,7 @@ namespace SeventhHeaven.Classes
                 {
                     try
                     {
-                        LaunchFF7Exe();
+                        await LaunchFF7Exe();
                         didInject = true;
                     }
                     catch (Exception e)
@@ -779,16 +600,6 @@ namespace SeventhHeaven.Classes
 
                         Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.StoppingOtherProgramsForMods));
                         Instance.StopAllSideProcessesForMods();
-
-                        if (Sys.Settings.GameLaunchSettings.AutoUnmountGameDisc && Instance.DidMountVirtualDisc)
-                        {
-                            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoUnmountingGameDisc));
-                            if (Instance.DiscMounter != null)
-                            {
-                                Instance.DiscMounter.UnmountVirtualGameDisc();
-                            }
-                            Instance.DiscMounter = null;
-                        }
 
                         // ensure Reunion is re-enabled when ff7 process exits in case it failed above for any reason
                         if (File.Exists(Path.Combine(Path.GetDirectoryName(Sys.Settings.FF7Exe), "Reunion.dll.bak")))
@@ -945,9 +756,15 @@ namespace SeventhHeaven.Classes
             File.Copy(Path.Combine(src, "7thWrapperLib.dll"), Path.Combine(dest, "7thWrapperLib.dll"), true);
             File.Copy(Path.Combine(src, "7thWrapperLoader.dll"), Path.Combine(dest, "dinput.dll"), true);
             File.Copy(Path.Combine(src, "7thWrapperLoader.pdb"), Path.Combine(dest, "7thWrapperLoader.pdb"), true);
+
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                File.Move(Path.Combine(dest, "FF7_Launcher.exe"), Path.Combine(dest, "_FF7_Launcher.exe"));
+                File.Copy(Path.Combine(src, "FF7_Launcher.exe"), Path.Combine(dest, "FF7_Launcher.exe"));
+            }
         }
 
-        private static void Delete7thWrapperDlls()
+        private static async void Delete7thWrapperDlls()
         {
             string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
@@ -960,6 +777,13 @@ namespace SeventhHeaven.Classes
             File.Delete(Path.Combine(dest, "7thWrapperLib.dll"));
             File.Delete(Path.Combine(dest, "dinput.dll"));
             File.Delete(Path.Combine(dest, "7thWrapperLoader.pdb"));
+
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                await waitForProcessExit("FF7_Launcher");
+                File.Delete(Path.Combine(dest, "FF7_Launcher.exe"));
+                File.Move(Path.Combine(dest, "_FF7_Launcher.exe"), Path.Combine(dest, "FF7_Launcher.exe"));
+            }
         }
 
         private static void StartTurboLogForVariableDump(RuntimeProfile runtimeProfiles)
@@ -990,20 +814,74 @@ namespace SeventhHeaven.Classes
             aproc.Exited += (o, e) => Instance._alsoLaunchProcesses.Remove(turboLogProcName);
         }
 
+        internal static async Task<Process> waitForProcess(string name)
+        {
+            Process ret = null;
+
+            do
+            {
+                if (Process.GetProcessesByName(name) is [{ HasExited: false } process, ..])
+                    ret = process;
+                else
+                    await Task.Delay(5000);
+            } while (ret == null);
+
+            return ret;
+        }
+
+        internal static async Task<bool> waitForProcessExit(string name)
+        {
+            Process ret;
+            do
+            {
+                if (Process.GetProcessesByName(name) is [{ HasExited: true } process, ..])
+                {
+                    ret = process;
+                    await Task.Delay(5000);
+                }
+                else
+                    ret = null;
+            } while (ret != null);
+
+            return true;
+        }
 
         /// <summary>
         /// Launches FF7.exe without loading any mods.
         /// </summary>
-        internal static bool LaunchFF7Exe()
+        internal static async Task<bool> LaunchFF7Exe()
         {
             try
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
+                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
                 {
-                    WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
-                    UseShellExecute = true,
-                };
-                ff7Proc = Process.Start(startInfo);
+                    // Start game via Steam
+                    ProcessStartInfo startInfo = new ProcessStartInfo(GameConverter.GetSteamExePath())
+                    {
+                        WorkingDirectory = GameConverter.GetSteamPath(),
+                        UseShellExecute = true,
+                        Arguments = "-applaunch 39140"
+                    };
+                    Process.Start(startInfo);
+
+                    // Wait for game process
+                    Process game = await waitForProcess(Path.GetFileNameWithoutExtension(Sys.Settings.FF7Exe));
+                    if (game != null)
+                    {
+                        ff7Proc = game;
+                    }
+                }
+                else
+                {
+                    // Start game directly
+                    ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
+                    {
+                        WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                        UseShellExecute = true,
+                    };
+                    ff7Proc = Process.Start(startInfo);
+                }
+
                 ff7Proc.EnableRaisingEvents = true;
                 ff7Proc.Exited += (o, e) =>
                 {
@@ -1013,13 +891,6 @@ namespace SeventhHeaven.Classes
                         {
                             // stop polling for input once all ff7 procs are closed (could be multiple instances open)
                             Instance._controllerInterceptor.PollingInput = false;
-                        }
-
-                        if (Sys.Settings.GameLaunchSettings.AutoUnmountGameDisc && Instance.DidMountVirtualDisc)
-                        {
-                            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.AutoUnmountingGameDisc));
-                            Instance.DiscMounter.UnmountVirtualGameDisc();
-                            Instance.DiscMounter = null;
                         }
 
                         // ensure Reunion is re-enabled when ff7 process exits in case it failed above for any reason
@@ -1591,7 +1462,10 @@ namespace SeventhHeaven.Classes
 
             try
             {
-                string targetPath = Path.Combine(Path.GetDirectoryName(Sys.Settings.FF7Exe), "ff7input.cfg");
+                string targetPath = Path.Combine(
+                    Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? GameConverter.GetSteamFF7UserPath() : Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                    "ff7input.cfg"
+                );
 
                 Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Copying)} {pathToCfg} -> {targetPath} ...");
                 File.Copy(pathToCfg, targetPath, true);
@@ -1679,13 +1553,24 @@ namespace SeventhHeaven.Classes
             using (var archive = ZipArchive.Create())
             {
                 // === FF7 files ===
-                var savePath = Path.Combine(Sys.InstallPath, "save");
-                if (Directory.Exists(savePath))
+                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
                 {
-                    var saveFiles = Directory.GetFiles(savePath);
-                    foreach (var file in saveFiles)
+                    var di = new DirectoryInfo(GameConverter.GetSteamFF7UserPath());
+                    foreach (FileInfo fi in di.GetFiles("*.ff7", SearchOption.AllDirectories))
                     {
-                        archive.AddEntry(Path.Combine("save", Path.GetFileName(file)), file);
+                        archive.AddEntry(Path.Combine("save", Path.GetFileName(fi.FullName)), fi.FullName);
+                    }
+                }
+                else
+                {
+                    var savePath = Path.Combine(Sys.InstallPath, "save");
+                    if (Directory.Exists(savePath))
+                    {
+                        var saveFiles = Directory.GetFiles(savePath);
+                        foreach (var file in saveFiles)
+                        {
+                            archive.AddEntry(Path.Combine("save", Path.GetFileName(file)), file);
+                        }
                     }
                 }
 
@@ -1697,7 +1582,10 @@ namespace SeventhHeaven.Classes
                 archive.AddEntry("7thWrapperLoader.log", Path.Combine(Sys.InstallPath, "7thWrapperLoader.log"));
                 archive.AddEntry("applog.txt", File.Open(Sys.PathToApplog, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
                 archive.AddEntry("settings.xml", Sys.PathToSettings);
-                archive.AddEntry("registry_transaction.bat", Path.Combine(Sys.PathToTempFolder, "registry_transaction.bat"));
+
+                string rt = Path.Combine(Sys.PathToTempFolder, "registry_transaction.bat");
+                if (File.Exists(rt)) archive.AddEntry(Path.GetFileName(rt), rt);
+                
                 // Convert profile.xml to profile.txt
                 Profile currentProfile = Util.Deserialize<Profile>(Sys.PathToCurrentProfileFile);
                 IEnumerable<string> profileDetails = currentProfile.GetDetails();

@@ -1238,6 +1238,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
     <system:String x:Key="VerifyingEnglishGameFilesExist">Verificando que existen los archivos del juego Inglés ...</system:String>
     <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Encontrado idioma instalado: {0} Generando los archivos del juego Inglés...</system:String>
+    <system:String x:Key="ErrorOnlyEnglishLanguageSupported">ERROR: Only English language is supported. Consider installing FF7 in English (US) on Steam.</system:String>
     <system:String x:Key="ExtractingLGPFiles">Extrayendo los archivos .lgp ...</system:String>
     <system:String x:Key="RenamingLanguageSpecificFiles">Renombrando los archivos específicos del idioma ...</system:String>
     <system:String x:Key="CouldNotFindFileToRename">No se ha encontrado el archivo para renombrar: {0} ...</system:String>

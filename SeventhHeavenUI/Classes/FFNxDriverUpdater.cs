@@ -26,11 +26,19 @@ namespace SeventhHeaven.Classes
 
         public string GetCurrentDriverVersion()
         {
+            _currentDriverVersion = null;
+
             try
             {
-                _currentDriverVersion = FileVersionInfo.GetVersionInfo(
-                    Path.Combine(Sys.InstallPath, "FFNx.dll")
-                );
+                if (IsAlreadyInstalled())
+                {
+                    _currentDriverVersion = FileVersionInfo.GetVersionInfo(
+                        Path.Combine(
+                            Sys.InstallPath,
+                            Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "AF3DN.P" : "FFNx.dll"
+                        )
+                    );
+                }
             }
             catch (FileNotFoundException)
             {
@@ -60,11 +68,12 @@ namespace SeventhHeaven.Classes
 
         private string GetUpdateReleaseUrl(dynamic assets)
         {
-            for (int i = 0; i < assets.Count - 1; i++)
+            for (int i = 0; i < assets.Count; i++)
             {
                 string url = assets[i].browser_download_url.Value;
+                string prefix = Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "FFNx-Steam" : "FFNx-FF7_1998";
 
-                if (url.Contains("FFNx-FF7_1998"))
+                if (url.Contains(prefix))
                     return url;
             }
 
@@ -306,6 +315,22 @@ namespace SeventhHeaven.Classes
                     if (File.Exists(entryPath)) File.Delete(entryPath);
                 }
             }
+        }
+
+        public static bool IsAlreadyInstalled()
+        {
+            var fi = new FileInfo(
+                Path.Combine(Sys.InstallPath, Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "AF3DN.P" : "FFNx.dll")
+            );
+            bool ret = fi.Exists;
+
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam && fi.Exists)
+            {   
+                // Steam driver is not FFNx, force installation
+                if (fi.Length <= (192 * 1024)) ret = false;
+            }
+
+            return ret;
         }
     }
 }

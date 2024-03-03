@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         Title="{DynamicResource GameLauncherSettings}" 
         Width="470"
-        Height="750">
+        Height="633">
     <Window.Resources>
 
         <DataTemplate x:Key="programItem">
@@ -379,34 +379,13 @@
                   VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="cboMountOptions"
-                          Style="{StaticResource MainComboBoxStyle}"
-                          IsEnabled="True"
-                          ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
-                          ItemTemplate="{StaticResource mountItemTemplate}"
-                          SelectedItem="{Binding SelectedMountOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{Binding MountOptions}"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Top"
-                          Margin="4,1,0,3"/>
-                <CheckBox Height="25" Content="{DynamicResource AutoMountDisc}" 
-                          Grid.Row="1"
-                          IsChecked="{Binding AutoMountChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          IsEnabled="{Binding IsAutoMountSupported}"/>
-                <CheckBox Height="25" Content="{DynamicResource AutoDismountDisc}" 
-                          Grid.Row="2"
-                          IsChecked="{Binding AutoUnmountChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          IsEnabled="{Binding IsAutoMountSupported}"/>
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdatePath}" 
-                          Grid.Row="3"
+                          Grid.Row="0"
                           IsChecked="{Binding AutoUpdatePathChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <CheckBox Height="25" Content="{DynamicResource ShowGameLauncher}" 
-                          Grid.Row="4"
+                          Grid.Row="1"
                           IsChecked="{Binding IsShowLauncherChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </GroupBox>

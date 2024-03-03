@@ -15,6 +15,13 @@ using System.Windows;
 
 namespace Iros._7th.Workshop {
 
+    public enum FF7Version
+    {
+        Unknown = -1,
+        Steam,
+        ReRelease,
+        Original98
+    }
 
     public enum GeneralOptions {
         None = 0,
@@ -105,6 +112,7 @@ namespace Iros._7th.Workshop {
         public string FF7Exe { get; set; }
         [System.Xml.Serialization.XmlElement("AlsoLaunch")]
         public List<ProgramLaunchInfo> ProgramsToLaunchPrior { get; set; }
+        public FF7Version FF7InstalledVersion { get; set; }
         public FFNxUpdateChannelOptions FFNxUpdateChannel { get; set; }
         public AppUpdateChannelOptions AppUpdateChannel { get; set; }
         public DateTime LastUpdateCheck { get; set; }
@@ -202,7 +210,7 @@ namespace Iros._7th.Workshop {
         /// <param name="pathToFf7Install"></param>
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
-            FF7Exe = Path.Combine(pathToFf7Install, "FF7.exe");
+            FF7Exe = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? Path.Combine(pathToFf7Install, "FF7.exe") : Path.Combine(pathToFf7Install, "ff7_en.exe");
             LibraryLocation = Path.Combine(pathToFf7Install, "mods", @"7th Heaven");
 
             LogAndCreateFolderIfNotExists(LibraryLocation);

@@ -70,37 +70,6 @@ namespace SeventhHeaven.Windows
             if (!string.IsNullOrEmpty(exePath))
             {
                 FileInfo fileSelected = new FileInfo(exePath);
-                if (fileSelected.Name.Equals("ff7_en.exe", System.StringComparison.InvariantCultureIgnoreCase) || fileSelected.Name.Equals("FF7_Launcher.exe", System.StringComparison.InvariantCultureIgnoreCase))
-                {
-                    // User selected the exe's for Steam release so we try to auto copy the 1.02 patched exe and select it for them
-                    string targetPathToFf7Exe = Path.Combine(fileSelected.DirectoryName, "ff7.exe");
-                    string copyOrSelectMessage = ResourceHelper.Get(StringKey.Selected);
-
-                    if (!File.Exists(targetPathToFf7Exe))
-                    {
-                        // use game converter to copy files over
-                        var gc = new GameConverter(fileSelected.DirectoryName);
-                        if (!gc.CopyFF7ExeToGame())
-                        {
-                            MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ThisExeIsUsedForSteamReleaseFailedToCopyExe),
-                                                     ResourceHelper.Get(StringKey.ErrorIncorrectExe),
-                                                     MessageBoxButton.OK,
-                                                     MessageBoxImage.Error);
-                            return;
-                        }
-
-                        copyOrSelectMessage = ResourceHelper.Get(StringKey.CopiedAndSelected);
-                    }
-
-                    ViewModel.FF7ExePathInput = targetPathToFf7Exe;
-
-                    MessageDialogWindow.Show(string.Format(ResourceHelper.Get(StringKey.ThisExeIsUsedForSteamReleaseCopiedSelectedForYou), copyOrSelectMessage),
-                                             ResourceHelper.Get(StringKey.ErrorIncorrectExe),
-                                             MessageBoxButton.OK,
-                                             MessageBoxImage.Warning);
-
-                    return;
-                }
 
                 if (fileSelected.Name.Equals("FF7Config.exe", System.StringComparison.InvariantCultureIgnoreCase))
                 {

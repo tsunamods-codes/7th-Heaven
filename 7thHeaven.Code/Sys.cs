@@ -17,7 +17,6 @@ using System.Xml;
 
 namespace Iros._7th.Workshop
 {
-
     public class ModStatusEventArgs : EventArgs
     {
         public ModStatus OldStatus { get; set; }

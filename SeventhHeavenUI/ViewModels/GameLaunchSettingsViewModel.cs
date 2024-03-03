@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.InteropServices;
 
 namespace SeventhHeaven.ViewModels
 {
@@ -41,10 +42,7 @@ namespace SeventhHeaven.ViewModels
         #region Data Members
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private bool _autoMountChecked;
-        private bool _autoUnmountChecked;
         private bool _autoUpdatePathChecked;
-        private bool _isAutoMountSupported;
         private bool _isReverseSpeakersChecked;
         private bool _isLogVolumeChecked;
         private string _selectedSoundDevice;
@@ -62,7 +60,6 @@ namespace SeventhHeaven.ViewModels
         private bool _isShowLauncherChecked;
         private VolumeSlider _lastVolumeSliderChanged;
         private bool _isSoundDevicesLoaded;
-        private string _selectedMountOption;
 
         private int _voiceVolumeValue;
         private int _ambientVolumeValue;
@@ -98,45 +95,6 @@ namespace SeventhHeaven.ViewModels
             set
             {
                 _isSoundDevicesLoaded = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool IsAutoMountSupported
-        {
-            get
-            {
-                return _isAutoMountSupported;
-            }
-            set
-            {
-                _isAutoMountSupported = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool AutoMountChecked
-        {
-            get
-            {
-                return _autoMountChecked;
-            }
-            set
-            {
-                _autoMountChecked = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool AutoUnmountChecked
-        {
-            get
-            {
-                return _autoUnmountChecked;
-            }
-            set
-            {
-                _autoUnmountChecked = value;
                 NotifyPropertyChanged();
             }
         }
@@ -469,56 +427,6 @@ namespace SeventhHeaven.ViewModels
             }
         }
 
-        /// <summary>
-        /// List of ways to mount disc (matches the order of enum <see cref="MountDiscOption"/>)
-        /// </summary>
-        public List<string> MountOptions
-        {
-            get
-            {
-                // this list matches the order of the mountoption enum
-                List<string> ret = new List<string>();
-                if (IsAutoMountSupported)
-                {
-
-                    ret.Add(ResourceHelper.Get(StringKey.MountDiscWithPowershell));
-                }
-
-                ret.Add(ResourceHelper.Get(StringKey.MountDiscWithWinCDEmu));
-                ret.Add(ResourceHelper.Get(StringKey.DoNotMount));
-                return ret;
-            }
-        }
-
-        public string SelectedMountOption
-        {
-            get
-            {
-                return _selectedMountOption;
-            }
-            set
-            {
-                if (_selectedMountOption != value)
-                {
-                    _selectedMountOption = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public MountDiscOption SelectedMountOptionAsEnum
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(SelectedMountOption))
-                {
-                    return MountDiscOption.Unknown;
-                }
-
-                return (MountDiscOption) MountOptions.IndexOf(SelectedMountOption);
-            }
-        }
-
         #endregion
 
 
@@ -536,6 +444,8 @@ namespace SeventhHeaven.ViewModels
             // initialize sound devices on background task because it can take up to 1-3 seconds to loop over audio devices and get their names
             SelectedSoundDevice = ResourceHelper.Get(StringKey.LoadingDevices);
             InitSoundDevicesAsync();
+
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam) Sys.FFNxConfig.Reload();
 
             InitMidiDevices();
             LoadSettings(Sys.Settings.GameLaunchSettings);
@@ -566,21 +476,6 @@ namespace SeventhHeaven.ViewModels
 
             AutoUpdatePathChecked = launchSettings.AutoUpdateDiscPath;
             IsShowLauncherChecked = launchSettings.ShowLauncherWindow;
-
-
-            IsAutoMountSupported = GameDiscMounter.OSHasBuiltInMountSupport();
-            AutoMountChecked = launchSettings.AutoMountGameDisc;
-            AutoUnmountChecked = launchSettings.AutoUnmountGameDisc;
-
-            // options to select mount method is disabled if user OS does not support and forced to use wincdemu  (i.e. does not support PowerShell Mount-DiskImage)
-            if (IsAutoMountSupported)
-            {
-                SelectedMountOption = MountOptions[(int)launchSettings.MountingOption];
-            }
-            else
-            {
-                SelectedMountOption = MountOptions[(int)MountDiscOption.MountWithWinCDEmu];
-            }
 
             SetSelectedSoundDeviceFromSettings(launchSettings);
 
@@ -625,12 +520,32 @@ namespace SeventhHeaven.ViewModels
             string soundKeyPath = $"{ff7KeyPath}\\1.00\\Sound";
             string ffnxKeyPath = $"{ff7KeyPath}\\1.00\\FFNx";
 
-            SfxVolumeValue = (int) RegistryHelper.GetValue(soundKeyPath, "SFXVolume", 100);
-            MusicVolumeValue = (int)RegistryHelper.GetValue(midiKeyPath, "MusicVolume", 100);
-            
-            VoiceVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "VoiceVolume", 100);
-            AmbientVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "AmbientVolume", 100);
-            MovieVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "MovieVolume", 100);
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                SfxVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_sfx_volume"));
+                if (SfxVolumeValue < 0) SfxVolumeValue = 100;
+
+                MusicVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_music_volume"));
+                if (MusicVolumeValue < 0) MusicVolumeValue = 100;
+
+                VoiceVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_voice_volume"));
+                if (VoiceVolumeValue < 0) VoiceVolumeValue = 100;
+
+                AmbientVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_ambient_volume"));
+                if (AmbientVolumeValue < 0) AmbientVolumeValue = 100;
+
+                MovieVolumeValue = int.Parse(Sys.FFNxConfig.Get("ffmpeg_video_volume"));
+                if (MovieVolumeValue < 0) MovieVolumeValue = 100;
+            }
+            else
+            {
+                SfxVolumeValue = (int)RegistryHelper.GetValue(soundKeyPath, "SFXVolume", 100);
+                MusicVolumeValue = (int)RegistryHelper.GetValue(midiKeyPath, "MusicVolume", 100);
+                VoiceVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "VoiceVolume", 100);
+                AmbientVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "AmbientVolume", 100);
+                MovieVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "MovieVolume", 100);
+            }
+           
         }
 
         private void SetVolumesInRegistry()
@@ -645,20 +560,31 @@ namespace SeventhHeaven.ViewModels
             string soundVirtualKeyPath = $"{virtualStorePath}\\1.00\\Sound";
             string ffnxVirtualKeyPath = $"{virtualStorePath}\\1.00\\FFNx";
 
-            RegistryHelper.SetValueIfChanged(soundKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(soundVirtualKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                Sys.FFNxConfig.Set("external_sfx_volume", SfxVolumeValue.ToString());
+                Sys.FFNxConfig.Set("external_music_volume", MusicVolumeValue.ToString());
+                Sys.FFNxConfig.Set("external_voice_volume", VoiceVolumeValue.ToString());
+                Sys.FFNxConfig.Set("external_ambient_volume", AmbientVolumeValue.ToString());
+                Sys.FFNxConfig.Set("ffmpeg_video_volume", MovieVolumeValue.ToString());
+            }
+            else
+            {
+                RegistryHelper.SetValueIfChanged(soundKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(soundVirtualKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
 
-            RegistryHelper.SetValueIfChanged(midiKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(midiVirtualKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(midiKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(midiVirtualKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
 
-            RegistryHelper.SetValueIfChanged(ffnxKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
 
-            RegistryHelper.SetValueIfChanged(ffnxKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
 
-            RegistryHelper.SetValueIfChanged(ffnxKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
+            }
         }
 
         private void SetSelectedSoundDeviceFromSettings(LaunchSettings launchSettings)
@@ -702,10 +628,7 @@ namespace SeventhHeaven.ViewModels
             {
                 Sys.Settings.ProgramsToLaunchPrior = GetUpdatedProgramsToRun();
 
-                Sys.Settings.GameLaunchSettings.AutoMountGameDisc = AutoMountChecked;
-                Sys.Settings.GameLaunchSettings.AutoUnmountGameDisc = AutoUnmountChecked;
                 Sys.Settings.GameLaunchSettings.AutoUpdateDiscPath = AutoUpdatePathChecked;
-                Sys.Settings.GameLaunchSettings.MountingOption = SelectedMountOptionAsEnum;
                 Sys.Settings.GameLaunchSettings.ShowLauncherWindow = IsShowLauncherChecked;
 
                 Sys.Settings.GameLaunchSettings.DisableReunionOnLaunch = true; // always have this set to true
@@ -719,6 +642,8 @@ namespace SeventhHeaven.ViewModels
                 SetVolumesInRegistry();
                 SetMidiDeviceInRegistry();
                 RegistryHelper.CommitTransaction();
+
+                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam) Sys.FFNxConfig.Save();
 
                 Sys.SaveSettings();
 
