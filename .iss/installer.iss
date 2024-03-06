@@ -18,7 +18,7 @@
   #define MyAppTargetFramework "net8.0-windows7.0"
 #endif
 
-#define public Dependency_NoExampleSetup
+#define public Dependency_Path_NetCoreCheck ""
 #include "CodeDependencies.iss"
 
 [Setup]
@@ -51,8 +51,6 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 [Files]
 Source: "{#MyAppPath}\bin\{#MyAppRelease}\{#MyAppTargetFramework}\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 Source: "{#MyAppPath}\7H.ico"; DestDir: "{app}"; DestName: "uninstall.ico"
-Source: "netcorecheck.exe"; Flags: dontcopy noencryption
-Source: "netcorecheck_x64.exe"; Flags: dontcopy noencryption
 
 [Icons]
 Name: "{group}\7th Heaven"; Filename: "{app}\7th Heaven.exe";
