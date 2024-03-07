@@ -1248,8 +1248,8 @@ Vuoi applicare questa modifica e riprovare?</system:String>
 
     <system:String x:Key="CheckForSystemDEPStatus">Checking System DEP status...</system:String>
     <system:String x:Key="DEPDetected">DEP Detected</system:String>
-    <system:String x:Key="DoYouWantToDisableDEP">7th Heaven needs DEP disabled to inject mods, would you like to disable it now?</system:String>
-    <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP disabled successfully. Please reboot the PC for the change to take effect.</system:String>
-    <system:String x:Key="CannotContinueWithDEPEnabled">DEP enabled. Please disable it to continue. Follow steps described in here: https://7thheaven.rocks/help/dep.html</system:String>
-    <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Something went wrong while trying to disable DEP. You can still disable it manually. Please follow steps described in here: https://7thheaven.rocks/help/dep.html</system:String>
+    <system:String x:Key="DoYouWantToDisableDEP">DEP is currently set for either a server environment, or not enabled at all. Would you like to change it to desktop mode?</system:String>
+    <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP mode successfully updated. Please reboot the PC for the change to take effect.</system:String>
+    <system:String x:Key="CannotContinueWithDEPEnabled">DEP mode is incorrect. Please adjust it to continue, following the steps described here: https://7thheaven.rocks/help/dep.html</system:String>
+    <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Something went wrong while trying to adjust DEP. You can still do it manually. Please follow steps described here: https://7thheaven.rocks/help/dep.html</system:String>
 </ResourceDictionary>

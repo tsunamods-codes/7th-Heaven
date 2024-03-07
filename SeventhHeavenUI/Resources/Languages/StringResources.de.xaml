@@ -1257,8 +1257,8 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
 
     <system:String x:Key="CheckForSystemDEPStatus">Überprüfe den System-DEP-Status...</system:String>
     <system:String x:Key="DEPDetected">DEP erkannt</system:String>
-    <system:String x:Key="DoYouWantToDisableDEP">Für 7th Heaven muss DEP deaktiviert sein, um Mods einzufügen. Möchten Sie es jetzt deaktivieren?</system:String>
-    <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP wurde erfolgreich deaktiviert. Bitte starten Sie den PC neu, damit die Änderung wirksam wird.</system:String>
-    <system:String x:Key="CannotContinueWithDEPEnabled">DEP wurde aktiviert. Bitte deaktivieren Sie es, um fortzufahren. Befolgen Sie die hier beschriebenen Schritte: https://7thheaven.rocks/help/dep.html</system:String>
-    <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Beim Versuch DEP zu deaktivieren ist ein Fehler aufgetreten. Sie können es dennoch manuell deaktivieren. Bitte befolgen Sie die hier beschriebenen Schritte: https://7thheaven.rocks/help/dep.html</system:String>
+    <system:String x:Key="DoYouWantToDisableDEP">DEP ist derzeit entweder für eine Serverumgebung eingestellt oder überhaupt nicht aktiviert. Möchten Sie es in den Desktop-Modus ändern?</system:String>
+    <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP-Modus erfolgreich aktualisiert. Bitte starten Sie den PC neu, damit die Änderung wirksam wird.</system:String>
+    <system:String x:Key="CannotContinueWithDEPEnabled">DEP-Modus ist fehlerhaft. Bitte zum Fortfahren anpassen, indem Sie die hier beschriebenen Schritte befolgen: https://7thheaven.rocks/help/dep.html</system:String>
+    <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Beim Versuch, DEP anzupassen, ist ein Fehler aufgetreten. Sie können es dennoch manuell durchführen. Bitte befolgen Sie die hier beschriebenen Schritte: https://7thheaven.rocks/help/dep.html</system:String>
 </ResourceDictionary>
