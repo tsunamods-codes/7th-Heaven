@@ -1,6 +1,7 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
+using Iros._7th.Workshop;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -143,6 +144,8 @@ namespace _7thHeaven.Code
 
             try
             {
+                Sys.Message(new WMessage() { Text = $"Starting download using URL: {_sourceUrl}", LogLevel = WMessageLogLevel.Info });
+
                 HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                 if (ContentLength == -1 && !_checkedContentRange)
                 {
