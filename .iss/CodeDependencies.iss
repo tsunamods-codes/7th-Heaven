@@ -277,7 +277,7 @@ var
 begin
   RegResult := RegQueryStringValue(HKEY_LOCAL_MACHINE,'SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\' + Dependency_String('X86', 'X64'), 'Version', VcRuntimeVersion);
   if RegResult then
-    IsProductInstalled := (VcRuntimeVersion = 'v14.40.33617.01')
+    IsProductInstalled := (VcRuntimeVersion = 'v14.38.33135.00')
   else
     IsProductInstalled := False;
 
@@ -286,10 +286,8 @@ begin
     Dependency_Add('vcredist2022' + Dependency_ArchSuffix + '.exe',
       '/passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
       'Visual C++ 2015-2022 Redistributable' + Dependency_ArchTitle,
-      Dependency_String('https://download.visualstudio.microsoft.com/download/pr/09ee6168-4ebc-4886-a058-a668f573a552/E13808974666DACAAEA5C748E1CA3B39992541FE9FE393DA6FBAACF21273CF1A/VC_redist.x86.exe',
-      'https://download.visualstudio.microsoft.com/download/pr/09ee6168-4ebc-4886-a058-a668f573a552/CAA8369F99545E84E0EA83CBE0C202408F3B3A038B2E1786BB048A837A9D1522/VC_redist.x64.exe'),
-      '', False, False
-    );
+      Dependency_String('https://aka.ms/vs/17/release/vc_redist.x86.exe', 'https://aka.ms/vs/17/release/vc_redist.x64.exe'),
+      '', False, False);
   end;
 end;
 
