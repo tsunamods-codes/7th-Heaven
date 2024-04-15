@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7thWrapperLoader", "7thWrap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7thWrapperProxy", "7thWrapperProxy\7thWrapperProxy.csproj", "{F955F161-A47E-4399-9FD2-DB0D83E6461A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FF7_Launcher", "FF7_Launcher\FF7_Launcher.vcxproj", "{E9DF030F-3113-46CD-81EB-DDEC52A7C926}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,18 @@ Global
 		{F955F161-A47E-4399-9FD2-DB0D83E6461A}.Release|x64.Build.0 = Release|Any CPU
 		{F955F161-A47E-4399-9FD2-DB0D83E6461A}.Release|x86.ActiveCfg = Release|Any CPU
 		{F955F161-A47E-4399-9FD2-DB0D83E6461A}.Release|x86.Build.0 = Release|Any CPU
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|Any CPU.ActiveCfg = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|Any CPU.Build.0 = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|x64.ActiveCfg = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|x64.Build.0 = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|x86.ActiveCfg = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Debug|x86.Build.0 = Debug|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|Any CPU.ActiveCfg = Release|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|Any CPU.Build.0 = Release|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|x64.ActiveCfg = Release|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|x64.Build.0 = Release|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|x86.ActiveCfg = Release|win32
+		{E9DF030F-3113-46CD-81EB-DDEC52A7C926}.Release|x86.Build.0 = Release|win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1253,7 +1253,10 @@ namespace SeventhHeaven.ViewModels
         public bool CopyInputCfgToCustomCfg(bool forceCopy, string customFileName)
         {
             string pathToCustomCfg = Path.Combine(Sys.PathToControlsFolder, customFileName);
-            string pathToInputCfg = Path.Combine(Path.GetDirectoryName(Sys.Settings.FF7Exe), "ff7input.cfg");
+            string pathToInputCfg = Path.Combine(
+                Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? GameConverter.GetSteamFF7UserPath() : Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                "ff7input.cfg"
+            );
 
             Directory.CreateDirectory(Sys.PathToControlsFolder);
 

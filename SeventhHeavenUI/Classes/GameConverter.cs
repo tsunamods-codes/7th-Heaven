@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ValveKeyValue;
 
 namespace SeventhHeaven.Classes
 {
@@ -34,31 +35,32 @@ namespace SeventhHeaven.Classes
 
         public static string GetInstallLocation(FF7Version installedVersion)
         {
-            string installPath = null;
+            string installPath = "";
 
             switch (installedVersion)
             {
-                case FF7Version.Unknown:
-                    return "";
-
                 case FF7Version.Steam:
 
-                    if (Environment.Is64BitOperatingSystem)
-                    {
-                        // on 64-bit OS, Steam release registry key could be at 64bit path or 32bit path so check both
-                        installPath = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "InstallLocation", "") as string;
+                    // Detect if Steam is installed
+                    string steamPath = GetSteamPath();
 
-                        if (string.IsNullOrEmpty(installPath))
+                    if (steamPath != null)
+                    {
+                        var stream = File.OpenRead(steamPath + "\\steamapps\\libraryfolders.vdf");
+                        var kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                        KVObject data = kv.Deserialize(stream);
+
+                        foreach (var section in data)
                         {
-                            installPath = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "InstallLocation", "") as string;
+                            if (section["apps"]["39140"] != null)
+                            {
+                                if (section["apps"]["39140"].ToString() != "0")
+                                    installPath = section["path"] + "\\steamapps\\common\\FINAL FANTASY VII";
+                            }
                         }
                     }
-                    else
-                    {
-                        installPath = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "InstallLocation", "") as string;
-                    }
 
-                    return installPath;
+                    break;
 
                 case FF7Version.ReRelease:
                     // check 32-bit then 64-bit registry if not exists
@@ -69,14 +71,39 @@ namespace SeventhHeaven.Classes
                         installPath = RegistryHelper.GetValue(RegistryHelper.RereleaseKeyPath64Bit, "InstallLocation", "") as string;
                     }
 
-                    return installPath;
+                    break;
 
                 case FF7Version.Original98:
-                    return RegistryHelper.GetValue(FF7RegKey.FF7AppKeyPath, "Path", "") as string;
-
-                default:
-                    return "";
+                    installPath = RegistryHelper.GetValue(FF7RegKey.FF7AppKeyPath, "Path", "") as string;
+                    break;
             }
+
+            return installPath;
+        }
+
+        public static string GetSteamPath()
+        {
+            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamPath", "") as string;
+
+            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath", "") as string;
+
+            return ret;
+        }
+
+        public static string GetSteamExePath()
+        {
+            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamExe", "") as string;
+            
+            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamExe", "") as string;
+
+            return ret;
+        }
+
+        public static string GetSteamFF7UserPath()
+        {
+            string ret = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Square Enix\\FINAL FANTASY VII Steam";
+
+            return ret;
         }
 
         public bool IsGamePirated()
@@ -728,49 +755,12 @@ namespace SeventhHeaven.Classes
         }
 
         /// <summary>
-        /// Checks FFNx.dll is present in the current game directory.
-        /// If not present it will automatically download and install the latest stable version.
-        /// </summary>
-        /// <returns>returns false if error occurred</returns>
-        internal bool InstallLatestGameDriver(string backupFolderPath)
-        {
-            string pathToCurrentDriver = Path.Combine(InstallPath, "FFNx.dll");
-            bool currentDriverExists = File.Exists(pathToCurrentDriver);
-
-            if (!currentDriverExists)
-            {
-                try
-                {
-                    FFNxDriverUpdater updater = new FFNxDriverUpdater();
-
-                    SendMessage($"Download and extracting the latest FFNx {Sys.Settings.FFNxUpdateChannel} version to {Sys.InstallPath}...");
-                    updater.DownloadAndExtractLatestVersion(Sys.Settings.FFNxUpdateChannel);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                    return false;
-                }
-            }
-            else
-            {
-                SendMessage($"FFNx seems to be present.");
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Creates 'mods/Textures', 'direct' and subfolders, 'music', 'music/vgmstream', 'data/kernel' 'data/battle' folders if missing
+        /// Creates 'direct' and subfolders, 'mods/Textures' folders if missing
         /// </summary>
         public void CreateMissingDirectories()
         {
             string[] requiredFolders = new string[]
             {
-                Path.Combine(InstallPath, "data"),
-                Path.Combine(InstallPath, "data", "movies"),
-                Path.Combine(InstallPath, "data", "kernel"),
-                Path.Combine(InstallPath, "data", "battle"),
                 Path.Combine(InstallPath, "direct"),
                 Path.Combine(InstallPath, "direct", "battle"),
                 Path.Combine(InstallPath, "direct", "char"),
@@ -788,13 +778,7 @@ namespace SeventhHeaven.Classes
                 Path.Combine(InstallPath, "direct", "snowboard"),
                 Path.Combine(InstallPath, "direct", "sub"),
                 Path.Combine(InstallPath, "direct", "world"),
-                Path.Combine(InstallPath, "music"),
-                Path.Combine(InstallPath, "music", "vgmstream"),
-                Path.Combine(InstallPath, "sfx"),
-                Path.Combine(InstallPath, "shaders"),
-                Path.Combine(InstallPath, "voice"),
-                Path.Combine(InstallPath, "ambient"),
-                Path.Combine(InstallPath, "widescreen"),
+                Path.Combine(InstallPath, "mods", "Textures"),
             };
 
             foreach (string dir in requiredFolders)

@@ -49,7 +49,7 @@ namespace SeventhHeaven.ViewModels
                 {
                     GameLauncher.Instance.ProgressChanged += LaunchGame_ProgressChanged;
 
-                    didLaunch = GameLauncher.LaunchGame(variableDump, debugLogging, IsLaunchingWithNoMods, IsLaunchingWithNoValidation);
+                    didLaunch = GameLauncher.LaunchGame(variableDump, debugLogging, IsLaunchingWithNoMods, IsLaunchingWithNoValidation).Result;
                 }
                 finally
                 {

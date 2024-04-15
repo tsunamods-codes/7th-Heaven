@@ -422,41 +422,42 @@ namespace SeventhHeaven.ViewModels
             {
                 Logger.Info("FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ...");
 
-                string registry_path = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
                 string ff7 = null;
-                FF7Version foundVersion = FF7Version.Unknown;
+                Sys.Settings.FF7InstalledVersion = FF7Version.Unknown;
 
                 try
                 {
-                    // first try to detect 1998 game or a "converted" game from the old 7H game converter
-                    ff7 = (string)Registry.GetValue(registry_path, "AppPath", null);
-                    foundVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Original98 : FF7Version.Unknown;
+                    // First try to autodetect the Steam installation if any
+                    ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
+                    Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
 
-                    if (!Directory.Exists(ff7))
+                    // If no Steam version detected, attempt to detect the Eidos release
+                    if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
-                        Logger.Warn($"Deleting invalid 'AppPath' registry key since path does not exist: {ff7}");
-                        RegistryHelper.DeleteValueFromKey(registry_path, "AppPath"); // delete old paths set 
-                        RegistryHelper.DeleteValueFromKey(registry_path, "DataPath"); // delete old paths set 
-                        RegistryHelper.DeleteValueFromKey(registry_path, "MoviePath"); // delete old paths set 
-                        foundVersion = FF7Version.Unknown; // set back to Unknown to check other registry keys
+                        ff7 = GameConverter.GetInstallLocation(FF7Version.ReRelease);
+                        // Return the Steam version as both use the same logic to run from the 7th perspective
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
                     }
 
-
-                    if (foundVersion == FF7Version.Unknown)
+                    // Finally as a last attempt try to autodetect the 1998 release
+                    if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
-                        // next check Steam registry keys and then Re-Release registry keys for installation path
-                        ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
-                        foundVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
+                        // Try to detect 1998 game or a "converted" game from the old 7H game converter
+                        string registry_path = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+                        ff7 = (string)Registry.GetValue(registry_path, "AppPath", null);
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Original98 : FF7Version.Unknown;
 
-
-                        if (foundVersion == FF7Version.Unknown)
+                        if (!Directory.Exists(ff7))
                         {
-                            ff7 = GameConverter.GetInstallLocation(FF7Version.ReRelease);
-                            foundVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.ReRelease : FF7Version.Unknown;
+                            Logger.Warn($"Deleting invalid 'AppPath' registry key since path does not exist: {ff7}");
+                            RegistryHelper.DeleteValueFromKey(registry_path, "AppPath"); // delete old paths set 
+                            RegistryHelper.DeleteValueFromKey(registry_path, "DataPath"); // delete old paths set 
+                            RegistryHelper.DeleteValueFromKey(registry_path, "MoviePath"); // delete old paths set 
+                            Sys.Settings.FF7InstalledVersion = FF7Version.Unknown; // set back to Unknown to check other registry keys
                         }
                     }
 
-                    string versionStr = foundVersion == FF7Version.Original98 ? $"{foundVersion.ToString()} (or Game Converted)" : foundVersion.ToString();
+                    string versionStr = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? $"{Sys.Settings.FF7InstalledVersion.ToString()} (or Game Converted)" : Sys.Settings.FF7InstalledVersion.ToString();
 
                     Logger.Info($"FF7Version Detected: {versionStr} with installation path: {ff7}");
 
@@ -472,7 +473,7 @@ namespace SeventhHeaven.ViewModels
                     // could fail if game not installed
                 }
 
-                if (foundVersion != FF7Version.Unknown)
+                if (Sys.Settings.FF7InstalledVersion != FF7Version.Unknown)
                 {
                     settings.SetPathsFromInstallationPath(ff7);
 
@@ -496,8 +497,21 @@ namespace SeventhHeaven.ViewModels
                 {
                     Logger.Warn("Auto detect paths failed - could not get ff7.exe path from Windows Registry.");
                 }
+            }
+            // User has given a ff7 exe path, try to guess which version it is
+            else
+            {
+                if (settings.FF7Exe.EndsWith("ff7_en.exe"))
+                {
+                    string ff7Launcher = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "FF7_Launcher.exe");
 
-
+                    // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
+                    if (File.Exists(ff7Launcher)) Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
+                }
+                else if(settings.FF7Exe.EndsWith("ff7.exe"))
+                {
+                    Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
+                }
             }
         }
 
@@ -547,7 +561,6 @@ namespace SeventhHeaven.ViewModels
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
             Sys.Settings.AppUpdateChannel = AppUpdateChannel;
 
-
             Sys.Settings.Options = GetUpdatedOptions();
 
             ApplyOptions();
@@ -555,6 +568,23 @@ namespace SeventhHeaven.ViewModels
             Directory.CreateDirectory(Sys.Settings.LibraryLocation);
 
             Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
+
+            if (!FFNxDriverUpdater.IsAlreadyInstalled())
+            {
+                try
+                {
+                    FFNxDriverUpdater updater = new FFNxDriverUpdater();
+
+                    Sys.Message(new WMessage($"Downloading and extracting the latest FFNx {Sys.Settings.FFNxUpdateChannel} version to {Sys.InstallPath}..."));
+                    updater.DownloadAndExtractLatestVersion(Sys.Settings.FFNxUpdateChannel);
+                }
+                catch (Exception ex)
+                {
+                    Sys.Message(new WMessage($"Something went wrong while attempting to install FFNx. See logs."));
+                    Logger.Error(ex);
+                    return false;
+                }
+            }
 
             return true;
         }

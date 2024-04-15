@@ -2,21 +2,11 @@
 
 namespace _7thHeaven.Code
 {
-    public enum MountDiscOption
-    {
-        Unknown = -1,
-        MountWithPowerShell = 0,
-        MountWithWinCDEmu = 1,
-        DoNotMount =2,
-    }
 
     [Serializable]
     public class LaunchSettings
     {
-        public bool AutoMountGameDisc { get; set; }
-        public bool AutoUnmountGameDisc { get; set; }
         public bool AutoUpdateDiscPath { get; set; }
-        public MountDiscOption MountingOption { get; set; }
 
         public bool DisableReunionOnLaunch { get; set; }
 
@@ -49,8 +39,6 @@ namespace _7thHeaven.Code
         {
             return new LaunchSettings()
             {
-                AutoMountGameDisc = true,
-                AutoUnmountGameDisc = true,
                 AutoUpdateDiscPath = true,
                 DisableReunionOnLaunch = true,
                 SelectedSoundDevice = Guid.Empty,
@@ -62,7 +50,6 @@ namespace _7thHeaven.Code
                 HasDisplayedOggMusicWarning = false,
                 HasDisplayedMovieWarning = false,
                 EnablePs4ControllerService = false,
-                MountingOption = MountDiscOption.MountWithPowerShell,
                 EnableGamepadPolling = false,
             };
         }

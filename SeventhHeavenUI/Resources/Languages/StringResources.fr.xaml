@@ -1224,6 +1224,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
     <system:String x:Key="VerifyingEnglishGameFilesExist">Vérification que les fichiers de la version anglaise du jeu existent...</system:String>
     <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Fichiers d'une autre langue trouvés: {0} Création des fichiers anglais...</system:String>
+    <system:String x:Key="ErrorOnlyEnglishLanguageSupported">ERROR: Only English language is supported. Consider installing FF7 in English (US) on Steam.</system:String>
     <system:String x:Key="ExtractingLGPFiles">Extraction des fichiers .lgp...</system:String>
     <system:String x:Key="RenamingLanguageSpecificFiles">Renommage des fichiers spécifiques à la langue...</system:String>
     <system:String x:Key="CouldNotFindFileToRename">Impossible de trouver le fichier a renommer: {0} ...</system:String>

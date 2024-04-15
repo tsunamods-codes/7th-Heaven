@@ -311,7 +311,7 @@ namespace _7thWrapperLib
         public static bool DirExists(string dir)
         {
             bool exist = System.IO.Directory.Exists(dir);
-            DebugLogger.DetailedWriteLine($"MOD: Check if directory exists {dir}: {exist}");
+            //DebugLogger.DetailedWriteLine($"MOD: Check if directory exists {dir}: {exist}");
             return exist;
         }
 
@@ -350,7 +350,7 @@ namespace _7thWrapperLib
                 exist = System.IO.File.Exists(file);
                 if (exist) _activated.Add(file);
             }
-            DebugLogger.DetailedWriteLine($"MOD: Check if file exists {file}: {exist}");
+            //DebugLogger.DetailedWriteLine($"MOD: Check if file exists {file}: {exist}");
             return exist;
         }
 

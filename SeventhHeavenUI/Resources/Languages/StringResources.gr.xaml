@@ -1232,6 +1232,7 @@
     <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
     <system:String x:Key="VerifyingEnglishGameFilesExist">Υπάρχει επαλήθευση αρχείων αγγλικών παιχνιδιών ...</system:String>
     <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Εγκατεστημένη γλώσσα που βρέθηκε: {0} Δημιουργία αγγλικών αρχείων παιχνιδιών ...</system:String>
+    <system:String x:Key="ErrorOnlyEnglishLanguageSupported">ERROR: Only English language is supported. Consider installing FF7 in English (US) on Steam.</system:String>
     <system:String x:Key="ExtractingLGPFiles">Εξαγωγή αρχείων .lgp ...</system:String>
     <system:String x:Key="RenamingLanguageSpecificFiles">Μετονομασία αρχείων ειδικά για τη γλώσσα ...</system:String>
     <system:String x:Key="CouldNotFindFileToRename">Δεν ήταν δυνατή η εύρεση αρχείου για μετονομασία: {0} ...</system:String>

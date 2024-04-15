@@ -32,7 +32,7 @@ namespace _7thWrapperLib {
 
             do
             {
-                DebugLogger.WriteLine("MONITOR:");
+                DebugLogger.WriteLine(">> MONITOR:");
                 for (int i = 0; i < accessors.Count; i++)
                 {
                     int value;
@@ -85,16 +85,29 @@ namespace _7thWrapperLib {
                     }
                 }
 
-                DebugLogger.WriteLine($"Wrap run... PName: {_process.ProcessName} PID: {_process.Id} Path: {_profile.ModPath} Capture: {String.Join(", ", _profile.MonitorPaths)}");
+                DebugLogger.WriteLine($"Starting wrapper now:");
+
+                DebugLogger.WriteLine($">> PName: {_process.ProcessName}");
+                DebugLogger.WriteLine($">> PID: {_process.Id}");
+                DebugLogger.WriteLine($">> FF7Path: {_profile.FF7Path}");
+                DebugLogger.WriteLine($">> ModPath: {_profile.ModPath}");
+                DebugLogger.WriteLine($">> MonitorPaths:");
+                foreach(string monPath in _profile.MonitorPaths)
+                    DebugLogger.WriteLine($"   - {monPath}");
                 for (int i = _profile.MonitorPaths.Count - 1; i >= 0; i--) {
                     if (!_profile.MonitorPaths[i].EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
                         _profile.MonitorPaths[i] += System.IO.Path.DirectorySeparatorChar;
                     if (String.IsNullOrWhiteSpace(_profile.MonitorPaths[i])) _profile.MonitorPaths.RemoveAt(i);
                 }
 
+                DebugLogger.WriteLine($"\nLoading mods:");
+
                 foreach (var item in _profile.Mods) {
-                    DebugLogger.WriteLine($"  Mod: {item.BaseFolder} has {item.Conditionals.Count} conditionals");
-                    DebugLogger.WriteLine("     Additional paths: " + String.Join(", ", item.ExtraFolders));
+                    DebugLogger.WriteLine($">> Mod: {item.BaseFolder}");
+                    DebugLogger.WriteLine($"   - Conditionals: {item.Conditionals.Count}");
+                    DebugLogger.WriteLine($"   - Extra Folders:");
+                    foreach (string extraFolder in item.ExtraFolders)
+                        DebugLogger.WriteLine($"     - {extraFolder}");
                     item.Startup();
                 }
 
@@ -119,6 +132,8 @@ namespace _7thWrapperLib {
                     }
                 }
 
+                DebugLogger.WriteLine($"\nLoading hext patches:");
+
                 foreach (var mod in _profile.Mods.AsEnumerable().Reverse()) {
                     foreach (string file in mod.GetPathOverrideNames("hext")) {
                         foreach (var of in mod.GetOverrides("hext\\" + file)) {
@@ -128,11 +143,11 @@ namespace _7thWrapperLib {
                             } else {
                                 s = of.Archive.GetData(of.File);
                             }
-                            DebugLogger.WriteLine($"Applying hext patch {file} from mod {mod.BaseFolder}");
+                            DebugLogger.WriteLine($">> Applying hext patch {file} from mod {mod.BaseFolder}");
                             try {
                                 HexPatch.Apply(s);
                             } catch (Exception ex) {
-                                DebugLogger.WriteLine("Error applying patch: " + ex.Message);
+                                DebugLogger.WriteLine("   - Error applying patch: " + ex.Message);
                             }
                         }
                     }
@@ -167,6 +182,9 @@ namespace _7thWrapperLib {
                             AddIROFilesToMappedFiles("", null, archive);
                     }
                 }
+
+                DebugLogger.WriteLine($"\nWrapper startup complete.");
+                DebugLogger.WriteLine($"\nListening for game actions...");
             } catch (Exception e) {
                 DebugLogger.WriteLine(e.ToString());
                 return;
@@ -262,7 +280,7 @@ namespace _7thWrapperLib {
             if (_varchives.ContainsKey(hObject))
             {
                 _varchives.Remove(hObject);
-                DebugLogger.WriteLine($"Closing dummy handle {hObject}");
+                DebugLogger.WriteLine($">> Closing dummy handle {hObject}");
             }
 
             return ret;
@@ -272,7 +290,7 @@ namespace _7thWrapperLib {
         {            
             uint ret = 0;
 
-            DebugLogger.DetailedWriteLine($"GetFileType on {hFile}");
+            DebugLogger.DetailedWriteLine($">> GetFileType on {hFile}");
             if (_varchives.ContainsKey(hFile))
             {
                 //DebugLogger.WriteLine(" ---faking dummy file");
@@ -319,7 +337,7 @@ namespace _7thWrapperLib {
         public static IntPtr CreateVA(OverrideFile of) {
             VArchiveData va = new VArchiveData(of.Archive.GetBytes(of.File));
             IntPtr dummy = of.Archive.GetDummyHandle(_process);
-            DebugLogger.WriteLine($"Creating dummy file handle {dummy} to access {of.Archive}{of.File}");
+            DebugLogger.WriteLine($">> Creating dummy file handle {dummy} to access {of.Archive}{of.File}");
             _varchives[dummy] = va;
 
             return dummy;
@@ -348,7 +366,7 @@ namespace _7thWrapperLib {
             if (isFF7GameFile)
             {
                 lpFileName = lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\");
-                DebugLogger.DetailedWriteLine($"CreateFileW for {lpFileName}...");
+                DebugLogger.DetailedWriteLine($">> CreateFileW for {lpFileName}...");
                 if (lpFileName.IndexOf('\\') < 0)
                 {
                     //DebugLogger.WriteLine("No path: curdir is {0}", System.IO.Directory.GetCurrentDirectory(), 0);
@@ -375,7 +393,7 @@ namespace _7thWrapperLib {
 
                         if (mapped != null)
                         {
-                            DebugLogger.WriteLine($"Remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+                            DebugLogger.WriteLine($"   - Remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
 
                             if (mapped.Archive == null)
                             {
@@ -391,7 +409,7 @@ namespace _7thWrapperLib {
                 }
             }
             else
-                DebugLogger.DetailedWriteLine($"Skipped file {lpFileName}");
+                DebugLogger.DetailedWriteLine($">> Skipped file {lpFileName}");
 
             if (ret == IntPtr.Zero)
                 ret = Win32.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
@@ -403,7 +421,7 @@ namespace _7thWrapperLib {
 
         public static IntPtr HFindFirstFileW(string lpFileName, IntPtr lpFindFileData)
         {
-            DebugLogger.WriteLine("FindFirstFile for " + lpFileName);
+            DebugLogger.WriteLine(">> FindFirstFile for " + lpFileName);
 
             return IntPtr.Zero;
         }
@@ -419,7 +437,7 @@ namespace _7thWrapperLib {
 
             if (result && _varchives.ContainsKey(hFile))
             {
-                DebugLogger.DetailedWriteLine($"Overriding GetFileInformationByHandle for dummy file {hFile}");
+                DebugLogger.DetailedWriteLine($">> Overriding GetFileInformationByHandle for dummy file {hFile}");
                 _lpFileInformation.FileSizeHigh = (uint)(_varchives[hFile].Size >> 32);
                 _lpFileInformation.FileSizeLow = (uint)(_varchives[hFile].Size & 0xffffffff);
 
@@ -438,7 +456,7 @@ namespace _7thWrapperLib {
             if (_varchives.ContainsKey(hSourceHandle))
             {
                 _varchives[lpTargetHandle] = _varchives[hSourceHandle];
-                DebugLogger.DetailedWriteLine($"Duplicating dummy handle {hSourceHandle} to {lpTargetHandle}");
+                DebugLogger.DetailedWriteLine($">> Duplicating dummy handle {hSourceHandle} to {lpTargetHandle}");
             }
 
             return 1;
@@ -450,7 +468,7 @@ namespace _7thWrapperLib {
 
             if (_varchives.ContainsKey(hFile))
             {
-                DebugLogger.WriteLine($"GetFileSize on dummy handle {hFile}");
+                DebugLogger.WriteLine($">> GetFileSize on dummy handle {hFile}");
                 ret = _varchives[hFile].GetFileSize(lpFileSizeHigh);
             }
 
@@ -463,7 +481,7 @@ namespace _7thWrapperLib {
 
             if (_varchives.ContainsKey(hFile))
             {
-                DebugLogger.WriteLine($"GetFileSizeEx on dummy handle {hFile}");
+                DebugLogger.WriteLine($">> GetFileSizeEx on dummy handle {hFile}");
                 byte[] tmp = BitConverter.GetBytes(_varchives[hFile].Size);
                 Util.CopyToIntPtr(tmp, lpFileSize, tmp.Length);
 

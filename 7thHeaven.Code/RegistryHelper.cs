@@ -24,9 +24,13 @@ namespace _7thHeaven.Code
 
         private static List<string> transaction = new();
 
-        public const string SteamKeyPath64Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 39140";
+        public const string SteamKeyPath64Bit = @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam";
 
-        public const string SteamKeyPath32Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 39140";
+        public const string SteamKeyPath32Bit = @"HKEY_CURRENT_USER\Software\Valve\Steam";
+
+        public const string FF7SteamKeyPath64Bit = @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam\Apps\39140";
+
+        public const string FF7SteamKeyPath32Bit = @"HKEY_CURRENT_USER\Software\Valve\Steam\Apps\39140";
 
         public const string RereleaseKeyPath64Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{141B8BA9-BFFD-4635-AF64-078E31010EC3}_is1";
 

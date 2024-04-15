@@ -280,6 +280,7 @@
         DeletingTemporaryFiles,
         BeginningToPollForGamePadInput,
         FoundLanguageInstalledCreatingEnglishGameFiles,
+        ErrorOnlyEnglishLanguageSupported,
         Ff7IsCurrentlyInstalledInASystemFolder,
         CanNotContinueDueToFf7nstalledInProtectedFolder,
         CannotContinue,
