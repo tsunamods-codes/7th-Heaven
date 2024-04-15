@@ -501,14 +501,14 @@ namespace SeventhHeaven.ViewModels
             // User has given a ff7 exe path, try to guess which version it is
             else
             {
-                if (settings.FF7Exe.EndsWith("ff7_en.exe"))
+                if (settings.FF7Exe.ToLower().EndsWith("ff7_en.exe"))
                 {
                     string ff7Launcher = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "FF7_Launcher.exe");
 
                     // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
                     if (File.Exists(ff7Launcher)) Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
                 }
-                else if(settings.FF7Exe.EndsWith("ff7.exe"))
+                else if(settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
                     Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
                 }
