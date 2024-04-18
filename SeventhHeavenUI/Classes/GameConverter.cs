@@ -46,17 +46,21 @@ namespace SeventhHeaven.Classes
 
                     if (steamPath != null)
                     {
-                        var stream = File.OpenRead(steamPath + "\\steamapps\\libraryfolders.vdf");
+                        var stream = File.OpenRead(Path.Combine(steamPath, "steamapps\\libraryfolders.vdf"));
                         var kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
                         KVObject data = kv.Deserialize(stream);
 
+                        // Look through multiple libraries
                         foreach (var section in data)
                         {
                             if (section["apps"]["39140"] != null)
-                            {
-                                if (section["apps"]["39140"].ToString() != "0")
-                                    installPath = section["path"] + "\\steamapps\\common\\FINAL FANTASY VII";
-                            }
+                                installPath = Path.Combine(section["path"].ToString().Replace("\\\\","\\"), "steamapps\\common\\FINAL FANTASY VII");
+                        }
+
+                        // If not found, check if a ticket is in the default steamapps folder
+                        if (File.Exists(Path.Combine(steamPath, "steamapps\\appmanifest_39140.acf")))
+                        {
+                            installPath = Path.Combine(steamPath, "steamapps\\common\\FINAL FANTASY VII");
                         }
                     }
 
@@ -87,7 +91,7 @@ namespace SeventhHeaven.Classes
 
             if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath", "") as string;
 
-            return ret;
+            return ret.Replace("/","\\");
         }
 
         public static string GetSteamExePath()
@@ -96,7 +100,7 @@ namespace SeventhHeaven.Classes
             
             if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamExe", "") as string;
 
-            return ret;
+            return ret.Replace("/","\\");
         }
 
         public static string GetSteamFF7UserPath()
