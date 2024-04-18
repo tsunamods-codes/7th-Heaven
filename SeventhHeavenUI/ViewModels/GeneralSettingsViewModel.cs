@@ -474,29 +474,9 @@ namespace SeventhHeaven.ViewModels
                 }
 
                 if (Sys.Settings.FF7InstalledVersion != FF7Version.Unknown)
-                {
                     settings.SetPathsFromInstallationPath(ff7);
-
-                    // copy ff7.exe to install path if not found since Steam & Re-Release installation does not provide a ff7.exe
-                    if (!File.Exists(settings.FF7Exe) && Path.GetFileName(settings.FF7Exe).Equals("ff7.exe", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        Logger.Info($"Copying ff7.exe from {Sys.PathToPatchedExeFolder} to {settings.FF7Exe}");
-
-                        try
-                        {
-                            File.Copy(Path.Combine(Sys.PathToPatchedExeFolder, "ff7.exe"), settings.FF7Exe, true);
-                            Logger.Info($"\tcopied succesfully.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Error(ex);
-                        }
-                    }
-                }
                 else
-                {
-                    Logger.Warn("Auto detect paths failed - could not get ff7.exe path from Windows Registry.");
-                }
+                    Logger.Warn("Could not detect the path to any FF7 installed copy.");
             }
             // User has given a ff7 exe path, try to guess which version it is
             else
