@@ -787,6 +787,7 @@
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Επαληθεύεται η ύπαρξη των φακέλων του προγράμματος οδήγησης σκίασης  ...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Γίνεται επαλήθευση του ff7.exe ...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">Το ff7.exe εντοπίστηκε να είναι διαφορετικό. Δημιουργία αντιγράφων ασφαλείας και αντιγραφή σωστών .exe ...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">Αποτυχία αντιγραφής του ff7.exe. Ματαίωση ...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">Αποτυχία δημιουργίας αντιγράφου ασφαλείας για το ff7.exe. Ματαίωση ...</system:String>

@@ -790,6 +790,7 @@ Wenn Sie später hochwertige .ogg-Dateien verwenden möchten, schalten Sie die E
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Prüfe, ob der Ordner "shaders" vom 7H-Spieltreiber vorhanden ist...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Prüfe die "ff7.exe"...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">Es wurde festgestellt, dass die "ff7.exe" fehlt oder unterschiedlich ist. Erstellen Sie ein Backup (falls vorhanden) und kopieren Sie die korrekte .exe-Datei...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">Fehler beim Kopieren der "ff7.exe". Abbruch...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">Fehler beim Erstellen des Backups von "ff7.exe". Abbruch...</system:String>

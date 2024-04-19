@@ -790,6 +790,7 @@ Later, if you wish to use high quality .OGG files, switch the setting back to 'V
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Verifying game driver shaders folders exist ...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Verifying ff7 exe ...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">ff7.exe detected to be different. creating backup and copying correct .exe ...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">failed to copy ff7.exe. Aborting ...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">failed to create backup of ff7.exe. Aborting ...</system:String>

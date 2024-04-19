@@ -307,6 +307,7 @@
         SomethingWentWrongTryingToDetectGameDriver,
         VerifyingGameDriverShadersFoldersExist,
         VerifyingFf7Exe,
+        VerifyingFf7LauncherExe,
         Ff7ExeDetectedToBeDifferent,
         FailedToCopyFf7Exe,
         FailedToCreateBackupOfFf7Exe,

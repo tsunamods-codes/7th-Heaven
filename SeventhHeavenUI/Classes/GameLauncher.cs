@@ -258,6 +258,18 @@ namespace SeventhHeaven.Classes
             }
 
             //
+            // Copy the new launcher to the game path
+            //
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingFf7LauncherExe));
+
+                string src = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
+                File.Copy(Path.Combine(src, "FF7_Launcher.exe"), Path.Combine(dest, "FF7_Launcher.exe"), true);
+            }
+
+            //
             // GAME SHOULD BE FULLY 'CONVERTED' AND READY TO LAUNCH FOR MODS AT THIS POINT
             //
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingAProfileIsActive));
@@ -756,12 +768,6 @@ namespace SeventhHeaven.Classes
             File.Copy(Path.Combine(src, "7thWrapperLib.dll"), Path.Combine(dest, "7thWrapperLib.dll"), true);
             File.Copy(Path.Combine(src, "7thWrapperLoader.dll"), Path.Combine(dest, "dinput.dll"), true);
             File.Copy(Path.Combine(src, "7thWrapperLoader.pdb"), Path.Combine(dest, "7thWrapperLoader.pdb"), true);
-
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
-            {
-                File.Move(Path.Combine(dest, "FF7_Launcher.exe"), Path.Combine(dest, "_FF7_Launcher.exe"));
-                File.Copy(Path.Combine(src, "FF7_Launcher.exe"), Path.Combine(dest, "FF7_Launcher.exe"));
-            }
         }
 
         private static async void Delete7thWrapperDlls()
@@ -777,13 +783,6 @@ namespace SeventhHeaven.Classes
             File.Delete(Path.Combine(dest, "7thWrapperLib.dll"));
             File.Delete(Path.Combine(dest, "dinput.dll"));
             File.Delete(Path.Combine(dest, "7thWrapperLoader.pdb"));
-
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
-            {
-                await waitForProcessExit("FF7_Launcher");
-                File.Delete(Path.Combine(dest, "FF7_Launcher.exe"));
-                File.Move(Path.Combine(dest, "_FF7_Launcher.exe"), Path.Combine(dest, "FF7_Launcher.exe"));
-            }
         }
 
         private static void StartTurboLogForVariableDump(RuntimeProfile runtimeProfiles)

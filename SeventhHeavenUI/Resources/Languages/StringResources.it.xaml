@@ -787,6 +787,7 @@ Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMst
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Conotrollo esistenza cartella shader dei driver di gioco ...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Controllo l'eseguibile di ff7 ...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">ff7.exe individuato, ma differente. creo copia di backup e tento di correggere ...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">copia di ff7.exe non riuscita. Annullo ...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">copia di backup di ff7.exe non riuscita. Annullo ...</system:String>

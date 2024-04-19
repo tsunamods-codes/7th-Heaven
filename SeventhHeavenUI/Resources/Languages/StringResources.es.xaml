@@ -792,6 +792,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Verificando que la carpeta shaders del controlador del juego existe ...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Verificando el FF7.exe ...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">Se ha detectado que ff7.exe es distinto. Creando una copia de reserva y copiando el .exe correcto ...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">error al intentar copiar ff7.exe. Abortando ...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">error al crear una copia de reserva de ff7.exe. Abortando ...</system:String>
