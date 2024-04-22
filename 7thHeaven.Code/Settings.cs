@@ -211,7 +211,7 @@ namespace Iros._7th.Workshop {
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
             FF7Exe = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? Path.Combine(pathToFf7Install, "FF7.exe") : Path.Combine(pathToFf7Install, "ff7_en.exe");
-            LibraryLocation = Path.Combine(pathToFf7Install, "mods", @"7th Heaven");
+            LibraryLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"7th Heaven");
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
 
