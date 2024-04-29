@@ -43,7 +43,7 @@
     <PackageReference Include="AngleSharp" Version="1.1.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress">
-      <Version>0.36.0</Version>
+      <Version>0.37.2</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
       <Version>0.17.0</Version>
