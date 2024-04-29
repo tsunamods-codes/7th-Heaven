@@ -613,7 +613,7 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>5.2.8</Version>
+      <Version>5.3.1</Version>
     </PackageReference>
     <PackageReference Include="SharpDX.DirectInput">
       <Version>4.2.0</Version>
