@@ -53,14 +53,12 @@ namespace SeventhHeaven.Classes
                         // Look through multiple libraries
                         foreach (var section in data)
                         {
-                            if (section["apps"]["39140"] != null)
-                                installPath = Path.Combine(section["path"].ToString().Replace("\\\\","\\"), "steamapps\\common\\FINAL FANTASY VII");
-                        }
+                            var libraryPath = section["path"].ToString().Replace("\\\\", "\\");
 
-                        // If not found, check if a ticket is in the default steamapps folder
-                        if (File.Exists(Path.Combine(steamPath, "steamapps\\appmanifest_39140.acf")))
-                        {
-                            installPath = Path.Combine(steamPath, "steamapps\\common\\FINAL FANTASY VII");
+                            if (File.Exists(Path.Combine(libraryPath, "steamapps\\appmanifest_39140.acf")))
+                            {
+                                installPath = Path.Combine(libraryPath, "steamapps\\common\\FINAL FANTASY VII");
+                            }
                         }
                     }
 
