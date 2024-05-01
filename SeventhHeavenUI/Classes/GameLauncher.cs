@@ -353,6 +353,7 @@ namespace SeventhHeaven.Classes
                 Sys.FFNxConfig.Reload();
                 Sys.FFNxConfig.Backup(true);
                 Sys.FFNxConfig.OverrideInternalKeys();
+                if (runtimeProfile.Mods.Count > 0) Sys.FFNxConfig.Set("external_music_path", "music/vgmstream");
                 foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
                     foreach(FFNxFlag flag in mod.FFNxConfig)
