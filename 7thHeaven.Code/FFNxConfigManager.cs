@@ -226,7 +226,18 @@ namespace Iros._7th.Workshop.ConfigSettings
             // Override known internal keys on save to preserve mod behavior override logic
             _toml["external_sfx_path"] = "sfx";
             _toml["external_sfx_ext"] = "ogg";
-            _toml["external_music_path"] = "music/vgmstream";
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                _toml["external_music_path"] = "data/music_ogg";
+                _toml["use_external_music"] = true;
+            }
+            else
+            {
+                _toml["external_music_path"] = "music/vgmstream";
+
+                if (Directory.EnumerateFiles(Path.Combine(Sys.InstallPath, "music/vgmstream"), "*.ogg").Any())
+                    _toml["use_external_music"] = true;
+            }
             _toml["external_music_ext"] = "ogg";
             _toml["external_voice_path"] = "voice";
             _toml["external_voice_ext"] = "ogg";
@@ -236,9 +247,6 @@ namespace Iros._7th.Workshop.ConfigSettings
             _toml["ffmpeg_video_ext"] = "avi";
             _toml["mod_path"] = "mods/Textures";
             _toml["direct_mode_path"] = "direct";
-
-            if (Directory.EnumerateFiles(Path.Combine(Sys.InstallPath, "music/vgmstream"), "*.ogg").Any())
-                _toml["use_external_music"] = true;
         }
 
         public void ResetTo7thHeavenDefaults()
