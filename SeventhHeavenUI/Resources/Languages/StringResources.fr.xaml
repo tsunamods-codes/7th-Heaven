@@ -729,6 +729,12 @@ Cliquer sur Oui pour fermer toutes les instances actuelles de FF7. Cliquer sur N
     <system:String x:Key="Aborting">Abandon...</system:String>
     <system:String x:Key="FailedToCloseProcess">échec de la fermeture du processus</system:String>
     <system:String x:Key="CheckingFf7ExeExistsAt">Vérification que l'exe de FF7 existe à</system:String>
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">Checking FF7 Steam if installed correctly...</system:String>
+    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">No user configuration found. Looks like your Steam game installation has not been run yet.
+        
+7th Heaven will launch now the original game for you. Please make sure you click Play and run the game at least once.
+    
+Once done, do close the game and the launcher, and finally retry to click Play here on 7th Heaven.</system:String>
     <system:String x:Key="FileNotFoundAborting">fichier non trouvé. Abandon...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Exe de FF7 non trouvé. Vous devrez peut-être configurer 7H en utilisant le menu Paramètres > Paramètres Généraux.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Vérification de la compatibilité du jeu installé...</system:String>

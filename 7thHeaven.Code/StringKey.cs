@@ -261,6 +261,8 @@
         Aborting,
         FailedToCloseProcess,
         CheckingFf7ExeExistsAt,
+        FF7SteamNotInstalledCorrectly,
+        CheckingFF7SteamInstalledCorrectly,
         FileNotFoundAborting,
         Ff7ExeNotFoundYouMayNeedToConfigure,
         VerifyingInstalledGameIsCompatible,

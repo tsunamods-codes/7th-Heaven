@@ -733,6 +733,12 @@
     <system:String x:Key="Aborting">Σε διαδικασία Ακύρωσης ...</system:String>
     <system:String x:Key="FailedToCloseProcess">Απέτυχε το κλείσιμο της διεργασίας</system:String>
     <system:String x:Key="CheckingFf7ExeExistsAt">Έλέγχεται αν το FF7.exe είναι ενεργό στο</system:String>
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">Checking FF7 Steam if installed correctly...</system:String>
+    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">No user configuration found. Looks like your Steam game installation has not been run yet.
+        
+7th Heaven will launch now the original game for you. Please make sure you click Play and run the game at least once.
+    
+Once done, do close the game and the launcher, and finally retry to click Play here on 7th Heaven.</system:String>
     <system:String x:Key="FileNotFoundAborting">Αδυναμία εύρεσης αρχείου. Γίνεται ακύρωση ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Το αρχείο FF7.exe δεν βρέθηκε. Ισως χρειαστεί διαμόρφωση του 7H μέσω του μενού 'Ρυθμίσεις'>'Γενικές Ρυθμίσεις'.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Επαλήθευση συμβατότητας του εγκατεστημένου παιχνιδιού ...</system:String>

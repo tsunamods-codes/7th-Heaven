@@ -17,6 +17,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Xml;
 using Profile = Iros._7th.Workshop.Profile;
@@ -84,8 +85,15 @@ namespace SeventhHeaven.Classes
 
         public static async Task<bool> LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false)
         {
+            bool runAsVanilla = false, didDisableReunion = false;
+            string vanillaMsg = "";
+            RuntimeProfile runtimeProfile = null;
+
             MainWindowViewModel.SaveActiveProfile();
             Sys.Save();
+
+            GameConverter converter = new GameConverter(Path.GetDirectoryName(Sys.Settings.FF7Exe));
+            converter.MessageSent += GameConverter_MessageSent;
 
             // Check for DEP
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckForSystemDEPStatus));
@@ -163,13 +171,27 @@ namespace SeventhHeaven.Classes
                 return false;
             }
 
+            //
+            // GAME SANITY CHECK - Make sure the user has at least run once the Steam game
+            //
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.CheckingFF7SteamInstalledCorrectly)}...");
+                if (!Path.Exists(GameConverter.GetSteamFF7UserPath()) || Directory.EnumerateDirectories(GameConverter.GetSteamFF7UserPath(), "user_*").Count() <= 0)
+                {
+                    Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.FF7SteamNotInstalledCorrectly)}", NLog.LogLevel.Warn);
+                    var result = MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FF7SteamNotInstalledCorrectly), "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    if (result.Result == MessageBoxResult.OK)
+                    {
+                        runAsVanilla = true;
+                        goto LaunchGame;
+                    }
+                }
+            }
 
             //
             // GAME CONVERTER - Make sure game is ready for mods
             //
-            GameConverter converter = new GameConverter(Path.GetDirectoryName(Sys.Settings.FF7Exe));
-            converter.MessageSent += GameConverter_MessageSent;
-
             FFNxDriverUpdater.CleanupUnnecessaryFiles();
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingInstalledGameIsCompatible));
@@ -304,9 +326,6 @@ namespace SeventhHeaven.Classes
             //
             // Determine if game will be ran as 'vanilla' with mods so don't have to inject with 7thWrapperLoader
             //
-            bool runAsVanilla = false;
-            string vanillaMsg = "";
-
             if (launchWithNoMods)
             {
                 vanillaMsg = ResourceHelper.Get(StringKey.UserRequestedToPlayWithNoModsLaunchingGameAsVanilla);
@@ -317,8 +336,6 @@ namespace SeventhHeaven.Classes
                 vanillaMsg = ResourceHelper.Get(StringKey.NoModsActivatedLaunchingGameAsVanilla);
                 runAsVanilla = true;
             }
-
-            RuntimeProfile runtimeProfile = null;
 
             if (!runAsVanilla)
             {
@@ -400,8 +417,6 @@ namespace SeventhHeaven.Classes
             //
             // Check/Disable Reunion Mod
             //
-            bool didDisableReunion = false;
-
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingIfReunionModIsInstalled));
             Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Found)}: {IsReunionModInstalled()}");
 
@@ -440,6 +455,7 @@ namespace SeventhHeaven.Classes
                 Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.ReceivedUnknownError)}: {e.Message} ...", NLog.LogLevel.Warn);
             }
 
+        LaunchGame:
             // start FF7 proc as normal and return true when running the game as vanilla
             if (runAsVanilla)
             {
@@ -1468,8 +1484,17 @@ namespace SeventhHeaven.Classes
 
         public static bool IsFF7Running()
         {
+            bool ret = false;
+
             string fileName = Path.GetFileNameWithoutExtension(Sys.Settings.FF7Exe);
-            return Process.GetProcessesByName(fileName).Length > 0;
+            ret = Process.GetProcessesByName(fileName).Length > 0;
+
+            if (!ret && Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                ret = Process.GetProcessesByName("FF7_Launcher").Length > 0;
+            }
+
+            return ret;
         }
 
         private static bool ForceKillFF7()
@@ -1481,6 +1506,14 @@ namespace SeventhHeaven.Classes
                 foreach (Process item in Process.GetProcessesByName(fileName))
                 {
                     item.Kill();
+                }
+
+                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+                {
+                    foreach (Process item in Process.GetProcessesByName("FF7_Launcher"))
+                    {
+                        item.Kill();
+                    }
                 }
 
                 return true;
