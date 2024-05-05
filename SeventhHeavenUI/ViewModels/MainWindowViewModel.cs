@@ -1631,11 +1631,11 @@ namespace SeventhHeavenUI.ViewModels
             return AppHints[r.Next(0, AppHints.Count)];
         }
 
-        internal void LaunchGame(bool variableDump = false, bool debugLogging = false, bool noMods = false, bool noValidation = false)
+        internal void LaunchGame(bool variableDump = false, bool debugLogging = false, bool noMods = false)
         {
             IsGameLaunching = true;
             GameLauncher.Instance.LaunchCompleted += GameLauncher_LaunchCompleted;
-            GameLaunchWindow.Show(variableDump, debugLogging, noMods, noValidation);
+            GameLaunchWindow.Show(variableDump, debugLogging, noMods);
         }
 
         private void GameLauncher_LaunchCompleted(bool wasSuccessful)

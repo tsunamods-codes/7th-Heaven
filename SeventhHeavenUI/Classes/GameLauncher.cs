@@ -82,7 +82,7 @@ namespace SeventhHeaven.Classes
 
         private static Process ff7Proc;
 
-        public static async Task<bool> LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false, bool LaunchWithNoValidation = false)
+        public static async Task<bool> LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false)
         {
             MainWindowViewModel.SaveActiveProfile();
             Sys.Save();
@@ -182,12 +182,6 @@ namespace SeventhHeaven.Classes
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CreatingMissingRequiredDirectories));
             converter.CreateMissingDirectories();
-
-            // if launching with no (minimal) validation checks, skip ahead
-            if (LaunchWithNoValidation)
-            {
-                goto VanillaCheck;
-            }
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingEnglishGameFilesExist));
             if (!converter.IsEnglishGameInstalled())
@@ -307,7 +301,6 @@ namespace SeventhHeaven.Classes
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CopyingFf7InputCfgToFf7Path));
             bool didCopyCfg = CopyKeyboardInputCfg();
 
-        VanillaCheck:
             //
             // Determine if game will be ran as 'vanilla' with mods so don't have to inject with 7thWrapperLoader
             //
@@ -409,12 +402,6 @@ namespace SeventhHeaven.Classes
             //
             bool didDisableReunion = false;
 
-            // if launching with no (minimal) validation checks, skip ahead
-            if (LaunchWithNoValidation)
-            {
-                goto HookandStartGame;
-            }
-
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingIfReunionModIsInstalled));
             Instance.RaiseProgressChanged($"\t{ResourceHelper.Get(StringKey.Found)}: {IsReunionModInstalled()}");
 
@@ -425,7 +412,6 @@ namespace SeventhHeaven.Classes
                 didDisableReunion = true;
             }
 
-        HookandStartGame:
             //
             // Initialize the controller input interceptor
             //

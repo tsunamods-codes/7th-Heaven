@@ -137,7 +137,6 @@
                             <MenuItem x:Name="menuPlayWithoutMods" Header="{DynamicResource PlayWithNoMods}" Click="menuPlayWithoutMods_Click"/>
                             <MenuItem Style="{StaticResource ContextMenuSeperator}"/>
                             <MenuItem x:Name="menuPlayDebugLog" Header="{DynamicResource PlayWithDebugLog}" Click="menuPlayDebugLog_Click"/>
-                            <MenuItem x:Name="menuPlayNoValidation" Header="{DynamicResource PlayWithMinimalValidation}" Click="menuPlayWithoutValidation_Click"/>
                             <MenuItem x:Name="menuPlayVariableDump" Header="{DynamicResource PlayWithVariableDump}" Click="menuPlayVariableDump_Click"/>
                         </ContextMenu>
                     </ToggleButton.ContextMenu>

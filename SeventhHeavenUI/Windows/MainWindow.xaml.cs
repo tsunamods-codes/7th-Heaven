@@ -223,11 +223,6 @@ namespace SeventhHeavenUI
             }
         }
 
-        private void menuPlayWithoutValidation_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.LaunchGame(variableDump: false, debugLogging: false, noMods: false, noValidation: true);
-        }
-
         private void menuPlayOptions_Closed(object sender, RoutedEventArgs e)
         {
             ViewModel.IsPlayToggleButtonEnabled = true;

@@ -37,7 +37,6 @@ namespace SeventhHeaven.ViewModels
         }
 
         public bool IsLaunchingWithNoMods { get; internal set; }
-        public bool IsLaunchingWithNoValidation { get; internal set; }
 
         internal Task<bool> BeginLaunchProcessAsync()
         {
@@ -49,7 +48,7 @@ namespace SeventhHeaven.ViewModels
                 {
                     GameLauncher.Instance.ProgressChanged += LaunchGame_ProgressChanged;
 
-                    didLaunch = GameLauncher.LaunchGame(variableDump, debugLogging, IsLaunchingWithNoMods, IsLaunchingWithNoValidation).Result;
+                    didLaunch = GameLauncher.LaunchGame(variableDump, debugLogging, IsLaunchingWithNoMods).Result;
                 }
                 finally
                 {
