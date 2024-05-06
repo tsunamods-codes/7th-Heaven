@@ -479,6 +479,7 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="MissingLibraryPath">Missing Library path.</system:String>
     <system:String x:Key="MissingTexturesPath">Missing Textures (Aali OpenGL) path.</system:String>
     <system:String x:Key="MissingMoviePath">Missing Movie path.</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Failed to register .iro mod files with 7th Heaven</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">Failed to un-register .iro mod files with 7th Heaven</system:String>

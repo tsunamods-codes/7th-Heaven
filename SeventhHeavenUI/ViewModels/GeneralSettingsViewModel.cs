@@ -720,6 +720,12 @@ namespace SeventhHeaven.ViewModels
                 isValid = false;
             }
 
+            if ((Path.GetDirectoryName(FF7ExePathInput) == LibraryPathInput) || Sys._7HFolder == LibraryPathInput)
+            {
+                validationMessage = ResourceHelper.Get(StringKey.LibraryPathCannotBeGameOrApp);
+                isValid = false;
+            }
+
             if (showMessage && !isValid)
             {
                 MessageDialogWindow.Show(validationMessage, ResourceHelper.Get(StringKey.SettingsNotValid), MessageBoxButton.OK, MessageBoxImage.Error);

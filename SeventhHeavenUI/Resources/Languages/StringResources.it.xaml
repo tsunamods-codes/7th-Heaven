@@ -487,6 +487,7 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     <system:String x:Key="MissingLibraryPath">Percorso verso la cartella Libreria mancante</system:String>
     <system:String x:Key="MissingTexturesPath">Percorso verso la cartella Textures (Aali OpenGL) mancante</system:String>
     <system:String x:Key="MissingMoviePath">Percorso verso la cartella Movies mancante</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Registrazione dei file .iro per uso con 7th Heaven fallita</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">Rimozione della registrazione dei file .iro dall'uso con 7th Heaven fallita</system:String>

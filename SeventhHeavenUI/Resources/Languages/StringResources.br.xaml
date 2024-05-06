@@ -488,6 +488,7 @@ Clique em 'Cancelar' para parar o processo.</system:String>
     <system:String x:Key="MissingLibraryPath">Caminho de Biblioteca ausente.</system:String>
     <system:String x:Key="MissingTexturesPath">Caminho de Texturas (Aali OpenGL) ausente.</system:String>
     <system:String x:Key="MissingMoviePath">Caminho de Filmes ausente.</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Não foi possível registrar arquivos mod .iro com 7th Heaven</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">Não foi possível des-registrar arquivos mod .iro com 7th Heaven</system:String>

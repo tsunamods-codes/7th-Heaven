@@ -485,6 +485,7 @@ Cliquer sur 'Annuler' pour arrêter la copie.</system:String>
     <system:String x:Key="MissingLibraryPath">Dossier de la Bibliothèque non définit.</system:String>
     <system:String x:Key="MissingTexturesPath">Dossier des textures non définit.</system:String>
     <system:String x:Key="MissingMoviePath">Dossier des cinématiques non définit.</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Échec de l'association des fichiers .iro avec 7th Heaven</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">Échec de la désassociation des fichiers .iro avec 7th Heaven</system:String>

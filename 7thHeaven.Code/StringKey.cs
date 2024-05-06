@@ -123,6 +123,7 @@
         MissingLibraryPath,
         MissingTexturesPath,
         MissingMoviePath,
+        LibraryPathCannotBeGameOrApp,
         FailedToRegisterIroModFilesWith7thHeaven,
         FailedToUnregisterIroModFilesWith7thHeaven,
         FailedToUnregisterIrosLinksWith7thHeaven,
