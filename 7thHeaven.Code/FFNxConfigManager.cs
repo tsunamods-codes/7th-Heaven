@@ -36,6 +36,9 @@ namespace Iros._7th.Workshop.ConfigSettings
         {
             try
             {
+                // first launch the Sys Path was not setup correctly yet so _toml is null
+                if (_toml == null) _pathToFFNxToml = Sys.PathToFFNxToml;
+
                 if (File.Exists(_pathToFFNxToml)) _toml = Toml.Parse(File.ReadAllBytes(_pathToFFNxToml)).ToModel();
             }
             catch (Exception ex)
