@@ -152,6 +152,25 @@ namespace SeventhHeaven.Classes
                     }
                 }
             }
+            else
+            {
+                byte[][] requiredHashes = {
+                    Convert.FromHexString("4EECAF14F30E8B0CC87B88C943F1119B567452D7"), // 1.00
+                    Convert.FromHexString("684A0E87840138B4E02FC8EDB9AE2E2591CE4982"), // 1.02
+                    Convert.FromHexString("141822081B3F24EA70BE35D59449E0CA098881E3"), // 1.02 4GB
+                };
+                using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7.exe"), FileMode.Open))
+                {
+                    bool matchesAtLeastOne = false;
+                    byte[] currentHash = SHA1.HashData(fs);
+                    foreach (byte[] hash in requiredHashes)
+                    {
+                        if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                    }
+
+                    if (!matchesAtLeastOne) return true;
+                }
+            }
 
             return false;
         }
