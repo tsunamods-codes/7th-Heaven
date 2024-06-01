@@ -1,7 +1,7 @@
 {
   "name": "7th-wrapper-loader",
   "version": "1.0.0",
-  "builtin-baseline": "53bef8994c541b6561884a8395ea35715ece75db",
+  "builtin-baseline": "01f602195983451bc83e72f4214af2cbc495aa94",
   "dependencies": [
     "detours",
     "nethost",
@@ -22,12 +22,12 @@
     },
     {
       "name": "nlohmann-json",
-      "version": "3.11.2",
+      "version": "3.11.3",
       "port-version": 0
     },
     {
       "name": "plog",
-      "version": "1.1.9",
+      "version": "1.1.10",
       "port-version": 0
     },
     {
