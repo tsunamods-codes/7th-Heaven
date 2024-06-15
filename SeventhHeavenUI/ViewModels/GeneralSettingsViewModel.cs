@@ -418,11 +418,12 @@ namespace SeventhHeaven.ViewModels
 
         public static void AutoDetectSystemPaths(Settings settings)
         {
+            string ff7 = null;
+
             if (string.IsNullOrEmpty(settings.FF7Exe) || !File.Exists(settings.FF7Exe))
             {
                 Logger.Info("FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ...");
 
-                string ff7 = null;
                 Sys.Settings.FF7InstalledVersion = FF7Version.Unknown;
 
                 try
@@ -490,7 +491,36 @@ namespace SeventhHeaven.ViewModels
                 }
                 else if(settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
-                    Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
+                    string ff7path = Path.GetDirectoryName(settings.FF7Exe);
+
+                    // Detect if the installation is a previously Steam converted one
+                    if (
+                        Directory.EnumerateFiles(Path.Combine(ff7path, "music/vgmstream"), "*.ogg").Any() || // did it inherit the original soundtrack?
+                        Path.Exists(Path.Combine(ff7path, "ff7_en.exe")) || // did it inherit the original Steam exe?
+                        Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf")) || // did it inherit misc Steam files?
+                        Path.Exists(Path.Combine(ff7path, "AF3DN.P")) // did it inherit offical Steam driver?
+                    )
+                    {
+                        // Clearly not a genuine 1998 installation, try to convert it to Steam
+                        Logger.Info("Previously Steam converted game detected. Attempting to switch back to the native Steam edition...");
+
+                        // Try to autodetect the Steam installation if any
+                        ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
+
+                        if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+                            settings.SetPathsFromInstallationPath(ff7);
+                        else
+                        {
+                            MessageDialogWindow.Show("Looks like you're using a previously converted Steam to 1998 Game Copy. It is suggested to install a fresh copy of the game from Steam and re-run 7th. The application will now close.", "This installation is now unsupported", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+
+                            Application.Current.Shutdown();
+                        }
+                    }
+
+                    // No previously converted edition detected, looks like a genuine 1998 edition
+                    if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
+                        Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
                 }
             }
         }
