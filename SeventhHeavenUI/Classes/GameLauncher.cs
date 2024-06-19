@@ -286,6 +286,30 @@ namespace SeventhHeaven.Classes
             }
 
             //
+            // Get Drive Letter and update registry
+            //
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Original98)
+            {
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.LookingForGameDisc));
+                Instance.DriveLetter = GetDriveLetter();
+
+                if (!string.IsNullOrEmpty(Instance.DriveLetter))
+                {
+                    Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.FoundGameDiscAt)} {Instance.DriveLetter} ...");
+                }
+                else
+                {
+                    Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.FailedToFindGameDisc), NLog.LogLevel.Error);
+                    return false;
+                }
+
+                //
+                // Update Registry with new launch settings
+                //
+                Instance.SetRegistryValues();
+            }
+
+            //
             // GAME SHOULD BE FULLY 'CONVERTED' AND READY TO LAUNCH FOR MODS AT THIS POINT
             //
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingAProfileIsActive));
