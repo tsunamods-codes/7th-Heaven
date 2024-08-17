@@ -796,7 +796,7 @@ namespace SeventhHeaven.Classes
             File.Copy(Path.Combine(src, "7thWrapperLoader.pdb"), Path.Combine(dest, "7thWrapperLoader.pdb"), true);
         }
 
-        private static async void Delete7thWrapperDlls()
+        private static void Delete7thWrapperDlls()
         {
             string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
 
