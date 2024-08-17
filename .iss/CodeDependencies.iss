@@ -254,7 +254,7 @@ var
   IsProductInstalled: Boolean;
 begin
   try
-    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 8.0.7')
+    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 8.0.8')
   except
     IsProductInstalled := False
   end;
@@ -263,8 +263,8 @@ begin
   if not IsProductInstalled then begin
     Dependency_Add('dotnet80desktop' + Dependency_ArchSuffix + '.exe',
       '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
-      '.NET Desktop Runtime 8.0.7' + Dependency_ArchTitle,
-      Dependency_String('https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.7/windowsdesktop-runtime-8.0.7-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.7/windowsdesktop-runtime-8.0.7-win-x64.exe'),
+      '.NET Desktop Runtime 8.0.8' + Dependency_ArchTitle,
+      Dependency_String('https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.8/windowsdesktop-runtime-8.0.8-win-x86.exe', 'https://dotnetcli.azureedge.net/dotnet/WindowsDesktop/8.0.8/windowsdesktop-runtime-8.0.8-win-x64.exe'),
       '', False, False);
   end;
 end;
