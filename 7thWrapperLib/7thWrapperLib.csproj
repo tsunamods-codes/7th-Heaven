@@ -38,7 +38,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress">
-      <Version>0.37.2</Version>
+      <Version>0.38.0</Version>
     </PackageReference>
   </ItemGroup>
 </Project>
