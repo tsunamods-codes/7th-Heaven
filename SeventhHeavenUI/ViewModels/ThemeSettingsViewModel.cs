@@ -305,6 +305,7 @@ namespace SeventhHeaven.ViewModels
             {
                 return new Dictionary<string, AppTheme>
                 {
+                    { "7thHeaven", AppTheme.SeventhHeavenTheme },
                     { "Tsunamods", AppTheme.Tsunamods },
                     { "Dark Mode", AppTheme.DarkMode },
                     { "Dark Mode w/ Background", AppTheme.DarkModeWithBackground },
@@ -342,7 +343,7 @@ namespace SeventhHeaven.ViewModels
             // dark theme w/ background will be applied as the default when theme.xml file does not exist
             if (!File.Exists(pathToThemeFile))
             {
-                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(AppTheme.Tsunamods);
+                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(AppTheme.SeventhHeavenTheme);
                 return;
             }
 
@@ -358,7 +359,7 @@ namespace SeventhHeaven.ViewModels
 
             if (!File.Exists(pathToThemeFile))
             {
-                return ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods);
+                return ThemeSettings.GetThemeFromEnum(AppTheme.SeventhHeavenTheme);
             }
 
             try
@@ -369,7 +370,7 @@ namespace SeventhHeaven.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                return ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods);
+                return ThemeSettings.GetThemeFromEnum(AppTheme.SeventhHeavenTheme);
             }
         }
 
@@ -416,7 +417,7 @@ namespace SeventhHeaven.ViewModels
                 if (!File.Exists(pathToThemeFile))
                 {
                     Logger.Warn("theme.xml does not exist");
-                    return "Tsunamods";
+                    return "7thHeaven";
                 }
 
                 ThemeSettings savedTheme = Util.Deserialize<ThemeSettings>(pathToThemeFile);
@@ -427,7 +428,7 @@ namespace SeventhHeaven.ViewModels
                 Logger.Warn(e);
             }
 
-            return "Tsunamods";
+            return "7thHeaven";
         }
 
         /// <summary>
@@ -642,7 +643,7 @@ namespace SeventhHeaven.ViewModels
 
                 if (!File.Exists(pathToThemeFile))
                 {
-                    savedTheme = ThemeSettings.GetThemeFromEnum(AppTheme.Tsunamods) as ThemeSettings;
+                    savedTheme = ThemeSettings.GetThemeFromEnum(AppTheme.SeventhHeavenTheme) as ThemeSettings;
                 }
                 else
                 {

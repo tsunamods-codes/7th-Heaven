@@ -60,6 +60,19 @@
     <Color x:Key="TsunamodsControlDisabledBackground">#FFFFECDB</Color>
     <Color x:Key="TsunamodsControlDisabledForeground">#FFFFECDB</Color>
 
+    <!-- COLORS - SeventhHeaven Theme -->
+    <Color x:Key="SeventhHeavenBackgroundColor">#FF202020</Color>
+    <Color x:Key="SeventhHeavenSecondaryBackgroundColor">#FF0E0E0E</Color>
+
+    <Color x:Key="SeventhHeavenControlBackground">#FF2F3B41</Color>
+    <Color x:Key="SeventhHeavenControlForeground">#FFFFFFFF</Color>
+    <Color x:Key="SeventhHeavenControlSecondary">#FF808080</Color>
+    <Color x:Key="SeventhHeavenControlPressed">#FF477086</Color>
+    <Color x:Key="SeventhHeavenControlMouseOver">#FF5E5E5E</Color>
+
+    <Color x:Key="SeventhHeavenControlDisabledBackground">#FF202020</Color>
+    <Color x:Key="SeventhHeavenControlDisabledForeground">#FFFFFFFF</Color>
+
     <!-- APP BRUSHES - These are used in all the below styles to have a consistent color theme across all controls. The color of these brushes can be changed in the "Color Theme" settings of the app -->
     <Color x:Key="PrimaryControlMouseOverColor">#5e5e5e</Color>
     <Color x:Key="PrimaryControlPressedColor">#CF2D2A</Color>

@@ -16,7 +16,7 @@
 
         <DataTemplate x:Key="selectedThemeTemplate">
             <Grid x:Name="gd" DataContext="{Binding ElementName=windowTheme, Path=DataContext}" Background="Transparent">
-                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedThemeText, FallbackValue='Tsunamods'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedThemeText, FallbackValue='7thHeaven'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
             </Grid>
         </DataTemplate>
 
