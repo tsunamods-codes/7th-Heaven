@@ -1024,6 +1024,9 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="ControlsDisabledBackground">Controls Disabled Background:</system:String>
     <system:String x:Key="ControlsDisabledForeground">Controls Disabled Foreground:</system:String>
     <system:String x:Key="BackgroundImage">Background Image:</system:String>
+    <system:String x:Key="BackgroundHorizontalAlignment">Background Horizontal Align:</system:String>
+    <system:String x:Key="BackgroundVerticalAlignment">Background Vertical Align:</system:String>
+    <system:String x:Key="BackgroundStretch">Background Stretch:</system:String>
     <system:String x:Key="ControlsBackground">Controls Background:</system:String>
     <system:String x:Key="ControlsForeground">Controls Foreground:</system:String>
     <system:String x:Key="ControlsSecondary">Controls Secondary Text:</system:String>

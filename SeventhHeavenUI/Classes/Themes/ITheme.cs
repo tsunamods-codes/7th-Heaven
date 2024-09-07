@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
+using System.Windows.Media;
 
 namespace SeventhHeaven.Classes.Themes
 {
@@ -14,7 +11,8 @@ namespace SeventhHeaven.Classes.Themes
         LightMode,
         LightModeWithBackground,
         Classic7H,
-        Tsunamods
+        Tsunamods,
+        SeventhHeavenTheme
     }
 
     public interface ITheme
@@ -31,8 +29,10 @@ namespace SeventhHeaven.Classes.Themes
         string PrimaryControlDisabledForeground { get; }
 
         string BackgroundImageName { get; }
-
         string BackgroundImageBase64 { get; }
+        HorizontalAlignment BackgroundHorizontalAlignment { get; }
+        VerticalAlignment BackgroundVerticalAlignment { get; }
+        Stretch BackgroundStretch { get; }
 
     }
 }

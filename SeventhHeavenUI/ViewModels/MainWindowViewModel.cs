@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SeventhHeavenUI.ViewModels
@@ -690,11 +691,13 @@ namespace SeventhHeavenUI.ViewModels
                 {
                     byte[] imageBytes = Convert.FromBase64String(themeSettings.BackgroundImageBase64);
                     UpdateBackgroundImage(imageBytes);
+                    UpdateBackgroundProps(themeSettings.BackgroundHorizontalAlignment, themeSettings.BackgroundVerticalAlignment, themeSettings.BackgroundStretch);
                 }
                 catch (Exception e)
                 {
                     Logger.Warn(e);
                     UpdateBackgroundImage(null);
+                    UpdateBackgroundProps();
                 }
             }
 
@@ -1725,6 +1728,7 @@ namespace SeventhHeavenUI.ViewModels
                 {
                     MyMods.ThemeImage = null;
                     CatalogMods.ThemeImage = null;
+
                     return;
                 }
 
@@ -1749,6 +1753,17 @@ namespace SeventhHeavenUI.ViewModels
                 CatalogMods.ThemeImage = null;
             }
 
+        }
+
+        internal void UpdateBackgroundProps(HorizontalAlignment horizontalAlignment = HorizontalAlignment.Center, VerticalAlignment verticalAlignment = VerticalAlignment.Center, Stretch stretch = Stretch.Uniform)
+        {
+            MyMods.ThemeHorizontalAlignment = horizontalAlignment;
+            MyMods.ThemeVerticalAlignment = verticalAlignment;
+            MyMods.ThemeStretch = stretch;
+
+            CatalogMods.ThemeHorizontalAlignment = horizontalAlignment;
+            CatalogMods.ThemeVerticalAlignment = verticalAlignment;
+            CatalogMods.ThemeStretch = stretch;
         }
 
         /// <summary>

@@ -86,7 +86,10 @@
         <Image Margin="25" 
                Source="{Binding ThemeImage}" 
                Opacity="0.25" 
-               IsHitTestVisible="False"/>
+               IsHitTestVisible="False"
+               HorizontalAlignment="{Binding ThemeHorizontalAlignment}"
+               VerticalAlignment="{Binding ThemeVerticalAlignment}"
+               Stretch="{Binding ThemeStretch}"/>
 
         <ListView x:Name="lstMods"
                   ItemsSource="{Binding ModList}"

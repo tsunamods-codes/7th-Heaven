@@ -1,10 +1,5 @@
-﻿using SeventhHeaven.ViewModels;
-using SeventhHeavenUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SeventhHeavenUI;
+using System.Windows;
 using System.Windows.Media;
 
 namespace SeventhHeaven.Classes.Themes
@@ -96,5 +91,8 @@ namespace SeventhHeaven.Classes.Themes
 
         public string BackgroundImageName { get => null; }
         public string BackgroundImageBase64 { get => null; }
+        public HorizontalAlignment BackgroundHorizontalAlignment { get => HorizontalAlignment.Center; }
+        public VerticalAlignment BackgroundVerticalAlignment { get => VerticalAlignment.Center; }
+        public Stretch BackgroundStretch { get => Stretch.Uniform; }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace SeventhHeaven.Classes.Themes
@@ -22,6 +18,9 @@ namespace SeventhHeaven.Classes.Themes
         public string PrimaryControlDisabledForeground { get; set; }
         public string BackgroundImageName { get; set; }
         public string BackgroundImageBase64 { get; set; }
+        public HorizontalAlignment BackgroundHorizontalAlignment { get; set; }
+        public VerticalAlignment BackgroundVerticalAlignment { get; set; }
+        public Stretch BackgroundStretch { get; set; }
 
 
         public static string ColorToHexString(Color color)

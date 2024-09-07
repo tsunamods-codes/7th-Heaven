@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SeventhHeavenUI
 {
@@ -293,13 +294,20 @@ namespace SeventhHeavenUI
         {
             ThemeSettingsWindow window = new ThemeSettingsWindow();
             window.ViewModel.BackgroundImageChanged += ThemeSettings_BackgroundImageChanged;
+            window.ViewModel.BackgroundPropsChanged += ThemeSettings_BackgroundPropsChanged;
             window.ShowDialog();
             window.ViewModel.BackgroundImageChanged -= ThemeSettings_BackgroundImageChanged;
+            window.ViewModel.BackgroundPropsChanged -= ThemeSettings_BackgroundPropsChanged;
         }
 
         private void ThemeSettings_BackgroundImageChanged(byte[] newImage)
         {
             ViewModel.UpdateBackgroundImage(newImage);
+        }
+
+        private void ThemeSettings_BackgroundPropsChanged(System.Windows.HorizontalAlignment horizontalAlignment, System.Windows.VerticalAlignment verticalAlignment, System.Windows.Media.Stretch stretch)
+        {
+            ViewModel.UpdateBackgroundProps(horizontalAlignment, verticalAlignment, stretch);
         }
 
         private void tabCtrlMain_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

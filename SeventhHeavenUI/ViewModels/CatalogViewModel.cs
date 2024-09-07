@@ -16,6 +16,8 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SeventhHeavenUI.ViewModels
@@ -162,6 +164,56 @@ namespace SeventhHeavenUI.ViewModels
                 if (value != _themeImage)
                 {
                     _themeImage = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private HorizontalAlignment _themeHorizontalAlignment = HorizontalAlignment.Center;
+        public HorizontalAlignment ThemeHorizontalAlignment
+        {
+            get
+            {
+                return _themeHorizontalAlignment;
+            }
+            set
+            {
+                if (value != _themeHorizontalAlignment)
+                {
+                    _themeHorizontalAlignment = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private VerticalAlignment _themeVerticalAlignment = VerticalAlignment.Center;
+        public VerticalAlignment ThemeVerticalAlignment
+        {
+            get
+            {
+                return _themeVerticalAlignment;
+            }
+            set
+            {
+                if (value != _themeVerticalAlignment)
+                {
+                    _themeVerticalAlignment = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private Stretch _themeStretch = Stretch.Uniform;
+        public Stretch ThemeStretch
+        {
+            get {
+                return _themeStretch;
+            }
+            set
+            {
+                if (value != _themeStretch)
+                {
+                    _themeStretch = value;
                     NotifyPropertyChanged();
                 }
             }

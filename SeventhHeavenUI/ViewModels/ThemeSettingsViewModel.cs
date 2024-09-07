@@ -10,9 +10,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Navigation;
+using Xceed.Wpf.AvalonDock.Themes;
 
 namespace SeventhHeaven.ViewModels
 {
@@ -22,6 +23,8 @@ namespace SeventhHeaven.ViewModels
 
         public delegate void OnImageChanged(byte[] newImage);
         public event OnImageChanged BackgroundImageChanged;
+        public delegate void OnBackgroundPropsChanged(HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, Stretch stretch);
+        public event OnBackgroundPropsChanged BackgroundPropsChanged;
 
         private string _statusText;
         private string _selectedThemeText;
@@ -78,6 +81,30 @@ namespace SeventhHeaven.ViewModels
             get
             {
                 return DropDownOptionEnums.Keys.ToList();
+            }
+        }
+
+        public List<string> BackgroundHorizontalAlignmentDropdownItems
+        {
+            get
+            {
+                return Enum.GetValues(typeof(HorizontalAlignment)).Cast<HorizontalAlignment>().Select(v => v.ToString()).ToList();
+            }
+        }
+
+        public List<string> BackgroundVerticalAlignmentDropdownItems
+        {
+            get
+            {
+                return Enum.GetValues(typeof(VerticalAlignment)).Cast<VerticalAlignment>().Select(v => v.ToString()).ToList();
+            }
+        }
+
+        public List<string> BackgroundStretchDropdownItems
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Stretch)).Cast<Stretch>().Select(v => v.ToString()).ToList();
             }
         }
 
@@ -211,6 +238,57 @@ namespace SeventhHeaven.ViewModels
             }
         }
 
+        private HorizontalAlignment _backgroundHorizontalAlignment = HorizontalAlignment.Center;
+        public string SelectedBackgroundHorizontalAlignment
+        {
+            get
+            {
+                return Enum.GetName(_backgroundHorizontalAlignment.GetType(), _backgroundHorizontalAlignment);
+            }
+            set
+            {
+                if (value != Enum.GetName(_backgroundHorizontalAlignment.GetType(), _backgroundHorizontalAlignment))
+                {
+                    _backgroundHorizontalAlignment = (HorizontalAlignment)Enum.Parse(typeof(HorizontalAlignment), value);
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private VerticalAlignment _backgroundVerticalAlignment = VerticalAlignment.Center;
+        public string SelectedBackgroundVerticalAlignment
+        {
+            get
+            {
+                return Enum.GetName(_backgroundVerticalAlignment.GetType(), _backgroundVerticalAlignment);
+            }
+            set
+            {
+                if (value != Enum.GetName(_backgroundVerticalAlignment.GetType(), _backgroundVerticalAlignment))
+                {
+                    _backgroundVerticalAlignment = (VerticalAlignment)Enum.Parse(typeof(VerticalAlignment), value);
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private Stretch _backgroundStretch = Stretch.Uniform;
+        public string SelectedBackgroundStretch
+        {
+            get
+            {
+                return Enum.GetName(_backgroundStretch.GetType(), _backgroundStretch);
+            }
+            set
+            {
+                if (value != Enum.GetName(_backgroundStretch.GetType(), _backgroundStretch))
+                {
+                    _backgroundStretch = (Stretch)Enum.Parse(typeof(Stretch), value);
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public byte[] CurrentImageTheme 
         { 
             get => currentImageTheme;
@@ -338,7 +416,7 @@ namespace SeventhHeaven.ViewModels
                 if (!File.Exists(pathToThemeFile))
                 {
                     Logger.Warn("theme.xml does not exist");
-                    return "Dark Mode w/ Background";
+                    return "Tsunamods";
                 }
 
                 ThemeSettings savedTheme = Util.Deserialize<ThemeSettings>(pathToThemeFile);
@@ -349,7 +427,7 @@ namespace SeventhHeaven.ViewModels
                 Logger.Warn(e);
             }
 
-            return "Dark Mode w/ Background";
+            return "Tsunamods";
         }
 
         /// <summary>
@@ -392,6 +470,10 @@ namespace SeventhHeaven.ViewModels
                 {
                     settings.BackgroundImageBase64 = Convert.ToBase64String(CurrentImageTheme);
                 }
+
+                settings.BackgroundHorizontalAlignment = _backgroundHorizontalAlignment;
+                settings.BackgroundVerticalAlignment = _backgroundVerticalAlignment;
+                settings.BackgroundStretch = _backgroundStretch;
 
                 using (FileStream file = new FileStream(pathToTheme, FileMode.Create, FileAccess.ReadWrite))
                 {
@@ -437,6 +519,9 @@ namespace SeventhHeaven.ViewModels
             ControlDisabledBgText = theme.PrimaryControlDisabledBackground;
             ControlDisabledFgText = theme.PrimaryControlDisabledForeground;
             BackgroundImageText = theme.BackgroundImageName;
+            SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), theme.BackgroundHorizontalAlignment);
+            SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), theme.BackgroundVerticalAlignment);
+            SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), theme.BackgroundStretch);
 
             if (!string.IsNullOrEmpty(theme.BackgroundImageBase64))
             {
@@ -487,6 +572,8 @@ namespace SeventhHeaven.ViewModels
                 Logger.Warn(e);
                 StatusText = $"Failed to apply theme: {e.Message}";
             }
+
+            BackgroundPropsChanged?.Invoke(_backgroundHorizontalAlignment, _backgroundVerticalAlignment, _backgroundStretch);
         }
 
         /// <summary>
@@ -509,6 +596,9 @@ namespace SeventhHeaven.ViewModels
                 ControlDisabledBgText = theme.PrimaryControlDisabledBackground;
                 ControlDisabledFgText = theme.PrimaryControlDisabledForeground;
                 BackgroundImageText = theme.BackgroundImageName;
+                SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), theme.BackgroundHorizontalAlignment);
+                SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), theme.BackgroundVerticalAlignment);
+                SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), theme.BackgroundStretch);
 
                 if (!string.IsNullOrEmpty(theme.BackgroundImageBase64))
                 {
@@ -580,6 +670,9 @@ namespace SeventhHeaven.ViewModels
             ControlDisabledBgText = savedTheme.PrimaryControlDisabledBackground;
             ControlDisabledFgText = savedTheme.PrimaryControlDisabledForeground;
             BackgroundImageText = savedTheme.BackgroundImageName;
+            SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), savedTheme.BackgroundHorizontalAlignment);
+            SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), savedTheme.BackgroundVerticalAlignment);
+            SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), savedTheme.BackgroundStretch);
 
             if (!string.IsNullOrEmpty(savedTheme.BackgroundImageBase64))
             {

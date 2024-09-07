@@ -129,11 +129,16 @@ namespace SeventhHeaven.Windows
                 ITheme themeSettings = ThemeSettingsViewModel.GetThemeSettingsFromFile();
                 byte[] imageBytes = Convert.FromBase64String(themeSettings.BackgroundImageBase64);
                 ViewModel.CurrentImageTheme = imageBytes;
+                ViewModel.SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), themeSettings.BackgroundHorizontalAlignment);
+                ViewModel.SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), themeSettings.BackgroundVerticalAlignment);
+                ViewModel.SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), themeSettings.BackgroundStretch);
             }
             catch (Exception)
             {
                 ViewModel.CurrentImageTheme = null;
             }
+
+            ViewModel.UpdateAppBrushesAndColors();
         }
 
         private void SetSelectedThemeToCustom()

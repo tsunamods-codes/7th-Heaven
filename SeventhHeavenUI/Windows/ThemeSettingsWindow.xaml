@@ -11,17 +11,50 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Style="{StaticResource MainWindowStyle}"
-        Title="{DynamicResource ChangeColorThemeWindowTitle}" Height="375" Width="500">
+        Title="{DynamicResource ChangeColorThemeWindowTitle}" Height="498" Width="500">
     <Window.Resources>
 
         <DataTemplate x:Key="selectedThemeTemplate">
             <Grid x:Name="gd" DataContext="{Binding ElementName=windowTheme, Path=DataContext}" Background="Transparent">
-                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedThemeText, FallbackValue='Dark Mode'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedThemeText, FallbackValue='Tsunamods'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
             </Grid>
         </DataTemplate>
 
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
+        <DataTemplate x:Key="selectedThemeHorizontalAlignment">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowTheme, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedBackgroundHorizontalAlignment, FallbackValue='Center'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="selectedThemeVerticalAlignment">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowTheme, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedBackgroundVerticalAlignment, FallbackValue='Center'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="selectedThemeStretch">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowTheme, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedBackgroundStretch, FallbackValue='Uniform'}" Margin="0,0,15,0" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}" x:Key="ThemeTemplateStyle">
             <Setter Property="ItemTemplate" Value="{StaticResource selectedThemeTemplate}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource TextComboBoxItemStyle}"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}" x:Key="ThemeBackgroundHorizontalAlignment">
+            <Setter Property="ItemTemplate" Value="{StaticResource selectedThemeHorizontalAlignment}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource TextComboBoxItemStyle}"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}" x:Key="ThemeBackgroundVerticalAlignment">
+            <Setter Property="ItemTemplate" Value="{StaticResource selectedThemeVerticalAlignment}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource TextComboBoxItemStyle}"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}" x:Key="ThemeBackgroundStretch">
+            <Setter Property="ItemTemplate" Value="{StaticResource selectedThemeStretch}"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource TextComboBoxItemStyle}"/>
         </Style>
 
@@ -75,7 +108,8 @@
                       SelectionChanged="cboThemes_SelectionChanged"
                       MinWidth="160"
                       Grid.Column="1"
-                      Margin="5,10,0,0">
+                      Margin="5,10,0,0"
+                      Style="{StaticResource ThemeTemplateStyle}" >
             </ComboBox>
 
             <Button x:Name="btnLoad"
@@ -156,58 +190,6 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="{DynamicResource ControlsDisabledBackground}"
-                           Margin="0,0,0,2"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"/>
-                <TextBox Grid.Row="1"
-                         Text="{Binding ControlDisabledBgText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         HorizontalAlignment="Stretch"/>
-
-                <xctk:ColorPicker x:Name="pickerDisabledBg" 
-                                  SelectedColorChanged="pickerDisabledBg_SelectedColorChanged"
-                                  Grid.Column="1"
-                                  Grid.RowSpan="2"
-                                  Margin="5,0,0,0"
-                                  Background="{DynamicResource PrimaryControlDisabledBackground}"/>
-            </Grid>
-
-            <Grid Margin="0,10,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="{DynamicResource ControlsDisabledForeground}"
-                           Margin="0,0,0,2"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"/>
-                <TextBox Grid.Row="1"
-                         Text="{Binding ControlDisabledFgText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         HorizontalAlignment="Stretch"/>
-
-                <xctk:ColorPicker x:Name="pickerDisabledFg" 
-                                  SelectedColorChanged="pickerDisabledFg_SelectedColorChanged"
-                                  Grid.Column="1"
-                                  Grid.RowSpan="2"
-                                  Margin="5,0,0,0"
-                                  Background="{DynamicResource PrimaryControlDisabledForeground}"/>
-            </Grid>
-
-            <Grid Margin="0,10,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
                 <TextBlock Text="{DynamicResource BackgroundImage}"
                            Margin="0,0,0,2"
                            HorizontalAlignment="Right"
@@ -229,6 +211,78 @@
                         Grid.Row="1"/>
             </Grid>
 
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{DynamicResource BackgroundHorizontalAlignment}"
+               Margin="0,0,0,2"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"/>
+                <ComboBox x:Name="cboHorizontalAlignment"
+                SelectedItem="{Binding SelectedBackgroundHorizontalAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding BackgroundHorizontalAlignmentDropdownItems}"
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                MinWidth="160"
+                Margin="5,10,0,0"
+                Style="{StaticResource ThemeBackgroundHorizontalAlignment}">
+                </ComboBox>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{DynamicResource BackgroundVerticalAlignment}"
+   Margin="0,0,0,2"
+   HorizontalAlignment="Right"
+   VerticalAlignment="Top"/>
+                <ComboBox x:Name="cboVerticalAlignment"
+    SelectedItem="{Binding SelectedBackgroundVerticalAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    ItemsSource="{Binding BackgroundVerticalAlignmentDropdownItems}"
+    Grid.Row="1"
+    HorizontalAlignment="Right"
+    MinWidth="160"
+    Margin="5,10,0,0"
+    Style="{StaticResource ThemeBackgroundVerticalAlignment}">
+                </ComboBox>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{DynamicResource BackgroundStretch}"
+   Margin="0,0,0,2"
+   HorizontalAlignment="Right"
+   VerticalAlignment="Top"/>
+                <ComboBox x:Name="cboStretch"
+    SelectedItem="{Binding SelectedBackgroundStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    ItemsSource="{Binding BackgroundStretchDropdownItems}"
+    Grid.Row="1"
+    HorizontalAlignment="Right"
+    MinWidth="160"
+    Margin="5,10,0,0"
+    Style="{StaticResource ThemeBackgroundStretch}">
+                </ComboBox>
+            </Grid>
         </StackPanel>
 
 
@@ -340,7 +394,57 @@
                                   Margin="5,0,0,0"
                                   Background="{DynamicResource PrimaryControlMouseOver}"/>
             </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
+                <TextBlock Text="{DynamicResource ControlsDisabledBackground}"
+               Margin="0,0,0,2"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"/>
+                <TextBox Grid.Row="1"
+             Text="{Binding ControlDisabledBgText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             HorizontalAlignment="Stretch"/>
+
+                <xctk:ColorPicker x:Name="pickerDisabledBg" 
+                      SelectedColorChanged="pickerDisabledBg_SelectedColorChanged"
+                      Grid.Column="1"
+                      Grid.RowSpan="2"
+                      Margin="5,0,0,0"
+                      Background="{DynamicResource PrimaryControlDisabledBackground}"/>
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{DynamicResource ControlsDisabledForeground}"
+               Margin="0,0,0,2"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Top"/>
+                <TextBox Grid.Row="1"
+             Text="{Binding ControlDisabledFgText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             HorizontalAlignment="Stretch"/>
+
+                <xctk:ColorPicker x:Name="pickerDisabledFg" 
+                      SelectedColorChanged="pickerDisabledFg_SelectedColorChanged"
+                      Grid.Column="1"
+                      Grid.RowSpan="2"
+                      Margin="5,0,0,0"
+                      Background="{DynamicResource PrimaryControlDisabledForeground}"/>
+            </Grid>
 
             <Grid Margin="0,10,0,0">
                 <Grid.RowDefinitions>
@@ -353,19 +457,19 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="{DynamicResource ControlsPressed}"
-                           Margin="0,0,0,2"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"/>
+   Margin="0,0,0,2"
+   HorizontalAlignment="Right"
+   VerticalAlignment="Top"/>
                 <TextBox Grid.Row="1"
-                         Text="{Binding ControlPressedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         HorizontalAlignment="Stretch"/>
+ Text="{Binding ControlPressedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+ HorizontalAlignment="Stretch"/>
 
                 <xctk:ColorPicker x:Name="pickerPressed" 
-                                  SelectedColorChanged="pickerPressed_SelectedColorChanged"
-                                  Grid.Column="1"
-                                  Grid.RowSpan="2"
-                                  Margin="5,0,0,0"
-                                  Background="{DynamicResource PrimaryControlPressed}"/>
+          SelectedColorChanged="pickerPressed_SelectedColorChanged"
+          Grid.Column="1"
+          Grid.RowSpan="2"
+          Margin="5,0,0,0"
+          Background="{DynamicResource PrimaryControlPressed}"/>
             </Grid>
         </StackPanel>
 
