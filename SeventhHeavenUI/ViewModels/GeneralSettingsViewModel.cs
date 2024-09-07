@@ -419,12 +419,11 @@ namespace SeventhHeaven.ViewModels
         public static void AutoDetectSystemPaths(Settings settings)
         {
             string ff7 = null;
+            Sys.Settings.FF7InstalledVersion = FF7Version.Unknown;
 
             if (string.IsNullOrEmpty(settings.FF7Exe) || !File.Exists(settings.FF7Exe))
             {
                 Logger.Info("FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ...");
-
-                Sys.Settings.FF7InstalledVersion = FF7Version.Unknown;
 
                 try
                 {
