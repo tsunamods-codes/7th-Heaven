@@ -519,7 +519,7 @@ namespace SeventhHeaven.ViewModels
                     }
 
                     // No previously converted edition detected, looks like a genuine 1998 edition
-                    if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
+                    if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
                         Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
                 }
             }
