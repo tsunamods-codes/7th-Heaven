@@ -491,9 +491,11 @@ namespace SeventhHeaven.ViewModels
                 else if(settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
                     string ff7path = Path.GetDirectoryName(settings.FF7Exe);
+                    bool isRunningInWine = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WINELOADER"));
 
                     // Detect if the installation is a previously Steam converted one
                     if (
+                        !isRunningInWine && // are we on Windows?
                         (Directory.Exists(Path.Combine(ff7path, "music/vgmstream")) && Directory.EnumerateFiles(Path.Combine(ff7path, "music/vgmstream"), "*.ogg").Any()) || // did it inherit the original soundtrack?
                         Path.Exists(Path.Combine(ff7path, "ff7_en.exe")) || // did it inherit the original Steam exe?
                         Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf")) || // did it inherit misc Steam files?
