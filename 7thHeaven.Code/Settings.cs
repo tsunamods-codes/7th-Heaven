@@ -201,6 +201,8 @@ namespace Iros._7th.Workshop {
 
             defaultSettings.UserColumnSettings = ColumnSettings.GetDefaultSettings();
 
+            defaultSettings.FF7InstalledVersion = FF7Version.Unknown;
+
             return defaultSettings;
         }
 
