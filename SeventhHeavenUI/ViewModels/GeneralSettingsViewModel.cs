@@ -495,10 +495,12 @@ namespace SeventhHeaven.ViewModels
                     // Detect if the installation is a previously Steam converted one
                     if (
                         !isRunningInWine && // are we on Windows?
-                        (Directory.Exists(Path.Combine(ff7path, "music/vgmstream")) && Directory.EnumerateFiles(Path.Combine(ff7path, "music/vgmstream"), "*.ogg").Any()) || // did it inherit the original soundtrack?
-                        Path.Exists(Path.Combine(ff7path, "ff7_en.exe")) || // did it inherit the original Steam exe?
-                        Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf")) || // did it inherit misc Steam files?
-                        Path.Exists(Path.Combine(ff7path, "AF3DN.P")) // did it inherit offical Steam driver?
+                        (
+                            (Directory.Exists(Path.Combine(ff7path, "music/vgmstream")) && Directory.EnumerateFiles(Path.Combine(ff7path, "music/vgmstream"), "*.ogg").Any()) || // did it inherit the original soundtrack?
+                            Path.Exists(Path.Combine(ff7path, "ff7_en.exe")) || // did it inherit the original Steam exe?
+                            Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf")) || // did it inherit misc Steam files?
+                            Path.Exists(Path.Combine(ff7path, "AF3DN.P")) // did it inherit offical Steam driver?
+                        )
                     )
                     {
                         // Clearly not a genuine 1998 installation, try to convert it to Steam
@@ -517,9 +519,8 @@ namespace SeventhHeaven.ViewModels
                             Application.Current.Shutdown();
                         }
                     }
-
-                    // No previously converted edition detected, looks like a genuine 1998 edition
-                    if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
+                    else
+                        // No previously converted edition detected, looks like a genuine 1998 edition
                         Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
                 }
             }
