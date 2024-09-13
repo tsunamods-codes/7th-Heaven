@@ -426,6 +426,9 @@ namespace SeventhHeaven.ViewModels
 
                 try
                 {
+                    // Reset state
+                    Sys.Settings.FF7InstalledVersion = FF7Version.Unknown;
+
                     // First try to autodetect the Steam installation if any
                     ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
                     Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
