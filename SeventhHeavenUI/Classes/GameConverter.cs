@@ -85,11 +85,11 @@ namespace SeventhHeaven.Classes
 
         public static string GetSteamPath()
         {
-            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamPath", "") as string;
+            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamPath") as string;
 
-            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath", "") as string;
+            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath") as string;
 
-            return ret.Replace("/","\\");
+            return ret != null ? ret.Replace("/","\\") : ret;
         }
 
         public static string GetSteamExePath()
