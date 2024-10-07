@@ -142,6 +142,16 @@ namespace SeventhHeaven.Classes
                     return false;
             }
 
+            //
+            // Ensure FFNx is installed correctly
+            //
+            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingLatestGameDriverIsInstalled));
+            if (!FFNxDriverUpdater.IsAlreadyInstalled())
+            {
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.SomethingWentWrongTryingToDetectGameDriver), NLog.LogLevel.Error);
+                return false;
+            }
+
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CheckingFf7IsNotRunning));
             if (IsFF7Running())
             {
