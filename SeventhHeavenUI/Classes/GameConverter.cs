@@ -142,14 +142,20 @@ namespace SeventhHeaven.Classes
             // check if given exe is a genuine one
             if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
             {
-                byte[] requiredHash = Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6");
+                byte[][] requiredHashes = {
+                    Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6"), // Steam
+                    Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB
+                };
                 using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7_en.exe"), FileMode.Open))
                 {
+                    bool matchesAtLeastOne = false;
                     byte[] currentHash = SHA1.HashData(fs);
-                    if (!requiredHash.SequenceEqual(currentHash))
+                    foreach (byte[] hash in requiredHashes)
                     {
-                        return true;
+                        if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
                     }
+
+                    if (!matchesAtLeastOne) return true;
                 }
             }
             else
