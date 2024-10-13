@@ -431,12 +431,9 @@ DWORD GetCurrentProcessMainThreadId()
     return dwMainThreadID;
 }
 
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
-{
-    // Move on if the current process is an helper process or the reason is not attach
-    if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
-    if (DetourIsHelperProcess()) return TRUE;
-
+DWORD WINAPI StartProxy(LPVOID lpParam) {
+    HINSTANCE hinstDLL = (HINSTANCE)lpParam;
+    
     // Setup logging layer
     remove("7thWrapperLoader.log");
     plog::init<plog::_7thFormatter>(plog::verbose, "7thWrapperLoader.log");
@@ -451,66 +448,66 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
     // Begin the detouring
     static auto target = &GetCommandLineA;
     static decltype(target) detour = []()
-    {
-        DetourTransactionBegin();
-        DetourUpdateThread(GetCurrentThread());
-        // ------------------------------------
-        DetourDetach((void**)&target, detour);
-        // ------------------------------------
-        DetourTransactionCommit();
+        {
+            DetourTransactionBegin();
+            DetourUpdateThread(GetCurrentThread());
+            // ------------------------------------
+            DetourDetach((void**)&target, detour);
+            // ------------------------------------
+            DetourTransactionCommit();
 
-        size_t buffer_size = 0;
-        get_hostfxr_path(nullptr, &buffer_size, nullptr);
+            size_t buffer_size = 0;
+            get_hostfxr_path(nullptr, &buffer_size, nullptr);
 
-        auto buffer = new char_t[buffer_size];
-        get_hostfxr_path(buffer, &buffer_size, nullptr);
+            auto buffer = new char_t[buffer_size];
+            get_hostfxr_path(buffer, &buffer_size, nullptr);
 
-        auto hostfxr = LoadLibraryW(buffer);
-        delete[] buffer;
+            auto hostfxr = LoadLibraryW(buffer);
+            delete[] buffer;
 
 #define X(n) *(void**)&n = GetProcAddress(hostfxr, #n);
 #include "hostfxr.x.h"
 #undef X
 
-        hostfxr_handle context = nullptr;
-        hostfxr_set_error_writer([](auto message) { OutputDebugString(message); });
-        hostfxr_initialize_for_runtime_config(MAIN_ASM_NAME L".runtimeconfig.json", nullptr, &context);
+            hostfxr_handle context = nullptr;
+            hostfxr_set_error_writer([](auto message) { OutputDebugString(message); });
+            hostfxr_initialize_for_runtime_config(MAIN_ASM_NAME L".runtimeconfig.json", nullptr, &context);
 
 #define X(n) hostfxr_get_runtime_delegate(context, hdt_##n, (void**)&n);
 #include "delegates.x.h"
 #undef X
 
-        hostfxr_close(context);
+            hostfxr_close(context);
 
-        // Get main entry point and load the assembly
-        load_assembly_and_get_function_pointer(MAIN_ASM_NAME L".dll", MAIN_TYP_NAME L", " MAIN_ASM_NAME, MAIN_FUN_NAME, UNMANAGEDCALLERSONLY_METHOD, nullptr, (void**)&HostInitialize);
+            // Get main entry point and load the assembly
+            load_assembly_and_get_function_pointer(MAIN_ASM_NAME L".dll", MAIN_TYP_NAME L", " MAIN_ASM_NAME, MAIN_FUN_NAME, UNMANAGEDCALLERSONLY_METHOD, nullptr, (void**)&HostInitialize);
 
-        // Start the 7th lib process
-        HostInitialize(&exports);
+            // Start the 7th lib process
+            HostInitialize(&exports);
 
-        // Hook Win32 APIs
-        DetourTransactionBegin();
-        DetourUpdateThread(GetCurrentThread());
-        // ------------------------------------
-        DetourAttach((PVOID*)&TrueCreateFileW, _CreateFileW);
-        DetourAttach((PVOID*)&TrueReadFile, _ReadFile);
-        DetourAttach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
-        DetourAttach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
-        DetourAttach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
-        DetourAttach((PVOID*)&TrueCloseHandle, _CloseHandle);
-        DetourAttach((PVOID*)&TrueGetFileType, _GetFileType);
-        DetourAttach((PVOID*)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
-        DetourAttach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
-        DetourAttach((PVOID*)&TrueGetFileSize, _GetFileSize);
-        DetourAttach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
-        DetourAttach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
-        // ------------------------------------
-        DetourTransactionCommit();
+            // Hook Win32 APIs
+            DetourTransactionBegin();
+            DetourUpdateThread(GetCurrentThread());
+            // ------------------------------------
+            DetourAttach((PVOID*)&TrueCreateFileW, _CreateFileW);
+            DetourAttach((PVOID*)&TrueReadFile, _ReadFile);
+            DetourAttach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
+            DetourAttach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
+            DetourAttach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
+            DetourAttach((PVOID*)&TrueCloseHandle, _CloseHandle);
+            DetourAttach((PVOID*)&TrueGetFileType, _GetFileType);
+            DetourAttach((PVOID*)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
+            DetourAttach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
+            DetourAttach((PVOID*)&TrueGetFileSize, _GetFileSize);
+            DetourAttach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
+            DetourAttach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
+            // ------------------------------------
+            DetourTransactionCommit();
 
-        PLOGI << "7thWrapperLoader started successfully";
+            PLOGI << "7thWrapperLoader started successfully";
 
-        return target();
-    };
+            return target();
+        };
 
     DisableThreadLibraryCalls(hinstDLL);
     DetourTransactionBegin();
@@ -519,6 +516,17 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
     DetourAttach((void**)&target, detour);
     // ------------------------------------
     DetourTransactionCommit();
+
+    return 0;
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
+{
+    // Move on if the current process is an helper process or the reason is not attach
+    if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
+    if (DetourIsHelperProcess()) return TRUE;
+
+    CreateThread(NULL, 0, StartProxy, hinstDLL, 0, NULL);
 
     return TRUE;
 }
