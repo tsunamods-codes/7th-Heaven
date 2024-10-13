@@ -433,17 +433,6 @@ DWORD GetCurrentProcessMainThreadId()
 
 DWORD WINAPI StartProxy(LPVOID lpParam) {
     HINSTANCE hinstDLL = (HINSTANCE)lpParam;
-    
-    // Setup logging layer
-    remove("7thWrapperLoader.log");
-    plog::init<plog::_7thFormatter>(plog::verbose, "7thWrapperLoader.log");
-    PLOGI << "7thWrapperLoader init log";
-
-    // Log unhandled exceptions
-    SetUnhandledExceptionFilter(ExceptionHandler);
-
-    // Save current main thread if for FF7.exe
-    currentMainThreadId = GetCurrentProcessMainThreadId();
 
     // Begin the detouring
     static auto target = &GetCommandLineA;
@@ -526,7 +515,35 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
     if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
     if (DetourIsHelperProcess()) return TRUE;
 
-    CreateThread(NULL, 0, StartProxy, hinstDLL, 0, NULL);
+    // Setup logging layer
+    remove("7thWrapperLoader.log");
+    plog::init<plog::_7thFormatter>(plog::verbose, "7thWrapperLoader.log");
+    PLOGI << "7thWrapperLoader init log";
+
+    // Log unhandled exceptions
+    SetUnhandledExceptionFilter(ExceptionHandler);
+
+    // Save current main thread if for FF7.exe
+    currentMainThreadId = GetCurrentProcessMainThreadId();
+
+    // Get current process name
+    CHAR parentName[1024];
+    GetModuleFileNameA(NULL, parentName, sizeof(parentName));
+    _strlwr(parentName);
+
+    // Use the create thread approach for the Steam exe, otherwise run directly the code for 1998 edition
+    if (strstr(parentName, "ff7_en.exe") != NULL)
+    {
+        PLOGI << "Detected Steam edition. Using CreateThread approach...";
+
+        CreateThread(NULL, 0, StartProxy, hinstDLL, 0, NULL);
+    }
+    else
+    {
+        PLOGI << "Detected 1998 edition. Using direct call approach...";
+
+        StartProxy((LPVOID)hinstDLL);
+    }
 
     return TRUE;
 }
