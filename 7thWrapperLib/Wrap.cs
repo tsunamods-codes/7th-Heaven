@@ -63,6 +63,7 @@ namespace _7thWrapperLib {
         public static void Run(Process currentProcess, string profileFile = ".7thWrapperProfile")
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US", false);
+
             try {
                 using (var fs = new FileStream(profileFile, FileMode.Open))
                 {
@@ -88,6 +89,20 @@ namespace _7thWrapperLib {
                 DebugLogger.WriteLine($"Starting wrapper now:");
 
                 DebugLogger.WriteLine($">> PName: {_process.ProcessName}");
+
+                bool isDebuggerAttached = false;
+                if (!Win32.CheckRemoteDebuggerPresent(_process.Handle, ref isDebuggerAttached))
+                {
+                    DebugLogger.WriteLine(">> Debugger detection failed!");
+                }
+                else
+                {
+                    if (isDebuggerAttached)
+                        DebugLogger.WriteLine(">> Attached debugger detected!");
+                    else
+                        DebugLogger.WriteLine(">> No attached debugger detected.");
+                }
+
                 DebugLogger.WriteLine($">> PID: {_process.Id}");
                 DebugLogger.WriteLine($">> FF7Path: {_profile.FF7Path}");
                 DebugLogger.WriteLine($">> ModPath: {_profile.ModPath}");
