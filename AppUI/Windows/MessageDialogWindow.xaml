@@ -1,0 +1,149 @@
+﻿<Window x:Class="AppUI.Windows.MessageDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle, FallbackValue='MessageBox With Checkbox'}" 
+        Style="{StaticResource MainWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Loaded="Window_Loaded"
+        ResizeMode="NoResize"
+        Height="190"
+        Width="475"
+        MaxHeight="400">
+    <Grid x:Name="gridMain" KeyDown="gridMain_KeyDown" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl IsTabStop="False">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Template" Value="{StaticResource iconWarning}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryControlForeground}"/>
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Margin" Value="0,0,-10,0"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ImageToDisplay}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ImageToDisplay}" Value="16">
+                            <Setter Property="Template" Value="{StaticResource iconStop}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ImageToDisplay}" Value="32">
+                            <Setter Property="Template" Value="{StaticResource iconHelp}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ImageToDisplay}" Value="48">
+                            <Setter Property="Template" Value="{StaticResource iconWarning}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ImageToDisplay}" Value="64">
+                            <Setter Property="Template" Value="{StaticResource iconInfo}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+
+        <Grid Visibility="{Binding DetailsVisibility, FallbackValue='Collapsed'}" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="txtTitle"
+                       Margin="0,5,10,5"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       Text="{Binding Message, FallbackValue='The following mods are incompatible:'}" Grid.ColumnSpan="2"/>
+
+            <TextBox x:Name="txtDetails"
+                     Style="{StaticResource PrimaryTextBoxStyle}"
+                     Grid.Row="1"
+                     Margin="0,0,10,0"
+                     TextWrapping="Wrap"
+                     FontSize="14"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     IsReadOnly="True"
+                     Background="Transparent"
+                     VerticalAlignment="Stretch"
+                     Text="{Binding Details, FallbackValue='Here are alot of details about stuff. Here are alot of details about stuff. Here are alot of details  about stuff. Here are alot of de tails about stuff. Here are alot of details about stuff. Here are alot of details about stuff. Here are alot of details about stuff. '}" Grid.ColumnSpan="2"/>
+
+
+        </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      VerticalAlignment="Center" 
+                      Visibility="{Binding MessageVisibility, FallbackValue='Visible'}"
+                      Grid.Column="1"
+                      Margin="10,0,10,0">
+            <TextBlock x:Name="txtMessage"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       Grid.Row="0"
+                       Foreground="{DynamicResource PrimaryControlForeground}"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       Text="{Binding Message, FallbackValue='This is going to run code for a mod that can be dangerous and stuff so is some more text to make it wrap and be long'}"/>
+        </ScrollViewer>
+
+        <CheckBox x:Name="chkOption" 
+                  Content="{Binding CheckboxText, FallbackValue='Dont ask me again'}"
+                  Grid.ColumnSpan="2"
+                  IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Visibility="{Binding CheckboxVisibility, FallbackValue='Visible'}"
+                  Grid.Row="1"
+                  Margin="10,10,0,10"/>
+
+        <Button x:Name="btnOkay"
+                Click="btnOkay_Click"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,90,10"
+                Width="80"
+                Content="{DynamicResource OK}"/>
+
+        <Button x:Name="btnCancel"
+                Click="btnCancel_Click"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="90,0,0,10"
+                Width="80"
+                Content="{DynamicResource Cancel}"/>
+
+        <Button x:Name="btnYes"
+                Click="btnYes_Click"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,90,10"
+                Width="80"
+                Content="{DynamicResource Yes}"/>
+
+        <Button x:Name="btnNo"
+                Click="btnNo_Click"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="90,0,0,10"
+                Width="80"
+                Content="{DynamicResource No}"/>
+    </Grid>
+</Window>

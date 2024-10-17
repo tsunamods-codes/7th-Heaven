@@ -218,7 +218,7 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 /.dist/Deploy_Zips
-/SeventhHeavenUI/Resources/Game Driver/hext/ff8
+/AppUI/Resources/Game Driver/hext/ff8
 
 ###############################################################################################
 

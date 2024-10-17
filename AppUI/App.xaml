@@ -1,0 +1,15 @@
+﻿<Application x:Class="AppUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AppUI"
+             StartupUri="Windows/MainWindow.xaml"
+             Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="SharedStyles" Source="Resources/SharedStyles.xaml"/>
+                <ResourceDictionary x:Name="StringResources" Source="Resources/StringResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

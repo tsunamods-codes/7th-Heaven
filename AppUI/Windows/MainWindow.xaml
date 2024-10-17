@@ -1,0 +1,540 @@
+﻿<Window x:Class="AppUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI"
+        xmlns:ctrl="clr-namespace:AppUI.UserControls"
+        xmlns:cls="clr-namespace:AppUI.Classes"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle, FallbackValue='7th Heaven (devel) - Mod Manager for Final Fantasy 7 ( Maintained by the Tsunamods Team ) [Current Loaded Profile]'}"
+        Style="{StaticResource MainWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        SizeChanged="Window_SizeChanged"
+        Closing="Window_Closing"
+        Height="600" Width="1250"
+        MinHeight="520" MinWidth="870">
+    <Window.Resources>
+
+        <Style x:Key="ModInfoLabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,3,1"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+
+        <Style x:Key="ModInfoDetailsStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ModInfoLabelStyle}">
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style x:Key="ReadMeStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource HyperlinkButton}">
+            <Setter Property="Content" Value="{DynamicResource ClickHere}"/>
+            <Setter Property="Padding" Value="5,2,2,2"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PreviewModHasReadMe}" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource None}"/>
+                    <Setter Property="Padding" Value="2"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="OpenLinkStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource HyperlinkButton}">
+            <Setter Property="Content" Value="{DynamicResource ClickHere}"/>
+            <Setter Property="Padding" Value="5,2,2,2"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PreviewModHasLink, FallbackValue='False'}" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource None}"/>
+                    <Setter Property="Padding" Value="2"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="OpenDonationLinkStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource HyperlinkButton}">
+            <Setter Property="Content" Value="{DynamicResource ClickHere}"/>
+            <Setter Property="Padding" Value="5,2,2,2"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PreviewDonationModHasLink, FallbackValue='False'}" Value="False">
+                    <Setter Property="Content" Value="{DynamicResource None}"/>
+                    <Setter Property="Padding" Value="2"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="FilterItemTemplate">
+            <Border Background="{DynamicResource PrimaryControlBackground}" Padding="5" Focusable="False">
+                <CheckBox Content="{Binding Name, FallbackValue='Category Name'}"
+                          IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FilterItemSeparatorTemplate">
+            <Border Background="{DynamicResource SecondaryAppBackground}" Height="2" Padding="5" Focusable="False"/>
+        </DataTemplate>
+
+        <Style x:Key="CategoryFilterListBoxItem" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Background" Value="{DynamicResource PrimaryControlBackground}"/>
+            <Setter Property="ContentTemplate" Value="{StaticResource FilterItemTemplate}"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border" Padding="2" SnapsToDevicePixels="true" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" TextElement.Foreground="{DynamicResource PrimaryControlForeground}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <DataTrigger Binding="{Binding FilterType, FallbackValue='0'}" Value="3">
+                                <Setter Property="ContentTemplate" Value="{StaticResource FilterItemSeparatorTemplate}"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="Focusable" Value="False"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="222*"/>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="631*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Viewbox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0" Grid.ColumnSpan="2" Stretch="UniformToFill" StretchDirection="DownOnly">
+            <WrapPanel>
+                <cls:ButtonWithImage x:Name="btnPlay" 
+                                     Click="btnPlay_Click" 
+                                     Content="{DynamicResource Play}" 
+                                     Margin="5,0,0,0"
+                                     Padding="0,8,10,0"
+                                     IsEnabled="{Binding IsPlayButtonEnabled}"
+                                     TemplateSource="{StaticResource iconPlay}" 
+                                     ImageForeground="ForestGreen"/>
+                <ToggleButton x:Name="btnPlayOptions" 
+                              Click="btnPlayOptions_Click" 
+                              Style="{StaticResource DownArrowToggleButton}" 
+                              IsEnabled="{Binding IsPlayToggleButtonEnabled}"
+                              Margin="0,0,0,0" 
+                              ContextMenuService.Placement="Bottom">
+                    <ToggleButton.ContextMenu>
+                        <ContextMenu x:Name="menuPlayOptions" Closed="menuPlayOptions_Closed">
+                            <MenuItem x:Name="menuPlayWithMods" Header="{DynamicResource PlayWithMods}" Click="menuPlayWithMods_Click"/>
+                            <MenuItem x:Name="menuPlayWithoutMods" Header="{DynamicResource PlayWithNoMods}" Click="menuPlayWithoutMods_Click"/>
+                            <MenuItem Style="{StaticResource ContextMenuSeperator}"/>
+                            <MenuItem x:Name="menuPlayDebugLog" Header="{DynamicResource PlayWithDebugLog}" Click="menuPlayDebugLog_Click"/>
+                            <MenuItem x:Name="menuPlayVariableDump" Header="{DynamicResource PlayWithVariableDump}" Click="menuPlayVariableDump_Click"/>
+                        </ContextMenu>
+                    </ToggleButton.ContextMenu>
+                </ToggleButton>
+
+
+                <cls:ButtonWithImage x:Name="btnSettings" Content="{DynamicResource Settings}" Margin="0,0,0,0" Style="{StaticResource ButtonWithImageAndDownArrow}" TemplateSource="{StaticResource iconSettings}" ContextMenuService.Placement="Bottom" Click="btnSettings_Click">
+                    <cls:ButtonWithImage.ContextMenu>
+                        <ContextMenu x:Name="menuSettings" Closed="menuSettings_Closed">
+                            <MenuItem x:Name="menuItemThemeSettings" Header="{DynamicResource ChangeColorTheme}" Click="menuItemThemeSettings_Click"/>
+                            <MenuItem x:Name="menuItemControls" Header="{DynamicResource ControlsMenuItemText}" Click="menuItemControls_Click"/>
+                            <MenuItem x:Name="menuItemAaliSettings" Header="{DynamicResource GameDriver}" Click="menuItemAaliSettings_Click"/>
+                            <MenuItem x:Name="menuItemLaunchSettings" Header="{DynamicResource GameLauncher}" Click="menuItemLaunchSettings_Click"/>
+                            <MenuItem x:Name="menuItemGeneralSettings" Header="{DynamicResource GeneralSettings}" Click="menuItemGeneralSettings_Click"/>
+                            <MenuItem x:Name="menuItemSetLanguage" Header="{DynamicResource Language}" Click="menuItemSetLanguage_Click"/>
+                            <MenuItem x:Name="menuItemOpenProfile" Header="{DynamicResource Profiles}" Click="menuItemOpenProfile_Click"/>
+                        </ContextMenu>
+                    </cls:ButtonWithImage.ContextMenu>
+                </cls:ButtonWithImage>
+
+                <cls:ButtonWithImage x:Name="btnTools" Content="{DynamicResource Tools}" Margin="0,0,0,0" Style="{StaticResource ButtonWithImageAndDownArrow}" TemplateSource="{StaticResource iconTools}" ContextMenuService.Placement="Bottom" Click="btnTools_Click">
+                    <cls:ButtonWithImage.ContextMenu>
+                        <ContextMenu x:Name="menuTools" Closed="menuTools_Closed">
+                            <MenuItem x:Name="menuItemCatalogCreation" Header="{DynamicResource CatalogModCreationTool}" Click="menuItemCatalogCreation_Click"/>
+                            <MenuItem x:Name="menuItemChunkTool" Header="{DynamicResource ChunkTool}" Click="menuItemChunkTool_Click"/>
+                            <MenuItem x:Name="menuItemIroCreation" Header="{DynamicResource IROTools}" Click="menuItemIroCreation_Click"/>
+                            <MenuItem x:Name="menuItemMovieImport" Header="{DynamicResource MovieImporter}" Click="menuItemMovieImport_Click"/>
+
+                        </ContextMenu>
+                    </cls:ButtonWithImage.ContextMenu>
+                </cls:ButtonWithImage>
+
+                <cls:ButtonWithImage x:Name="btnHelp" 
+                Margin="0,0,0,0" ContextMenuService.Placement="Bottom"
+                Content="{DynamicResource Help}" Style="{StaticResource ButtonWithImageAndDownArrow}" TemplateSource="{StaticResource iconHelp}" VerticalAlignment="Center"
+                Click="btnHelp_Click">
+                    <cls:ButtonWithImage.ContextMenu>
+                        <ContextMenu x:Name="menuHelp" Closed="menuHelp_Closed">
+                            <MenuItem x:Name="menuItemHelp" Header="{DynamicResource HelpOpen}" Click="btnHelpOpen_Click"/>
+                            <MenuItem x:Name="menuItemAbout" Header="{DynamicResource HelpOpenAbout}" Click="menuItemAbout_Click"/>
+                        </ContextMenu>
+                    </cls:ButtonWithImage.ContextMenu>
+                </cls:ButtonWithImage>
+
+                <cls:ButtonWithImage x:Name="btnExit"
+                   Margin="0,0,0,0" ContextMenuService.Placement="Bottom"
+                   Content="{DynamicResource Exit}" TemplateSource="{StaticResource iconStop}" VerticalAlignment="Center" Click="btnExit_Click">
+                </cls:ButtonWithImage>
+
+            </WrapPanel>
+        </Viewbox>
+
+
+        <GroupBox Header="{DynamicResource ModInfoHeader}"
+                  Background="{DynamicResource SecondaryAppBackground}"
+                  Grid.Row="1"
+                  Margin="5,-7,3,1" Grid.ColumnSpan="2">
+            <Grid x:Name="gridOuterMod">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.25*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="gridModInfo" Margin="0,0,0,3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+
+                        <WrapPanel Margin="3,5,3,0" Grid.Row="0">
+                            <TextBlock Text="{DynamicResource NameLabel}" Style="{StaticResource ModInfoLabelStyle}"/>
+                            <TextBlock Text="{Binding PreviewModName, FallbackValue='My Cool New Mod'}" 
+                               Style="{StaticResource ModInfoDetailsStyle}"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="1">
+                            <TextBlock Text="{DynamicResource AuthorLabel}" Style="{StaticResource ModInfoLabelStyle}"/>
+                            <TextBlock Text="{Binding PreviewModAuthor, FallbackValue='FF7ModDude'}" 
+                               Style="{StaticResource ModInfoDetailsStyle}"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="2">
+                            <TextBlock Text="{DynamicResource ReleasedLabel}" Style="{StaticResource ModInfoLabelStyle}"/>
+                            <TextBlock Text="{Binding PreviewModReleaseDate, FallbackValue='11/27/2019'}"
+                                       Margin="2,0,10,1"
+                                       Style="{StaticResource ModInfoDetailsStyle}"/>
+
+                            <TextBlock Text="{DynamicResource CategoryLabel}" Style="{StaticResource ModInfoLabelStyle}"/>
+                            <TextBlock Text="{Binding PreviewModCategory, FallbackValue='Animatons'}"
+                                       Margin="2,0,0,1"
+                                       Style="{StaticResource ModInfoDetailsStyle}"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="3,3,3,0" Grid.Row="3">
+                            <TextBlock Text="{DynamicResource VersionLabel}" Style="{StaticResource ModInfoLabelStyle}"
+                                       Margin="0,0,3,1"/>
+                            <TextBlock Text="{Binding PreviewModVersion, FallbackValue='1.3'}"
+                                       Margin="2,0,3,1"
+                                       Style="{StaticResource ModInfoDetailsStyle}"/>
+
+                            <Button x:Name="btnUpdateMod" 
+                                    Content="{Binding UpdateModButtonText, FallbackValue='Update Available'}"
+                                    IsEnabled="{Binding IsUpdateModButtonEnabled}"
+                                    Visibility="{Binding ModUpdateMenuVisibility}"
+                                    Click="btnUpdateMod_Click"
+                                    Style="{StaticResource HyperlinkButton}"
+                                    FontSize="12"
+                                    Margin="0,0,0,0"
+                                    MinWidth="120"
+                                    Background="Transparent"/>
+                            <ToggleButton x:Name="btnUpdateModType"
+                                          Click="btnUpdateModType_Click"
+                                          Visibility="{Binding ModUpdateMenuVisibility}"
+                                          Style="{StaticResource DownArrowToggleButton}"
+                                          Background="Transparent"/>
+                        </WrapPanel>
+
+                        <Popup x:Name="popupModUpdateType"
+                               StaysOpen="False"
+                               Closed="popupModUpdateType_Closed"
+                               PlacementTarget="{Binding ElementName=btnUpdateModType}" 
+                               HorizontalOffset="-116">
+                            <Border x:Name="bd" BorderBrush="{DynamicResource PrimaryControlBackground}" BorderThickness="1">
+                                <StackPanel Background="{DynamicResource SecondaryAppBackground}">
+                                    <RadioButton FontSize="12" IsChecked="{Binding PreviewIsAutoUpdateModsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{DynamicResource AutoUpdateInstall}" Margin="5,3,5,3" GroupName="modUpdateType"/>
+                                    <RadioButton FontSize="12" IsChecked="{Binding PreviewIgnoreModUpdatesChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{DynamicResource Ignore}" Margin="5,3,5,3" GroupName="modUpdateType"/>
+                                    <RadioButton FontSize="12" IsChecked="{Binding PreviewIsNotifyAboutUpdatesChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{DynamicResource Notify}" Margin="5,3,5,3" GroupName="modUpdateType"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="4">
+                            <TextBlock Text="{DynamicResource DescriptionLabel}" Style="{StaticResource ModInfoLabelStyle}" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding PreviewModDescription, FallbackValue='This is a short description of my cool new mod and it does these things like a and b and even x and y.'}" 
+                               Style="{StaticResource ModInfoDetailsStyle}"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="5">
+                            <TextBlock Text="{DynamicResource LinkLabel}" Style="{StaticResource ModInfoLabelStyle}" Margin="0,1,0,3"/>
+                            <Button x:Name="btnOpenModLink" 
+                                    MinWidth="80"
+                                    FontSize="12"
+                                    Background="Transparent"
+                                    Margin="2,0,5,0"
+                                    Click="btnOpenModLink_Click"
+                                    ToolTip="{Binding PreviewModLink}"
+                                    IsEnabled="{Binding PreviewModHasLink, FallbackValue='False'}"
+                                    Style="{StaticResource OpenLinkStyle}"/>
+
+                            <TextBlock Text="{DynamicResource ReadmeLabel}" Style="{StaticResource ModInfoLabelStyle}" Margin="0,1,0,3"
+                                       Visibility="{Binding ReadmeVisibility, FallbackValue='Visible'}"/>
+                            <Button x:Name="btnOpenModReadme"
+                                    Click="btnOpenModReadme_Click"
+                                    FontSize="12"
+                                    Background="Transparent"
+                                    MinWidth="80"
+                                    Margin="2,0,10,0"
+                                    Visibility="{Binding ReadmeVisibility, FallbackValue='Visible'}"
+                                    IsEnabled="{Binding PreviewModHasReadMe, FallbackValue='False'}"
+                                    Style="{StaticResource ReadMeStyle}"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="6">
+                            <TextBlock Text="{DynamicResource DonationLinkLabel}" Style="{StaticResource ModInfoLabelStyle}"/>
+                            <Button x:Name="btnOpenModDonationLink" 
+                                    MinWidth="80"
+                                    FontSize="12"
+                                    Background="Transparent"
+                                    Margin="2,0,5,0"
+                                    Click="btnOpenDonationModLink_Click"
+                                    ToolTip="{Binding PreviewDonationModLink}"
+                                    IsEnabled="{Binding PreviewDonationModHasLink, FallbackValue='False'}"
+                                    Style="{StaticResource OpenDonationLinkStyle}"/>
+                        </WrapPanel>
+
+
+                        <WrapPanel Margin="3,0,3,0" Grid.Row="7">
+                            <TextBlock Text="{DynamicResource ReleaseNotesLabel}" Style="{StaticResource ModInfoLabelStyle}" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding PreviewModReleaseNotes, FallbackValue='Some notes about this mod...'}" 
+                                       Style="{StaticResource ModInfoDetailsStyle}"/>
+                        </WrapPanel>
+                    </Grid>
+                </ScrollViewer>
+
+
+                <!--Loader gif shown when image is loading-->
+                <Image Grid.Row="1"
+                       Margin="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Stretch="Uniform"
+                       Height="64"
+                       Visibility="{Binding LoadingGifVisibility}"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       gif:AnimationBehavior.AutoStart="True"
+                       gif:AnimationBehavior.RepeatBehavior="Forever"
+                       gif:AnimationBehavior.SourceUri="/AppUI;component/Resources/circleLoader.gif"/>
+
+
+                <Image Grid.Row="1"
+                       Margin="3"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Bottom"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       gif:AnimationBehavior.AutoStart="True"
+                       gif:AnimationBehavior.Loaded="Image_Loaded"
+                       gif:AnimationBehavior.SourceUri="{Binding PreviewModImageSource}">
+                    <Image.Style>
+                        <!--Custom style to hide image when loading-->
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PreviewModImageSource, FallbackValue=''}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+
+                <TextBlock Grid.Row="1"
+                           Foreground="{DynamicResource PrimaryControlDisabledForeground}"
+                           Visibility="{Binding NoImageTextVisibility}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="{DynamicResource NoPreviewImage}"/>
+
+
+            </Grid>
+        </GroupBox>
+
+        <TabControl x:Name="tabCtrlMain"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="tabCtrlMain_SelectionChanged"
+                    Margin="0,23,5,-2">
+            <TabItem Padding="10,0,10,0"
+                     ToolTip="{DynamicResource MyModsTooltip}"
+                     MouseRightButtonUp="MyModsTabItem_MouseRightButtonUp">
+                <TabItem.Header>
+                    <TextBlock Text="{DynamicResource MyMods}"
+                               PreviewMouseRightButtonUp="MyModsTabItem_MouseRightButtonUp"
+                               Padding="0"/>
+                </TabItem.Header>
+
+                <ctrl:MyModsUserControl x:Name="ctrlMyMods"/>
+            </TabItem>
+            <TabItem MouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
+                     ToolTip="{DynamicResource BrowseCatalogTooltip}">
+                <TabItem.Header>
+                    <TextBlock Text="{DynamicResource BrowseCatalog}"
+                               PreviewMouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
+                               Padding="0"/>
+                </TabItem.Header>
+
+                <ctrl:CatalogUserControl x:Name="ctrlCatalog"/>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Column="2"
+              Margin="0,25,56,0"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top">
+
+            <TextBox x:Name="txtSearch"
+                     Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="txtSearch_TextChanged"
+                     KeyDown="txtSearch_KeyDown"
+                     Grid.Column="2"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     VerticalContentAlignment="Center"
+                     Panel.ZIndex="10"
+                     Width="260"
+                     Height="24"/>
+
+            <TextBlock Text="{DynamicResource SearchHint}"
+                       Foreground="{DynamicResource PrimaryControlDisabledForeground}"
+                       Grid.Column="2"
+                       IsHitTestVisible="False"
+                       Panel.ZIndex="10"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="5,4,0,0">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SearchText, FallbackValue=''}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ToggleButton x:Name="btnFilters"
+                          ClickMode="Release"
+                          Click="btnFilters_Click"
+                          ToolTip="{DynamicResource FiltersTooltip}"
+                          Style="{StaticResource DownArrowToggleButton}"
+                          Background="Transparent"
+                          Width="24"
+                          Height="22"
+                          Grid.Column="2"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          VerticalContentAlignment="Center"
+                          Panel.ZIndex="10"
+                          Margin="0,1,0,0"/>
+        </Grid>
+
+
+        <Popup x:Name="popupFilters"
+               Closed="popupFilters_Closed"
+               Placement="Bottom"
+               HorizontalOffset="-140"
+               PlacementTarget="{Binding ElementName=btnFilters}"
+               StaysOpen="False" Grid.ColumnSpan="2" Margin="0,0,0,26">
+            <Grid>
+                <ListBox MinWidth="165"
+                         FontSize="13"
+                         MaxHeight="225"
+                         ScrollViewer.CanContentScroll="False"
+                         ItemsSource="{Binding AvailableFilters}"
+                         Background="{DynamicResource PrimaryControlBackground}"
+                         BorderBrush="{DynamicResource SecondaryAppBackground}" 
+                         ItemContainerStyle="{StaticResource CategoryFilterListBoxItem}"/>
+            </Grid>
+        </Popup>
+
+
+        <StatusBar  Grid.Row="2" Grid.ColumnSpan="3" Margin="0,5,0,0" IsTabStop="False">
+            <StatusBarItem x:Name="statusBarItem" Height="22" IsTabStop="False">
+                <StatusBarItem.Style>
+                    <Style TargetType="{x:Type StatusBarItem}" BasedOn="{StaticResource MainStatusBarStyle}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="StatusBarItem">
+                                    <Border Background="{DynamicResource SecondaryAppBackground}">
+                                        <Grid>
+                                            <Button x:Name="btnOpenAppLog" 
+                                                    Click="btnOpenAppLog_Click"
+                                                    PreviewMouseRightButtonUp="btnOpenAppLog_PreviewMouseRightButtonUp"
+                                                    Height="{TemplateBinding Height}"
+                                                    Style="{StaticResource MainButtonStyleWithNoTriggers}"
+                                                    Cursor="Hand"
+                                                    ToolTip="{DynamicResource StatusBarTooltip}"
+                                                    ToolTipService.InitialShowDelay="250"
+                                                    IsTabStop="False"
+                                                    Background="Transparent"/>
+
+
+                                            <TextBlock x:Name="txtStatusMessage"
+                                                       Text="{Binding StatusMessage, FallbackValue='Some message to the user ...'}"
+                                                       IsHitTestVisible="False"
+                                                       Padding="5,1,0,1"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"/>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFlashingStatus}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="beginStory">
+                                        <Storyboard AutoReverse="True" RepeatBehavior="Forever" SpeedRatio="8">
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                             From="1" To="0.75" Duration="0:0:1" AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="beginStory"/>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StatusBarItem.Style>
+            </StatusBarItem>
+        </StatusBar>
+        <Image x:Name="SupportUkraine" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="246,5,0,0" VerticalAlignment="Top" Width="130" Source="/Resources/SupportUkraine.png" Stretch="UniformToFill" Grid.RowSpan="2" Cursor="Hand" MouseUp="SupportUkraine_MouseUp"/>
+    </Grid>
+</Window>

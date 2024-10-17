@@ -1,0 +1,55 @@
+﻿<Window x:Class="AppUI.Windows.SetLanguageWindow"
+        x:Name="windowSetLanguage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        mc:Ignorable="d"
+        Style="{DynamicResource MainWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Title="{DynamicResource SetLanguageWindowTitle}" 
+        ResizeMode="NoResize"
+        Height="175"
+        Width="350">
+    <Window.Resources>
+        <DataTemplate x:Key="comboboxItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowSetLanguage, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedLanguage, FallbackValue='Some Language'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="cboLanguages"
+                  Grid.Row="0"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  Margin="30,0,30,0"
+                  ItemsSource="{Binding Languages}"
+                  ItemTemplate="{StaticResource comboboxItemTemplate}"
+                  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Style="{StaticResource MainComboBoxStyle}"
+                  ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"/>
+
+        <Button x:Name="btnOk"
+                Click="btnOk_Click"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                Width="80"
+                Margin="0,0,80,5"
+                Content="{DynamicResource OK}"/>
+        
+        <Button x:Name="btnCancel"
+                Click="btnCancel_Click"
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                Width="80"
+                Margin="80,0,0,5"
+                Content="{DynamicResource Cancel}"/>
+    </Grid>
+</Window>

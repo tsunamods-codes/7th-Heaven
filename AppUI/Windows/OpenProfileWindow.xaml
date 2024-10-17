@@ -1,0 +1,82 @@
+﻿<Window x:Class="AppUI.Windows.OpenProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        mc:Ignorable="d"
+        Style="{StaticResource MainWindowStyle}"
+        Title="{DynamicResource ManageProfiles}" 
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        ResizeMode="NoResize"
+        Width="325" Height="400">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MainListBoxItemStyle}">
+            <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Margin="5,0,5,0">
+            <Button x:Name="btnSaveActiveProfile"
+                    Click="SaveActiveProfile_Click"
+                    Style="{StaticResource ImageButton}"
+                    Content="{StaticResource iconSave}"
+                    ToolTip="{DynamicResource SaveCurrentProfileAs}"
+                    Height="32"
+                    Width="32"/>
+            <Button x:Name="btnCopyProfile"
+                    Click="CopyProfile_Click"
+                    Style="{StaticResource ImageButton}"
+                    Content="{StaticResource iconCopy}"
+                    ToolTip="{DynamicResource CopySelectedProfileToNewProfile}"
+                    Height="32"
+                    Width="32"/>
+            <Button x:Name="btnDeleteProfile"
+                    Click="DeleteProfile_Click"
+                    Style="{StaticResource ImageButton}"
+                    Content="{StaticResource iconDelete}"
+                    ToolTip="{DynamicResource DeleteSelectedProfile}"
+                    Height="32"
+                    Width="32"/>
+            <Button x:Name="btnProfileDetails"
+                    Click="ViewDetails_Click"
+                    Style="{StaticResource ImageButton}"
+                    Content="{StaticResource iconEye}"
+                    ToolTip="{DynamicResource ViewSelectedProfileDetails}"
+                    Height="32"
+                    Width="32"/>
+        </WrapPanel>
+
+        <ListBox Grid.Row="1"
+                 Margin="5,0,5,0"
+                 x:Name="lstProfiles"
+                 ItemsSource="{Binding Profiles}"
+                 SelectedItem="{Binding SelectedProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        </ListBox>
+
+        <Button x:Name="btnOk"
+                Grid.Row="2"
+                Content="{DynamicResource LoadProfile}"
+                HorizontalAlignment="Center"
+                Margin="0,0,95,5"
+                Width="95"
+                IsEnabled="{Binding OkButtonIsEnabled}"
+                Click="btnOk_Click"/>
+
+        <Button x:Name="btnClose"
+                Grid.Row="2"
+                Content="{DynamicResource Close}"
+                HorizontalAlignment="Center"
+                Margin="94,0,0,5"
+                Width="95"
+                Click="btnClose_Click"/>
+    </Grid>
+</Window>

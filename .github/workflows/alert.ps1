@@ -8,7 +8,7 @@ if ($env:_IS_BUILD_CANARY -eq "true") {
 $discordPost = @"
 {
   "username": "7th Heaven",
-  "avatar_url": "https://github.com/tsunamods-codes/7th-Heaven/raw/master/.logo/7th.png",
+  "avatar_url": "https://github.com/tsunamods-codes/7th-Heaven/raw/master/.logo/app.png",
   "content": "Release **${env:_RELEASE_VERSION}** has just been published!\n\nDownload Url: ${downloadUrl}\n\nIf you find something broken or unexpected, feel free to check existing ones first here https://github.com/tsunamods-codes/7th-Heaven/issues.\nIf non existing, then report your issue here https://github.com/tsunamods-codes/7th-Heaven/issues/new.\n\nThank you for using 7th Heaven!",
   "embeds": [
     {

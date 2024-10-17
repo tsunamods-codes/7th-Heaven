@@ -1,0 +1,74 @@
+﻿<Window x:Class="AppUI.Windows.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle, FallbackValue='About 7th Heaven'}"
+        Style="{StaticResource MainWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        ResizeMode="NoResize"
+        Height="220"
+        Width="475"
+        MaxHeight="400">
+    <Grid x:Name="gridMain" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Visibility="{Binding DetailsVisibility, FallbackValue='Collapsed'}" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="txtTitle"
+                       Margin="0,5,10,5"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       Text="{Binding Message, FallbackValue='The following mods are incompatible:'}" Grid.ColumnSpan="2"/>
+
+            <TextBox x:Name="txtDetails"
+                     Style="{StaticResource PrimaryTextBoxStyle}"
+                     Grid.Row="1"
+                     Margin="0,0,10,0"
+                     TextWrapping="Wrap"
+                     FontSize="14"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     IsReadOnly="True"
+                     Background="Transparent"
+                     VerticalAlignment="Stretch"
+                     Text="{Binding Details, FallbackValue='Here are alot of details about stuff. Here are alot of details about stuff. Here are alot of details  about stuff. Here are alot of de tails about stuff. Here are alot of details about stuff. Here are alot of details about stuff. Here are alot of details about stuff. '}" Grid.ColumnSpan="2"/>
+
+
+        </Grid>
+
+        <TextBlock x:Name="txtMessage"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            Grid.Row="0"
+            Padding="5,5,5,5"
+            Foreground="{DynamicResource PrimaryControlForeground}"
+            FontSize="14"
+            TextWrapping="Wrap" Height="126"
+        >
+            7th heaven is provided as is without warranty, while we will make every effort to support you via discord please remember this.
+            <LineBreak /><LineBreak />
+            7th heaven is made possible by <Hyperlink NavigateUri="https://github.com/julianxhokaxhiu/FFNx/" RequestNavigate="Hyperlink_RequestNavigate">FFNx</Hyperlink>
+            <LineBreak /><LineBreak />
+            Need help join <Hyperlink NavigateUri="https://discord.gg/VAJ3ys6K" RequestNavigate="Hyperlink_RequestNavigate">Tsunamods Discord Server</Hyperlink>
+        </TextBlock>
+
+        <Button x:Name="btnClose"
+            Click="btnClose_Click"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+                
+            Width="80"
+            Content="{DynamicResource Close}"/>
+    </Grid>
+</Window>

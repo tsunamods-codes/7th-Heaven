@@ -1,0 +1,1268 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--TODO: TRANSLATION NEEDED-->
+    <!--Main Window Buttons-->
+    <system:String x:Key="Play">Εναρξη</system:String>
+    <system:String x:Key="PlayWithMods">Εναρξη με τροποποιήσεις (προκαθορισμένες)</system:String>
+    <system:String x:Key="PlayWithNoMods">Εναρξη χωρίς τροποποιήσεις</system:String>
+    <system:String x:Key="PlayWithDebugLog">Εναρξη με το αρχείο καταγραφής εντοπισμού σφαλμάτων</system:String>
+    <system:String x:Key="PlayWithMinimalValidation">Εναρξη με ελάχιστη επικύρωση</system:String>
+    <system:String x:Key="PlayWithVariableDump">Εναρξη με το αρχείο μεταβλητής χωρητικότητας</system:String>
+
+    <system:String x:Key="Settings">Ρυθμίσεις</system:String>
+    <system:String x:Key="ChangeColorTheme">Αλλαγή χρώματος θέματος...</system:String>
+    <system:String x:Key="GeneralSettings">Γενικές Ρυθμίσεις...</system:String>
+    <system:String x:Key="GameDriver">Πρόγραμμα οδήγησης παιχνιδιού...</system:String>
+    <system:String x:Key="GameLauncher">Πρόγραμμα εκκίνησης παιχνιδιού...</system:String>
+    <system:String x:Key="Profiles">Προφίλ...</system:String>
+    <system:String x:Key="Language">Γλώσσα...</system:String>
+
+
+    <system:String x:Key="Tools">Εργαλεία</system:String>
+    <system:String x:Key="CatalogModCreationTool">Εργαλείο σχεδιασμού Καταλόγου/Τροποίησης...</system:String>
+    <system:String x:Key="ChunkTool">Εργαλείο Τμημάτων Μεγέθους...</system:String>
+    <system:String x:Key="IROTools">Εργαλεία IRO...</system:String>
+
+    <system:String x:Key="Help">Βοήθεια</system:String>
+
+    <system:String x:Key="MyMods">Οι τροποποιήσεις μου</system:String>
+    <system:String x:Key="MyModsTooltip">Κάνε δεξί κλικ στην καρτέλα "Οι τροποποιήσεις μου" για να ανοίξεις τον φάκελο της Βιβλιοθήκης Τροποποιήσεων</system:String>
+
+    <system:String x:Key="BrowseCatalog">Κατάλογος Αναζήτησης</system:String>
+    <system:String x:Key="BrowseCatalogTooltip">Κάνε δεξί κλικ στην καρτέλα "Κατάλογος Αναζήτησης" για να ανοίξεις τις δικές σου ρυθμίσεις Καταλόγου</system:String>
+
+    <system:String x:Key="SearchHint">Πληκτρολόγησε εδώ για αναζήτηση ...</system:String>
+    <system:String x:Key="FiltersTooltip">Κάνε κλικ για να επιλέξεις κατηγορίες και λέξεις κλειδιά που θες να φιλτράρεις.</system:String>
+
+    <system:String x:Key="StatusBarTooltip">Κάνε κλικ για να δεις το αρχείο καταγραφής της εφαρμογής</system:String>
+
+
+    <!--Mod Info Panel-->
+    <system:String x:Key="ModInfoHeader" xml:space="preserve"> Πληροφορίες Τροποποίησης </system:String>
+    <system:String x:Key="NameLabel">Ονομα:</system:String>
+    <system:String x:Key="AuthorLabel">Δημιουργός:</system:String>
+    <system:String x:Key="ReleasedLabel">Κυκλοφορία:</system:String>
+    <system:String x:Key="CategoryLabel">Κατηγορία:</system:String>
+    <system:String x:Key="VersionLabel">Εκδοση:</system:String>
+
+    <system:String x:Key="ClickHere">Κάνε κλικ εδώ</system:String>
+    <system:String x:Key="None">Κανένα</system:String>
+
+    <system:String x:Key="AutoUpdateInstall">Αυτόματη Ανανέωση/Εγκατάσταση</system:String>
+    <system:String x:Key="Ignore">Αγνόησε</system:String>
+    <system:String x:Key="Notify">Ειδοποίησε</system:String>
+
+    <system:String x:Key="DescriptionLabel">Περιγραφή:</system:String>
+    <system:String x:Key="LinkLabel">Σύνδεσμος:</system:String>
+    <system:String x:Key="ReadmeLabel">Διάβασέ με:</system:String>
+    <system:String x:Key="ReleaseNotesLabel">Σημειώσεις Κυκλοφορίας:</system:String>
+    <system:String x:Key="DonationLinkLabel">Donation Link:</system:String>
+
+    <system:String x:Key="NoPreviewImage">Καμιά εικόνα προεπισκόπισης</system:String>
+
+
+    <!-- Browse Catalog Tab -->
+    <system:String x:Key="Name">Ονομα</system:String>
+    <system:String x:Key="Author">Δημιουργός</system:String>
+    <system:String x:Key="Released">Κυκλoφορία</system:String>
+    <system:String x:Key="Category">Κατηγορία</system:String>
+    <system:String x:Key="Size">Μέγεθος</system:String>
+    <system:String x:Key="Inst">Εγκ.</system:String>
+
+
+    <system:String x:Key="RefreshCatalogTooltip">Εξαναγκασμένη Ενημέρωση όλων των Συνδρομών και Ανανέωση του καταλόγου</system:String>
+    <system:String x:Key="DownloadModTooltip">Λήψη Επιλεγμένης Τροποποίησης</system:String>
+    <system:String x:Key="ResetColumnsTooltip">Επαναφορά Στηλών</system:String>
+
+    <system:String x:Key="Item">Αντικείμενο</system:String>
+    <system:String x:Key="Progress">Πρόοδος</system:String>
+    <system:String x:Key="Speed">Ταχύτητα</system:String>
+    <system:String x:Key="TimeLeft">Εναπομείνων Χρόνος</system:String>
+
+    <system:String x:Key="CancelDownloadTooltip">Ακύρωση του επιλεγμένου αρχείου προς λήψη</system:String>
+
+
+    <!--My Mods Tab-->
+    <system:String x:Key="Active">Ενεργό</system:String>
+
+    <system:String x:Key="ImportModTooltip">Εισαγωγή Τροποποίησης</system:String>
+    <system:String x:Key="MoveUpTooltip">Κύλιση επάνω/Δεξί κλικ για κύλιση στην κορυφή</system:String>
+    <system:String x:Key="MoveDownTooltip">Κύλιση κάτω/Δεξί κλικ για κύλιση στο τέλος</system:String>
+    <system:String x:Key="AutoSortTooltip">Αυτόματη Ταξινόμηση βασισμένη σε Κατηγορία Σειράς Φόρτωσης</system:String>
+    <system:String x:Key="ConfigureModTooltip">Διαμόρφωση Τροποποίησης</system:String>
+    <system:String x:Key="ActivateAllTooltip">Ενεργοποίηση Ολων των Τροποποιήσεων</system:String>
+    <system:String x:Key="DeactivateAllTooltip">Απενεργοποίηση Ολων των Τροποποιήσεων</system:String>
+    <system:String x:Key="RefreshListTooltip">Ανανέωση Λίστας</system:String>
+    <system:String x:Key="UninstallModTooltip">Απεγκατάσταση Τροποποίησης</system:String>
+
+
+    <!--Generic MessageBox Buttons-->
+    <system:String x:Key="OK">Εντάξει</system:String>
+    <system:String x:Key="Cancel">Ακύρωση</system:String>
+    <system:String x:Key="Close">Κλείσιμο</system:String>
+    <system:String x:Key="Yes">Ναι</system:String>
+    <system:String x:Key="No">Οχι</system:String>
+    <system:String x:Key="Off">Οχι</system:String>
+    <system:String x:Key="On">Ναι</system:String>
+    <system:String x:Key="ResetDefaults">Επαναφορά Προκαθορισμένων</system:String>
+    <system:String x:Key="Save">Αποθήκευση</system:String>
+    <system:String x:Key="Load">Επαναφορά</system:String>
+    <system:String x:Key="Go">Πάμε</system:String>
+
+
+    <!--Window Titles-->
+    <system:String x:Key="GameLauncherWindowTitle">Εκκίνηση Παιχνιδιού</system:String>
+    <system:String x:Key="CatalogCreationWindowTitle">Εργαλείο σχεδιασμού Καταλόγου και Τροποίησης</system:String>
+    <system:String x:Key="GameDriverWindowTitle">Διαμόρφωση Ρυθμίσεων Προγράμματος Οδήγησης Παιχνιδιού</system:String>
+    <system:String x:Key="UnexpectedErrorWindowTitle">7th Heaven - Αναπάντεχο Σφάλμα!</system:String>
+    <system:String x:Key="AllowModToRun">Να επιτραπεί η λειτουργία της Τροποίησης;</system:String>
+    <system:String x:Key="Warning">Προειδοποίηση</system:String>
+    <system:String x:Key="Requirements">Απαιτήσεις</system:String>
+    <system:String x:Key="ExternalDownload">Εξωτερική λήψη;</system:String>
+    <system:String x:Key="MissingPath">Ελλιπής Διαδρομή</system:String>
+    <system:String x:Key="ExtractComplete">Ολοκλήρωση της Εξαγωγής</system:String>
+    <system:String x:Key="InsertDisc">Εισάγετε δίσκο</system:String>
+    <system:String x:Key="MissingRequiredInput">Λείπουν Απαιτούμενα Στοιχεία Εισαγωγής </system:String>
+    <system:String x:Key="IROToolsWindowTitle">Εργαλεία IRO</system:String>
+    <system:String x:Key="ChunkToolWindowTitle">Εργαλείο Τμημάτων Μεγέθους</system:String>
+    <system:String x:Key="ManageProfiles">Διαχείριση Προφίλ</system:String>
+    <system:String x:Key="SetLanguageWindowTitle">Ορισμός Γλώσσας</system:String>
+
+
+
+
+
+    <!--Allow Mod To Run Window-->
+    <system:String x:Key="NoDontActivateThisMod">Οχι, να μην ενεργοποιηθεί αυτή η Τροποποίηση</system:String>
+    <system:String x:Key="YesActivateThisMod">Ναι, να ενεργοποιηθεί αυτή η Τροποποίηση</system:String>
+    <system:String x:Key="DontAskAgainForAnyMods">Μην με ξαναρωτήσεις για κάποια Τροποποίηση</system:String>
+
+    <!--Game Launcher Settings Window-->
+    <system:String x:Key="OptionsHeader" xml:space="preserve"> Επιλογές </system:String>
+    <system:String x:Key="AutoMountDisc">Αυτόματη Εισαγωγή Δίσκου</system:String>
+    <system:String x:Key="AutoMountDiscTooltip">Αυτόματη Εισαγωγή Δίσκου ISO όταν αρχίζει το παιχνίδι. Μόνο για Windows 8 και άνω. Αν έχετε Windows 7 ή παλαιότερα, θα χρειαστεί να εισάγετε δισκάκι ή να φορτώσετε το ISO χειροκίνητα.</system:String>
+
+    <system:String x:Key="AutoDismountDisc">Αυτόματη Εξαγωγή Δίσκου</system:String>
+    <system:String x:Key="AutoDismountDiscTooltip">Αυτόματη Εξαγωγή του ISO του παιχνιδιού όταν κλείνει το παιχνίδι. Μόνο για Windows 8 και άνω. Αν έχετε Windows 7 ή παλαιότερα, θα χρειαστεί να εξάγετε το δισκάκι ή να αφαιρέσετε το ISO χειροκίνητα.</system:String>
+
+    <system:String x:Key="AutoUpdatePath">Αυτόματη Ενημέρωση Διαδρομής Δίσκου</system:String>
+    <system:String x:Key="AutoUpdatePathTooltip">Ανιχνεύει αν ο Δίσκος έχει αλλάξει Γράμμα και Ενημερώνει Αυτόματα το Παιχνίδι να στραφεί προς Διαφορετική Τοποθεσία.</system:String>
+
+    <system:String x:Key="ShowGameLauncher">Προβολή Προγράμματος Εκκίνησης Παιχνιδιού</system:String>
+    <system:String x:Key="ShowGameLauncherTooltip">Εμφανίζει το παράθυρο Προγράμματος Εκκίνησης Παιχνιδιού καθώς ξεκινά το FF7 για λεπτομερή εμφάνισης της Διαδικασίας Εκκίνησης.</system:String>
+
+    <system:String x:Key="ControlsLabel">Χειρισμός:</system:String>
+
+    <system:String x:Key="SaveControlsTooltip">Αποθήκευση των προσαρμοσμένων ρυθμίσεων χειρισμού εντός του παιχνιδιού.</system:String>
+    <system:String x:Key="DeleteControlsTooltip">Διαγραφή των επιλεγμένης προσαρμοσμένης διαμόρφωσης των ρυθμίσεων χειρισμού.</system:String>
+
+    <system:String x:Key="CompatibilityHeader" xml:space="preserve"> Συμβατότητα </system:String>
+    <system:String x:Key="HighDpiScalingFix">Διόρθωση Κλίμακας σε Υψηλές Αναλύσεις </system:String>
+    <system:String x:Key="HighDpiScalingFixTooltip">Μπορεί να διορθώσει τις διακοπές στην οθόνη του παιχνιδιού ή/και την απουσία κεντραρίσματος. Να χρησιμοποιείται σε Οθόνες Υψηλής Ανάλυσης-DPI. Εναλλακτικά, αλλάξτε τις ρυθμίσεις της Οθόνης των Windows σε κλιμάκωση 100%.</system:String>
+
+    <system:String x:Key="ReunionDriverFix">Διόρθωση για τους οδηγούς λειτουργίας του REUNION</system:String>
+    <system:String x:Key="ReunionDriverFixTooltip">Μετονομάζει προσωρινά το αρχείο ddraw.dll σε Reunion.dll.bak κατά την εκκίνηση του παιχνιδιού και άμεση επαναφορά ονομασίας. Δεν επηρρεάζει τη λειτουργικότητα του REUNION έξω από την εφαρμογή 7H.</system:String>
+
+
+    <system:String x:Key="ImportMoviesHeader" xml:space="preserve"> Εισαγωγή αρχείων βίντεο από τον δίσκο </system:String>
+    <system:String x:Key="Import">Εισαγωγή</system:String>
+    <system:String x:Key="ImportTooltip">Εισαγωγή των βίντεο που λείπουν από τον δίσκο.</system:String>
+
+
+    <system:String x:Key="AudioDeviceHeader" xml:space="preserve"> Συσκευή Εξόδου Ηχου </system:String>
+    <system:String x:Key="SoundDeviceLabel">Συσκευή Ηχου:</system:String>
+    <system:String x:Key="SoundDeviceTooltip">Επιλογή Συσκευής Εξόδου Ηχου για το FF7.</system:String>
+
+    <system:String x:Key="TestSoundTooltip">Δοκίμασε την επιλεγμένη συσκευή ήχου και την ένταση της μουσικής/εφέ. Η δοκιμή ήχου παρέχεται από τον Enrico Deiana.</system:String>
+    <system:String x:Key="TestLeftSoundTooltip">Δοκίμασε την επιλεγμένη συσκευή ήχου και την ένταση της μουσικής/εφέ για το Αριστερό κανάλι. Η δοκιμή ήχου παρέχεται από τον Enrico Deiana.</system:String>
+    <system:String x:Key="TestRightSoundTooltip">Δοκίμασε την επιλεγμένη συσκευή ήχου και την ένταση της μουσικής/εφέ για το Δεξί κανάλι. Η δοκιμή ήχου παρέχεται από τον Enrico Deiana.</system:String>
+
+    <system:String x:Key="MidiDeviceLabel">Συσκευή MIDI:</system:String>
+    <system:String x:Key="MidiDataLabel">Δεδομένα MIDI:</system:String>
+    <system:String x:Key="MidiDeviceTooltip">Επιλογή Συσκευής Εξόδου Ηχου MIDI για το FF7.</system:String>
+
+    <system:String x:Key="SFXVolumeLabel">Ενταση ηχητικών εφέ:</system:String>
+    <system:String x:Key="SFXVolumeTooltip">Ορισμός έντασης των ηχητικών εφέ εντός παιχνιδιού.</system:String>
+
+    <system:String x:Key="MusicVolumeLabel">Ενταση της μουσικής:</system:String>
+    <system:String x:Key="MusicVolumeTooltip">Ορισμός έντασης της μουσικής εντός παιχνιδιού.</system:String>
+
+    <system:String x:Key="VoiceVolumeLabel">Voice Volume:</system:String>
+    <system:String x:Key="VoiceVolumeTooltip">Set the in-game voice volume.</system:String>
+
+    <system:String x:Key="AmbientVolumeLabel">Ambient Volume:</system:String>
+    <system:String x:Key="AmbientVolumeTooltip">Set the in-game ambient volume.</system:String>
+
+    <system:String x:Key="MovieVolumeLabel">Movie Volume:</system:String>
+    <system:String x:Key="MovieVolumeTooltip">Set the in-game movie volume.</system:String>
+
+    <system:String x:Key="LogVolumeControl">Λογαριθμικός έλεγχος έντασης</system:String>
+    <system:String x:Key="LogVolumeControlTooltip">Απενεργοποίησε την επιλογή αν νιώθεις πως η ένταση δεν αλλάζει ομαλά.</system:String>
+
+    <system:String x:Key="ReverseSpeakers">Αντιστροφή Ηχείων</system:String>
+    <system:String x:Key="ReverseSpeakersTooltip">Αλλάζει το δεξί με το αριστερό ηχείο όταν είναι επιλεγμένο.</system:String>
+
+
+    <system:String x:Key="GraphicsDriverHeader" xml:space="preserve"> Επιλογές προγράμματος οδήγησης κάρτας γραφικών </system:String>
+    <system:String x:Key="RendererLabel">Πρόγραμμα απόδοσης κάρτας γραφικών:</system:String>
+    <system:String x:Key="RendererTooltip">Επιλογή προγράμματος οδήγησης της κάρτας γραφικών για να γίνει rendering το FF7. Οι τροποποιήσεις εφαρμόζονται μόνο με ενεργή την επιλογή 'Προσαρμοσμένο πρόγραμμα οδήγησης παιχνιδιού 7H '</system:String>
+
+    <system:String x:Key="QuarterScreen">1 τέταρτο της οθόνης</system:String>
+    <system:String x:Key="QuarterScreenTooltip">Εκκίνηση του παιχνιδιού σε παράθυρο (1 τέταρτο της οθόνης). Εφαρμόζεται μόνο με ενεργή την επιλογή 'Πρόγραμμα απόδοσης κάρτας γραφικών μέσω λογισμικού' ή 'Επιτάχυνση υλικού Direct3D'.</system:String>
+
+    <system:String x:Key="FullScreen">Πλήρης Οθόνη</system:String>
+    <system:String x:Key="FullScreenTooltip">Εκκίνηση του παιχνιδιού σε πλήρη οθόνη. Εφαρμόζεται μόνο με ενεργή την επιλογή 'Πρόγραμμα απόδοσης κάρτας γραφικών μέσω λογισμικού' ή 'Επιτάχυνση υλικού Direct3D'.</system:String>
+
+    <system:String x:Key="HardwareGraphicsTooltip">Ορίζει την επιλογή για χρήση ως 'Επιτάχυνση Υλικού'. Εφαρμόζεται μόνο με ενεργή την επιλογή 'Επιτάχυνση υλικού Direct3D'.</system:String>
+
+
+    <system:String x:Key="ProgramsToRunHeader" xml:space="preserve"> Προγράμματα που θα τρέξουν πριν το FF7: </system:String>
+    <system:String x:Key="ProgramNameHint">Εισαγωγή πλήρους διαδρομής του προγράμματος που θα τρέξει</system:String>
+    <system:String x:Key="ProgramArgsHint">Εισαγωγή των παραμέτρων του προγράμματος</system:String>
+
+    <system:String x:Key="AddProgramTooltip">Πρόσθεσε ένα πρόγραμμα για να τρέξει πριν την έναρξη του FF7.</system:String>
+    <system:String x:Key="RemoveProgramTooltip">Κατάργηση του επιλεγμένου προγράμματος.</system:String>
+    <system:String x:Key="EditProgramTooltip">Επεξεργασία του επιλεγμένου προγράμματος και των παραμέτρων του.</system:String>
+    <system:String x:Key="MoveProgramUpTooltip">Μετακίνηση του επιλεγμένου προγράμματος πιο πάνω στη λίστα. Δεξί κλικ για μετακίνηση στην κορυφή.</system:String>
+    <system:String x:Key="MoveProgramDownTooltip">Μετακίνηση του επιλεγμένου προγράμματος πιο κάτω στη λίστα. Δεξί κλικ για μετακίνηση στο τέλος.</system:String>
+    <system:String x:Key="BrowseProgramTooltip">Αναζήτηση του προγράμματος που θα τρέξει</system:String>
+
+    <system:String x:Key="ResetLauncherDefaultsTooltip">Επαναφορά των ρυθμίσεων έναρξης του παιχνιδιού στις προκαθορισμένες τιμές.</system:String>
+
+    <!--Catalog Creation Window-->
+    <system:String x:Key="CreateMod">Δημιουργία Τροποποίησης</system:String>
+    <system:String x:Key="CreateCatalog">Δημιουργία Καταλόγου</system:String>
+    <system:String x:Key="MegaLinkGenerator">Δημιουργία Συνδέσμου MEGA</system:String>
+
+
+    <!--Chunk Tool Window-->
+    <system:String x:Key="SelectFlevelLabel">Επιλογή αρχείου Flevel:</system:String>
+    <system:String x:Key="OutputFolderLabel">Φάκελος Εξαγωγής:</system:String>
+
+    <system:String x:Key="SectionHeader" xml:space="preserve"> Ενότητα # </system:String>
+    <system:String x:Key="Section1">Ενότητα 1 Παράθυρο Διαλόγου Πεδίου</system:String>
+    <system:String x:Key="Section2">Ενότητα 2 Μάτριξ Κάμερας</system:String>
+    <system:String x:Key="Section3">Ενότητα 3 Φόρτωση Μοντέλου</system:String>
+    <system:String x:Key="Section4">Ενότητα 4 Παλλέτα</system:String>
+    <system:String x:Key="Section5">Ενότητα 5 Πλέγμα βάδισης</system:String>
+    <system:String x:Key="Section6">Ενότητα 6 Χάρτης πλακιδίων (Αμεταχείριστος)</system:String>
+    <system:String x:Key="Section7">Ενότητα 7 Συναντήσεις</system:String>
+    <system:String x:Key="Section8">Ενότητα 8 Ενεργοποιητές</system:String>
+    <system:String x:Key="Section9">Ενότητα 9 Φόντο</system:String>
+
+    <system:String x:Key="Extract">Εξαγωγή</system:String>
+
+
+    <!--Configure Mod Window-->
+    <system:String x:Key="ConfigureHeader" xml:space="preserve"> Διαμόρφωση </system:String>
+    <system:String x:Key="Preview">Προεπισκόπηση</system:String>
+    <system:String x:Key="Stop">Στοπ</system:String>
+    <system:String x:Key="ResetToModDefaults">Επαναφορά στις προεπιλεγμένες τροποποιήσεις</system:String>
+
+    <!--MainWindow.xaml.cs Strings-->
+    <system:String x:Key="AreYouSureYouWantToPlayDebugWarning" xml:space="preserve">Είστε σίγουροι πως θέλετε να παίξετε το FF7 με αυτόν τον τρόπο? Με αυτές τι ρυθμίσεις το FF7 μπορεί να παίζει εξαιρετικά αργά και να χρησιμοποιεί πολύ χώρο στον δίσκο.
+
+Καλύτερα να χρησιμοιήσετε αυτή την επιλογή μόνο κατά την επίλυση προβλημάτων μιας μεμονωμένης ενεργής τροποποίησης έτσι ώστε να μπορείτε να επιλύνετε προβλήματα και να παρέχετε αναφορές σφαλμάτων στον δημιουργό της τροποποίησης ή/και στους δημιουργούς του 7Η.</system:String>
+
+    <system:String x:Key="AreYouSureYouWantToExitPendingDownloads">Είσαι σίγουρος πως θέλεις να βγεις; Υπάρχουν λήψεις που εκκρεμούν.</system:String>
+    <system:String x:Key="ConfirmExit">Επιβεβαίωση Εξόδου</system:String>
+    <system:String x:Key="Exit">Exit</system:String>
+
+    <system:String x:Key="CannotExitWhileImporting">Your mods are currently being imported and closing 7th Heaven may lead to a serious corrupted state. Please wait for this process to finish and try again later.</system:String>
+
+    <!--MainWindowViewModel Strings-->
+    <system:String x:Key="StartedClickHereToViewAppLog">Έγινε εκκίνηση - Κάντε κλικ εδώ για να δείτε το αρχείο καταγραφής της εφαρμογής.</system:String>
+    <system:String x:Key="HintLabel">Συμβουλή:</system:String>
+    <system:String x:Key="CheckingForUpdates">Ελεγχος για ενημερώσεις εφαρμογών ...</system:String>
+    <system:String x:Key="SelectAll">Επιλογή όλων</system:String>
+    <system:String x:Key="Unknown">Αγνωστο</system:String>
+
+    <system:String x:Key="UpdateAvailable">Διαθέσιμη Ενημέρωση</system:String>
+    <system:String x:Key="UpdateDownloading">Η ενημέρωση λαμβάνεται</system:String>
+
+    <system:String x:Key="NoUpdates">Καμία Ενημέρωση</system:String>
+    <system:String x:Key="UpdatesIgnored">Οι Ενημερώσεις αγνοήθηκαν</system:String>
+    <system:String x:Key="AutoUpdate">Αυτόματη Ενημέρωση</system:String>
+
+    <system:String x:Key="FollowingErrorsFoundInConfiguration">Τα εξής σφάλματα εντοπίστηκαν στη διαμόρφωση που κάνατε:</system:String>
+    <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">Σφάλματα εντοπίστηκαν στις γενικές ρυθμίσεις. Δες το app.log για λεπτομέρειες σχετικά με σφάλμα(τα).</system:String>
+
+    <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Μια ενημέρωση είναι διαθέσιμη για {0}\nΚάντε κλικ στο 'Ναι' για να ανοίξετε τη σελίδα των λήψεων σε μια μηχανή αναζήτησης.\n\n{1} Σημειώσεις έκδοσης:</system:String>
+    <system:String x:Key="NewVersionAvailable">Νέα έκδοση διαθέσιμη!</system:String>
+
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Αυτή τη τροποποίηση '{0}' περιέχει δεδομένα που ενδεχομένως να βλάψουν τον υπολογιστή σας. Καλύτερα να ενεργοποιείς μόνο τροποποιήσεις που εμπιστεύεσαι.
+
+Θέλεις ακόμη να ενεργοποιήσεις αυτή την τροποποίηση</system:String>
+
+    <system:String x:Key="CannotOpenHelp">Αδυναμία ανοίγματος αρχείου βοήθειας - Το αρχείο Resources/Help/index.html δεν βρέθηκε</system:String>
+
+    <system:String x:Key="SubscriptionIsAlreadyAdded">Η εγγραφή {0} ήδη προστέθηκε.</system:String>
+    <system:String x:Key="AddedToSubscriptions">Προστέθηκε {0} στις συνδρομές.</system:String>
+    <system:String x:Key="IrosLinkMayBeFormatedIncorrectly">Ο σύνδεσμος iros:// {0} ενδέχεται να έχει μορφοποιηθεί εσφαλμένα. Αδυναμία προσθήκης στις συνδρομές.</system:String>
+
+    <system:String x:Key="FailedToSetBackgroundImageFromTheme">Αποτυχία ορισμού εικόνας φόντου από το θέμα.</system:String>
+
+
+
+
+    <!--MyModsViewModel Strings-->
+
+    <system:String x:Key="ModRequiresModsIsMissingWarning" xml:space="preserve">Αυτή η τροποίηση απαιτεί να είναι ενεργές και οι εξής τροποποιήσεις, αλλά δεν ήταν δυνατόν να εντοπιστούν:
+{0}
+Πιθανόν να μη λειτουργήσει σωστά εκτός αν τις εγκαταστήσετε.</system:String>
+
+    <system:String x:Key="UnsupportedModVersionsWarning" xml:space="preserve">Αυτή η τροποίηση απαιτεί να είναι ενεργές και οι εξής τροποποιήσεις, αλλά δεν έχετε μια έκδοση που υποστηρίζεται:
+{0}
+Ισως χρειαστεί να ενημερώσετε αυτές τις τροποιποιήσεις.</system:String>
+
+    <system:String x:Key="ThisModRequiresYouActivateFollowingMods" xml:space="preserve">Αυτή η τροποίηση απαιτεί να είναι ενεργές και οι εξής τροποποιήσεις:
+{0}
+Θα ενεργοποιηθούν αυτόματα.</system:String>
+
+    <system:String x:Key="ModRequiresYouDeactivateTheFollowingMods" xml:space="preserve">Αυτή η τροποποίηση απαιτεί να είναι απενεργοποιημένες και οι εξής τροποποιήσεις:
+{0}
+Θα απενεργοποιηθούν αυτόματα.</system:String>
+
+
+    <system:String x:Key="CannotActivateModBecauseItIsIncompatibleWithOtherMod" xml:space="preserve">Αδυναμία ενργοποίησης αυτής της τροποποίησης, επειδή είναι ασυμβατή με {0}. Θα χρειαστεί να απενεργοποιήσετε {0} πριν να ενεργοποιήσετε αυτή την τροποποίηση.</system:String>
+
+    <system:String x:Key="CannotActivateModBecauseDependentIsIncompatible" xml:space="preserve">Αδυναμία ενργοποίησης αυτής της τροποποίησης, επειδή απαιτεί {0} για να είναι ενεργή, όμως {0} είναι ασυμβατό με {1}. Χρειάζεται να απενεργοποιηθεί το {1} πριν ενεργοποιήσετε αυτή την τροποποίηση.</system:String>
+
+    <system:String x:Key="MissingRequirements">Απούσες απαιτήσεις</system:String>
+    <system:String x:Key="UnsupportedVersion">Μη υποστηριζόμενη έκδοση</system:String>
+    <system:String x:Key="MissingRequiredActiveMods">Απούσες προαπαιτούμενες ενεργές τροποποιήσεις</system:String>
+    <system:String x:Key="DeactivateModsWarning">Απενεργοποίηση προειδοποίησης για τροποποιήσεις</system:String>
+    <system:String x:Key="Uninstalled">Απεγκαταστάθηκαν</system:String>
+
+    <system:String x:Key="CanNotReOrderModItHasBeenRemoved">Αδυναμία επανάκτησης τροποποίησης. Φαίνεται πως το {0} έχει αφαιρεθεί από το σύστημα φακέλου.</system:String>
+    <system:String x:Key="CanNotConfigureModItHasBeenRemoved">Αδυναμία διαμόρφωσης τροποποίησης. Φαίνεται πως το {0} έχει αφαιρεθεί από το σύστημα φακέλου.</system:String>
+    <system:String x:Key="CanNotConfigureModFailedToReadModXml">Αδυναμία διαμόρφωσης της τροποποίησης {0} - Αποτυχία ανάγνωσης mod.xml</system:String>
+
+    <system:String x:Key="NoOptions">Χωρίς επιλογές</system:String>
+    <system:String x:Key="ThereAreNoOptionsToConfigureForThisMod">Δεν υπάρχουν επιλογές διαμόρφωσης γι αυτήν την τροποποίηση.</system:String>
+
+    <system:String x:Key="NewVersionOfModAvailable">Νέα έκδοση του {0} είναι διαθέσιμη</system:String>
+
+
+    <!--CatalogViewModel Strings-->
+
+    <system:String x:Key="ThisModAlsoRequiresYouDownloadTheFollowing" xml:space="preserve">Αυτή η τροποποίηση απαιτεί επίσης τη λήψη των ακόλουθων τροποποιήσεων:
+{0}
+Να γίνει λήψη και εγκατάσταση;</system:String>
+
+    <system:String x:Key="ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog" xml:space="preserve">Αυτή η τροποποίηση απαιτεί την εγκατάσταση των ακόλουθων τροποποιήσεων, αλλά ήταν αδύνατη η εύρεσή της σε οποιονδήποτε κατάλογο:
+{0}
+Υπάρχει περίπτωση μη σωστής λειτουργίας εκτός αν βρεθούν και εγκατασταθούν τα προαπαιτούμενα.</system:String>
+
+    <system:String x:Key="PauseResumeSelectedDownload">Παύση/Συνέχιση επιλεγμένης λήψης</system:String>
+    <system:String x:Key="PauseSelectedDownload">Παύση επιλεγμένης λήψης</system:String>
+    <system:String x:Key="ResumeSelectedDownload">Συνέχιση επιλεγμένης λήψης</system:String>
+
+    <system:String x:Key="NoResultsFound">Δεν βρέθηκαν αποτελέσμάτα</system:String>
+    <system:String x:Key="CheckingSubscription">Ελέγχεται η συνδρομή</system:String>
+    <system:String x:Key="CheckingCatalog">Ελέγχεται ο κατάλογος</system:String>
+    <system:String x:Key="UpdatedCatalogFrom">Ενημερωμένος κατάλογος από</system:String>
+    <system:String x:Key="FailedToLoadSubscription">Αδυναμία φόρτωσης συνδρομής</system:String>
+    <system:String x:Key="CatalogDownloadFailed">Αποτυχία λήψης καταλόγου</system:String>
+
+    <system:String x:Key="Starting">Σε έναρξη...</system:String>
+    <system:String x:Key="Pending">Σε εκκρεμότητα...</system:String>
+    <system:String x:Key="Resuming">Σε επανέναρξη...</system:String>
+    <system:String x:Key="Paused">Σε παύση...</system:String>
+    <system:String x:Key="Canceled">Ακυρώθηκε</system:String>
+    <system:String x:Key="Failed">Αποτυχία</system:String>
+
+    <system:String x:Key="IsAlreadyDownloading">είναι ήδη σε διαδικασία λήψης!</system:String>
+    <system:String x:Key="IsAlreadyUpdating">είναι ήδη σε διαδικασία ενημέρωσης!</system:String>
+    <system:String x:Key="IsAlreadyDownloadedAndInstalled">είναι ήδη σε διαδικασία λήψης και εγκατάστασης!</system:String>
+
+    <system:String x:Key="NoLinksFor">Χωρίς συνδέσμους για</system:String>
+    <system:String x:Key="FailedToParseLinkFor">Αποτυχία ανάλυσης συνδέσμου για</system:String>
+    <system:String x:Key="OpeningExternalUrlInBrowserFor">Άνοιγμα εξωτερικής διεύθυνσης στη μηχανή αναζήτησης για</system:String>
+
+    <system:String x:Key="ErrorDownloading">Σφάλμα κατά τη λήψη</system:String>
+    <system:String x:Key="WasCanceled">Ακυρώθηκε</system:String>
+    <system:String x:Key="Error">Σφάλμα</system:String>
+
+    <system:String x:Key="ExternalUrlDownloadMessage1" xml:space="preserve">Αυτή η τροποποίηση είναι μόνο διαθέσιμη αν γίνει λήψη από εξωτερική ιστοσελίδα.
+
+Θα επιθυμούσατε το άνοιγμα της μηχανής αναζήτησης προς άμεση λήψη;</system:String>
+
+    <system:String x:Key="ExternalUrlDownloadMessage2" xml:space="preserve">Η αυτόματη λήψη της τροποποίησης απέτυχε. Ενας εξωτερικός σύνδεσμος για λήψη της τροποποίησης είναι διαθέσιμος.
+
+Θα επιθυμούσατε το άνοιγμα της μηχανής αναζήτησης προς άμεση λήψη;</system:String>
+
+    <system:String x:Key="SwitchingToBackupUrl">Εναλλαγή σε εφεδρικό σύνδεσμο</system:String>
+    <system:String x:Key="Downloading">Γίνεται λήψη</system:String>
+    <system:String x:Key="Installing">Γίνεται εγκατάσταση</system:String>
+
+
+    <!--ChunkToolViewModel Strings-->
+    <system:String x:Key="PathToFlevelRequired">Απαιτείται η διαδρομή για το αρχείο Flevel.</system:String>
+    <system:String x:Key="PathToOutputFolderRequired">Απαιτείται η διαδρομή για φάκελο εξαγωγής.</system:String>
+    <system:String x:Key="SelectTheSectionsToExtract">Επιλογή των ενοτήτων για εξαγωγή.</system:String>
+    <system:String x:Key="FlevelFileDoesNotExistAtGivenPath">Το αρχείο Flevel δεν υπάρχει στη διαδρομή που καταχωρήθηκε.</system:String>
+    <system:String x:Key="OutputFolderDoesNotExist">Ο φάκελος εξαγωγής δεν υπάρχει.</system:String>
+
+    <system:String x:Key="Complete">Ολοκληρώθηκε!</system:String>
+    <system:String x:Key="FailedToExtractTheErrorHasBeenLogged">Αποτυχία εξαγωγής. Tο σφάλμα καταγράφηκε</system:String>
+
+
+    <!--ConfigureModViewModel Strings-->
+    <system:String x:Key="ConfigureMod">Διαμόρφωση τροποποίησης</system:String>
+
+    <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">Αυτή η επιλογή δεν αλλάζει λόγω συμβατότητας με άλλες τροποποιήσεις.</system:String>
+    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">Οι ακόλουθες τιμές: {0} αφαιρέθηκαν λόγω συμβατότητας με άλλες τροποποιήσεις. ({1})</system:String>
+
+    <system:String x:Key="FailedToPlayPreviewAudio">Αποτυχία αναπαραγωγής προεπισκόπησης ήχου</system:String>
+
+
+    <!--DownloadItemViewModel Strings-->
+    <system:String x:Key="DownloadingPreviewImage">Προεπισκόπηση εικόνας σε λήψη.</system:String>
+
+
+
+    <!--GameLaunchSettingsViewModel Strings-->
+    <system:String x:Key="InsertAndClickImport">Εισάγετε {0} και κάντε κλικ στο 'Εισαγωγή'.</system:String>
+    <system:String x:Key="GameLauncherSettingsUpdated">Οι ρυθμίσεις του προγράμματος εκκίνησης παιχνιδιού ενημερώθηκαν!</system:String>
+    <system:String x:Key="FailedToSaveLaunchSettings">Αποτυχία αποθήκευσης ρυθμίσεων προγράμματος εκκίνησης παιχνιδιού.</system:String>
+
+    <system:String x:Key="ErrorCopyingFf7InputCfg">Σφάλμα αντιγραφής του αρχείου ff7input.cfg</system:String>
+    <system:String x:Key="NoFf7InputCfgFoundAt">Το αρχείο ff7input.cfg δεν βρέθηκε στο</system:String>
+    <system:String x:Key="AlreadyExistsAt">Ηδη υπάρχει στο</system:String>
+
+    <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver">Διαλέγοντας οποιαδήποτε επιλογή εκτός από 'Προεπιλεγμένο πρόγραμμα οδήγησης παιχνιδιού 7H' θα προκαλέσει πλήρη αδυναμία λειτουργίας των τροποποιήσεων που εγκαταστάθηκαν με το 7Η!</system:String>
+
+    <system:String x:Key="ReunionWarningMessage" xml:space="preserve">Το Reunion R06 ή νεότερο, ακόμη κι αν απενεργοποιηθεί στο Options.ini, εξαναγκάζει τη φόρτωση ενός προεπιλεγμένου προγράμματος οδήγησης παιχνιδιού όταν τρέχει το FF7. Δημιουργείται σύγκρουση με το πρόγραμμα οδήγησης παιχνιδιού του 7th Heaven, χαλάει τις ρυθμίσεις γραφικών, και θα συναντήσετε προβλήματα.
+
+Αν επιθυμείτε να παίξετε με Reunion, είναι δυνατόν μόνο με τη χρήση ενός συμβατού πακέτου κατασκευασμένο αποκλειστικά για 7th Heaven.
+
+Είστε σίγουροι;</system:String>
+
+    <system:String x:Key="YouShouldLeaveThisSettingOn">Αυτή η ρύθμιση πρέπει να μείνει ΕΝΕΡΓΗ!</system:String>
+    <system:String x:Key="ProgramToRunNotFound">Δεν βρέθηκε πρόγραμμα για να τρέξει</system:String>
+
+    <system:String x:Key="ImportMissingMoviesWarningMessage" xml:space="preserve">Θσ αντιγραφούν αρχεία βίντεο που λείπουν, από τους δίσκους του παιχνιδιού στη διαδρομή με τα βίντεο στις 'Γενικές Ρυθμίσεις'.
+Αυτή η διαδικασία αντικαθιστά οποιοδήποτε αρχείο βίντεο που βρίσκεται ήδη στο {0}.
+
+Επιθυμείτε να συνεχίσετε;</system:String>
+
+    <system:String x:Key="LookingFor">Αναζήτηση</system:String>
+    <system:String x:Key="InsertToContinue">Εισάγετε {0} για να συνεχίσετε.</system:String>
+
+    <system:String x:Key="PleaseInsertToContinueCopying" xml:space="preserve">Παρακαλώ εισάγετε {0} για να συνεχίσετε την αντιγραφή των αρχείων βίντεο που λείπουν.
+
+Κάντε κλικ 'Ακυρο' για να σταματήσετε τη διαδικασία.</system:String>
+
+    <system:String x:Key="FoundDiscAt">Βρέθηκε {0} στο</system:String>
+    <system:String x:Key="Overwriting">Σε διαδικασία αντικατάστασης</system:String>
+    <system:String x:Key="Copying">Σε διαδικασία αντιγραφής</system:String>
+    <system:String x:Key="FailedToFindAt">Αποτυχία εύρεσης {0} στο {1}</system:String>
+    <system:String x:Key="AnErrorOccurredCopyingMovies">Σφάλμα προέκυψε κατά την αντιγραφή αρχείων βίντεο</system:String>
+    <system:String x:Key="SuccessfullyCopiedMovies">Τα βίντεο αντιγράφηκαν με επιτυχία.</system:String>
+    <system:String x:Key="FinishedCopyingMoviesSomeFailed">Ολοκληρώθηκε η αντιγραφή των βίντεο. Απέτυχε η αντιγραφή κάποιων βίντεο. Ελέγξτε το αρχείο app log για λεπτομέρειες.</system:String>
+
+    <system:String x:Key="SaveControlConfiguration">Αποθήκευση διαμόρφωσης χειρισμού</system:String>
+    <system:String x:Key="ImportCurrentControlsFromGameAndSaveAs">Εισαγωγή ισχύοντως χειρισμού απ' το παιχνίδι και αποθήκευση ως...</system:String>
+    <system:String x:Key="SaveError">Σφάλμα αποθήκευσης</system:String>
+    <system:String x:Key="ControlNameIsEmpty">Η ονομασία του χειρισμού είναι άδεια.</system:String>
+    <system:String x:Key="ControlNameContainsInvalidChars">Η ονομασία του χειρισμού περιέχει μη έγκυρους χαρακτήρες.</system:String>
+
+    <system:String x:Key="ControlsWithThatNameAlreadyExist">Προσαρμοσμένος χειρισμός με αυτήν την ονομασία υπάρχει ήδη.</system:String>
+
+    <system:String x:Key="SuccessfullyCreatedCustomControls">Επιτυχής δημιουργία προσαρμοσμένου χειρισμού.</system:String>
+    <system:String x:Key="FailedToCreateCustomControls">Αποτυχία δημιουργίας προσαρμοσμένου χειρισμού</system:String>
+
+    <system:String x:Key="SuccessfullyDeletedCustomControls">Επιτυχής διαγραφή προσαρμοσμένου χειρισμού</system:String>
+    <system:String x:Key="FailedToDeleteCustomControls">Αποτυχία διαγραφής προσαρμοσμένου χειρισμού</system:String>
+
+
+    <!--GeneralSettingsViewModel Strings-->
+    <system:String x:Key="EnterNameForCatalog">Εισάγετε όνομα καταλόγου</system:String>
+    <system:String x:Key="GeneralSettingsHaveBeenUpdated">Οι Γενικές Ρυθμίσεις ενημερώθηκαν!</system:String>
+
+    <system:String x:Key="SettingsNotValid">Οι ρυθμίσεις δεν είναι έγκυρες</system:String>
+    <system:String x:Key="MissingFf7ExePath">Λείπει η διαδρομή FF7 Exe.</system:String>
+    <system:String x:Key="MissingLibraryPath">Λείπει η διαδρομή βιβλιοθήκης.</system:String>
+    <system:String x:Key="MissingTexturesPath">Λείπει η διαδρομή για Υφές (Aali OpenGL).</system:String>
+    <system:String x:Key="MissingMoviePath">Λείπει η διαδρομή για αρχεία βίντεο.</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
+
+    <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">Αποτυχία εγγραφής αρχείων τροποποίησης .iro με το 7th Heaven</system:String>
+    <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">Αποτυχία κατάργησης εγγραφής αρχείων τροποποίησης .iro με το 7th Heaven</system:String>
+    <system:String x:Key="FailedToUnregisterIrosLinksWith7thHeaven">Αποτυχία κατάργησης εγγραφής συνδέσμων τροποποίησης iros:// με το 7th Heaven</system:String>
+    <system:String x:Key="FailedToRegisterIrosLinksWith7thHeaven">Αποτυχία εγγραφής συνδέσμων τροποποίησης iros:// links με το 7th Heaven</system:String>
+    <system:String x:Key="FailedToCreate7thHeavenContextMenuEntries">Αποτυχία δημιουργίας καταχωρήσεων πλαισίου μενού του 7th Heaven στην Εξερεύνηση των Windows</system:String>
+    <system:String x:Key="FailedToRemove7thHeavenContextMenuEntries">Αποτυχία αφαίρεσης καταχωρήσεων πλαισίου μενού του 7th Heaven στην Εξερεύνηση των Windows</system:String>
+
+    <system:String x:Key="CatalogNameWillAutoResolveOnSave">Το όνομα Καταλόγου θα επιλυθεί αυτόματα κατά την αποθήκευση</system:String>
+    <system:String x:Key="ResolvingCatalogName">Επίλυση ονόματος Καταλόγου ...</system:String>
+    <system:String x:Key="UrlMustBeInIrosFormat">Το URL πρέπει να βρίσκεται σε μορφή iros:// </system:String>
+    <system:String x:Key="ResolvingCatalogNameFor">Επιλύεται η ονομασία καταλόγου για</system:String>
+
+
+    <!--ImportModViewModel Strings-->
+    <system:String x:Key="SelectAnIroFileToImport">Επιλογή αρχείου .iro  προς εισαγωγή στον φάκελο βιβλιοθήκης.</system:String>
+    <system:String x:Key="SelectAFolderThatContainsModFiles">Επιλογή φακέλου που περιέχει αρχεία τροποποίησης. Το αρχείο(α) τροποποίησης θα αντιγραφούν στον φάκελο βιβλιοθήκης.</system:String>
+    <system:String x:Key="SelectAFolderThatContainsIroModFilesAndFolders">Επιλογή φακέλου που περιέχει αρχεία τροποποίησης .iro και φακέλους τροποποίησης. Ολα τα αρχεία τροποποίησης που βρέθηκαν θα αντιγραφούν στον φάκελο βιβλιοθήκης.</system:String>
+    <system:String x:Key="ImportingModsPleaseWait">Εισαγωγή τροποποίησης(σεων)... Παρακαλώ περιμένετε ...</system:String>
+
+    <system:String x:Key="ValidationError">Σφάλμα Επικύρωσης</system:String>
+    <system:String x:Key="ImportError">Σφάλμα Εισαγωγής</system:String>
+
+    <system:String x:Key="EnterPathToAnIroFile">Εισαγωγή διαδρομής για ένα αρχείο .iro.</system:String>
+    <system:String x:Key="IroFileDoesNotExist">Το αρχείο .iro δεν υπάρχει.</system:String>
+
+    <system:String x:Key="SuccessfullyImported">Εισήχθη επιτυχώς</system:String>
+    <system:String x:Key="CanNotImportMod">Αδυναμία εισαγωγής τροποποίησης.</system:String>
+    <system:String x:Key="FailedToImportModTheErrorHasBeenLogged">Αποτυχία εισαγωγής τροποποίησης. Το σφάλμα έχει καταχωρηθεί.</system:String>
+
+    <system:String x:Key="EnterPathToFolderContainingModFiles">Εισαγωγή διαδρομής για φάκελο που περιέχει αρχεία τροποποίησης.</system:String>
+    <system:String x:Key="DirectoryDoesNotExist">Το Ευρετήριο δεν υπάρχει.</system:String>
+
+    <system:String x:Key="EnterPathToFolderContainingIroFilesOrModFolders">Εισαγωγή διαδρομής για φάκελο που περιέχει αρχεία .iro ή/και φακέλους τροποποιήσεων.</system:String>
+
+    <!--MegaLinkGenUserControl Strings-->
+    <system:String x:Key="GenerateLinks">Παραγωγή Συνδέσμων</system:String>
+
+    <!--MegaLinkGenViewModel Strings-->
+    <system:String x:Key="GeneratingLinks">Σύνδεσμοι σε διαδικασία παραγωγής ...</system:String>
+    <system:String x:Key="FailedToGenerateLinks">Αποτυχία παραγωγή συνδέσμων</system:String>
+    <system:String x:Key="EnterMegaFolderIdToGenerateLinks">Πρόσθεσε έναν ΑΤ για φάκελο Mega προς παραγωγή συνδέσμων.</system:String>
+    <system:String x:Key="NoLinksFoundInFolder">Δεν βρέθηκε σύνδεσμος στον φάκελο</system:String>
+
+
+    <!--CreateModUserControl Strings-->
+    <system:String x:Key="Generate">Παραγωγή</system:String>
+    <system:String x:Key="Info">Πληροφορίες</system:String>
+    <system:String x:Key="MakeSureToCopyToTheRootFolder">Βεβαιωθείτε πως η αντιγραφή {0} θα γίνει στον φάκελο προέλευσης της τροποίησής σας ώστε η εικόνα προεπισκόπισης να φορτώσει σωστά.</system:String>
+
+    <!--ModCreationViewModel Strings-->
+    <system:String x:Key="CouldNotLoadModXml">Αδυναμία φόρτωσης του αρχείου τροποποίησης xml</system:String>
+    <system:String x:Key="CouldNotSaveModXml">Αδυναμία αποθήκευσης του αρχείου τροποποίησης xml</system:String>
+    <system:String x:Key="SuccessfullySavedTo">Αποθηκεύτηκε επιτυχώς στο</system:String>
+
+
+    <!--OpenProfileWindow Strings-->
+    <system:String x:Key="Load Profile">Φόρτωση του προφίλ</system:String>
+    <system:String x:Key="SaveCurrentProfileAs">Αποθήκευση τρέχοντος προφίλ ως ...</system:String>
+    <system:String x:Key="CopySelectedProfileToNewProfile">Αντιγραφή Επιλεγμένου Προφίλ σε Νέο Προφίλ</system:String>
+    <system:String x:Key="DeleteSelectedProfile">Διαγραφή Επιλεγμένου Προφίλ</system:String>
+    <system:String x:Key="ViewSelectedProfileDetails">Προβολή λεπτομερειών των Επιλεγμένων Προφίλ</system:String>
+
+    <system:String x:Key="AreYouSureYouWantToDeleteSelectedProfile">Είστε σίγουροι πως επιθυμείτε τη διαγραφή των Επιλεγμένων Προφίλ</system:String>
+
+    <system:String x:Key="NoProfileSelected">Δεν επιλέχθηκε κάποιο Προφίλ</system:String>
+    <system:String x:Key="SelectProfileToContinue">Επιλέξτε Προφίλ για να συνεχίσετε</system:String>
+
+
+    <!--OpenProfileViewModel Strings-->
+    <system:String x:Key="ActiveProfileFileDoesNotExist">Δεν υπάρχει ενεργό αρχείο Προφίλ</system:String>
+    <system:String x:Key="EnterProfileName">Εισάγετε όνομα Προφίλ:</system:String>
+    <system:String x:Key="SaveActiveProfile">Αποθήκευση Ενεργού Προφίλ</system:String>
+    <system:String x:Key="SuccessfullySavedAsNewProfile">Επιτυχής αποθήκευση του {0} ως νέο Προφίλ {1}!</system:String>
+    <system:String x:Key="FailToSaveAsNewProfile">Αποτυχία αποθήκευσης του {0} ως νέο Προφίλ {1}: {2}</system:String>
+
+    <system:String x:Key="ProfileDoesNotExist">Το Προφίλ δεν υπάρχει</system:String>
+    <system:String x:Key="HasItBeenDeletedAlready">Μήπως έχει ήδη διαγραφεί;</system:String>
+    <system:String x:Key="SuccessfullyDeletedProfile">Επιτυχής διαγραφή Προφίλ</system:String>
+    <system:String x:Key="FailedToDeleteProfile">Αποτυχία διαγραφής Προφίλ</system:String>
+
+    <system:String x:Key="EnterProfileNameForTheCopy">Εισάγετε όνομα Προφίλ για το αντίγραφο:</system:String>
+    <system:String x:Key="CopyProfile">Αντιγραφή Προφίλ</system:String>
+    <system:String x:Key="NewProfile">Νέο Προφίλ</system:String>
+    <system:String x:Key="SuccessfullyCopiedProfile">Επιτυχής αντιγραφή του Προφίλ {0} στο νέο προφίλ {1}</system:String>
+    <system:String x:Key="FailedToCopyProfile">Αποτυχία αντιγραφής του Προφίλ {0} στο {1}</system:String>
+
+    <system:String x:Key="FailedToOpenProfileDetails">Αποτυχία ανοίγματος λεπτομερειών του Προφίλ</system:String>
+    <system:String x:Key="ProfileNameIsEmpty">Το όνομα του Προφίλ είναι άδειο.</system:String>
+    <system:String x:Key="ProfileError">Σφάλμα Προφίλ</system:String>
+
+    <system:String x:Key="WarningProfileXmlDoesNotExistCanNotSwitch">Προειδοποίηση: το αρχείο xml του προφίλ {0} δεν υπάρχει. Αδυναμία εναλλαγής Προφίλ!</system:String>
+    <system:String x:Key="LoadedProfile">Προφίλ που φορτώθηκε</system:String>
+    <system:String x:Key="FailedToSwitchToProfile">Αποτυχία εναλλαγής στο Προφίλ</system:String>
+
+
+    <!--PackIroViewModel Strings-->
+    <system:String x:Key="PathToSourceFolderIsRequired">Απαιτείται διαδρομή στον φάκελο πηγή</system:String>
+    <system:String x:Key="PathToOutputIroFileIsRequired">Απαιτείται διαδρομή στο αρχείο iro εξαγωγής</system:String>
+    <system:String x:Key="SelectCompressionOption">Επιλέξτε μια επιλογή συμπίεσης</system:String>
+    <system:String x:Key="InvalidPackIroOptions">Μη έγκυρες επιλογές πακέτου iro</system:String>
+    <system:String x:Key="AnErrorOccuredWhilePacking">Προέκυψε σφάλμα κατά τη δημιουργία του πακέτου</system:String>
+    <system:String x:Key="PackingComplete">Η δημιουργία πακέτου ολοκληρώθηκε!</system:String>
+
+
+    <!--PatchIroViewModel Strings-->
+    <system:String x:Key="PathToOriginalIroIsRequired">Απαιτείται η διαδρομή για το πρωτότυπο αρχείο iro</system:String>
+    <system:String x:Key="PathToNewIroFileIsRequired">Απαιτείται η διαδρομή για νέο αρχείο iro</system:String>
+    <system:String x:Key="PathToIropFileIsRequired">Απαιτείται η διαδρομή προς αποθήκευση του αρχείου iro</system:String>
+    <system:String x:Key="AnErrorOccuredWhilePatching">Προέκυψε σφάλμα κατά τη διόρθωση</system:String>
+    <system:String x:Key="PatchingComplete">Η διόρθωση ολοκληρώθηκε!</system:String>
+
+
+    <!--ThemeSettingsWindow Strings-->
+    <system:String x:Key="ChangeColorThemeWindowTitle">Αλλαγή χρώματος Θέματος</system:String>
+    <system:String x:Key="ExportTheme">Εξαγωγή Θέματος ...</system:String>
+
+    <!--ThemeSettingsViewModel Strings-->
+    <system:String x:Key="ThemeSaved">Το Θέμα αποθηκεύτηκε!</system:String>
+    <system:String x:Key="ThemeSavedAs">Το Θέμα αποθηκεύτηκε ως</system:String>
+    <system:String x:Key="FailedToSaveTheme">Αποτυχία αποθήκευσηςς Θέματος...</system:String>
+    <system:String x:Key="FailedToLoadTheme">Αποτυχία Φόρτωση Θέματος</system:String>
+    <system:String x:Key="ThemeLoadedClickSavveToSaveThis">Το Θέμα φορτώθηκε! Κάντε κλικ στο 'Αποθήκευση' για να αποθηκεύσετε αυτό το Θέμα ως προκαθορισμένο ...</system:String>
+    <system:String x:Key="SelectBackgroundImageFile">Επιλογή αρχείου εικόνας Φόντου</system:String>
+
+
+    <!--UnpackIroViewModel Strings-->
+    <system:String x:Key="PathToSourceIroFileIsRequired">Απαιτείται η διαδρομή για το αρχείο προέλευσης iro</system:String>
+    <system:String x:Key="InvalidUnpackIroOptions">Μη έγκυρες επιλογές αποσυμπίεσης αρχείου iro</system:String>
+    <system:String x:Key="AnErrorOccuredWhileUnpacking">Προέκυψε σφάλμα κατά την αποσυμπίεση</system:String>
+    <system:String x:Key="UnpackingComplete">Η αποσυμπίεση ολοκληρώθηκε!</system:String>
+
+
+    <!--CreateCatalogUserControl Strings-->
+    <system:String x:Key="RemoveMod">Κατάργηση Τροποποίησης</system:String>
+    <system:String x:Key="Add">Προσθήκη</system:String>
+
+    <!--CatalogCreationViewModel Strings-->
+    <system:String x:Key="CouldNotLoadModXmlFromIroFile">Αδυναμία φόρτωσης αρχείου xml της Τροποποίησης από το αρχείο .iro</system:String>
+    <system:String x:Key="CouldNotLoadCatalogXml">Αδυναμία φόρτωσης αρχείου xml για κατάλογο</system:String>
+
+
+    <!--ConfigureGLWindow.xaml.cs Strings-->
+    <system:String x:Key="FailedToReadRequiredSpecXmlFile">Αποτυχία ανάγνωσης του αρχείου xml για τις απαιτούμενες ρυθμίσεις οθόνης. Το παράθυρο πρέπει να κλείσει.</system:String>
+    <system:String x:Key="WillDeleteEverythingUnder">Θα διαγραφούν όλα κάτω από</system:String>
+    <system:String x:Key="PathToCacheFolderDoesNotExist">Η διαδρομή του φακέλου προσωρινής μνήμης δεν υπάρχει.</system:String>
+    <system:String x:Key="TextureCacheCleared">Η προσωρινή μνήμη για υφές καθάρισε!</system:String>
+    <system:String x:Key="FailedToClearTextureCache">Αποτυχία καθαρισμού προσωρινής μνήμης για υφές</system:String>
+    <system:String x:Key="GameDriverSettingsSaved">Οι ρυθμίσεις του προγράμματος οδήγησης παιχνιδιού αποθηκεύτηκαν!</system:String>
+    <system:String x:Key="CouldNotWriteTo7HGameDriverCfg">Αδυναμία εγγραφής στο αρχείο FFNx.toml. Ελέγξτε μήπως δεν είναι επιλεγμένη η ρύθμιση "μόνο για αναγνωση" στις ιδιότητες του αρχείου, και το FF7 είναι εγκατεστημένο σε φάκελο στον οποίο έχετε δικαίωμα πρόσβασης για εγγραφή.</system:String>
+    <system:String x:Key="UnknownErrorWhileSaving">Αγνωστο σφάλμα κατά την αποθήκευση. Το σφάλμα καταγράφηκε.</system:String>
+    <system:String x:Key="GameDriverSettingsResetToDefaults">Επαναφορά προκαθορισμένων ρυθμίσεων για το πρόγραμμα οδήγησης παιχνιδιού. Κάντε κλικ στο 'Αποθήκευση' για αποθήκευση των αλλαγών.</system:String>
+
+
+    <!--GameLaunchSettingsWindow.xaml.cs Strings-->
+    <system:String x:Key="SelectProgramToRemove">Επιλογή προγράμματος προς κατάργηση.</system:String>
+    <system:String x:Key="SelectProgramToEdit">Επιλογή προγράμματος προς επεξεργασία.</system:String>
+    <system:String x:Key="SelectProgramToMove">Επιλογή προγράμματος προς μετακίνηση.</system:String>
+    <system:String x:Key="SelectProgramToRunSuchAs">Επιλογή προγράμματος προς εκκίνηση, όπως αρχείο .exe ή script</system:String>
+
+
+    <!--GameLaunchWindow.xaml.cs Strings-->
+    <system:String x:Key="LaunchingFinalFantasyVII">Εκκίνηση Final Fantasy VII</system:String>
+    <system:String x:Key="UnknownErrorWhenLaunchingGame">Αγνωστο σφάλμα κατά την εκκίνηση παιχνιδιού</system:String>
+    <system:String x:Key="GameLaunchProcessCanceled">Ακυρώθηκε η διαδικασία εκκίνησης παιχνιδιού</system:String>
+    <system:String x:Key="FailedToLaunchFf7ViewLogForDetails">Αποτυχία εκκίνησης FF7. Προβολή λεπτομερειών του παρακάτω αρχείου καταγραφής.</system:String>
+    <system:String x:Key="SuccessfullyLaunchedFf7">Επιτυχής εκκίνηση του FF7!</system:String>
+
+
+    <!--GeneralSettingsWindow Strings-->
+    <system:String x:Key="ActivateNewlyInstalledModsAutomatically">Αυτόματη Ενεργοποίηση Πρόσφατα Εγκατεστημένων Τροποποιήσεων</system:String>
+    <system:String x:Key="ImportModsFromLibraryAutomatically">Αυτόματη Εισαγωγή Τροποποιήσεων από τη Βιβλιοθήκη</system:String>
+    <system:String x:Key="WarnWhenModContainsCode">Προειδοποίηση όταν η Τροποποίηση περιέχει Κώδικα</system:String>
+    <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
+    <system:String x:Key="AutoUpdateModsByDefault">Αυτόματη Ενημέρωση Τροποποιήσεων ως Προκαθορισμένη επιλογή</system:String>
+    <system:String x:Key="IgnoreModCompatibilityRestrictions">Να αγνοηθούν οι περιορισμοί συμβατότητας της τροποποίησης</system:String>
+    <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Αυτόματος Ελεγχος Ενημερώσεων του 7th Heaven</system:String>
+
+    <system:String x:Key="OpenIrosLinksWith7thHeaven">Ανοιγμα συνδέσμων iros:// με 7th Heaven</system:String>
+    <system:String x:Key="OpenModFilesWith7thHeaven">Ανοιγμα αρχείων Τροποποιήσεων με 7th Heaven</system:String>
+    <system:String x:Key="ContextMenuInExplorer">Μενού περιβάλλοντος στην Εξερεύνηση</system:String>
+
+    <system:String x:Key="PathsHeader" xml:space="preserve"> Διαδρομές </system:String>
+    <system:String x:Key="ShellIntegrationHeader" xml:space="preserve"> Ενταξη Κέλυφους </system:String>
+    <system:String x:Key="CatalogSubscriptionsHeader" xml:space="preserve"> Συνδρομές Καταλόγου: </system:String>
+    <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve"> Πρόσθετοι Φάκελοι προς Παρακολούθηση: </system:String>
+
+    <system:String x:Key="Url">Url</system:String>
+
+    <system:String x:Key="ErrorIncorrectExe">Σφάλμα - εσφαλμένο αρχείο Exe</system:String>
+    <system:String x:Key="ThisExeIsUsedForSteamReleaseFailedToCopyExe">Αυτό το αρχείο exe χρησιμοποιείται για την κυκλοφορία του FF7 στο Steam, η οποία δεν υποστηρίζεται από το 7th Heaven. Η έκδοση 1.02 του αρχείου διόρθωσης για το ff7.exe απέτυχε κατά την αντιγραφή και δεν ήταν δυνατόν να επιλεχθεί αυτόματα για σένα.</system:String>
+    <system:String x:Key="ThisExeIsUsedForSteamReleaseCopiedSelectedForYou">Αυτό το αρχείο exe χρησιμοποιείται για την κυκλοφορία του FF7 στο Steam, η οποία δεν υποστηρίζεται από το 7th Heaven. Η έκδοση 1.02 του αρχείου διόρθωσης για το ff7.exe {0} για σένα προς διασφάλιση της σωστής λειτουργίας του 7th Heaven.</system:String>
+    <system:String x:Key="Selected">Επιλέχθηκε</system:String>
+    <system:String x:Key="CopiedAndSelected">Αντιγράφηκε και επιλέχθηκε</system:String>
+    <system:String x:Key="ThisExeIsUsedForConfiguringFf7Settings">Αυτό το αρχείο exe χρησιμοποιείται για τη διαμόρφωση των ρυθμίσεων του FF7 και δεν είναι το σωστό αρχείο exe του παιχνιδού. Παρακαλώ να επιλέξετε ένα διαφορετικό αρχείο FF7.exe.</system:String>
+
+    <system:String x:Key="SelectFf7Exe">Επιλογή αρχείου FF7.exe</system:String>
+    <system:String x:Key="SelectMoviesFolder">Επιλογή Φακέλου Βίντεο</system:String>
+    <system:String x:Key="SelectTexturesFolder">Επιλογή Φακέλου με Υφές</system:String>
+    <system:String x:Key="Select7thHeavenLibraryFolder">Επιλογή Φακέλου Βιβλιοθήκης για το 7th Heaven</system:String>
+
+    <system:String x:Key="SelectSubscriptionToEdit">Επιλογή συνδρομής προς επεξεργασία.</system:String>
+    <system:String x:Key="SelectSubscriptionToRemove">Επιλογή συνδρομής προς κατάργηση.</system:String>
+    <system:String x:Key="SelectSubscriptionToMove">Επιλογή συνδρομής προς μετακίνηση.</system:String>
+
+    <system:String x:Key="SelectFolderToRemove">Επιλογή φακέλου προς κατάργηση.</system:String>
+    <system:String x:Key="SelectFolderToMove">Επιλογή φακέλου προς μετακίνηση.</system:String>
+
+
+    <!--ImportModWindow Strings-->
+    <system:String x:Key="FromIROFile">Από αρχείο IRO</system:String>
+    <system:String x:Key="FromFolder">Από Φάκελο</system:String>
+    <system:String x:Key="BatchImport">Εισαγωγή Παρτίδας</system:String>
+    <system:String x:Key="SelectIroFile">Επιλογή αρχείου .iro</system:String>
+
+
+    <!--IroCreateWindow Strings-->
+    <system:String x:Key="PackIRO">Συμπίεση αρχείου IRO</system:String>
+    <system:String x:Key="UnpackIRO">Αποσυμπίεση αρχείου IRO</system:String>
+    <system:String x:Key="PatchIRO">Διόρθωση αρχείου IRO</system:String>
+    <system:String x:Key="PatchIROAdvanced">Διόρθωση αρχείου IRO (για προχωρημένους)</system:String>
+
+
+    <!--UnhandledErrorWindow Strings-->
+    <system:String x:Key="AnUnhandledExceptionOccurredAppMustClose">Παρουσιάστηκε μια εξαίρεση που δεν αντιμετωπίστηκε και η εφαρμογή πρέπει να κλείσει.</system:String>
+
+
+    <system:String x:Key="SelectLanguage">Επιλογή Γλώσσας:</system:String>
+    <system:String x:Key="English">Αγγλικά</system:String>
+    <system:String x:Key="French">Γαλλικά</system:String>
+    <system:String x:Key="German">Γερμανικά</system:String>
+    <system:String x:Key="Spanish">Ισπανικά</system:String>
+    <system:String x:Key="Japanese">Ιαπωνικά</system:String>
+
+    <!--GameLauncher Strings-->
+    <system:String x:Key="CheckingFf7IsNotRunning">Ο έλεγχος δείχνει πως το FF7 δεν εκτελείται ...</system:String>
+    <system:String x:Key="Ff7IsAlreadyRunning">Το FF7 εκτελείται ήδη!</system:String>
+    <system:String x:Key="Ff7IsAlreadyRunningDoYouWantToForceClose" xml:space="preserve">Το FF7 εκτελείται ήδη. Θέλετε να γίνει αναγκαστικό κλείσιμο;
+
+Κάντε κλικ στο ΝΑΙ για να κλείσετε όλες τις τρέχουσες ενεργές εφαρμογές του FF7. Κάντε κλικ στο ΟΧΙ για να εκκινήσετε μια ξεχωριστή εφαρμογή.</system:String>
+
+    <system:String x:Key="ForceClosingAllInstancesFf7">Αναγκαστικό κλείσιμο όλων των ενεργών εφαρμογών του FF7 ...</system:String>
+    <system:String x:Key="Aborting">Σε διαδικασία Ακύρωσης ...</system:String>
+    <system:String x:Key="FailedToCloseProcess">Απέτυχε το κλείσιμο της διεργασίας</system:String>
+    <system:String x:Key="CheckingFf7ExeExistsAt">Έλέγχεται αν το FF7.exe είναι ενεργό στο</system:String>
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">Checking FF7 Steam if installed correctly...</system:String>
+    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">No user configuration found. Looks like your Steam game installation has not been run yet.
+        
+7th Heaven will launch now the original game for you. Please make sure you click Play and run the game at least once.
+    
+Once done, do close the game and the launcher, and finally retry to click Play here on 7th Heaven.</system:String>
+    <system:String x:Key="FileNotFoundAborting">Αδυναμία εύρεσης αρχείου. Γίνεται ακύρωση ...</system:String>
+    <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Το αρχείο FF7.exe δεν βρέθηκε. Ισως χρειαστεί διαμόρφωση του 7H μέσω του μενού 'Ρυθμίσεις'>'Γενικές Ρυθμίσεις'.</system:String>
+    <system:String x:Key="VerifyingInstalledGameIsCompatible">Επαλήθευση συμβατότητας του εγκατεστημένου παιχνιδιού ...</system:String>
+    <system:String x:Key="ErrorCodeYarr">Κωδικός σφάλματος: YARR! Αδύνατον να συνεχιστεί η διαδικασία. Παρακαλώ αναφέρτε αυτό το σφάλμα στα φόρουμ του Qhimm.</system:String>
+    <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Επαληθεύεται αν το παιχνίδι είναι εγκατεστημένο σε έναν φάκελο συστήματος/προστατευμένο ...</system:String>
+
+    <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">Το FF7 είναι εγκατεστημένο σε έναν φάκελο συστήματος που μπορεί να προκαλέσει αδυναμία λειτουργίας των τροποποιήσεων. Προτείνεται να γίνει εγκατάσταση στον φάκελο C:\Games\Final Fantasy VII
+
+Θα θέλατε να αντιγράψετε αυτόματα την εγκατάστασή σας στον φάκελο C:\Games\Final Fantasy VII για να συνεχίσετε;</system:String>
+
+    <system:String x:Key="CanNotContinueDueToFf7nstalledInProtectedFolder">Η διαδικασία δεν μπορεί να συνεχιστεί λόγω εγκατάστασης του FF7 στον φάκελο System / Protected. Ματαίωση ...</system:String>
+    <system:String x:Key="CannotContinue">Η διαδικασία δεν μπορεί να συνεχιστεί!</system:String>
+
+    <system:String x:Key="CopyingGameFilesTo">αντιγραφή αρχείων παιχνιδιού σε</system:String>
+    <system:String x:Key="FailedToCopyFf7To">αποτυχία αντιγραφής του FF7 σε</system:String>
+
+    <system:String x:Key="VerifyingGameIsMaxInstall">Επαληθεύεται αν έχει γίνει πλήρης/μέγιστη εγκατάσταση ...</system:String>
+    <system:String x:Key="YourFf7InstallationFolderIsMissingCriticalFiles" xml:space="preserve">Λείπει(ουν) κρίσιμο(α) αρχείο(α) από τον φάκελο εγκατάστασης του FF7. Όταν εγκαταστήσατε το FF7, ενδέχεται να έχετε επιλέξει κατά λάθος να εγκαταστήσετε την «Τυπική εγκατάσταση», αλλά απαιτείται η «Μέγιστη εγκατάσταση».
+
+Το 7ο Heaven μπορεί να το επισκευάσει αυτόματα. Απλά τοποθετήστε έναν από τους δίσκους του παιχνιδιού σας και δοκιμάστε ξανά.</system:String>
+
+    <system:String x:Key="CreatingMissingRequiredDirectories">Δημιουργία των απαιτούμενων καταλόγων που λείπουν ...</system:String>
+    <system:String x:Key="VerifyingAdditionalFilesForBattleAndKernelFoldersExist">Επαληθεύεται η ύπαρξη πρόσθετων αρχείων για τους φακέλους "Battle" και "kernel" ...</system:String>
+    <system:String x:Key="FailedToVerifyCopyMissingAdditionalFiles">Αποτυχία επαλήθευσης/αντιγραφής των επιπλέον αρχείων που λείπουν. Ματαίωση διαδικασίας...</system:String>
+
+    <system:String x:Key="VerifyingAllMovieFilesExist">Επαληθεύεται η ύπαρξη όλων των αρχείων βίντεο ...</system:String>
+    <system:String x:Key="CouldNotFindAllMovieFilesAt">Αδυναμία εύρεσης όλων των αρχείων βίντεο στην ακόλουθη διαδρομή</system:String>
+    <system:String x:Key="AllFilesFoundAt">όλα τα αρχεία βρέθηκαν στην ακόλουθη διαδρομή</system:String>
+    <system:String x:Key="UpdatingMoviePathSetting">Ενημέρωση ρύθμισης διαδρομής αρχείων βίντεο.</system:String>
+    <system:String x:Key="AttemptingToCopyMovieFiles">απόπειρα αντιγραφής αρχείων βίντεο ...</system:String>
+
+    <system:String x:Key="MovieFilesAreMissing">Τα αρχεία βίντεο λείπουν!</system:String>
+    <system:String x:Key="InOrderToSeeInGameMoviesYouWillNeedMessage" xml:space="preserve">Για να δείτε βίντεο εντός του παιχνιδιού, θα πρέπει να κατεβάσετε και να ενεργοποιήσετε μια τροποποίηση βίντεο.
+
+Εναλλακτικά, μπορείτε να εισαγάγετε αρχεία βίντεο από τον δίσκο μεταβαίνοντας στις Ρυθμίσεις> Εκκίνηση παιχνιδιού ...> Εισαγωγή αρχείων βίντεο από δίσκο.
+
+Τέλος, μπορείτε να ορίσετε τη διαδρομή του δικού βίντεο στις «Γενικές ρυθμίσεις» ώστε να οδηγεί στον φάκελο των δίσκων παιχνιδιού 'FF7\Movies', αλλά θα σας ζητηθεί να αλλάξετε δίσκους ενώ παίζετε το παιχνίδι.</system:String>
+
+    <system:String x:Key="VerifyingMusicFilesExist">Επαλήθευση των αρχείων μουσικής ...</system:String>
+    <system:String x:Key="CouldNotFindAllMusicFilesAt">Αδυναμία εύρεσης όλων των αρχείων μουσικής στο</system:String>
+    <system:String x:Key="AttemptingToCopyMusicFiles">Προσπάθεια αντιγραφής αρχείων μουσικής ...</system:String>
+
+    <system:String x:Key="OggMusicFilesAreMissing">Τα αρχεία μουσικής .OGG λείπουν!</system:String>
+    <system:String x:Key="InOrderToHearHighQualityMusicYouWillNeedMessage" xml:space="preserve">Για να ακούσετε μουσική υπόκρουση υψηλής ποιότητας, θα πρέπει να κατεβάσετε και να ενεργοποιήσετε μια τροποποίηση για τη μουσική.
+
+Εναλλακτικά, μπορείτε να ακούσετε την πρωτότυπη μουσική χαμηλής ποιότητας του παιχνιδιού σε μορφή MIDI, αλλά θα πρέπει να επιλέξετε "Original MIDI" για τη "Μουσική Επιλογή" που μπορείτε να βρείτε στην ενότητα Ρυθμίσεις> Πρόγραμμα οδήγησης παιχνιδιού ...> Καρτέλα για προχωρημένους.
+
+Αργότερα, εάν θέλετε να χρησιμοποιήσετε αρχεία ήχου .OGG υψηλής ποιότητας, αλλάξτε τη ρύθμιση σε "VGMstream".</system:String>
+
+    <system:String x:Key="VerifyingLatestGameDriverIsInstalled">Επαληθεύεται η εγκατάσταση του τελευταίου προγράμματος οδήγησης του παιχνιδού ...</system:String>
+    <system:String x:Key="SomethingWentWrongTryingToDetectGameDriver">Κάτι πήγε στραβά κατά την προσπάθεια εντοπισμού/εγκατάστασης του προγράμματος οδήγησης του παιχνιδιού. Ματαίωση ...</system:String>
+    <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Επαληθεύεται η ύπαρξη των φακέλων του προγράμματος οδήγησης σκίασης  ...</system:String>
+
+    <system:String x:Key="VerifyingFf7Exe">Γίνεται επαλήθευση του ff7.exe ...</system:String>
+    <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
+    <system:String x:Key="Ff7ExeDetectedToBeDifferent">Το ff7.exe εντοπίστηκε να είναι διαφορετικό. Δημιουργία αντιγράφων ασφαλείας και αντιγραφή σωστών .exe ...</system:String>
+    <system:String x:Key="FailedToCopyFf7Exe">Αποτυχία αντιγραφής του ff7.exe. Ματαίωση ...</system:String>
+    <system:String x:Key="FailedToCreateBackupOfFf7Exe">Αποτυχία δημιουργίας αντιγράφου ασφαλείας για το ff7.exe. Ματαίωση ...</system:String>
+
+    <system:String x:Key="Ff7ConfigExeDetectedToBeMissingOrDifferent">Το FF7Config.exe λείπει ή εντοπίστηκε να είναι διαφορετικό. Δημιουργία αντιγράφων ασφαλείας (εάν υπάρχει) και αντιγραφή σωστού .exe ...</system:String>
+    <system:String x:Key="FailedToCopyFf7ConfigExe">Αποτυχία αντιγραφής του FF7Config.exe. Ματαίωση ...</system:String>
+    <system:String x:Key="FailedToCreateBackupOfFf7ConfigExe">Αποτυχία δημιουργίας αντιγράφου ασφαλείας για το FF7Config.exe. Ματαίωση ...</system:String>
+
+    <system:String x:Key="CheckingAProfileIsActive">Γίνεται έλεγχο για κάποιο ενεργό προφίλ ...</system:String>
+    <system:String x:Key="ActiveProfileNotFound">Αδυναμία έυρεσης ενεργού προφίλ. Ματαίωση ...</system:String>
+    <system:String x:Key="CreateAProfileFirstAndTryAgain">Δημιουργήστε ένα προφίλ πρώτα στις Ρυθμίσεις> Προφίλ και δοκιμάστε ξανά.</system:String>
+
+    <system:String x:Key="CheckingModCompatibilityRequirements">Έλεγχος απαιτήσεων συμβατότητας τροποποίησης ...</system:String>
+    <system:String x:Key="FailedModCompatibilityCheck">Αποτυχία ελέγχου συμβατότητας τροποποίησης. Ματαίωση ...</system:String>
+
+    <system:String x:Key="CheckingModConstraintsForCompatibility">Έλεγχος περιορισμών mod για συμβατότητα ...</system:String>
+    <system:String x:Key="FailedModConstraintCheck">Αποτυχία ελέγχου περιορισμών τροποποίησης. Ματαίωση ...</system:String>
+
+    <system:String x:Key="CheckingModLoadOrderRequirements">Έλεγχος απαιτήσεων σειράς φόρτωσης της τροποποίησης ...</system:String>
+    <system:String x:Key="FailedModLoadOrderCheck">Αποτυχία ελέγχου απαιτήσεων σειράς φόρτωσης της τροποποίησης. Ματαίωση ...</system:String>
+
+    <system:String x:Key="LookingForGameDisc">Αναζήτηση δίσκου για το παιχνίδι...</system:String>
+    <system:String x:Key="FoundGameDiscAt">Βρέθηκε ο δίσκος του παιχνιδιού στο</system:String>
+    <system:String x:Key="FailedToFindGameDisc">Αποτυχία εύρεσης δίσκου για το παιχνίδι ...</system:String>
+    <system:String x:Key="OsDoesNotSupportAutoMounting">Το λειτουργικό σύστημα δεν υποστηρίζει αυτόματη τοποθέτηση εικονικού δίσκου. Πρέπει να τοποθετήσετε έναν εικονικό δίσκο με το όνομα FF7DISC1.ISO, να εισαγάγετε μια μονάδα flash USB με το όνομα FF7DISC1 ή να μετονομάσετε έναν σκληρό δίσκο σε FF7DISC1 ...</system:String>
+    <system:String x:Key="AutoMountingVirtualGameDisc">Αυτόματη τοποθέτηση εικονικού δίσκου για το παιχνίδι ...</system:String>
+    <system:String x:Key="FailedToAutoMountVirtualDiscAt">Αποτυχία αυτόματης τοποθέτησης εικονικού δίσκου στο</system:String>
+    <system:String x:Key="LookingForGameDiscAfterMounting">Αναζήτηση για δίσκο παιχνιδιού μετά την τοποθέτηση ...</system:String>
+    <system:String x:Key="FailedToFindGameDiscAfterAutoMounting">Αποτυχία εύρεσης δίσκου παιχνιδιού μετά την αυτόματη τοποθέτηση ...</system:String>
+
+    <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla">Ο χρήστης ζήτησε να παίξει χωρίς τροποποιήσεις. Έναρξη παιχνιδιού ως 'βανίλια' ...</system:String>
+    <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla">Δεν έχουν ενεργοποιηθεί τροποποιήσεις. Έναρξη παιχνιδιού ως 'βανίλια' ...</system:String>
+    <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla">Το επιλεγμένο πρόγραμμα απόδοσης γραφικών δεν έχει οριστεί σε "Προκαθορισμένο πρόγραμμα οδήγησης παιχνιδιού 7H". Έναρξη παιχνιδιού ως «βανίλια» ...</system:String>
+
+    <system:String x:Key="CreatingRuntimeProfile">Δημιουργία Προφίλ Χρόνου Εκτέλεσης ...</system:String>
+    <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">Αποτυχία δημιουργίας Προφίλ Χρόνου Εκτέλεσης για ενεργές τροποποιήσεις ...</system:String>
+
+    <system:String x:Key="VariableDumpSetToTrueStartingTurboLog">Το αρχείο μεταβλητής χωρηστικότητας ορίστηκε σε 'true' (ενεργό). Εκκίνηση του TurBoLog ...</system:String>
+    <system:String x:Key="CopyingEasyHookToFf7PathIfNotFoundOrOlder">Αντιγραφή του αρχείου AppLoader.dll στη διαδρομή του FF7 (αν δεν βρέθηκε ή αν εντοπίστηκε παλαιότερη έκδοση) ...</system:String>
+
+    <system:String x:Key="CopyingFf7InputCfgToFf7Path">Αντιγραφή του αρχείου ff7input.cfg στη διαδρομή του FF7 ...</system:String>
+    <system:String x:Key="DebugLoggingSetToTrueDetailedLoggingWillBeWrittenTo">Η καταγραφή εντοπισμού σφαλμάτων ορίστηκε σε 'true' (ενεργό). Λεπτομερής καταγραφή θα γραφεί σε</system:String>
+
+    <system:String x:Key="CheckingIfReunionModIsInstalled">Έλεγχος εάν έχει εγκατασταθεί η τροποποίηση 'Reunion' ...</system:String>
+    <system:String x:Key="Found">βρέθηκε</system:String>
+    <system:String x:Key="DisablingReunionMod">Απενεργοποίηση της τροποποίησης 'Reunion' (μετονομασία ddraw.dll -> Reunion.dll.bak) ...</system:String>
+    <system:String x:Key="ReenablingReunionMod">Επανενεργοποίηση του mod Reunion (μετονομασία Reunion.dll.bak -> ddraw.dll) ...</system:String>
+
+    <system:String x:Key="LaunchingAdditionalProgramsToRunIfAny">Εκκίνηση πρόσθετων προγραμμάτων για εκτέλεση (εάν υπάρχουν) ...</system:String>
+    <system:String x:Key="WritingTemporaryRuntimeProfileFileTo">Γράφοντας προσωρινό αρχείο Προφίλ Χρόνου εκτέλεσης σε</system:String>
+
+    <system:String x:Key="AttemptingToInjectWithEasyHook">Απόπειρα εμβολής με το AppLoader ...</system:String>
+    <system:String x:Key="ReceivedErrors">σφάλματα που λήφθηκαν</system:String>
+    <system:String x:Key="ReachedTimeoutWaitingForInjection">έφτασε το χρονικό όριο αναμονής για εμβολή ...</system:String>
+    <system:String x:Key="ReceivedUnknownError">λήψη άγνωστου σφάλματος</system:String>
+    <system:String x:Key="FailedToInjectAfterMaxAmountOfTries">Αποτυχία εμβολής μετά από μέγιστο αριθμό δοκιμών</system:String>
+
+    <system:String x:Key="ErrorFailedToStartGame">Σφάλμα - Αποτυχία έναρξης παιχνιδιού</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookMessage" xml:space="preserve">Αποτυχία εμβολής με το AppLoader μετά από πολλαπλή δοκιμή. Αυτό συνήθως διορθώνεται ρυθμίζοντας το «Code 5 Fix» σε «On» στις Ρυθμίσεις εκκίνησης παιχνιδιού.
+
+Θέλετε να εφαρμόσετε τη ρύθμιση και να δοκιμάσετε ξανά;</system:String>
+
+    <system:String x:Key="SettingCompatibilityFixAndTryingAgain">Ρύθμιση διόρθωσης συμβατότητας και επανάληψη της προσπάθειας ...</system:String>
+    <system:String x:Key="StillFailedToInjectWithEasyHookAborting">Επιμονή για αποτυχία εμβολής με το AppLoader μετά τον ορισμό διόρθωσης συμβατότητας. Ματαίωση ...</system:String>
+    <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags">Αποτυχία εμβολής με το AppLoader ακόμα και μετά τον ορισμό επισημάνσεων συμβατότητας</system:String>
+    <system:String x:Key="UserChoseNotToSetCompatibilityFix">Ο χρήστης επέλεξε να μην ορίσει διόρθωση συμβατότητας. Ματαίωση ...</system:String>
+
+    <system:String x:Key="GettingFf7Proc">Λήψη διεργασίας FF7 ...</system:String>
+    <system:String x:Key="FailedToGetFf7Proc">αποτυχία λήψης διεργασίας FF7. Ματαίωση ...</system:String>
+    <system:String x:Key="DebugLoggingSetToTrueWiringUpLogFile">Η καταγραφή εντοπισμού σφαλμάτων ορίστηκε σε 'true' (ενεργή). Σύνδεση του αρχείου καταγραφής για άνοιγμα μετά την έξοδο του παιχνιδιού ...</system:String>
+    <system:String x:Key="FailedToStartProcessForDebugLog">Αποτυχία έναρξης διεργασίας για καταγραφή εντοπισμού σφαλμάτων</system:String>
+
+    <system:String x:Key="StartingProgramsForMods">Εκκίνηση προγραμμάτων για τροποποιήσεις ...</system:String>
+    <system:String x:Key="StartingPluginsForMods">Έναρξη προσθηκών για τροποποιήσεις ...</system:String>
+    <system:String x:Key="SettingUpFf7ExeToStopPluginsAndModPrograms">Ρύθμιση του FF7 .exe για διακοπή προσθηκών και προγραμμάτων τροποποιήσεων μετά την έξοδο ...</system:String>
+
+    <system:String x:Key="StoppingOtherProgramsForMods">Διακοπή άλλων προγραμμάτων, για τροποποιήσεις που ξεκίνησαν από το 7H ...</system:String>
+    <system:String x:Key="AutoUnmountingGameDisc">Αυτόματη αποσύνδεση δίσκου του παιχνιδιού ...</system:String>
+
+    <system:String x:Key="WaitingForFf7ExeToRespond">Περιμένοντας απόκριση από το FF7 .exe ({0} seconds max) ...</system:String>
+    <system:String x:Key="ExceptionOccurredWhileTryingToStart">Παρουσιάστηκε εξαίρεση κατά την προσπάθεια εκκίνησης του FF7 ...</system:String>
+
+    <system:String x:Key="PluginAdded">Η προσθήκη προστέθηκε</system:String>
+    <system:String x:Key="StartingPlugin">Έναρξη της προσθήκης</system:String>
+
+    <system:String x:Key="FailedToGetListOfRuntimeMods">Αποτυχία λήψης της λίστας των τροποποιήσεων χρόνου εκτέλεσης λόγω μιας μεταβλητής που λείπει για μια τροποποίηση</system:String>
+    <system:String x:Key="AddingPathsToMonitor">Προσθήκη διαδρομών προς παρακολούθηση ...</system:String>
+
+    <system:String x:Key="DetectedToBeOlderVersion">εντοπίστηκε ως παλαιότερη έκδοση</system:String>
+    <system:String x:Key="Copied">αντιγράφηκε</system:String>
+    <system:String x:Key="SkippedCopying">παράλειψη αντιγραφής</system:String>
+
+    <system:String x:Key="AnExceptionOccurredTryingToStartFf7At">Παρουσιάστηκε μια εξαίρεση, κατά την προσπάθεια εκκίνησης του FF7 στο</system:String>
+
+    <system:String x:Key="ThereWasAnErrorVerifyingModConstraintSeeTheFollowingDetails">Παρουσιάστηκε σφάλμα κατά την επαλήθευση του περιορισμού της τροποποίησης. Δείτε τις ακόλουθες λεπτομέρειες:</system:String>
+    <system:String x:Key="TheFollowingSettingsHaveBeenChangedToMakeTheseModsCompatible">Οι ακόλουθες ρυθμίσεις έχουν αλλάξει, για να καταστήσουν αυτές τις τροποποιήσεις συμβατές:</system:String>
+
+
+    <system:String x:Key="ModRequiresYouToActivateAsWell">Η τροποποίηση {0} απαιτεί επίσης και την ενεργοποίηση του {1}.</system:String>
+    <system:String x:Key="ModRequiresYouToActivateButYouDoNotHaveCompatibleVersionInstalled">Η τροποποίηση {0} απαιτεί την ενεργοποίηση του {1}, αλλά δεν έχετε εγκαταστήσει μια συμβατή έκδοση. Δοκιμάστε να την ενημερώσετε.</system:String>
+    <system:String x:Key="UnsupportedModVersion">Μη υποστηριζόμενη έκδοση Τροποποίησης</system:String>
+
+    <system:String x:Key="IncompatibleMod">Μη συμβατή Τροποποίηση</system:String>
+    <system:String x:Key="ModIsNotCompatibleWithTheVersionYouHaveInstalled">Η τροποποίηση {0} δεν είναι συμβατή με την έκδοση της τροποποίησης {1} που έχετε εγκαταστήσει. Δοκιμάστε να την ενημερώσετε.</system:String>
+    <system:String x:Key="ModIsNotCompatibleWithYouWillNeedToDisableIt">Η τροποποίηση {0} δεν είναι συμβατή με την τροποίηση {1}. Θα χρειαστεί να την απενεργοποιήσετε.</system:String>
+    <system:String x:Key="ModIsNotCompatibleAnotherModVariableUsed">Η τροποποίηση {0} δεν είναι συμβατή με την τροποίηση {1} καθώς η μεταβλητή "{2}" ορίζεται και στα δύο. Θα πρέπει να απενεργοποιήσετε ένα από αυτά</system:String>
+
+    <system:String x:Key="TheFollowingModsWillNotWorkProperlyInTheCurrentOrder">Οι ακόλουθες τροποποιήσεις δεν θα λειτουργούν σωστά με την τρέχουσα σειρά. Θέλετε να συνεχίσετε ούτως ή άλλως;</system:String>
+    <system:String x:Key="LoadOrderIncompatible">Μη συμβατή σειρά φόρτωσης</system:String>
+    <system:String x:Key="ModIsMeantToComeBelowModInTheLoadOrder">Η τροποποίηση {0} προορίζεται να εμφανίζεται ΚΑΤΩ ΑΠΟ την τροποποίηση {1} στη σειρά φόρτωσης</system:String>
+    <system:String x:Key="ModIsMeantToComeAboveModInTheLoadOrder">Η τροποποίηση {0} προορίζεται να εμφανίζεται ΠΑΝΩ ΑΠΟ την τροποποίηση {1} στη σειρά φόρτωσης</system:String>
+
+    <system:String x:Key="CouldNotFindDdrawDllAt">αδυναμία εύρεσης του αρχείου ddraw.dll στο</system:String>
+    <system:String x:Key="CouldNotFindReunionDllBakAt">αδυναμία εύρεσης του αρχείου Reunion.dll.bak στο</system:String>
+    <system:String x:Key="Renamed">μετονομάστηκε</system:String>
+
+    <system:String x:Key="ApplyingChangedValuesToRegistry">Εφαρμογή των αλλαγμένων τιμών στο μητρώο ...</system:String>
+    <system:String x:Key="ApplyingCompatibilityFlagsInRegistry">Εφαρμογή επισημάνσεων συμβατότητας στο μητρώο (εάν υπάρχουν) ...</system:String>
+    <system:String x:Key="CompatibilityFlagsFoundDeleting">βρέθηκαν επισημάνσεις συμβατότητας - διαγράφονται</system:String>
+    <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag">Η διόρθωση Κλιμάκωσης σε Υψηλές Αναλύσεις ορίστηκε σε 'true' (ενεργή) - εφαρμογή επισήμανσης συμβατότητας HIGHDPIAWARE στο μητρώο</system:String>
+
+    <system:String x:Key="UsingControlConfigurationFile">χρησιμοποίηση του αρχείου ρυθμίσεων ελέγχου</system:String>
+    <system:String x:Key="InputCfgFileNotFoundAt">το αρχείο εισαγωγής cfg δεν βρέθηκε στο</system:String>
+    <system:String x:Key="FailedToCopyCfgFile">αποτυχία αντιγραφής του αρχείου .cfg</system:String>
+
+    <system:String x:Key="StartingProgram">έναρξη προγράμματος</system:String>
+    <system:String x:Key="Started">ξεκίνησε ...</system:String>
+    <system:String x:Key="WaitingForProgramToInitializeAndShow">αναμονή αρχικοποίησης και εμφάνισης προγράμματος ...</system:String>
+    <system:String x:Key="TimeoutReachedWaitingForProgramToShow">έληξε το χρονικό όριο (των {0} δευτερολέπτων) σε αναμονή για εμφάνιση του προγράμματος. Συνεχίζεται ...</system:String>
+    <system:String x:Key="ProgramAlreadyRunning">το πρόγραμμα εκτελείται ήδη</system:String>
+
+
+
+
+    <!--GameConverter Class Strings-->
+    <system:String x:Key="NotFoundScanningDiscsForFiles">δεν βρέθηκε. Σάρωση δίσκων για αρχεία ...</system:String>
+    <system:String x:Key="FoundFileOnAtCopyingFile">βρέθηκε το αρχείο πάνω στο {0} σε {1}. Αντιγραφή αρχείου ...</system:String>
+    <system:String x:Key="FailedToCopyErrorHasBeenLogged">αποτυχία αντιγραφής. Το σφάλμα έχει καταγραφεί</system:String>
+    <system:String x:Key="FailedToFindOnAnyDisc">αποτυχία εντοπισμού του αρχείου {0} σε οποιονδήποτε δίσκο ...</system:String>
+    <system:String x:Key="FileNotFound">το αρχείο δε βρέθηκε...</system:String>
+    <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">Δεν είναι δυνατή η αντιγραφή του αρχείου προέλευσης επειδή λείπει στο</system:String>
+    <system:String x:Key="CopyingFileFrom">αντιγραφή αρχείου από</system:String>
+
+    <system:String x:Key="CannotCheckIfLatestDriverIsInstalledDueToMissingFile">αδυναμία ελέγχου εγκατάστασης τη τελευταίας έκδοσης του προγράμματος οδήγησης  εξαιτίας αρχείου που λείπει</system:String>
+    <system:String x:Key="GameDriverDllFileIsUpToDate">Το αρχείο FFNx.dll είναι ενημερωμένο.</system:String>
+    <system:String x:Key="BackingUpExistingGameDriverTo">δημιουργία αντιγράφων ασφαλείας του υπάρχοντος προγράμματος οδήγησης παιχνιδιού</system:String>
+    <system:String x:Key="BackingUpExistingGameDriverCfgTo">δημιουργία αντιγράφων ασφαλείας του υπάρχοντος προγράμματος οδήγησης παιχνιδιού .cfg στο</system:String>
+    <system:String x:Key="GameDriverCfgFileMissingCopyingDefaultFrom">Λείπει το αρχείο FFNx.toml. Αντιγραφή προεπιλεγμένου από</system:String>
+    <system:String x:Key="CannotCreateDefaultCfgDueToMissingFile">Δεν είναι δυνατή η δημιουργία προεπιλεγμένου αρχείου .cfg λόγω αρχείου που λείπει</system:String>
+    <system:String x:Key="BackingUpExistingShadersFolderTo">δημιουργία αντιγράφων ασφαλείας του υπάρχοντος φακέλου "shaders" στο</system:String>
+    <system:String x:Key="CopyingContentsOf">αντιγραφή περιεχομένων του αρχείου</system:String>
+    <system:String x:Key="DirectoryMissingCreating">ο κατάλογος λείπει. δημιουργία</system:String>
+    <system:String x:Key="OldGameConverterRegistryKeysFoundBackingUp">Βρέθηκαν κλειδιά μητρώου του Μετατροπέα Παλαιάς Κυκλοφορίας του Παιχνιδιού. Δημιουργία αντιγράφων ασφαλείας παλαιών αρχείων μετατροπέα και μητρώου ...</system:String>
+
+    <system:String x:Key="MissingShadersNolightFolderCreatingDirectory">λείπει ο φάκελος shaders / nolight. Δημιουργία καταλόγου ...</system:String>
+    <system:String x:Key="MissingShadersComplexMultiShaderFolderCreatingDirectory">λείπει ο φάκελος shaders / ComplexMultiShader_Nvidia. Δημιουργία καταλόγου ...</system:String>
+    <system:String x:Key="MissingShadersFolderCreatingDirectory">λείπει ο φάκελος shaders. Αντιγραφή από Resources/Game Driver/ ...</system:String>
+    <system:String x:Key="MissingShadersFilesCopyingFrom">λείπει το αρχείο σκίασης: {0}. Αντιγραφή από {1} ...</system:String>
+
+
+    <!--UpdateChecker Class Strings-->
+    <system:String x:Key="CheckingForUpdatesUsingChannel">Έλεγχος για ενημερώσεις μέσω καναλιού</system:String>
+    <system:String x:Key="FailedToCheckForUpdatesAt">Αποτυχία ελέγχου για ενημερώσεις στο</system:String>
+
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
+
+    <!--ConfigureGLWindow.xaml.cs Strings-->
+    <system:String x:Key="Graphics">Γραφικά</system:String>
+    <system:String x:Key="Controls">Controls</system:String>
+    <system:String x:Key="Cheats">Απατώ</system:String>
+    <system:String x:Key="Rendering">Απόδοση</system:String>
+    <system:String x:Key="Advanced">Για προχωρημένους</system:String>
+
+    <!--FileUtils.cs Strings-->
+    <system:String x:Key="FailedToCopyDirectory">αποτυχία αντιγραφής καταλόγου</system:String>
+    <system:String x:Key="FailedToMoveDirectory">αποτυχία μετακίνησης καταλόγου</system:String>
+    <system:String x:Key="FailedToDeleteFiles">αποτυχία διαγραφής αρχείων</system:String>
+
+    <system:String x:Key="FailedToGetPreviewImage">αποτυχία λήψης εικόνας προεπισκόπησης</system:String>
+
+    <system:String x:Key="ErrorOccurredDownloadingInstalling">Παρουσιάστηκε σφάλμα κατά τη λήψη / εγκατάσταση</system:String>
+
+    <system:String x:Key="Installed">Εγκαστάθηκε</system:String>
+    <system:String x:Key="Updated">Ενημερώθηκε</system:String>
+    <system:String x:Key="ErrorUpdating">Σφάλμα ενημέρωσης</system:String>
+
+    <system:String x:Key="FailedToGetModInfoDueToMissingVariable">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: αποτυχία λήψης πληροφοριών τροποποίησης λόγω μιας μεταβλητής που λείπει η οποία μπορεί να προκαλέσει προβλήματα</system:String>
+
+    <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved">Οι ακόλουθες τροποποιήσεις δεν βρέθηκαν εγκατεστημένες και καταργήθηκαν από το προφίλ</system:String>
+    <system:String x:Key="ErrorLoadingSettingsPleaseConfigure7H">Σφάλμα κατά τη φόρτωση των ρυθμίσεων - διαμορφώστε το 7H χρησιμοποιώντας το μενού Ρυθμίσεις> Γενικές ρυθμίσεις... μενού</system:String>
+    <system:String x:Key="ErrorLoadingLibraryFile">Σφάλμα κατά τη φόρτωση του αρχείου βιβλιοθήκης</system:String>
+    <system:String x:Key="FailedToImportMod">Αποτυχία εισαγωγής τροποποίησης</system:String>
+    <system:String x:Key="AutoImportedMod">Τροποποίηση που εισήχθη με αυτόματο τρόπο</system:String>
+    <system:String x:Key="CouldNotImportIroFileIsCorrupt">Δεν ήταν δυνατή η εισαγωγή της τροποποίησης τύπου .iro επειδή το αρχείο είναι κατεστραμμένο</system:String>
+    <system:String x:Key="ModCouldNotBeFoundHasItBeenDeleted">Δεν ήταν δυνατή η εύρεση τη τροποποίησης. Έχει διαγραφεί; Καταργήθηκε από τη λίστα.</system:String>
+
+    <system:String x:Key="CouldNotLoadProfile">Δεν ήταν δυνατή η φόρτωση του προφίλ</system:String>
+
+    <system:String x:Key="FailedToPackIntoIro">Αποτυχία δημιουργίας πακέτου .iro</system:String>
+    <system:String x:Key="PackingIntoIro">Δημιουργία πακέτου {0} σε μορφή .iro ...</system:String>
+    <system:String x:Key="UnpackingIroIntoSubfolder">Αποσυμπίεση {0}.iro στον υποφάκελο '{0}' ...</system:String>
+    <system:String x:Key="FailedToUnpackIro">Αποτυχία αποσυμπίεσης του .iro</system:String>
+
+    <system:String x:Key="SelectModToDownloadFirst">Πρώτα επιλέξτε μια τροποποίηση για λήψη.</system:String>
+    <system:String x:Key="NoDownloadSelected">Καμία λήψη δεν επιλέχθηκε</system:String>
+    <system:String x:Key="SelectAModFirst">Πρώτα επιλέξτε μια τροποποίηση</system:String>
+
+    <system:String x:Key="FailedToSaveCatalogXml">Αποτυχία αποθήκευσης αρχείου καταλόγου xml</system:String>
+
+    <system:String x:Key="ModNotActiveOnlyActivatedModsCanBeConfigured">Η τροποποίηση δεν είναι ενεργή. Μπορούν να διαμορφωθούν μόνο οι ενεργοποιημένες τροποποιήσεις.</system:String>
+
+    <system:String x:Key="UninstallWarning">Προειδοποίηση Απεγκατάστασης</system:String>
+    <system:String x:Key="AreYouSureYouWantToDelete">Είστε βέβαιοι ότι θέλετε να κάνετε διαγραφή</system:String>
+
+
+    <!--ThemeSettingsWindow Strings-->
+    <system:String x:Key="ColorTheme">Θέμα χρώματος:</system:String>
+    <system:String x:Key="AppBackground">Φόντο εφαρμογής:</system:String>
+    <system:String x:Key="SecondaryBackground">Δευτερεύον Φόντο:</system:String>
+    <system:String x:Key="ControlsDisabledBackground">Έλεγχος Απενεργοποιημένου Φόντου:</system:String>
+    <system:String x:Key="ControlsDisabledForeground">Έλεγχος Απενεργοποιημένου Προσκηνίου:</system:String>
+    <system:String x:Key="BackgroundImage">Εικόνα φόντου:</system:String>
+    <system:String x:Key="ControlsBackground">Έλεγχος Φόντου:</system:String>
+    <system:String x:Key="ControlsForeground">Έλεγχος Προσκηνίου:</system:String>
+    <system:String x:Key="ControlsSecondary">Controls Secondary Text:</system:String>
+    <system:String x:Key="ControlsMouseOver">Έλεγχος Κύλισης Κέρσορα:</system:String>
+    <system:String x:Key="ControlsPressed">Έλεγχος κατά την Πίεση:</system:String>
+    <system:String x:Key="ImportTheme">Εισαγωγή Θέματος</system:String>
+
+
+
+    <!--PackIroUserControl Strings-->
+    <system:String x:Key="SourceFolder">Φάκελος Πηγή:</system:String>
+    <system:String x:Key="SaveAsIro">Αποθήκευση ως IRO:</system:String>
+    <system:String x:Key="SaveAsIrop">Αποθήκευση ως IROP:</system:String>
+    <system:String x:Key="Compress">Συμπίεση:</system:String>
+    <system:String x:Key="FilesToDelete">Αρχεία προς Διαγραφή:</system:String>
+    <system:String x:Key="NewIro">Νέο IRO:</system:String>
+    <system:String x:Key="OriginalIro">Πρωτότυπο IRO:</system:String>
+    <system:String x:Key="SourceIro">IRO Πηγή:</system:String>
+
+    <!--CreateModUserControl Strings-->
+    <system:String x:Key="OuputsCurrentModXmlToBelow">Εξάγει το τρέχον mod.xml στην περιοχή υπό του κειμένου.</system:String>
+    <system:String x:Key="SaveModXmlToFile">Αποθήκευση του mod.xml σε αρχείο</system:String>
+    <system:String x:Key="LoadModXmlFileToEdit">Φόρτωση ενός αρχείου mod.xml προς επεξεργασία</system:String>
+
+    <system:String x:Key="GeneralSettingsTitle">Γενικές Ρυθμίσεις</system:String>
+
+    <system:String x:Key="Greek">Ελληνικά</system:String>
+
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
+    <system:String x:Key="ModSettingNoCompatibleOptionFoundTheFollowingModsRestrictIt">Τροποποίηση {0}, ρύθμιση {1} - δεν μπορεί να βρεθεί συμβατή επιλογή. Οι παρακάτω τροποποιήσεις περιορίζουν τον τρόπο διαμόρφωσής τους: \ n \ n {2}</system:String>
+    <system:String x:Key="ModChangedSettingTo">Η τροποποίηση{0} - άλλαξε τη ρύθμιση {1} σε {2}</system:String>
+
+    <system:String x:Key="OutputsCurrentCatalogXmlToBelow">Εξαγωγή του τρέχοντος catalog.xml στην περιοχή υπό του κειμένου.</system:String>
+    <system:String x:Key="SaveCatalogXmlToFile">Αποθήκευση του catalog.xml σε αρχείο</system:String>
+    <system:String x:Key="LoadCatalogXmlFileToEdit">Φόρτωση ενός αρχείου catalog.xml προς επεξεργασία</system:String>
+    <system:String x:Key="AddModToCatalog">Προσθήκη Τροποποίησης σε Κατάλογο</system:String>
+    <system:String x:Key="ImportModFromModXmlOrIro">Εισαγωγή τροποποίησης από mod.xml σε .iro</system:String>
+    <system:String x:Key="CatalogName">Όνομα καταλόγου:</system:String>
+    <system:String x:Key="SaveCatalogXml">Αποθήκευση καταλόγου .xml</system:String>
+    <system:String x:Key="SelectCatalogXmlToLoad">Επιλογή αρχείου catalog.xml προς φόρτωση</system:String>
+    <system:String x:Key="SelectModXmlOrIroFileToLoad">Επιλογή mod.xml ή αρχείο .iro προς Φόρτωση</system:String>
+    <system:String x:Key="SelectImageToUse">Επιλογή εικόνας προς χρήση</system:String>
+    <system:String x:Key="SaveModXml">Αποθήκευση mod .xml</system:String>
+    <system:String x:Key="SelectModXmlToLoad">Επιλογή mod.xml προς Φόρτωση</system:String>
+
+    <system:String x:Key="SaveAsIroTitle">Αποθήκευση ως .iro</system:String>
+    <system:String x:Key="SaveAsIropTitle">Αποθήκευση ως .irop</system:String>
+
+    <system:String x:Key="SelectTheFolderThatContainsAllTheModFiles">Επιλογή φακέλου που περιέχει όλα τα αρχεία της τροποποίησης που θέλετε να τοποθετήσετε στο αρχείο IRO.</system:String>
+    <system:String x:Key="SelectFolderToOutputUnpackedFiles">Επιλογή φακέλου προς εξαγωγή αρχείων χωρίς πακέτο.</system:String>
+
+    <system:String x:Key="SelectFLevelLgpFile">Επιλογή αρχείου FLevel.lgp</system:String>
+
+    <system:String x:Key="GameLauncherSettings">Ρυθμίσεις προγράμματος εκκίνησης παιχνιδιού</system:String>
+
+    <system:String x:Key="ClickToSelectFf7ExeFile">Κάντε κλικ για επιλογή του αρχείου FF7.exe που θα χρησιμοποιήσετε</system:String>
+    <system:String x:Key="ClickToSelectWhereYourMovieFolderIs">Κάντε κλικ για επιλογή τοποθεσίας φάκελου του δικού σας αρχείου βίντεο</system:String>
+    <system:String x:Key="ClickToSelectWhereTexturesAreStored">Κάντε κλικ για επιλογή τοποθεσίας αποθήκευσης των υφών</system:String>
+    <system:String x:Key="ClickToSelectWhereYourModLibraryIs">Κάντε κλικ για να επιλέξετε πού βρίσκεται η βιβλιοθήκη της τροποποίησής σας</system:String>
+
+    <system:String x:Key="FF7ExeLabel">FF7 Exe:</system:String>
+    <system:String x:Key="MoviesLabel">Αρχεία βίντεο:</system:String>
+    <system:String x:Key="TexturesLabel">Υφές:</system:String>
+    <system:String x:Key="LibraryLabel">Βιβλιοθήκη:</system:String>
+
+    <system:String x:Key="AddSubscriptionURL">Προσθήκη διεύθυνσης URL της συνδρομής</system:String>
+    <system:String x:Key="RemoveSubscriptionURL">Κατάργηση διεύθυνσης URL της συνδρομής</system:String>
+    <system:String x:Key="EditSubscriptionURL">Επεξεργασία διεύθυνσης URL της συνδρομής/Όνομα</system:String>
+    <system:String x:Key="MoveSubscriptionUp">Μετακίνηση της συνδρομής προς τα πάνω. Κάντε δεξί κλικ για να μεταβείτε στην κορυφή.</system:String>
+    <system:String x:Key="MoveSubscriptionDown">Μετακίνηση της συνδρομής προς τα κάτω. Κάντε δεξί κλικ για να μετακινηθείτε στο τέρμα κάτω μέρος.</system:String>
+
+    <system:String x:Key="AddFolder">Προσθήκη φακέλου</system:String>
+    <system:String x:Key="RemoveFolder">Κατάργηση φακέλου</system:String>
+    <system:String x:Key="MoveFolderUp">Μετακίνηση φακέλου προς τα πάνω. Κάντε δεξί κλικ για να μεταβείτε στην κορυφή.</system:String>
+    <system:String x:Key="MoveFolderDown">Μετακίνηση φακέλου προς τα κάτω. Κάντε δεξί κλικ για να μετακινηθείτε στο τέρμα κάτω μέρος.</system:String>
+    <system:String x:Key="EnterUrlInIrosFormat">Προσθήκη url σε μορφή iros://</system:String>
+
+    <system:String x:Key="SelectCustomThemeXmlFile">Επιλογή προσαρμοσμένου αρχείου .xml Θέματος</system:String>
+    <system:String x:Key="SaveCustomThemeXmlFile">Αποθήκευση προσαρμοσμένου αρχείου .xml Θέματος</system:String>
+
+    <!--App Hints Strings-->
+    <system:String x:Key="AppHint1">Μπορείτε να μεταφέρετε και να αποθέσετε μια τροποποίηση για να αναδιατάξετε τη λίστα σας.</system:String>
+    <system:String x:Key="AppHint2">Μπορείτε να κάνετε μεσαίο κλικ σε μια τροποποίηση για να την ενεργοποιήσετε ή να την απενεργοποιήσετε.</system:String>
+    <system:String x:Key="AppHint3">Μπορείτε να κάνετε διπλό κλικ σε μια τροποποίηση για να ανοίξετε το παράθυρο διαμόρφωσης τροποποίησης.</system:String>
+    <system:String x:Key="AppHint4">Μπορείτε να κάνετε διπλό κλικ σε μια τροποποίηση στην Αναζήτηση Καταλόγου για να ξεκινήσετε τη λήψη του.</system:String>
+    <system:String x:Key="AppHint5">Μπορείτε να κάνετε κλικ στο κουμπί Αυτόματη Ταξινόμηση για να τοποθετήσετε γρήγορα τη λίστα των τροποποιήσεων που χρησιμοποιείτε στη συνιστώμενη σειρά.</system:String>
+    <system:String x:Key="AppHint6">Οι Τροποποιήσεις μπορούν πλέον να ενημερώνονται αυτόματα ή να σας ειδοποιούν για νέες εκδόσεις.</system:String>
+    <system:String x:Key="AppHint7">Δημιουργοί Τροποποιήσεων: Μπορείτε να βάλετε εικόνες κωδικοποίησης base64 στο Readme.html σας.</system:String>
+    <system:String x:Key="AppHint8">Δημιουργοί Τροποποιήσεων: Μπορείτε να χρησιμοποιήσετε το OrderConstraints στο mod.xml για να καθορίσετε τη δική σας σειρά φόρτωσης.</system:String>
+    <system:String x:Key="AppHint9">Δημιουργοί Τροποποιήσεων: Το 7th Heaven υποστηρίζει τώρα ένα στυλ Treeview για τις επιλογές διαμόρφωσης τροποποίησης.</system:String>
+    <system:String x:Key="AppHint10">Δημιουργοί Τροποποιήσεων: Το 7th Heaven υποστηρίζει τώρα iros://ExternalURL σε καταλόγους για άνοιγμα λήψεων σε πρόγραμμα περιήγησης ιστού.</system:String>
+    <system:String x:Key="AppHint11">Δημιουργοί Τροποποίησης: Ενεργοποιήστε τις Γενικές ρυθμίσεις/Μενού περιβάλλοντος στην Εξερεύνηση για να ενεργοποιήσετε τις επιλογές τροποποίησης με δεξί κλικ από τα Windows.</system:String>
+    <system:String x:Key="AppHint12">Δημιουργοί Τροποποίησης: Μπορείτε να μετατρέψετε ένα IRO σε .7z/RAR/zip  για μια λήψη καταλόγου και το 7H το εξάγει αυτόματα.</system:String>
+    <system:String x:Key="AppHint13">Δημιουργοί Καταλόγου: Μπορείτε να αλλάξετε μέσω προγραμματισμού τις ρυθμίσεις άλλων τροποποιήσεων για συμβατότητα με τη δική σας.</system:String>
+    <system:String x:Key="AppHint14">Μπορείτε να κάνετε διπλό κλικ σε ένα αρχείο τροποποίησης στα Windows για να το ανοίξετε/εισαγάγετε στο 7th Heaven.</system:String>
+    <system:String x:Key="AppHint15">Μπορείτε να κάνετε διπλό κλικ σε ένα προφίλ στο παράθυρο διαχείρισης προφίλ για να φορτώσετε το επιλεγμένο προφίλ.</system:String>
+    <system:String x:Key="AppHint16">Οι λεπτομέρειες του προφίλ βρίσκονται τώρα στις Ρυθμίσεις>Προφίλ και, στη συνέχεια, κάντε κλικ στο εικονίδιο του ματιού.</system:String>
+    <system:String x:Key="AppHint17">Το 7th Heaven θυμάται τις προηγούμενες ρυθμίσεις του Config Mod, ακόμη και αν το απενεργοποιήσετε και το ενεργοποιήσετε ξανά.</system:String>
+    <system:String x:Key="AppHint18">Επαναφέρετε τις ρυθμίσεις μιας τροποποίησης κάνοντας κλικ στο 'Επαναφορά στις προεπιλεγμένες τροποποιήσεις' στο παράθυρο Config Mod.</system:String>
+    <system:String x:Key="AppHint19">Διαγράψατε κατά λάθος τις συνδρομές καταλόγου σας; Κάντε κλικ στο 'Επαναφορά προεπιλογών' στις Γενικές ρυθμίσεις.</system:String>
+    <system:String x:Key="AppHint20">Κάντε δεξί κλικ στην καρτέλα 'Οι Τροποποιήσεις μου' για να ανοίξετε τον φάκελο 'Βιβλιοθήκη Τροποποιήσεων' στα Windows.</system:String>
+    <system:String x:Key="AppHint21">Κάντε δεξί κλικ στην καρτέλα 'Αναζήτηση καταλόγου' για να ανοίξετε τις ρυθμίσεις καταλόγου.</system:String>
+    <system:String x:Key="AppHint22">Κάντε δεξί κλικ στα βέλη στην πλαϊνή γραμμή για να στείλετε μια τροποποίηση στην κορυφή ή στο τέρμα κάτω μέρος.</system:String>
+    <system:String x:Key="AppHint23">Μπερδέψατε τις προβολές των στηλών σας; Κάντε κλικ στο κουμπί "Επαναφορά στηλών" στην πλαϊνή μπάρα.</system:String>
+    <system:String x:Key="AppHint24">Διορθώστε τις κατηγορίες των παλιών Τροποποιήσεων που είναι σημειωμένες ως 'Άγνωστες', κάνοντας κλικ στο βέλος στη στήλη 'Κατηγορία' στην ενότητα 'Οι Τροποποιήσεις' μου.</system:String>
+    <system:String x:Key="AppHint25">Μπορείτε να βρείτε απαντήσεις σε πολλές ερωτήσεις ή προβλήματα στο φόρουμ στη διεύθυνση https://forums.qhimm.com.</system:String>
+    <system:String x:Key="AppHint26">Μπορείτε να βρείτε απαντήσεις σε πολλές ερωτήσεις ή προβλήματα από το μενού Βοήθεια.</system:String>
+    <system:String x:Key="AppHint27">Αλλάξτε τις ρυθμίσεις γραφικών του παιχνιδιού σας μεταβαίνοντας στις Ρυθμίσεις>Πρόγραμμα οδήγησης παιχνιδιού ...</system:String>
+    <system:String x:Key="AppHint28">Αλλάξτε τις ρυθμίσεις ενημέρωσης κάθε τροποποίησης από το αναπτυσσόμενο βέλος στον Πίνακα Πληροφοριών Τροποποίησης.</system:String>
+    <system:String x:Key="AppHint29">Το 7th Heaven θα τοποθετήσει αυτόματα και θα αποσυναρμολογήσει τον εικονικό δίσκο παιχνιδιού για εσάς.</system:String>
+    <system:String x:Key="AppHint30">To 7th Heaven δεν απαιτεί πλέον τον παλιό Μετατροπέα Παιχνιδιού. Όλα τώρα λειτουργούν αυτόματα!</system:String>
+    <system:String x:Key="AppHint31">Δεν χρειάζεται πλέον να χρησιμοποιείτε το FF7Config.exe. Τα χαρακτηριστικά του είναι ενσωματωμένα στις Ρυθμίσεις>Πρόγραμμα Εκκίνησης Παιχνιδιού.</system:String>
+    <system:String x:Key="AppHint32">Γνωρίζατε ότι το 7th Heaven 1.0 κυκλοφόρησε το 2013; Το 2.0 κυκλοφόρησε 7 χρόνια αργότερα το 2020.</system:String>
+    <system:String x:Key="AppHint33">Το τρέχον ενεργό προφίλ σας εμφανίζεται στη γραμμή τίτλου μεταξύ παρενθέσεων.</system:String>
+    <system:String x:Key="AppHint34">Η υποστήριξη High-DPI είναι πλέον ενσωματωμένη στο πρόγραμμα οδήγησης του παιχνιδιού.</system:String>
+    <system:String x:Key="AppHint35">Μπορείτε να ταξινομήσετε τις στήλες Αναζήτησης Καταλόγου κάνοντας κλικ στις επικεφαλίδες των στηλών.</system:String>
+    <system:String x:Key="AppHint36">Μπορείτε να αναδιατάξετε τις στήλες σας μεταφέροντας και αποθέτοντας τις κεφαλίδες στηλών.</system:String>
+    <system:String x:Key="AppHint37">Μπορείτε να φιλτράρετε τις προβολές σας κάνοντας κλικ στο αναπτυσσόμενο βέλος δίπλα στο πλαίσιο αναζήτησης.</system:String>
+    <system:String x:Key="AppHint38">Αλλάξτε γρήγορα τις επιλογές ελέγχου πληκτρολογίου/χειριστηρίου στις 'Ρυθμίσεις>Στοιχεία ελέγχου'.</system:String>
+    <system:String x:Key="AppHint39">Το γωρίζατε? Το 7th Heaven υποστηρίζει παραμέτρους γραμμής εντολών (διακόπτες).</system:String>
+    <system:String x:Key="AppHint40">Έχετε τους δίσκους του 1998; Εισαγάγετε τις ταινίες σας αυτόματα από τις 'Πρόγραμμα Εισαγωγής Ταινίας'</system:String>
+    <system:String x:Key="AppHint41">Προσαρμόστε τα χρώματα του 7th Heaven μεταβαίνοντας στις Ρυθμίσεις>Αλλαγή Θέματος Χρώματος.</system:String>
+    <system:String x:Key="AppHint42">Μπορείτε να εξαγάγετε και να μοιραστείτε το προσαρμοσμένο θέμα χρώματος με άλλους.</system:String>
+    <system:String x:Key="AppHint43">Μπορείτε να κάνετε παύση και συνέχιση ορισμένων λήψεων.</system:String>
+
+    <system:String x:Key="ModManagerForFinalFantasy7">Διαχειριστής Τροποποιήσεων για το Final Fantasy 7 ( Maintained by the Tsunamods Team )</system:String>
+
+
+    <system:String x:Key="ReleaseDateLabel">Ημερομηνία Κυκλοφορίας:</system:String>
+    <system:String x:Key="ImageLinkLabel">Σύνδεσμος Εικόνας:</system:String>
+    <system:String x:Key="InfoLinkLabel">Σύνδεσμος Πληροφοριών:</system:String>
+    <system:String x:Key="DownloadLinksHeader" xml:space="preserve"> Λήψη Συνδέσμων </system:String>
+    <system:String x:Key="AddLink">Προσθήκη Συνδέσμου</system:String>
+
+    <system:String x:Key="MegaFolderID">ID για φάκελο Mega:</system:String>
+
+    <system:String x:Key="Miscellaneous">Διάφορα</system:String>
+    <system:String x:Key="Animations">Κινούμενα Σχέδια</system:String>
+    <system:String x:Key="BattleModels">Μοντέλα Μάχης</system:String>
+    <system:String x:Key="BattleTextures">Υφές Μάχης</system:String>
+    <system:String x:Key="FieldModels">Μοντέλα Πεδίου</system:String>
+    <system:String x:Key="FieldTextures">Υφές Πεδίου</system:String>
+    <system:String x:Key="Gameplay">Τρόπος Παιχνιδιού</system:String>
+    <system:String x:Key="Media">Μέσα Προβολής</system:String>
+    <system:String x:Key="Minigames">Μίνι Παιχνίδια</system:String>
+    <system:String x:Key="SpellTextures">Υφές για Μαγικά</system:String>
+    <system:String x:Key="UserInterface">Διεπαφή Χρήστη</system:String>
+    <system:String x:Key="WorldModels">Μοντέλα για τον Κόσμο</system:String>
+    <system:String x:Key="WorldTextures">Υφές για τον Κόσμο</system:String>
+
+
+    <system:String x:Key="Cancelling">Σε διαδικασία Ακύρωσης</system:String>
+
+    <system:String x:Key="Volume">Τόμος</system:String>
+
+
+    <system:String x:Key="BrazilianPortuguese">Πορτογαλικά της Βραζιλίας</system:String>
+    <system:String x:Key="Italian">ιταλικός</system:String>
+
+    <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/29/20-->
+
+    <system:String x:Key="SetInGameControls">Ορισμός Στοιχείων Ελέγχου Εντός Παιχνιδιού</system:String>
+    <system:String x:Key="Keyboard">Πληκτρολόγιο</system:String>
+    <system:String x:Key="Controller">Χειριστήριο</system:String>
+    <system:String x:Key="ConfirmLabel">[ΕΠΙΒΕΒΑΙΩΣΗ]</system:String>
+    <system:String x:Key="CancelLabel">[ΑΚΥΡΩΣΗ]</system:String>
+    <system:String x:Key="MenuLabel">[ΜΕΝΟΥ]</system:String>
+    <system:String x:Key="SwitchLabel">[ΑΛΛΑΓΗ]</system:String>
+    <system:String x:Key="ScrollUpLabel">[ΜΕΤΑΚΙΝΗΘΕΙΤΕ ΠΡΟΣ ΤΑ ΠΑΝΩ]</system:String>
+    <system:String x:Key="ScrollDownLabel">[ΜΕΤΑΚΙΝΗΘΕΙΤΕ ΠΡΟΣ ΤΑ ΚΑΤΩ]</system:String>
+
+    <system:String x:Key="CameraLabel">[ΚΑΜΕΡΑ]</system:String>
+    <system:String x:Key="TargetLabel">[ΣΤΟΧΟΣ]</system:String>
+    <system:String x:Key="AssistLabel">[ΒΟΗΘΕΙΑ]</system:String>
+    <system:String x:Key="StartLabel">[ΕΚΚΙΝΗΣΗ]</system:String>
+
+    <system:String x:Key="UpLabel">[ΠΑΝΩ]</system:String>
+    <system:String x:Key="DownLabel">[ΚΑΤΩ]</system:String>
+    <system:String x:Key="LeftLabel">[ΑΡΙΣΤΕΡΑ]</system:String>
+    <system:String x:Key="RightLabel">[ΔΕΞΙΑ]</system:String>
+
+    <system:String x:Key="Presets">Προεπιλογές:</system:String>
+    <system:String x:Key="EnablePS4ControllerSupport">Ενεργοποίηση υποστήριξης χειριστηρίου PS4</system:String>
+    <system:String x:Key="PS4ControllerSupportTooltip">Επιτρέπει τη χρήση ενός χειριστηρίου PS4 με το παιχνίδι (πρέπει να είναι εγκατεστημένο το πρόγραμμα οδήγησης SCP)</system:String>
+    <system:String x:Key="SaveChangesTooltip">Αποθήκευση αλλαγών στα στοιχεία ελέγχου.</system:String>
+
+    <system:String x:Key="OpenGameControllersWindow">Άνοιγμα Παραθύρου Χειριστηρίων Παιχνιδιού</system:String>
+
+
+    <system:String x:Key="ControlsTooltip">Καθορίζει τα πλήκτρα στο πληκτρολόγιο εντός παιχνιδιού και στο χειριστήριο. Κάντε κλικ στο κουμπί αποθήκευσης για να αποθηκεύσετε τις παραπάνω αντιστοιχίσεις ελέγχου ως την προσαρμοσμένη διαμόρφωση.</system:String>
+
+
+    <system:String x:Key="StartingPS4ControllerService">Εκκίνηση Υπηρεσίας Χειριστηρίου PS4...</system:String>
+    <system:String x:Key="ServiceAlreadyRunning">η υπηρεσία εκτελείται ήδη ...</system:String>
+
+    <system:String x:Key="RetryInstallTooltip">Επανάληψη Εγκατάστασης Mod</system:String>
+
+    <system:String x:Key="MovieImporter">Πρόγραμμα Εισαγωγής Ταινίας...</system:String>
+    <system:String x:Key="AllMovieFilesAlreadyImported" xml:space="preserve">Όλες οι ταινίες έχουν ήδη εισαχθεί!</system:String>
+
+    <system:String x:Key="ImportMoviesFromDisc">Εισαγωγή Ταινιών από Δίσκο</system:String>
+
+    <system:String x:Key="EnableTriggerDpadSupport">Ενεργοποίηση Υποστήριξης DPad and Σκανδάλης</system:String>
+    <system:String x:Key="TriggerDpadSupportTooltip">Ενεργοποιεί την υποστήριξη DPad και σκανδάλης εντός του παιχνιδιού. (Απενεργοποίηση εάν χρησιμοποιείτε εργαλείο χαρτογράφησης τρίτου μέρους)</system:String>
+
+    <system:String x:Key="MountDiscWithPowershell">Προσάρτηση δίσκου με PowerShell</system:String>
+    <system:String x:Key="MountDiscWithWinCDEmu">Προσάρτηση δίσκου με WinCDEmu</system:String>
+    <system:String x:Key="DoNotMount">Μην τοποθετείτε αυτόματα το δίσκο</system:String>
+
+    <system:String x:Key="LoadingDevices">Φόρτωση Συσκευών ...</system:String>
+
+    <system:String x:Key="MountOptionToolTip">Επιλέξτε τον τρόπο προσάρτησης του εικονικού δίσκου παιχνιδιού FF7DISC1. Τα Windows 7 μπορούν να χρησιμοποιήσουν μόνο την επιλογή 'Προσάρτηση δίσκου με WinCDEmu'.</system:String>
+
+    <system:String x:Key="ControlsMenuItemText">Χειρισμός...</system:String>
+
+    <system:String x:Key="SaveControlsPreset">Πρέπει να αποθηκεύσετε τα τρέχοντα στοιχεία ελέγχου ως νέα διαμόρφωση. Εισαγάγετε όνομα για διαμόρφωση:</system:String>
+
+    <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
+    <system:String x:Key="VerifyingEnglishGameFilesExist">Υπάρχει επαλήθευση αρχείων αγγλικών παιχνιδιών ...</system:String>
+    <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles">Εγκατεστημένη γλώσσα που βρέθηκε: {0} Δημιουργία αγγλικών αρχείων παιχνιδιών ...</system:String>
+    <system:String x:Key="ErrorOnlyEnglishLanguageSupported">ERROR: Only English language is supported. Consider installing FF7 in English (US) on Steam.</system:String>
+    <system:String x:Key="ExtractingLGPFiles">Εξαγωγή αρχείων .lgp ...</system:String>
+    <system:String x:Key="RenamingLanguageSpecificFiles">Μετονομασία αρχείων ειδικά για τη γλώσσα ...</system:String>
+    <system:String x:Key="CouldNotFindFileToRename">Δεν ήταν δυνατή η εύρεση αρχείου για μετονομασία: {0} ...</system:String>
+    <system:String x:Key="EncodingNewLGPFiles">Κωδικοποίηση νέων αρχείων .lgp ...</system:String>
+    <system:String x:Key="DeletingTemporaryFiles">Διαγραφή προσωρινών αρχείων ...</system:String>
+    <system:String x:Key="BeginningToPollForGamePadInput">Έναρξη ψηφοφορίας για είσοδο ελεγκτή ...</system:String>
+    <system:String x:Key="WaitingForFF7WindowToBeVisible">αναμονή για προβολή του παραθύρου FF7 (μέγιστο {0} δευτερόλεπτα) ...</system:String>
+    <system:String x:Key="CouldNotFindFileToCopy">Δεν ήταν δυνατή η εύρεση αρχείου για αντιγραφή: {0} ...</system:String>
+    <system:String x:Key="AnErrorOccurredStartingULGP">Παρουσιάστηκε σφάλμα κατά την έναρξη του ulgp.exe</system:String>
+    <system:String x:Key="UpdatingPathsInSysSettings">Ενημέρωση διαδρομών στο Sys.Settings με νέα διαδρομή εγκατάστασης</system:String>
+    <system:String x:Key="ForceMinimizingProgram">πρόγραμμα ελαχιστοποίησης δύναμης ...</system:String>
+    <system:String x:Key="FailedToStartAdditionalProgram">Αποτυχία έναρξης πρόσθετου προγράμματος: {0}</system:String>
+
+    <system:String x:Key="CanaryWarningTitle">PLEASE READ THIS!</system:String>
+    <system:String x:Key="CanaryWarningMessage">Thank you for switching to the Canary channel.\n\nThis channel is suggested only for advanced users who are willing to support the development and report bugs. DO NOT USE this channel if you're willing to have a Stable gameplay experience.\n\nPlease be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!</system:String>
+
+    <system:String x:Key="PleaseUpdateFFNx">Could not load the settings from the FFNx.toml file. This likely happens when your current version of FFNx is outdated. Consider updating FFNx to the latest version available for your chosen Channel and try again.</system:String>
+
+    <system:String x:Key="CheckForSystemDEPStatus">Checking System DEP status...</system:String>
+    <system:String x:Key="DEPDetected">DEP Detected</system:String>
+    <system:String x:Key="DoYouWantToDisableDEP">DEP is currently set for either a server environment, or not enabled at all. Would you like to change it to desktop mode?</system:String>
+    <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP mode successfully updated. Please reboot the PC for the change to take effect.</system:String>
+    <system:String x:Key="CannotContinueWithDEPEnabled">DEP mode is incorrect. Please adjust it to continue, following the steps described here: https://7thheaven.rocks/help/dep.html</system:String>
+    <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Something went wrong while trying to adjust DEP. You can still do it manually. Please follow steps described here: https://7thheaven.rocks/help/dep.html</system:String>
+</ResourceDictionary>

@@ -1,0 +1,529 @@
+﻿<Window x:Name="windowControls"
+        x:Class="AppUI.Windows.ControlMappingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Title="{DynamicResource SetInGameControls}"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource MainWindowStyle}"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        PreviewKeyUp="Window_PreviewKeyUp"
+        Closing="windowControls_Closing"
+        Loaded="windowControls_Loaded"
+        Height="550" Width="475">
+    <Window.Resources>
+        <Style x:Key="controlNameLabel" TargetType="TextBlock" BasedOn="{StaticResource PrimaryTextBlockStyle}">
+            <Setter Property="Margin" Value="5,0,5,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryControlDisabledForeground}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="captureKeyButton" TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
+            <Setter Property="MinWidth" Value="125"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="captureControllerButton" TargetType="Button" BasedOn="{StaticResource MainButtonStyle}">
+            <Setter Property="MinWidth" Value="125"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="ps4IconStyle" TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+            <Setter Property="Margin" Value="5,5,8,5"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Grid.Column" Value="3"/>
+        </Style>
+
+        <DataTemplate x:Key="keyboardItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowControls, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedGameConfigOption, FallbackValue='[Default-Alt] Steam KB+PlayStation (Swap AB-XO)'}" 
+                           Margin="0,0,15,0" 
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid x:Name="gridMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{DynamicResource Keyboard}"
+                   Style="{StaticResource controlNameLabel}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0"
+                   Grid.Row="0"
+                   Grid.Column="1"/>
+
+        <TextBlock Text="{DynamicResource Controller}"
+                   Style="{StaticResource controlNameLabel}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0"
+                   Grid.Row="0"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"/>
+
+        
+        <TextBlock Text="{DynamicResource ConfirmLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="1"/>
+        <Button x:Name="btnOkKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding OkKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnOkKeyboard_Click"
+                Grid.Row="1"
+                Grid.Column="1"/>
+        <Button x:Name="btnOkController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding OkControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnOkController_Click"
+                Grid.Row="1"
+                Grid.Column="2"/>
+        <Image Grid.Row="1"
+               Source="{Binding OkIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+
+        <TextBlock Text="{DynamicResource CancelLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="2"/>
+        <Button x:Name="btnCancelKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding CancelKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnCancelKeyboard_Click"
+                Grid.Row="2"
+                Grid.Column="1"/>
+        <Button x:Name="btnCancelController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding CancelControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnCancelController_Click"
+                Grid.Row="2"
+                Grid.Column="2"/>
+        <Image Grid.Row="2"
+               Source="{Binding CancelIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+
+        <TextBlock Text="{DynamicResource MenuLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="3"/>
+        <Button x:Name="btnMenuKeyboard"
+                Content="{Binding MenuKeyboardText, FallbackValue='Enter'}"
+                Style="{StaticResource captureKeyButton}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnMenuKeyboard_Click"
+                Grid.Row="3"
+                Grid.Column="1"/>
+        <Button x:Name="btnMenuController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding MenuControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnMenuController_Click"
+                Grid.Row="3"
+                Grid.Column="2"/>
+        <Image Grid.Row="3"
+               Source="{Binding MenuIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <TextBlock Text="{DynamicResource SwitchLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="4"/>
+
+        <Button x:Name="btnSwitchKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding SwitchKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnSwitchKeyboard_Click"
+                Grid.Row="4"
+                Grid.Column="1"/>
+        <Button x:Name="btnSwitchController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding SwitchControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnSwitchController_Click"
+                Grid.Row="4"
+                Grid.Column="2"/>
+        <Image Grid.Row="4"
+               Source="{Binding SwitchIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <TextBlock Text="{DynamicResource ScrollUpLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="5"/>
+        <Button x:Name="btnPageUpKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding PageUpKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnPageUpKeyboard_Click"
+                Grid.Row="5"
+                Grid.Column="1"/>
+        <Button x:Name="btnPageUpController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding PageUpControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnPageUpController_Click"
+                Grid.Row="5"
+                Grid.Column="2"/>
+        <Image Grid.Row="5"
+               Source="{Binding PageUpIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+
+        <TextBlock Text="{DynamicResource ScrollDownLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="6"/>
+        <Button x:Name="btnPageDownKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding PageDownKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnPageDownKeyboard_Click"
+                Grid.Row="6"
+                Grid.Column="1"/>
+        <Button x:Name="btnPageDownController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding PageDownControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnPageDownController_Click"
+                Grid.Row="6"
+                Grid.Column="2"/>
+        <Image Grid.Row="6"
+               Source="{Binding PageDownIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+
+        <TextBlock Text="{DynamicResource CameraLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="7"/>
+        <Button x:Name="btnCameraKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding CameraKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnCameraKeyboard_Click"
+                Grid.Row="7"
+                Grid.Column="1"/>
+        <Button x:Name="btnCameraController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding CameraControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnCameraController_Click"
+                Grid.Row="7"
+                Grid.Column="2"/>
+        <Image Grid.Row="7"
+               Source="{Binding CameraIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+        
+        <TextBlock Text="{DynamicResource TargetLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="8"/>
+        <Button x:Name="btnTargetKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding TargetKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnTargetKeyboard_Click"
+                Grid.Row="8"
+                Grid.Column="1"/>
+        <Button x:Name="btnTargetController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding TargetControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnTargetController_Click"
+                Grid.Row="8"
+                Grid.Column="2"/>
+        <Image Grid.Row="8"
+               Source="{Binding TargetIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+        <TextBlock Text="{DynamicResource AssistLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="9"/>
+        <Button x:Name="btnAssistKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding AssistKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnAssistKeyboard_Click"
+                Grid.Row="9"
+                Grid.Column="1"/>
+        <Button x:Name="btnAssistController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding AssistControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnAssistController_Click"
+                Grid.Row="9"
+                Grid.Column="2"/>
+        <Image Grid.Row="9"
+               Source="{Binding AssistIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <TextBlock Text="{DynamicResource StartLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="10"/>
+        <Button x:Name="btnStartKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding StartKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnStartKeyboard_Click"
+                Grid.Row="10"
+                Grid.Column="1"/>
+        <Button x:Name="btnStartController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding StartControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnStartController_Click"
+                Grid.Row="10"
+                Grid.Column="2"/>
+        <Image Grid.Row="10"
+               Source="{Binding StartIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <TextBlock Text="{DynamicResource UpLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="11"/>
+        <Button x:Name="btnUpKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding UpKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnUpKeyboard_Click"
+                Grid.Row="11"
+                Grid.Column="1"/>
+        <Button x:Name="btnUpController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding UpControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnUpController_Click"
+                Grid.Row="11"
+                Grid.Column="2"/>
+        <Image Grid.Row="11"
+               Source="{Binding UpIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <TextBlock Text="{DynamicResource DownLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="12"/>
+        <Button x:Name="btnDownKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding DownKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnDownKeyboard_Click"
+                Grid.Row="12"
+                Grid.Column="1"/>
+        <Button x:Name="btnDownController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding DownControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnDownController_Click"
+                Grid.Row="12"
+                Grid.Column="2"/>
+        <Image Grid.Row="12"
+               Source="{Binding DownIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+        
+        <TextBlock Text="{DynamicResource LeftLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="13"/>
+        <Button x:Name="btnLeftKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding LeftKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnLeftKeyboard_Click"
+                Grid.Row="13"
+                Grid.Column="1"/>
+        <Button x:Name="btnLeftController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding LeftControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnLeftController_Click"
+                Grid.Row="13"
+                Grid.Column="2"/>
+        <Image Grid.Row="13"
+               Source="{Binding LeftIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+        <TextBlock Text="{DynamicResource RightLabel}"
+                   Style="{StaticResource controlNameLabel}"
+                   Grid.Row="14"/>
+        <Button x:Name="btnRightKeyboard"
+                Style="{StaticResource captureKeyButton}"
+                Content="{Binding RightKeyboardText, FallbackValue='Enter'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnRightKeyboard_Click"
+                Grid.Row="14"
+                Grid.Column="1"/>
+        <Button x:Name="btnRightController"
+                Style="{StaticResource captureControllerButton}"
+                Content="{Binding RightControllerText, FallbackValue='Button #1'}"
+                IsEnabled="{Binding IsNotCapturing}"
+                Click="btnRightController_Click"
+                Grid.Row="14"
+                Grid.Column="2"/>
+        <Image Grid.Row="14"
+               Source="{Binding RightIcon}"
+               Style="{StaticResource ps4IconStyle}"/>
+
+
+
+        <Grid Grid.Row="15"
+              Grid.ColumnSpan="4"
+              Margin="5,10,15,5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{DynamicResource Presets}"
+                       FontSize="13"
+                       ToolTip="{DynamicResource ControlsTooltip}"
+                       ToolTipService.IsEnabled="false"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="0,0,1,0"/>
+
+            <WrapPanel Grid.Column="1"
+                       Grid.ColumnSpan="3"
+                       HorizontalAlignment="Left"
+                       MinWidth="310"
+                       Margin="3,0,0,0">
+                <ComboBox Name="cboKeyboards"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"
+                          FontSize="13"
+                          MinWidth="310"
+                          MaxWidth="310"
+                          ToolTip="{DynamicResource ControlsTooltip}"
+                          Style="{StaticResource MainComboBoxStyle}"
+                          ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
+                          ItemTemplate="{StaticResource keyboardItemTemplate}"
+                          SelectedItem="{Binding SelectedGameConfigOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding InGameConfigOptions}"/>
+
+                <Button x:Name="btnDeleteControls"
+                        HorizontalAlignment="Left"
+                        Click="btnDeleteControls_Click"
+                        ToolTip="{DynamicResource DeleteControlsTooltip}"
+                        ToolTipService.ShowOnDisabled="True"
+                        IsEnabled="{Binding IsCustomConfigOptionSelected}"
+                        Style="{StaticResource ImageButton}"
+                        Content="{StaticResource iconDelete}"
+                        Margin="5,0,0,0"
+                        Width="28"
+                        Height="28"/>
+            </WrapPanel>
+            
+
+            <Button x:Name="btnSaveChanges"
+                    Grid.Column="2"
+                    Grid.RowSpan="5"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    ToolTip="{DynamicResource SaveChangesTooltip}"
+                    MinWidth="75"
+                    Click="btnSaveChanges_Click"
+                    IsEnabled="{Binding HasUnsavedChanges}"
+                    Content="{DynamicResource Save}"/>
+            <Button x:Name="btnCancel"
+                    Grid.Column="3"
+                    Grid.RowSpan="5"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    MinWidth="75"
+                    Click="btnCancel_Click"
+                    Content="{DynamicResource Close}"/>
+
+            <CheckBox x:Name="chkDpadSupport"
+                      Style="{StaticResource ToggleSwitchCheckbox}"
+                      IsChecked="{Binding IsDpadSupportChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      FontSize="13"
+                      Content="{DynamicResource EnableTriggerDpadSupport}"
+                      ToolTip="{DynamicResource TriggerDpadSupportTooltip}"
+                      HorizontalAlignment="Left"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="4"/>
+
+            <CheckBox Style="{StaticResource ToggleSwitchCheckbox}"
+                      IsEnabled="{Binding IsNotInstallingDriver}"
+                      IsChecked="{Binding IsPs4SupportChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      FontSize="13"
+                      Content="{DynamicResource EnablePS4ControllerSupport}"
+                      ToolTip="{DynamicResource PS4ControllerSupportTooltip}"
+                      Width="{Binding ElementName=chkDpadSupport, Path=ActualWidth}"
+                      HorizontalAlignment="Left"
+                      Grid.Row="2"
+                      Grid.ColumnSpan="4"/>
+
+            <Button x:Name="btnOpenGameControllersWindow"
+                    Style="{StaticResource HyperlinkButton}"
+                    Click="btnOpenGameControllersWindow_Click"
+                    Content="{DynamicResource OpenGameControllersWindow}"
+                    Grid.ColumnSpan="4"
+                    HorizontalAlignment="Left"
+                    FontSize="11"
+                    Grid.Row="4"/>
+
+        </Grid>
+    </Grid>
+</Window>

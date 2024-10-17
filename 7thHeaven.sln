@@ -3,21 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeventhHeavenUI", "SeventhHeavenUI\SeventhHeavenUI.csproj", "{5F6C267D-0F93-4C71-BA58-0C1AD6242383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppUI", "AppUI\AppUI.csproj", "{5F6C267D-0F93-4C71-BA58-0C1AD6242383}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7thWrapperLib", "7thWrapperLib\7thWrapperLib.csproj", "{F80DB232-4102-4249-8B31-2DDD5C7FA404}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppWrapper", "AppWrapper\AppWrapper.csproj", "{F80DB232-4102-4249-8B31-2DDD5C7FA404}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPlugin", "TestPlugin\TestPlugin.csproj", "{A64400A1-1E22-4F22-884E-568A776141C5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7thHeaven.Code", "7thHeaven.Code\7thHeaven.Code.csproj", "{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore", "AppCore\AppCore.csproj", "{CD2F4CCB-4735-4DEE-8867-B0ED2CA04303}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurBoLog", "TurBoLog\TurBoLog.csproj", "{03EEDE27-0ABB-4CDA-A7F2-F746E2083202}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7thWrapperLoader", "7thWrapperLoader\7thWrapperLoader.vcxproj", "{D95622DB-5459-4369-9585-F6457AAF3FC3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppLoader", "AppLoader\AppLoader.vcxproj", "{D95622DB-5459-4369-9585-F6457AAF3FC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7thWrapperProxy", "7thWrapperProxy\7thWrapperProxy.csproj", "{F955F161-A47E-4399-9FD2-DB0D83E6461A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProxy", "AppProxy\AppProxy.csproj", "{F955F161-A47E-4399-9FD2-DB0D83E6461A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FF7_Launcher", "FF7_Launcher\FF7_Launcher.vcxproj", "{E9DF030F-3113-46CD-81EB-DDEC52A7C926}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppLauncher", "AppLauncher\AppLauncher.vcxproj", "{E9DF030F-3113-46CD-81EB-DDEC52A7C926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,51 @@
+﻿<Window x:Class="AppUI.Windows.MovieImportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        xmlns:cls="clr-namespace:AppUI.Classes"
+        mc:Ignorable="d"
+        Title="{DynamicResource ImportMoviesFromDisc}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Style="{StaticResource MainWindowStyle}"
+        Height="200" Width="500">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   VerticalAlignment="Top"
+                   Margin="0,5,0,0"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   FontSize="16"
+                   MinHeight="40"
+                   MaxHeight="60"
+                   TextTrimming="CharacterEllipsis"
+                   Text="{Binding ImportStatusMessage, FallbackValue='Copying some movie to this path and this will wrap to test wrapping wrap wrap wrap '}"/>
+
+        <cls:ButtonWithImage x:Name="btnImportMovies"
+                             IsEnabled="{Binding ImportButtonIsEnabled}"
+                             Click="btnImportMovies_Click"
+                             Grid.Row="1"
+                             FontSize="20"
+                             TemplateSource="{StaticResource iconCD}"
+                             ImageHeight="48"
+                             ImageWidth="48"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="0,3,0,0"
+                             Content="{DynamicResource Import}"/>
+
+        <ProgressBar Value="{Binding ImportProgressValue}"
+                     Visibility="Visible"
+                     Grid.Row="2"
+                     HorizontalAlignment="Stretch"
+                     Height="20"/>
+    </Grid>
+</Window>

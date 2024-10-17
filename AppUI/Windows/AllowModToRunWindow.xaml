@@ -1,0 +1,75 @@
+﻿<Window x:Class="AppUI.Windows.AllowModToRunWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle, FallbackValue='MessageBox With Checkbox'}" 
+        Style="{StaticResource MainWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        ResizeMode="NoResize"
+        Height="325"
+        Width="400">
+    <Grid x:Name="gridMain" KeyDown="gridMain_KeyDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Template="{StaticResource iconWarning}" IsTabStop="False"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      VerticalAlignment="Center" 
+                      Grid.Column="1"
+                      Margin="0,0,10,0">
+            <TextBlock x:Name="txtMessage"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Grid.Row="0"
+                       Foreground="{DynamicResource PrimaryControlForeground}"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       Text="{Binding Message, FallbackValue='This is going to run code for a mod that can be dangerous and stuff so hereherehereherehereherehereherehereherehereherehereherehere is some more text to make it wrap and be long'}"/>
+        </ScrollViewer>
+
+        <StackPanel x:Name="stackRadioOptions"
+                    Grid.Row="1" 
+                    Grid.Column="1"
+                    Margin="0,0,0,10">
+            <RadioButton Content="{DynamicResource NoDontActivateThisMod}"
+                         IsChecked="{Binding NoRadioButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Checked="RadioButton_Checked"
+                         Margin="0,0,0,5"/>
+            <RadioButton Content="{DynamicResource YesActivateThisMod}"
+                         Checked="RadioButton_Checked"
+                         IsChecked="{Binding YesRadioButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </StackPanel>
+
+        <CheckBox x:Name="chkOption" Content="{DynamicResource DontAskAgainForAnyMods}"
+                  Grid.Column="1"
+                  IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Visibility="{Binding CheckboxVisibility, FallbackValue='Visible'}"
+                  Grid.Row="2"
+                  Margin="0,5,0,5"/>
+
+        <Button x:Name="btnOkay"
+                Click="btnOkay_Click"
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,10"
+                Width="80"
+                Content="{DynamicResource OK}"/>
+
+    </Grid>
+</Window>

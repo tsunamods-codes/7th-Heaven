@@ -1,0 +1,281 @@
+﻿<Window x:Class="AppUI.Windows.ConfigureModWindow"
+        x:Name="windowConfigureMod"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppUI.Windows"
+        xmlns:cls="clr-namespace:AppUI.Classes"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        mc:Ignorable="d"
+        Style="{StaticResource MainWindowStyle}"
+        Title="{Binding WindowTitle, FallbackValue='Configure Mod'}" 
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed"
+        Height="600" Width="800"
+        ResizeMode="CanResize"
+        MinHeight="400" MinWidth="625">
+    <Window.Resources>
+
+        <DataTemplate x:Key="optionItem">
+            <TextBlock Text="{Binding OptionName, FallbackValue='Option Name'}"/>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="dropdownItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowConfigureMod, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedDropdownText, FallbackValue='Value Name'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
+        
+
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MainListBoxItemStyle}">
+            <Setter Property="ContentTemplate" Value="{StaticResource optionItem}"/>
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Style>
+
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Header" Value="{Binding OptionName}"/>
+            <Setter Property="ItemsSource" Value="{Binding Children}"/>
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryControlForeground}"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeViewItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="19" Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton x:Name="Expander"
+                                          Style="{StaticResource ExpandCollapseToggleStyle}"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" Grid.Column="1" Padding="5,0,5,0">
+                                <TextBlock Text="{TemplateBinding Header}" Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            Visibility="Collapsed"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Bd" Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryControlMouseOver}"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource PrimaryControlPressed}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="dropdownItemStyle" TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource MainComboBoxItemStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="bd" BorderBrush="{DynamicResource SecondaryAppBackground}" BorderThickness="0" Background="{DynamicResource PrimaryControlBackground}">
+                            <TextBlock Text="{Binding ValueName, FallbackValue='Value Name'}" Margin="3"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource PrimaryControlPressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource PrimaryControlMouseOver}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
+            <Setter Property="ItemTemplate" Value="{StaticResource dropdownItemTemplate}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource dropdownItemStyle}"/>
+        </Style>
+
+        <Style TargetType="CheckBox" BasedOn="{StaticResource ToggleSwitchCheckbox}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="-5,1,0,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.25*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="{DynamicResource OptionsHeader}"
+                  Background="{DynamicResource SecondaryAppBackground}"
+                  Grid.RowSpan="5"
+                  Margin="5,2,0,5">
+            <Grid>
+                <ListBox x:Name="lstOptions"
+                         FontSize="13"
+                         ItemsSource="{Binding ModOptions}"
+                         Visibility="{Binding OptionListVisibility}"
+                         SelectedItem="{Binding SelectedOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="1"/>
+                <TreeView x:Name="treeOptions"
+                          ItemsSource="{Binding ModOptions}"
+                          Visibility="{Binding TreeViewVisibility}"
+                          Background="{DynamicResource SecondaryAppBackground}"
+                          BorderThickness="0"
+                          Margin="1"
+                          SelectedItemChanged="treeOptions_SelectedItemChanged"
+                          FontSize="13"/>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="{DynamicResource ConfigureHeader}"
+                  Background="{DynamicResource SecondaryAppBackground}"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="4"
+                  Margin="3,2,5,5">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock x:Name="txtDescription"
+                           Grid.Column="1"
+                           Margin="5,10,5,0"
+                           TextWrapping="Wrap"
+                           Text="{Binding Description, FallbackValue='This is some text about the option.'}"/>
+
+                <CheckBox x:Name="chkOption"
+                          Content="{Binding CheckBoxText, FallbackValue='My Checked Option'}"
+                          Visibility="{Binding CheckBoxVisibility, FallbackValue='Hidden'}"
+                          IsEnabled="{Binding CheckBoxIsEnabled}"
+                          IsChecked="{Binding IsOptionChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="1" Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Margin="5,10,0,10"/>
+
+                <Border Grid.Row="1" Grid.Column="1"
+                        BorderThickness="1"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding ComboBoxVisibility, FallbackValue=''}"
+                        BorderBrush="{DynamicResource PrimaryControlBackground}"
+                        Margin="5,10,0,10">
+                    <ComboBox x:Name="dropdownOption"
+                              ItemsSource="{Binding DropdownOptions}"
+                              SelectedIndex="{Binding DropdownSelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="{Binding ComboBoxIsEnabled}"
+                              Visibility="{Binding ComboBoxVisibility, FallbackValue=''}"
+                              MinWidth="225"/>
+                </Border>
+
+
+                <Image x:Name="imgOption"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       gif:AnimationBehavior.AutoStart="True"
+                       gif:AnimationBehavior.SourceUri="{Binding ImageOptionSource}"
+                       VerticalAlignment="Stretch"
+                       Margin="10"/>
+
+                <TextBlock x:Name="txtCompatibility"
+                           Grid.Column="1"
+                           Grid.Row="3"
+                           Margin="5,0,5,5"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           Text="{Binding CompatibilityNote, FallbackValue='This is some text about compatibility with the mod option.... '}"/>
+            </Grid>
+            
+        </GroupBox>
+
+
+        <cls:ButtonWithImage x:Name="btnPreview"
+                             Grid.Row="4"
+                             Grid.Column="1"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Bottom"
+                             Margin="5,0,0,5"
+                             Visibility="{Binding PreviewButtonVisibility, FallbackValue='Visible'}"
+                             Click="btnPreview_Click">
+            <cls:ButtonWithImage.Style>
+                <Style TargetType="cls:ButtonWithImage" BasedOn="{StaticResource MainButtonWithImageStyle}">
+                    <Setter Property="TemplateSource" Value="{StaticResource iconPlay}"/>
+                    <Setter Property="Content" Value="{DynamicResource Preview}"/>
+                    <Setter Property="ImageForeground" Value="ForestGreen"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlayingAudio}" Value="True">
+                            <Setter Property="TemplateSource" Value="{StaticResource iconStopAudio}"/>
+                            <Setter Property="Content" Value="{DynamicResource Stop}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </cls:ButtonWithImage.Style>
+        </cls:ButtonWithImage>
+
+        <Button x:Name="btnReset"
+                Grid.Row="1"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,5"
+                Click="btnReset_Click"
+                Content="{DynamicResource ResetToModDefaults}" />
+
+        <Button x:Name="btnOk"
+                Grid.Row="1"
+                Grid.Column="3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,5"
+                Width="85"
+                Click="btnOk_Click"
+                Content="{DynamicResource Save}" />
+
+        <Button x:Name="btnCancel"
+                Grid.Row="1"
+                Grid.Column="4"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,5,5"
+                Width="85"
+                Click="btnCancel_Click"
+                Content="{DynamicResource Cancel}" />
+
+    </Grid>
+</Window>

@@ -9,7 +9,7 @@ elseif ($env:_BUILD_BRANCH -like "refs/tags/*") {
 $env:_RELEASE_VERSION = "v${env:_BUILD_VERSION}"
 
 $vcpkgRoot = "C:\vcpkg"
-$vcpkgBaseline = [string](jq --arg baseline "builtin-baseline" -r '.[$baseline]' 7thWrapperLoader/vcpkg.json)
+$vcpkgBaseline = [string](jq --arg baseline "builtin-baseline" -r '.[$baseline]' AppLoader/vcpkg.json)
 $vcpkgOriginUrl = &"git" -C $vcpkgRoot remote get-url origin
 $vcpkgBranchName = &"git" -C $vcpkgRoot branch --show-current
 

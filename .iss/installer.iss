@@ -7,7 +7,7 @@
 #endif
 
 #ifndef MyAppPath
-  #define MyAppPath "..\SeventhHeavenUI"
+  #define MyAppPath "..\AppUI"
 #endif
 
 #ifndef MyAppRelease
@@ -39,7 +39,7 @@ InternalCompressLevel=ultra
 SolidCompression=true
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoVersion={#MyAppVersion}
-SetupIconFile="{#MyAppPath}\7H.ico"
+SetupIconFile="{#MyAppPath}\App.ico"
 UninstallDisplayIcon="{app}\uninstall.ico"
 UninstallDisplayName={#MyAppName}
 ArchitecturesInstallIn64BitMode=x64
@@ -50,7 +50,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "{#MyAppPath}\bin\{#MyAppRelease}\{#MyAppTargetFramework}\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
-Source: "{#MyAppPath}\7H.ico"; DestDir: "{app}"; DestName: "uninstall.ico"
+Source: "{#MyAppPath}\App.ico"; DestDir: "{app}"; DestName: "uninstall.ico"
 
 [Icons]
 Name: "{group}\7th Heaven"; Filename: "{app}\7th Heaven.exe";

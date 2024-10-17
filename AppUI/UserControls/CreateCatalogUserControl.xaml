@@ -1,0 +1,369 @@
+﻿<UserControl x:Class="AppUI.UserControls.CreateCatalogUserControl"
+             x:Name="ctrlCreateCatalog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppUI.UserControls"
+             xmlns:ctrl="clr-namespace:AppUI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <Style x:Key="createLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource PrimaryTextBlockStyle}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="10,0,5,0"/>
+        </Style>
+
+        <Style x:Key="createTextboxStyle" TargetType="TextBox" BasedOn="{StaticResource PrimaryTextBoxStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,0,5,10"/>
+        </Style>
+
+        <DataTemplate x:Key="categoryItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=ctrlCreateCatalog, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.CategoryInput, FallbackValue='Battle Textures'}" Margin="0,0,15,0" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="linkKindItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem, Mode=FindAncestor}, Path=DataContext}" Background="Transparent">
+                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding ElementName=gd, Path=DataContext.LinkKindInput, FallbackValue='Url'}" Margin="0,0,15,0"/>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="linkListItem" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid Grid.Column="1" Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox SelectedItem="{Binding LinkKindInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding LinkKindList}"
+                                      ItemTemplate="{StaticResource linkKindItemTemplate}"
+                                      Style="{StaticResource MainComboBoxStyle}"
+                                      ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
+                                      Margin="5,0,0,0"
+                                      MinWidth="75"
+                                      Width="75"
+                                      HorizontalAlignment="Left"/>
+
+                            <TextBox Text="{Binding SourceLinkInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource createTextboxStyle}"
+                                     HorizontalAlignment="Stretch"
+                                     Margin="10,4,0,0"
+                                     Grid.Column="2"/>
+                        </Grid>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="False">
+
+        <Grid Background="{DynamicResource PrimaryAppBackground}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel HorizontalAlignment="Left"
+                       Margin="5,0,0,5">
+                
+                <Button x:Name="btnGenerate"
+                        Click="btnGenerate_Click"
+                        Content="{DynamicResource Generate}"
+                        ToolTip="{DynamicResource OutputsCurrentCatalogXmlToBelow}"
+                        MinWidth="80"/>
+
+                <Button x:Name="btnSave"
+                        Click="btnSave_Click"
+                        Content="{DynamicResource Save}"
+                        MinWidth="80"
+                        ToolTip="{DynamicResource SaveCatalogXmlToFile}"/>
+
+                <Button x:Name="btnLoad"
+                        Click="btnLoad_Click"
+                        Content="{DynamicResource Load}"
+                        ToolTip="{DynamicResource LoadCatalogXmlFileToEdit}"
+                        MinWidth="80"/>
+            </WrapPanel>
+
+            <WrapPanel Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Margin="0,0,15,5">
+                
+                <Button x:Name="btnAdd"
+                        Grid.Column="1"
+                        Click="btnAdd_Click"
+                        Content="{DynamicResource Add}"
+                        ToolTip="{DynamicResource AddModToCatalog}"
+                        MinWidth="80"/>
+
+                <Button x:Name="btnImport"
+                        Grid.Column="1"
+                        Click="btnImport_Click"
+                        Content="{DynamicResource Import}"
+                        ToolTip="{DynamicResource ImportModFromModXmlOrIro}"
+                        MinWidth="80"/>
+            </WrapPanel>
+
+            <ListView Grid.Row="1" x:Name="lstMods"
+                      ItemContainerStyle="{StaticResource MainListViewItemStyle}"
+                      ItemsSource="{Binding CatalogModList}"
+                      MaxHeight="{Binding ElementName=scrollInputs, Path=ActualHeight}"
+                      VerticalAlignment="Stretch"
+                      SelectedItem="{Binding SelectedMod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="5,0,0,0">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="menuDeleteMod" Header="{DynamicResource RemoveMod}" Click="menuDeleteMod_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="{DynamicResource Name}" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                        <GridViewColumn Header="{DynamicResource Author}" DisplayMemberBinding="{Binding Author}" Width="Auto"/>
+                        <GridViewColumn Header="{DynamicResource Category}" DisplayMemberBinding="{Binding Category}" Width="Auto"/>
+                        <GridViewColumn Header="{DynamicResource Released}" DisplayMemberBinding="{Binding ReleaseDate}" Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Grid.Row="2" Margin="5,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="Catalog Name:"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Margin="0,0,5,0"/>
+                <TextBox Text="{Binding CatalogNameInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         HorizontalAlignment="Stretch"
+                         Grid.Column="1"/>
+            </Grid>
+
+
+
+            <TextBox Text="{Binding CatalogOutput}"
+                     Style="{StaticResource createTextboxStyle}"
+                     IsReadOnly="True"
+                     VerticalScrollBarVisibility="Auto"
+                     VerticalAlignment="Stretch"
+                     MinHeight="75"
+                     MaxHeight="400"
+                     Margin="5,10,15,5"
+                     Grid.Column="0" Grid.Row="3"
+                     Grid.ColumnSpan="2"/>
+
+            <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="0,0,15,0"
+                          MaxHeight="450"
+                          x:Name="scrollInputs"
+                          VerticalAlignment="Stretch"
+                          VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="ID:" Style="{StaticResource createLabelStyle}"/>
+                    <TextBox Text="{Binding IDInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource createTextboxStyle}"
+                             Grid.Column="1"/>
+
+                    <TextBlock Text="{DynamicResource AuthorLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Column="0"
+                        Grid.Row="2"/>
+                    <TextBox Text="{Binding AuthorInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="2"/>
+
+                    <TextBlock Text="{DynamicResource NameLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Row="1"/>
+                    <TextBox Text="{Binding NameInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="1"/>
+
+                    <TextBlock Text="{DynamicResource DescriptionLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Column="0"
+                        Grid.Row="3"/>
+                    <TextBox Text="{Binding DescriptionInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource createTextboxStyle}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             AcceptsTab="True"
+                             VerticalScrollBarVisibility="Auto"
+                             MaxLines="500"
+                             Height="100"
+                             Grid.Column="1" Grid.Row="3"/>
+
+                    <TextBlock Text="{DynamicResource CategoryLabel}"
+                               Style="{StaticResource createLabelStyle}"
+                               VerticalAlignment="Top"
+                               Grid.Row="4"/>
+                    <ComboBox SelectedItem="{Binding CategoryInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding CategoryList}"
+                              ItemTemplate="{StaticResource categoryItemTemplate}"
+                              Style="{StaticResource MainComboBoxStyle}"
+                              ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
+                              Margin="0,0,5,10"
+                              VerticalAlignment="Top"
+                              Grid.Column="1" Grid.Row="4"/>
+
+                    <TextBlock Text="Tags:"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Column="0"
+                        Grid.Row="5"/>
+                    <TextBox Text="{Binding TagsInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource createTextboxStyle}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             AcceptsTab="True"
+                             VerticalScrollBarVisibility="Auto"
+                             MaxLines="20"
+                             Height="50"
+                             Grid.Column="1" Grid.Row="5"/>
+
+                    <TextBlock Text="{DynamicResource VersionLabel}"
+                               Style="{StaticResource createLabelStyle}"
+                               Grid.Column="0"
+                               Grid.Row="6"/>
+                    <Grid Grid.Row="6" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding VersionInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Left"
+                                 Width="125"
+                                 Margin="0,0,0,10"
+                                 Style="{StaticResource createTextboxStyle}"/>
+
+                        <TextBlock Text="Meta Version:"
+                               Style="{StaticResource createLabelStyle}"
+                               Grid.Column="1"/>
+                        <TextBox Text="{Binding MetaVersionInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 HorizontalAlignment="Left"
+                                 Width="125"
+                                 Margin="0,0,0,10"
+                                 Grid.Column="2"
+                                 Style="{StaticResource createTextboxStyle}"/>
+                    </Grid>
+
+
+                    <TextBlock Text="{DynamicResource ReleaseNotesLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Column="0"
+                        Grid.Row="7"/>
+                    <TextBox Text="{Binding ReleaseNotesInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource createTextboxStyle}"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             AcceptsTab="True"
+                             VerticalScrollBarVisibility="Auto"
+                             MaxLines="500"
+                             Height="100"
+                             Grid.Column="1" Grid.Row="7"/>
+
+                    <TextBlock Text="{DynamicResource ReleaseDateLabel}"
+                               Style="{StaticResource createLabelStyle}"
+                               Grid.Column="0"
+                               Grid.Row="8"/>
+                    <TextBox Text="{Binding ReleaseDateInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="8"/>
+
+                    <TextBlock Text="{DynamicResource ImageLinkLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Row="9"/>
+                    <TextBox Text="{Binding PreviewImageInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="9"/>
+
+                    <TextBlock Text="{DynamicResource InfoLinkLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Row="10"/>
+                    <TextBox Text="{Binding InfoLinkInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="10"/>
+
+                    <TextBlock Text="{DynamicResource DonationLinkLabel}"
+                        Style="{StaticResource createLabelStyle}"
+                        Grid.Row="11"/>
+                    <TextBox Text="{Binding DonationLinkInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource createTextboxStyle}"
+                        Grid.Column="1" Grid.Row="11"/>
+
+
+                    <Rectangle Grid.Row="12" Grid.ColumnSpan="2" Height="1" Fill="{DynamicResource PrimaryControlForeground}"
+                               Opacity="0.75"
+                               VerticalAlignment="Top"
+                               Margin="10,20,10,10"/>
+                    <GroupBox Header="{DynamicResource DownloadLinksHeader}" Grid.Row="12" Grid.ColumnSpan="2" Margin="5,0,5,0" BorderThickness="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <ListBox MinHeight="30" Background="Transparent" BorderThickness="0"
+                                     Margin="0,2,0,0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     ItemsSource="{Binding DownloadLinkList}"
+                                     ItemContainerStyle="{StaticResource linkListItem}"/>
+
+
+                            <Button x:Name="btnAddLink"
+                                    Click="btnAddLink_Click"
+                                    Grid.Row="1"
+                                    Style="{StaticResource HyperlinkButton}"
+                                    HorizontalAlignment="Center"
+                                    Content="{DynamicResource AddLink}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+
+            </ScrollViewer>
+
+        </Grid>
+
+    </ScrollViewer>
+
+</UserControl>
