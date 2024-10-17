@@ -65,10 +65,74 @@ Filename: "{app}\7th Heaven.exe"; Flags: nowait postinstall runascurrentuser ski
 [InstallDelete]
 Name: "{app}\7thWorkshop\catalog.xml"; Type: files
 
+
 [UninstallDelete]
 Name: "{app}\7thWorkshop"; Type: filesandordirs
 
 [Code]
+procedure DelTreeExceptUserDir(Path: string);
+var
+  FindRec: TFindRec;
+  FilePath: string;
+begin
+  if FindFirst(Path + '\*', FindRec) then
+  begin
+    try
+      repeat
+        if (FindRec.Name <> '.') and (FindRec.Name <> '..') then
+        begin
+          FilePath := Path + '\' + FindRec.Name;
+          if FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY = 0 then
+          begin
+            if DeleteFile(FilePath) then
+            begin
+              Log(Format('Deleted file %s', [FilePath]));
+            end
+              else
+            begin
+              Log(Format('Failed to delete file %s', [FilePath]));
+            end;
+          end
+            else
+          begin
+            if CompareText(FindRec.Name, '7thWorkshop') = 0 then
+            begin
+              Log(Format('Keeping directory %s', [FilePath]));
+            end
+              else
+            begin
+              DelTreeExceptUserDir(FilePath);
+
+              if RemoveDir(FilePath) then
+              begin
+                Log(Format('Deleted directory %s', [FilePath]));
+              end
+                else
+              begin
+                Log(Format('Failed to delete directory %s', [FilePath]));
+              end;
+            end;
+          end;
+        end;
+      until not FindNext(FindRec);
+    finally
+      FindClose(FindRec);
+    end;
+  end
+    else
+  begin
+    Log(Format('Failed to list %s', [Path]));
+  end;
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssInstall then
+  begin
+    DelTreeExceptUserDir(ExpandConstant('{app}'));
+  end;
+end;
+
 function InitializeSetup: Boolean;
 begin
   Dependency_ForceX86 := True;
