@@ -106,6 +106,9 @@ static BOOL(WINAPI* TrueGetFileSizeEx)(HANDLE hFile, PLARGE_INTEGER lpFileSize) 
 // PostQuitMessage
 static VOID(WINAPI* TruePostQuitMessage)(int nExitCode) = PostQuitMessage;
 
+// Game WinMain
+static int(WINAPI* GameWinMain)(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) = (int(WINAPI*)(HINSTANCE, HINSTANCE, LPSTR, int))0x67DB30;
+
 // VARS ------------------------------------------
 
 DWORD currentMainThreadId = 0;
@@ -434,9 +437,36 @@ DWORD GetCurrentProcessMainThreadId()
 DWORD WINAPI StartProxy(LPVOID lpParam) {
     HINSTANCE hinstDLL = (HINSTANCE)lpParam;
 
+    
+
+    return 0;
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
+{
+    // Move on if the current process is an helper process or the reason is not attach
+    if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
+    if (DetourIsHelperProcess()) return TRUE;
+
+    // Setup logging layer
+    remove("AppLoader.log");
+    plog::init<plog::_7thFormatter>(plog::verbose, "AppLoader.log");
+    PLOGI << "AppLoader init log";
+
+    // Log unhandled exceptions
+    SetUnhandledExceptionFilter(ExceptionHandler);
+
+    // Save current main thread if for FF7.exe
+    currentMainThreadId = GetCurrentProcessMainThreadId();
+
+    // Get current process name
+    CHAR parentName[1024];
+    GetModuleFileNameA(NULL, parentName, sizeof(parentName));
+    _strlwr(parentName);
+
     // Begin the detouring
-    static auto target = &GetCommandLineA;
-    static decltype(target) detour = []()
+    static auto target = GameWinMain;
+    static decltype(target) detour = [](HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) -> int
         {
             DetourTransactionBegin();
             DetourUpdateThread(GetCurrentThread());
@@ -495,7 +525,7 @@ DWORD WINAPI StartProxy(LPVOID lpParam) {
 
             PLOGI << "AppLoader started successfully";
 
-            return target();
+            return target(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
         };
 
     DisableThreadLibraryCalls(hinstDLL);
@@ -505,45 +535,6 @@ DWORD WINAPI StartProxy(LPVOID lpParam) {
     DetourAttach((void**)&target, detour);
     // ------------------------------------
     DetourTransactionCommit();
-
-    return 0;
-}
-
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
-{
-    // Move on if the current process is an helper process or the reason is not attach
-    if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
-    if (DetourIsHelperProcess()) return TRUE;
-
-    // Setup logging layer
-    remove("AppLoader.log");
-    plog::init<plog::_7thFormatter>(plog::verbose, "AppLoader.log");
-    PLOGI << "AppLoader init log";
-
-    // Log unhandled exceptions
-    SetUnhandledExceptionFilter(ExceptionHandler);
-
-    // Save current main thread if for FF7.exe
-    currentMainThreadId = GetCurrentProcessMainThreadId();
-
-    // Get current process name
-    CHAR parentName[1024];
-    GetModuleFileNameA(NULL, parentName, sizeof(parentName));
-    _strlwr(parentName);
-
-    // Use the create thread approach for the Steam exe, otherwise run directly the code for 1998 edition
-    if (strstr(parentName, "ff7_en.exe") != NULL)
-    {
-        PLOGI << "Detected Steam edition. Using CreateThread approach...";
-
-        CreateThread(NULL, 0, StartProxy, hinstDLL, 0, NULL);
-    }
-    else
-    {
-        PLOGI << "Detected 1998 edition. Using direct call approach...";
-
-        StartProxy((LPVOID)hinstDLL);
-    }
 
     return TRUE;
 }
