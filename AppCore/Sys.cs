@@ -430,11 +430,10 @@ namespace Iros.Workshop
 
         static Sys()
         {
-            string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            _7HFolder = appPath;
-            _7HExe = Path.Combine(appPath, "7th Heaven.exe");
+            _7HExe = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            _7HFolder = Path.GetDirectoryName(_7HExe);
 
-            SysFolder = Path.Combine(appPath, "7thWorkshop");
+            SysFolder = Path.Combine(_7HFolder, "7thWorkshop");
             Directory.CreateDirectory(SysFolder);
 
 
