@@ -29,41 +29,48 @@ namespace AppUI
 
         public const string uniqueAppGuid = "F73958FA-160F-4185-AE8F-CF5B7EA89494";
 
-        public static Mutex uniqueMutex;
+        private static Mutex _mutex;
 
         private bool hasShownErrorWindow = false;
 
         public App()
         {
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
-            uniqueMutex = new Mutex(true, uniqueAppGuid, out bool gotMutex);
-            GC.KeepAlive(App.uniqueMutex);
-
-            //TODO: Add support for .NET 8.0
-            //if (SingleInstance.IsFirstInstance(uniqueAppGuid, true))
-            //{
-            //    SingleInstance.OnSecondInstanceStarted += SingleInstance_OnSecondInstanceStarted;
-            //}
-            //else
-            //{
-            //    // second instance so notify first instance
-            //    SingleInstance.NotifyFirstInstance(uniqueAppGuid);
-            //}
-
-            if (!gotMutex)
-            {
-                App.Current.Shutdown(); // only one instance of the app opened at a time so shutdown
-                return;
-            }
         }
 
-        //TODO: Add support for .NET 8.0
-        //private void SingleInstance_OnSecondInstanceStarted(object sender, SecondInstanceStartedEventArgs e)
-        //{
-        //    // e.Args[0] = path to 7th Heaven .exe
-        //    ProcessCommandLineArgs(e.Args);
-        //}
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            bool isNewInstance;
+
+            // Create a named mutex, which allows only one instance of the application.
+            _mutex = new Mutex(true, uniqueAppGuid, out isNewInstance);
+
+            if (isNewInstance)
+            {
+                // This is the first instance - proceed normally.
+                base.OnStartup(e);
+
+                // Enable Visual styles for Winform applications to support plugins that uses Winforms as a UI
+                System.Windows.Forms.Application.EnableVisualStyles();
+                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+
+                // check if default language saved in app settings; otherwise detect language from thread
+                string defaultLang = Sys.Settings.AppLanguage;
+
+                if (string.IsNullOrWhiteSpace(defaultLang))
+                {
+                    defaultLang = GetCultureFromCurrentThread();
+                }
+
+                SetLanguageDictionary(defaultLang);
+                SetupExceptionHandling();
+            }
+            else
+            {
+                // A second instance is trying to start.
+                ProcessCommandLineArgs(e.Args);
+            }
+        }
 
         internal static void ProcessCommandLineArgs(string[] args, bool closeAfterProcessing = false)
         {
@@ -333,24 +340,6 @@ namespace AppUI
             }
 
             return "7th Heaven"; // default if can't find for some reason
-        }
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            // Enable Visual styles for Winform applications to support plugins that uses Winforms as a UI
-            System.Windows.Forms.Application.EnableVisualStyles();
-            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-
-            // check if default language saved in app settings; otherwise detect language from thread
-            string defaultLang = Sys.Settings.AppLanguage;
-
-            if (string.IsNullOrWhiteSpace(defaultLang))
-            {
-                defaultLang = GetCultureFromCurrentThread();
-            }
-
-            SetLanguageDictionary(defaultLang);
-            SetupExceptionHandling();
         }
 
         private void SetupExceptionHandling()
