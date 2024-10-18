@@ -1,4 +1,4 @@
-﻿using Iros._7th.Workshop;
+﻿using Iros.Workshop;
 using AppUI.Classes;
 using AppUI;
 using AppUI.ViewModels;

@@ -1,6 +1,6 @@
 ﻿using AppCore;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using AppUI.Classes;
 using AppUI.Classes.Themes;
 using AppUI.ViewModels;

@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iros._7th.Workshop {
+namespace Iros.Workshop {
 
     public class ImageCacheEntry {
         public string Url { get; set; }

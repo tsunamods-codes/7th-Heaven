@@ -1,6 +1,6 @@
 ﻿using AppWrapper;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -186,7 +186,7 @@ namespace AppCore
 
             if (!Sys.ActiveProfile.HasItem(m.ID))
             {
-                Sys.ActiveProfile.AddItem(new Iros._7th.Workshop.ProfileItem() { ModID = m.ID, Name = m.Name, Settings = new List<ProfileSetting>(), IsModActive = false });
+                Sys.ActiveProfile.AddItem(new Iros.Workshop.ProfileItem() { ModID = m.ID, Name = m.Name, Settings = new List<ProfileSetting>(), IsModActive = false });
             }
 
             RaiseProgressChanged("Import complete", 100);

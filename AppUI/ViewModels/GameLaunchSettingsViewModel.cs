@@ -1,5 +1,5 @@
 ﻿using AppCore;
-using Iros._7th.Workshop;
+using Iros.Workshop;
 using Microsoft.Win32;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;

@@ -1,7 +1,7 @@
 ﻿using AppCore;
 using CG.Web.MegaApiClient;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using AppUI.Classes;
 using AppUI.ViewModels;
 using AppUI.Windows;

@@ -1,4 +1,4 @@
-﻿using Iros._7th.Workshop;
+﻿using Iros.Workshop;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Linq;
 using Tomlyn;
 using Tomlyn.Model;
 
-namespace Iros._7th.Workshop.ConfigSettings
+namespace Iros.Workshop.ConfigSettings
 {
     public class FFNxConfigManager
     {
@@ -254,7 +254,7 @@ namespace Iros._7th.Workshop.ConfigSettings
 
         public void ResetTo7thHeavenDefaults()
         {
-            ConfigSpec gameDriverUISpec = Util.Deserialize<Iros._7th.Workshop.ConfigSettings.ConfigSpec>(Sys.PathToGameDriverUiXml());
+            ConfigSpec gameDriverUISpec = Util.Deserialize<Iros.Workshop.ConfigSettings.ConfigSpec>(Sys.PathToGameDriverUiXml());
 
             foreach (Setting item in gameDriverUISpec.Settings)
             {

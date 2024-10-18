@@ -1,6 +1,6 @@
 ﻿using AppCore;
 using AppWrapper;
-using Iros._7th.Workshop;
+using Iros.Workshop;
 using AppUI.Classes;
 using AppUI.ViewModels;
 using System;
@@ -316,7 +316,7 @@ namespace AppUI.ViewModels
             TreeViewVisibility = Visibility.Collapsed;
         }
 
-        internal void Init(ModInfo info, Func<string, string> imageReader, Func<string, Stream> audioReader, Iros._7th.Workshop.ProfileItem activeModInfo, List<Constraint> modConstraints, string pathToModFolderOrIro)
+        internal void Init(ModInfo info, Func<string, string> imageReader, Func<string, Stream> audioReader, Iros.Workshop.ProfileItem activeModInfo, List<Constraint> modConstraints, string pathToModFolderOrIro)
         {
             _iroPath = pathToModFolderOrIro;
             _info = info;
@@ -367,7 +367,7 @@ namespace AppUI.ViewModels
         }
 
         /// <summary>
-        /// Returns the mod configuration as list of <see cref="ProfileSetting"/>s to be saved with a <see cref="Iros._7th.Workshop.ProfileItem"/>.
+        /// Returns the mod configuration as list of <see cref="ProfileSetting"/>s to be saved with a <see cref="Iros.Workshop.ProfileItem"/>.
         /// </summary>
         internal List<ProfileSetting> GetSettings()
         {

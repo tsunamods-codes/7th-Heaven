@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace Iros._7th.Workshop {
+namespace Iros.Workshop {
 
     public enum FF7Version
     {

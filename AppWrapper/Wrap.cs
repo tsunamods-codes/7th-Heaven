@@ -11,7 +11,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
-using Iros._7th;
+using Iros;
 
 namespace AppWrapper {
     public static class Wrap {
@@ -67,7 +67,7 @@ namespace AppWrapper {
             try {
                 using (var fs = new FileStream(profileFile, FileMode.Open))
                 {
-                    _profile = Iros._7th.Util.DeserializeBinary<RuntimeProfile>(fs);
+                    _profile = Iros.Util.DeserializeBinary<RuntimeProfile>(fs);
                     _process = currentProcess;
                 }
 

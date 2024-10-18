@@ -1,6 +1,6 @@
 ﻿using AppCore;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using Microsoft.Win32;
 using AppUI.Classes;
 using AppUI.Windows;
