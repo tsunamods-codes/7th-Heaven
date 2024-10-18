@@ -1,7 +1,7 @@
 ﻿using AppCore;
 using AppWrapper;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using Microsoft.Win32;
 using AppUI.Windows;
 using AppUI;
@@ -20,7 +20,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Xml;
-using Profile = Iros._7th.Workshop.Profile;
+using Profile = Iros.Workshop.Profile;
 
 namespace AppUI.Classes
 {
@@ -406,7 +406,7 @@ namespace AppUI.Classes
                         {
                             foreach (var attr in flag.Attributes)
                             {
-                                foreach(Iros._7th.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
+                                foreach(Iros.Workshop.ProfileItem item in Sys.ActiveProfile.ActiveItems)
                                 {
                                     foreach(ProfileSetting setting in item.Settings)
                                     {
@@ -1044,7 +1044,7 @@ namespace AppUI.Classes
 
             foreach (int i in Enumerable.Range(0, Sys.ActiveProfile.ActiveItems.Count))
             {
-                Iros._7th.Workshop.ProfileItem mod = Sys.ActiveProfile.ActiveItems[i];
+                Iros.Workshop.ProfileItem mod = Sys.ActiveProfile.ActiveItems[i];
                 var info = details[mod.ModID].Info;
 
                 if (info == null)
@@ -1081,7 +1081,7 @@ namespace AppUI.Classes
         internal static List<Constraint> GetConstraints()
         {
             List<Constraint> constraints = new List<Constraint>();
-            foreach (Iros._7th.Workshop.ProfileItem pItem in Sys.ActiveProfile.ActiveItems)
+            foreach (Iros.Workshop.ProfileItem pItem in Sys.ActiveProfile.ActiveItems)
             {
                 InstalledItem inst = Sys.Library.GetItem(pItem.ModID);
                 ModInfo info = inst.GetModInfo();
@@ -1099,7 +1099,7 @@ namespace AppUI.Classes
                         if ((setting == null) || (setting.Value != cSetting.MyValue)) continue;
                     }
 
-                    Iros._7th.Workshop.ProfileItem oItem = Sys.ActiveProfile.ActiveItems.Find(i => i.ModID.Equals(cSetting.ModID));
+                    Iros.Workshop.ProfileItem oItem = Sys.ActiveProfile.ActiveItems.Find(i => i.ModID.Equals(cSetting.ModID));
                     if (oItem == null) continue;
 
                     InstalledItem oInst = Sys.Library.GetItem(cSetting.ModID);

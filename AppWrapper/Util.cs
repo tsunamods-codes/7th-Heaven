@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Iros._7th {
+namespace Iros {
     public static class Util {
         public static T Deserialize<T>(System.IO.Stream s) {
             var ser = new System.Xml.Serialization.XmlSerializer(typeof(T));

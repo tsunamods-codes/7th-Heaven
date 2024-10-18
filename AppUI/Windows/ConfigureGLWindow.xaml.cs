@@ -1,6 +1,6 @@
 ﻿using AppCore;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using AppUI.Classes;
 using AppUI.ViewModels;
 using System;
@@ -20,8 +20,8 @@ namespace AppUI.Windows
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private Iros._7th.Workshop.ConfigSettings.Settings _settings;
-        private Iros._7th.Workshop.ConfigSettings.ConfigSpec _spec;
+        private Iros.Workshop.ConfigSettings.Settings _settings;
+        private Iros.Workshop.ConfigSettings.ConfigSpec _spec;
 
         private List<GLSettingViewModel> ViewModels { get; set; }
 
@@ -42,7 +42,7 @@ namespace AppUI.Windows
         {
             try
             {
-                _spec = Util.Deserialize<Iros._7th.Workshop.ConfigSettings.ConfigSpec>(cfgSpec);
+                _spec = Util.Deserialize<Iros.Workshop.ConfigSettings.ConfigSpec>(cfgSpec);
             }
             catch (Exception e)
             {
@@ -52,23 +52,23 @@ namespace AppUI.Windows
             }
 
             // build new DDOption for resolutions
-            List<Iros._7th.Workshop.ConfigSettings.DDOption> DigitalResolutions = new List<Iros._7th.Workshop.ConfigSettings.DDOption>();
-            DigitalResolutions.Add(new Iros._7th.Workshop.ConfigSettings.DDOption() { Settings = "window_size_x = 0,window_size_y = 0", Text = "Auto" });
+            List<Iros.Workshop.ConfigSettings.DDOption> DigitalResolutions = new List<Iros.Workshop.ConfigSettings.DDOption>();
+            DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = "window_size_x = 0,window_size_y = 0", Text = "Auto" });
 
             List<SupportedResolution> supportedResolutions = PrimaryScreen.GetSupportedResolutions();
             foreach(SupportedResolution sr in supportedResolutions)
             {
-                DigitalResolutions.Add(new Iros._7th.Workshop.ConfigSettings.DDOption() { Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}", Text = $"{sr.H}x{sr.V}"});
+                DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}", Text = $"{sr.H}x{sr.V}"});
             }
 
             // find the resolutions option
-            Iros._7th.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros._7th.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
+            Iros.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
                 return item.DefaultValue == "window_size_x = 1280,window_size_y = 720";
             });
             // override it with OS reported suported resolutions
             ResolutionDD.Options = DigitalResolutions;
 
-            _settings = new Iros._7th.Workshop.ConfigSettings.Settings();
+            _settings = new Iros.Workshop.ConfigSettings.Settings();
             _settings.SetMissingDefaults(_spec.Settings);
 
             Dictionary<string, int> tabOrders = new Dictionary<string, int>()
@@ -99,7 +99,7 @@ namespace AppUI.Windows
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto
                 };
 
-                foreach (Iros._7th.Workshop.ConfigSettings.Setting setting in items)
+                foreach (Iros.Workshop.ConfigSettings.Setting setting in items)
                 {
                     GLSettingViewModel settingViewModel = new GLSettingViewModel(setting, _settings);
 

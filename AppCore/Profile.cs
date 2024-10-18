@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iros._7th.Workshop {
+namespace Iros.Workshop {
     public class Profile {
         public List<ProfileItem> Items { get; set; }
         public string OpenGLConfig { get; set; }

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Iros._7th.Workshop
+namespace Iros.Workshop
 {
     public static class Install
     {

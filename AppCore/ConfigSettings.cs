@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Iros._7th.Workshop.ConfigSettings {
+namespace Iros.Workshop.ConfigSettings {
 
     public class Settings {
         public string Get(string setting) {

@@ -3,7 +3,7 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using Iros._7th;
+using Iros;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;

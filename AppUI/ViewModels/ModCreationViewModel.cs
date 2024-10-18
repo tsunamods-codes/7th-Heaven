@@ -1,7 +1,7 @@
 ﻿using AppCore;
 using AppWrapper;
-using Iros._7th;
-using Iros._7th.Workshop;
+using Iros;
+using Iros.Workshop;
 using AppUI.Classes;
 using System;
 using System.Collections.Generic;

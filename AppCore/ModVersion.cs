@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Iros._7th.Workshop
+namespace Iros.Workshop
 {
     public class ModVersion
     {

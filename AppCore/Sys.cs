@@ -4,7 +4,7 @@
 */
 
 using AppCore;
-using Iros._7th.Workshop.ConfigSettings;
+using Iros.Workshop.ConfigSettings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Iros._7th.Workshop
+namespace Iros.Workshop
 {
     public class ModStatusEventArgs : EventArgs
     {

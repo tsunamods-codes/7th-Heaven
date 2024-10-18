@@ -1,4 +1,4 @@
-﻿using Iros._7th.Workshop.ConfigSettings;
+﻿using Iros.Workshop.ConfigSettings;
 using AppUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -218,18 +218,18 @@ namespace AppUI.ViewModels
 
         private void Init(Settings settings)
         {
-            if (Setting is Iros._7th.Workshop.ConfigSettings.Checkbox)
+            if (Setting is Iros.Workshop.ConfigSettings.Checkbox)
             {
                 SettingType = GLSettingType.Checkbox;
                 IsOptionChecked = settings.IsMatched((Setting as Checkbox).TrueSetting);
             }
-            else if (Setting is Iros._7th.Workshop.ConfigSettings.TextEntry)
+            else if (Setting is Iros.Workshop.ConfigSettings.TextEntry)
             {
                 SettingType = GLSettingType.TextEntry;
                 TextEntryOptionName = (Setting as TextEntry).Option;
                 TextEntryOptionValue = settings.Get(TextEntryOptionName);
             }
-            else if (Setting is Iros._7th.Workshop.ConfigSettings.DropDown)
+            else if (Setting is Iros.Workshop.ConfigSettings.DropDown)
             {
                 SettingType = GLSettingType.Dropdown;
                 
