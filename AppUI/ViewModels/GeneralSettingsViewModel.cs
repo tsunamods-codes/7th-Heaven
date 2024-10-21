@@ -786,7 +786,9 @@ namespace AppUI.ViewModels
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIRO:\"%1\"");
 
                 //Associate .iro mod files with 7H's Prog_ID- .IRO extension
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro", "", $"7thHeaven Mod");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro", "", $"7thHeaven Mod File");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIRO:\"%1\"");
 
                 // create registry keys to assocaite .irop files
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop", "", $"7th Heaven Mod Patch");
@@ -815,9 +817,7 @@ namespace AppUI.ViewModels
         {
             try
             {
-                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\Unpack IRO\\command");
-                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeaven\\DefaultIcon");
-
+                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeaven");
                 RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\.iro");
                 RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\.irop");
 
