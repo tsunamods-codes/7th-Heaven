@@ -535,6 +535,6 @@
                 </StatusBarItem.Style>
             </StatusBarItem>
         </StatusBar>
-        <Image x:Name="SupportUkraine" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="246,5,0,0" VerticalAlignment="Top" Width="130" Source="/Resources/SupportUkraine.png" Stretch="UniformToFill" Grid.RowSpan="2" Cursor="Hand" MouseUp="SupportUkraine_MouseUp"/>
+        <Image x:Name="TsunamodsSupport" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="246,5,0,0" VerticalAlignment="Top" Width="130" Source="/Resources/TsunamodsSupport.png" Stretch="UniformToFill" Grid.RowSpan="2" Cursor="Hand" MouseUp="TsunamodsSupport_MouseUp"/>
     </Grid>
 </Window>

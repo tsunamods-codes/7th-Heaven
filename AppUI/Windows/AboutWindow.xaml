@@ -58,8 +58,6 @@
             7th heaven is provided as is without warranty, while we will make every effort to support you via discord please remember this.
             <LineBreak /><LineBreak />
             7th heaven is made possible by <Hyperlink NavigateUri="https://github.com/julianxhokaxhiu/FFNx/" RequestNavigate="Hyperlink_RequestNavigate">FFNx</Hyperlink>
-            <LineBreak /><LineBreak />
-            Need help join <Hyperlink NavigateUri="https://discord.gg/VAJ3ys6K" RequestNavigate="Hyperlink_RequestNavigate">Tsunamods Discord Server</Hyperlink>
         </TextBlock>
 
         <Button x:Name="btnClose"

@@ -127,7 +127,7 @@
     <Resource Include="Resources\Icons\PS_Xbox_Icons\XB_RS_Click.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\SupportUkraine.png">
+    <Resource Include="Resources\TsunamodsSupport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

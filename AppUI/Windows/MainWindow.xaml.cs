@@ -438,9 +438,9 @@ namespace AppUI
             new AboutWindow().ShowDialog();
         }
 
-        private void SupportUkraine_MouseUp(object sender, MouseButtonEventArgs e)
+        private void TsunamodsSupport_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo("https://war.ukraine.ua/support-ukraine/")
+            ProcessStartInfo startInfo = new ProcessStartInfo("https://download.tsunamods.com/?id=15")
             {
                 UseShellExecute = true,
             };
