@@ -653,6 +653,8 @@
         DoYouWantToDisableDEP,
         SystemDEPDisabledPleaseReboot,
         CannotContinueWithDEPEnabled,
-        SomethingWentWrongWhileDisablingDEP
+        SomethingWentWrongWhileDisablingDEP,
+        App4GBPatchRequired,
+        App4GBPatchApplied
     }
 }

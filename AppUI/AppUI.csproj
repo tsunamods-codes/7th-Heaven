@@ -596,6 +596,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AsmResolver" Version="5.5.1" />
+    <PackageReference Include="AsmResolver.PE.File" Version="5.5.1" />
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>4.6.1</Version>
     </PackageReference>

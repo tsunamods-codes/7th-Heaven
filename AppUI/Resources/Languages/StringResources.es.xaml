@@ -1271,4 +1271,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP mode successfully updated. Please reboot the PC for the change to take effect.</system:String>
     <system:String x:Key="CannotContinueWithDEPEnabled">DEP mode is incorrect. Please adjust it to continue, following the steps described here: https://7thheaven.rocks/help/dep.html</system:String>
     <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Something went wrong while trying to adjust DEP. You can still do it manually. Please follow steps described here: https://7thheaven.rocks/help/dep.html</system:String>
+
+    <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
+    <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
 </ResourceDictionary>

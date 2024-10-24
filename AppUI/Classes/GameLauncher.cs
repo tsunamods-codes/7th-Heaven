@@ -1,10 +1,10 @@
 ﻿using AppCore;
 using AppWrapper;
+using AsmResolver;
 using Iros;
 using Iros.Workshop;
 using Microsoft.Win32;
 using AppUI.Windows;
-using AppUI;
 using AppUI.ViewModels;
 using SharpCompress.Archives;
 using SharpCompress.Archives.Zip;
@@ -17,10 +17,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Interop;
 using System.Xml;
 using Profile = Iros.Workshop.Profile;
+using AsmResolver.PE.File;
+using System.Windows.Shell;
+using AsmResolver.PE.File.Headers;
 
 namespace AppUI.Classes
 {
@@ -280,6 +281,17 @@ namespace AppUI.Classes
                         return false;
                     }
                 }
+            }
+
+            // Auto-patch for 4GB support
+            Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.App4GBPatchRequired));
+            PEFile file = PEFile.FromFile(Sys.Settings.FF7Exe);
+            if (!file.FileHeader.Characteristics.HasFlag(AsmResolver.PE.File.Headers.Characteristics.LargeAddressAware))
+            {
+                converter.BackupExe(backupFolderPath);
+                file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
+                file.Write(Sys.Settings.FF7Exe);
+                Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.App4GBPatchApplied));
             }
 
             //

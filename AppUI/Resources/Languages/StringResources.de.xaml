@@ -1270,4 +1270,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP-Modus erfolgreich aktualisiert. Bitte starten Sie den PC neu, damit die Änderung wirksam wird.</system:String>
     <system:String x:Key="CannotContinueWithDEPEnabled">DEP-Modus ist fehlerhaft. Bitte zum Fortfahren anpassen, indem Sie die hier beschriebenen Schritte befolgen: https://7thheaven.rocks/help/dep.html</system:String>
     <system:String x:Key="SomethingWentWrongWhileDisablingDEP">Beim Versuch, DEP anzupassen, ist ein Fehler aufgetreten. Sie können es dennoch manuell durchführen. Bitte befolgen Sie die hier beschriebenen Schritte: https://7thheaven.rocks/help/dep.html</system:String>
+
+    <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
+    <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
 </ResourceDictionary>

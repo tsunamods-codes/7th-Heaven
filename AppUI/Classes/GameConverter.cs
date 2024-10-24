@@ -144,7 +144,8 @@ namespace AppUI.Classes
             {
                 byte[][] requiredHashes = {
                     Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6"), // Steam
-                    Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB
+                    Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB NTCore
+                    Convert.FromHexString("769B90800B17AF7A7DC31A0C4C37F256AF934876"), // Steam 4GB 7thHeaven auto-patch
                 };
                 using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7_en.exe"), FileMode.Open))
                 {
@@ -289,7 +290,7 @@ namespace AppUI.Classes
         {
             Directory.CreateDirectory(backupFolderPath);
 
-            string ff7ExePath = Path.Combine(InstallPath, "ff7.exe");
+            string ff7ExePath = Sys.Settings.FF7Exe;
 
             try
             {
