@@ -46,19 +46,28 @@ namespace AppUI.Classes
 
                     if (steamPath != null)
                     {
-                        var stream = File.OpenRead(Path.Combine(steamPath, "steamapps\\libraryfolders.vdf"));
-                        var kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                        KVObject data = kv.Deserialize(stream);
-
-                        // Look through multiple libraries
-                        foreach (var section in data)
+                        var path = Path.Combine(steamPath, "steamapps\\libraryfolders.vdf");
+                        if (File.Exists(path))
                         {
-                            var libraryPath = section["path"].ToString().Replace("\\\\", "\\");
-
-                            if (File.Exists(Path.Combine(libraryPath, "steamapps\\appmanifest_39140.acf")))
+                            try
                             {
-                                installPath = Path.Combine(libraryPath, "steamapps\\common\\FINAL FANTASY VII");
+                                var stream = File.OpenRead(path);
+                                var kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                                KVObject data = kv.Deserialize(stream);
+
+                                // Look through multiple libraries
+                                foreach (var section in data)
+                                {
+                                    var libraryPath = section["path"].ToString().Replace("\\\\", "\\");
+
+                                    if (File.Exists(Path.Combine(libraryPath, "steamapps\\appmanifest_39140.acf")))
+                                    {
+                                        installPath = Path.Combine(libraryPath, "steamapps\\common\\FINAL FANTASY VII");
+                                    }
+                                }
+
                             }
+                            catch (Exception ex) { }
                         }
                     }
 
