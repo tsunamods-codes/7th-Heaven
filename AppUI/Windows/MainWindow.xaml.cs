@@ -20,6 +20,11 @@ namespace AppUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        // whom ever though that the settigns save should be handled by this window was wrong
+        // the settings class it's self should have a save method inside it but it does not this is horrible but the only way for
+        // game directory change notification to work.
+        public static MainWindow dirtyHack; 
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         internal MainWindowViewModel ViewModel { get; set; }
@@ -29,6 +34,7 @@ namespace AppUI
         public MainWindow()
         {
             InitializeComponent();
+            dirtyHack = this;
 
             ViewModel = new MainWindowViewModel();
             this.DataContext = ViewModel;

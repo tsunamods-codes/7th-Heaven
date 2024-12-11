@@ -4,6 +4,9 @@ using AppUI.Classes;
 using AppUI.ViewModels;
 using System.IO;
 using System.Windows;
+using System.Diagnostics;
+using System;
+using System.Threading;
 
 namespace AppUI.Windows
 {
@@ -19,6 +22,8 @@ namespace AppUI.Windows
         private UpdateChecker CoreUpdater = new UpdateChecker();
 
         private FFNxDriverUpdater FFNxUpdater = new FFNxDriverUpdater();
+
+        private bool PathChanged = false;
 
         public GeneralSettingsWindow()
         {
@@ -40,6 +45,22 @@ namespace AppUI.Windows
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             bool settingsSaved = ViewModel.SaveSettings();
+
+            if (PathChanged)
+            {
+                MessageDialogViewModel mdvm = MessageDialogWindow.Show(ResourceHelper.Get(StringKey.Ff7ExePathChanged),
+                                             ResourceHelper.Get(StringKey.Ff7ExePathChanged).Split(",")[0],
+                                             MessageBoxButton.YesNo,
+                                             MessageBoxImage.Warning);
+
+                if (mdvm.Result == MessageBoxResult.Yes)
+                {
+                    string exePath = Process.GetCurrentProcess().MainModule.FileName;
+                    Process.Start(exePath);
+
+                    AppUI.MainWindow.dirtyHack.Close();
+                }
+            }
 
             if (settingsSaved)
             {
@@ -79,6 +100,12 @@ namespace AppUI.Windows
                 }
 
                 ViewModel.FF7ExePathInput = exePath;
+            }
+
+            string original = Sys.Settings.FF7Exe;
+            if ((original != null || original != "") && original != exePath )
+            {
+                PathChanged = true;
             }
         }
 

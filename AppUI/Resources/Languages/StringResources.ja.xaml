@@ -476,6 +476,7 @@ Click 'Cancel' to stop the process.</system:String>
 
     <system:String x:Key="SettingsNotValid">Settings Not Valid</system:String>
     <system:String x:Key="MissingFf7ExePath">Missing FF7 Exe path.</system:String>
+    <system:String x:Key="Ff7ExePathChanged">Game path change detected, we highly recommend you restart 7th heaven would you like to now?</system:String>
     <system:String x:Key="MissingLibraryPath">Missing Library path.</system:String>
     <system:String x:Key="MissingTexturesPath">Missing Textures (Aali OpenGL) path.</system:String>
     <system:String x:Key="MissingMoviePath">Missing Movie path.</system:String>

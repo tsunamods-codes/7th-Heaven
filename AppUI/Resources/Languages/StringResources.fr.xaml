@@ -791,6 +791,7 @@ Plus tard, si vous souhaitez utiliser des fichiers .OGG de haute qualité, remet
 
     <system:String x:Key="VerifyingFf7Exe">Vérification de ff7 exe...</system:String>
     <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
+    <system:String x:Key="Ff7ExePathChanged">Changement de chemin de jeu détecté, nous vous recommandons vivement de redémarrer 7th Heaven. Souhaitez-vous le faire maintenant ?</system:String>
     <system:String x:Key="Ff7ExeDetectedToBeDifferent">ff7.exe détecté comme étant différent. création d'une sauvegarde et copie du bon fichier .exe...</system:String>
     <system:String x:Key="FailedToCopyFf7Exe">échec de la copie de ff7.exe. Abandon...</system:String>
     <system:String x:Key="FailedToCreateBackupOfFf7Exe">échec de la création d'une sauvegarde de ff7.exe. Abandon...</system:String>
