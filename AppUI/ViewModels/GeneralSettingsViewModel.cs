@@ -4,16 +4,12 @@ using Iros.Workshop;
 using Microsoft.Win32;
 using AppUI.Classes;
 using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AppUI.ViewModels
