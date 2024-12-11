@@ -57,8 +57,7 @@ namespace AppUI.Windows
                 {
                     string exePath = Process.GetCurrentProcess().MainModule.FileName;
                     Process.Start(exePath);
-
-                    AppUI.MainWindow.dirtyHack.Close();
+                    System.Windows.Application.Current.Shutdown();
                 }
             }
 
