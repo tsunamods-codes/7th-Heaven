@@ -33,11 +33,6 @@ namespace AppUI
 
         private bool hasShownErrorWindow = false;
 
-        public App()
-        {
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-        }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             bool isNewInstance;

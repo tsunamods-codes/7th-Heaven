@@ -30,25 +30,25 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\AppUI\bin\Debug\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Debug\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\AppUI\bin\Release\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Release\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\AppUI\bin\Release\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Release\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <OutDir>$(SolutionDir)\AppUI\bin\Release\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Release\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -96,11 +96,13 @@
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;PATCH_COLLECT_DUPLICATES</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
@@ -120,11 +122,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
@@ -144,11 +148,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
@@ -167,11 +173,13 @@
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;PATCH_COLLECT_DUPLICATES</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -181,6 +189,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.h" />
     <ClInclude Include="delegates.x.h" />
     <ClInclude Include="hostfxr.x.h" />
     <ClInclude Include="host_exports.x.h" />
@@ -194,4 +203,7 @@
       <UserProperties vcpkg_1json__JsonSchema="https://docs.renovatebot.com/renovate-schema.json" />
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.0\runtimes\win-x86\native\nethost.dll $(OutDir)" />
+  </Target>
 </Project>

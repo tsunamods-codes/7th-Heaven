@@ -103,7 +103,7 @@ namespace AppWrapper {
                 ushort len = s.ReadUShort();
                 ushort flen = s.ReadUShort();
                 byte[] fn = new byte[flen];
-                s.Read(fn, 0, flen);
+                s.ReadExactly(fn, 0, flen);
                 Filename = System.Text.Encoding.Unicode.GetString(fn);
                 Flags = (FileFlags)s.ReadInt();
                 if (version < 0x10001)
@@ -338,7 +338,7 @@ namespace AppWrapper {
                 var patchEntry = patch._lookup[file];
                 byte[] data = new byte[patchEntry.Length];
                 patch._data.Position = patchEntry.Offset;
-                patch._data.Read(data, 0, data.Length);
+                patch._data.ReadExactly(data);
                 if (HasFile(file)) { //update existing
                     DebugLogger.DetailedWriteLine($"File {file} is already in archive...");
                     DirectoryEntry exist = _lookup[file];
@@ -463,7 +463,7 @@ namespace AppWrapper {
                         case FileFlags.CompressLZS:
                             data = new byte[e.Length];
                             _data.Position = e.Offset;
-                            _data.Read(data, 0, e.Length);
+                            _data.ReadExactly(data, 0, e.Length);
                             var ms = new System.IO.MemoryStream(data);
                             var output = new System.IO.MemoryStream();
                             Lzs.Decode(ms, output);
@@ -476,12 +476,12 @@ namespace AppWrapper {
                             _data.Position = e.Offset;
                             int decSize = _data.ReadInt(), propSize = _data.ReadInt();
                             byte[] props = new byte[propSize];
-                            _data.Read(props, 0, props.Length);
+                            _data.ReadExactly(props);
                             byte[] cdata = new byte[e.Length - propSize - 8];
-                            _data.Read(cdata, 0, cdata.Length);
+                            _data.ReadExactly(cdata);
                             data = new byte[decSize];
                             var lzma = new SharpCompress.Compressors.LZMA.LzmaStream(props, new System.IO.MemoryStream(cdata));
-                            lzma.Read(data, 0, data.Length);
+                            lzma.ReadExactly(data);
                             /*int srcSize = cdata.Length;
                             switch (LzmaUncompress(data, ref decSize, cdata, ref srcSize, props, props.Length)) {
                                 case SZ_OK:
@@ -518,7 +518,7 @@ namespace AppWrapper {
                     lock (_data) {
                         byte[] data = new byte[e.Length];
                         _data.Position = e.Offset;
-                        _data.Read(data, 0, e.Length);
+                        _data.ReadExactly(data, 0, e.Length);
                         return data;
                     }
                 }

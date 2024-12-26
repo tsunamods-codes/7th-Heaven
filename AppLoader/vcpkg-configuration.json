@@ -4,7 +4,6 @@
       "kind": "filesystem",
       "path": ".vcpkg",
       "packages": [
-        "nethost",
         "stackwalker"
       ]
     }

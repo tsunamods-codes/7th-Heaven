@@ -15,7 +15,7 @@
 #endif
 
 #ifndef MyAppTargetFramework
-  #define MyAppTargetFramework "net8.0-windows7.0"
+  #define MyAppTargetFramework "net9.0-windows7.0"
 #endif
 
 #define public Dependency_Path_NetCoreCheck ""
@@ -73,11 +73,11 @@ function InitializeSetup: Boolean;
 begin
   Dependency_ForceX86 := True;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet80Desktop;
+  Dependency_AddDotNet90Desktop;
 
   Dependency_ForceX86 := False;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet80Desktop;
+  Dependency_AddDotNet90Desktop;
 
   Result := True;
 end;

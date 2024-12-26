@@ -4,7 +4,6 @@
   "builtin-baseline": "a4275b7eee79fb24ec2e135481ef5fce8b41c339",
   "dependencies": [
     "detours",
-    "nethost",
     "nlohmann-json",
     "plog",
     "stackwalker"
@@ -14,11 +13,6 @@
       "name": "detours",
       "version": "4.0.1",
       "port-version": 8
-    },
-    {
-      "name": "nethost",
-      "version": "8.0.11",
-      "port-version": 0
     },
     {
       "name": "nlohmann-json",
