@@ -333,7 +333,7 @@ namespace Iros.Workshop
                     int isig = 0;
                     using (var fs = new FileStream(source, FileMode.Open, FileAccess.Read))
                     {
-                        fs.Read(sig, 0, 4);
+                        fs.ReadExactly(sig, 0, 4);
                         isig = BitConverter.ToInt32(sig, 0);
                         fs.Close();
                     }

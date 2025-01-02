@@ -65,6 +65,12 @@ jobs:
         BUILDPATH: "${{ github.workspace }}"
       run: "${{ github.workspace }}\\.iss\\build.ps1"
       shell: pwsh
+    - name: Publish PR artifacts
+      if: env._IS_GITHUB_RELEASE == 'false' && success()
+      uses: actions/upload-artifact@v4.0.0
+      with:
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        path: ".dist/*"
     - name: VirusTotal Scan
       id: vt-scan
       if: env._IS_GITHUB_RELEASE == 'true' && success()
@@ -90,12 +96,6 @@ jobs:
           console.log(ret);
 
           return ret;
-    - name: Publish PR artifacts
-      if: env._IS_GITHUB_RELEASE == 'false' && success()
-      uses: actions/upload-artifact@v4
-      with:
-        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
-        path: ".dist/*"
     - name: Publish Canary release
       uses: ncipollo/release-action@v1
       if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'true' && success()

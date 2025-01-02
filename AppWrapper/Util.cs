@@ -3,14 +3,8 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppWrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Iros {
     public static class Util {
@@ -30,12 +24,12 @@ namespace Iros {
         }
 
         public static void SerializeBinary(object o, System.IO.Stream s) {
-            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter fmt = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var fmt = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             fmt.Serialize(s, o);
         }
 
         public static T DeserializeBinary<T>(System.IO.Stream s) {
-            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter fmt = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var fmt = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             return (T)fmt.Deserialize(s);
         }
 

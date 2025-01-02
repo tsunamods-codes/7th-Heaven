@@ -249,22 +249,22 @@ begin
   end;
 end;
 
-procedure Dependency_AddDotNet80Desktop;
+procedure Dependency_AddDotNet90Desktop;
 var
   IsProductInstalled: Boolean;
 begin
   try
-    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 8.0.11')
+    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 9.0.0')
   except
     IsProductInstalled := False
   end;
 
   // https://dotnet.microsoft.com/download/dotnet/8.0
   if not IsProductInstalled then begin
-    Dependency_Add('dotnet80desktop' + Dependency_ArchSuffix + '.exe',
+    Dependency_Add('dotnet90desktop' + Dependency_ArchSuffix + '.exe',
       '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
-      '.NET Desktop Runtime 8.0.11' + Dependency_ArchTitle,
-      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.11/windowsdesktop-runtime-8.0.11-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.11/windowsdesktop-runtime-8.0.11-win-x64.exe'),
+      '.NET Desktop Runtime 9.0.0' + Dependency_ArchTitle,
+      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.0/windowsdesktop-runtime-9.0.0-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.0/windowsdesktop-runtime-9.0.0-win-x64.exe'),
       '', False, False);
   end;
 end;

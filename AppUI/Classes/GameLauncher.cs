@@ -758,6 +758,8 @@ namespace AppUI.Classes
             File.Copy(Path.Combine(src, "AppWrapper.dll"), Path.Combine(dest, "AppWrapper.dll"), true);
             File.Copy(Path.Combine(src, "AppLoader.dll"), Path.Combine(dest, "dinput.dll"), true);
             File.Copy(Path.Combine(src, "AppLoader.pdb"), Path.Combine(dest, "AppLoader.pdb"), true);
+            File.Copy(Path.Combine(src, "nethost.dll"), Path.Combine(dest, "nethost.dll"), true);
+            File.Copy(Path.Combine(src, "System.Runtime.Serialization.Formatters.dll"), Path.Combine(dest, "System.Runtime.Serialization.Formatters.dll"), true);
         }
 
         private static void Delete7thWrapperDlls()
@@ -773,6 +775,8 @@ namespace AppUI.Classes
             File.Delete(Path.Combine(dest, "AppWrapper.dll"));
             File.Delete(Path.Combine(dest, "dinput.dll"));
             File.Delete(Path.Combine(dest, "AppLoader.pdb"));
+            File.Delete(Path.Combine(dest, "nethost.dll"));
+            File.Delete(Path.Combine(dest, "System.Runtime.Serialization.Formatters.dll"));
         }
 
         private static void StartTurboLogForVariableDump(RuntimeProfile runtimeProfiles)

@@ -44,10 +44,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\AppUI\bin\Release\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Release\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\AppUI\bin\Debug\net8.0-windows7.0\</OutDir>
+    <OutDir>$(SolutionDir)\AppUI\bin\Debug\net9.0-windows7.0\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
