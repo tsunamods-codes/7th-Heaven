@@ -1,7 +1,7 @@
 {
   "name": "wrapper-loader",
   "version": "1.0.0",
-  "builtin-baseline": "a4275b7eee79fb24ec2e135481ef5fce8b41c339",
+  "builtin-baseline": "b322364f06308bdd24823f9d8f03fe0cc86fd46f",
   "dependencies": [
     "detours",
     "nlohmann-json",
@@ -17,7 +17,7 @@
     {
       "name": "nlohmann-json",
       "version": "3.11.3",
-      "port-version": 0
+      "port-version": 1
     },
     {
       "name": "plog",
@@ -26,7 +26,7 @@
     },
     {
       "name": "stackwalker",
-      "version": "1.2.1",
+      "version": "2023-06-24",
       "port-version": 0
     }
   ]

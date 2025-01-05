@@ -1,8 +1,0 @@
-{
-  "default": {
-    "stackwalker": {
-      "baseline": "1.2.1",
-      "port-version": 0
-    }
-  }
-}
