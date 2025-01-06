@@ -40,7 +40,7 @@
     <ProjectReference Include="..\AppWrapper\AppWrapper.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.1.2" />
+    <PackageReference Include="AngleSharp" Version="1.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress">
       <Version>0.38.0</Version>
