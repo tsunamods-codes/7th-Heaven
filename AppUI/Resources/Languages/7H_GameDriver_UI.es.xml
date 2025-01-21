@@ -30,6 +30,17 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>Display</Name>
+    <Description>Sets the preferred display where to run the game.</Description>
+    <DefaultValue>display_index = -1</DefaultValue>
+    <Option>
+      <Text>Primary Display</Text>
+      <Settings>display_index = -1</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
     <Group>Gráficos</Group>
     <Name>Resolución</Name>
     <Description>Establece el tamaño de la ventana (o la resolución de pantalla completa) de FF7. Utiliza automáticamente la resolución en modo ventana, o la resolución de escritorio en pantalla completa.</Description>

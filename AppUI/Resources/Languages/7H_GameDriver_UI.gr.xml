@@ -30,6 +30,17 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>Display</Name>
+    <Description>Sets the preferred display where to run the game.</Description>
+    <DefaultValue>display_index = -1</DefaultValue>
+    <Option>
+      <Text>Primary Display</Text>
+      <Settings>display_index = -1</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
     <Group>Γραφικά</Group>
     <Name>Ανάλυση</Name>
     <Description>Ορίζει το μέγεθος του παραθύρου για το παιχνίδι. Το Auto χρησιμοποιεί την ανάλυση παιχνιδιού σε λειτουργία παραθύρου ή την τρέχουσα ανάλυση της επιφάνειας εργασίας σε λειτουργία πλήρους οθόνης.</Description>

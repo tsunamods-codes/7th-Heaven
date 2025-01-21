@@ -30,6 +30,17 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>Display</Name>
+    <Description>Sets the preferred display where to run the game.</Description>
+    <DefaultValue>display_index = -1</DefaultValue>
+    <Option>
+      <Text>Primary Display</Text>
+      <Settings>display_index = -1</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
     <Group>Grafik</Group>
     <Name>Auflösung</Name>
     <Description>Legt die Fenstergröße für das Spiel fest. "Automatisch" nutzt die Spielauflösung im Fenstermodus oder die aktuelle Desktopauflösung im Vollbildmodus.</Description>

@@ -5,7 +5,6 @@ using AppUI.Classes;
 using AppUI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,19 +53,30 @@ namespace AppUI.Windows
             // build new DDOption for resolutions
             List<Iros.Workshop.ConfigSettings.DDOption> DigitalResolutions = new List<Iros.Workshop.ConfigSettings.DDOption>();
             DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = "window_size_x = 0,window_size_y = 0", Text = "Auto" });
-
-            List<SupportedResolution> supportedResolutions = PrimaryScreen.GetSupportedResolutions();
-            foreach(SupportedResolution sr in supportedResolutions)
+            foreach(SupportedResolution sr in PrimaryScreen.GetSupportedResolutions())
             {
                 DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}", Text = $"{sr.H}x{sr.V}"});
             }
-
             // find the resolutions option
             Iros.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
                 return item.DefaultValue == "window_size_x = 1280,window_size_y = 720";
             });
             // override it with OS reported suported resolutions
             ResolutionDD.Options = DigitalResolutions;
+
+            // build new DDOption for displays
+            List<Iros.Workshop.ConfigSettings.DDOption> AvailableScreens = new List<Iros.Workshop.ConfigSettings.DDOption>();
+            AvailableScreens.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = "display_index = -1", Text = "Primary Display" });
+            foreach(var (index, screen) in WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Index())
+            {
+                AvailableScreens.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = $"display_index = {index+1}", Text = $"{screen.FriendlyName}" });
+            }
+            // find the display option
+            Iros.Workshop.ConfigSettings.DropDown DisplayDD = (Iros.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
+                return item.DefaultValue == "display_index = -1";
+            });
+            // override it with OS reported displays
+            DisplayDD.Options = AvailableScreens;
 
             _settings = new Iros.Workshop.ConfigSettings.Settings();
             _settings.SetMissingDefaults(_spec.Settings);
