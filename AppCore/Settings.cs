@@ -214,7 +214,7 @@ namespace Iros.Workshop {
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
             FF7Exe = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? Path.Combine(pathToFf7Install, "FF7.exe") : Path.Combine(pathToFf7Install, "ff7_en.exe");
-            if (LibraryLocation == string.Empty) LibraryLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"7th Heaven");
+            if (LibraryLocation == string.Empty) LibraryLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"7th Heaven");
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
 
