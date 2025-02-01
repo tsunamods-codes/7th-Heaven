@@ -485,6 +485,7 @@
 
     <system:String x:Key="SettingsNotValid">Οι ρυθμίσεις δεν είναι έγκυρες</system:String>
     <system:String x:Key="MissingFf7ExePath">Λείπει η διαδρομή FF7 Exe.</system:String>
+    <system:String x:Key="Ff7ExePathChanged">Änderung des Spielpfads erkannt, wir empfehlen dringend, dass Sie 7th Heaven neu starten. Möchten Sie dies jetzt tun?</system:String>
     <system:String x:Key="MissingLibraryPath">Λείπει η διαδρομή βιβλιοθήκης.</system:String>
     <system:String x:Key="MissingTexturesPath">Λείπει η διαδρομή για Υφές (Aali OpenGL).</system:String>
     <system:String x:Key="MissingMoviePath">Λείπει η διαδρομή για αρχεία βίντεο.</system:String>

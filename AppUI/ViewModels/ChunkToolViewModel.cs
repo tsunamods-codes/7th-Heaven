@@ -305,7 +305,7 @@ namespace AppUI.ViewModels
 
                             fLevelStream.Position = item.Start + 24;
 
-                            fLevelStream.Read(fLevelChunkedData, 0, fLevelChunkedData.Length);
+                            fLevelStream.ReadExactly(fLevelChunkedData);
 
                             List<byte[]> chunks = AppWrapper.FieldFile.Unchunk(fLevelChunkedData);
                             if (chunks.Count > 0)

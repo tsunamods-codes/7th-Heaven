@@ -103,7 +103,6 @@ namespace AppCore
 
         public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null, FileDownloadTaskMode fdtMode = default, int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
         {
-            System.Net.ServicePointManager.Expect100Continue = false; // ensure this is set to false
             AllowedToRun = true;
 
             _sourceUrl = source;
@@ -135,9 +134,15 @@ namespace AppCore
             if (IsPaused || IsCanceled)
                 return;
 
-            var handler = _cookies != null ? new HttpClientHandler() { CookieContainer = _cookies } : new HttpClientHandler();
+            var handler = new HttpClientHandler()
+            {
+                UseCookies = _cookies != null,
+                CookieContainer = _cookies != null ? _cookies : new CookieContainer(),
+                SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13
+            };
             var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0");
+            client.DefaultRequestHeaders.ExpectContinue = false;
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
             if (Headers != null)  client.DefaultRequestHeaders.Add("Referer", Headers["Referer"]);
             var request = new HttpRequestMessage { RequestUri = new Uri(_sourceUrl) };
             if (range > 0) request.Headers.Range = new RangeHeaderValue(0, range);

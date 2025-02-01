@@ -28,17 +28,17 @@ namespace AppWrapper {
         }
         public static long ReadLong(this System.IO.Stream s) {
             byte[] data = new byte[8];
-            s.Read(data, 0, 8);
+            s.ReadExactly(data, 0, 8);
             return BitConverter.ToInt64(data, 0);
         }
         public static int ReadInt(this System.IO.Stream s) {
             byte[] data = new byte[4];
-            s.Read(data, 0, 4);
+            s.ReadExactly(data, 0, 4);
             return BitConverter.ToInt32(data, 0);
         }
         public static ushort ReadUShort(this System.IO.Stream s) {
             byte[] data = new byte[2];
-            s.Read(data, 0, 2);
+            s.ReadExactly(data, 0, 2);
             return BitConverter.ToUInt16(data, 0);
         }
 

@@ -488,6 +488,7 @@ Haz clic en 'Cancelar' para detener el proceso.</system:String>
 
     <system:String x:Key="SettingsNotValid">Configuración no válida</system:String>
     <system:String x:Key="MissingFf7ExePath">Falta la ruta del FF7 Exe.</system:String>
+    <system:String x:Key="Ff7ExePathChanged">Se detectó un cambio en la ruta del juego, recomendamos encarecidamente que reinicies 7th Heaven. ¿Te gustaría hacerlo ahora?</system:String>
     <system:String x:Key="MissingLibraryPath">Falta la ruta de la Biblioteca.</system:String>
     <system:String x:Key="MissingTexturesPath">Falta la ruta de las Texturas (Aali OpenGL).</system:String>
     <system:String x:Key="MissingMoviePath">Falta la ruta para las Cinemáticas.</system:String>

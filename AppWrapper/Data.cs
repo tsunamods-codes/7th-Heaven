@@ -54,17 +54,17 @@ namespace ProcMonParser {
     public static class FF7Files {
         public static int ReadInt(this System.IO.Stream s) {
             byte[] data = new byte[4];
-            s.Read(data, 0, 4);
+            s.ReadExactly(data, 0, 4);
             return BitConverter.ToInt32(data, 0);
         }
         public static uint ReadUInt(this System.IO.Stream s) {
             byte[] data = new byte[4];
-            s.Read(data, 0, 4);
+            s.ReadExactly(data, 0, 4);
             return BitConverter.ToUInt32(data, 0);
         }
         public static ushort ReadUShort(this System.IO.Stream s) {
             byte[] data = new byte[2];
-            s.Read(data, 0, 2);
+            s.ReadExactly(data, 0, 2);
             return BitConverter.ToUInt16(data, 0);
         }
 
@@ -91,14 +91,14 @@ namespace ProcMonParser {
             if (fs.ReadUShort() != 0)
                 throw new Exception(file + " - not a valid LGP archive");
             byte[] header = new byte[10];
-            fs.Read(header, 0, 10);
+            fs.ReadExactly(header, 0, 10);
             if (!Encoding.ASCII.GetString(header).Equals("SQUARESOFT"))
                 throw new Exception(file + " - not a valid LGP archive");
             int count = fs.ReadInt();
             byte[] fname = new byte[20];
             List<Tuple<string, uint, ushort, int>> files = new List<Tuple<string, uint, ushort, int>>();
             for (int i = 0; i < count; i++) {
-                fs.Read(fname, 0, 20);
+                fs.ReadExactly(fname, 0, 20);
                 uint offset = fs.ReadUInt();
                 fs.ReadByte();
                 ushort dupe = fs.ReadUShort();
@@ -113,7 +113,7 @@ namespace ProcMonParser {
                 byte[] pname = new byte[128];
                 foreach (int i in Enumerable.Range(0, entries)) {
                     foreach (int j in Enumerable.Range(0, fs.ReadUShort())) {
-                        fs.Read(pname, 0, 128);
+                        fs.ReadExactly(pname, 0, 128);
                         ushort toc = fs.ReadUShort();
                         string ppname = Encoding.ASCII.GetString(pname);
                         ppname = ppname.Substring(0, ppname.IndexOf('\0'));

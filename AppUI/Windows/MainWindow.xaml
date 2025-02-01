@@ -343,7 +343,8 @@
                        RenderOptions.BitmapScalingMode="HighQuality"
                        gif:AnimationBehavior.AutoStart="True"
                        gif:AnimationBehavior.RepeatBehavior="Forever"
-                       gif:AnimationBehavior.SourceUri="/AppUI;component/Resources/circleLoader.gif"/>
+                       gif:AnimationBehavior.SourceUri="/AppUI;component/Resources/circleLoader.gif"
+                       gif:AnimationBehavior.CacheFramesInMemory="True"/>
 
 
                 <Image Grid.Row="1"
@@ -354,7 +355,8 @@
                        RenderOptions.BitmapScalingMode="HighQuality"
                        gif:AnimationBehavior.AutoStart="True"
                        gif:AnimationBehavior.Loaded="Image_Loaded"
-                       gif:AnimationBehavior.SourceUri="{Binding PreviewModImageSource}">
+                       gif:AnimationBehavior.SourceUri="{Binding PreviewModImageSource}"
+                       gif:AnimationBehavior.CacheFramesInMemory="True">
                     <Image.Style>
                         <!--Custom style to hide image when loading-->
                         <Style TargetType="{x:Type Image}">

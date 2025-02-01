@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Loader;
 
 namespace AppProxy
 {
@@ -63,7 +64,7 @@ namespace AppProxy
                 _exports->GetFileSize = &HGetFileSize;
                 _exports->GetFileSizeEx = &HGetFileSizeEx;
 
-                lib = Assembly.LoadFrom(Path.Combine(Directory.GetCurrentDirectory(), "AppWrapper.dll"));
+                lib = AssemblyLoadContext.GetLoadContext(typeof(Proxy).Assembly).LoadFromAssemblyPath(Path.Combine(Directory.GetCurrentDirectory(), "AppWrapper.dll"));
                 t = lib.GetType("AppWrapper.Wrap");
 
                 if (t != null)
