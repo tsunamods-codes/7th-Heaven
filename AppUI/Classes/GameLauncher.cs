@@ -407,7 +407,7 @@ namespace AppUI.Classes
                 //
                 Sys.FFNxConfig.Reload();
                 Sys.FFNxConfig.Backup(true);
-                Sys.FFNxConfig.OverrideInternalKeys();
+                Sys.FFNxConfig.OverrideInternalKeys(debug && runtimeProfile != null);
                 foreach (RuntimeMod mod in runtimeProfile.Mods)
                 {
                     foreach(FFNxFlag flag in mod.FFNxConfig)

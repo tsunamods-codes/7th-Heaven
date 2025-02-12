@@ -218,7 +218,7 @@ namespace Iros.Workshop.ConfigSettings
             File.WriteAllLines(_pathToFFNxToml, _write);
         }
 
-        public void OverrideInternalKeys()
+        public void OverrideInternalKeys(bool debug = false)
         {
             // first launch the Sys Path was not setup correctly yet so _toml is null
             if(_toml == null)
@@ -250,6 +250,7 @@ namespace Iros.Workshop.ConfigSettings
             _toml["ffmpeg_video_ext"] = "avi";
             _toml["mod_path"] = "mods/Textures";
             _toml["direct_mode_path"] = "direct";
+            _toml["trace_all"] = debug;
         }
 
         public void ResetTo7thHeavenDefaults()
