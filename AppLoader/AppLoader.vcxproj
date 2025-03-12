@@ -96,13 +96,13 @@
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;NOMINMAX;PATCH_COLLECT_DUPLICATES</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
@@ -122,13 +122,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
@@ -148,13 +148,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
@@ -173,13 +173,13 @@
       <UseFullPaths>false</UseFullPaths>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;NOMINMAX;PATCH_COLLECT_DUPLICATES</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ForceFileOutput>MultiplyDefinedSymbolOnly</ForceFileOutput>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -189,7 +189,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.h" />
+    <ClInclude Include="$(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.h" />
     <ClInclude Include="delegates.x.h" />
     <ClInclude Include="hostfxr.x.h" />
     <ClInclude Include="host_exports.x.h" />
@@ -204,6 +204,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.2\runtimes\win-x86\native\nethost.dll $(OutDir)" />
+    <Exec Command="copy $(USERPROFILE)\.nuget\packages\runtime.win-x86.microsoft.netcore.dotnetapphost\9.0.3\runtimes\win-x86\native\nethost.dll $(OutDir)" />
   </Target>
 </Project>
