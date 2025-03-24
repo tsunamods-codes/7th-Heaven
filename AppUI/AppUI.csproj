@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-windows7.0</TargetFramework>
     <OutputType>WinExe</OutputType>
@@ -600,7 +600,7 @@
     <PackageReference Include="AsmResolver" Version="5.5.1" />
     <PackageReference Include="AsmResolver.PE.File" Version="5.5.1" />
     <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>4.7.25103.5738</Version>
+      <Version>4.7.25104.5739</Version>
     </PackageReference>
     <PackageReference Include="MegaApiClient">
       <Version>1.10.4</Version>
