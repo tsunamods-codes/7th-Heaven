@@ -1,6 +1,6 @@
 name: 7th-Heaven
 
-run-name: 4.3.0.${{ github.run_number }}
+run-name: 4.3.1.${{ github.run_number }}
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ env:
   _RELEASE_VERSION: v0
   _RELEASE_CONFIGURATION: Release
   _BUILD_BRANCH: "${{ github.ref }}"
-  _BUILD_VERSION: "4.3.0.${{ github.run_number }}"
+  _BUILD_VERSION: "4.3.1.${{ github.run_number }}"
   _CHANGELOG_VERSION: "0"
   # VCPKG: Enable Binary Caching
   VCPKG_BINARY_SOURCES: clear;nuget,github,readwrite
