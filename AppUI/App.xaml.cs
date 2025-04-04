@@ -353,12 +353,12 @@ namespace AppUI
         {
             string message = $"! Unhandled exception ({source})";
             Logger.Error(message);
-            Logger.Error(exception);
+            Logger.Error(exception.ToString());
 
             if (!hasShownErrorWindow)
             {
                 hasShownErrorWindow = true;
-                UnhandledErrorWindow.Show(exception);
+                UnhandledErrorWindow.Show(exception.ToString());
             }
         }
 
