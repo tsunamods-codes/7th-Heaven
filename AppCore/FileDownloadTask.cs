@@ -142,7 +142,7 @@ namespace AppCore
             };
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.ExpectContinue = false;
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0");
             if (Headers != null)  client.DefaultRequestHeaders.Add("Referer", Headers["Referer"]);
             var request = new HttpRequestMessage { RequestUri = new Uri(_sourceUrl) };
             if (range > 0) request.Headers.Range = new RangeHeaderValue(0, range);
@@ -295,7 +295,7 @@ namespace AppCore
 
                         var handler = _cookies != null ? new HttpClientHandler() { CookieContainer = _cookies } : new HttpClientHandler();
                         var client = new HttpClient(handler);
-                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0");
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0");
                         client.DefaultRequestHeaders.Add("Referer", _sourceUrl);
                         var request = new HttpRequestMessage { RequestUri = new Uri(url) };
 
