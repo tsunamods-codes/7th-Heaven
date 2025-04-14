@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-windows7.0</TargetFramework>
     <OutputType>Library</OutputType>
@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="9.0.3" IncludeAssets="none" />
+    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="9.0.4" IncludeAssets="none" />
     <PackageReference Include="SharpCompress">
       <Version>0.39.0</Version>
     </PackageReference>
