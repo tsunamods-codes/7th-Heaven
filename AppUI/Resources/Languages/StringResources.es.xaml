@@ -1275,4 +1275,6 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

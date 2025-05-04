@@ -1261,4 +1261,6 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

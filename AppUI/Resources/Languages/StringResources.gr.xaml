@@ -1269,4 +1269,6 @@ Once done, do close the game and the launcher, and finally retry to click Play h
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

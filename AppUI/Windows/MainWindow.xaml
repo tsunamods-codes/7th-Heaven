@@ -164,7 +164,7 @@
                             <MenuItem x:Name="menuItemChunkTool" Header="{DynamicResource ChunkTool}" Click="menuItemChunkTool_Click"/>
                             <MenuItem x:Name="menuItemIroCreation" Header="{DynamicResource IROTools}" Click="menuItemIroCreation_Click"/>
                             <MenuItem x:Name="menuItemMovieImport" Header="{DynamicResource MovieImporter}" Click="menuItemMovieImport_Click"/>
-
+                            <MenuItem x:Name="menuItemOpenSaveDir" Header="{DynamicResource OpenSaveGamePath}" Click="menuItemOpenSaveDir_Click"/>
                         </ContextMenu>
                     </cls:ButtonWithImage.ContextMenu>
                 </cls:ButtonWithImage>
