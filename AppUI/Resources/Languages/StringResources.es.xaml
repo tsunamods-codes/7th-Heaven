@@ -727,6 +727,7 @@ Haz clic en 'Cancelar' para detener el proceso.</system:String>
     <system:String x:Key="German">Alemán</system:String>
     <system:String x:Key="Spanish">Español</system:String>
     <system:String x:Key="Japanese">Japonés</system:String>
+    <system:String x:Key="SimplifiedChinese">Chino Simplificado</system:String>
 
 
     <!--GameLauncher Strings-->

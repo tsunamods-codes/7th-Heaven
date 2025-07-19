@@ -721,6 +721,7 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     <system:String x:Key="German">Tedesco</system:String>
     <system:String x:Key="Spanish">Spagnolo</system:String>
     <system:String x:Key="Japanese">Giapponese</system:String>
+    <system:String x:Key="SimplifiedChinese">Cinese Semplificato</system:String>
 
 
     <!--GameLauncher Strings-->

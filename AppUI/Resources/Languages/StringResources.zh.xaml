@@ -24,6 +24,8 @@
     <system:String x:Key="IROTools">IRO 工具...</system:String>
 
     <system:String x:Key="Help">帮助</system:String>
+    <system:String x:Key="HelpOpen">打开帮助</system:String>
+    <system:String x:Key="HelpOpenAbout">关于</system:String>
 
     <system:String x:Key="MyMods">我的模组</system:String>
     <system:String x:Key="MyModsTooltip">右键点击"我的模组"标签可打开模组库文件夹</system:String>
@@ -714,7 +716,7 @@
     <system:String x:Key="Greek">Ελληνικά</system:String>
     <system:String x:Key="Japanese">日本語</system:String>
     <system:String x:Key="Spanish">Español</system:String>
-    <system:String x:Key="Simplified Chinese">中文(简体)</system:String>
+    <system:String x:Key="SimplifiedChinese">中文简体</system:String>
     
 
     <!--GameLauncher Strings-->
@@ -959,6 +961,7 @@
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">图形</system:String>
     <system:String x:Key="Controls">控制</system:String>
+    <system:String x:Key="Cheats">秘籍</system:String>
     <system:String x:Key="Rendering">渲染</system:String>
     <system:String x:Key="Advanced">高级</system:String>
 

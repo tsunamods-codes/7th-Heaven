@@ -714,6 +714,7 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="German">German</system:String>
     <system:String x:Key="Spanish">Spanish</system:String>
     <system:String x:Key="Japanese">Japanese</system:String>
+    <system:String x:Key="SimplifiedChinese">Simplified Chinese</system:String>
 
     <!--GameLauncher Strings-->
     <system:String x:Key="CheckingFf7IsNotRunning">Checking FF7 is not running ...</system:String>

@@ -724,6 +724,7 @@ Auf "Abbrechen" klicken, um den Vorgang zu unterbrechen.</system:String>
     <system:String x:Key="German">Deutsch</system:String>
     <system:String x:Key="Spanish">Spanisch</system:String>
     <system:String x:Key="Japanese">Japanisch</system:String>
+    <system:String x:Key="SimplifiedChinese">Vereinfachtes Chinesisch</system:String>
 
 
     <!--GameLauncher Strings-->
