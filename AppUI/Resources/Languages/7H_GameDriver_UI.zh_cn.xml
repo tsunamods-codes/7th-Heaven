@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- GRAPHICS TAB -->
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>图形 API</Name>
+    <Description>设置渲染软件。自动根据您的 GPU 选择最佳选项。AMD 显卡使用 OpenGL 可能会导致崩溃</Description>
+    <DefaultValue>renderer_backend = 0</DefaultValue>
+    <Option>
+      <Text>自动</Text>
+      <Settings>renderer_backend = 0</Settings>
+    </Option>
+    <Option>
+      <Text>OpenGL</Text>
+      <Settings>renderer_backend = 1</Settings>
+    </Option>
+    <Option>
+      <Text>DirectX 11</Text>
+      <Settings>renderer_backend = 3</Settings>
+    </Option>
+    <Option>
+      <Text>DirectX 12</Text>
+      <Settings>renderer_backend = 4</Settings>
+    </Option>
+    <Option>
+      <Text>Vulkan</Text>
+      <Settings>renderer_backend = 5</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>显示器</Name>
+    <Description>设置游戏运行的优先显示器。</Description>
+    <DefaultValue>display_index = -1</DefaultValue>
+    <Option>
+      <Text>主显示器</Text>
+      <Settings>display_index = -1</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>分辨率</Name>
+    <Description>设置游戏窗口大小。自动模式在窗口模式下使用游戏分辨率，全屏模式下使用当前桌面分辨率。</Description>
+    <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
+    <Option>
+      <Text>自动</Text>
+      <Settings>window_size_x = 0,window_size_y = 0</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>窗口模式</Name>
+    <Description>以标准窗口或无边框全屏模式显示游戏。</Description>
+    <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
+    <Option>
+      <Text>窗口化</Text>
+      <Settings>fullscreen = false,borderless = false</Settings>
+    </Option>
+    <Option>
+      <Text>全屏</Text>
+      <Settings>fullscreen = true,borderless = false</Settings>
+    </Option>
+    <Option>
+      <Text>无边框</Text>
+      <Settings>fullscreen = false,borderless = true</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>宽高比</Name>
+    <Description>保持宽高比会根据需要添加黑边以保持4:3的原始比例。</Description>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
+    <Option>
+      <Text>原生(4:3)</Text>
+      <Settings>aspect_ratio = 0</Settings>
+    </Option>
+    <Option>
+      <Text>拉伸填充</Text>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>宽屏(16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
+    </Option>
+    <Option>
+      <Text>宽屏(16:10)</Text>
+      <Settings>aspect_ratio = 3</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Graphics</Group>
+    <Name>抗锯齿</Name>
+    <Description>应用 2x/4x/8x/16x MSAA 过滤。减少锯齿边缘并提高图像质量。可能严重影响性能。</Description>
+    <DefaultValue>enable_antialiasing = 0</DefaultValue>
+    <Option>
+      <Text>关闭</Text>
+      <Settings>enable_antialiasing = 0</Settings>
+    </Option>
+    <Option>
+      <Text>2x MSAA</Text>
+      <Settings>enable_antialiasing = 2</Settings>
+    </Option>
+    <Option>
+      <Text>4x MSAA</Text>
+      <Settings>enable_antialiasing = 4</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>各向异性过滤</Name>
+    <Description>对高分辨率纹理应用过滤以产生更清晰的图像。由于内存使用增加可能影响性能。</Description>
+    <DefaultValue>enable_anisotropic = true</DefaultValue>
+    <TrueSetting>enable_anisotropic = true</TrueSetting>
+    <FalseSetting>enable_anisotropic = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>垂直同步</Name>
+    <Description>将游戏帧率与显示器刷新率同步。可能对性能产生负面影响或破坏60 fps模组。如果出现画面撕裂请开启。*限制速度修正功能！*</Description>
+    <DefaultValue>enable_vsync = false</DefaultValue>
+    <TrueSetting>enable_vsync = true</TrueSetting>
+    <FalseSetting>enable_vsync = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>高级光追</Name>
+    <Description>启用实时光追支持。注意：此功能需要现代 CPU。如果发现速度变慢，请禁用此选项。</Description>
+    <DefaultValue>enable_lighting = false</DefaultValue>
+    <TrueSetting>enable_lighting = true</TrueSetting>
+    <FalseSetting>enable_lighting = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>NTSC-J 色域模式</Name>
+    <Description>模拟1990年代日本电视机的色域，FF7 最初就是为此设计的。</Description>
+    <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
+    <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
+    <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
+  </Setting>
+
+  <!-- CHEATS TAB -->
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>随机战斗</Name>
+    <Description>不可配置。在游戏中切换随机遇敌开关。{0}用法：'CTRL+B' 或 'L3 键，然后圆圈键'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>详见描述</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>自动攻击</Name>
+    <Description>不可配置。在游戏中切换自动攻击开关。{0}用法：'CTRL+A' 或 'L3 键，然后三角键'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>详见描述</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>跳过动画</Name>
+    <Description>不可配置。立即跳转到动画结尾。{0}用法：'CTRL+S' 或 'L3 键，然后方块键'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>详见描述</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>软重置</Name>
+    <Description>不可配置。快速以游戏结束状态重置游戏。*不要在战斗中使用*{0}用法：'CTRL+R' 或 'L3 键，然后选择键+开始键'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>详见描述</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>速度修正步进</Name>
+    <Description>每次触发时增加或减少速度的量。{0}用法：'CTRL+上/下'或 'L3 键，然后 L1/R1 键' 改变速度，'CTRL+左/右'或 'L3 键，然后 L2/R2 键'切换开关。</Description>
+    <DefaultValue>speedhack_step = 0.5</DefaultValue>
+    <Option>
+      <Text>0.5</Text>
+      <Settings>speedhack_step = 0.5</Settings>
+    </Option>
+    <Option>
+      <Text>1.0</Text>
+      <Settings>speedhack_step = 1.0</Settings>
+    </Option>
+    <Option>
+      <Text>2.0</Text>
+      <Settings>speedhack_step = 2.0</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Cheats</Group>
+    <Name>速度修正最大值</Name>
+    <Description>在循环回正常速度前设置的最大速度。</Description>
+    <DefaultValue>speedhack_max = 8.0</DefaultValue>
+    <Option>
+      <Text>2x</Text>
+      <Settings>speedhack_max = 2.0</Settings>
+    </Option>
+    <Option>
+      <Text>4x</Text>
+      <Settings>speedhack_max = 4.0</Settings>
+    </Option>
+    <Option>
+      <Text>6x</Text>
+      <Settings>speedhack_max = 6.0</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>speedhack_max = 8.0</Settings>
+    </Option>
+    <Option>
+      <Text>10x</Text>
+      <Settings>speedhack_max = 10.0</Settings>
+    </Option>
+    <Option>
+      <Text>12x</Text>
+      <Settings>speedhack_max = 12.0</Settings>
+    </Option>
+  </Setting>
+
+  <!-- CONTROLS TAB -->
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>模拟控制</Name>
+    <Description>启用全方位模拟控制支持。包括两个功能：战斗自由视角移动和场景360度模拟移动。</Description>
+    <DefaultValue>enable_analogue_controls = false</DefaultValue>
+    <TrueSetting>enable_analogue_controls = true</TrueSetting>
+    <FalseSetting>enable_analogue_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>自动奔跑</Name>
+    <Description>启用自动奔跑行为。这将使克劳德根据左摇杆的倾斜程度自动奔跑。</Description>
+    <DefaultValue>enable_auto_run = false</DefaultValue>
+    <TrueSetting>enable_auto_run = true</TrueSetting>
+    <FalseSetting>enable_auto_run = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>反转水平控制</Name>
+    <Description>启用后在战斗中控制视角时反转水平移动方向。</Description>
+    <DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Controls</Group>
+    <Name>反转垂直控制</Name>
+    <Description>启用后在战斗中控制视角时反转垂直移动方向。</Description>
+    <DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <!-- ADVANCED TAB -->
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>Steam 兼容性</Name>
+    <Description>启用 Steam 功能(游戏活动、控制器和成就)。需要 Steam 正在运行。</Description>
+    <DefaultValue>enable_steam_achievements = false</DefaultValue>
+    <TrueSetting>enable_steam_achievements = true</TrueSetting>
+    <FalseSetting>enable_steam_achievements = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>显示调试信息</Name>
+    <Description>在覆盖层或标题栏中显示有关渲染过程/性能的实时信息。</Description>
+    <DefaultValue>show_stats = false</DefaultValue>
+    <TrueSetting>show_stats = true</TrueSetting>
+    <FalseSetting>show_stats = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>显示驱动版本</Name>
+    <Description>在覆盖层或标题栏中显示当前使用的驱动版本。</Description>
+    <DefaultValue>show_version = false</DefaultValue>
+    <TrueSetting>show_version = true</TrueSetting>
+    <FalseSetting>show_version = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>显示帧率(FPS)</Name>
+    <Description>在覆盖层或标题栏中显示当前帧率(FPS)。</Description>
+    <DefaultValue>show_fps = false</DefaultValue>
+    <TrueSetting>show_fps = true</TrueSetting>
+    <FalseSetting>show_fps = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>Advanced</Group>
+    <Name>显示图形 API</Name>
+    <Description>在覆盖层或标题栏中显示当前使用的图形 API(OpenGL/DirectX11)。</Description>
+    <DefaultValue>show_renderer_backend = false</DefaultValue>
+    <TrueSetting>show_renderer_backend = true</TrueSetting>
+    <FalseSetting>show_renderer_backend = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>Advanced</Group>
+    <Name>内部分辨率缩放</Name>
+    <Description>将640x480内部分辨率乘以以下数值。更高值需要更强大的GPU。更高值可以消除缩放伪影，*标记值为性能与质量的最佳平衡点。</Description>
+    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
+    <Option>
+      <Text>自动</Text>
+      <Settings>internal_resolution_scale = 0</Settings>
+    </Option>
+    <Option>
+      <Text>1x(可能导致伪影)</Text>
+      <Settings>internal_resolution_scale = 1</Settings>
+    </Option>
+    <Option>
+      <Text>2x</Text>
+      <Settings>internal_resolution_scale = 2</Settings>
+    </Option>
+    <Option>
+      <Text>*4x</Text>
+      <Settings>internal_resolution_scale = 4</Settings>
+    </Option>
+    <Option>
+      <Text>*6x</Text>
+      <Settings>internal_resolution_scale = 6</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>internal_resolution_scale = 8</Settings>
+    </Option>
+  </Setting>
+
+</ConfigSpec>
