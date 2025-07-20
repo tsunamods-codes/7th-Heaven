@@ -1234,5 +1234,5 @@
     <system:String x:Key="App4GBPatchRequired">确保游戏 exe 已应用4GB补丁...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB补丁应用成功。</system:String>
 
-    <system:String x:Key="OpenSaveGamePath">>打开保存目录...</system:String>
+    <system:String x:Key="OpenSaveGamePath">打开保存目录...</system:String>
 </ResourceDictionary>
