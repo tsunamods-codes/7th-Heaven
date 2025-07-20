@@ -414,6 +414,9 @@ namespace AppUI
                     case "it":
                         dict.Source = new Uri("Resources\\Languages\\StringResources.it.xaml", UriKind.Relative);
                         break;
+                    case "zh":
+                        dict.Source = new Uri("Resources\\Languages\\StringResources.zh.xaml", UriKind.Relative);
+                        break;
                     default:
                         dict.Source = new Uri("Resources\\StringResources.xaml", UriKind.Relative);
                         cultureCode = "en";

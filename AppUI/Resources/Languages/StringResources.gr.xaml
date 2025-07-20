@@ -723,6 +723,7 @@
     <system:String x:Key="German">Γερμανικά</system:String>
     <system:String x:Key="Spanish">Ισπανικά</system:String>
     <system:String x:Key="Japanese">Ιαπωνικά</system:String>
+    <system:String x:Key="SimplifiedChinese">απλοποιημένα κινέζικα</system:String>
 
     <!--GameLauncher Strings-->
     <system:String x:Key="CheckingFf7IsNotRunning">Ο έλεγχος δείχνει πως το FF7 δεν εκτελείται ...</system:String>
