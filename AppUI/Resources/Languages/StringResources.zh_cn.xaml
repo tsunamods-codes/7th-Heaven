@@ -7,7 +7,7 @@
     <system:String x:Key="PlayWithMods">启动时使用模组(默认)</system:String>
     <system:String x:Key="PlayWithNoMods">启动时不使用模组</system:String>
     <system:String x:Key="PlayWithDebugLog">启动时启用调试日志</system:String>
-    <system:String x:Key="PlayWithVariableDump">启动时启用变量存储p</system:String>
+    <system:String x:Key="PlayWithVariableDump">启动时启用变量存储</system:String>
 
     <system:String x:Key="Settings">设置</system:String>
     <system:String x:Key="ChangeColorTheme">更改颜色主题...</system:String>
@@ -371,10 +371,10 @@
 
     <system:String x:Key="NoLinksFor">没有链接可用于：</system:String>
     <system:String x:Key="FailedToParseLinkFor">解析以下链接失败：</system:String>
-    <system:String x:Key="OpeningExternalUrlInBrowserFor">在浏览器打开外部 URL：/system:String>
+    <system:String x:Key="OpeningExternalUrlInBrowserFor">在浏览器打开外部 URL：</system:String>
 
     <system:String x:Key="ErrorDownloading">下载出错</system:String>
-    <system:String x:Key="WasCanceled">被取消/system:String>
+    <system:String x:Key="WasCanceled">被取消</system:String>
     <system:String x:Key="Error">错误</system:String>
     
     <system:String x:Key="ExternalUrlDownloadMessage1" xml:space="preserve">此模组只能通过从外部网站下载获得。
@@ -383,7 +383,7 @@
 
     <system:String x:Key="ExternalUrlDownloadMessage2" xml:space="preserve">模组自动下载失败。有一个可用的外部链接可以下载此模组。
 
-您想现在打开浏览器下载它吗？
+您想现在打开浏览器下载它吗？</system:String>
     <system:String x:Key="SwitchingToBackupUrl">切换到备用 URL</system:String>
     <system:String x:Key="Downloading">正在下载</system:String>
     <system:String x:Key="Installing">正在安装</system:String>
@@ -1035,8 +1035,6 @@
     <system:String x:Key="LoadModXmlFileToEdit">加载 mod.xml 文件进行编辑</system:String>
 
     <system:String x:Key="GeneralSettingsTitle">常规设置</system:String>
-
-    <system:String x:Key="Greek">​Ελληνικά</system:String>
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
