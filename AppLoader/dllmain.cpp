@@ -79,6 +79,15 @@ static BOOL(WINAPI* TrueReadFile)(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOf
 // FindFirstFileW
 static HANDLE(WINAPI* TrueFindFirstFileW)(LPCWSTR lpFileName, LPWIN32_FIND_DATAW lpFindFileData) = FindFirstFileW;
 
+// FindFirstFileExW
+static HANDLE(WINAPI* TrueFindFirstFileExW)(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, LPVOID lpSearchFilter, DWORD dwAdditionalFlags) = FindFirstFileExW;
+
+// FindNextFileW
+static BOOL(WINAPI* TrueFindNextFileW)(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) = FindNextFileW;
+
+// FindClose
+static BOOL(WINAPI* TrueFindClose)(HANDLE hFindFile) = FindClose;
+
 // SetFilePointer
 static DWORD(WINAPI* TrueSetFilePointer)(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod) = SetFilePointer;
 
@@ -102,6 +111,9 @@ static DWORD(WINAPI* TrueGetFileSize)(HANDLE hFile, LPDWORD lpFileSizeHigh) = Ge
 
 // GetFileSizeEx
 static BOOL(WINAPI* TrueGetFileSizeEx)(HANDLE hFile, PLARGE_INTEGER lpFileSize) = GetFileSizeEx;
+
+// GetFileAttributesExW
+static BOOL(WINAPI* TrueGetFileAttributesExW)(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fInfoLevelId, LPVOID lpFileInformation) = GetFileAttributesExW;
 
 // PostQuitMessage
 static VOID(WINAPI* TruePostQuitMessage)(int nExitCode) = PostQuitMessage;
@@ -154,12 +166,62 @@ BOOL WINAPI _ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead,
 
 HANDLE WINAPI _FindFirstFileW(LPCWSTR lpFileName, LPWIN32_FIND_DATAW lpFindFileData)
 {
+    HANDLE ret = nullptr;
+
     if (exports.FindFirstFileW)
     {
-        exports.FindFirstFileW(lpFileName, lpFindFileData);
+        ret = exports.FindFirstFileW(lpFileName, lpFindFileData);
     }
 
-    return TrueFindFirstFileW(lpFileName, lpFindFileData);
+    if (ret == nullptr)
+        ret = TrueFindFirstFileW(lpFileName, lpFindFileData);
+
+    return ret;
+}
+
+HANDLE WINAPI _FindFirstFileExW(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, LPVOID lpSearchFilter, DWORD dwAdditionalFlags)
+{
+    HANDLE ret = nullptr;
+
+    if (exports.FindFirstFileExW)
+    {
+        ret = exports.FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags);
+    }
+
+    if (ret == nullptr)
+        ret = TrueFindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags);
+
+    return ret;
+}
+
+BOOL WINAPI _FindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData)
+{
+    BOOL ret = FALSE;
+
+    if (exports.FindNextFileW)
+    {
+        ret = exports.FindNextFileW(hFindFile, lpFindFileData);
+    }
+
+    if (ret == FALSE)
+        ret = TrueFindNextFileW(hFindFile, lpFindFileData);
+
+    return ret;
+}
+
+BOOL WINAPI _FindClose(HANDLE hFindFile)
+{
+    BOOL ret = FALSE;
+
+    if (exports.FindClose)
+    {
+        ret = exports.FindClose(hFindFile);
+    }
+
+    if (ret == FALSE)
+        ret = TrueFindClose(hFindFile);
+
+    return ret;
 }
 
 DWORD WINAPI _SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod)
@@ -285,6 +347,21 @@ BOOL WINAPI _GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize)
     return ret;
 }
 
+BOOL WINAPI _GetFileAttributesExW(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fInfoLevelId, LPVOID lpFileInformation)
+{
+    BOOL ret = FALSE;
+
+    if (exports.GetFileAttributesExW)
+    {
+        ret = exports.GetFileAttributesExW(lpFileName, fInfoLevelId, lpFileInformation);
+    }
+
+    if (ret == FALSE)
+        ret = TrueGetFileAttributesExW(lpFileName, fInfoLevelId, lpFileInformation);
+
+    return ret;
+}
+
 VOID WINAPI _PostQuitMessage(int nExitCode)
 {
     if (GetCurrentThreadId() == currentMainThreadId)
@@ -296,6 +373,9 @@ VOID WINAPI _PostQuitMessage(int nExitCode)
         DetourDetach((PVOID*)&TrueCreateFileW, _CreateFileW);
         DetourDetach((PVOID*)&TrueReadFile, _ReadFile);
         DetourDetach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
+        DetourDetach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
+        DetourDetach((PVOID*)&TrueFindNextFileW, _FindNextFileW);
+        DetourDetach((PVOID*)&TrueFindClose, _FindClose);
         DetourDetach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
         DetourDetach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
         DetourDetach((PVOID*)&TrueCloseHandle, _CloseHandle);
@@ -304,6 +384,7 @@ VOID WINAPI _PostQuitMessage(int nExitCode)
         DetourDetach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
         DetourDetach((PVOID*)&TrueGetFileSize, _GetFileSize);
         DetourDetach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
+        DetourDetach((PVOID*)&TrueGetFileAttributesExW, _GetFileAttributesExW);
         DetourDetach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
         // ------------------------------------
         DetourTransactionCommit();
@@ -511,6 +592,9 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
             DetourAttach((PVOID*)&TrueCreateFileW, _CreateFileW);
             DetourAttach((PVOID*)&TrueReadFile, _ReadFile);
             DetourAttach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
+            DetourAttach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
+            DetourAttach((PVOID*)&TrueFindNextFileW, _FindNextFileW);
+            DetourAttach((PVOID*)&TrueFindClose, _FindClose);
             DetourAttach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
             DetourAttach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
             DetourAttach((PVOID*)&TrueCloseHandle, _CloseHandle);
@@ -519,6 +603,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
             DetourAttach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
             DetourAttach((PVOID*)&TrueGetFileSize, _GetFileSize);
             DetourAttach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
+            DetourAttach((PVOID*)&TrueGetFileAttributesExW, _GetFileAttributesExW);
             DetourAttach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
             // ------------------------------------
             DetourTransactionCommit();

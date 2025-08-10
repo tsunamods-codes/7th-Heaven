@@ -4,11 +4,8 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace AppWrapper {
     public static class Win32 {
@@ -39,7 +36,7 @@ namespace AppWrapper {
         [StructLayout(LayoutKind.Sequential)]
         public struct BY_HANDLE_FILE_INFORMATION
         {
-            public uint FileAttributes;
+            public FileAttributes FileAttributes;
             public FILETIME CreationTime;
             public FILETIME LastAccessTime;
             public FILETIME LastWriteTime;
@@ -51,12 +48,59 @@ namespace AppWrapper {
             public uint FileIndexLow;
         }
 
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct WIN32_FIND_DATA
+        {
+            public FileAttributes dwFileAttributes;
+            public System.Runtime.InteropServices.ComTypes.FILETIME ftCreationTime;
+            public System.Runtime.InteropServices.ComTypes.FILETIME ftLastAccessTime;
+            public System.Runtime.InteropServices.ComTypes.FILETIME ftLastWriteTime;
+            public uint nFileSizeHigh;
+            public uint nFileSizeLow;
+            public uint dwReserved0;
+            public uint dwReserved1;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string cFileName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 14)]
+            public string cAlternateFileName;
+        }
+
+        public enum FINDEX_INFO_LEVELS
+        {
+            FindExInfoStandard = 0,
+            FindExInfoBasic = 1
+        }
+
+        public enum FINDEX_SEARCH_OPS
+        {
+            FindExSearchNameMatch = 0,
+            FindExSearchLimitToDirectories = 1,
+            FindExSearchLimitToDevices = 2
+        }
+
         public struct OVERLAPPED {
             public UIntPtr Internal;
             public UIntPtr InternalHigh;
             public uint Offset;
             public uint OffsetHigh;
             public IntPtr EventHandle;
+        }
+
+        public enum GET_FILEEX_INFO_LEVELS
+        {
+            GetFileExInfoStandard,
+            GetFileExMaxInfoLevel
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WIN32_FILE_ATTRIBUTE_DATA
+        {
+            public FileAttributes dwFileAttributes;
+            public FILETIME ftCreationTime;
+            public FILETIME ftLastAccessTime;
+            public FILETIME ftLastWriteTime;
+            public uint nFileSizeHigh;
+            public uint nFileSizeLow;
         }
 
         // -------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,6 +158,22 @@ namespace AppWrapper {
         static internal extern int WriteFile(IntPtr hFile, IntPtr lpBuffer, uint nNumberOfBytesToWrite,
             out uint lpNumberOfBytesWritten, [In] ref System.Threading.NativeOverlapped lpOverlapped);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr FindFirstFileExW(
+            string lpFileName,
+            FINDEX_INFO_LEVELS fInfoLevelId,
+            IntPtr lpFindFileData,
+            FINDEX_SEARCH_OPS fSearchOp,
+            IntPtr lpSearchFilter,
+            uint dwAdditionalFlags
+        );
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern IntPtr FindFirstFileW(
+            string lpFileName,
+            IntPtr lpFindFileData
+        );
+
         [DllImport("kernel32", ExactSpelling = true)]
         public static extern DEP_SYSTEM_POLICY_TYPE GetSystemDEPPolicy();
 
@@ -131,6 +191,12 @@ namespace AppWrapper {
         public static extern bool CheckRemoteDebuggerPresent(
             IntPtr hProcess,
             [MarshalAs(UnmanagedType.Bool)] ref bool isDebuggerPresent);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool GetFileAttributesExW(
+        string lpFileName,
+        GET_FILEEX_INFO_LEVELS fInfoLevelId,
+        IntPtr lpFileInformation);
 
     }
 

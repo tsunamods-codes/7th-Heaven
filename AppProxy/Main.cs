@@ -15,6 +15,9 @@ namespace AppProxy
         private static MethodInfo? _mHCreateFileW = null;
         private static MethodInfo? _mHReadFile = null;
         private static MethodInfo? _mHFindFirstFileW = null;
+        private static MethodInfo? _mHFindFirstFileExW = null;
+        private static MethodInfo? _mHFindNextFileW = null;
+        private static MethodInfo? _mHFindClose = null;
         private static MethodInfo? _mHSetFilePointer = null;
         private static MethodInfo? _mHSetFilePointerEx = null;
         private static MethodInfo? _mHCloseHandle = null;
@@ -23,6 +26,7 @@ namespace AppProxy
         private static MethodInfo? _mHDuplicateHandle = null;
         private static MethodInfo? _mHGetFileSize = null;
         private static MethodInfo? _mHGetFileSizeEx = null;
+        private static MethodInfo? _mHGetFileAttributesExW = null;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct HostExports
@@ -32,6 +36,9 @@ namespace AppProxy
             public delegate* unmanaged<void*, void*, uint, uint*, void*, int> ReadFile;
             //public delegate* unmanaged<void*, void*, uint, uint*, void*, int> WriteFile;
             public delegate* unmanaged<ushort*, void*, void*> FindFirstFileW;
+            public delegate* unmanaged<ushort*, uint, void*, uint, void*, uint, void*> FindFirstFileExW;
+            public delegate* unmanaged<void*, void*, int> FindNextFileW;
+            public delegate* unmanaged<void*, int> FindClose;
             public delegate* unmanaged<void*, int, int*, uint, uint> SetFilePointer;
             public delegate* unmanaged<void*, long, void*, uint, int> SetFilePointerEx;
             public delegate* unmanaged<void*, int> CloseHandle;
@@ -40,6 +47,7 @@ namespace AppProxy
             public delegate* unmanaged<void*, void*, void*, void**, uint, int, uint, int> DuplicateHandle;
             public delegate* unmanaged<void*, uint*, uint> GetFileSize;
             public delegate* unmanaged<void*, int*, int> GetFileSizeEx;
+            public delegate* unmanaged<ushort*, uint, void*, int> GetFileAttributesExW;
         }
 
         private static HostExports* _exports;
@@ -55,6 +63,9 @@ namespace AppProxy
                 _exports->CreateFileW = &HCreateFileW;
                 _exports->ReadFile = &HReadFile;
                 _exports->FindFirstFileW = &HFindFirstFileW;
+                _exports->FindFirstFileExW = &HFindFirstFileExW;
+                _exports->FindNextFileW = &HFindNextFileW;
+                _exports->FindClose = &HFindClose;
                 _exports->SetFilePointer = &HSetFilePointer;
                 _exports->SetFilePointerEx = &HSetFilePointerEx;
                 _exports->CloseHandle = &HCloseHandle;
@@ -63,6 +74,7 @@ namespace AppProxy
                 _exports->DuplicateHandle = &HDuplicateHandle;
                 _exports->GetFileSize = &HGetFileSize;
                 _exports->GetFileSizeEx = &HGetFileSizeEx;
+                _exports->GetFileAttributesExW = &HGetFileAttributesExW;
 
                 lib = AssemblyLoadContext.GetLoadContext(typeof(Proxy).Assembly).LoadFromAssemblyPath(Path.Combine(Directory.GetCurrentDirectory(), "AppWrapper.dll"));
                 t = lib.GetType("AppWrapper.Wrap");
@@ -74,6 +86,9 @@ namespace AppProxy
                     _mHCreateFileW = t.GetMethod("HCreateFileW", BindingFlags.Static | BindingFlags.Public);
                     _mHReadFile = t.GetMethod("HReadFile", BindingFlags.Static | BindingFlags.Public);
                     _mHFindFirstFileW = t.GetMethod("HFindFirstFileW", BindingFlags.Static | BindingFlags.Public);
+                    _mHFindFirstFileExW = t.GetMethod("HFindFirstFileExW", BindingFlags.Static | BindingFlags.Public);
+                    _mHFindNextFileW = t.GetMethod("HFindNextFileW", BindingFlags.Static | BindingFlags.Public);
+                    _mHFindClose = t.GetMethod("HFindClose", BindingFlags.Static | BindingFlags.Public);
                     _mHSetFilePointer = t.GetMethod("HSetFilePointer", BindingFlags.Static | BindingFlags.Public);
                     _mHSetFilePointerEx = t.GetMethod("HSetFilePointerEx", BindingFlags.Static | BindingFlags.Public);
                     _mHCloseHandle = t.GetMethod("HCloseHandle", BindingFlags.Static | BindingFlags.Public);
@@ -82,6 +97,7 @@ namespace AppProxy
                     _mHDuplicateHandle = t.GetMethod("HDuplicateHandle", BindingFlags.Static | BindingFlags.Public);
                     _mHGetFileSize = t.GetMethod("HGetFileSize", BindingFlags.Static | BindingFlags.Public);
                     _mHGetFileSizeEx = t.GetMethod("HGetFileSizeEx", BindingFlags.Static | BindingFlags.Public);
+                    _mHGetFileAttributesExW = t.GetMethod("HGetFileAttributesExW", BindingFlags.Static | BindingFlags.Public);
                 }
 
                 if (_mRun != null) _mRun.Invoke(null, new object[] { Process.GetCurrentProcess(), Type.Missing });
@@ -108,6 +124,9 @@ namespace AppProxy
                 _exports->CreateFileW = null;
                 _exports->ReadFile = null;
                 _exports->FindFirstFileW = null;
+                _exports->FindFirstFileExW = null;
+                _exports->FindNextFileW = null;
+                _exports->FindClose = null;
                 _exports->SetFilePointer = null;
                 _exports->SetFilePointerEx = null;
                 _exports->CloseHandle = null;
@@ -116,6 +135,7 @@ namespace AppProxy
                 _exports->DuplicateHandle = null;
                 _exports->GetFileSize = null;
                 _exports->GetFileSizeEx = null;
+                _exports->GetFileAttributesExW = null;
 
                 System.GC.Collect();
                 System.GC.WaitForPendingFinalizers();
@@ -176,6 +196,57 @@ namespace AppProxy
             }
 
             return ret == IntPtr.Zero ? null : ret.ToPointer();
+        }
+
+        [UnmanagedCallersOnly]
+        public static void* HFindFirstFileExW(ushort* lpFileName, uint fInfoLevelId, void* lpFindFileData, uint fSearchOp, void* lpSearchFilter, uint dwAdditionalFlags)
+        {
+            IntPtr ret = IntPtr.Zero;
+
+            try
+            {
+                if (_mHFindFirstFileExW != null) ret = (IntPtr)(_mHFindFirstFileExW.Invoke(null, new object[] { new string((char*)lpFileName), fInfoLevelId, new IntPtr(lpFindFileData), fSearchOp, new IntPtr(lpSearchFilter), dwAdditionalFlags }) ?? IntPtr.Zero);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return ret == IntPtr.Zero ? null : ret.ToPointer();
+        }
+
+        [UnmanagedCallersOnly]
+        public static int HFindNextFileW(void* hFindFile, void* lpFindFileData)
+        {
+            int ret = 0;
+
+            try
+            {
+                if (_mHFindNextFileW != null) ret = (int)(_mHFindNextFileW.Invoke(null, new object[] { new IntPtr(hFindFile), new IntPtr(lpFindFileData) }) ?? 0);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return ret;
+        }
+
+        [UnmanagedCallersOnly]
+        public static int HFindClose(void* hFindFile)
+        {
+            int ret = 0;
+
+            try
+            {
+                if (_mHFindClose != null) ret = (int)(_mHFindClose.Invoke(null, new object[] { new IntPtr(hFindFile) }) ?? 0);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return ret;
         }
 
         [UnmanagedCallersOnly]
@@ -305,6 +376,23 @@ namespace AppProxy
             try
             {
                 if (_mHGetFileSizeEx != null) ret = (int)(_mHGetFileSizeEx.Invoke(null, new object[] { new IntPtr(hFile), new IntPtr(lpFileSize) }) ?? 0);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return ret;
+        }
+
+        [UnmanagedCallersOnly]
+        public static int HGetFileAttributesExW(ushort* lpFileName, uint fInfoLevelId, void* lpFileInformation)
+        {
+            int ret = 0;
+
+            try
+            {
+                if (_mHGetFileAttributesExW != null) ret = (int)(_mHGetFileAttributesExW.Invoke(null, new object[] { new string((char*)lpFileName), fInfoLevelId, new IntPtr(lpFileInformation) }) ?? 0);
             }
             catch (Exception ex)
             {

@@ -5,18 +5,20 @@
   Additional help and support on .NET internals + low level wiring by Benjamin Moir <https://github.com/DaZombieKiller>
 */
 
+using Iros;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.IO;
-using System.Diagnostics;
-using Iros;
+using static AppWrapper.Win32;
 
 namespace AppWrapper {
     public static class Wrap {
         private static Dictionary<IntPtr, VArchiveData> _varchives = new();
         private static Dictionary<string, List<OverrideFile>> _mappedFiles = new();
+        private static Dictionary<IntPtr, Queue<string>> _foundMatches = new();
         private static RuntimeProfile _profile;
         private static Process _process;
 
@@ -295,7 +297,7 @@ namespace AppWrapper {
             if (_varchives.ContainsKey(hObject))
             {
                 _varchives.Remove(hObject);
-                DebugLogger.WriteLine($">> Closing dummy handle {hObject}");
+                DebugLogger.WriteLine($">> HCloseHandle dummy handle {hObject}");
             }
 
             return ret;
@@ -380,7 +382,7 @@ namespace AppWrapper {
             // If a game file is found, process with replacing its content with relative mod file
             if (isFF7GameFile)
             {
-                lpFileName = lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\");
+                lpFileName = Path.GetFullPath(lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\"));
                 DebugLogger.DetailedWriteLine($">> CreateFileW for {lpFileName}...");
                 if (lpFileName.IndexOf('\\') < 0)
                 {
@@ -388,63 +390,199 @@ namespace AppWrapper {
                     lpFileName = Path.Combine(Directory.GetCurrentDirectory(), lpFileName);
                 }
 
-                foreach (string path in _profile.MonitorPaths)
+                string match = lpFileName.Substring(_profile.FF7Path.Length + 1);
+                OverrideFile mapped = LGPWrapper.MapFile(match, _mappedFiles);
+
+                //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
+
+                if (mapped != null)
                 {
-                    if (lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
+                    DebugLogger.DetailedWriteLine($">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+
+                    if (mapped.Archive == null)
+                        ret = Win32.CreateFileW(mapped.File, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+                    else
+                        ret = CreateVA(mapped);
+                }
+                else if (!Path.HasExtension(lpFileName)) // Is it a directory?
+                {
+                    if (_mappedFiles.Keys.Any(p => p.StartsWith(match, StringComparison.OrdinalIgnoreCase)))
                     {
-                        string match = lpFileName.Substring(path.Length);
-                        OverrideFile mapped = LGPWrapper.MapFile(match, _mappedFiles);
-
-                        //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
-
-                        if (mapped == null)
+                        if (!Path.Exists(lpFileName)) Directory.CreateDirectory(lpFileName);
+                        DebugLogger.DetailedWriteLine($">> CreateFileW creating missing dir {lpFileName}");
+                    }
+                }
+                else
+                {
+                    foreach (string path in _profile.MonitorPaths)
+                    {
+                        if (lpFileName.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            // Attempt a second round, this time relaxing the path match replacing only the game folder path.
-                            match = lpFileName.Substring(_profile.FF7Path.Length + 1);
+                            match = lpFileName.Substring(path.Length);
                             mapped = LGPWrapper.MapFile(match, _mappedFiles);
 
-                            //DebugLogger.WriteLine($"Attempting match '{match}' for {lpFileName}...");
-                        }
-
-                        if (mapped != null)
-                        {
-                            DebugLogger.WriteLine($"   - Remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
-
-                            if (mapped.Archive == null)
+                            if (mapped != null)
                             {
-                                lpFileName = mapped.File;
-                            }
-                            else
-                            {
-                                ret = CreateVA(mapped);
+                                DebugLogger.DetailedWriteLine($">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+
+                                if (mapped.Archive == null)
+                                    ret = Win32.CreateFileW(mapped.File, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+                                else
+                                    ret = CreateVA(mapped);
+
                                 break;
                             }
                         }
                     }
                 }
             }
-            else
-                DebugLogger.DetailedWriteLine($">> Skipped file {lpFileName}");
-
-            if (ret == IntPtr.Zero)
-                ret = Win32.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+            //else
+            //    DebugLogger.DetailedWriteLine($">> Skipped file {lpFileName}");
 
             //DebugLogger.WriteLine("Hooked CreateFileW for {0} under {1}", lpFileName, handle.ToInt32());
 
             return ret;
         }
 
+        public static Queue<string> FindFirstMatch(string lpFileName)
+        {
+            // Usually this check should be enough...
+            bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
+            // ...but if it fails, last resort is to check if the file exists in the game directory
+            if (!isFF7GameFile && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase) && !Path.IsPathRooted(lpFileName))
+            {
+                isFF7GameFile = _profile.gameFiles.Any(s => s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            // If a game file is found, process with replacing its content with relative mod file
+            if (isFF7GameFile)
+            {
+                string pattern = lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\").Replace("\\.\\", "\\").Substring(_profile.FF7Path.Length + 1).TrimEnd('*');
+                if (pattern.Length > 1)
+                {
+                    return new Queue<string>(
+                        _mappedFiles.Keys
+                        .Select(path => path.StartsWith(pattern, StringComparison.OrdinalIgnoreCase)
+                            ? path.Substring(pattern.Length)
+                            : null)
+                        .Where(relPath => relPath != null)
+                        .Select(relPath =>
+                        {
+                            int idx = relPath.IndexOf('\\');
+                            // If there is a backslash, take just the folder name without trailing '\'
+                            return idx == -1 ? relPath : relPath.Substring(0, idx);
+                        })
+                        .Distinct()
+                        .Select(child => Path.GetFileName(child))
+                        .OrderByDescending(p => _mappedFiles.Keys.Any(k => k.StartsWith(p + "\\", StringComparison.OrdinalIgnoreCase)))
+                        .ThenBy(p => p, StringComparer.OrdinalIgnoreCase)
+                        .Prepend("..")
+                        .Prepend(".")
+                    );
+                }
+            }
+
+            return new();
+        }
+
         public static IntPtr HFindFirstFileW(string lpFileName, IntPtr lpFindFileData)
         {
-            DebugLogger.WriteLine(">> FindFirstFile for " + lpFileName);
+            var matches = FindFirstMatch(lpFileName);
+            if (matches.Count > 0)
+            {
+                string firstMatch = matches.Dequeue();
+                IntPtr searchHandle = Win32.FindFirstFileW(Path.Combine(_profile.FF7Path, "*"), lpFindFileData);
+
+                DebugLogger.WriteLine($">> FindFirstFile for {searchHandle} : {lpFileName} => {firstMatch}");
+
+                Win32.WIN32_FIND_DATA _lpFindFileData = new()
+                {
+                    cFileName = firstMatch,
+                    cAlternateFileName = null,
+                    dwFileAttributes = Path.HasExtension(firstMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                };
+                byte[] tmp = Util.StructToBytes(_lpFindFileData);
+                Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
+
+                return searchHandle;
+            }
 
             return IntPtr.Zero;
         }
 
+        public static IntPtr HFindFirstFileExW(string lpFileName, uint fInfoLevelId, IntPtr lpFindFileData, uint fSearchOp, IntPtr lpSearchFilter, uint dwAdditionalFlags)
+        {
+            var matches = FindFirstMatch(lpFileName);
+
+            if (matches.Count > 0)
+            {
+                string firstMatch = matches.Dequeue();
+                IntPtr searchHandle = Win32.FindFirstFileExW(Path.Combine(_profile.FF7Path, "*"), (FINDEX_INFO_LEVELS)fInfoLevelId, lpFindFileData, (FINDEX_SEARCH_OPS)fSearchOp, lpSearchFilter, dwAdditionalFlags);
+
+                _foundMatches[searchHandle] = matches;
+
+                string dbg = $">> FindFirstFileExW for {searchHandle} found '{matches.Count+1}' matches using {lpFileName}...";
+                dbg += $"\n>> - {firstMatch} ( first match )";
+                foreach (var match in matches) dbg += $"\n>> - {match}";
+                DebugLogger.WriteLine(dbg);
+
+                Win32.WIN32_FIND_DATA _lpFindFileData = new()
+                {
+                    cFileName = firstMatch,
+                    cAlternateFileName = null,
+                    dwFileAttributes = Path.HasExtension(firstMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                };
+                byte[] tmp = Util.StructToBytes(_lpFindFileData);
+                Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
+
+                return searchHandle;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        public static int HFindNextFileW(IntPtr hFindFile, IntPtr lpFindFileData)
+        {
+            if (_foundMatches.ContainsKey(hFindFile))
+            {
+                if (_foundMatches[hFindFile].Count > 0)
+                {
+                    string nextMatch = _foundMatches[hFindFile].Dequeue();
+
+                    DebugLogger.WriteLine($">> FindNextFile for {hFindFile} : {nextMatch}");
+
+                    Win32.WIN32_FIND_DATA _lpFindFileData = new()
+                    {
+                        cFileName = nextMatch,
+                        cAlternateFileName = null,
+                        dwFileAttributes = Path.HasExtension(nextMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                    };
+                    byte[] tmp = Util.StructToBytes(_lpFindFileData);
+                    Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
+
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
+
+        public static int HFindClose(IntPtr hFindFile)
+        {
+            int ret = 0;
+
+            if (_foundMatches.ContainsKey(hFindFile))
+            {
+                _foundMatches.Remove(hFindFile);
+                DebugLogger.WriteLine($">> HFindClose dummy handle {hFindFile}");
+            }
+
+            return ret;
+        }
+
         public static int HGetFileInformationByHandle(IntPtr hFile, IntPtr lpFileInformation)
         {
-            Win32.BY_HANDLE_FILE_INFORMATION _lpFileInformation;
-
+            Win32.BY_HANDLE_FILE_INFORMATION _lpFileInformation = new();
             bool result = Win32.GetFileInformationByHandle(hFile, out _lpFileInformation);
 
             byte[] tmp = Util.StructToBytes(_lpFileInformation);
@@ -514,6 +652,52 @@ namespace AppWrapper {
                 ret = _varchives[hFile].SetFilePointerEx(hFile, liDistanceToMove, lpNewFilePointer, (uint)dwMoveMethod);
 
             return ret;
+        }
+
+        public static int HGetFileAttributesExW([MarshalAs(UnmanagedType.LPWStr)] string lpFileName, uint fInfoLevelId, IntPtr lpFileInformation)
+        {
+            // Usually this check should be enough...
+            bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
+            // ...but if it fails, last resort is to check if the file exists in the game directory
+            if (!isFF7GameFile && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase) && !Path.IsPathRooted(lpFileName))
+            {
+                isFF7GameFile = _profile.gameFiles.Any(s => s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            // If a game file is found, process with replacing its content with relative mod file
+            if (isFF7GameFile)
+            {
+                string finalFileName = Path.GetFullPath(lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\"));
+                if (finalFileName.IndexOf('\\') < 0)
+                {
+                    //DebugLogger.WriteLine("No path: curdir is {0}", System.IO.Directory.GetCurrentDirectory(), 0);
+                    finalFileName = Path.Combine(Directory.GetCurrentDirectory(), finalFileName);
+                }
+
+                string match = finalFileName.Substring(_profile.FF7Path.Length + 1);
+                OverrideFile mapped = LGPWrapper.MapFile(match, _mappedFiles);
+
+                DebugLogger.DetailedWriteLine($">> HGetFileAttributesExW for {finalFileName} [ Matched: '{match}', Exists: '{mapped != null}' ]");
+
+                if (mapped != null)
+                {
+                    Win32.WIN32_FILE_ATTRIBUTE_DATA _lpFileInformation = new()
+                    {
+                        dwFileAttributes = FileAttributes.Archive,
+                        nFileSizeHigh = 0,
+                        nFileSizeLow = (uint)mapped.Size,
+                        ftCreationTime = new FILETIME(),
+                        ftLastAccessTime = new FILETIME(),
+                        ftLastWriteTime = new FILETIME()
+                    };
+                    byte[] tmp = Util.StructToBytes(lpFileInformation);
+                    Util.CopyToIntPtr(tmp, lpFileInformation, tmp.Length);
+
+                    return 1;
+                }
+            }
+
+            return 0;
         }
     }
 }
