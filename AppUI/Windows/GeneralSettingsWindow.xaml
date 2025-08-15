@@ -206,7 +206,7 @@
                   MinWidth="350"
                   VerticalAlignment="Bottom"
                   Header="{DynamicResource AdditionalFoldersToMonitorHeader}" 
-                  Margin="25,0,10,0" Height="283">
+                  Margin="25,0,10,0" Height="340">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -396,6 +396,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"/>
@@ -416,6 +417,10 @@
                     <ComboBoxItem Content="Canary"/>
                 </ComboBox>
                 <Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" x:Name="btnFFNxCheckForUpdate" Content="Check for Updates" Margin="10" Click="btnFFNxCheckForUpdate_Click"/>
+                <!---->
+                <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="ReShade:"/>
+                <Label Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="10">Stable</Label>
+                <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" x:Name="btnReShadeCheckForUpdate" Content="Check for Updates" Margin="10" Click="btnReShadeCheckForUpdate_Click"/>
             </Grid>
         </GroupBox>
     </Grid>

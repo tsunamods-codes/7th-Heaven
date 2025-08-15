@@ -621,6 +621,7 @@
     <PackageReference Include="NLog">
       <Version>6.0.2</Version>
     </PackageReference>
+    <PackageReference Include="SevenZipExtractor" Version="1.0.19" />
     <PackageReference Include="SharpDX.DirectInput">
       <Version>4.2.0</Version>
     </PackageReference>

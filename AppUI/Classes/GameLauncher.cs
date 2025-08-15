@@ -368,6 +368,9 @@ namespace AppUI.Classes
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CopyingFf7InputCfgToFf7Path));
             bool didCopyCfg = CopyKeyboardInputCfg();
 
+            // Copy Reshade
+            ReShadeUpdater.Install();
+
             //
             // Determine if game will be ran as 'vanilla' with mods so don't have to inject with AppLoader
             //
@@ -894,6 +897,7 @@ namespace AppUI.Classes
 
                         // cleanup
                         Delete7thWrapperDlls();
+                        ReShadeUpdater.Cleanup();
                     }
                     catch (Exception ex)
                     {
