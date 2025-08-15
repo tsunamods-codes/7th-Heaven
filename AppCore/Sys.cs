@@ -247,6 +247,14 @@ namespace Iros.Workshop
             }
         }
 
+        public static string PathToReShadeINI
+        {
+            get
+            {
+                return Path.Combine(Sys.InstallPath, "ReShade.ini");
+            }
+        }
+
         public static string PathToPatchedExeFolder
         {
             get

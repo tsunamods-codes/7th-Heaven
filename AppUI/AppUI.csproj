@@ -605,6 +605,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>4.7.25104.5739</Version>
     </PackageReference>
+    <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="MegaApiClient">
       <Version>1.10.4</Version>
     </PackageReference>
