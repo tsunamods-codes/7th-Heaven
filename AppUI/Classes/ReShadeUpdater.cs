@@ -242,6 +242,9 @@ namespace AppUI.Classes
                     if (File.Exists(entryPath)) File.Delete(entryPath);
                 }
             }
+
+            // Update the ReShade.ini on cleanup as well
+            UpdateIni();
         }
 
         public static void Install()
@@ -272,41 +275,46 @@ namespace AppUI.Classes
                         break;
                 }
 
-                // -- ReShade.ini
-                var parser = new FileIniDataParser();
-
-                IniData data;
-                if (System.IO.File.Exists(Sys.PathToReShadeINI))
-                {
-                    data = parser.ReadFile(Sys.PathToReShadeINI);
-                }
-                else
-                {
-                    data = new IniData();
-                }
-
-                // Ensure required sections exist
-                if (!data.Sections.ContainsSection("GENERAL")) data.Sections.AddSection("GENERAL");
-                if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
-
-                data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders,.\reshade-shaders\Shaders\CRT-Royale";
-                data["GENERAL"]["IntermediateCachePath"] = @".\reshade-cache";
-                data["GENERAL"]["NoDebugInfo"] = "1";
-                data["GENERAL"]["NoEffectCache"] = "0";
-                data["GENERAL"]["NoReloadOnInit"] = "0";
-                data["GENERAL"]["PerformanceMode"] = "0";
-                data["GENERAL"]["PreprocessorDefinitions"] = "";
-                data["GENERAL"]["PresetPath"] = @".\ReShadePreset.ini";
-                data["GENERAL"]["PresetShortcutKeys"] = "";
-                data["GENERAL"]["PresetShortcutPaths"] = "";
-                data["GENERAL"]["PresetTransitionDuration"] = "1000";
-                data["GENERAL"]["SkipLoadingDisabledEffects"] = "0";
-                data["GENERAL"]["StartupPresetPath"] = "";
-                data["GENERAL"]["TextureSearchPaths"] = @".\reshade-shaders\Textures";
-                data["OVERLAY"]["TutorialProgress"] = "4";
-
-                parser.WriteFile(Sys.PathToReShadeINI, data);
+                // ReShade.ini
+                UpdateIni();
             }
+        }
+
+        private static void UpdateIni()
+        {
+            var parser = new FileIniDataParser();
+
+            IniData data;
+            if (System.IO.File.Exists(Sys.PathToReShadeINI))
+            {
+                data = parser.ReadFile(Sys.PathToReShadeINI);
+            }
+            else
+            {
+                data = new IniData();
+            }
+
+            // Ensure required sections exist
+            if (!data.Sections.ContainsSection("GENERAL")) data.Sections.AddSection("GENERAL");
+            if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
+
+            data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders,.\reshade-shaders\Shaders\CRT-Royale";
+            data["GENERAL"]["IntermediateCachePath"] = $"{Path.GetTempPath()}\\ReShade";
+            data["GENERAL"]["NoDebugInfo"] = "1";
+            data["GENERAL"]["NoEffectCache"] = "0";
+            data["GENERAL"]["NoReloadOnInit"] = "0";
+            data["GENERAL"]["PerformanceMode"] = "0";
+            data["GENERAL"]["PreprocessorDefinitions"] = "";
+            data["GENERAL"]["PresetPath"] = @".\ReShadePreset.ini";
+            data["GENERAL"]["PresetShortcutKeys"] = "";
+            data["GENERAL"]["PresetShortcutPaths"] = "";
+            data["GENERAL"]["PresetTransitionDuration"] = "1000";
+            data["GENERAL"]["SkipLoadingDisabledEffects"] = "0";
+            data["GENERAL"]["StartupPresetPath"] = "";
+            data["GENERAL"]["TextureSearchPaths"] = @".\reshade-shaders\Textures";
+            data["OVERLAY"]["TutorialProgress"] = "4";
+
+            parser.WriteFile(Sys.PathToReShadeINI, data);
         }
     }
 }
