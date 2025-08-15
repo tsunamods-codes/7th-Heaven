@@ -217,6 +217,7 @@ namespace AppUI.Classes
             // ================================================================================================
 
             Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>(){
+                { "dxgi.dll", false },
                 { "d3d11.dll", false },
                 { "d3d12.dll", false },
                 { "opengl32.dll", false },

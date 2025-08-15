@@ -203,6 +203,7 @@ namespace AppUI.Classes
             // GAME CONVERTER - Make sure game is ready for mods
             //
             FFNxDriverUpdater.CleanupUnnecessaryFiles();
+            ReShadeUpdater.Cleanup();
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingInstalledGameIsCompatible));
             if (converter.IsGamePirated())
