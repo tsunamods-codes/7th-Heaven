@@ -1178,6 +1178,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="UserInterface">Interfaz de usuario</system:String>
     <system:String x:Key="WorldModels">Modelos del mundo</system:String>
     <system:String x:Key="WorldTextures">Texturas del mundo</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Cancelando</system:String>

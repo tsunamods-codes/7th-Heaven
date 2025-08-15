@@ -1171,6 +1171,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="UserInterface">Διεπαφή Χρήστη</system:String>
     <system:String x:Key="WorldModels">Μοντέλα για τον Κόσμο</system:String>
     <system:String x:Key="WorldTextures">Υφές για τον Κόσμο</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Σε διαδικασία Ακύρωσης</system:String>

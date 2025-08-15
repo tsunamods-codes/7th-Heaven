@@ -1175,6 +1175,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="UserInterface">Benutzeroberfläche</system:String>
     <system:String x:Key="WorldModels">Weltmodelle</system:String>
     <system:String x:Key="WorldTextures">Welttexturen</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Abbrechen</system:String>

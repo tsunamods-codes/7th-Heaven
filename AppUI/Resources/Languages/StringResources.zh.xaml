@@ -1160,7 +1160,8 @@
     <system:String x:Key="SpellTextures">法术纹理</system:String>
     <system:String x:Key="UserInterface">用户界面</system:String>
     <system:String x:Key="WorldModels">世界模型</system:String>
-   <system:String x:Key="WorldTextures">世界纹理</system:String>
+    <system:String x:Key="WorldTextures">世界纹理</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
     <system:String x:Key="Cancelling">正在取消</system:String>
 

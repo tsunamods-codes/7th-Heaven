@@ -41,6 +41,7 @@ namespace AppUI.Classes
                     { ResourceHelper.Get(StringKey.UserInterface), "User Interface" },
                     { ResourceHelper.Get(StringKey.WorldModels), "World Models" },
                     { ResourceHelper.Get(StringKey.WorldTextures), "World Textures" },
+                    { ResourceHelper.Get(StringKey.ReShadeShaders), "ReShade Shaders" },
                     { ResourceHelper.Get(StringKey.Unknown), "Unknown" },
                 };
             }

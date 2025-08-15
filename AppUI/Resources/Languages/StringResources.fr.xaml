@@ -1167,6 +1167,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <system:String x:Key="UserInterface">Interface utilisateur</system:String>
     <system:String x:Key="WorldModels">Modèles de la mappemonde</system:String>
     <system:String x:Key="WorldTextures">Textures de la mappemonde</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
     <system:String x:Key="Cancelling">Annulation</system:String>
 

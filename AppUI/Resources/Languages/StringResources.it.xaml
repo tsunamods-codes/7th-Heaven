@@ -1170,6 +1170,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     <system:String x:Key="UserInterface">Interfaccia Utente</system:String>
     <system:String x:Key="WorldModels">Modelli Mondo</system:String>
     <system:String x:Key="WorldTextures">Texture Mondo</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
     <system:String x:Key="Cancelling">Sto Cancellando</system:String>
 

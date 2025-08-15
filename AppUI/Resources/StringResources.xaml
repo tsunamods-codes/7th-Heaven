@@ -1179,6 +1179,7 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="UserInterface">User Interface</system:String>
     <system:String x:Key="WorldModels">World Models</system:String>
     <system:String x:Key="WorldTextures">World Textures</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Cancelling</system:String>
