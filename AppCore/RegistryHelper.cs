@@ -336,13 +336,13 @@ namespace AppCore
             try
             {
                 string fullRegPath = RemoveBaseKeyFromPath(keyPath);
-                RegistryKey regKey = rootKey.OpenSubKey(fullRegPath, true);
+                RegistryKey regKey = rootKey.OpenSubKey(fullRegPath, false);
 
                 if (regKey == null)
                 {
                     // check if subkey can be opened in 32-bit view
                     rootKey = GetBaseKey(keyPath, force32View: true);
-                    regKey = rootKey?.OpenSubKey(fullRegPath, true);
+                    regKey = rootKey?.OpenSubKey(fullRegPath, false);
 
                     if (regKey == null)
                     {
