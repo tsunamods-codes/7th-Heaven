@@ -37,7 +37,7 @@ namespace AppUI.Classes
                 _currentReShadeVersion = null;
             }
 
-            return _currentReShadeVersion != null ? _currentReShadeVersion.FileVersion : "0.0.0.0";
+            return _currentReShadeVersion != null ? _currentReShadeVersion.ProductVersion : "0.0.0";
         }
 
         private string GetUpdateChannel()
