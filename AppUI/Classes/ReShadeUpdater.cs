@@ -221,6 +221,7 @@ namespace AppUI.Classes
                 { "d3d11.dll", false },
                 { "d3d12.dll", false },
                 { "opengl32.dll", false },
+                { Path.GetFileName(Sys.PathToReShade), false }
             };
 
 
@@ -241,6 +242,20 @@ namespace AppUI.Classes
                 {
                     if (File.Exists(entryPath)) File.Delete(entryPath);
                 }
+            }
+
+            // Remove Registry Key
+            switch (Sys.FFNxConfig.Get("renderer_backend"))
+            {
+                // Vulkan
+                case "5":
+                    RegistryHelper.BeginTransaction();
+                    if (Environment.Is64BitOperatingSystem)
+                        RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                    else
+                        RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                    RegistryHelper.CommitTransaction();
+                    break;
             }
 
             // Update the ReShade.ini on cleanup as well
@@ -268,6 +283,17 @@ namespace AppUI.Classes
                     // OpenGL
                     case "1":
                         File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, "opengl32.dll"));
+                        break;
+
+                    // Vulkan
+                    case "5":
+                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, Path.GetFileName(Sys.PathToReShade)));
+                        RegistryHelper.BeginTransaction();
+                        if (Environment.Is64BitOperatingSystem)
+                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                        else
+                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                        RegistryHelper.CommitTransaction();
                         break;
 
                     // Unknown, skip loading ReShade
