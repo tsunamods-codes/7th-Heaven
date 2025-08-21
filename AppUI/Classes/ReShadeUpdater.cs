@@ -324,7 +324,7 @@ namespace AppUI.Classes
             if (!data.Sections.ContainsSection("GENERAL")) data.Sections.AddSection("GENERAL");
             if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
 
-            data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders,.\reshade-shaders\Shaders\CRT-Royale";
+            data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders\**";
             data["GENERAL"]["IntermediateCachePath"] = $"{Path.GetTempPath()}\\ReShade";
             data["GENERAL"]["NoDebugInfo"] = "1";
             data["GENERAL"]["NoEffectCache"] = "0";
@@ -337,7 +337,7 @@ namespace AppUI.Classes
             data["GENERAL"]["PresetTransitionDuration"] = "1000";
             data["GENERAL"]["SkipLoadingDisabledEffects"] = "0";
             data["GENERAL"]["StartupPresetPath"] = "";
-            data["GENERAL"]["TextureSearchPaths"] = @".\reshade-shaders\Textures";
+            data["GENERAL"]["TextureSearchPaths"] = @".\reshade-shaders\Textures\**";
             data["OVERLAY"]["TutorialProgress"] = "4";
 
             parser.WriteFile(Sys.PathToReShadeINI, data);
