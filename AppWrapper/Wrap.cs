@@ -568,6 +568,11 @@ namespace AppWrapper {
 
                     return 1;
                 }
+                else
+                {
+                    Win32.SetLastError(Win32.ERROR_NO_MORE_FILES);
+                    return -1; // Signal that we finished handling the virtual handler and we don't want to look up anymore
+                }
             }
 
             return 0;

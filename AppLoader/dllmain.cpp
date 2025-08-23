@@ -205,6 +205,8 @@ BOOL WINAPI _FindNextFileW(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData)
 
     if (ret == FALSE)
         ret = TrueFindNextFileW(hFindFile, lpFindFileData);
+    else if (ret < FALSE)
+        ret = FALSE;
 
     return ret;
 }
