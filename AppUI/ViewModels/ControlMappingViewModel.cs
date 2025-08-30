@@ -1321,6 +1321,7 @@ namespace AppUI.ViewModels
                 { GamePadButton.Button11, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Click.png" },
                 { GamePadButton.Button12, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_RS_Click.png" },
                 { GamePadButton.Button13, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Home_Guide.png" },
+                { GamePadButton.Button14, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Unknown.png" },
                 { GamePadButton.Up, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Up.png" },
                 { GamePadButton.Down, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Down.png" },
                 { GamePadButton.Left, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Left.png" },
