@@ -725,6 +725,7 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="German">German</system:String>
     <system:String x:Key="Spanish">Spanish</system:String>
     <system:String x:Key="Japanese">Japanese</system:String>
+    <system:String x:Key="SimplifiedChinese">Simplified Chinese</system:String>
 
 
     <!--GameLauncher Strings-->
@@ -1178,6 +1179,7 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="UserInterface">User Interface</system:String>
     <system:String x:Key="WorldModels">World Models</system:String>
     <system:String x:Key="WorldTextures">World Textures</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Cancelling</system:String>
@@ -1277,4 +1279,6 @@ Do you want to apply the setting and try again?</system:String>
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

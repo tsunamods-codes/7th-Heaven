@@ -254,7 +254,7 @@ var
   IsProductInstalled: Boolean;
 begin
   try
-    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 9.0.1')
+    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 9.0.8')
   except
     IsProductInstalled := False
   end;
@@ -263,8 +263,8 @@ begin
   if not IsProductInstalled then begin
     Dependency_Add('dotnet90desktop' + Dependency_ArchSuffix + '.exe',
       '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
-      '.NET Desktop Runtime 9.0.1' + Dependency_ArchTitle,
-      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.1/windowsdesktop-runtime-9.0.1-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.1/windowsdesktop-runtime-9.0.1-win-x64.exe'),
+      '.NET Desktop Runtime 9.0.8' + Dependency_ArchTitle,
+      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.8/windowsdesktop-runtime-9.0.8-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.8/windowsdesktop-runtime-9.0.8-win-x64.exe'),
       '', False, False);
   end;
 end;
@@ -277,7 +277,7 @@ var
 begin
   RegResult := RegQueryStringValue(HKEY_LOCAL_MACHINE,'SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\' + Dependency_String('X86', 'X64'), 'Version', VcRuntimeVersion);
   if RegResult then
-    IsProductInstalled := (VcRuntimeVersion = 'v14.42.34433.00')
+    IsProductInstalled := (VcRuntimeVersion = 'v14.44.35211.00')
   else
     IsProductInstalled := False;
 

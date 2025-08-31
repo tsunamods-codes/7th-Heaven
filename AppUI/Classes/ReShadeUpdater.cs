@@ -1,0 +1,346 @@
+﻿using AngleSharp.Dom;
+using AppCore;
+using AppUI.Windows;
+using IniParser;
+using IniParser.Model;
+using Iros.Workshop;
+using Newtonsoft.Json.Linq;
+using SevenZipExtractor;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Zip;
+using SharpCompress.Common;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+
+namespace AppUI.Classes
+{
+    public class ReShadeUpdater
+    {
+        private FileVersionInfo _currentReShadeVersion = null;
+
+        private string GetUpdateInfoPath()
+        {
+            return Path.Combine(Sys.PathToTempFolder, "reshadeupdateinfo.json");
+        }
+
+        public string GetCurrentVersion()
+        {
+            try
+            {
+                _currentReShadeVersion = FileVersionInfo.GetVersionInfo(Sys.PathToReShade);
+            }
+            catch (FileNotFoundException)
+            {
+                _currentReShadeVersion = null;
+            }
+
+            return _currentReShadeVersion != null ? _currentReShadeVersion.ProductVersion : "0.0.0";
+        }
+
+        private string GetUpdateChannel()
+        {
+            return "https://api.github.com/repos/crosire/reshade/tags";
+        }
+
+        private string GetUpdateVersion(string name)
+        {
+            return name.Replace("v", "");
+        }
+
+        private string GetUpdateReleaseUrl(string version)
+        {
+            return $"https://reshade.me/downloads/ReShade_Setup_{version}.exe";
+        }
+
+        private void SwitchToDownloadPanel()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                MainWindow window = App.Current.MainWindow as MainWindow;
+
+                window.tabCtrlMain.SelectedIndex = 1;
+            });
+        }
+
+        private void SwitchToModPanel()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                MainWindow window = App.Current.MainWindow as MainWindow;
+
+                window.tabCtrlMain.SelectedIndex = 0;
+            });
+        }
+
+        public void CheckForUpdates(bool manualCheck = false)
+        {
+            DownloadItem download = new DownloadItem()
+            {
+                Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel()) },
+                SaveFilePath = GetUpdateInfoPath(),
+                Category = DownloadCategory.AppUpdate,
+                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} Stable"
+            };
+
+            download.IProc = new Install.InstallProcedureCallback(e =>
+            {
+                bool success = (e.Error == null && e.Cancelled == false);
+
+                if (success)
+                {
+                    try
+                    {
+                        StreamReader file = File.OpenText(download.SaveFilePath);
+                        JArray release = JArray.Parse(file.ReadToEnd());
+                        file.Close();
+                        File.Delete(download.SaveFilePath);
+
+                        string strVersion = GetUpdateVersion(release[0]["name"].ToString());
+                        Version curVersion = new Version(GetCurrentVersion());
+                        Version newVersion = new Version(strVersion);
+
+                        switch (newVersion.CompareTo(curVersion))
+                        {
+                            case 1: // NEWER
+                                if (
+                                    MessageDialogWindow.Show(
+                                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"ReShade - {GetCurrentVersion()}", newVersion.ToString()),
+                                        "See https://reshade.me/ for more information.",
+                                        ResourceHelper.Get(StringKey.NewVersionAvailable),
+                                        System.Windows.MessageBoxButton.YesNo,
+                                        System.Windows.MessageBoxImage.Question
+                                    ).Result == System.Windows.MessageBoxResult.Yes)
+                                    DownloadAndExtract(GetUpdateReleaseUrl(strVersion), newVersion.ToString());
+                                break;
+                            case 0: // SAME
+                                if (manualCheck)
+                                    MessageDialogWindow.Show("ReShade version is up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                                break;
+                            case -1: // OLDER
+                                if (
+                                    MessageDialogWindow.Show(
+                                        $"Your ReShade version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
+                                        "Update found!",
+                                        System.Windows.MessageBoxButton.YesNo,
+                                        System.Windows.MessageBoxImage.Question
+                                    ).Result == System.Windows.MessageBoxResult.Yes)
+                                    DownloadAndExtract(GetUpdateReleaseUrl(strVersion), newVersion.ToString());
+                                break;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageDialogWindow.Show("Something went wrong while checking for ReShade updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not parse the ReShade release json at {GetUpdateChannel()}", LoggedException = e.Error });
+                    }
+                }
+                else
+                {
+                    MessageDialogWindow.Show("Something went wrong while checking for ReShade updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    Sys.Message(new WMessage() { Text = $"Could not fetch for ReShade updates at {GetUpdateChannel()}", LoggedException = e.Error });
+                }
+            });
+
+            Sys.Downloads.AddToDownloadQueue(download);
+        }
+
+        private void DownloadAndExtract(string url, string version)
+        {
+            if (url != String.Empty)
+            {
+                SwitchToDownloadPanel();
+
+                DownloadItem download = new DownloadItem()
+                {
+                    Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
+                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
+                    Category = DownloadCategory.AppUpdate,
+                    ItemName = $"Downloading ReShade Update {url}..."
+                };
+
+                download.IProc = new Install.InstallProcedureCallback(e =>
+                {
+                    bool success = (e.Error == null && e.Cancelled == false);
+
+                    if (success)
+                    {
+                        MemoryStream zipStream = new MemoryStream();
+
+                        // Extract the ZIP from the PE file
+                        using (ArchiveFile archiveFile = new ArchiveFile(download.SaveFilePath))
+                        {
+                            archiveFile.Entries.Where(f => f.FileName == "[0]").First().Extract(zipStream);
+                        }
+
+                        // Extract ReShade files
+                        using (var archive = ZipArchive.Open(zipStream))
+                        {
+                            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                            {
+                                entry.WriteToDirectory(Sys.PathToReShadeFolder, new ExtractionOptions()
+                                {
+                                    ExtractFullPath = true,
+                                    Overwrite = true
+                                });
+                            }
+                        }
+
+                        Console.WriteLine("Extraction complete!");
+
+                        SwitchToModPanel();
+
+                        MessageDialogWindow.Show($"Successfully updated ReShade to version {version}.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        Sys.Message(new WMessage() { Text = $"Successfully extracted the ReShade version {version}. Ready to launch the update." });
+                    }
+                    else
+                    {
+                        MessageDialogWindow.Show("Something went wrong while downloading the ReShade update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        Sys.Message(new WMessage() { Text = $"Could not download the ReShade update {url}", LoggedException = e.Error });
+                    }
+                });
+
+                Sys.Downloads.AddToDownloadQueue(download);
+            }
+            else
+            {
+                MessageDialogWindow.Show("Something went wrong while downloading the ReShade update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        }
+
+        public static void Cleanup()
+        {
+            // ================================================================================================
+            // Always cleanup these files if present, to avoid conflict with various mods
+            // ================================================================================================
+
+            Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>(){
+                { "dxgi.dll", false },
+                { "d3d11.dll", false },
+                { "d3d12.dll", false },
+                { "opengl32.dll", false },
+                { Path.GetFileName(Sys.PathToReShade), false }
+            };
+
+
+            string entryPath = "";
+            bool entryDeleteRecursive = false;
+
+            foreach (var entry in pathsToDelete)
+            {
+                entryPath = Sys.InstallPath + "\\" + entry.Key;
+                entryDeleteRecursive = entry.Value;
+
+                // Delete recursively
+                if (entryDeleteRecursive)
+                {
+                    if (Directory.Exists(entryPath)) Directory.Delete(entryPath, true);
+                }
+                else
+                {
+                    if (File.Exists(entryPath)) File.Delete(entryPath);
+                }
+            }
+
+            // Remove Registry Key
+            switch (Sys.FFNxConfig.Get("renderer_backend"))
+            {
+                // Vulkan
+                case "5":
+                    RegistryHelper.BeginTransaction();
+                    if (Environment.Is64BitOperatingSystem)
+                        RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                    else
+                        RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                    RegistryHelper.CommitTransaction();
+                    break;
+            }
+
+            // Update the ReShade.ini on cleanup as well
+            UpdateIni();
+        }
+
+        public static void Install()
+        {
+            if (File.Exists(Sys.PathToReShade))
+            {
+                // -- ReShade32.dll
+                switch(Sys.FFNxConfig.Get("renderer_backend"))
+                {
+                    // DirectX 11
+                    case "0":
+                    case "3":
+                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, "d3d11.dll"));
+                        break;
+
+                    // DirectX 12
+                    case "4":
+                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, "d3d12.dll"));
+                        break;
+
+                    // OpenGL
+                    case "1":
+                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, "opengl32.dll"));
+                        break;
+
+                    // Vulkan
+                    case "5":
+                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, Path.GetFileName(Sys.PathToReShade)));
+                        RegistryHelper.BeginTransaction();
+                        if (Environment.Is64BitOperatingSystem)
+                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                        else
+                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                        RegistryHelper.CommitTransaction();
+                        break;
+
+                    // Unknown, skip loading ReShade
+                    default:
+                        break;
+                }
+
+                // ReShade.ini
+                UpdateIni();
+            }
+        }
+
+        private static void UpdateIni()
+        {
+            var parser = new FileIniDataParser();
+
+            IniData data;
+            if (System.IO.File.Exists(Sys.PathToReShadeINI))
+            {
+                data = parser.ReadFile(Sys.PathToReShadeINI);
+            }
+            else
+            {
+                data = new IniData();
+            }
+
+            // Ensure required sections exist
+            if (!data.Sections.ContainsSection("GENERAL")) data.Sections.AddSection("GENERAL");
+            if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
+
+            data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders\**";
+            data["GENERAL"]["IntermediateCachePath"] = $"{Path.GetTempPath()}\\ReShade";
+            data["GENERAL"]["NoDebugInfo"] = "1";
+            data["GENERAL"]["NoEffectCache"] = "0";
+            data["GENERAL"]["NoReloadOnInit"] = "0";
+            data["GENERAL"]["PerformanceMode"] = "0";
+            data["GENERAL"]["PreprocessorDefinitions"] = "";
+            data["GENERAL"]["PresetPath"] = @".\ReShadePreset.ini";
+            data["GENERAL"]["PresetShortcutKeys"] = "";
+            data["GENERAL"]["PresetShortcutPaths"] = "";
+            data["GENERAL"]["PresetTransitionDuration"] = "1000";
+            data["GENERAL"]["SkipLoadingDisabledEffects"] = "0";
+            data["GENERAL"]["StartupPresetPath"] = "";
+            data["GENERAL"]["TextureSearchPaths"] = @".\reshade-shaders\Textures\**";
+            data["OVERLAY"]["TutorialProgress"] = "4";
+
+            parser.WriteFile(Sys.PathToReShadeINI, data);
+        }
+    }
+}

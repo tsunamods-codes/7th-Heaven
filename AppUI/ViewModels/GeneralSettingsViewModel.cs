@@ -776,18 +776,13 @@ namespace AppUI.ViewModels
         {
             try
             {
-                //Create Prog_ID in Registry so we can associate file types
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven", "", $"7th Heaven Mod File");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIRO:\"%1\"");
-
                 //Associate .iro mod files with 7H's Prog_ID- .IRO extension
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro", "", $"7thHeaven Mod File");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro", "", $"7thHeavenIRO");
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIRO:\"%1\"");
 
                 // create registry keys to assocaite .irop files
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop", "", $"7th Heaven Mod Patch");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop", "", $"7thHeavenIROP");
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIROP:\"%1\"");
 
@@ -813,7 +808,6 @@ namespace AppUI.ViewModels
         {
             try
             {
-                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeaven");
                 RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\.iro");
                 RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\.irop");
 
@@ -898,8 +892,8 @@ namespace AppUI.ViewModels
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO\\command", "", $"\"{Sys._7HExe}\" /PACKIRO:\"%1\"");
 
                 // create registry keys for 'Unpack IRO' for files
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\Unpack IRO", "Icon", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\Unpack IRO\\command", "", $"\"{Sys._7HExe}\" /UNPACKIRO:\"%1\"");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO", "Icon", $"\"{Sys._7HExe}\"");
+                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO\\command", "", $"\"{Sys._7HExe}\" /UNPACKIRO:\"%1\"");
 
                 SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
 
@@ -923,7 +917,7 @@ namespace AppUI.ViewModels
             try
             {
                 RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO");
-                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeaven\\shell\\Unpack IRO");
+                RegistryHelper.DeleteKey("HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO");
 
                 SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
 

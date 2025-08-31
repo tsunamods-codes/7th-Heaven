@@ -656,6 +656,8 @@
         CannotContinueWithDEPEnabled,
         SomethingWentWrongWhileDisablingDEP,
         App4GBPatchRequired,
-        App4GBPatchApplied
+        App4GBPatchApplied,
+        SimplifiedChinese,
+        ReShadeShaders
     }
 }

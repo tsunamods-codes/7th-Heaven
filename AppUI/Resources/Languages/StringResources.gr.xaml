@@ -723,6 +723,7 @@
     <system:String x:Key="German">Γερμανικά</system:String>
     <system:String x:Key="Spanish">Ισπανικά</system:String>
     <system:String x:Key="Japanese">Ιαπωνικά</system:String>
+    <system:String x:Key="SimplifiedChinese">απλοποιημένα κινέζικα</system:String>
 
     <!--GameLauncher Strings-->
     <system:String x:Key="CheckingFf7IsNotRunning">Ο έλεγχος δείχνει πως το FF7 δεν εκτελείται ...</system:String>
@@ -1170,6 +1171,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="UserInterface">Διεπαφή Χρήστη</system:String>
     <system:String x:Key="WorldModels">Μοντέλα για τον Κόσμο</system:String>
     <system:String x:Key="WorldTextures">Υφές για τον Κόσμο</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
 
     <system:String x:Key="Cancelling">Σε διαδικασία Ακύρωσης</system:String>
@@ -1269,4 +1271,6 @@ Once done, do close the game and the launcher, and finally retry to click Play h
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

@@ -21,6 +21,7 @@ namespace AppCore
         UserInterface,
         WorldModels,
         WorldTextures,
+        ReShadeShaders,
         Unknown
     }
 
@@ -44,7 +45,8 @@ namespace AppCore
             { "User Interface", 10},
             { "World Models", 11},
             { "World Textures", 12},
-            { "Unknown", 13}
+            { "ReShade Shaders", 13},
+            { "Unknown", 14}
         };
 
         /// <summary>
@@ -65,6 +67,7 @@ namespace AppCore
             { "User Interface", StringKey.UserInterface},
             { "World Models", StringKey.WorldModels},
             { "World Textures", StringKey.WorldTextures},
+            { "ReShade Shaders", StringKey.ReShadeShaders },
             { "Unknown", StringKey.Unknown}
         };
 

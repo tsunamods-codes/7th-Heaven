@@ -646,6 +646,7 @@ namespace AppUI.ViewModels
 
         private UpdateChecker updater = new UpdateChecker();
         private FFNxDriverUpdater ffnxUpdater = new FFNxDriverUpdater();
+        private ReShadeUpdater reShadeUpdater = new ReShadeUpdater();
         
         public MainWindowViewModel()
         {
@@ -768,6 +769,9 @@ namespace AppUI.ViewModels
 
             // Ensure game driver directory exists
             Directory.CreateDirectory(Sys.PathToGameDriverFolder);
+
+            // Ensure ReShade directory exists
+            Directory.CreateDirectory(Sys.PathToReShadeFolder);
 
             // Ensure temp directory exists
             Directory.CreateDirectory(Sys.PathToTempFolder);

@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.IO;
 
 namespace AppUI
 {
@@ -450,6 +451,22 @@ namespace AppUI
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void menuItemOpenSaveDir_Click(object sender, RoutedEventArgs e)
+        {
+            string path = Path.Combine(Sys.InstallPath, "save");
+
+            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            {
+                path = Directory.EnumerateDirectories(GameConverter.GetSteamFF7UserPath(), "user_*").First();
+            }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(path)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         }
     }
 }

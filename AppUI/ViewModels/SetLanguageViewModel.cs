@@ -62,6 +62,7 @@ namespace AppUI.ViewModels
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Greek)} (Ελληνικά)", "gr");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Italian)} (Italiano)", "it");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Spanish)} (Español)", "es");
+            LanguagesMap.Add($"{ResourceHelper.Get(StringKey.SimplifiedChinese)} (\u4e2d\u6587\u7b80\u4f53)", "zh");
             //LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Japanese)} (\u65e5\u672c\u8a9e)", "ja");
 
 

@@ -13,7 +13,7 @@ $discordPost = @"
   "embeds": [
     {
       "title": "FAQ",
-      "description": "Having issues? Feel free to check this FAQ page: https://forum.tsunamods.com/viewtopic.php?f=16&t=60",
+      "description": "Having issues? Feel free to check this FAQ page: https://forums.qhimm.com/index.php?topic=21245.0",
       "color": 7506394
     },
     {

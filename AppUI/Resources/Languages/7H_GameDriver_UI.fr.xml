@@ -30,7 +30,7 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
+    <Group>Graphismes</Group>
     <Name>Display</Name>
     <Description>Sets the preferred display where to run the game.</Description>
     <DefaultValue>display_index = -1</DefaultValue>

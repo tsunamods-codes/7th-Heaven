@@ -181,6 +181,7 @@ namespace Iros.Workshop {
             defaultSettings.ExtraFolders.Add("lighting");
             defaultSettings.ExtraFolders.Add("mesh");
             defaultSettings.ExtraFolders.Add("music");
+            defaultSettings.ExtraFolders.Add("override");
             defaultSettings.ExtraFolders.Add("save");
             defaultSettings.ExtraFolders.Add("sfx");
             defaultSettings.ExtraFolders.Add("time");

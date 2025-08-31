@@ -353,12 +353,12 @@ namespace AppUI
         {
             string message = $"! Unhandled exception ({source})";
             Logger.Error(message);
-            Logger.Error(exception);
+            Logger.Error(exception.ToString());
 
             if (!hasShownErrorWindow)
             {
                 hasShownErrorWindow = true;
-                UnhandledErrorWindow.Show(exception);
+                UnhandledErrorWindow.Show(exception.ToString());
             }
         }
 
@@ -413,6 +413,9 @@ namespace AppUI
                         break;
                     case "it":
                         dict.Source = new Uri("Resources\\Languages\\StringResources.it.xaml", UriKind.Relative);
+                        break;
+                    case "zh":
+                        dict.Source = new Uri("Resources\\Languages\\StringResources.zh.xaml", UriKind.Relative);
                         break;
                     default:
                         dict.Source = new Uri("Resources\\StringResources.xaml", UriKind.Relative);

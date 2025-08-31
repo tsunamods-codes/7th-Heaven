@@ -124,6 +124,8 @@ namespace AppUI.Classes
                     return GamePadButton.Button12;
                 case 13:
                     return GamePadButton.Button13;
+                case 14:
+                    return GamePadButton.Button14;
 
                 default:
                     break;

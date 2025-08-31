@@ -717,6 +717,7 @@ Cliquer sur 'Annuler' pour arrêter la copie.</system:String>
     <system:String x:Key="German">Allemand</system:String>
     <system:String x:Key="Spanish">Espagnol</system:String>
     <system:String x:Key="Japanese">Japonais</system:String>
+    <system:String x:Key="SimplifiedChinese">Chinois Simplifié</system:String>
 
 
     <!--GameLauncher Strings-->
@@ -1166,6 +1167,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <system:String x:Key="UserInterface">Interface utilisateur</system:String>
     <system:String x:Key="WorldModels">Modèles de la mappemonde</system:String>
     <system:String x:Key="WorldTextures">Textures de la mappemonde</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
 
     <system:String x:Key="Cancelling">Annulation</system:String>
 
@@ -1261,4 +1263,6 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
 
     <system:String x:Key="App4GBPatchRequired">Ensuring Game exe has the 4GB patch applied...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB patch applied successfully.</system:String>
+
+    <system:String x:Key="OpenSaveGamePath">Open Save Directory...</system:String>
 </ResourceDictionary>

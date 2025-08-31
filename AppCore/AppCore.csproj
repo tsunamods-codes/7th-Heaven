@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-windows7.0</TargetFramework>
     <OutputType>Library</OutputType>
@@ -40,13 +40,13 @@
     <ProjectReference Include="..\AppWrapper\AppWrapper.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.2.0" />
+    <PackageReference Include="AngleSharp" Version="1.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SharpCompress">
-      <Version>0.39.0</Version>
+      <Version>0.40.0</Version>
     </PackageReference>
     <PackageReference Include="Tomlyn">
-      <Version>0.18.0</Version>
+      <Version>0.19.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
