@@ -748,7 +748,8 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">file not found. Aborting ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">FF7.exe not found. You may need to configure 7H using the Settings>General Settings menu.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Verifying installed game is compatible ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">YUFFIE: Urrk!! Something's wrong with your installation, and it... ulp... Use Steam's "Verify my files" tool or reinstall from CD to fix.</system:String>
+    <system:String x:Key="ErrorCodeYarr">YUFFIE: Urrk!! Something's wrong with your installation, and it... ulp...
+	Use Steam's "Verify my files" tool or reinstall from CD to fix.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Verifying game is not installed in a System/Protected folder ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 is currently installed in a System folder which can cause mods not to work. It is recommended you install it at C:\Games\Final Fantasy VII
@@ -795,7 +796,8 @@ Alternatively, you can listen to the game's original low quality MIDI music, but
 Later, if you wish to use high quality .OGG files, switch the setting back to 'VGMstream'.</system:String>
 
     <system:String x:Key="VerifyingLatestGameDriverIsInstalled">Verifying latest game driver is installed ...</system:String>
-    <system:String x:Key="SomethingWentWrongTryingToDetectGameDriver">Something went wrong trying to detect/install game driver. Aborting ...</system:String>
+    <system:String x:Key="SomethingWentWrongTryingToDetectGameDriver">Something went wrong trying to detect/install game driver.
+	Try using "Check for Updates" in the General Settings menu. Aborting...</system:String>
     <system:String x:Key="VerifyingGameDriverShadersFoldersExist">Verifying game driver shaders folders exist ...</system:String>
 
     <system:String x:Key="VerifyingFf7Exe">Verifying ff7 exe ...</system:String>
