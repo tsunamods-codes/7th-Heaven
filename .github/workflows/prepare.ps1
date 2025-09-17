@@ -26,6 +26,12 @@ Write-Output "_RELEASE_VERSION=${env:_RELEASE_VERSION}" >> ${env:GITHUB_ENV}
 Write-Output "_IS_BUILD_CANARY=${env:_IS_BUILD_CANARY}" >> ${env:GITHUB_ENV}
 Write-Output "_IS_GITHUB_RELEASE=${env:_IS_GITHUB_RELEASE}" >> ${env:GITHUB_ENV}
 
+# Install Inno Setup
+Write-Output "Installing Inno Setup v${env:_WINGET_INNOSETUP}..."
+winget install JRSoftware.InnoSetup --version ${env:_WINGET_INNOSETUP} --scope machine --silent --uninstall-previous --accept-source-agreements --accept-package-agreements --disable-interactivity --force | out-null
+$installLocation = (Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Inno Setup 6_is1" -ErrorAction Stop).InstallLocation
+Write-Output $installLocation >> ${env:GITHUB_PATH}
+
 # Add Github Packages registry
 nuget sources add -Name github -Source "https://nuget.pkg.github.com/${env:GITHUB_REPOSITORY_OWNER}/index.json" -Username ${env:GITHUB_REPOSITORY_OWNER} -Password ${env:GITHUB_PACKAGES_PAT} -StorePasswordInClearText
 nuget setApiKey ${env:GITHUB_PACKAGES_PAT} -Source "https://nuget.pkg.github.com/${env:GITHUB_REPOSITORY_OWNER}/index.json"

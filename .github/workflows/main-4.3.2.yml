@@ -26,6 +26,8 @@ env:
   VCPKG_BINARY_SOURCES: clear;nuget,github,readwrite
   # GIT: Fix reporting from stderr to stdout
   GIT_REDIRECT_STDERR: 2>&1
+  # Tools versions
+  _WINGET_INNOSETUP: 6.5.3
 
 jobs:
   CICD:
