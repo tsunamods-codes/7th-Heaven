@@ -59,7 +59,7 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1
     - name: Run MSBuild
-      run: msbuild ${{ github.workspace }}\${{ env._RELEASE_NAME }}.sln /p:WindowsTargetPlatformVersion=10.0.19041.0 /m -p:Configuration=${{ env._RELEASE_CONFIGURATION }} -p:Platform="Any CPU"
+      run: msbuild ${{ github.workspace }}\${{ env._RELEASE_NAME }}.sln /m -p:Configuration=${{ env._RELEASE_CONFIGURATION }} -p:Platform="Any CPU"
     - name: Prepare Installer
       env:
         BUILDPATH: "${{ github.workspace }}"
