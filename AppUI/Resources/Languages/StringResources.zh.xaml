@@ -730,7 +730,7 @@
     <system:String x:Key="Aborting">正在中止...</system:String>
     <system:String x:Key="FailedToCloseProcess">关闭进程失败</system:String>
     <system:String x:Key="CheckingFf7ExeExistsAt">正在检查 FF7 .exe 是否存在于 </system:String>
-    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查FF7 Steam是否正确安装...</system:String>
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查 FF7 Steam 是否正确安装...</system:String>
     <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">未找到用户配置。看起来您的 Steam 游戏安装尚未运行。
         
 7th Heaven现在将为您启动原始游戏。请确保点击"启动游戏"并至少运行一次游戏。
@@ -1004,7 +1004,7 @@
     <system:String x:Key="ModNotActiveOnlyActivatedModsCanBeConfigured">模组未激活。只有已激活的模组可以配置。</system:String>
 
     <system:String x:Key="UninstallWarning">卸载警告</system:String>
-    <system:String x:Key="AreYouSureYouWantToDelete">您确定要删除 {0} 吗？</system:String>
+    <system:String x:Key="AreYouSureYouWantToDelete">您确定要删除 </system:String>
 
 
     <!--ThemeSettingsWindow Strings-->
