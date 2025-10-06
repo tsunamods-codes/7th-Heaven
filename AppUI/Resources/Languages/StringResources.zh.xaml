@@ -141,10 +141,10 @@
     <!--Game Launcher Settings Window-->
     <system:String x:Key="OptionsHeader" xml:space="preserve">选项</system:String>
     <system:String x:Key="AutoMountDisc">自动挂载游戏光盘</system:String>
-    <system:String x:Key="AutoMountDiscTooltip">启动游戏时自动挂载游戏光盘 ISO。仅限 Windows 8 及以上系统。如果使用 Windows 7 或更早系统，需要手动插入光盘或挂载 ISO。</system:String>
+    <system:String x:Key="AutoMountDiscTooltip">启动游戏时自动挂载游戏光盘 ISO。仅限 Windows 8及以上系统。如果使用 Windows 7或更早系统，需要手动插入光盘或挂载 ISO。</system:String>
 
     <system:String x:Key="AutoDismountDisc">自动卸载游戏光盘</system:String>
-    <system:String x:Key="AutoDismountDiscTooltip">游戏关闭时自动卸载游戏光盘 ISO。仅限 Windows 8 及以上系统。如果使用 Windows 7 或更早系统，需要手动弹出光盘或卸载 ISO。</system:String>
+    <system:String x:Key="AutoDismountDiscTooltip">游戏关闭时自动卸载游戏光盘 ISO。仅限 Windows 8及以上系统。如果使用 Windows 7或更早系统，需要手动弹出光盘或卸载 ISO。</system:String>
 
     <system:String x:Key="AutoUpdatePath">自动更新光盘路径</system:String>
     <system:String x:Key="AutoUpdatePathTooltip">检测光盘是否更改了驱动器号并自动更新游戏指向新位置。</system:String>
@@ -159,7 +159,7 @@
     
     <system:String x:Key="CompatibilityHeader" xml:space="preserve">兼容性</system:String>
     <system:String x:Key="HighDpiScalingFix">高 DPI 缩放修复</system:String>
-    <system:String x:Key="HighDpiScalingFixTooltip">可修复游戏画面被裁剪和/或未居中的问题。用于高DPI显示器。或者，将Windows显示设置改为100%缩放。</system:String>
+    <system:String x:Key="HighDpiScalingFixTooltip">可修复游戏画面被裁剪和/或未居中的问题。用于高 DPI 显示器。或者，将 Windows 显示设置改为100%缩放。</system:String>
 
     <system:String x:Key="ReunionDriverFix">Reunion 驱动修复</system:String>
     <system:String x:Key="ReunionDriverFixTooltip">在游戏启动时临时将 ddraw.dll 重命名为 Reunion.dll.bak，然后立即改回。不影响 7H 外 Reunion 的可玩性。</system:String>
@@ -251,7 +251,7 @@
     <system:String x:Key="ResetToModDefaults">重置为模组默认值</system:String>
     
     <!--MainWindow.xaml.cs Strings-->
-    <system:String x:Key="AreYouSureYouWantToPlayDebugWarning" xml:space="preserve">您确定要以这种模式运行FF7吗？以这种方式运行 FF7 可能导致极度缓慢并占用大量磁盘空间。
+    <system:String x:Key="AreYouSureYouWantToPlayDebugWarning" xml:space="preserve">您确定要以这种模式运行 FF7 吗？以这种方式运行 FF7 可能导致极度缓慢并占用大量磁盘空间。
 
 您应该仅在排查单个活动模组的问题时使用此选项，以便您可以排查问题并向模组作者和/或 7H 开发人员提交错误报告。</system:String>
 
@@ -276,7 +276,7 @@
     <system:String x:Key="AutoUpdate">自动更新</system:String>
 
     <system:String x:Key="FollowingErrorsFoundInConfiguration">在您的配置中发现以下错误：</system:String>
-    <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">在常规设置中发现错误。查看app.log获取错误详情。</system:String>
+    <system:String x:Key="ErrorsFoundInGeneralSettingsViewAppLog">在常规设置中发现错误。查看 app.log 获取错误详情。</system:String>
 
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">{0}有可用更新
 点击"是"下载新安装程序并开始更新过程。
@@ -427,7 +427,7 @@
 
     <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver">选择"自定义 7H 游戏驱动"以外的任何选项将导致使用 7H 安装的模组不再工作！</system:String>
     
-    <system:String x:Key="ReunionWarningMessage" xml:space="preserve">Reunion R06及更新版本，即使在Options.ini中禁用，也会在运行FF7时强制加载自定义游戏驱动。这与7th Heaven的游戏驱动冲突，会破坏您的图形设置，您将遇到问题。
+    <system:String x:Key="ReunionWarningMessage" xml:space="preserve">Reunion R06及更新版本，即使在Options.ini中禁用，也会在运行 FF7 时强制加载自定义游戏驱动。这与 7th Heaven 的游戏驱动冲突，会破坏您的图形设置，您将遇到问题。
 
 如果您想玩 Reunion，请使用为 7th Heaven 构建的兼容模组版本。
 
@@ -481,7 +481,7 @@
     <system:String x:Key="MissingLibraryPath">缺少库路径。</system:String>
     <system:String x:Key="MissingTexturesPath">缺少纹理(Aali OpenGL)路径。</system:String>
     <system:String x:Key="MissingMoviePath">缺少电影路径。</system:String>
-    <system:String x:Key="LibraryPathCannotBeGameOrApp">库路径不能与游戏或7th Heaven相同。使用默认路径或选择其他路径。</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">库路径不能与游戏或 7th Heaven 相同。使用默认路径或选择其他路径。</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">注册 .iro 模组文件到 7th Heaven 失败</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">从 7th Heaven 取消注册 .iro 模组文件失败</system:String>
@@ -660,7 +660,7 @@
     <system:String x:Key="IgnoreModCompatibilityRestrictions">忽略模组兼容性限制</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">自动检查 7th Heaven 更新</system:String>
 
-    <system:String x:Key="OpenIrosLinksWith7thHeaven">使用 7th Heaven打开 iros://链接</system:String>
+    <system:String x:Key="OpenIrosLinksWith7thHeaven">使用 7th Heaven 打开 iros://链接</system:String>
     <system:String x:Key="OpenModFilesWith7thHeaven">使用 7th Heaven 打开模组文件</system:String>
     <system:String x:Key="ContextMenuInExplorer">资源管理器中的上下文菜单</system:String>
 
@@ -671,7 +671,7 @@
 
     <system:String x:Key="Url">Url</system:String>
 
-    <system:String x:Key="ErrorIncorrectExe">错误 - 错误的Exe</system:String>
+    <system:String x:Key="ErrorIncorrectExe">错误 - 错误的 Exe</system:String>
     <system:String x:Key="ThisExeIsUsedForSteamReleaseFailedToCopyExe">此 exe 用于 Steam 版 FF7，7th Heaven 不支持。1.02版本的 ff7.exe 复制失败，无法自动为您选择。</system:String>
     <system:String x:Key="ThisExeIsUsedForSteamReleaseCopiedSelectedForYou">此 exe 用于 Steam 版FF7，7th Heaven 不支持。1.02版本的 ff7.exe 是 {0} 以确保 7th Heaven 工作。</system:String>
     <system:String x:Key="Selected">选择</system:String>
@@ -702,7 +702,7 @@
     <system:String x:Key="PackIRO">打包 IRO</system:String>
     <system:String x:Key="UnpackIRO">解包 IRO</system:String>
     <system:String x:Key="PatchIRO">修补 IRO</system:String>
-    <system:String x:Key="PatchIROAdvanced">修补 IRO (高级)</system:String>
+    <system:String x:Key="PatchIROAdvanced">修补 IRO(高级)</system:String>
 
 
     <!--UnhandledErrorWindow Strings-->
@@ -823,7 +823,7 @@
 
     <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla">用户要求无模组启动。正在以纯净模式运行游戏...</system:String>
     <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla">未激活任何模组。正在以纯净模式运行游戏...</system:String>
-    <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla">渲染器未设置为'自定义7H游戏驱动'。正在以纯净模式运行游戏...</system:String>
+    <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla">渲染器未设置为'自定义 7H 游戏驱动'。正在以纯净模式运行游戏...</system:String>
 
     <system:String x:Key="CreatingRuntimeProfile">正在创建运行时配置文件...</system:String>
     <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods">为活动模组创建运行时配置文件失败...</system:String>
@@ -1104,7 +1104,7 @@
     <system:String x:Key="AppHint9">模组作者：7th Heaven 现在支持树形视图样式的模组配置选项。</system:String>
     <system:String x:Key="AppHint10">模组作者：7th Heaven 现在支持在目录中使用 iros://ExternalURL 在浏览器中打开下载。</system:String>
     <system:String x:Key="AppHint11">模组作者：启用常规设置/资源管理器中的上下文菜单以从 Windows 启用右键模组选项。</system:String>
-    <system:String x:Key="AppHint12">模组作者：您可以为目录下载压缩 .7z/RAR/zip的IRO，7H 会自动解压它。</system:String>
+    <system:String x:Key="AppHint12">模组作者：您可以为目录下载压缩 .7z/RAR/zip 的 IRO，7H 会自动解压它。</system:String>
     <system:String x:Key="AppHint13">模组作者：您可以编程方式更改其他模组的设置以实现兼容性。</system:String>
     <system:String x:Key="AppHint14">您可以在 Windows 中双击模组文件打开/导入到 7th Heaven。</system:String>
     <system:String x:Key="AppHint15">您可以在管理配置文件窗口中双击配置文件加载选定的配置文件。</system:String>
@@ -1121,7 +1121,7 @@
     <system:String x:Key="AppHint26">您可以从帮助菜单中找到许多问题或问题的答案。</system:String>
     <system:String x:Key="AppHint27">通过前往设置>游戏驱动...更改游戏的图形设置。</system:String>
     <system:String x:Key="AppHint28">从模组信息面板的下拉箭头更改每个模组的更新设置。</system:String>
-    <system:String x:Key="AppHint29">如果您使用的是 Windows 8 或更新版本，7th Heaven 会自动挂载/卸载虚拟游戏光盘。</system:String>
+    <system:String x:Key="AppHint29">如果您使用的是 Windows 8或更新版本，7th Heaven 会自动挂载/卸载虚拟游戏光盘。</system:String>
     <system:String x:Key="AppHint30">7th Heaven 不再需要旧的 Game Converter。现在一切都是自动的！</system:String>
     <system:String x:Key="AppHint31">您不再需要使用 FF7Config.exe。它的功能已内置到设置>游戏启动器中。</system:String>
     <system:String x:Key="AppHint32">您知道 7th Heaven 1.0 是在2013年发布的吗？2.0是在7年后的2020年发布的。</system:String>
@@ -1146,7 +1146,7 @@
     <system:String x:Key="DownloadLinksHeader" xml:space="preserve">下载链接</system:String>
     <system:String x:Key="AddLink">新增链接</system:String>
 
-    <system:String x:Key="MegaFolderID">Mega文件夹ID：</system:String>
+    <system:String x:Key="MegaFolderID">Mega 文件夹编号：</system:String>
 
     <system:String x:Key="Miscellaneous">杂项</system:String>
     <system:String x:Key="Animations">动画</system:String>
@@ -1227,7 +1227,7 @@
 
     <system:String x:Key="CheckForSystemDEPStatus">正在检查系统 DEP 状态...</system:String>
     <system:String x:Key="DEPDetected">检测到 DEP</system:String>
-    <system:String x:Key="DoYouWantToDisableDEP">DEP当前设置为服务器环境，或根本没有启用。您想将其更改为桌面模式吗？</system:String>
+    <system:String x:Key="DoYouWantToDisableDEP">DEP 当前设置为服务器环境，或根本没有启用。您想将其更改为桌面模式吗？</system:String>
     <system:String x:Key="SystemDEPDisabledPleaseReboot">DEP 模式成功更新。请重新启动 PC 以使更改生效。</system:String>
     <system:String x:Key="CannotContinueWithDEPEnabled">DEP 模式不正确。请按照此处描述的步骤调整它以继续：https://7thheaven.rocks/help/dep.html</system:String>
     <system:String x:Key="SomethingWentWrongWhileDisablingDEP">尝试调整 DEP 时出现问题。您仍然可以手动操作。请按照此处描述的步骤: https://7thheaven.rocks/help/dep.html</system:String>
