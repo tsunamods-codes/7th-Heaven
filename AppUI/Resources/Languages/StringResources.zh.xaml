@@ -14,7 +14,7 @@
     <system:String x:Key="GeneralSettings">常规设置...</system:String>
     <system:String x:Key="GameDriver">游戏驱动...</system:String>
     <system:String x:Key="GameLauncher">游戏启动器...</system:String>
-    <system:String x:Key="Profiles">配置文件...</system:String>
+    <system:String x:Key="Profiles">预设...</system:String>
     <system:String x:Key="Language">语言...</system:String>
 
 
@@ -24,16 +24,16 @@
     <system:String x:Key="IROTools">IRO 工具...</system:String>
 
     <system:String x:Key="Help">帮助</system:String>
-    <system:String x:Key="HelpOpen">打开帮助</system:String>
-    <system:String x:Key="HelpOpenAbout">关于</system:String>
+    <system:String x:Key="HelpOpen">打开帮助文档</system:String>
+    <system:String x:Key="HelpOpenAbout">关于 7th Heaven</system:String>
 
     <system:String x:Key="MyMods">我的模组</system:String>
-    <system:String x:Key="MyModsTooltip">右键点击"我的模组"标签可打开模组库文件夹</system:String>
+    <system:String x:Key="MyModsTooltip">右键点击“我的模组”标签，可以打开存放模组的文件夹</system:String>
 
-    <system:String x:Key="BrowseCatalog">浏览目录</system:String>
-    <system:String x:Key="BrowseCatalogTooltip">右键点击"浏览目录"标签可打开目录设置</system:String>
+    <system:String x:Key="BrowseCatalog">在线模组下载</system:String>
+    <system:String x:Key="BrowseCatalogTooltip">右键单击“在线模组下载”，可以跳转到在线模组目录订阅设置</system:String>
 
-    <system:String x:Key="SearchHint">在此输入搜索内容...</system:String>
+    <system:String x:Key="SearchHint">在此输入搜索关键词...</system:String>
     <system:String x:Key="FiltersTooltip">点击选择要筛选的类别和标签</system:String>
 
     <system:String x:Key="StatusBarTooltip">点击查看应用程序日志</system:String>
@@ -43,11 +43,11 @@
     <system:String x:Key="ModInfoHeader" xml:space="preserve">模组信息</system:String>
     <system:String x:Key="NameLabel">名称：</system:String>
     <system:String x:Key="AuthorLabel">作者：</system:String>
-    <system:String x:Key="ReleasedLabel">发布时间：</system:String>
-    <system:String x:Key="CategoryLabel">类别：</system:String>
-    <system:String x:Key="VersionLabel">版本：</system:String>
+    <system:String x:Key="ReleasedLabel">更新时间:</system:String>
+    <system:String x:Key="CategoryLabel">类别:</system:String>
+    <system:String x:Key="VersionLabel">版本:</system:String>
 
-    <system:String x:Key="ClickHere">点击这里</system:String>
+    <system:String x:Key="ClickHere">点击此处</system:String>
     <system:String x:Key="None">无</system:String>
 
     <system:String x:Key="AutoUpdateInstall">自动更新/安装</system:String>
@@ -55,9 +55,10 @@
     <system:String x:Key="Notify">通知</system:String>
 
     <system:String x:Key="DescriptionLabel">描述：</system:String>
-    <system:String x:Key="LinkLabel">链接：</system:String>
-    <system:String x:Key="ReadmeLabel">自述文件：</system:String>
+    <system:String x:Key="LinkLabel">发布链接:</system:String>
+    <system:String x:Key="ReadmeLabel">自述文档:</system:String>
     <system:String x:Key="ReleaseNotesLabel">更新说明：</system:String>
+    <system:String x:Key="DonationLinkLabel">捐赠:</system:String>
 
     <system:String x:Key="NoPreviewImage">无预览图片</system:String>
 
@@ -65,7 +66,7 @@
     <!-- Browse Catalog Tab -->
     <system:String x:Key="Name">名称</system:String>
     <system:String x:Key="Author">作者</system:String>
-    <system:String x:Key="Released">发布时间</system:String>
+    <system:String x:Key="Released">更新时间</system:String>
     <system:String x:Key="Category">类别</system:String>
     <system:String x:Key="Size">大小</system:String>
     <system:String x:Key="Inst">已安装</system:String>
@@ -73,11 +74,11 @@
 
     <system:String x:Key="RefreshCatalogTooltip">强制更新所有订阅并刷新目录</system:String>
     <system:String x:Key="DownloadModTooltip">下载选定模组</system:String>
-    <system:String x:Key="ResetColumnsTooltip">重置列</system:String>
+    <system:String x:Key="ResetColumnsTooltip">重置排序</system:String>
 
     <system:String x:Key="Item">项目</system:String>
     <system:String x:Key="Progress">进度</system:String>
-    <system:String x:Key="Speed">速度</system:String>
+    <system:String x:Key="Speed">下载速度</system:String>
     <system:String x:Key="TimeLeft">剩余时间</system:String>
 
     <system:String x:Key="CancelDownloadTooltip">取消选定下载</system:String>
@@ -87,9 +88,9 @@
     <system:String x:Key="Active">已激活</system:String>
 
     <system:String x:Key="ImportModTooltip">导入模组</system:String>
-    <system:String x:Key="MoveUpTooltip">上移/右键点击移至顶部</system:String>
-    <system:String x:Key="MoveDownTooltip">下移/右键点击移至底部</system:String>
-    <system:String x:Key="AutoSortTooltip">根据类别加载顺序自动排序模组</system:String>
+    <system:String x:Key="MoveUpTooltip">左键点击上移/右键点击移至顶部</system:String>
+    <system:String x:Key="MoveDownTooltip">左键点击下移/右键点击移至底部</system:String>
+    <system:String x:Key="AutoSortTooltip">按照模组名称及兼容规则，自动排序</system:String>
     <system:String x:Key="ConfigureModTooltip">配置模组</system:String>
     <system:String x:Key="ActivateAllTooltip">激活所有模组</system:String>
     <system:String x:Key="DeactivateAllTooltip">停用所有模组</system:String>
@@ -105,7 +106,7 @@
     <system:String x:Key="No">否</system:String>
     <system:String x:Key="Off">关闭</system:String>
     <system:String x:Key="On">开启</system:String>
-    <system:String x:Key="ResetDefaults">重置默认值</system:String>
+    <system:String x:Key="ResetDefaults">重置为默认值</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="Load">加载</system:String>
     <system:String x:Key="Go">开始</system:String>
@@ -126,7 +127,7 @@
     <system:String x:Key="MissingRequiredInput">缺少必要输入</system:String>
     <system:String x:Key="IROToolsWindowTitle">IRO工具</system:String>
     <system:String x:Key="ChunkToolWindowTitle">区块工具</system:String>
-    <system:String x:Key="ManageProfiles">管理配置文件</system:String>
+    <system:String x:Key="ManageProfiles">管理预设配置文件</system:String>
     <system:String x:Key="SetLanguageWindowTitle">设置语言</system:String>
 
 
@@ -149,13 +150,13 @@
     <system:String x:Key="AutoUpdatePath">自动更新光盘路径</system:String>
     <system:String x:Key="AutoUpdatePathTooltip">检测光盘是否更改了驱动器号并自动更新游戏指向新位置。</system:String>
 
-    <system:String x:Key="ShowGameLauncher">显示游戏启动器</system:String>
+    <system:String x:Key="ShowGameLauncher">启动游戏时显示加载窗口</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">启动 FF7 时显示游戏启动器窗口，查看启动过程的详细输出。</system:String>
 
-    <system:String x:Key="ControlsLabel">控制：</system:String>
+    <system:String x:Key="ControlsLabel">按键设置：</system:String>
 
-    <system:String x:Key="SaveControlsTooltip">保存当前游戏内控制配置。</system:String>
-    <system:String x:Key="DeleteControlsTooltip">删除选定的自定义控制配置。</system:String>
+    <system:String x:Key="SaveControlsTooltip">保存当前游戏内按键配置。</system:String>
+    <system:String x:Key="DeleteControlsTooltip">删除选定的自定义按键配置。</system:String>
     
     <system:String x:Key="CompatibilityHeader" xml:space="preserve">兼容性</system:String>
     <system:String x:Key="HighDpiScalingFix">高 DPI 缩放修复</system:String>
@@ -165,9 +166,9 @@
     <system:String x:Key="ReunionDriverFixTooltip">在游戏启动时临时将 ddraw.dll 重命名为 Reunion.dll.bak，然后立即改回。不影响 7H 外 Reunion 的可玩性。</system:String>
 
 
-    <system:String x:Key="ImportMoviesHeader" xml:space="preserve">从光盘导入电影</system:String>
+    <system:String x:Key="ImportMoviesHeader" xml:space="preserve">从光盘导入过场动画</system:String>
     <system:String x:Key="Import">导入</system:String>
-    <system:String x:Key="ImportTooltip">从光盘导入缺失的电影文件。</system:String>
+    <system:String x:Key="ImportTooltip">从光盘导入缺失的过场动画文件。</system:String>
 
 
     <system:String x:Key="AudioDeviceHeader" xml:space="preserve">音频输出设备</system:String>
@@ -323,14 +324,14 @@
 
     <system:String x:Key="CannotActivateModBecauseDependentIsIncompatible" xml:space="preserve">您无法激活此模组，因为它需要 {0} 处于激活状态，但 {0} 与 {1} 不兼容。您需要先停用 {1} 才能启用此模组。</system:String>
 
-    <system:String x:Key="MissingRequirements">缺少需求</system:String>
-    <system:String x:Key="UnsupportedVersion">不支持版本</system:String>
+    <system:String x:Key="MissingRequirements">缺失必要内容</system:String>
+    <system:String x:Key="UnsupportedVersion">不支持的版本</system:String>
     <system:String x:Key="MissingRequiredActiveMods">缺少必要的激活模组</system:String>
     <system:String x:Key="DeactivateModsWarning">停用模组警告</system:String>
     <system:String x:Key="Uninstalled">已卸载</system:String>
 
-    <system:String x:Key="CanNotReOrderModItHasBeenRemoved">无法重新排序模组。似乎 {0} 已从文件系统中移除。</system:String>
-    <system:String x:Key="CanNotConfigureModItHasBeenRemoved">无法配置模组。似乎 {0} 已从文件系统中移除。</system:String>
+    <system:String x:Key="CanNotReOrderModItHasBeenRemoved">无法重新排序模组。似乎 {0} 已从文件系统中删除。</system:String>
+    <system:String x:Key="CanNotConfigureModItHasBeenRemoved">无法配置模组。似乎 {0} 已从文件系统中删除。</system:String>
     <system:String x:Key="CanNotConfigureModFailedToReadModXml">配置模组 {0} 失败 - 读取 mod.xml 失败</system:String>
 
     <system:String x:Key="NoOptions">无选项</system:String>
@@ -341,13 +342,13 @@
 
     <!--CatalogViewModel Strings-->
 
-    <system:String x:Key="ThisModAlsoRequiresYouDownloadTheFollowing" xml:space="preserve">此模组还要求您下载以下模组：
+    <system:String x:Key="ThisModAlsoRequiresYouDownloadTheFollowing" xml:space="preserve">此模组还需要搭配下列模组:
 {0}
 下载并安装它们吗？</system:String>
 
-    <system:String x:Key="ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog" xml:space="preserve">此模组需要以下模组也安装，但在任何目录中都找不到它们：
+    <system:String x:Key="ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog" xml:space="preserve">此模组还需要搭配下列模组:
 {0}
-除非您找到并安装这些需求，否则可能无法正常工作。</system:String>
+并未在存放模组的文件夹检测到这些模组。</system:String>
 
     <system:String x:Key="PauseResumeSelectedDownload">暂停/继续选定下载</system:String>
     <system:String x:Key="PauseSelectedDownload">暂停选定下载</system:String>
@@ -355,10 +356,10 @@
 
     <system:String x:Key="NoResultsFound">未找到结果</system:String>
     <system:String x:Key="CheckingSubscription">正在检查订阅</system:String>
-    <system:String x:Key="CheckingCatalog">正在检查目录</system:String>
-    <system:String x:Key="UpdatedCatalogFrom">已从 {0} 更新目录</system:String>
+    <system:String x:Key="CheckingCatalog">正在检查在线模组目录</system:String>
+    <system:String x:Key="UpdatedCatalogFrom">已从 {0} 更新在线模组目录</system:String>
     <system:String x:Key="FailedToLoadSubscription">加载订阅失败</system:String>
-    <system:String x:Key="CatalogDownloadFailed">目录下载失败</system:String>
+    <system:String x:Key="CatalogDownloadFailed">在线模组目录下载失败</system:String>
 
     <system:String x:Key="Starting">正在启动...</system:String>
     <system:String x:Key="Pending">等待中...</system:String>
@@ -405,8 +406,8 @@
     <!--ConfigureModViewModel Strings-->
     <system:String x:Key="ConfigureMod">配置模组</system:String>
 
-    <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">由于与其他模组的兼容性，此选项无法更改</system:String>
-    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility">以下值：{0} 由于与其他模组 ({1}) 的兼容性已被移除</system:String>
+    <system:String x:Key="ThisOptionCannotBeChangedDueToCompatibility">为了兼容其它模组，这个选项不可修改</system:String>
+    <system:String x:Key="TheFollowingValuesHaveBeenRemovedDueToCompatibility"> {0} 选项已被移除，否则不兼容其它模组 ({1})</system:String>
 
     <system:String x:Key="FailedToPlayPreviewAudio">播放预览音频失败</system:String>
 
@@ -436,15 +437,15 @@
     <system:String x:Key="YouShouldLeaveThisSettingOn">您应该保持此设置开启！</system:String>
     <system:String x:Key="ProgramToRunNotFound">找不到要运行的程序</system:String>
 
-    <system:String x:Key="ImportMissingMoviesWarningMessage" xml:space="preserve">这将从您的游戏光盘复制缺失的电影文件到"常规设置"中的电影路径。
-此过程将覆盖 {0} 中已有的任何电影文件。
+    <system:String x:Key="ImportMissingMoviesWarningMessage" xml:space="preserve">这将从您的游戏光盘复制缺失的过场动画文件到"常规设置"中的过场动画路径。
+此过程将覆盖 {0} 中已有的任何过场动画文件。
 
 您要继续吗？</system:String>
 
     <system:String x:Key="LookingFor">正在查找</system:String>
     <system:String x:Key="InsertToContinue">插入 {0} 以继续。</system:String>
     
-    <system:String x:Key="PleaseInsertToContinueCopying" xml:space="preserve">请插入 {0} 以继续复制缺失的电影文件。
+    <system:String x:Key="PleaseInsertToContinueCopying" xml:space="preserve">请插入 {0} 以继续复制缺失的过场动画文件。
 
 点击"取消"停止此过程。</system:String>
 
@@ -452,23 +453,23 @@
     <system:String x:Key="Overwriting">正在覆盖</system:String>
     <system:String x:Key="Copying">正在复制</system:String>
     <system:String x:Key="FailedToFindAt">在 {1} 查找 {0} 失败</system:String>
-    <system:String x:Key="AnErrorOccurredCopyingMovies">复制电影时发生错误s</system:String>
-    <system:String x:Key="SuccessfullyCopiedMovies">成功复制电影。</system:String>
-    <system:String x:Key="FinishedCopyingMoviesSomeFailed">电影复制完成。部分电影复制失败。查看app.log获取详情。</system:String>
+    <system:String x:Key="AnErrorOccurredCopyingMovies">复制过场动画时发生错误s</system:String>
+    <system:String x:Key="SuccessfullyCopiedMovies">成功复制过场动画。</system:String>
+    <system:String x:Key="FinishedCopyingMoviesSomeFailed">过场动画复制完成。部分过场动画复制失败。查看app.log获取详情。</system:String>
 
-    <system:String x:Key="SaveControlConfiguration">保存控制配置</system:String>
-    <system:String x:Key="ImportCurrentControlsFromGameAndSaveAs">从游戏导入当前控制并另存为...</system:String>
-    <system:String x:Key="SaveError">保存错误</system:String>
-    <system:String x:Key="ControlNameIsEmpty">控制名称为空。</system:String>
-    <system:String x:Key="ControlNameContainsInvalidChars">控制名称包含无效字符。</system:String>
+    <system:String x:Key="SaveControlConfiguration">保存按键设置</system:String>
+    <system:String x:Key="ImportCurrentControlsFromGameAndSaveAs">从游戏中导入当前的按键设置，并另存为...</system:String>
+    <system:String x:Key="SaveError">保存出错</system:String>
+    <system:String x:Key="ControlNameIsEmpty">按键配置文件的名称不能为空。</system:String>
+    <system:String x:Key="ControlNameContainsInvalidChars">按键配置文件的名称不能包含特殊符号。</system:String>
 
-    <system:String x:Key="ControlsWithThatNameAlreadyExist">已存在同名的自定义控制。</system:String>
+    <system:String x:Key="ControlsWithThatNameAlreadyExist">已存在同名的自定义按键配置文件。</system:String>
 
-    <system:String x:Key="SuccessfullyCreatedCustomControls">成功创建自定义控制。</system:String>
-    <system:String x:Key="FailedToCreateCustomControls">创建自定义控制失败</system:String>
+    <system:String x:Key="SuccessfullyCreatedCustomControls">自定义按键配置文件创建成功。</system:String>
+    <system:String x:Key="FailedToCreateCustomControls">自定义按键配置文件创建失败。</system:String>
 
-    <system:String x:Key="SuccessfullyDeletedCustomControls">成功删除自定义控制</system:String>
-    <system:String x:Key="FailedToDeleteCustomControls">删除自定义控制失败</system:String>
+    <system:String x:Key="SuccessfullyDeletedCustomControls">自定义按键配置文件删除成功。</system:String>
+    <system:String x:Key="FailedToDeleteCustomControls">自定义按键配置文件删除失败。</system:String>
     
     
     <!--GeneralSettingsViewModel Strings-->
@@ -477,11 +478,11 @@
 
     <system:String x:Key="SettingsNotValid">设置无效</system:String>
     <system:String x:Key="MissingFf7ExePath">缺少 FF7 Exe 路径。</system:String>
-    <system:String x:Key="Ff7ExePathChanged">检测到游戏路径更改，强烈建议您重新启动 7th Heaven，现在要重启吗？</system:String>
-    <system:String x:Key="MissingLibraryPath">缺少库路径。</system:String>
+    <system:String x:Key="Ff7ExePathChanged">检测到游戏文件夹路径更改，强烈建议您重新启动 7th Heaven，现在要重启吗？</system:String>
+    <system:String x:Key="MissingLibraryPath">缺少存放模组的文件夹路径。</system:String>
     <system:String x:Key="MissingTexturesPath">缺少纹理(Aali OpenGL)路径。</system:String>
-    <system:String x:Key="MissingMoviePath">缺少电影路径。</system:String>
-    <system:String x:Key="LibraryPathCannotBeGameOrApp">库路径不能与游戏或 7th Heaven 相同。使用默认路径或选择其他路径。</system:String>
+    <system:String x:Key="MissingMoviePath">缺少过场动画路径。</system:String>
+    <system:String x:Key="LibraryPathCannotBeGameOrApp">存放模组的文件夹路径不能是 7th Heaven 软件根目录，也不能是游戏根目录！</system:String>
 
     <system:String x:Key="FailedToRegisterIroModFilesWith7thHeaven">注册 .iro 模组文件到 7th Heaven 失败</system:String>
     <system:String x:Key="FailedToUnregisterIroModFilesWith7thHeaven">从 7th Heaven 取消注册 .iro 模组文件失败</system:String>
@@ -497,9 +498,9 @@
     
     
     <!--ImportModViewModel Strings-->
-    <system:String x:Key="SelectAnIroFileToImport">选择要导入到库文件夹的 .iro 文件。</system:String>
-    <system:String x:Key="SelectAFolderThatContainsModFiles">选择包含模组文件的文件夹。模组文件将被复制到库文件夹。</system:String>
-    <system:String x:Key="SelectAFolderThatContainsIroModFilesAndFolders">选择包含 .iro 模组文件和模组文件夹的文件夹。所有找到的模组文件将被复制到库文件夹。</system:String>
+    <system:String x:Key="SelectAnIroFileToImport">选择一个 .iro 或 .irop 文件，然后导入存放模组的文件夹。</system:String>
+    <system:String x:Key="SelectAFolderThatContainsModFiles">选择一个包含未封包模组内容的文件夹，它将会被复制到存放模组的文件夹。</system:String>
+    <system:String x:Key="SelectAFolderThatContainsIroModFilesAndFolders">选择 .iro文件，以及包含未封包模组内容的文件夹，它们都会被复制到存放模组的文件夹。</system:String>
     <system:String x:Key="ImportingModsPleaseWait">正在导入模组...请稍候...</system:String>
 
     <system:String x:Key="ValidationError">验证错误</system:String>
@@ -512,10 +513,10 @@
     <system:String x:Key="CanNotImportMod">无法导入模组。</system:String>
     <system:String x:Key="FailedToImportModTheErrorHasBeenLogged">导入模组失败。错误已记录。</system:String>
 
-    <system:String x:Key="EnterPathToFolderContainingModFiles">输入包含模组文件的文件夹路径。</system:String>
-    <system:String x:Key="DirectoryDoesNotExist">目录不存在。</system:String>
+    <system:String x:Key="EnterPathToFolderContainingModFiles">输入一个包含未封包模组内容的文件夹路径。</system:String>
+    <system:String x:Key="DirectoryDoesNotExist">存放模组的文件夹不存在。</system:String>
 
-    <system:String x:Key="EnterPathToFolderContainingIroFilesOrModFolders">输入包含 .iro 文件和/或模组文件夹的文件夹路径。</system:String>
+    <system:String x:Key="EnterPathToFolderContainingIroFilesOrModFolders">输入一个包含 .iro文件，以及包含未封包模组内容的文件夹路径。</system:String>
 
     <!--MegaLinkGenUserControl Strings-->
     <system:String x:Key="GenerateLinks">生成链接</system:String>
@@ -539,7 +540,7 @@
     
     
     <!--OpenProfileWindow Strings-->
-    <system:String x:Key="LoadProfile">加载配置文件</system:String>
+    <system:String x:Key="LoadProfile">加载预设配置文件</system:String>
     <system:String x:Key="SaveCurrentProfileAs">将当前配置文件另存为...</system:String>
     <system:String x:Key="CopySelectedProfileToNewProfile">将选定配置文件复制为新配置文件</system:String>
     <system:String x:Key="DeleteSelectedProfile">删除选定配置文件</system:String>
@@ -637,7 +638,7 @@
     
     
     <!--GameLaunchSettingsWindow.xaml.cs Strings-->
-    <system:String x:Key="SelectProgramToRemove">选择要移除的程序。</system:String>
+    <system:String x:Key="SelectProgramToRemove">选择要删除的程序。</system:String>
     <system:String x:Key="SelectProgramToEdit">选择要编辑的程序。</system:String>
     <system:String x:Key="SelectProgramToMove">选择要移动的程序。</system:String>
     <system:String x:Key="SelectProgramToRunSuchAs">选择要运行的程序，如 .exe 或脚本</system:String>
@@ -653,21 +654,21 @@
     
     <!--GeneralSettingsWindow Strings-->
     <system:String x:Key="ActivateNewlyInstalledModsAutomatically">自动激活新安装的模组</system:String>
-    <system:String x:Key="ImportModsFromLibraryAutomatically">从库自动导入模组</system:String>
-    <system:String x:Key="WarnWhenModContainsCode">模组包含代码时警告</system:String>
-    <system:String x:Key="AutoSortModsByDefault">默认自动排序模组</system:String>
-    <system:String x:Key="AutoUpdateModsByDefault">默认自动更新模组</system:String>
-    <system:String x:Key="IgnoreModCompatibilityRestrictions">忽略模组兼容性限制</system:String>
+    <system:String x:Key="ImportModsFromLibraryAutomatically">从存放模组的文件夹自动导入新模组</system:String>
+    <system:String x:Key="WarnWhenModContainsCode">当模组包含注入型代码时提出警告</system:String>
+    <system:String x:Key="AutoSortModsByDefault">自动调整模组加载顺序</system:String>
+    <system:String x:Key="AutoUpdateModsByDefault">自动更新模组</system:String>
+    <system:String x:Key="IgnoreModCompatibilityRestrictions">忽略模组兼容规则</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">自动检查 7th Heaven 更新</system:String>
 
     <system:String x:Key="OpenIrosLinksWith7thHeaven">使用 7th Heaven 打开 iros://链接</system:String>
     <system:String x:Key="OpenModFilesWith7thHeaven">使用 7th Heaven 打开模组文件</system:String>
     <system:String x:Key="ContextMenuInExplorer">资源管理器中的上下文菜单</system:String>
 
-    <system:String x:Key="PathsHeader" xml:space="preserve">路径</system:String>
+    <system:String x:Key="PathsHeader" xml:space="preserve">游戏路径</system:String>
     <system:String x:Key="ShellIntegrationHeader" xml:space="preserve">Shell 集成</system:String>
-    <system:String x:Key="CatalogSubscriptionsHeader" xml:space="preserve">目录订阅：</system:String>
-    <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve">要监控的额外文件夹：</system:String>
+    <system:String x:Key="CatalogSubscriptionsHeader" xml:space="preserve">在线模组目录订阅：</system:String>
+    <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve">游戏根目录下必要的文件夹：</system:String>
 
     <system:String x:Key="Url">Url</system:String>
 
@@ -678,16 +679,16 @@
     <system:String x:Key="CopiedAndSelected">复制并选择</system:String>
     <system:String x:Key="ThisExeIsUsedForConfiguringFf7Settings">此 exe 用于配置 FF7 设置，不是正确的游戏 exe。请选择不同的 FF7 EXE 文件。</system:String>
 
-    <system:String x:Key="SelectFf7Exe">选择 FF7.exe</system:String>
-    <system:String x:Key="SelectMoviesFolder">选择电影文件夹</system:String>
+    <system:String x:Key="SelectFf7Exe">选择 FF7.exe 或 FF7_en.exe</system:String>
+    <system:String x:Key="SelectMoviesFolder">选择过场动画文件夹</system:String>
     <system:String x:Key="SelectTexturesFolder">选择纹理文件夹</system:String>
-    <system:String x:Key="Select7thHeavenLibraryFolder">选择 7th Heaven 库文件夹</system:String>
+    <system:String x:Key="Select7thHeavenLibraryFolder">选择存放模组的 7th Heaven 库文件夹</system:String>
 
     <system:String x:Key="SelectSubscriptionToEdit">选择要编辑的订阅。</system:String>
-    <system:String x:Key="SelectSubscriptionToRemove">选择要移除的订阅。</system:String>
+    <system:String x:Key="SelectSubscriptionToRemove">选择要删除的订阅。</system:String>
     <system:String x:Key="SelectSubscriptionToMove">选择要移动的订阅。</system:String>
 
-    <system:String x:Key="SelectFolderToRemove">选择要移除的文件夹。</system:String>
+    <system:String x:Key="SelectFolderToRemove">选择要删除的文件夹。</system:String>
     <system:String x:Key="SelectFolderToMove">选择要移动的文件夹。</system:String>
     
     
@@ -721,23 +722,21 @@
 
     <!--GameLauncher Strings-->
     <system:String x:Key="CheckingFf7IsNotRunning">正在检查 FF7 是否未运行...</system:String>
-    <system:String x:Key="Ff7IsAlreadyRunning">FF7 正在运行!</system:String>
-    <system:String x:Key="Ff7IsAlreadyRunningDoYouWantToForceClose" xml:space="preserve">FF7已在运行。您想强制关闭它吗？
+    <system:String x:Key="Ff7IsAlreadyRunning">FF7 已经运行!</system:String>
+    <system:String x:Key="Ff7IsAlreadyRunningDoYouWantToForceClose" xml:space="preserve">选择“是”，强制关闭正在后台运行的 FF7.exe 或 FF7_en.exe，然后你需要手动重新启动游戏。</system:String>
 
-点击"是"关闭所有当前 FF7 实例。点击"否"启动另一个实例。</system:String>
-
-    <system:String x:Key="ForceClosingAllInstancesFf7">正在强制关闭所有 FF7 实例...</system:String>
+    <system:String x:Key="ForceClosingAllInstancesFf7">正在强制关闭所有 FF7 ...</system:String>
     <system:String x:Key="Aborting">正在中止...</system:String>
     <system:String x:Key="FailedToCloseProcess">关闭进程失败</system:String>
-    <system:String x:Key="CheckingFf7ExeExistsAt">正在检查 FF7 .exe 是否存在于 </system:String>
-    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查 FF7 Steam 是否正确安装...</system:String>
-    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">未找到用户配置。看起来您的 Steam 游戏安装尚未运行。
+    <system:String x:Key="CheckingFf7ExeExistsAt">正在检查 FF7.exe 或 FF7_en.exe 是否存在于 </system:String>
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查 FF7 Steam版 是否正确安装...</system:String>
+    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">并未检测到你的“文档\Square Enix\FINAL FANTASY VII Steam”文件夹里存在用户配置文件。请确保你在使用 7th Heaven 之前，已经运行过一次 FF7 Steam英文原版。
         
-7th Heaven现在将为您启动原始游戏。请确保点击"启动游戏"并至少运行一次游戏。
+接下来将会以英文状态启动游戏，请在弹出的英文窗口中点击Play，进入一次原版游戏，直到进入游戏主标题画面，确保电脑上的用户配置文件已经生成。
     
-完成后，请关闭游戏和启动器，最后在此处点击 7th Heaven 中的"播放"重试。</system:String>
+然后按键盘Ctrl+Q 退出原版游戏，重新启动 7th Heaven ，再左上角按钮启动游戏。</system:String>
     <system:String x:Key="FileNotFoundAborting">找不到文件。正在中止...</system:String>
-    <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">找不到 FF7.exe。您可能需要使用设置>常规设置菜单配置 7H。</system:String>
+    <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">找不到 FF7.exe 或 FF7_en.exe。您可能需要使用设置>常规设置菜单配置 7H。</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">正在验证安装的游戏是否兼容...</system:String>
     <system:String x:Key="ErrorCodeYarr">错误代码：YARR! 无法继续。请在 Qhimm 论坛报告此错误。</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">正在验证游戏是否未安装在系统/受保护文件夹中...</system:String>
@@ -761,18 +760,18 @@
     <system:String x:Key="VerifyingAdditionalFilesForBattleAndKernelFoldersExist">正在验证 'battle' 和 'kernel' 文件夹的附加文件...</system:String>
     <system:String x:Key="FailedToVerifyCopyMissingAdditionalFiles">验证/复制缺失附加文件失败。正在中止...</system:String>
 
-    <system:String x:Key="VerifyingAllMovieFilesExist">正在验证所有电影文件...</system:String>
-    <system:String x:Key="CouldNotFindAllMovieFilesAt">无法在以下位置找到所有电影文件：</system:String>
+    <system:String x:Key="VerifyingAllMovieFilesExist">正在验证所有过场动画文件...</system:String>
+    <system:String x:Key="CouldNotFindAllMovieFilesAt">无法在以下位置找到所有过场动画文件：</system:String>
     <system:String x:Key="AllFilesFoundAt">所有文件已在以下位置找到：</system:String>
-    <system:String x:Key="UpdatingMoviePathSetting">正在更新电影路径设置。</system:String>
-    <system:String x:Key="AttemptingToCopyMovieFiles">正在尝试复制电影文件...</system:String>
+    <system:String x:Key="UpdatingMoviePathSetting">正在更新过场动画路径设置。</system:String>
+    <system:String x:Key="AttemptingToCopyMovieFiles">正在尝试复制过场动画文件...</system:String>
 
-    <system:String x:Key="MovieFilesAreMissing">电影文件缺失！</system:String>
-    <system:String x:Key="InOrderToSeeInGameMoviesYouWillNeedMessage" xml:space="preserve">要观看游戏内电影，您需要下载并激活电影模组。
+    <system:String x:Key="MovieFilesAreMissing">过场动画文件缺失！</system:String>
+    <system:String x:Key="InOrderToSeeInGameMoviesYouWillNeedMessage" xml:space="preserve">要观看游戏内过场动画，您需要下载并激活过场动画模组。
 
-或者，您可以通过设置>游戏启动器>从光盘导入电影。
+或者，您可以通过设置>游戏启动器>从光盘导入过场动画。
 
-最后，您可以在"常规设置"中将电影路径指向光盘的 FF7\Movies 文件夹，但您必须在游戏时进行光盘更换。</system:String>
+最后，您可以在"常规设置"中将过场动画路径指向光盘的 FF7\Movies 文件夹，但您必须在游戏时进行光盘更换。</system:String>
 
     <system:String x:Key="VerifyingMusicFilesExist">正在验证音乐文件...</system:String>
     <system:String x:Key="CouldNotFindAllMusicFilesAt">无法在以下位置找到所有音乐文件：</system:String>
@@ -886,7 +885,7 @@
     <system:String x:Key="AnExceptionOccurredTryingToStartFf7At">以下地址在尝试启动 FF7 时发生异常：</system:String>
 
     <system:String x:Key="ThereWasAnErrorVerifyingModConstraintSeeTheFollowingDetails">验证模组约束时出错。详情如下：</system:String>
-    <system:String x:Key="TheFollowingSettingsHaveBeenChangedToMakeTheseModsCompatible">以下设置已被修改以使模组兼容：</system:String>
+    <system:String x:Key="TheFollowingSettingsHaveBeenChangedToMakeTheseModsCompatible">为了保证模组之间的兼容，以下设置已经自动调整：</system:String>
 
 
     <system:String x:Key="ModRequiresYouToActivateAsWell">模组 {0} 要求您同时激活 {1}</system:String>
@@ -961,7 +960,7 @@
     <!--ConfigureGLWindow.xaml.cs Strings-->
     <system:String x:Key="Graphics">图形</system:String>
     <system:String x:Key="Controls">控制</system:String>
-    <system:String x:Key="Cheats">秘籍</system:String>
+    <system:String x:Key="Cheats">快捷键</system:String>
     <system:String x:Key="Rendering">渲染</system:String>
     <system:String x:Key="Advanced">高级</system:String>
 
@@ -980,13 +979,13 @@
 
     <system:String x:Key="FailedToGetModInfoDueToMissingVariable">警告:由于缺少变量，无法获取模组信息，可能导致问题</system:String>
 
-    <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved">下模组未找到安装，已从配置文件中移除</system:String>
+    <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved">下模组未找到安装，已从配置文件中删除</system:String>
     <system:String x:Key="ErrorLoadingSettingsPleaseConfigure7H">加载设置错误 - 请使用设置>常规设置...菜单配置 7H</system:String>
     <system:String x:Key="ErrorLoadingLibraryFile">加载库文件错误</system:String>
     <system:String x:Key="FailedToImportMod">导入模组失败</system:String>
     <system:String x:Key="AutoImportedMod">自动导入模组</system:String>
     <system:String x:Key="CouldNotImportIroFileIsCorrupt">无法导入 .iro 模组，文件已损坏</system:String>
-    <system:String x:Key="ModCouldNotBeFoundHasItBeenDeleted">找不到模组。是否已被删除？已从列表中移除。</system:String>
+    <system:String x:Key="ModCouldNotBeFoundHasItBeenDeleted">找不到模组。是否已被删除？已从列表中删除。</system:String>
 
     <system:String x:Key="CouldNotLoadProfile">无法加载配置文件</system:String>
 
@@ -1067,24 +1066,24 @@
 
     <system:String x:Key="GameLauncherSettings">游戏启动器设置</system:String>
 
-    <system:String x:Key="ClickToSelectFf7ExeFile">点击选择您的 FF7.exe文件</system:String>
-    <system:String x:Key="ClickToSelectWhereYourMovieFolderIs">点击选择您的电影文件夹位置</system:String>
+    <system:String x:Key="ClickToSelectFf7ExeFile">点击选择您的 FF7.exe 或 FF7_en.exe 文件</system:String>
+    <system:String x:Key="ClickToSelectWhereYourMovieFolderIs">点击选择您的过场动画文件夹位置</system:String>
     <system:String x:Key="ClickToSelectWhereTexturesAreStored">点击选择纹理存储位置</system:String>
-    <system:String x:Key="ClickToSelectWhereYourModLibraryIs">点击选择您的模组库位置</system:String>
+    <system:String x:Key="ClickToSelectWhereYourModLibraryIs">点击选择您存放模组的文件夹位置</system:String>
 
-    <system:String x:Key="FF7ExeLabel">FF7 可执行文件：</system:String>
-    <system:String x:Key="MoviesLabel">电影：</system:String>
-    <system:String x:Key="TexturesLabel">纹理：</system:String>
-    <system:String x:Key="LibraryLabel">库：</system:String>
+    <system:String x:Key="FF7ExeLabel">FF7 exe文件所在路径：</system:String>
+    <system:String x:Key="MoviesLabel">过场动画文件夹路径：</system:String>
+    <system:String x:Key="TexturesLabel">纹理文件夹路径：</system:String>
+    <system:String x:Key="LibraryLabel">存放模组的文件夹路径：</system:String>
 
     <system:String x:Key="AddSubscriptionURL">添加订阅 URL</system:String>
-    <system:String x:Key="RemoveSubscriptionURL">移除订阅 URL</system:String>
+    <system:String x:Key="RemoveSubscriptionURL">删除订阅 URL</system:String>
     <system:String x:Key="EditSubscriptionURL">编辑订阅 URL/名称</system:String>
     <system:String x:Key="MoveSubscriptionUp">上移订阅。右键点击移至顶部。</system:String>
     <system:String x:Key="MoveSubscriptionDown">下移订阅。右键点击移至底部</system:String>
 
     <system:String x:Key="AddFolder">新增文件夹</system:String>
-    <system:String x:Key="RemoveFolder">移除文件夹</system:String>
+    <system:String x:Key="RemoveFolder">删除文件夹</system:String>
     <system:String x:Key="MoveFolderUp">上移文件夹。右键点击移至顶部。</system:String>
     <system:String x:Key="MoveFolderDown">下移文件夹。右键点击移至底部。</system:String>
     <system:String x:Key="EnterUrlInIrosFormat">以 iros:// 格式输入 URL</system:String>
@@ -1111,8 +1110,8 @@
     <system:String x:Key="AppHint16">配置文件详情现在在设置>配置文件中，然后点击眼睛图标。</system:String>
     <system:String x:Key="AppHint17">7th Heaven 会记住您之前的配置模组设置，即使您停用并重新激活。</system:String>
     <system:String x:Key="AppHint18">通过在配置模组窗口中点击"重置为模组默认值"来重置模组设置。</system:String>
-    <system:String x:Key="AppHint19">意外删除了目录订阅？点击常规设置中的"重置默认值"。</system:String>
-    <system:String x:Key="AppHint20">右键点击"我的模组"标签在 Windows 中打开您的模组库文件夹。</system:String>
+    <system:String x:Key="AppHint19">意外删除了在线模组目录订阅？点击常规设置中的"重置为默认值"。</system:String>
+    <system:String x:Key="AppHint20">右键点击"我的模组"标签在 Windows 中打开您存放模组的文件夹。</system:String>
     <system:String x:Key="AppHint21">右键点击"浏览目录"标签打开您的目录设置。</system:String>
     <system:String x:Key="AppHint22">右键点击侧边栏中的箭头将模组发送到顶部或底部。</system:String>
     <system:String x:Key="AppHint23">弄乱了列视图？点击侧边栏中的"重置列"按钮。</system:String>
@@ -1132,12 +1131,12 @@
     <system:String x:Key="AppHint37">您可以通过点击搜索框旁边的下拉箭头来筛选视图。</system:String>
     <system:String x:Key="AppHint38">在"游戏启动器设置"中快速切换键盘/游戏手柄控制选项。</system:String>
     <system:String x:Key="AppHint39">您知道吗？7th Heaven 支持命令行参数(开关)。</system:String>
-    <system:String x:Key="AppHint40">有1998年的光盘？从"游戏启动器设置"自动导入您的电影。</system:String>
+    <system:String x:Key="AppHint40">有1998年的光盘？从"游戏启动器设置"自动导入您的过场动画。</system:String>
     <system:String x:Key="AppHint41">通过前往设置>更改颜色主题自定义您的7th Heaven颜色。</system:String>
     <system:String x:Key="AppHint42">您可以导出并与他人分享您的自定义颜色主题。</system:String>
     <system:String x:Key="AppHint43">您可以暂停和恢复某些下载。</system:String>
 
-    <system:String x:Key="ModManagerForFinalFantasy7">FF7 模组管理器</system:String>
+    <system:String x:Key="ModManagerForFinalFantasy7">最终幻想VII 模组管理器 ( 由 Tsunamods Team 维护)</system:String>
 
 
     <system:String x:Key="ReleaseDateLabel">发布日期：</system:String>
@@ -1155,13 +1154,13 @@
     <system:String x:Key="FieldModels">场景模型</system:String>
     <system:String x:Key="FieldTextures">场景纹理</system:String>
     <system:String x:Key="Gameplay">游戏玩法</system:String>
-    <system:String x:Key="Media">媒体</system:String>
+    <system:String x:Key="Media">音视频</system:String>
     <system:String x:Key="Minigames">小游戏</system:String>
-    <system:String x:Key="SpellTextures">法术纹理</system:String>
-    <system:String x:Key="UserInterface">用户界面</system:String>
-    <system:String x:Key="WorldModels">世界模型</system:String>
-    <system:String x:Key="WorldTextures">世界纹理</system:String>
-    <system:String x:Key="ReShadeShaders">ReShade Shaders</system:String>
+    <system:String x:Key="SpellTextures">魔法纹理</system:String>
+    <system:String x:Key="UserInterface">游戏界面</system:String>
+    <system:String x:Key="WorldModels">大地图模型</system:String>
+    <system:String x:Key="WorldTextures">大地图纹理</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade着色器</system:String>
 
     <system:String x:Key="Cancelling">正在取消</system:String>
 
@@ -1172,19 +1171,19 @@
 
     <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/29/20-->
 
-    <system:String x:Key="SetInGameControls">设置游戏内控制</system:String>
+    <system:String x:Key="SetInGameControls">设置游戏内的按键映射</system:String>
     <system:String x:Key="Keyboard">键盘</system:String>
-    <system:String x:Key="Controller">控制器</system:String>
+    <system:String x:Key="Controller">手柄</system:String>
     <system:String x:Key="ConfirmLabel">[确认]</system:String>
     <system:String x:Key="CancelLabel">[取消]</system:String>
     <system:String x:Key="MenuLabel">[菜单]</system:String>
     <system:String x:Key="SwitchLabel">[切换]</system:String>
-    <system:String x:Key="ScrollUpLabel">[上滚]</system:String>
-    <system:String x:Key="ScrollDownLabel">[下滚]</system:String>
+    <system:String x:Key="ScrollUpLabel">[上页]</system:String>
+    <system:String x:Key="ScrollDownLabel">[下页]</system:String>
 
-    <system:String x:Key="CameraLabel">[摄像机]</system:String>
+    <system:String x:Key="CameraLabel">[视角]</system:String>
     <system:String x:Key="TargetLabel">[目标]</system:String>
-    <system:String x:Key="AssistLabel">[辅助]</system:String>
+    <system:String x:Key="AssistLabel">[帮助]</system:String>
     <system:String x:Key="StartLabel">[开始]</system:String>
 
     <system:String x:Key="UpLabel">[上]</system:String>
@@ -1193,8 +1192,8 @@
     <system:String x:Key="RightLabel">[右]</system:String>
 
     <system:String x:Key="Presets">预设：</system:String>
-    <system:String x:Key="EnablePS4ControllerSupport">启用 PS4 控制器支持</system:String>
-    <system:String x:Key="PS4ControllerSupportTooltip">允许在游戏中使用 PS4 控制器(必须安装 SCP 驱动)</system:String>
+    <system:String x:Key="EnablePS4ControllerSupport">启用 PS4 手柄支持</system:String>
+    <system:String x:Key="PS4ControllerSupportTooltip">允许在游戏中使用 PS4 手柄(必须安装 SCP 驱动)</system:String>
     <system:String x:Key="SaveChangesTooltip">保存控制更改。</system:String>
 
     <system:String x:Key="OpenGameControllersWindow">打开游戏控制器窗口</system:String>
@@ -1202,16 +1201,16 @@
     <system:String x:Key="ControlsTooltip">设置您的游戏内键盘和游戏手柄控制。点击保存图标将上述控制映射保存为自定义配置。</system:String>
 
 
-    <system:String x:Key="StartingPS4ControllerService">正在启动 PS4 控制器服务...</system:String>
+    <system:String x:Key="StartingPS4ControllerService">正在启动 PS4 手柄服务...</system:String>
     <system:String x:Key="ServiceAlreadyRunning">服务已在运行...</system:String>
 
     <system:String x:Key="RetryInstallTooltip">重试安装模组</system:String>
 
 
-    <system:String x:Key="MovieImporter">电影导入器...</system:String>
-    <system:String x:Key="AllMovieFilesAlreadyImported" xml:space="preserve">所有电影已导入！</system:String>
+    <system:String x:Key="MovieImporter">过场动画导入器...</system:String>
+    <system:String x:Key="AllMovieFilesAlreadyImported" xml:space="preserve">所有过场动画已导入！</system:String>
 
-    <system:String x:Key="ImportMoviesFromDisc">从光盘导入电影</system:String>
+    <system:String x:Key="ImportMoviesFromDisc">从光盘导入过场动画</system:String>
 
     <system:String x:Key="EnableTriggerDpadSupport">启用 DPad 和触发器支持</system:String>
     <system:String x:Key="TriggerDpadSupportTooltip">在游戏中启用 DPad 和触发器支持。(如果使用第三方映射工具请禁用)</system:String>
@@ -1235,5 +1234,5 @@
     <system:String x:Key="App4GBPatchRequired">确保游戏 exe 已应用4GB补丁...</system:String>
     <system:String x:Key="App4GBPatchApplied">4GB补丁应用成功。</system:String>
 
-    <system:String x:Key="OpenSaveGamePath">打开保存目录...</system:String>
+    <system:String x:Key="OpenSaveGamePath">打开游戏存档文件夹...</system:String>
 </ResourceDictionary>

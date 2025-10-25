@@ -5,7 +5,7 @@
   <Setting xsi:type="DropDown">
     <Group>图形</Group>
     <Name>图形 API</Name>
-    <Description>设置渲染软件。自动根据您的 GPU 选择最佳选项。AMD 显卡使用 OpenGL 可能会导致崩溃</Description>
+    <Description>设置渲染软件。自动根据您的 GPU 选择最佳选项。{0}AMD 显卡使用 OpenGL 可能会导致崩溃。{0}如果遇到游戏闪退、场景黑屏等问题，可依次尝试每个选项，直到游戏正常。</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
       <Text>自动</Text>
@@ -43,7 +43,7 @@
   <Setting xsi:type="DropDown">
     <Group>图形</Group>
     <Name>分辨率</Name>
-    <Description>设置游戏窗口大小。自动模式在窗口模式下使用游戏分辨率，全屏模式下使用当前桌面分辨率。</Description>
+    <Description>设置游戏窗口大小。仅影响窗口模式的分辨率，不影响全屏模式。全屏模式会自动使用当前桌面分辨率。Auto选项会自动使用游戏默认窗口分辨率。</Description>
     <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
     <Option>
       <Text>自动</Text>
@@ -53,11 +53,11 @@
 
   <Setting xsi:type="DropDown">
     <Group>图形</Group>
-    <Name>窗口模式</Name>
-    <Description>以标准窗口或无边框全屏模式显示游戏。</Description>
+    <Name>窗口/全屏模式</Name>
+    <Description>按照你的需求，自行选择窗口/全屏/无边框窗口模式。</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
-      <Text>窗口化</Text>
+      <Text>窗口</Text>
       <Settings>fullscreen = false,borderless = false</Settings>
     </Option>
     <Option>
@@ -132,8 +132,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>图形</Group>
-    <Name>高级光追</Name>
-    <Description>启用实时光追支持。注意：此功能需要现代 CPU。如果发现速度变慢，请禁用此选项。</Description>
+    <Name>高级光照效果</Name>
+    <Description>为游戏引入实时光照与真实阴影系统。考验CPU硬件配置，如果游戏卡顿，请关闭此项。</Description>
     <DefaultValue>enable_lighting = false</DefaultValue>
     <TrueSetting>enable_lighting = true</TrueSetting>
     <FalseSetting>enable_lighting = false</FalseSetting>
@@ -150,51 +150,51 @@
 
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
-    <Name>随机战斗</Name>
-    <Description>不可配置。在游戏中切换随机遇敌开关。{0}用法：'CTRL+B' 或 'L3 键，然后圆圈键'</Description>
+    <Group>快捷键</Group>
+    <Name>随机遇敌</Name>
+    <Description>开启或关闭随机遇敌。{0}使用方法：在游戏中按键盘 'CTRL+B' 或者 先按手柄 'L3' →再按 'Ο 或 B'</Description>
     <DefaultValue></DefaultValue>
     <Option>
-      <Text>详见描述</Text>
+      <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
-    <Name>自动攻击</Name>
-    <Description>不可配置。在游戏中切换自动攻击开关。{0}用法：'CTRL+A' 或 'L3 键，然后三角键'</Description>
+    <Group>快捷键</Group>
+    <Name>自动普通攻击</Name>
+    <Description>战斗中开启或关闭自动普通攻击。{0}使用方法：在游戏中按键盘 'CTRL+A' 或者 先按手柄 'L3' →再按 '△ 或 Y'</Description>
     <DefaultValue></DefaultValue>
     <Option>
-      <Text>详见描述</Text>
+      <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
-    <Name>跳过动画</Name>
-    <Description>不可配置。立即跳转到动画结尾。{0}用法：'CTRL+S' 或 'L3 键，然后方块键'</Description>
+    <Group>快捷键</Group>
+    <Name>跳过过场动画</Name>
+    <Description>跳过过场动画。有概率导致游戏卡死，建议仅用于跳过新游戏片头动画。{0}使用方法：在游戏中按键盘 'CTRL+S' 或者 先按手柄 'L3' →再按 '□ 或 X'</Description>
     <DefaultValue></DefaultValue>
     <Option>
-      <Text>详见描述</Text>
+      <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
-    <Name>软重置</Name>
-    <Description>不可配置。快速以游戏结束状态重置游戏。*不要在战斗中使用*{0}用法：'CTRL+R' 或 'L3 键，然后选择键+开始键'</Description>
+    <Group>快捷键</Group>
+    <Name>软重启</Name>
+    <Description>快速返回到主标题界面，用于重新加载存档。{0}*不要在战斗中软重启，否则重新读档后，战斗会黑屏*{0}使用方法：在游戏中按键盘 'CTRL+R' 或者 先按手柄 'L3' →再按 'Select+Start'</Description>
     <DefaultValue></DefaultValue>
     <Option>
-      <Text>详见描述</Text>
+      <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
+    <Group>快捷键</Group>
     <Name>速度修正步进</Name>
     <Description>每次触发时增加或减少速度的量。{0}用法：'CTRL+上/下'或 'L3 键，然后 L1/R1 键' 改变速度，'CTRL+左/右'或 'L3 键，然后 L2/R2 键'切换开关。</Description>
     <DefaultValue>speedhack_step = 0.5</DefaultValue>
@@ -213,7 +213,7 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>秘籍</Group>
+    <Group>快捷键</Group>
     <Name>速度修正最大值</Name>
     <Description>在循环回正常速度前设置的最大速度。</Description>
     <DefaultValue>speedhack_max = 8.0</DefaultValue>
@@ -246,8 +246,8 @@
   <!-- CONTROLS TAB -->
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
-    <Name>模拟控制</Name>
-    <Description>启用全方位模拟控制支持。包括两个功能：战斗自由视角移动和场景360度模拟移动。</Description>
+    <Name>手柄自由视角控制</Name>
+    <Description>在战斗中和大地图中解锁360°自由视角旋转。仅用于手柄。</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
@@ -255,8 +255,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>控制</Group>
-    <Name>自动奔跑</Name>
-    <Description>启用自动奔跑行为。这将使克劳德根据左摇杆的倾斜程度自动奔跑。</Description>
+    <Name>手柄左摇杆自动奔跑</Name>
+    <Description>推动手柄左摇杆，控制的角色会自动以奔跑状态移动。仅用于手柄。</Description>
     <DefaultValue>enable_auto_run = false</DefaultValue>
     <TrueSetting>enable_auto_run = true</TrueSetting>
     <FalseSetting>enable_auto_run = false</FalseSetting>
