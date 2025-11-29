@@ -313,7 +313,15 @@ namespace AppUI.Classes
             IniData data;
             if (System.IO.File.Exists(Sys.PathToReShadeINI))
             {
-                data = parser.ReadFile(Sys.PathToReShadeINI);
+                try
+                {
+                    data = parser.ReadFile(Sys.PathToReShadeINI);
+                }
+                catch (Exception)
+                {
+                    // Assume corrupted INI, recreate
+                    data = new IniData();
+                }
             }
             else
             {
