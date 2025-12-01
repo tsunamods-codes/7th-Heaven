@@ -850,7 +850,30 @@ namespace AppUI.Classes
         {
             try
             {
-                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+                var isSteamVersion = Sys.Settings.FF7InstalledVersion == FF7Version.Steam;
+
+                if (Sys.Settings.HasOption(GeneralOptions.LaunchExeDirectly) || !isSteamVersion)
+                {
+                    var exeDir = Path.GetDirectoryName(Sys.Settings.FF7Exe);
+
+                    if (isSteamVersion)
+                    {
+                        var steamAppIdPath = Path.Join(exeDir, "steam_appid.txt");
+                        if(!File.Exists(steamAppIdPath))
+                        {
+                            //Write steam_appid.txt to the exe directory, which prevents the game from re-opening through Steam
+                            await File.WriteAllTextAsync(steamAppIdPath, "39140");
+                        }
+                    }
+                    // Start game directly
+                    ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
+                    {
+                        WorkingDirectory = exeDir,
+                        UseShellExecute = true,
+                    };
+                    ff7Proc = Process.Start(startInfo);
+                }
+                else
                 {
                     // Start game via Steam
                     ProcessStartInfo startInfo = new ProcessStartInfo(GameConverter.GetSteamExePath())
@@ -867,16 +890,6 @@ namespace AppUI.Classes
                     {
                         ff7Proc = game;
                     }
-                }
-                else
-                {
-                    // Start game directly
-                    ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
-                    {
-                        WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
-                        UseShellExecute = true,
-                    };
-                    ff7Proc = Process.Start(startInfo);
                 }
 
                 ff7Proc.EnableRaisingEvents = true;

@@ -25,6 +25,7 @@ namespace AppUI.ViewModels
         private bool _activateInstalledModsAuto;
         private bool _importLibraryFolderAuto;
         private bool _checkForUpdatesAuto;
+        private bool _launchExeDirectly;
         private bool _bypassCompatibilityLocks;
         private bool _openIrosLinks;
         private bool _openModFilesWith7H;
@@ -180,6 +181,32 @@ namespace AppUI.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public bool LaunchExeDirectly
+        {
+            get
+            {
+                return _launchExeDirectly;
+            }
+            set
+            {
+                _launchExeDirectly = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Visibility LaunchExeDirectlyVisibility
+        {
+            get
+            {
+                if(Sys.Settings.FF7InstalledVersion == FF7Version.Steam || LaunchExeDirectly)
+                {
+                    return Visibility.Visible;
+                }
+                return Visibility.Collapsed;
+            }
+        }
+
 
         public bool BypassCompatibilityLocks
         {
@@ -410,6 +437,10 @@ namespace AppUI.ViewModels
             OpenModFilesWith7H = settings.HasOption(GeneralOptions.OpenModFilesWith7H);
             WarnAboutModCode = settings.HasOption(GeneralOptions.WarnAboutModCode);
             ShowContextMenuInExplorer = settings.HasOption(GeneralOptions.Show7HInFileExplorerContextMenu);
+
+            LaunchExeDirectly = settings.HasOption(GeneralOptions.LaunchExeDirectly);
+
+            NotifyPropertyChanged(nameof(LaunchExeDirectlyVisibility));
         }
 
         public static void AutoDetectSystemPaths(Settings settings)
@@ -702,6 +733,9 @@ namespace AppUI.ViewModels
 
             if (ShowContextMenuInExplorer)
                 newOptions.Add(GeneralOptions.Show7HInFileExplorerContextMenu);
+
+            if (LaunchExeDirectly)
+                newOptions.Add(GeneralOptions.LaunchExeDirectly);
 
 
             return newOptions;

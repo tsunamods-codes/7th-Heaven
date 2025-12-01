@@ -109,6 +109,7 @@
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdateModsByDefault}" IsChecked="{Binding AutoUpdateModsByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='True'}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource IgnoreModCompatibilityRestrictions}" IsChecked="{Binding BypassCompatibilityLocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource CheckFor7thHeavenUpdatesAutomatically}" IsChecked="{Binding CheckForUpdatesAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
+                <CheckBox Height="25" Content="{DynamicResource LaunchExeDirectly}" Visibility="{Binding LaunchExeDirectlyVisibility}" IsChecked="{Binding LaunchExeDirectly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
             </StackPanel>
         </GroupBox>
 

@@ -35,7 +35,8 @@ namespace Iros.Workshop {
         Show7HInFileExplorerContextMenu,
         WarnAboutModCode,
         AutoUpdateMods,
-        AutoSortMods
+        AutoSortMods,
+        LaunchExeDirectly
     }
 
     public enum AppUpdateChannelOptions

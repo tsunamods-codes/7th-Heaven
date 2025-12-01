@@ -669,6 +669,7 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="AutoUpdateModsByDefault">Auto Update Mods By Default</system:String>
     <system:String x:Key="IgnoreModCompatibilityRestrictions">Ignore Mod Compatibility Restrictions</system:String>
     <system:String x:Key="CheckFor7thHeavenUpdatesAutomatically">Check For 7th Heaven Updates Automatically</system:String>
+    <system:String x:Key="LaunchExeDirectly">Launch Exe Directly</system:String>
 
     <system:String x:Key="OpenIrosLinksWith7thHeaven">Open iros:// links with 7th Heaven</system:String>
     <system:String x:Key="OpenModFilesWith7thHeaven">Open Mod Files with 7th Heaven</system:String>
