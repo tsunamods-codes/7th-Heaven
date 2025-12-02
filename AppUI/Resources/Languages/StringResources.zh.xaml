@@ -44,8 +44,11 @@
     <system:String x:Key="NameLabel">名称：</system:String>
     <system:String x:Key="AuthorLabel">作者：</system:String>
     <system:String x:Key="ReleasedLabel">更新时间:</system:String>
-    <system:String x:Key="CategoryLabel">类别:</system:String>
-    <system:String x:Key="VersionLabel">版本:</system:String>
+    <system:String x:Key="CategoryLabel">类别：</system:String>
+    <system:String x:Key="VersionLabel">版本：</system:String>
+    <system:String x:Key="PreviewLabel">预览：</system:String>
+    <system:String x:Key="InfolinkLabel">信息链接：</system:String>
+    <system:String x:Key="DonationlinkLabel">捐赠链接：</system:String>
 
     <system:String x:Key="ClickHere">点击此处</system:String>
     <system:String x:Key="None">无</system:String>
