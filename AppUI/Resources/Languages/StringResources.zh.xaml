@@ -125,7 +125,7 @@
     <system:String x:Key="ExtractComplete">提取完成</system:String>
     <system:String x:Key="InsertDisc">插入光盘</system:String>
     <system:String x:Key="MissingRequiredInput">缺少必要输入</system:String>
-    <system:String x:Key="IROToolsWindowTitle">IRO工具</system:String>
+    <system:String x:Key="IROToolsWindowTitle">IRO 工具</system:String>
     <system:String x:Key="ChunkToolWindowTitle">区块工具</system:String>
     <system:String x:Key="ManageProfiles">管理预设配置文件</system:String>
     <system:String x:Key="SetLanguageWindowTitle">设置语言</system:String>
@@ -428,7 +428,7 @@
 
     <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver">选择"自定义 7H 游戏驱动"以外的任何选项将导致使用 7H 安装的模组不再工作！</system:String>
     
-    <system:String x:Key="ReunionWarningMessage" xml:space="preserve">Reunion R06及更新版本，即使在Options.ini中禁用，也会在运行 FF7 时强制加载自定义游戏驱动。这与 7th Heaven 的游戏驱动冲突，会破坏您的图形设置，您将遇到问题。
+    <system:String x:Key="ReunionWarningMessage" xml:space="preserve">Reunion R06及更新版本，即使在 Options.ini 中禁用，也会在运行 FF7 时强制加载自定义游戏驱动。这与 7th Heaven 的游戏驱动冲突，会破坏您的图形设置，您将遇到问题。
 
 如果您想玩 Reunion，请使用为 7th Heaven 构建的兼容模组版本。
 
@@ -453,9 +453,9 @@
     <system:String x:Key="Overwriting">正在覆盖</system:String>
     <system:String x:Key="Copying">正在复制</system:String>
     <system:String x:Key="FailedToFindAt">在 {1} 查找 {0} 失败</system:String>
-    <system:String x:Key="AnErrorOccurredCopyingMovies">复制过场动画时发生错误s</system:String>
+    <system:String x:Key="AnErrorOccurredCopyingMovies">复制过场动画时发生错误</system:String>
     <system:String x:Key="SuccessfullyCopiedMovies">成功复制过场动画。</system:String>
-    <system:String x:Key="FinishedCopyingMoviesSomeFailed">过场动画复制完成。部分过场动画复制失败。查看app.log获取详情。</system:String>
+    <system:String x:Key="FinishedCopyingMoviesSomeFailed">过场动画复制完成。部分过场动画复制失败。查看 app.log 获取详情。</system:String>
 
     <system:String x:Key="SaveControlConfiguration">保存按键设置</system:String>
     <system:String x:Key="ImportCurrentControlsFromGameAndSaveAs">从游戏中导入当前的按键设置，并另存为...</system:String>
@@ -500,7 +500,7 @@
     <!--ImportModViewModel Strings-->
     <system:String x:Key="SelectAnIroFileToImport">选择一个 .iro 或 .irop 文件，然后导入存放模组的文件夹。</system:String>
     <system:String x:Key="SelectAFolderThatContainsModFiles">选择一个包含未封包模组内容的文件夹，它将会被复制到存放模组的文件夹。</system:String>
-    <system:String x:Key="SelectAFolderThatContainsIroModFilesAndFolders">选择 .iro文件，以及包含未封包模组内容的文件夹，它们都会被复制到存放模组的文件夹。</system:String>
+    <system:String x:Key="SelectAFolderThatContainsIroModFilesAndFolders">选择 .iro 文件，以及包含未封包模组内容的文件夹，它们都会被复制到存放模组的文件夹。</system:String>
     <system:String x:Key="ImportingModsPleaseWait">正在导入模组...请稍候...</system:String>
 
     <system:String x:Key="ValidationError">验证错误</system:String>
@@ -516,7 +516,7 @@
     <system:String x:Key="EnterPathToFolderContainingModFiles">输入一个包含未封包模组内容的文件夹路径。</system:String>
     <system:String x:Key="DirectoryDoesNotExist">存放模组的文件夹不存在。</system:String>
 
-    <system:String x:Key="EnterPathToFolderContainingIroFilesOrModFolders">输入一个包含 .iro文件，以及包含未封包模组内容的文件夹路径。</system:String>
+    <system:String x:Key="EnterPathToFolderContainingIroFilesOrModFolders">输入一个包含 .iro 文件，以及包含未封包模组内容的文件夹路径。</system:String>
 
     <!--MegaLinkGenUserControl Strings-->
     <system:String x:Key="GenerateLinks">生成链接</system:String>
@@ -583,7 +583,7 @@
     <system:String x:Key="PathToSourceFolderIsRequired">需要源文件夹路径</system:String>
     <system:String x:Key="PathToOutputIroFileIsRequired">需要输出 iro 文件路径</system:String>
     <system:String x:Key="SelectCompressionOption">选择压缩选项</system:String>
-    <system:String x:Key="InvalidPackIroOptions">非法 pack iro 选项</system:String>
+    <system:String x:Key="InvalidPackIroOptions">非法打包 iro 选项</system:String>
     <system:String x:Key="AnErrorOccuredWhilePacking">打包时发生错误</system:String>
     <system:String x:Key="PackingComplete">打包完成!</system:String>
 
@@ -729,8 +729,8 @@
     <system:String x:Key="Aborting">正在中止...</system:String>
     <system:String x:Key="FailedToCloseProcess">关闭进程失败</system:String>
     <system:String x:Key="CheckingFf7ExeExistsAt">正在检查 FF7.exe 或 FF7_en.exe 是否存在于 </system:String>
-    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查 FF7 Steam版 是否正确安装...</system:String>
-    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">并未检测到你的“文档\Square Enix\FINAL FANTASY VII Steam”文件夹里存在用户配置文件。请确保你在使用 7th Heaven 之前，已经运行过一次 FF7 Steam英文原版。
+    <system:String x:Key="CheckingFF7SteamInstalledCorrectly">正在检查 FF7 Steam 版 是否正确安装...</system:String>
+    <system:String x:Key="FF7SteamNotInstalledCorrectly" xml:space="preserve">并未检测到你的 “文档\Square Enix\FINAL FANTASY VII Steam” 文件夹里存在用户配置文件。请确保你在使用 7th Heaven 之前，已经运行过一次 FF7 Steam 英文原版。
         
 接下来将会以英文状态启动游戏，请在弹出的英文窗口中点击Play，进入一次原版游戏，直到进入游戏主标题画面，确保电脑上的用户配置文件已经生成。
     
@@ -941,12 +941,12 @@
     <system:String x:Key="BackingUpExistingShadersFolderTo">正在备份现有 'shaders' 文件夹到：</system:String>
     <system:String x:Key="CopyingContentsOf">正在复制以下文件内容：</system:String>
     <system:String x:Key="DirectoryMissingCreating">目录缺失。正在创建</system:String>
-    <system:String x:Key="OldGameConverterRegistryKeysFoundBackingUp">找到旧的Game Converter注册表键。正在备份旧转换器文件和注册表...</system:String>
+    <system:String x:Key="OldGameConverterRegistryKeysFoundBackingUp">找到旧的 Game Converter 注册表键。正在备份旧转换器文件和注册表...</system:String>
 
     <system:String x:Key="MissingShadersNolightFolderCreatingDirectory">缺少 shaders/nolight 文件夹。正在创建目录...</system:String>
     <system:String x:Key="MissingShadersComplexMultiShaderFolderCreatingDirectory">缺少 shaders/ComplexMultiShader_Nvidia 文件夹。正在创建目录...</system:String>
     <system:String x:Key="MissingShadersFolderCreatingDirectory">缺少 shaders 文件夹。正在从 Resources/Game Driver/ 复制...</system:String>
-    <system:String x:Key="MissingShadersFilesCopyingFrom">缺少着色器文件:：{0}。从以下位置复制：{1} ...</system:String>
+    <system:String x:Key="MissingShadersFilesCopyingFrom">缺少着色器文件：{0}。从以下位置复制：{1} ...</system:String>
     
     
     <!--UpdateChecker Class Strings-->
@@ -1056,8 +1056,8 @@
     <system:String x:Key="SaveModXml">保存 mod.xml</system:String>
     <system:String x:Key="SelectModXmlToLoad">选择要加载的 mod.xml</system:String>
 
-    <system:String x:Key="SaveAsIroTitle">另存为.iro</system:String>
-    <system:String x:Key="SaveAsIropTitle">另存为.irop</system:String>
+    <system:String x:Key="SaveAsIroTitle">另存为 .iro</system:String>
+    <system:String x:Key="SaveAsIropTitle">另存为 .irop</system:String>
 
     <system:String x:Key="SelectTheFolderThatContainsAllTheModFiles">选择包含所有要打包到 IRO 存档中的模组文件的文件夹。</system:String>
     <system:String x:Key="SelectFolderToOutputUnpackedFiles">选择输出解压文件的文件夹。</system:String>
@@ -1071,7 +1071,7 @@
     <system:String x:Key="ClickToSelectWhereTexturesAreStored">点击选择纹理存储位置</system:String>
     <system:String x:Key="ClickToSelectWhereYourModLibraryIs">点击选择您存放模组的文件夹位置</system:String>
 
-    <system:String x:Key="FF7ExeLabel">FF7 exe文件所在路径：</system:String>
+    <system:String x:Key="FF7ExeLabel">FF7 exe 文件所在路径：</system:String>
     <system:String x:Key="MoviesLabel">过场动画文件夹路径：</system:String>
     <system:String x:Key="TexturesLabel">纹理文件夹路径：</system:String>
     <system:String x:Key="LibraryLabel">存放模组的文件夹路径：</system:String>
@@ -1136,7 +1136,7 @@
     <system:String x:Key="AppHint42">您可以导出并与他人分享您的自定义颜色主题。</system:String>
     <system:String x:Key="AppHint43">您可以暂停和恢复某些下载。</system:String>
 
-    <system:String x:Key="ModManagerForFinalFantasy7">最终幻想VII 模组管理器 ( 由 Tsunamods Team 维护)</system:String>
+    <system:String x:Key="ModManagerForFinalFantasy7">最终幻想 VII 模组管理器 ( 由 Tsunamods Team 维护)</system:String>
 
 
     <system:String x:Key="ReleaseDateLabel">发布日期：</system:String>
@@ -1160,7 +1160,7 @@
     <system:String x:Key="UserInterface">游戏界面</system:String>
     <system:String x:Key="WorldModels">大地图模型</system:String>
     <system:String x:Key="WorldTextures">大地图纹理</system:String>
-    <system:String x:Key="ReShadeShaders">ReShade着色器</system:String>
+    <system:String x:Key="ReShadeShaders">ReShade 着色器</system:String>
 
     <system:String x:Key="Cancelling">正在取消</system:String>
 
