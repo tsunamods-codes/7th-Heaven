@@ -41,8 +41,8 @@
     
     <!--Mod Info Panel-->
     <system:String x:Key="ModInfoHeader" xml:space="preserve">模组信息</system:String>
-    <system:String x:Key="NameLabel">名称：</system:String>
-    <system:String x:Key="AuthorLabel">作者：</system:String>
+    <system:String x:Key="NameLabel">名称:</system:String>
+    <system:String x:Key="AuthorLabel">作者:</system:String>
     <system:String x:Key="ReleasedLabel">更新时间:</system:String>
     <system:String x:Key="CategoryLabel">类别:</system:String>
     <system:String x:Key="VersionLabel">版本:</system:String>
@@ -54,10 +54,10 @@
     <system:String x:Key="Ignore">忽略</system:String>
     <system:String x:Key="Notify">通知</system:String>
 
-    <system:String x:Key="DescriptionLabel">描述：</system:String>
+    <system:String x:Key="DescriptionLabel">描述:</system:String>
     <system:String x:Key="LinkLabel">发布链接:</system:String>
     <system:String x:Key="ReadmeLabel">自述文档:</system:String>
-    <system:String x:Key="ReleaseNotesLabel">更新说明：</system:String>
+    <system:String x:Key="ReleaseNotesLabel">更新说明:</system:String>
     <system:String x:Key="DonationLinkLabel">捐赠:</system:String>
 
     <system:String x:Key="NoPreviewImage">无预览图片</system:String>
