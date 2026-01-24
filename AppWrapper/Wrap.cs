@@ -214,7 +214,7 @@ namespace AppWrapper {
             {
                 foreach(var of in mf.Value)
                 {
-                    of.Archive.Dispose();
+                    if (of.Archive != null) of.Archive.Dispose();
                 }
             }
 
