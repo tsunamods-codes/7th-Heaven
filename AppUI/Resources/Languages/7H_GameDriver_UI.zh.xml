@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
   <!-- GRAPHICS TAB -->
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>图形 API</Name>
-    <Description>设置渲染软件。自动根据您的 GPU 选择最佳选项。{0}AMD 显卡使用 OpenGL 可能会导致崩溃。{0}如果遇到游戏闪退、场景黑屏等问题，可依次尝试每个选项，直到游戏正常。</Description>
+    <Description>选择游戏的软件渲染方式。{0}如果遇到游戏闪退、场景黑屏等问题，可依次尝试每个选项，直到游戏正常。{0}DirectX 11是最稳定的选项。AMD显卡不建议选择OpenGL选项。</Description>
     <DefaultValue>renderer_backend = 0</DefaultValue>
     <Option>
-      <Text>自动</Text>
+      <Text>Auto</Text>
       <Settings>renderer_backend = 0</Settings>
     </Option>
     <Option>
@@ -30,9 +30,9 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>显示器</Name>
-    <Description>设置游戏运行的优先显示器。</Description>
+    <Description>选择游戏运行时的画面投放到哪个显示器上。仅在你的电脑连接了多台显示器的情况下可选。</Description>
     <DefaultValue>display_index = -1</DefaultValue>
     <Option>
       <Text>主显示器</Text>
@@ -41,9 +41,9 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>分辨率</Name>
-    <Description>设置游戏窗口大小。仅影响窗口模式的分辨率，不影响全屏模式。全屏模式会自动使用当前桌面分辨率。Auto选项会自动使用游戏默认窗口分辨率。</Description>
+    <Description>设置游戏窗口大小。仅影响窗口模式的分辨率，不影响全屏模式。{0}全屏模式会自动使用当前桌面分辨率。{0}Auto选项会自动使用游戏默认窗口分辨率。</Description>
     <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
     <Option>
       <Text>自动</Text>
@@ -52,9 +52,9 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>窗口/全屏模式</Name>
-    <Description>按照你的需求，自行选择窗口/全屏/无边框窗口模式。</Description>
+    <Description>按照你的需求，选择窗口/全屏/无边框窗口模式。</Description>
     <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
     <Option>
       <Text>窗口</Text>
@@ -71,32 +71,32 @@
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
-    <Name>宽高比</Name>
-    <Description>保持宽高比会根据需要添加黑边以保持4:3的原始比例。</Description>
+    <Group>画面</Group>
+    <Name>画面比例</Name>
+    <Description>设置游戏画面的宽高比。{0}选择与你的显示器匹配的比例，否则画面边缘会出现黑边，或画面竖向拉长。{0}此项需要在HD简中拓展项目中进行调整，详见【游戏画面比例】选项。</Description>
     <DefaultValue>aspect_ratio = 0</DefaultValue>
     <Option>
-      <Text>原生(4:3)</Text>
+      <Text>原生 (4:3)</Text>
       <Settings>aspect_ratio = 0</Settings>
     </Option>
     <Option>
-      <Text>拉伸填充</Text>
+      <Text>拉伸画面</Text>
       <Settings>aspect_ratio = 1</Settings>
     </Option>
     <Option>
-      <Text>宽屏(16:9)</Text>
+      <Text>宽屏 (16:9)</Text>
       <Settings>aspect_ratio = 2</Settings>
     </Option>
     <Option>
-      <Text>宽屏(16:10)</Text>
+      <Text>宽屏 (16:10)</Text>
       <Settings>aspect_ratio = 3</Settings>
     </Option>
   </Setting>
 
   <Setting xsi:type="DropDown">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>抗锯齿</Name>
-    <Description>应用 2x/4x/8x/16x MSAA 过滤。减少锯齿边缘并提高图像质量。可能严重影响性能。</Description>
+    <Description>减少锯齿边缘，提高图像质量。{0}考验电脑硬件配置，可能会使游戏卡顿。</Description>
     <DefaultValue>enable_antialiasing = 0</DefaultValue>
     <Option>
       <Text>关闭</Text>
@@ -113,36 +113,36 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>各向异性过滤</Name>
-    <Description>对高分辨率纹理应用过滤以产生更清晰的图像。由于内存使用增加可能影响性能。</Description>
+    <Description>给高分辨率贴图加上滤镜，生成更清晰的图像。{0}占用更多系统内存。</Description>
     <DefaultValue>enable_anisotropic = true</DefaultValue>
     <TrueSetting>enable_anisotropic = true</TrueSetting>
     <FalseSetting>enable_anisotropic = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>垂直同步</Name>
-    <Description>将游戏帧率与显示器刷新率同步。可能对性能产生负面影响或破坏60 fps模组。如果出现画面撕裂请开启。*限制速度修正功能！*</Description>
+    <Description>将游戏帧率与你的显示器刷新率同步。如果遇到屏幕撕裂问题，请开启。{0}可能会影响60帧模式。{0}*如果你想使用【游戏变速】功能，请关闭垂直同步。</Description>
     <DefaultValue>enable_vsync = false</DefaultValue>
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
-
+  
   <Setting xsi:type="Checkbox">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>高级光照效果</Name>
-    <Description>为游戏引入实时光照与真实阴影系统。考验CPU硬件配置，如果游戏卡顿，请关闭此项。</Description>
+    <Description>为游戏引入实时光照与真实阴影系统。{0}考验电脑CPU硬件配置，如果游戏卡顿，请关闭此项。</Description>
     <DefaultValue>enable_lighting = false</DefaultValue>
     <TrueSetting>enable_lighting = true</TrueSetting>
     <FalseSetting>enable_lighting = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
-    <Group>图形</Group>
+    <Group>画面</Group>
     <Name>NTSC-J 色域模式</Name>
-    <Description>模拟1990年代日本电视机的色域，FF7 最初就是为此设计的。</Description>
+    <Description>选择是否模拟90年代日本电视机的色域（FF7和FF8最初的设计），使画面色彩更丰富。同时影响菜单栏背景色。{0}此项需要在HD简中拓展项目中进行调整，详见【更丰富的色彩】选项。</Description>
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
@@ -152,18 +152,18 @@
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>随机遇敌</Name>
-    <Description>开启或关闭随机遇敌。{0}使用方法：在游戏中按键盘 'CTRL+B' 或者 先按手柄 'L3' →再按 'Ο 或 B'</Description>
+    <Description>开启或关闭随机遇敌。{0}使用方法：在游戏中按键盘 'CTRL+B'{0}	或 先按手柄 'L3' 再按 'Ο (B)'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
-
+  
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>自动普通攻击</Name>
-    <Description>战斗中开启或关闭自动普通攻击。{0}使用方法：在游戏中按键盘 'CTRL+A' 或者 先按手柄 'L3' →再按 '△ 或 Y'</Description>
+    <Description>战斗中开启或关闭自动普通攻击。{0}使用方法：在游戏中按键盘 'CTRL+A'{0}	或 先按手柄 'L3' 再按 '△ (Y)'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>详见下方描述</Text>
@@ -174,18 +174,18 @@
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>跳过过场动画</Name>
-    <Description>跳过过场动画。有概率导致游戏卡死，建议仅用于跳过新游戏片头动画。{0}使用方法：在游戏中按键盘 'CTRL+S' 或者 先按手柄 'L3' →再按 '□ 或 X'</Description>
+    <Description>跳过过场动画。有概率导致游戏卡死，建议仅用于跳过新游戏片头动画。{0}使用方法：在游戏中按键盘 'CTRL+S'{0}	或 先按手柄 'L3' 再按 '□ (X)'</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>详见下方描述</Text>
       <Settings></Settings>
     </Option>
   </Setting>
-
+  
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>软重启</Name>
-    <Description>快速返回到主标题界面，用于重新加载存档。{0}*不要在战斗中软重启，否则重新读档后，战斗会黑屏*{0}使用方法：在游戏中按键盘 'CTRL+R' 或者 先按手柄 'L3' →再按 'Select+Start'</Description>
+    <Description>快速返回到主标题界面，用于重新加载存档。{0}*不要在战斗中软重启，否则重新读档后，战斗会黑屏。{0}使用方法：在游戏中按键盘 'CTRL+R'{0}	或 先按手柄 'L3' 再按 'Select+Start'。</Description>
     <DefaultValue></DefaultValue>
     <Option>
       <Text>详见下方描述</Text>
@@ -195,8 +195,8 @@
 
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
-    <Name>速度修正步进</Name>
-    <Description>每次触发时增加或减少速度的量。{0}用法：'CTRL+上/下'或 'L3 键，然后 L1/R1 键' 改变速度，'CTRL+左/右'或 'L3 键，然后 L2/R2 键'切换开关。</Description>
+    <Name>游戏变速递进值</Name>
+    <Description>设置游戏加速/减速的递进值。每次按快捷键时，递进值越大，越能更快到达【最大加速倍数】，或更快减速恢复到【正常速度】。{0}使用方法：按键盘 'CTRL+↑/↓' 或 先按手柄 'L3' 再按 'L1/R1' 进行加速/减速，{0}	键盘'CTRL+←/→' 或 先按手柄 'L3' 再按 'L2/R2' 开启/关闭变速功能。</Description>
     <DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
@@ -214,8 +214,8 @@
 
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
-    <Name>速度修正最大值</Name>
-    <Description>在循环回正常速度前设置的最大速度。</Description>
+    <Name>最大加速倍数</Name>
+    <Description>设置游戏加速能达到的最大倍数。倍数越高，速度越快。{0}*需要关闭【垂直同步】才能使用游戏变速功能。</Description>
     <DefaultValue>speedhack_max = 8.0</DefaultValue>
     <Option>
       <Text>2x</Text>
@@ -242,12 +242,12 @@
       <Settings>speedhack_max = 12.0</Settings>
     </Option>
   </Setting>
-
+  
   <!-- CONTROLS TAB -->
   <Setting xsi:type="Checkbox">
-    <Group>高级</Group>
+    <Group>控制</Group>
     <Name>手柄自由视角控制</Name>
-    <Description>在战斗中和大地图中解锁360°自由视角旋转。仅用于手柄。</Description>
+    <Description>在战斗中和大地图中解锁360°自由视角旋转。仅用于手柄。{0}*如果你使用键盘游玩，请关闭此项，然后打开Cosmos Gaia模组的自定义配置，关闭【大地图自由视角】选项。</Description>
     <DefaultValue>enable_analogue_controls = false</DefaultValue>
     <TrueSetting>enable_analogue_controls = true</TrueSetting>
     <FalseSetting>enable_analogue_controls = false</FalseSetting>
@@ -256,7 +256,7 @@
   <Setting xsi:type="Checkbox">
     <Group>控制</Group>
     <Name>手柄左摇杆自动奔跑</Name>
-    <Description>推动手柄左摇杆，控制的角色会自动以奔跑状态移动。仅用于手柄。</Description>
+    <Description>推动手柄左摇杆，当前控制的角色会自动以奔跑状态移动。仅用于手柄。</Description>
     <DefaultValue>enable_auto_run = false</DefaultValue>
     <TrueSetting>enable_auto_run = true</TrueSetting>
     <FalseSetting>enable_auto_run = false</FalseSetting>
@@ -264,8 +264,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>控制</Group>
-    <Name>反转水平控制</Name>
-    <Description>启用后在战斗中控制视角时反转水平移动方向。</Description>
+    <Name>水平视角翻转</Name>
+    <Description>推动手柄右摇杆旋转视角时，水平旋转方向与你的摇杆推动方向相反。</Description>
     <DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
     <TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
     <FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
@@ -273,8 +273,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>控制</Group>
-    <Name>反转垂直控制</Name>
-    <Description>启用后在战斗中控制视角时反转垂直移动方向。</Description>
+    <Name>垂直视角翻转</Name>
+    <Description>推动手柄右摇杆旋转视角时，垂直旋转方向与你的摇杆推动方向相反。</Description>
     <DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
     <TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
     <FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
@@ -283,17 +283,17 @@
   <!-- ADVANCED TAB -->
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
-    <Name>Steam 兼容性</Name>
-    <Description>启用 Steam 功能(游戏活动、控制器和成就)。需要 Steam 正在运行。</Description>
+    <Name>关联 Steam</Name>
+    <Description>与 FF7 Steam版进行关联，用于解锁游戏成就。</Description>
     <DefaultValue>enable_steam_achievements = false</DefaultValue>
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
   </Setting>
-
+  
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
-    <Name>显示调试信息</Name>
-    <Description>在覆盖层或标题栏中显示有关渲染过程/性能的实时信息。</Description>
+    <Name>游戏内显示调试信息</Name>
+    <Description>在全屏模式下的画面左上角，或窗口模式下的标题栏中，显示有关渲染过程/性能的实时信息。</Description>
     <DefaultValue>show_stats = false</DefaultValue>
     <TrueSetting>show_stats = true</TrueSetting>
     <FalseSetting>show_stats = false</FalseSetting>
@@ -302,7 +302,7 @@
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
     <Name>显示驱动版本</Name>
-    <Description>在覆盖层或标题栏中显示当前使用的驱动版本。</Description>
+    <Description>在全屏模式下的画面左上角，或窗口模式下的标题栏中，显示当前的驱动版本。</Description>
     <DefaultValue>show_version = false</DefaultValue>
     <TrueSetting>show_version = true</TrueSetting>
     <FalseSetting>show_version = false</FalseSetting>
@@ -310,8 +310,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
-    <Name>显示帧率(FPS)</Name>
-    <Description>在覆盖层或标题栏中显示当前帧率(FPS)。</Description>
+    <Name>显示帧率</Name>
+    <Description>在全屏模式下的画面左上角，或窗口模式下的标题栏中，显示游戏实时帧率。</Description>
     <DefaultValue>show_fps = false</DefaultValue>
     <TrueSetting>show_fps = true</TrueSetting>
     <FalseSetting>show_fps = false</FalseSetting>
@@ -319,28 +319,28 @@
 
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
-    <Name>显示图形 API</Name>
-    <Description>在覆盖层或标题栏中显示当前使用的图形 API(OpenGL/DirectX11)。</Description>
+    <Name>显示图形API版本</Name>
+    <Description>在全屏模式下的画面左上角，或窗口模式下的标题栏中，显示当前使用的图形API版本(OpenGL/DirectX11)。</Description>
     <DefaultValue>show_renderer_backend = false</DefaultValue>
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
-
+  
   <Setting xsi:type="DropDown">
     <Group>高级</Group>
-    <Name>内部分辨率缩放</Name>
-    <Description>将640x480内部分辨率乘以以下数值。更高值需要更强大的GPU。更高值可以消除缩放伪影，*标记值为性能与质量的最佳平衡点。</Description>
+    <Name>内部分辨率放大倍数</Name>
+    <Description>将游戏原生分辨率640x480乘以所选的倍数，提高模型精细度。由于FF7天幻中文字库贴图分辨率的上限为2x，所以不建议选择更高的倍数，否则字体将会出现视觉错误。</Description>
     <DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
-      <Text>自动</Text>
+      <Text>Auto</Text>
       <Settings>internal_resolution_scale = 0</Settings>
     </Option>
     <Option>
-      <Text>1x(可能导致伪影)</Text>
+      <Text>1x (可能导致画面模糊)</Text>
       <Settings>internal_resolution_scale = 1</Settings>
     </Option>
     <Option>
-      <Text>2x</Text>
+      <Text>2x (中文版最佳设置)</Text>
       <Settings>internal_resolution_scale = 2</Settings>
     </Option>
     <Option>
