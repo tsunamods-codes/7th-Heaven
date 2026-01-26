@@ -39,7 +39,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="9.0.11" IncludeAssets="none" />
     <PackageReference Include="SharpCompress">
-      <Version>0.44.0</Version>
+      <Version>0.44.4</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.11" />
   </ItemGroup>
