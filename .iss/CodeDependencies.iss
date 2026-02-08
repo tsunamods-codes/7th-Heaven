@@ -254,7 +254,7 @@ var
   IsProductInstalled: Boolean;
 begin
   try
-    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 9.0.11')
+    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 9.0.12')
   except
     IsProductInstalled := False
   end;
@@ -263,8 +263,8 @@ begin
   if not IsProductInstalled then begin
     Dependency_Add('dotnet90desktop' + Dependency_ArchSuffix + '.exe',
       '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
-      '.NET Desktop Runtime 9.0.11' + Dependency_ArchTitle,
-      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.11/windowsdesktop-runtime-9.0.11-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.11/windowsdesktop-runtime-9.0.11-win-x64.exe'),
+      '.NET Desktop Runtime 9.0.12' + Dependency_ArchTitle,
+      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.12/windowsdesktop-runtime-9.0.12-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.12/windowsdesktop-runtime-9.0.12-win-x64.exe'),
       '', False, False);
   end;
 end;
