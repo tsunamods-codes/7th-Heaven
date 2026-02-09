@@ -20,7 +20,8 @@ namespace Iros.Workshop {
         Unknown = -1,
         Steam,
         ReRelease,
-        Original98
+        Original98,
+        WindowsStore
     }
 
     public enum GeneralOptions {
@@ -214,14 +215,26 @@ namespace Iros.Workshop {
         /// <param name="pathToFf7Install"></param>
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
-            FF7Exe = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? Path.Combine(pathToFf7Install, "FF7.exe") : Path.Combine(pathToFf7Install, "ff7_en.exe");
+            switch(Sys.Settings.FF7InstalledVersion)
+            {
+                case FF7Version.Original98:
+                    FF7Exe = Path.Combine(pathToFf7Install, "FF7.exe");
+                    break;
+                case FF7Version.Steam:
+                    FF7Exe = Path.Combine(pathToFf7Install, "ff7_en.exe");
+                    break;
+                case FF7Version.WindowsStore:
+                    FF7Exe = Path.Combine(pathToFf7Install, "ff7", "workingdir", "ff7_en.exe");
+                    break;
+            }
+
             if (LibraryLocation == string.Empty) LibraryLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"7th Heaven");
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
 
             foreach (string folder in Settings.UseDefaultSettings().ExtraFolders)
             {
-                LogAndCreateFolderIfNotExists(Path.Combine(pathToFf7Install, folder));
+                LogAndCreateFolderIfNotExists(Path.Combine(Sys.InstallPath, folder));
             }
         }
 

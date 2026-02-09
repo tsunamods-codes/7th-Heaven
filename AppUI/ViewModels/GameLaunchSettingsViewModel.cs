@@ -445,7 +445,7 @@ namespace AppUI.ViewModels
             SelectedSoundDevice = ResourceHelper.Get(StringKey.LoadingDevices);
             InitSoundDevicesAsync();
 
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam) Sys.FFNxConfig.Reload();
+            if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98) Sys.FFNxConfig.Reload();
 
             InitMidiDevices();
             LoadSettings(Sys.Settings.GameLaunchSettings);
@@ -520,7 +520,7 @@ namespace AppUI.ViewModels
             string soundKeyPath = $"{ff7KeyPath}\\1.00\\Sound";
             string ffnxKeyPath = $"{ff7KeyPath}\\1.00\\FFNx";
 
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
             {
                 SfxVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_sfx_volume"));
                 if (SfxVolumeValue < 0) SfxVolumeValue = 100;
@@ -560,7 +560,7 @@ namespace AppUI.ViewModels
             string soundVirtualKeyPath = $"{virtualStorePath}\\1.00\\Sound";
             string ffnxVirtualKeyPath = $"{virtualStorePath}\\1.00\\FFNx";
 
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
             {
                 Sys.FFNxConfig.Set("external_sfx_volume", SfxVolumeValue.ToString());
                 Sys.FFNxConfig.Set("external_music_volume", MusicVolumeValue.ToString());
@@ -643,7 +643,7 @@ namespace AppUI.ViewModels
                 SetMidiDeviceInRegistry();
                 RegistryHelper.CommitTransaction();
 
-                if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam) Sys.FFNxConfig.Save();
+                if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98) Sys.FFNxConfig.Save();
 
                 Sys.SaveSettings();
 

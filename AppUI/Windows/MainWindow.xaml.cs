@@ -455,18 +455,29 @@ namespace AppUI
 
         private void menuItemOpenSaveDir_Click(object sender, RoutedEventArgs e)
         {
-            string path = Path.Combine(Sys.InstallPath, "save");
+            string path = string.Empty;
 
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            switch(Sys.Settings.FF7InstalledVersion)
             {
-                path = Directory.EnumerateDirectories(GameConverter.GetSteamFF7UserPath(), "user_*").First();
+                case FF7Version.Original98:
+                    path = Path.Combine(Sys.InstallPath, "save");
+                    break;
+                case FF7Version.Steam:
+                    path = Directory.EnumerateDirectories(GameConverter.GetSteamFF7UserPath(), "user_*").First();
+                    break;
+                case FF7Version.WindowsStore:
+                    path = Path.Combine(Sys.InstallPath, "save");
+                    break;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(path)
+            if (path != String.Empty)
             {
-                UseShellExecute = true,
-            };
-            Process.Start(startInfo);
+                ProcessStartInfo startInfo = new ProcessStartInfo(path)
+                {
+                    UseShellExecute = true,
+                };
+                Process.Start(startInfo);
+            }
         }
     }
 }

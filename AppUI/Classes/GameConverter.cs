@@ -1,15 +1,14 @@
 ﻿using AppCore;
+using GameFinder.Common;
+using GameFinder.StoreHandlers.Xbox;
 using Iros.Workshop;
-using Microsoft.Win32;
+using NexusMods.Paths;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ValveKeyValue;
 
 namespace AppUI.Classes
@@ -77,6 +76,24 @@ namespace AppUI.Classes
 
                 case FF7Version.Original98:
                     installPath = RegistryHelper.GetValue(FF7RegKey.FF7AppKeyPath, "Path", "") as string;
+                    break;
+
+                case FF7Version.WindowsStore:
+                    var handler = new XboxHandler(FileSystem.Shared);
+                    var results = handler.FindAllGames();
+
+                    foreach (var result in results)
+                    {
+                        // using the switch method
+                        result.Switch(game =>
+                        {
+                            if (game.Id == "39EA002F.FINALFANTASYVII")
+                                installPath = game.Path.GetFullPath().Replace("/", "\\");
+                        }, error =>
+                        {
+                            // Do nothing
+                        });
+                    }
                     break;
             }
 
@@ -147,43 +164,75 @@ namespace AppUI.Classes
             }
 
             // check if given exe is a genuine one
-            if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
+            switch (Sys.Settings.FF7InstalledVersion)
             {
-                byte[][] requiredHashes = {
-                    Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6"), // Steam
-                    Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB NTCore
-                    Convert.FromHexString("769B90800B17AF7A7DC31A0C4C37F256AF934876"), // Steam 4GB 7thHeaven auto-patch
-                };
-                using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7_en.exe"), FileMode.Open))
-                {
-                    bool matchesAtLeastOne = false;
-                    byte[] currentHash = SHA1.HashData(fs);
-                    foreach (byte[] hash in requiredHashes)
+                case FF7Version.Steam:
                     {
-                        if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
-                    }
+                        byte[][] requiredHashes = {
+                            Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6"), // Steam
+                            Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB NTCore
+                            Convert.FromHexString("769B90800B17AF7A7DC31A0C4C37F256AF934876"), // Steam 4GB 7thHeaven auto-patch
+                        };
+                        using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7_en.exe"), FileMode.Open))
+                        {
+                            bool matchesAtLeastOne = false;
+                            byte[] currentHash = SHA1.HashData(fs);
+                            foreach (byte[] hash in requiredHashes)
+                            {
+                                if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                            }
 
-                    if (!matchesAtLeastOne) return true;
-                }
-            }
-            else
-            {
-                byte[][] requiredHashes = {
-                    Convert.FromHexString("4EECAF14F30E8B0CC87B88C943F1119B567452D7"), // 1.00
-                    Convert.FromHexString("684A0E87840138B4E02FC8EDB9AE2E2591CE4982"), // 1.02
-                    Convert.FromHexString("141822081B3F24EA70BE35D59449E0CA098881E3"), // 1.02 4GB
-                };
-                using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7.exe"), FileMode.Open))
-                {
-                    bool matchesAtLeastOne = false;
-                    byte[] currentHash = SHA1.HashData(fs);
-                    foreach (byte[] hash in requiredHashes)
+                            if (!matchesAtLeastOne) return true;
+                        }
+                    }
+                    break;
+                case FF7Version.Original98:
                     {
-                        if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
-                    }
+                        byte[][] requiredHashes = {
+                            Convert.FromHexString("4EECAF14F30E8B0CC87B88C943F1119B567452D7"), // 1.00
+                            Convert.FromHexString("684A0E87840138B4E02FC8EDB9AE2E2591CE4982"), // 1.02
+                            Convert.FromHexString("141822081B3F24EA70BE35D59449E0CA098881E3"), // 1.02 4GB
+                        };
+                        using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7.exe"), FileMode.Open))
+                        {
+                            bool matchesAtLeastOne = false;
+                            byte[] currentHash = SHA1.HashData(fs);
+                            foreach (byte[] hash in requiredHashes)
+                            {
+                                if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                            }
 
-                    if (!matchesAtLeastOne) return true;
-                }
+                            if (!matchesAtLeastOne) return true;
+                        }
+                    }
+                    break;
+                case FF7Version.WindowsStore:
+                    {
+                        byte[][] requiredHashes = {
+                            Convert.FromHexString("AC306AE92615AF75FF36BBA6347C67CA1284151D"), // Windows Store
+                            Convert.FromHexString("D270E690A0EA2C9D57AF506D102CF1A794E2ADCD"), // Windows Store 4GB
+                        };
+                        string[] paths =
+                        {
+                            Path.Combine(InstallPath, "..", "resources", "ff7_1.02", "ff7_en"),
+                            Sys.Settings.FF7Exe
+                        };
+                        foreach (string path in paths)
+                        {
+                            using (FileStream fs = new FileStream(path, FileMode.Open))
+                            {
+                                bool matchesAtLeastOne = false;
+                                byte[] currentHash = SHA1.HashData(fs);
+                                foreach (byte[] hash in requiredHashes)
+                                {
+                                    if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                                }
+
+                                if (!matchesAtLeastOne) return true;
+                            }
+                        }
+                    }
+                    break;
             }
 
             return false;
@@ -604,6 +653,16 @@ namespace AppUI.Classes
             }
 
             return foundAllFiles;
+        }
+
+        public bool VerifyWindowsStoreInstallation()
+        {
+            string sourceExe = Path.Combine(InstallPath, "..", "resources", "ff7_1.02", "ff7_en");
+            string targetExe = Sys.Settings.FF7Exe;
+
+            File.Copy(sourceExe, targetExe, true);
+
+            return true;
         }
 
         /// <summary>

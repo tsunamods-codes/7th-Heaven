@@ -35,7 +35,7 @@ namespace AppUI.Classes
                     _currentDriverVersion = FileVersionInfo.GetVersionInfo(
                         Path.Combine(
                             Sys.InstallPath,
-                            Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "AF3DN.P" : "FFNx.dll"
+                            Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? "FFNx.dll" : "AF3DN.P"
                         )
                     );
                 }
@@ -71,7 +71,7 @@ namespace AppUI.Classes
             for (int i = 0; i < assets.Count; i++)
             {
                 string url = assets[i].browser_download_url.Value;
-                string prefix = Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "FFNx-Steam" : "FFNx-FF7_1998";
+                string prefix = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? "FFNx-FF7_1998" : "FFNx-Steam";
 
                 if (url.Contains(prefix))
                     return url;
@@ -320,7 +320,7 @@ namespace AppUI.Classes
         public static bool IsAlreadyInstalled()
         {
             var fi = new FileInfo(
-                Path.Combine(Sys.InstallPath, Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? "AF3DN.P" : "FFNx.dll")
+                Path.Combine(Sys.InstallPath, Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? "FFNx.dll" : "AF3DN.P")
             );
             bool ret = fi.Exists;
 
