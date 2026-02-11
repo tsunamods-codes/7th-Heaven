@@ -662,6 +662,9 @@ namespace AppUI.Classes
 
             File.Copy(sourceExe, targetExe, true);
 
+            Directory.CreateDirectory(Path.Combine(InstallPath, "data", "kernel"));
+            File.Copy(Path.Combine(InstallPath, "data", "lang-ja", "kernel", "window.bin"), Path.Combine(InstallPath, "data", "kernel", "window.bin"), true);
+
             return true;
         }
 
