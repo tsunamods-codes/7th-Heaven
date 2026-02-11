@@ -460,6 +460,13 @@ namespace AppUI.Classes
                 }
                 Sys.FFNxConfig.Save();
             }
+            else
+            {
+                Sys.FFNxConfig.Reload();
+                Sys.FFNxConfig.Backup(true);
+                Sys.FFNxConfig.OverrideInternalKeys(debug);
+                Sys.FFNxConfig.Save();
+            }
 
             //
             // Setup log file if debugging
