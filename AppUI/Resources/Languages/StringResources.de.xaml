@@ -747,7 +747,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">Datei nicht gefunden. Start wird abgebrochen...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Die "ff7.exe" wurde nicht gefunden. Bitte prüfen Sie die 7H-Einstellungen im Menü "Einstellungen" > "Generelle Einstellungen".</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Prüfe, ob das installierte Spiel kompatibel ist...</system:String>
-    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehlercode: YARR! Fortfahren nicht möglich. Bei Ihrer Kopie von FF7 scheint es sich um eine Raubkopie zu handeln. Bitte erwerben Sie eine Originalkopie des Spiels. Falls Ihre Kopie von FF7 echt ist, wenden Sie sich bitte an das Qhimm-Forum unter https://forums.qhimm.com oder den Qhimm-Discord.</system:String>
+    <system:String x:Key="ErrorCodeYarr" xml:space="preserve">Fehler bei der Integritätsprüfung der EXE-/DLL-Datei. Bitte installieren Sie das Programm von CD/GOG neu oder verwenden Sie die Funktion „Meine Dateien überprüfen“, um das Problem zu beheben.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Prüfe, ob das Spiel nicht in einem Systemordner oder geschützten Ordner installiert ist...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 ist derzeit in einem Systemordner installiert, was dazu führen kann, dass Mods nicht funktionieren. Es wird empfohlen, es unter "C:\Games\Final Fantasy VII" zu installieren.

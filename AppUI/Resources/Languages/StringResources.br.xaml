@@ -745,7 +745,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">arquivo não encontrado. Abortando ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">FF7.exe não encontrado. Talvez você precisará configurar 7H usando o menu Configurações>Configurações Gerais.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Verificando se jogo instalado é compatível ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">Código de erro: YARR! Impossível continuar. Favor informar este erro nos fórums Qhimm.</system:String>
+    <system:String x:Key="ErrorCodeYarr">Falha na verificação de integridade do arquivo EXE/DLL. Reinstale a partir do CD/GOG ou use a opção "Verificar meus arquivos" para reparar o problema.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Verificando se jogo não está instalado em pasta protegida ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 está atualmente instalado numa pasta protegida que pode causar o mal funcionamento de mods. Recomenda-se reinstalá-lo em C:\Games\Final Fantasy VII

@@ -744,7 +744,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">file non trovato. Annullo ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">FF7.exe non trovato. Potrebbe essere necessario configurare 7H utilizzando il menù Impostazioni>Impostazioni Generali.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Controllo compatibilità gioco installato ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">Codice di Errore: AHRRR, CORPO DI MILLE BALENE! (YARR!) Impossibile continuare. Per favore riporta questo messaggio nei forum Qhimm.</system:String>
+    <system:String x:Key="ErrorCodeYarr">Errore nel controllo di integrità EXE/DLL, reinstallare da CD/GOG o utilizzare "Verifica i miei file" per riparare.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Controllo che il gioco non sia installato in una cartella di sistema/protetta ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 è installato in una cartella di sistema e questo potrebbe portare al malfunzionamento di alcune mod. Si raccomanda di reinstallarlo in C:\Games\Final Fantasy VII.

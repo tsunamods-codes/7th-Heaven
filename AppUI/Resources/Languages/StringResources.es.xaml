@@ -750,7 +750,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">archivo no encontrado. Abortando ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">No se ha encontrado FF7.exe. Puede que tengas que configurar 7H usando el menú de Opciones>Opciones generales.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Verificando que el juego instalado es compatible ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">Error código: ¡YARR! Imposible continuar. Esta copia de FF7 parece ser pirata. Por favor, adquiere una versión genuina del juego. Si esta copia es genuina, solicita ayuda en los foros de Qhimm.</system:String>
+    <system:String x:Key="ErrorCodeYarr">Error en la comprobación de integridad de EXE/DLL, vuelva a instalarlo desde CD/GOG o utilice "Verificar mis archivos" para repararlo.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Verificando que el juego no está instalado en una carpeta del Sistema/Protegida ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7 está instalado actualmente en una carpeta del Sistema la cual puede causar que los Mods no funcionen. Se recomienda que lo instales en C:\Games\Final Fantasy VII.

@@ -747,7 +747,7 @@
     <system:String x:Key="FileNotFoundAborting">文件丢失，出现异常 ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">未找到 FF7.exe 或 FF7_en.exe，请检查“常规设置”中的FF7 exe文件所在路径。</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">正在验证安装的游戏是否兼容 ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">游戏文件不完整，请回到Steam游戏库，验证FF7游戏文件的完整性，修复缺失的文件。或使用光盘重新安装游戏。</system:String>
+    <system:String x:Key="ErrorCodeYarr">EXE/DLL完整性检查失败，请从CD/GOG重新安装或使用“验证我的文件”进行修复。</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">正在验证游戏是否被安装到了系统文件夹/受保护的文件夹 ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">FF7被安装到了系统文件夹/受保护的文件夹，任何包含“Program”文件名的文件夹都会导致模组无法加载。

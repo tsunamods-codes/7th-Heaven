@@ -745,7 +745,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FileNotFoundAborting">Αδυναμία εύρεσης αρχείου. Γίνεται ακύρωση ...</system:String>
     <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure">Το αρχείο FF7.exe δεν βρέθηκε. Ισως χρειαστεί διαμόρφωση του 7H μέσω του μενού 'Ρυθμίσεις'>'Γενικές Ρυθμίσεις'.</system:String>
     <system:String x:Key="VerifyingInstalledGameIsCompatible">Επαλήθευση συμβατότητας του εγκατεστημένου παιχνιδιού ...</system:String>
-    <system:String x:Key="ErrorCodeYarr">Κωδικός σφάλματος: YARR! Αδύνατον να συνεχιστεί η διαδικασία. Παρακαλώ αναφέρτε αυτό το σφάλμα στα φόρουμ του Qhimm.</system:String>
+    <system:String x:Key="ErrorCodeYarr">Αποτυχία ελέγχου ακεραιότητας EXE/DLL, εγκαταστήστε ξανά από το CD/GOG ή χρησιμοποιήστε την επιλογή "Επαλήθευση των αρχείων μου" για επιδιόρθωση.</system:String>
     <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder">Επαληθεύεται αν το παιχνίδι είναι εγκατεστημένο σε έναν φάκελο συστήματος/προστατευμένο ...</system:String>
 
     <system:String x:Key="Ff7IsCurrentlyInstalledInASystemFolder" xml:space="preserve">Το FF7 είναι εγκατεστημένο σε έναν φάκελο συστήματος που μπορεί να προκαλέσει αδυναμία λειτουργίας των τροποποιήσεων. Προτείνεται να γίνει εγκατάσταση στον φάκελο C:\Games\Final Fantasy VII
