@@ -416,8 +416,9 @@ namespace AppUI.ViewModels
         public static void AutoDetectSystemPaths(Settings settings)
         {
             string ff7 = null;
+            bool isRunningInWine = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WINELOADER"));
 
-            if (string.IsNullOrEmpty(settings.FF7Exe) || !File.Exists(settings.FF7Exe))
+            if (string.IsNullOrEmpty(settings.FF7Exe) || !File.Exists(settings.FF7Exe) && !isRunningInWine)
             {
                 Logger.Info("FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ...");
 
@@ -514,7 +515,6 @@ namespace AppUI.ViewModels
                 else if (settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
                     string ff7path = Path.GetDirectoryName(settings.FF7Exe);
-                    bool isRunningInWine = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WINELOADER"));
 
                     // Detect if the installation is a previously Steam converted one
                     if (
@@ -556,10 +556,10 @@ namespace AppUI.ViewModels
                     // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
                     if (File.Exists(ff7Launcher))
                     {
-                        if (File.Exists(ff7SteamApi64))
-                            Sys.Settings.FF7InstalledVersion = FF7Version.SteamReRelease;
-                        else if (File.Exists(goggame))
+                        if (File.Exists(goggame))
                             Sys.Settings.FF7InstalledVersion = FF7Version.GOG;
+                        else if (File.Exists(ff7SteamApi64))
+                            Sys.Settings.FF7InstalledVersion = FF7Version.SteamReRelease;
                         else
                             Sys.Settings.FF7InstalledVersion = FF7Version.WindowsStore;
 
