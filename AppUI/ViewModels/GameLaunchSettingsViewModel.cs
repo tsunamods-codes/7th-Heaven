@@ -609,17 +609,16 @@ namespace AppUI.ViewModels
 
         private void SetSelectedMidiDeviceFromSettings()
         {
-            int MidiDevIDFromReg = GetMidiDeviceInRegistry();
-
-            if (MidiDevIDFromReg < MidiDevices.Count - 1)
+            try
             {
-                SelectedMidiDevice = MidiDevices.ElementAt(0);
-            }
-            else
-            {
+                int MidiDevIDFromReg = GetMidiDeviceInRegistry();
                 SelectedMidiDevice = MidiDevices.ElementAt(MidiDevIDFromReg);
             }
-
+            catch
+            {
+                // Always default to first element if picking the current set one fails for some reason
+                SelectedMidiDevice = MidiDevices.ElementAt(0);
+            }
         }
 
         internal bool SaveSettings()
