@@ -113,6 +113,15 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
+	<Group>Graphics</Group>
+	<Name>Vertical Uncrop</Name>
+	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
+	<DefaultValue>enable_uncrop = true</DefaultValue>
+	<TrueSetting>enable_uncrop = true</TrueSetting>
+	<FalseSetting>enable_uncrop = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
     <Group>画面</Group>
     <Name>各向异性过滤</Name>
     <Description>给高分辨率贴图加上滤镜，生成更清晰的图像。{0}占用更多系统内存。</Description>

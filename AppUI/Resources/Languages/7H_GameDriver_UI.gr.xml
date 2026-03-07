@@ -113,6 +113,15 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
+	<Group>Graphics</Group>
+	<Name>Vertical Uncrop</Name>
+	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
+	<DefaultValue>enable_uncrop = true</DefaultValue>
+	<TrueSetting>enable_uncrop = true</TrueSetting>
+	<FalseSetting>enable_uncrop = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
     <Group>Γραφικά</Group>
     <Name>Ανισοτροπικό φιλτράρισμα</Name>
     <Description>Εφαρμόζει ένα φίλτρο σε υφές υψηλής ανάλυσης που παράγουν πιο ευκρινή εικόνα. Μπορεί να επηρεάσει την απόδοση λόγω της αυξημένης χρήσης μνήμης.</Description>

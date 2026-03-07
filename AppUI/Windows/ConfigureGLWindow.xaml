@@ -9,7 +9,7 @@
         Style="{StaticResource MainWindowStyle}"
         Title="{DynamicResource GameDriverWindowTitle}" 
         ResizeMode="NoResize"
-        Height="500" Width="475">
+        Height="525" Width="475">
     <Window.Resources>
 
         <DataTemplate x:Key="selectedOptionTemplate">
@@ -111,7 +111,7 @@
 
         <TextBlock x:Name="txtStatusMessage"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
+                   VerticalAlignment="Bottom"
                    TextWrapping="Wrap"
                    Margin="10,352,10.333,5"
                    MaxWidth="420"
