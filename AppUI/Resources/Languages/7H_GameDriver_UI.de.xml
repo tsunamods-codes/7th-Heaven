@@ -113,7 +113,7 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
-	<Group>Graphics</Group>
+	<Group>Grafik</Group>
 	<Name>Vertical Uncrop</Name>
 	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
 	<DefaultValue>enable_uncrop = true</DefaultValue>
