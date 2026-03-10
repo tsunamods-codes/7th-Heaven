@@ -114,8 +114,8 @@
 
   <Setting xsi:type="Checkbox">
 	<Group>画面</Group>
-	<Name>Vertical Uncrop</Name>
-	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
+	<Name>垂直裁剪解除</Name>
+	<Description>解除画面裁剪，移除游戏画面顶部和底部的黑边。</Description>
 	<DefaultValue>enable_uncrop = true</DefaultValue>
 	<TrueSetting>enable_uncrop = true</TrueSetting>
 	<FalseSetting>enable_uncrop = false</FalseSetting>
@@ -205,7 +205,7 @@
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>游戏变速递进值</Name>
-    <Description>设置游戏加速/减速的递进值。每次按快捷键时，递进值越大，越能更快到达【最大加速倍数】，或更快减速恢复到【正常速度】。{0}使用方法：按键盘 'CTRL+↑/↓' 或 先按手柄 'L3' 再按 'L1/R1' 进行加速/减速，{0}	键盘'CTRL+←/→' 或 先按手柄 'L3' 再按 'L2/R2' 开启/关闭变速功能。</Description>
+    <Description>设置游戏加速/减速的递进值。每次按快捷键时，递进值越大，越能更快到达【最大加速倍数】，或更快减速恢复到【正常速度】。{0}使用方法：按键盘 'CTRL+↑/↓' 或 先按手柄 'L3' 再按 'L1/R1' 进行加速/减速，{0}	键盘'CTRL+←/→' 或 先按手柄 'L3' 再按 'L2/R2' 开启/关闭变速。</Description>
     <DefaultValue>speedhack_step = 0.5</DefaultValue>
     <Option>
       <Text>0.5</Text>
