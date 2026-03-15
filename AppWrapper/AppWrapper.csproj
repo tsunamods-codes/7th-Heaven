@@ -41,6 +41,6 @@
     <PackageReference Include="SharpCompress">
       <Version>0.46.3</Version>
     </PackageReference>
-    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="9.0.13" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="10.0.3" />
   </ItemGroup>
 </Project>
