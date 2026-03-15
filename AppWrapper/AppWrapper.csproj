@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="9.0.13" IncludeAssets="none" />
+    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="10.0.3" IncludeAssets="none" />
     <PackageReference Include="SharpCompress">
       <Version>0.46.3</Version>
     </PackageReference>
