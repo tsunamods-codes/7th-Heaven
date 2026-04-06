@@ -1874,13 +1874,20 @@ namespace AppUI.ViewModels
             }
             else
             {
-                MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.MissingPath), $"FFNx.toml {ResourceHelper.Get(StringKey.FileNotFound)}\n\nPlease run the game at least once and try again.", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.MissingPath), ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst), MessageBoxButton.OK, MessageBoxImage.Warning);
                 messageDialog.ShowDialog();
             }
         }
 
         internal void ShowGameLaunchSettingsWindow()
         {
+            if (Sys.PathToFFNxToml == null || !File.Exists(Sys.PathToFFNxToml))
+            {
+                MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.MissingPath), ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst), MessageBoxButton.OK, MessageBoxImage.Warning);
+                messageDialog.ShowDialog();
+                return;
+            }
+
             GameLaunchSettingsWindow launchSettingsWindow = new GameLaunchSettingsWindow();
             launchSettingsWindow.ShowDialog();
         }

@@ -933,6 +933,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">échec de la copie. L'erreur a été enregistrée</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">impossible de trouver {0} sur le disque...</system:String>
     <system:String x:Key="FileNotFound">fichier non trouvé...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">ne peut pas copier le fichier source parce qu'il est manquant sur</system:String>
     <system:String x:Key="CopyingFileFrom">copie du fichier de</system:String>
 

@@ -940,6 +940,7 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">failed to copy. Error has been logged</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">failed to find {0} on any disc ...</system:String>
     <system:String x:Key="FileNotFound">file not found...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">cannot copy source file because it is missing at</system:String>
     <system:String x:Key="CopyingFileFrom">copying file from</system:String>
 

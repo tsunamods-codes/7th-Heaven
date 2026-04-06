@@ -938,6 +938,7 @@ Você quer aplicar essa configuração e tentar de novo?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">Não foi possível copiar. O erro foi arquivado</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">não foi possível achar {0} em qualquer disco ...</system:String>
     <system:String x:Key="FileNotFound">arquivo não encontrado...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">impossível copiar arquivo fonte porque ele está ausente em</system:String>
     <system:String x:Key="CopyingFileFrom">copiando arquivo de</system:String>
 

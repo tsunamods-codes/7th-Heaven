@@ -939,6 +939,7 @@ Möchten Sie die Einstellung übernehmen und es erneut versuchen?</system:String
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">Fehler beim Kopieren. Bitte überprüfen Sie die Datei "app.log" für weitere Details.</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">{0} wurde auf keiner Spiele-Disc gefunden...</system:String>
     <system:String x:Key="FileNotFound">Datei nicht gefunden...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">Kann die Quelldatei nicht kopieren, da sie nicht gefunden wurde in</system:String>
     <system:String x:Key="CopyingFileFrom">Kopiere Datei von</system:String>
 

@@ -937,6 +937,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">αποτυχία αντιγραφής. Το σφάλμα έχει καταγραφεί</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">αποτυχία εντοπισμού του αρχείου {0} σε οποιονδήποτε δίσκο ...</system:String>
     <system:String x:Key="FileNotFound">το αρχείο δε βρέθηκε...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">Δεν είναι δυνατή η αντιγραφή του αρχείου προέλευσης επειδή λείπει στο</system:String>
     <system:String x:Key="CopyingFileFrom">αντιγραφή αρχείου από</system:String>
 

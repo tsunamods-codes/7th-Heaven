@@ -936,6 +936,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">copia fallita. L'errore è stato riportato</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">impossibile trovare {0} su alcun disco ...</system:String>
     <system:String x:Key="FileNotFound">file non trovato...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">impossibile copiare il file perché non è presente in</system:String>
     <system:String x:Key="CopyingFileFrom">copia del file da</system:String>
 

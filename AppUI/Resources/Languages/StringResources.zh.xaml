@@ -937,6 +937,7 @@
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">复制失败。错误已记录</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">无法在任何光盘上找到 {0} ...</system:String>
     <system:String x:Key="FileNotFound">文件未找到...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">无法复制源文件，因为它在以下位置缺失: </system:String>
     <system:String x:Key="CopyingFileFrom">正在从以下位置复制文件: </system:String>
 

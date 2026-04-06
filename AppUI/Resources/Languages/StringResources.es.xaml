@@ -942,6 +942,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">error al copiar. Se ha registrado el error</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">error al buscar {0} en disco(s) ...</system:String>
     <system:String x:Key="FileNotFound">archivo no encontrado ...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">no se pudo copiar el archivo fuente por que falta en</system:String>
     <system:String x:Key="CopyingFileFrom">copiando archivo desde</system:String>
 

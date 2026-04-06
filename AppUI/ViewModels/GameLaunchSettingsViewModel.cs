@@ -522,20 +522,12 @@ namespace AppUI.ViewModels
 
             if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
             {
-                SfxVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_sfx_volume"));
-                if (SfxVolumeValue < 0) SfxVolumeValue = 100;
-
-                MusicVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_music_volume"));
-                if (MusicVolumeValue < 0) MusicVolumeValue = 100;
-
-                VoiceVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_voice_volume"));
-                if (VoiceVolumeValue < 0) VoiceVolumeValue = 100;
-
-                AmbientVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_ambient_volume"));
-                if (AmbientVolumeValue < 0) AmbientVolumeValue = 100;
-
-                MovieVolumeValue = int.Parse(Sys.FFNxConfig.Get("ffmpeg_video_volume"));
-                if (MovieVolumeValue < 0) MovieVolumeValue = 100;
+                int val;
+                SfxVolumeValue = int.TryParse(Sys.FFNxConfig.Get("external_sfx_volume"), out val) && val >= 0 ? val : 100;
+                MusicVolumeValue = int.TryParse(Sys.FFNxConfig.Get("external_music_volume"), out val) && val >= 0 ? val : 100;
+                VoiceVolumeValue = int.TryParse(Sys.FFNxConfig.Get("external_voice_volume"), out val) && val >= 0 ? val : 100;
+                AmbientVolumeValue = int.TryParse(Sys.FFNxConfig.Get("external_ambient_volume"), out val) && val >= 0 ? val : 100;
+                MovieVolumeValue = int.TryParse(Sys.FFNxConfig.Get("ffmpeg_video_volume"), out val) && val >= 0 ? val : 100;
             }
             else
             {

@@ -50,6 +50,7 @@ namespace Iros.Workshop.ConfigSettings
 
         public string Get(string key)
         {
+            if (_toml == null) return null;
             return _toml[key].ToString();
         }
 
