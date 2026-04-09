@@ -63,16 +63,7 @@ namespace AppUI.ViewModels
         /// </summary>
         public List<CatalogModItemViewModel> CatalogModList
         {
-            get
-            {
-                // guarantee the property never returns null
-                if (_catalogModList == null)
-                {
-                    _catalogModList = new List<CatalogModItemViewModel>();
-                }
-
-                return _catalogModList;
-            }
+            get => _catalogModList ??= new List<CatalogModItemViewModel>();
             set
             {
                 _catalogModList = value;
@@ -82,16 +73,7 @@ namespace AppUI.ViewModels
 
         public ObservableCollection<DownloadItemViewModel> DownloadList
         {
-            get
-            {
-                // guarantee the property never returns null
-                if (_downloadList == null)
-                {
-                    _downloadList = new ObservableCollection<DownloadItemViewModel>();
-                }
-
-                return _downloadList;
-            }
+            get => _downloadList ??= new ObservableCollection<DownloadItemViewModel>();
             set
             {
                 _downloadList = value;

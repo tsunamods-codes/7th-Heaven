@@ -41,16 +41,7 @@ namespace AppUI.ViewModels
         /// </summary>
         public ObservableCollection<InstalledModViewModel> ModList
         {
-            get
-            {
-                // guarantee the property never returns null
-                if (_modList == null)
-                {
-                    _modList = new ObservableCollection<InstalledModViewModel>();
-                }
-
-                return _modList;
-            }
+            get => _modList ??= new ObservableCollection<InstalledModViewModel>();
             set
             {
                 _modList = value;
