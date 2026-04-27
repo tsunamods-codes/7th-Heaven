@@ -36,7 +36,7 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="10.0.6" IncludeAssets="none" />
+    <PackageReference Include="runtime.win-x86.Microsoft.NETCore.DotNetAppHost" Version="10.0.7" IncludeAssets="none" />
     <PackageReference Include="SharpCompress">
       <Version>0.47.4</Version>
     </PackageReference>
