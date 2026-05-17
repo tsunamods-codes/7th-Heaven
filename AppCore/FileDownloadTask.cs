@@ -138,7 +138,6 @@ namespace AppCore
             {
                 UseCookies = _cookies != null,
                 CookieContainer = _cookies != null ? _cookies : new CookieContainer(),
-                SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13
             };
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.ExpectContinue = false;
