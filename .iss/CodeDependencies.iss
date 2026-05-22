@@ -249,22 +249,22 @@ begin
   end;
 end;
 
-procedure Dependency_AddDotNet90Desktop;
+procedure Dependency_AddDotNet100Desktop;
 var
   IsProductInstalled: Boolean;
 begin
   try
-    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 10.0.7')
+    IsProductInstalled := Dependency_IsNetCoreInstalled('Microsoft.WindowsDesktop.App 10.0.8')
   except
     IsProductInstalled := False
   end;
 
   // https://dotnet.microsoft.com/download/dotnet/10.0
   if not IsProductInstalled then begin
-    Dependency_Add('dotnet90desktop' + Dependency_ArchSuffix + '.exe',
+    Dependency_Add('dotnet100desktop' + Dependency_ArchSuffix + '.exe',
       '/lcid ' + IntToStr(GetUILanguage) + ' /passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
-      '.NET Desktop Runtime 10.0.7' + Dependency_ArchTitle,
-      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.7/windowsdesktop-runtime-10.0.7-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.7/windowsdesktop-runtime-10.0.7-win-x64.exe'),
+      '.NET Desktop Runtime 10.0.8' + Dependency_ArchTitle,
+      Dependency_String('https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x86.exe', 'https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.8/windowsdesktop-runtime-10.0.8-win-x64.exe'),
       '', False, False);
   end;
 end;

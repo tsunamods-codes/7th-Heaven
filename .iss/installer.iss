@@ -73,11 +73,11 @@ function InitializeSetup: Boolean;
 begin
   Dependency_ForceX86 := True;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet90Desktop;
+  Dependency_AddDotNet100Desktop;
 
   Dependency_ForceX86 := False;
   Dependency_AddVC2015To2022;
-  Dependency_AddDotNet90Desktop;
+  Dependency_AddDotNet100Desktop;
 
   Result := True;
 end;
