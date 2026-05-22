@@ -20,8 +20,6 @@ using System.Windows;
 using System.Xml;
 using Profile = Iros.Workshop.Profile;
 using AsmResolver.PE.File;
-using System.Windows.Shell;
-using AsmResolver.PE.File.Headers;
 
 namespace AppUI.Classes
 {
@@ -289,7 +287,7 @@ namespace AppUI.Classes
             // Auto-patch for 4GB support
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.App4GBPatchRequired));
             PEFile file = PEFile.FromFile(Sys.Settings.FF7Exe);
-            if (!file.FileHeader.Characteristics.HasFlag(AsmResolver.PE.File.Headers.Characteristics.LargeAddressAware))
+            if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
             {
                 converter.BackupExe(backupFolderPath);
                 file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
