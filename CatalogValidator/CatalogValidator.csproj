@@ -12,4 +12,8 @@
     <ProjectReference Include="..\AppWrapper\AppWrapper.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="MegaApiClient" Version="1.10.5" />
+	</ItemGroup>
+
 </Project>
