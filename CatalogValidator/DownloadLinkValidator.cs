@@ -4,7 +4,14 @@ using System.Net;
 
 namespace AppCore
 {
-    public sealed record LinkValidationResult(bool IsValid, string ValidationTarget, string Error);
+    public enum ValidationCategory
+    {
+        None = 0,      // Single link validation (not categorized)
+        Warning = 1,   // At least one link works (2xx response)
+        Error = 2      // All links don't work (4xx response)
+    }
+
+    public sealed record LinkValidationResult(bool IsValid, string ValidationTarget, string Error, ValidationCategory Category = ValidationCategory.None);
 
     public static class DownloadLinkValidator
     {
@@ -12,12 +19,12 @@ namespace AppCore
         {
             if (string.IsNullOrWhiteSpace(rawLink))
             {
-                return new LinkValidationResult(false, string.Empty, "empty link");
+                return new LinkValidationResult(false, string.Empty, "empty link", ValidationCategory.None);
             }
 
             if (!LocationUtil.TryParse(rawLink, out LocationType type, out string location))
             {
-                return new LinkValidationResult(false, string.Empty, "unable to parse iros link");
+                return new LinkValidationResult(false, string.Empty, "unable to parse iros link", ValidationCategory.None);
             }
 
             switch (type)
@@ -26,7 +33,7 @@ namespace AppCore
                     if (!Uri.TryCreate(location, UriKind.Absolute, out Uri? urlUri) ||
                         (urlUri.Scheme != Uri.UriSchemeHttp && urlUri.Scheme != Uri.UriSchemeHttps))
                     {
-                        return new LinkValidationResult(false, location, "URL link is not a valid HTTP/HTTPS URL");
+                        return new LinkValidationResult(false, location, "URL link is not a valid HTTP/HTTPS URL", ValidationCategory.None);
                     }
 
                     return await CheckHttpResourceExistsAsync(location);
@@ -38,13 +45,13 @@ namespace AppCore
                 case LocationType.ExternalUrl:
                     if (string.IsNullOrWhiteSpace(location))
                     {
-                        return new LinkValidationResult(false, location, "ExternalUrl link is empty and cannot be validated directly");
+                        return new LinkValidationResult(false, location, "ExternalUrl link is empty and cannot be validated directly", ValidationCategory.None);
                     }
 
                     if (!Uri.TryCreate(location, UriKind.Absolute, out Uri? extUri) ||
                         (extUri.Scheme != Uri.UriSchemeHttp && extUri.Scheme != Uri.UriSchemeHttps))
                     {
-                        return new LinkValidationResult(false, location, "ExternalUrl is not a valid HTTP/HTTPS URL");
+                        return new LinkValidationResult(false, location, "ExternalUrl is not a valid HTTP/HTTPS URL", ValidationCategory.None);
                     }
 
                     return await CheckHttpResourceExistsAsync(location);
@@ -53,7 +60,7 @@ namespace AppCore
                     return await CheckMegaNodeExistsAsync(location);
 
                 default:
-                    return new LinkValidationResult(false, location, $"unsupported link type {type}");
+                    return new LinkValidationResult(false, location, $"unsupported link type {type}", ValidationCategory.None);
             }
         }
 
@@ -69,19 +76,24 @@ namespace AppCore
                 {
                     using HttpRequestMessage getRequest = new HttpRequestMessage(HttpMethod.Get, url);
                     using HttpResponseMessage getResponse = await client.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
-                    return getResponse.StatusCode == HttpStatusCode.NotFound
-                        ? new LinkValidationResult(false, url, $"HTTP {(int)getResponse.StatusCode} ({getResponse.StatusCode})")
-                        : new LinkValidationResult(true, url, string.Empty);
+                    return IsSuccessStatusCode(getResponse.StatusCode)
+                        ? new LinkValidationResult(true, url, string.Empty, ValidationCategory.None)
+                        : new LinkValidationResult(false, url, $"HTTP {(int)getResponse.StatusCode} ({getResponse.StatusCode})", ValidationCategory.None);
                 }
 
-                return headResponse.StatusCode == HttpStatusCode.NotFound
-                    ? new LinkValidationResult(false, url, $"HTTP {(int)headResponse.StatusCode} ({headResponse.StatusCode})")
-                    : new LinkValidationResult(true, url, string.Empty);
+                return IsSuccessStatusCode(headResponse.StatusCode)
+                    ? new LinkValidationResult(true, url, string.Empty, ValidationCategory.None)
+                    : new LinkValidationResult(false, url, $"HTTP {(int)headResponse.StatusCode} ({headResponse.StatusCode})", ValidationCategory.None);
             }
             catch (Exception ex)
             {
-                return new LinkValidationResult(false, url, ex.Message);
+                return new LinkValidationResult(false, url, ex.Message, ValidationCategory.None);
             }
+        }
+
+        private static bool IsSuccessStatusCode(HttpStatusCode statusCode)
+        {
+            return (int)statusCode >= 200 && (int)statusCode < 300;
         }
 
         private static async Task<LinkValidationResult> CheckMegaNodeExistsAsync(string location)
@@ -90,7 +102,7 @@ namespace AppCore
 
             if (parts.Length < 2)
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder link must contain folder ID and file ID or file name");
+                return new LinkValidationResult(false, location, "MegaSharedFolder link must contain folder ID and file ID or file name", ValidationCategory.None);
             }
 
             string folderId = parts[0].Trim();
@@ -99,12 +111,12 @@ namespace AppCore
 
             if (string.IsNullOrWhiteSpace(folderId))
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder folder ID is empty");
+                return new LinkValidationResult(false, location, "MegaSharedFolder folder ID is empty", ValidationCategory.None);
             }
 
             if (string.IsNullOrWhiteSpace(fileId) && string.IsNullOrWhiteSpace(fileName))
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder must specify file ID or file name");
+                return new LinkValidationResult(false, location, "MegaSharedFolder must specify file ID or file name", ValidationCategory.None);
             }
 
             MegaApiClient client = new MegaApiClient();
@@ -116,7 +128,7 @@ namespace AppCore
 
                 if (!TryBuildMegaFolderShareUri(folderId, out Uri? folderLink, out string folderUriError))
                 {
-                    return new LinkValidationResult(false, resolvedTarget, folderUriError);
+                    return new LinkValidationResult(false, resolvedTarget, folderUriError, ValidationCategory.None);
                 }
 
                 resolvedTarget = string.IsNullOrWhiteSpace(fileName)
@@ -133,12 +145,12 @@ namespace AppCore
                 }
 
                 return fileNode != null
-                    ? new LinkValidationResult(true, resolvedTarget, string.Empty)
-                    : new LinkValidationResult(false, resolvedTarget, "file not found in MEGA shared folder");
+                    ? new LinkValidationResult(true, resolvedTarget, string.Empty, ValidationCategory.None)
+                    : new LinkValidationResult(false, resolvedTarget, "file not found in MEGA shared folder", ValidationCategory.None);
             }
             catch (Exception ex)
             {
-                return new LinkValidationResult(false, resolvedTarget, ex.Message);
+                return new LinkValidationResult(false, resolvedTarget, ex.Message, ValidationCategory.None);
             }
             finally
             {
