@@ -140,3 +140,16 @@ jobs:
         _MAP_7TH_TSUNAMODS: "${{ secrets._7TH_TSUNAMODS }}"
       run: ".github/workflows/alert.ps1"
       shell: pwsh
+    - name: Cleanup previous release workflows
+      uses: Mattraks/delete-workflow-runs@v2
+      if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'false' && success()
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 1
+        keep_minimum_runs: 1
+        delete_run_by_conclusion_pattern: >-
+          ${{
+            !contains(github.event.inputs.delete_run_by_name_pattern, '4.5.2')
+            && github.event.inputs.delete_run_by_name_pattern
+          }}
