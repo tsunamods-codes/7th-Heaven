@@ -727,6 +727,7 @@
     <system:String x:Key="Spanish">西班牙语</system:String>
     <system:String x:Key="Japanese">日语</system:String>
     <system:String x:Key="SimplifiedChinese">简体中文</system:String>
+    <system:String x:Key="Korean">韩语</system:String>
 
 
     <!--GameLauncher Strings-->

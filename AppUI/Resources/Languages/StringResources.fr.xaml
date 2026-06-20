@@ -721,6 +721,7 @@ Cliquer sur 'Annuler' pour arrêter la copie.</system:String>
     <system:String x:Key="Spanish">Espagnol</system:String>
     <system:String x:Key="Japanese">Japonais</system:String>
     <system:String x:Key="SimplifiedChinese">Chinois Simplifié</system:String>
+    <system:String x:Key="Korean">Coréen</system:String>
 
 
     <!--GameLauncher Strings-->

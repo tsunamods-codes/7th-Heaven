@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- GRAPHICS TAB -->
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>그래픽 API</Name>
+    <Description>렌더링 소프트웨어를 설정합니다. 자동은 GPU에 따라 최적의 선택을 결정합니다. AMD 카드에서 OpenGL을 사용하면 크래시가 발생할 수 있습니다.</Description>
+    <DefaultValue>renderer_backend = 0</DefaultValue>
+    <Option>
+      <Text>자동</Text>
+      <Settings>renderer_backend = 0</Settings>
+    </Option>
+    <Option>
+      <Text>OpenGL</Text>
+      <Settings>renderer_backend = 1</Settings>
+    </Option>
+    <Option>
+      <Text>DirectX 11</Text>
+      <Settings>renderer_backend = 3</Settings>
+    </Option>
+    <Option>
+      <Text>DirectX 12</Text>
+      <Settings>renderer_backend = 4</Settings>
+    </Option>
+    <Option>
+      <Text>Vulkan</Text>
+      <Settings>renderer_backend = 5</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>디스플레이</Name>
+    <Description>게임을 실행할 기본 디스플레이를 설정합니다.</Description>
+    <DefaultValue>display_index = -1</DefaultValue>
+    <Option>
+      <Text>기본 디스플레이</Text>
+      <Settings>display_index = -1</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>해상도</Name>
+    <Description>게임의 창 크기를 설정합니다. 자동은 창 모드에서는 게임 해상도를, 전체 화면 모드에서는 현재 데스크톱 해상도를 사용합니다.</Description>
+    <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
+    <Option>
+      <Text>자동</Text>
+      <Settings>window_size_x = 0,window_size_y = 0</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>창 모드</Name>
+    <Description>게임을 일반 창 모드 또는 테두리 없는 전체 화면으로 표시합니다.</Description>
+    <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
+    <Option>
+      <Text>창 모드</Text>
+      <Settings>fullscreen = false,borderless = false</Settings>
+    </Option>
+    <Option>
+      <Text>전체 화면</Text>
+      <Settings>fullscreen = true,borderless = false</Settings>
+    </Option>
+    <Option>
+      <Text>테두리 없음</Text>
+      <Settings>fullscreen = false,borderless = true</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>화면 비율</Name>
+    <Description>4:3 화면 비율을 유지하기 위해 필요에 따라 검은색 테두리를 추가합니다.</Description>
+    <DefaultValue>aspect_ratio = 0</DefaultValue>
+    <Option>
+      <Text>원본 (4:3)</Text>
+      <Settings>aspect_ratio = 0</Settings>
+    </Option>
+    <Option>
+      <Text>화면에 맞게 늘리기</Text>
+      <Settings>aspect_ratio = 1</Settings>
+    </Option>
+    <Option>
+      <Text>와이드스크린 (16:9)</Text>
+      <Settings>aspect_ratio = 2</Settings>
+    </Option>
+    <Option>
+      <Text>와이드스크린 (16:10)</Text>
+      <Settings>aspect_ratio = 3</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>그래픽</Group>
+    <Name>안티앨리어싱</Name>
+    <Description>2x 또는 4x MSAA 필터링을 적용합니다. 계단 현상을 줄이고 이미지 품질을 향상시킵니다. 성능에 심각한 영향을 줄 수 있습니다.</Description>
+    <DefaultValue>enable_antialiasing = 0</DefaultValue>
+    <Option>
+      <Text>끄기</Text>
+      <Settings>enable_antialiasing = 0</Settings>
+    </Option>
+    <Option>
+      <Text>2x MSAA</Text>
+      <Settings>enable_antialiasing = 2</Settings>
+    </Option>
+    <Option>
+      <Text>4x MSAA</Text>
+      <Settings>enable_antialiasing = 4</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>그래픽</Group>
+	<Name>수직 언크롭</Name>
+	<Description>이미지 언크롭을 적용하여 화면 상단과 하단의 검은색 막대를 제거합니다</Description>
+    <DefaultValue>enable_uncrop = true</DefaultValue>
+    <TrueSetting>enable_uncrop = true</TrueSetting>
+    <FalseSetting>enable_uncrop = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>그래픽</Group>
+    <Name>이방성 필터링</Name>
+    <Description>고해상도 텍스처에 필터를 적용하여 더 선명한 이미지를 만듭니다. 메모리 사용량 증가로 인해 성능에 영향을 줄 수 있습니다</Description>
+    <DefaultValue>enable_anisotropic = true</DefaultValue>
+    <TrueSetting>enable_anisotropic = true</TrueSetting>
+    <FalseSetting>enable_anisotropic = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>그래픽</Group>
+    <Name>수직 동기화</Name>
+    <Description>게임의 프레임 속도를 모니터 주사율과 동기화합니다. 성능에 부정적인 영향을 주거나 60fps 모드를 방해할 수 있습니다. 화면 찢김 현상이 발생하면 켜세요. *속도 핵 제한!*</Description>
+    <DefaultValue>enable_vsync = false</DefaultValue>
+    <TrueSetting>enable_vsync = true</TrueSetting>
+    <FalseSetting>enable_vsync = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>그래픽</Group>
+    <Name>고급 조명</Name>
+    <Description>실시간 조명 지원을 활성화합니다. 참고: 이 기능은 최신 CPU가 필요합니다. 속도 저하가 발생하면 이 옵션을 비활성화하세요.</Description>
+    <DefaultValue>enable_lighting = false</DefaultValue>
+    <TrueSetting>enable_lighting = true</TrueSetting>
+    <FalseSetting>enable_lighting = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>그래픽</Group>
+    <Name>NTSC-J 색역 모드</Name>
+    <Description>FF7이 원래 설계된 1990년대 일본 텔레비전 세트의 색역을 시뮬레이션합니다.</Description>
+    <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
+    <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
+    <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
+  </Setting>
+
+  <!-- CHEATS TAB -->
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>랜덤 전투</Name>
+    <Description>설정 불가. 게임 중 랜덤 전투 인카운터를 켜고 끕니다.{0}사용법: 'CTRL+B' 또는 'L3, 그런 다음 Circle'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>설명 참조</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>자동 공격</Name>
+    <Description>설정 불가. 게임 중 자동 공격을 켜고 끕니다.{0}사용법: 'CTRL+A' 또는 'L3, 그런 다음 Triangle'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>설명 참조</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>동영상 건너뛰기</Name>
+    <Description>설정 불가. 즉시 동영상 끝으로 건너뜁니다.{0}사용법: 'CTRL+S' 또는 'L3, 그런 다음 Square'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>설명 참조</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>소프트 리셋</Name>
+    <Description>설정 불가. 게임 오버로 게임을 빠르게 리셋합니다. *전투 중 리셋하지 마세요.*{0}사용법: 'CTRL+R' 또는 'L3, 그런 다음 Select+Start'</Description>
+    <DefaultValue></DefaultValue>
+    <Option>
+      <Text>설명 참조</Text>
+      <Settings></Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>속도 핵 단계</Name>
+    <Description>각 트리거마다 속도를 높이거나 낮추는 양입니다.{0}사용법: 속도 변경은 'CTRL+위/아래' 또는 'L3, 그런 다음 L1/R1', 켜기/끄기는 'CTRL+왼쪽/오른쪽' 또는 'L3, 그런 다음 L2/R2'</Description>
+    <DefaultValue>speedhack_step = 0.5</DefaultValue>
+    <Option>
+      <Text>0.5</Text>
+      <Settings>speedhack_step = 0.5</Settings>
+    </Option>
+    <Option>
+      <Text>1.0</Text>
+      <Settings>speedhack_step = 1.0</Settings>
+    </Option>
+    <Option>
+      <Text>2.0</Text>
+      <Settings>speedhack_step = 2.0</Settings>
+    </Option>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>치트</Group>
+    <Name>속도 핵 최대값</Name>
+    <Description>정상 속도로 다시 순환하기 전에 설정할 최대 속도입니다.</Description>
+    <DefaultValue>speedhack_max = 8.0</DefaultValue>
+    <Option>
+      <Text>2x</Text>
+      <Settings>speedhack_max = 2.0</Settings>
+    </Option>
+    <Option>
+      <Text>4x</Text>
+      <Settings>speedhack_max = 4.0</Settings>
+    </Option>
+    <Option>
+      <Text>6x</Text>
+      <Settings>speedhack_max = 6.0</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>speedhack_max = 8.0</Settings>
+    </Option>
+    <Option>
+      <Text>10x</Text>
+      <Settings>speedhack_max = 10.0</Settings>
+    </Option>
+    <Option>
+      <Text>12x</Text>
+      <Settings>speedhack_max = 12.0</Settings>
+    </Option>
+  </Setting>
+
+  <!-- CONTROLS TAB -->
+  <Setting xsi:type="Checkbox">
+    <Group>컨트롤</Group>
+    <Name>아날로그 컨트롤</Name>
+    <Description>완전한 전방향 아날로그 컨트롤 지원을 활성화합니다. 여기에는 전투 자유 카메라 이동과 필드에서의 360도 완전 아날로그 이동이 포함됩니다.</Description>
+    <DefaultValue>enable_analogue_controls = false</DefaultValue>
+    <TrueSetting>enable_analogue_controls = true</TrueSetting>
+    <FalseSetting>enable_analogue_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>컨트롤</Group>
+    <Name>자동 달리기</Name>
+    <Description>자동 달리기 동작을 활성화합니다. 왼쪽 아날로그 스틱이 얼마나 기울어져 있는지에 따라 클라우드가 자동으로 달립니다.</Description>
+    <DefaultValue>enable_auto_run = false</DefaultValue>
+    <TrueSetting>enable_auto_run = true</TrueSetting>
+    <FalseSetting>enable_auto_run = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>컨트롤</Group>
+    <Name>수평 컨트롤 반전</Name>
+    <Description>전투에서 카메라를 조작할 때 카메라 수평 이동을 반전시킵니다.</Description>
+    <DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>컨트롤</Group>
+    <Name>수직 컨트롤 반전</Name>
+    <Description>전투에서 카메라를 조작할 때 카메라 수직 이동을 반전시킵니다.</Description>
+    <DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
+    <TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
+    <FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
+  </Setting>
+
+  <!-- ADVANCED TAB -->
+  <Setting xsi:type="Checkbox">
+    <Group>고급</Group>
+    <Name>Steam 호환성</Name>
+    <Description>Steam 기능(게임 활동, 컨트롤러, 도전 과제)을 활성화합니다. Steam이 실행 중이어야 합니다.</Description>
+    <DefaultValue>enable_steam_achievements = false</DefaultValue>
+    <TrueSetting>enable_steam_achievements = true</TrueSetting>
+    <FalseSetting>enable_steam_achievements = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>고급</Group>
+    <Name>디버그 정보 표시</Name>
+    <Description>오버레이 또는 제목 표시줄에 렌더링 과정/성능에 대한 실시간 정보를 표시합니다.</Description>
+    <DefaultValue>show_stats = false</DefaultValue>
+    <TrueSetting>show_stats = true</TrueSetting>
+    <FalseSetting>show_stats = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>고급</Group>
+    <Name>드라이버 버전 표시</Name>
+    <Description>오버레이 또는 제목 표시줄에 현재 사용 중인 드라이버 버전을 표시합니다.</Description>
+    <DefaultValue>show_version = false</DefaultValue>
+    <TrueSetting>show_version = true</TrueSetting>
+    <FalseSetting>show_version = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>고급</Group>
+    <Name>FPS 표시</Name>
+    <Description>오버레이 또는 제목 표시줄에 현재 초당 프레임 수를 표시합니다.</Description>
+    <DefaultValue>show_fps = false</DefaultValue>
+    <TrueSetting>show_fps = true</TrueSetting>
+    <FalseSetting>show_fps = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="Checkbox">
+    <Group>고급</Group>
+    <Name>그래픽 API 표시</Name>
+    <Description>오버레이 또는 제목 표시줄에 현재 사용 중인 그래픽 API(OpenGL/DirectX11)를 표시합니다.</Description>
+    <DefaultValue>show_renderer_backend = false</DefaultValue>
+    <TrueSetting>show_renderer_backend = true</TrueSetting>
+    <FalseSetting>show_renderer_backend = false</FalseSetting>
+  </Setting>
+
+  <Setting xsi:type="DropDown">
+    <Group>고급</Group>
+    <Name>내부 해상도 스케일러</Name>
+    <Description>640x480 내부 해상도에 다음 배율을 곱합니다. 값이 높을수록 더 강력한 GPU가 필요합니다. 높은 값은 스케일링 아티팩트를 제거할 수 있습니다. *표시된 값은 최적의 성능/품질 비율입니다.</Description>
+    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
+    <Option>
+      <Text>자동</Text>
+      <Settings>internal_resolution_scale = 0</Settings>
+    </Option>
+    <Option>
+      <Text>1x (아티팩트가 발생할 수 있음)</Text>
+      <Settings>internal_resolution_scale = 1</Settings>
+    </Option>
+    <Option>
+      <Text>2x</Text>
+      <Settings>internal_resolution_scale = 2</Settings>
+    </Option>
+    <Option>
+      <Text>*4x</Text>
+      <Settings>internal_resolution_scale = 4</Settings>
+    </Option>
+    <Option>
+      <Text>*6x</Text>
+      <Settings>internal_resolution_scale = 6</Settings>
+    </Option>
+    <Option>
+      <Text>8x</Text>
+      <Settings>internal_resolution_scale = 8</Settings>
+    </Option>
+  </Setting>
+
+</ConfigSpec>
