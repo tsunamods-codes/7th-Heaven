@@ -277,7 +277,7 @@ var
 begin
   RegResult := RegQueryStringValue(HKEY_LOCAL_MACHINE,'SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\' + Dependency_String('X86', 'X64'), 'Version', VcRuntimeVersion);
   if RegResult then
-    IsProductInstalled := (VcRuntimeVersion = 'v14.51.36231.00')
+    IsProductInstalled := (VcRuntimeVersion = 'v14.51.36247.00')
   else
     IsProductInstalled := False;
 
