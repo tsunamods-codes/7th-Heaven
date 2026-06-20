@@ -609,7 +609,7 @@
     <PackageReference Include="AsmResolver" Version="6.0.0" />
     <PackageReference Include="AsmResolver.PE.File" Version="6.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>5.0.0</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="GameFinder.StoreHandlers.GOG" Version="4.9.0" />
     <PackageReference Include="GameFinder.StoreHandlers.Steam" Version="4.9.0" />
