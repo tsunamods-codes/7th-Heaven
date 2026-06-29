@@ -486,9 +486,9 @@
     <system:String x:Key="MissingFf7ExePath">FF7 exe 文件路径丢失</system:String>
     <system:String x:Key="Ff7ExePathChanged">检测到游戏文件夹路径已改变，是否重新启动第七天堂？</system:String>
     <system:String x:Key="MissingLibraryPath">存放模组的文件夹路径丢失</system:String>
-    <system:String x:Key="PromptMoveModsToNewLibrary">The library location has changed. Would you like to move your existing mods to the new location?</system:String>
-    <system:String x:Key="MovedModsToNewLibrary">Mods have been moved to the new library location.</system:String>
-    <system:String x:Key="FailedToMoveModsToNewLibrary">Failed to move mods to the new library location. Check the logs for details.</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">存放模组的文件夹位置已经改变。是否将现有的模组文件移动到新的位置？</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">模组文件已经移动到新的位置。</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">无法将模组文件移动到新的位置。查看日志以获取详细信息。</system:String>
     <system:String x:Key="MissingTexturesPath">存放自定义贴图 (Aali OpenGL) 的文件夹路径丢失</system:String>
     <system:String x:Key="MissingMoviePath">过场动画文件路径丢失</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">存放模组的文件夹路径不能是第七天堂软件根目录，也不能是游戏根目录！请使用默认路径或选择其他非上述路径。</system:String>
@@ -1156,7 +1156,7 @@
     <system:String x:Key="AppHint42">你可以导出自定义界面主题并分享给其他人。</system:String>
     <system:String x:Key="AppHint43">你可以暂停和恢复部分下载。</system:String>
 
-    <system:String x:Key="ModManagerForFinalFantasy7">最终幻想VII 模组管理器 ( 由 Tsunamods Team 维护 | 天幻汉化组 汉化)</system:String>
+    <system:String x:Key="ModManagerForFinalFantasy7">最终幻想VII 模组管理器 ( 由 Tsunamods Team 维护 | FF7原作高清计划项目组 汉化)</system:String>
 
 
     <system:String x:Key="ReleaseDateLabel">发布日期:</system:String>
