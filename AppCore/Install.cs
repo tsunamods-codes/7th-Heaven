@@ -354,11 +354,7 @@ namespace Iros.Workshop
                     {
                         using (var fs = new FileStream(source, FileMode.Open, FileAccess.Read))
                         {
-                            var archive = ArchiveFactory.OpenArchive(fs, new ReaderOptions()
-                            {
-                                ExtractFullPath = true,
-                                Overwrite = true
-                            });
+                            var archive = ArchiveFactory.OpenArchive(fs);
                             var iroEnt = archive.Entries.FirstOrDefault(e => Path.GetExtension(e.Key).Equals(".iro", StringComparison.InvariantCultureIgnoreCase));
                             if (iroEnt != null)
                             {
@@ -381,7 +377,11 @@ namespace Iros.Workshop
                                     {
                                         if (!reader.Entry.IsDirectory)
                                         {
-                                            reader.WriteEntryToDirectory(extractTo);
+                                            reader.WriteEntryToDirectory(extractTo, new ExtractionOptions()
+                                            {
+                                                ExtractFullPath = true,
+                                                Overwrite = true
+                                            });
                                         }
 
                                         count++;

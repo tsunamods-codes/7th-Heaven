@@ -483,6 +483,9 @@ Cliquer sur 'Annuler' pour arrêter la copie.</system:String>
     <system:String x:Key="SettingsNotValid">Paramètres non valides</system:String>
     <system:String x:Key="MissingFf7ExePath">Dossier de ff7.exe non définit.</system:String>
     <system:String x:Key="MissingLibraryPath">Dossier de la Bibliothèque non définit.</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">L'emplacement de la bibliothèque a changé. Souhaitez-vous déplacer vos mods existants vers le nouvel emplacement ?</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">Les mods ont été déplacés vers le nouvel emplacement de la bibliothèque.</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">Échec du déplacement des mods vers le nouvel emplacement de la bibliothèque. Consultez les journaux pour plus de détails.</system:String>
     <system:String x:Key="MissingTexturesPath">Dossier des textures non définit.</system:String>
     <system:String x:Key="MissingMoviePath">Dossier des cinématiques non définit.</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
@@ -933,6 +936,7 @@ Voulez-vous appliquer ce réglage et essayer à nouveau ?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">échec de la copie. L'erreur a été enregistrée</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">impossible de trouver {0} sur le disque...</system:String>
     <system:String x:Key="FileNotFound">fichier non trouvé...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">Fichier FFNx.toml introuvable.\n\nVeuillez lancer le jeu au moins une fois et réessayer.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">ne peut pas copier le fichier source parce qu'il est manquant sur</system:String>
     <system:String x:Key="CopyingFileFrom">copie du fichier de</system:String>
 

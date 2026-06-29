@@ -640,7 +640,10 @@ namespace AppUI.ViewModels
             }
 
             Sys.Settings.FF7Exe = FF7ExePathInput;
-            Sys.Settings.LibraryLocation = LibraryPathInput;
+
+            string oldLibraryLocation = Sys.Settings.LibraryLocation;
+            string newLibraryLocation = LibraryPathInput;
+            Sys.Settings.LibraryLocation = newLibraryLocation;
             Sys.Settings.FFNxUpdateChannel = FFNxUpdateChannel;
             Sys.Settings.AppUpdateChannel = AppUpdateChannel;
 
@@ -649,6 +652,33 @@ namespace AppUI.ViewModels
             ApplyOptions();
 
             Directory.CreateDirectory(Sys.Settings.LibraryLocation);
+
+            if (!string.IsNullOrWhiteSpace(oldLibraryLocation) &&
+                !oldLibraryLocation.Equals(newLibraryLocation, StringComparison.OrdinalIgnoreCase) &&
+                Directory.Exists(oldLibraryLocation) &&
+                Directory.EnumerateFileSystemEntries(oldLibraryLocation).Any())
+            {
+                var dialogResult = MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.PromptMoveModsToNewLibrary),
+                    "Library Location Changed",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (dialogResult.Result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        FileUtils.MoveDirectoryRecursively(oldLibraryLocation, newLibraryLocation);
+                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.MovedModsToNewLibrary)));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary)));
+                        MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
 
             Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
 

@@ -553,7 +553,7 @@ namespace AppUI.ViewModels
                                 catch (Exception ex)
                                 {
                                     sub.FailureCount++;
-                                    Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.FailedToLoadSubscription)} {subUrl}: {ex.Message} {ex.InnerException.Message}", LoggedException = ex });
+                                    Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.FailedToLoadSubscription)} {subUrl}: {ex.Message} {ex.InnerException?.Message}", LoggedException = ex });
                                 }
                                 finally
                                 {

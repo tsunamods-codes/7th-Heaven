@@ -233,7 +233,11 @@ namespace Iros.Workshop {
                     break;
             }
 
-            if (LibraryLocation == string.Empty) LibraryLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"7th Heaven");
+            if (LibraryLocation == string.Empty)
+            {
+                string appLibraryPath = Environment.GetEnvironmentVariable("APP_LIBRARY_PATH");
+                LibraryLocation = appLibraryPath != null ? appLibraryPath : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"7th Heaven");
+            }
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
 

@@ -39,7 +39,7 @@ namespace Iros.Workshop.ConfigSettings
                 // first launch the Sys Path was not setup correctly yet so _toml is null
                 if (_toml == null) _pathToFFNxToml = Sys.PathToFFNxToml;
 
-                if (File.Exists(_pathToFFNxToml)) _toml = Toml.Parse(File.ReadAllBytes(_pathToFFNxToml)).ToModel();
+                if (File.Exists(_pathToFFNxToml)) _toml = TomlSerializer.Deserialize<TomlTable>(File.ReadAllText(_pathToFFNxToml));
             }
             catch (Exception ex)
             {
@@ -50,6 +50,7 @@ namespace Iros.Workshop.ConfigSettings
 
         public string Get(string key)
         {
+            if (_toml == null) return null;
             return _toml[key].ToString();
         }
 

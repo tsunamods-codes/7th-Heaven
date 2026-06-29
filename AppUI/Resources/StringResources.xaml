@@ -488,6 +488,9 @@ Click 'Cancel' to stop the process.</system:String>
     <system:String x:Key="MissingFf7ExePath">Missing FF7 Exe path.</system:String>
     <system:String x:Key="Ff7ExePathChanged">Game path change detected, we highly recommend you restart 7th heaven would you like to now?</system:String>
     <system:String x:Key="MissingLibraryPath">Missing Library path.</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">The library location has changed. Would you like to move your existing mods to the new location?</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">Mods have been moved to the new library location.</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">Failed to move mods to the new library location. Check the logs for details.</system:String>
     <system:String x:Key="MissingTexturesPath">Missing Textures (Aali OpenGL) path.</system:String>
     <system:String x:Key="MissingMoviePath">Missing Movie path.</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
@@ -940,6 +943,7 @@ Do you want to apply the setting and try again?</system:String>
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">failed to copy. Error has been logged</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">failed to find {0} on any disc ...</system:String>
     <system:String x:Key="FileNotFound">file not found...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">cannot copy source file because it is missing at</system:String>
     <system:String x:Key="CopyingFileFrom">copying file from</system:String>
 

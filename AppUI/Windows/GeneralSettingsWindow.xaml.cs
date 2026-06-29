@@ -25,8 +25,6 @@ namespace AppUI.Windows
 
         private ReShadeUpdater ReShadeUpdater = new ReShadeUpdater();
 
-        private bool PathChanged = false;
-
         public GeneralSettingsWindow()
         {
             InitializeComponent();

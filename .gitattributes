@@ -1,0 +1,16 @@
+# Normalize line endings to CRLF on checkout (Windows project)
+* text=auto eol=crlf
+
+# Explicitly binary — no line ending conversion
+*.png binary
+*.tga binary
+*.ico binary
+*.gif binary
+*.exe binary
+*.dll binary
+*.sys binary
+*.ogg binary
+*.cat binary
+*.var binary
+*.rtf binary
+*.doc binary

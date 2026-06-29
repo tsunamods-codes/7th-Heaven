@@ -487,6 +487,9 @@
     <system:String x:Key="MissingFf7ExePath">Λείπει η διαδρομή FF7 Exe.</system:String>
     <system:String x:Key="Ff7ExePathChanged">Änderung des Spielpfads erkannt, wir empfehlen dringend, dass Sie 7th Heaven neu starten. Möchten Sie dies jetzt tun?</system:String>
     <system:String x:Key="MissingLibraryPath">Λείπει η διαδρομή βιβλιοθήκης.</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">The library location has changed. Would you like to move your existing mods to the new location?</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">Mods have been moved to the new library location.</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">Failed to move mods to the new library location. Check the logs for details.</system:String>
     <system:String x:Key="MissingTexturesPath">Λείπει η διαδρομή για Υφές (Aali OpenGL).</system:String>
     <system:String x:Key="MissingMoviePath">Λείπει η διαδρομή για αρχεία βίντεο.</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
@@ -937,6 +940,7 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">αποτυχία αντιγραφής. Το σφάλμα έχει καταγραφεί</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">αποτυχία εντοπισμού του αρχείου {0} σε οποιονδήποτε δίσκο ...</system:String>
     <system:String x:Key="FileNotFound">το αρχείο δε βρέθηκε...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">Δεν είναι δυνατή η αντιγραφή του αρχείου προέλευσης επειδή λείπει στο</system:String>
     <system:String x:Key="CopyingFileFrom">αντιγραφή αρχείου από</system:String>
 

@@ -486,6 +486,9 @@
     <system:String x:Key="MissingFf7ExePath">FF7 exe 文件路径丢失</system:String>
     <system:String x:Key="Ff7ExePathChanged">检测到游戏文件夹路径已改变，是否重新启动第七天堂？</system:String>
     <system:String x:Key="MissingLibraryPath">存放模组的文件夹路径丢失</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">The library location has changed. Would you like to move your existing mods to the new location?</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">Mods have been moved to the new library location.</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">Failed to move mods to the new library location. Check the logs for details.</system:String>
     <system:String x:Key="MissingTexturesPath">存放自定义贴图 (Aali OpenGL) 的文件夹路径丢失</system:String>
     <system:String x:Key="MissingMoviePath">过场动画文件路径丢失</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">存放模组的文件夹路径不能是第七天堂软件根目录，也不能是游戏根目录！请使用默认路径或选择其他非上述路径。</system:String>
@@ -937,6 +940,7 @@
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">复制失败。错误已记录</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">无法在任何光盘上找到 {0} ...</system:String>
     <system:String x:Key="FileNotFound">文件未找到...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">FFNx.toml file not found.\n\nPlease run the game at least once and try again.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">无法复制源文件，因为它在以下位置缺失: </system:String>
     <system:String x:Key="CopyingFileFrom">正在从以下位置复制文件: </system:String>
 

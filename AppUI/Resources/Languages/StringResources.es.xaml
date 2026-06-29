@@ -490,6 +490,9 @@ Haz clic en 'Cancelar' para detener el proceso.</system:String>
     <system:String x:Key="MissingFf7ExePath">Falta la ruta del FF7 Exe.</system:String>
     <system:String x:Key="Ff7ExePathChanged">Se detectó un cambio en la ruta del juego, recomendamos encarecidamente que reinicies 7th Heaven. ¿Te gustaría hacerlo ahora?</system:String>
     <system:String x:Key="MissingLibraryPath">Falta la ruta de la Biblioteca.</system:String>
+    <system:String x:Key="PromptMoveModsToNewLibrary">La ubicación de la biblioteca ha cambiado. ¿Deseas mover tus mods existentes a la nueva ubicación?</system:String>
+    <system:String x:Key="MovedModsToNewLibrary">Los mods han sido movidos a la nueva ubicación de la biblioteca.</system:String>
+    <system:String x:Key="FailedToMoveModsToNewLibrary">Error al mover los mods a la nueva ubicación de la biblioteca. Consulta los registros para más detalles.</system:String>
     <system:String x:Key="MissingTexturesPath">Falta la ruta de las Texturas (Aali OpenGL).</system:String>
     <system:String x:Key="MissingMoviePath">Falta la ruta para las Cinemáticas.</system:String>
     <system:String x:Key="LibraryPathCannotBeGameOrApp">Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
@@ -942,6 +945,7 @@ Por último, si quieres usar archivos .OGG de alta calidad, cambia la opción de
     <system:String x:Key="FailedToCopyErrorHasBeenLogged">error al copiar. Se ha registrado el error</system:String>
     <system:String x:Key="FailedToFindOnAnyDisc">error al buscar {0} en disco(s) ...</system:String>
     <system:String x:Key="FileNotFound">archivo no encontrado ...</system:String>
+    <system:String x:Key="FFNxTomlNotFoundRunGameFirst" xml:space="preserve">Archivo FFNx.toml no encontrado.\n\nPor favor, ejecute el juego al menos una vez e inténtelo de nuevo.</system:String>
     <system:String x:Key="CannotCopySourceFileBecauseItIsMissingAt">no se pudo copiar el archivo fuente por que falta en</system:String>
     <system:String x:Key="CopyingFileFrom">copiando archivo desde</system:String>
 

@@ -1,7 +1,7 @@
 {
   "name": "wrapper-loader",
   "version": "1.0.0",
-  "builtin-baseline": "120deac3062162151622ca4860575a33844ba10b",
+  "builtin-baseline": "c3867e714dd3a51c272826eea77267876517ed99",
   "dependencies": [
     "detours",
     "nlohmann-json",
@@ -11,13 +11,13 @@
   "overrides": [
     {
       "name": "detours",
-      "version": "4.0.1",
-      "port-version": 8
+      "version": "2025-06-20",
+      "port-version": 0
     },
     {
       "name": "nlohmann-json",
       "version": "3.12.0",
-      "port-version": 1
+      "port-version": 2
     },
     {
       "name": "plog",
