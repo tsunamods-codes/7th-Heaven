@@ -338,7 +338,7 @@
   <Setting xsi:type="DropDown">
     <Group>高级</Group>
     <Name>内部分辨率放大倍数</Name>
-    <Description>将游戏原生分辨率640x480乘以所选的倍数，提高模型精细度。由于FF7天幻中文字库贴图分辨率的上限为2x，所以不建议选择更高的倍数，否则字体将会出现视觉错误。</Description>
+    <Description>将游戏原生分辨率640x480乘以所选的倍数，提高模型精细度。由于FF7原作高清计划的中文字库贴图分辨率的上限为2x，所以不建议选择更高的倍数，否则字体将会出现视觉错误。</Description>
     <DefaultValue>internal_resolution_scale = 0</DefaultValue>
     <Option>
       <Text>Auto</Text>
