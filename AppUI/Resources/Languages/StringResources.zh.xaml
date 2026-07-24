@@ -153,6 +153,7 @@
 
     <system:String x:Key="ShowGameLauncher">启动游戏时显示加载窗口</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">通过窗口显示FF7启动过程中的详细日志。如果游戏无法启动，则需要通过这个窗口来查看报错原因，建议开启。</system:String>
+    <system:String x:Key="GameEditionLabel">游戏版本</system:String>
 
     <system:String x:Key="ControlsLabel">按键设置:</system:String>
 

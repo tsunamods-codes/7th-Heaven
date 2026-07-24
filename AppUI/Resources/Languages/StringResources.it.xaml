@@ -152,6 +152,7 @@
 
     <system:String x:Key="ShowGameLauncher">Mostra Launcher di Gioco</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Mostra la finestra del Launcher di Gioco contenente un rapporto dettagliato del processo all'avvio di FF7.</system:String>
+    <system:String x:Key="GameEditionLabel">Edizione del gioco</system:String>
 
     <system:String x:Key="ControlsLabel">Comandi:</system:String>
 

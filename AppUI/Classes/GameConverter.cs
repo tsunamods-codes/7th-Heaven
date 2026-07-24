@@ -243,15 +243,17 @@ namespace AppUI.Classes
                 case FF7Version.WindowsStore:
                     {
                         byte[][] requiredHashes = {
-                            Convert.FromHexString("AC306AE92615AF75FF36BBA6347C67CA1284151D"), // Windows Store
-                            Convert.FromHexString("D270E690A0EA2C9D57AF506D102CF1A794E2ADCD"), // Windows Store 4GB
+                            Convert.FromHexString("AC306AE92615AF75FF36BBA6347C67CA1284151D"), // ff7_en
+                            Convert.FromHexString("D270E690A0EA2C9D57AF506D102CF1A794E2ADCD"), // ff7_en 4GB
+                            Convert.FromHexString("DF38B7E2B9C9AB5CBB4A016DD56A076F5D0719E0"), // ff7_ja
+                            Convert.FromHexString("2283794DCAAD5A04775C5E1179A1793C56950ACD"), // ff7_ja 4GB
                         };
+                        string computedFf7ExePath = GameLauncher.GetLaunchExecutablePath();
                         string[] paths =
                         {
-                            Path.Combine(InstallPath, "..", "resources", "ff7_1.02", "ff7_en"),
-                            Sys.Settings.FF7Exe
+                            computedFf7ExePath,
                         };
-                        foreach (string path in paths)
+                        foreach (string path in paths.Distinct(StringComparer.InvariantCultureIgnoreCase))
                         {
                             using (FileStream fs = new FileStream(path, FileMode.Open))
                             {
@@ -380,7 +382,7 @@ namespace AppUI.Classes
         {
             Directory.CreateDirectory(backupFolderPath);
 
-            string ff7ExePath = Sys.Settings.FF7Exe;
+            string ff7ExePath = GameLauncher.GetLaunchExecutablePath();
 
             try
             {

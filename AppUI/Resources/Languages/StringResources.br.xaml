@@ -152,6 +152,7 @@
 
     <system:String x:Key="ShowGameLauncher">Mostrar Launcher do Jogo</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Mostra a janela do Launcher quando inicializar FF7 pra obter informações detalhadas do processo de inicialização.</system:String>
+    <system:String x:Key="GameEditionLabel">Edição do jogo</system:String>
 
     <system:String x:Key="ControlsLabel">Controles:</system:String>
 

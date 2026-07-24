@@ -153,6 +153,7 @@
 
     <system:String x:Key="ShowGameLauncher">Show Game Launcher</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Shows the Game Launcher window when starting FF7 for detailed output of the launch process.</system:String>
+    <system:String x:Key="GameEditionLabel">Game edition</system:String>
 
     <system:String x:Key="ControlsLabel">Controls:</system:String>
 

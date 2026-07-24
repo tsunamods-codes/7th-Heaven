@@ -48,6 +48,7 @@ namespace AppUI.ViewModels
         private string _selectedSoundDevice;
         private string _selectedMidiData;
         private string _selectedMidiDevice;
+        private string _selectedGameLanguage;
         private int _musicVolumeValue;
 
         private WaveOut _audioTest;
@@ -64,6 +65,7 @@ namespace AppUI.ViewModels
         private int _voiceVolumeValue;
         private int _ambientVolumeValue;
         private int _movieVolumeValue;
+        private readonly List<string> _gameLanguageOptions = new List<string>() { "ff7_en", "ff7_ja" };
 
         #endregion
 
@@ -219,6 +221,35 @@ namespace AppUI.ViewModels
         }
 
         public Dictionary<string, string> MidiDataFormats { get; set; }
+
+        public string SelectedGameLanguage
+        {
+            get
+            {
+                return _selectedGameLanguage;
+            }
+            set
+            {
+                _selectedGameLanguage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public List<string> GameLanguageOptions
+        {
+            get
+            {
+                return _gameLanguageOptions;
+            }
+        }
+
+        public Visibility GameLanguageSelectorVisibility
+        {
+            get
+            {
+                return GameLauncher.IsLanguageSelectorSupportedEdition() ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
 
         public int MusicVolumeValue
         {
@@ -483,6 +514,15 @@ namespace AppUI.ViewModels
                                               .Select(s => s.Key)
                                               .FirstOrDefault();
 
+            SelectedGameLanguage = string.IsNullOrWhiteSpace(launchSettings.SelectedGameLanguage)
+                ? "ff7_en"
+                : launchSettings.SelectedGameLanguage.ToLowerInvariant();
+
+            if (!GameLanguageOptions.Contains(SelectedGameLanguage))
+            {
+                SelectedGameLanguage = "ff7_en";
+            }
+
             GetVolumesFromRegistry();
 
             SetSelectedMidiDeviceFromSettings();
@@ -634,6 +674,7 @@ namespace AppUI.ViewModels
 
                 Sys.Settings.GameLaunchSettings.SelectedSoundDevice = SoundDeviceGuids[SelectedSoundDevice];
                 Sys.Settings.GameLaunchSettings.SelectedMidiData = MidiDataFormats[SelectedMidiData];
+                Sys.Settings.GameLaunchSettings.SelectedGameLanguage = SelectedGameLanguage;
                 Sys.Settings.GameLaunchSettings.ReverseSpeakers = IsReverseSpeakersChecked;
                 Sys.Settings.GameLaunchSettings.LogarithmicVolumeControl = IsLogVolumeChecked;
 

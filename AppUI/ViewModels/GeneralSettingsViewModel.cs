@@ -573,10 +573,13 @@ namespace AppUI.ViewModels
         public bool EnsureRereleaseGameDirectoryIsReady()
         {
             string sourceExe = Path.Combine(Sys.InstallPath, "..", "resources", "ff7_1.02", "ff7_en");
+            string sourceExeJp = Path.Combine(Sys.InstallPath, "..", "resources", "ff7_1.02", "ff7_ja");
             string targetExe = Sys.Settings.FF7Exe;
+            string targetExeJp = Path.Combine(Path.GetDirectoryName(targetExe), "ff7_ja.exe");
             string targetWindow = Path.Combine(Sys.InstallPath, "data", "kernel", "window.bin");
 
             if (!File.Exists(targetExe)) File.Copy(sourceExe, targetExe, true);
+            if (!File.Exists(targetExeJp)) File.Copy(sourceExeJp, targetExeJp, true);
 
             if (!File.Exists(targetWindow))
             {

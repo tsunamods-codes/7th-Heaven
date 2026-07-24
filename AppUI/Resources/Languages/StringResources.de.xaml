@@ -153,6 +153,7 @@
 
     <system:String x:Key="ShowGameLauncher">Launcher starten</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Zeigt beim Starten von FF7 das Fenster des Spiel-Launchers für eine detaillierte Ausgabe des Startvorgangs an.</system:String>
+    <system:String x:Key="GameEditionLabel">Spielversion</system:String>
 
     <system:String x:Key="ControlsLabel">Steuerung:</system:String>
 

@@ -22,6 +22,8 @@ namespace AppCore
 
         public bool EnablePs4ControllerService { get; set; }
 
+        public string SelectedGameLanguage { get; set; }
+
         /// <summary>
         /// True means that the launcher will poll for input from a gamepad to intercept trigger/dpad presses
         /// </summary>
@@ -50,6 +52,7 @@ namespace AppCore
                 HasDisplayedOggMusicWarning = false,
                 HasDisplayedMovieWarning = false,
                 EnablePs4ControllerService = false,
+                SelectedGameLanguage = "ff7_en",
                 EnableGamepadPolling = false,
             };
         }

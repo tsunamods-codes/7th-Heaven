@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         Title="{DynamicResource GameLauncherSettings}" 
         Width="470"
-        Height="633">
+        Height="665">
     <Window.Resources>
 
         <DataTemplate x:Key="programItem">
@@ -55,6 +55,14 @@
         <DataTemplate x:Key="midiItemTemplate">
             <Grid x:Name="gd" DataContext="{Binding ElementName=windowSettings, Path=DataContext}" Background="Transparent">
                 <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedMidiData, FallbackValue='General MIDI'}" Margin="0,0,15,0" 
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="languageItemTemplate">
+            <Grid x:Name="gd" DataContext="{Binding ElementName=windowSettings, Path=DataContext}" Background="Transparent">
+                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedGameLanguage, FallbackValue='ff7_en'}" Margin="0,0,15,0"
                            TextWrapping="NoWrap"
                            TextTrimming="CharacterEllipsis"/>
             </Grid>
@@ -380,6 +388,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdatePath}" 
                           Grid.Row="0"
@@ -387,6 +396,27 @@
                 <CheckBox Height="25" Content="{DynamicResource ShowGameLauncher}" 
                           Grid.Row="1"
                           IsChecked="{Binding IsShowLauncherChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Grid Grid.Row="2"
+                      Margin="0,3,0,0"
+                      HorizontalAlignment="Right"
+                      Visibility="{Binding GameLanguageSelectorVisibility}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{DynamicResource GameEditionLabel}"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource PrimaryTextBlockStyle}"
+                               Margin="0,0,10,0"/>
+                    <ComboBox Grid.Column="1"
+                               Width="60"
+                               Height="30"
+                               Style="{StaticResource MainComboBoxStyle}"
+                               ItemTemplate="{StaticResource languageItemTemplate}"
+                               ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
+                               ItemsSource="{Binding GameLanguageOptions}"
+                               SelectedItem="{Binding SelectedGameLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
             </Grid>
         </GroupBox>
 

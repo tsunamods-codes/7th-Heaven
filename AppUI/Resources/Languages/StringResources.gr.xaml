@@ -152,6 +152,7 @@
 
     <system:String x:Key="ShowGameLauncher">Προβολή Προγράμματος Εκκίνησης Παιχνιδιού</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Εμφανίζει το παράθυρο Προγράμματος Εκκίνησης Παιχνιδιού καθώς ξεκινά το FF7 για λεπτομερή εμφάνισης της Διαδικασίας Εκκίνησης.</system:String>
+    <system:String x:Key="GameEditionLabel">Έκδοση παιχνιδιού</system:String>
 
     <system:String x:Key="ControlsLabel">Χειρισμός:</system:String>
 
