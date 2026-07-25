@@ -253,6 +253,9 @@ namespace Iros.Workshop.ConfigSettings
             _toml["direct_mode_path"] = "direct";
             _toml["override_path"] = "override";
             _toml["trace_all"] = debug;
+
+            string selectedLanguage = Sys.Settings.GameLaunchSettings.SelectedGameLanguage ?? "ff7_en";
+            _toml["ff7_japanese_edition"] = selectedLanguage.ToLower() == "ff7_ja";
         }
 
         public void ResetTo7thHeavenDefaults()
