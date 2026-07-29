@@ -189,7 +189,7 @@ namespace AppUI.Classes
             }
 
             // check if steam api is a genuine one
-            using (FileStream fs = new FileStream(Path.Combine(InstallPath, "steam_api.dll"), FileMode.Open))
+            using (FileStream fs = new FileStream(Path.Combine(InstallPath, "FFNx_steam_api.dll"), FileMode.Open))
             {
                 byte[] currentHash = SHA1.HashData(fs);
                 if (!currentHash.SequenceEqual(Convert.FromHexString("03BD9F3E352553A0AF41F5FE006F6249A168C243"))) return true;
