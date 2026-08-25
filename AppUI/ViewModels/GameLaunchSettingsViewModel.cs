@@ -783,7 +783,7 @@ namespace AppUI.ViewModels
 
                 // input 0 - audio test .ogg
                 // input 1 - silenced wave provider to play silent audio
-                NAudio.Vorbis.VorbisWaveReader waveReader = new NAudio.Vorbis.VorbisWaveReader(pathToTestFile);
+                NAudio.SoundFile.SoundFileReader waveReader = new NAudio.SoundFile.SoundFileReader(pathToTestFile);
                 MultiplexingWaveProvider waveProvider = new MultiplexingWaveProvider(new List<IWaveProvider>() { waveReader, new SilenceWaveProvider(waveReader.WaveFormat) }, 2);
 
                 int leftChannel = 0;

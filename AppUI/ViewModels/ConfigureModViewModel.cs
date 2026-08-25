@@ -53,7 +53,7 @@ namespace AppUI.ViewModels
         private string _audioPath;
         private Stream _audioFile;
 
-        private NAudio.Vorbis.VorbisWaveReader _waveReader;
+        private NAudio.SoundFile.SoundFileReader _waveReader;
         private NAudio.Wave.Mp3FileReader _mp3Reader;
 
         public string WindowTitle
@@ -650,13 +650,13 @@ namespace AppUI.ViewModels
                         if (!string.IsNullOrWhiteSpace(_audioPath))
                         {
                             _audio = new NAudio.Wave.WaveOut();
-                            _waveReader = new NAudio.Vorbis.VorbisWaveReader(_audioPath);
+                            _waveReader = new NAudio.SoundFile.SoundFileReader(_audioPath);
                             _audio.Init(_waveReader);
                         }
                         else if (_audioFile != null)
                         {
                             _audio = new NAudio.Wave.WaveOut();
-                            _waveReader = new NAudio.Vorbis.VorbisWaveReader(_audioFile);
+                            _waveReader = new NAudio.SoundFile.SoundFileReader(_audioFile);
                             _audio.Init(_waveReader);
                         }
                     }
