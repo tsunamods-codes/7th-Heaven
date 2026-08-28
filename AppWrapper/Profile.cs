@@ -876,7 +876,7 @@ namespace AppWrapper
                     var flag = new FFNxFlag();
 
                     flag.Key = child.Name;
-                    if (child.ChildNodes.Count > 1)
+                    if (child.SelectNodes("./*").Count > 0)
                     {
                         List<string> items = new List<string>();
                         foreach (XmlNode item in child.ChildNodes)
