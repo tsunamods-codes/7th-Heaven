@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using NAudio.Wave;
 
 namespace AppUI.ViewModels
 {
@@ -53,7 +54,7 @@ namespace AppUI.ViewModels
         private string _audioPath;
         private Stream _audioFile;
 
-        private NAudio.SoundFile.SoundFileReader _waveReader;
+        private VorbisSampleProvider _oggReader;
         private NAudio.Wave.Mp3FileReader _mp3Reader;
 
         public string WindowTitle
@@ -530,10 +531,10 @@ namespace AppUI.ViewModels
         {
             if (_audio != null)
             {
-                if (_waveReader != null)
+                if (_oggReader != null)
                 {
-                    _waveReader.Dispose();
-                    _waveReader = null;
+                    _oggReader.Dispose();
+                    _oggReader = null;
                 }
 
                 if (_mp3Reader != null)
@@ -650,14 +651,14 @@ namespace AppUI.ViewModels
                         if (!string.IsNullOrWhiteSpace(_audioPath))
                         {
                             _audio = new NAudio.Wave.WaveOut();
-                            _waveReader = new NAudio.SoundFile.SoundFileReader(_audioPath);
-                            _audio.Init(_waveReader);
+                            _oggReader = new VorbisSampleProvider(_audioPath);
+                            _audio.Init(_oggReader);
                         }
                         else if (_audioFile != null)
                         {
                             _audio = new NAudio.Wave.WaveOut();
-                            _waveReader = new NAudio.SoundFile.SoundFileReader(_audioFile);
-                            _audio.Init(_waveReader);
+                            _oggReader = new VorbisSampleProvider(_audioFile);
+                            _audio.Init(_oggReader);
                         }
                     }
                     else if (_audioFileName.EndsWith(".mp3", StringComparison.InvariantCultureIgnoreCase))
@@ -681,7 +682,7 @@ namespace AppUI.ViewModels
                         return;
                     }
 
-                    if (_waveReader != null || _mp3Reader != null)
+                    if (_oggReader != null || _mp3Reader != null)
                     {
                         _audio.PlaybackStopped += PreviewAudio_PlaybackStopped;
                         _audio.Play();

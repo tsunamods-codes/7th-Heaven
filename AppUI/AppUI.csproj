@@ -621,8 +621,8 @@
     <PackageReference Include="NAudio">
       <Version>3.0.1</Version>
     </PackageReference>
-    <PackageReference Include="NAudio.SoundFile">
-      <Version>3.0.1</Version>
+    <PackageReference Include="NVorbis">
+      <Version>0.10.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>

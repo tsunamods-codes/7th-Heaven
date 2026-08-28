@@ -52,6 +52,7 @@ namespace AppUI.ViewModels
         private int _musicVolumeValue;
 
         private WaveOut _audioTest;
+        private VorbisSampleProvider _audioTestReader;
 
         private ObservableCollection<ProgramToRunViewModel> _programList;
         private string _newProgramPathText;
@@ -783,8 +784,8 @@ namespace AppUI.ViewModels
 
                 // input 0 - audio test .ogg
                 // input 1 - silenced wave provider to play silent audio
-                NAudio.SoundFile.SoundFileReader waveReader = new NAudio.SoundFile.SoundFileReader(pathToTestFile);
-                MultiplexingWaveProvider waveProvider = new MultiplexingWaveProvider(new List<IWaveProvider>() { waveReader, new SilenceWaveProvider(waveReader.WaveFormat) }, 2);
+                _audioTestReader = new VorbisSampleProvider(pathToTestFile);
+                NAudio.Wave.SampleProviders.MultiplexingSampleProvider waveProvider = new NAudio.Wave.SampleProviders.MultiplexingSampleProvider(new List<ISampleProvider>() { _audioTestReader, new SilenceProvider(_audioTestReader.WaveFormat).ToSampleProvider() }, 2);
 
                 int leftChannel = 0;
                 int rightChannel = 1;
@@ -876,10 +877,16 @@ namespace AppUI.ViewModels
                 _audioTest.Stop();
                 _audioTest.PlaybackStopped -= AudioTest_PlaybackStopped;
                 _audioTest = null;
-
-                NotifyPropertyChanged(nameof(IsAudioPlaying));
-                NotifyPropertyChanged(nameof(IsAudioNotPlaying));
             }
+
+            if (_audioTestReader != null)
+            {
+                _audioTestReader.Dispose();
+                _audioTestReader = null;
+            }
+
+            NotifyPropertyChanged(nameof(IsAudioPlaying));
+            NotifyPropertyChanged(nameof(IsAudioNotPlaying));
         }
 
         internal void EditSelectedProgram(ProgramToRunViewModel selected)
