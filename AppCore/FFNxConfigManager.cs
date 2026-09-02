@@ -1,4 +1,5 @@
-﻿using Iros.Workshop;
+﻿using AppWrapper;
+using Iros.Workshop;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -219,7 +220,17 @@ namespace Iros.Workshop.ConfigSettings
             File.WriteAllLines(_pathToFFNxToml, _write);
         }
 
-        public void OverrideInternalKeys(bool debug = false)
+        private bool IsFFNxFlagDefinedByAnyMod(RuntimeProfile runtimeProfile, string key)
+        {
+            if (runtimeProfile == null || runtimeProfile.Mods == null)
+            {
+                return false;
+            }
+
+            return runtimeProfile.Mods.Any(mod => mod.FFNxConfig != null && mod.FFNxConfig.Any(flag => string.Equals(flag.Key, key, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
+        public void OverrideInternalKeys(bool debug = false, RuntimeProfile runtimeProfile = null)
         {
             // first launch the Sys Path was not setup correctly yet so _toml is null
             if(_toml == null)
@@ -255,7 +266,14 @@ namespace Iros.Workshop.ConfigSettings
             _toml["trace_all"] = debug;
 
             string selectedLanguage = Sys.Settings.GameLaunchSettings.SelectedGameLanguage ?? "ff7_en";
-            _toml["ff7_japanese_edition"] = selectedLanguage.ToLower() == "ff7_ja";
+            bool isJapaneseLanguage = selectedLanguage.ToLower() == "ff7_ja";
+            _toml["ff7_japanese_edition"] = isJapaneseLanguage;
+
+            bool enableFieldAutosizeTextBox = !IsFFNxFlagDefinedByAnyMod(runtimeProfile, "ff7_field_autosize_text_box");
+            if (isJapaneseLanguage && enableFieldAutosizeTextBox)
+            {
+                _toml["ff7_field_autosize_text_box"] = true;
+            }
         }
 
         public void ResetTo7thHeavenDefaults()
