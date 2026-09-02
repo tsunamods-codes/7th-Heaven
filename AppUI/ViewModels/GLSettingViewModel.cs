@@ -279,6 +279,11 @@ namespace AppUI.ViewModels
             settings.Apply(Setting.DefaultValue);
             Init(settings);
         }
+
+        public void RefreshFromCurrent(Settings settings)
+        {
+            Init(settings);
+        }
     }
 
     class GLSettingDropdownOptionViewModel : ViewModelBase

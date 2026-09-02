@@ -184,11 +184,13 @@ namespace AppUI.Windows
         {
             Sys.FFNxConfig.RestoreBackup();
             Sys.FFNxConfig.ResetTo7thHeavenDefaults();
+            Sys.FFNxConfig.OverrideInternalKeys();
             Sys.FFNxConfig.Save();
+            Sys.FFNxConfig.Reload();
 
             foreach (var item in ViewModels)
             {
-                item.ResetToDefault(_settings);
+                item.RefreshFromCurrent(_settings);
             }
 
             SetStatusMessage(ResourceHelper.Get(StringKey.GameDriverSettingsResetToDefaults));
