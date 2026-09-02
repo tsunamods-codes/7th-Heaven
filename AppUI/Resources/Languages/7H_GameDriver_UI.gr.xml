@@ -157,6 +157,15 @@
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
   </Setting>
 
+  <Setting xsi:type="Checkbox">
+    <Group>Γραφικά</Group>
+    <Name>Αυτόματη προσαρμογή πλαισίου κειμένου πεδίου</Name>
+    <Description>Αλλάζει αυτόματα το μέγεθος των πλαισίων κειμένου πεδίου ώστε να προσαρμόζονται στο περιεχόμενο κειμένου.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
+    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
+    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
+  </Setting>
+
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
     <Group>Απατώ</Group>

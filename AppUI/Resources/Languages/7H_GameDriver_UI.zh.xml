@@ -157,6 +157,15 @@
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
   </Setting>
 
+  <Setting xsi:type="Checkbox">
+    <Group>画面</Group>
+    <Name>自动调整地图文本框大小</Name>
+    <Description>自动调整地图文本框大小以适应文本内容。</Description>
+    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
+    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
+    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
+  </Setting>
+
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>

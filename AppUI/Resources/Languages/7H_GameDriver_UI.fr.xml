@@ -157,6 +157,15 @@
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
   </Setting>
 
+  <Setting xsi:type="Checkbox">
+    <Group>Graphismes</Group>
+    <Name>Redimensionnement auto des boîtes de texte de terrain</Name>
+    <Description>Redimensionne automatiquement les boîtes de texte de terrain pour s'adapter au contenu du texte.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
+    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
+    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
+  </Setting>
+
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
     <Group>Fonctions de triche</Group>

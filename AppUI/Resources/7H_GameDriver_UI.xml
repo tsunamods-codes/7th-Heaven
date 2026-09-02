@@ -157,6 +157,15 @@
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
   </Setting>
 
+  <Setting xsi:type="Checkbox">
+    <Group>Graphics</Group>
+    <Name>Auto-size Field Text Box</Name>
+    <Description>Automatically resize field text boxes to fit text content.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
+    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
+    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
+  </Setting>
+
   <!-- CHEATS TAB -->
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
