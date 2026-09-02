@@ -267,8 +267,6 @@ namespace Iros.Workshop.ConfigSettings
 
             string selectedLanguage = Sys.Settings.GameLaunchSettings.SelectedGameLanguage ?? "ff7_en";
             bool isJapaneseLanguage = selectedLanguage.ToLower() == "ff7_ja";
-            _toml["ff7_japanese_edition"] = isJapaneseLanguage;
-
             bool enableFieldAutosizeTextBox = !IsFFNxFlagDefinedByAnyMod(runtimeProfile, "ff7_field_autosize_text_box");
             if (isJapaneseLanguage && enableFieldAutosizeTextBox)
             {
