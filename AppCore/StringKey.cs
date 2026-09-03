@@ -662,6 +662,7 @@
         App4GBPatchRequired,
         App4GBPatchApplied,
         SimplifiedChinese,
+        Korean,
         ModShaders
     }
 }
