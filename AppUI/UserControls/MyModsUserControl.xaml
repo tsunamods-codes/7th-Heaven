@@ -126,6 +126,7 @@
                                 <CheckBox Style="{StaticResource ToggleSwitchCheckbox}"
                                           MinWidth="45"
                                           IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEnabled="{Binding CanChangeActive}"
                                           IsTabStop="False"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

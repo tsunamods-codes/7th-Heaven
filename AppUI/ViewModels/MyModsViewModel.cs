@@ -60,6 +60,24 @@ namespace AppUI.ViewModels
 
         internal ReloadListOption _previousReloadOptions;
         private BitmapImage _themeImage;
+        private bool _showOnlyLanguageCompatibleItems = true;
+
+        public bool ShowOnlyLanguageCompatibleItems
+        {
+            get => _showOnlyLanguageCompatibleItems;
+            set
+            {
+                if (_showOnlyLanguageCompatibleItems == value)
+                {
+                    return;
+                }
+
+                Guid? selectedModId = GetSelectedMod()?.InstallInfo?.ModID;
+                _showOnlyLanguageCompatibleItems = value;
+                NotifyPropertyChanged();
+                ReloadModListFromUIThread(selectedModId);
+            }
+        }
 
         public string PreviousSearchText
         {
@@ -236,7 +254,12 @@ namespace AppUI.ViewModels
                 if (mod != null)
                 {
                     mod.CachedDetails.Category = item.Category ?? mod.CachedDetails.Category; // ensure cached details match the active profile
-                    bool includeMod = DoesModMatchSearchCriteria(searchText, categories, tags, mod.CachedDetails);
+                    bool includeMod = DoesModMatchSearchCriteria(
+                        searchText,
+                        categories,
+                        tags,
+                        mod.CachedDetails,
+                        ShowOnlyLanguageCompatibleItems ? mod.GetModInfo()?.GameLanguages : null);
 
                     if (includeMod)
                     {
@@ -262,7 +285,12 @@ namespace AppUI.ViewModels
                 }
 
                 item.CachedDetails.Category = profileItem.Category ?? item.CachedDetails.Category;
-                bool includeMod = DoesModMatchSearchCriteria(searchText, categories, tags, item.CachedDetails);
+                bool includeMod = DoesModMatchSearchCriteria(
+                    searchText,
+                    categories,
+                    tags,
+                    item.CachedDetails,
+                    ShowOnlyLanguageCompatibleItems ? item.GetModInfo()?.GameLanguages : null);
 
 
                 if (!isAdded && includeMod)
@@ -301,10 +329,14 @@ namespace AppUI.ViewModels
 
             if (allMods.Count == 0)
             {
-                if (isFilteredBySearch && !string.IsNullOrWhiteSpace(searchText))
+                bool hasSearchText = !string.IsNullOrWhiteSpace(searchText);
+                if (isFilteredBySearch && (hasSearchText || ShowOnlyLanguageCompatibleItems))
                 {
-                    // when searching by text clear the list to visually show to the user no results were found
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                    if (hasSearchText)
+                    {
+                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                    }
+
                     ClearModList();
                 }
 
@@ -398,8 +430,20 @@ namespace AppUI.ViewModels
             });
         }
 
-        private static bool DoesModMatchSearchCriteria(string searchText, IEnumerable<FilterItemViewModel> categories, IEnumerable<FilterItemViewModel> tags, Mod mod)
+        private bool DoesModMatchSearchCriteria(
+            string searchText,
+            IEnumerable<FilterItemViewModel> categories,
+            IEnumerable<FilterItemViewModel> tags,
+            Mod mod,
+            IEnumerable<string> gameLanguages)
         {
+            if (ShowOnlyLanguageCompatibleItems && !GameLanguage.IsSupportedBy(
+                gameLanguages,
+                GameLauncher.GetSelectedGameLanguage()))
+            {
+                return false;
+            }
+
             bool isSearchTextRelevant = !string.IsNullOrWhiteSpace(searchText) && mod.SearchRelevance(searchText) > 0;
 
             if (categories.Count() > 0 && tags.Count() > 0)
@@ -515,6 +559,11 @@ namespace AppUI.ViewModels
                     examined.Add(toExamine.Peek().ModID);
                     var info = toExamine.Pop().GetModInfo();
 
+                    if (!GameLanguage.IsSupportedBy(info?.GameLanguages, GameLauncher.GetSelectedGameLanguage()))
+                    {
+                        return;
+                    }
+
                     if (info == null)
                     {
                         continue;
@@ -625,6 +674,24 @@ namespace AppUI.ViewModels
             if (reloadList)
             {
                 Sys.Ping(modID);
+            }
+        }
+
+        internal void DeactivateModsUnsupportedByCurrentGameLanguage()
+        {
+            if (Sys.ActiveProfile == null) return;
+
+            string selectedLanguage = GameLauncher.GetSelectedGameLanguage();
+            List<Guid> unsupportedActiveMods = Sys.ActiveProfile.ActiveItems
+                .Where(item => !GameLanguage.IsSupportedBy(
+                    Sys.Library.GetItem(item.ModID)?.GetModInfo()?.GameLanguages,
+                    selectedLanguage))
+                .Select(item => item.ModID)
+                .ToList();
+
+            foreach (Guid modID in unsupportedActiveMods)
+            {
+                ToggleActivateMod(modID, reloadList: false);
             }
         }
 

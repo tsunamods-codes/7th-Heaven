@@ -150,6 +150,13 @@
     <system:String x:Key="ShowGameLauncher">Afficher le lanceur du Jeu</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Affiche la fenêtre du lanceur du jeu au démarrage de FF7 pour afficher des informations détaillées sur le processus de lancement.</system:String>
     <system:String x:Key="GameEditionLabel">Édition du jeu</system:String>
+    <system:String x:Key="GameLanguageEnglish">Anglais</system:String>
+    <system:String x:Key="GameLanguageFrench">Français</system:String>
+    <system:String x:Key="GameLanguageGerman">Allemand</system:String>
+    <system:String x:Key="GameLanguageSpanish">Espagnol</system:String>
+    <system:String x:Key="GameLanguageJapanese">Japonais</system:String>
+    <system:String x:Key="GameLanguageHeader">Langue du jeu</system:String>
+    <system:String x:Key="ShowOnlyLanguageCompatibleItems">Afficher uniquement les éléments compatibles avec la langue de jeu sélectionnée</system:String>
 
     <system:String x:Key="ControlsLabel">Contrôles :</system:String>
 

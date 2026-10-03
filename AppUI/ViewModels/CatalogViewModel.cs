@@ -57,6 +57,26 @@ namespace AppUI.ViewModels
         private bool _pauseDownloadIsEnabled;
         private string _pauseDownloadToolTip;
         private BitmapImage _themeImage;
+        private bool _showOnlyLanguageCompatibleItems = true;
+
+        public bool CanDownloadSelectedMod => GetSelectedMod()?.CanDownload == true;
+
+        public bool ShowOnlyLanguageCompatibleItems
+        {
+            get => _showOnlyLanguageCompatibleItems;
+            set
+            {
+                if (_showOnlyLanguageCompatibleItems == value)
+                {
+                    return;
+                }
+
+                Guid? selectedModId = GetSelectedMod()?.Mod.ID;
+                _showOnlyLanguageCompatibleItems = value;
+                NotifyPropertyChanged();
+                ReloadModList(selectedModId);
+            }
+        }
 
         /// <summary>
         /// List of installed mods (includes active mods in the currently active profile)
@@ -246,7 +266,31 @@ namespace AppUI.ViewModels
         /// </summary>
         internal void RaiseSelectedModChanged(object sender, CatalogModItemViewModel selected)
         {
+            NotifyPropertyChanged(nameof(CanDownloadSelectedMod));
             SelectedModChanged?.Invoke(this, selected);
+        }
+
+        internal void RefreshGameLanguageAvailability()
+        {
+            if (ShowOnlyLanguageCompatibleItems)
+            {
+                ReloadModList(GetSelectedMod()?.Mod.ID);
+                return;
+            }
+
+            foreach (CatalogModItemViewModel item in CatalogModList)
+            {
+                item.RefreshGameLanguageAvailability();
+            }
+
+            NotifyPropertyChanged(nameof(CanDownloadSelectedMod));
+        }
+
+        private bool MatchesCurrentGameLanguage(Mod mod)
+        {
+            return !ShowOnlyLanguageCompatibleItems || GameLanguage.IsSupportedBy(
+                mod.GameLanguages,
+                GameLauncher.GetSelectedGameLanguage());
         }
 
         /// <summary>
@@ -291,6 +335,11 @@ namespace AppUI.ViewModels
             {
                 results = Sys.Catalog.Mods.Where(m =>
                 {
+                    if (!MatchesCurrentGameLanguage(m))
+                    {
+                        return false;
+                    }
+
                     if (categories.Count() > 0 && tags.Count() > 0)
                     {
                         return FilterItemViewModel.FilterByCategory(m, categories) || FilterItemViewModel.FilterByTags(m, tags);
@@ -309,6 +358,11 @@ namespace AppUI.ViewModels
             {
                 results = Sys.Catalog.Mods.Where(m =>
                 {
+                    if (!MatchesCurrentGameLanguage(m))
+                    {
+                        return false;
+                    }
+
                     bool isRelevant = m.SearchRelevance(searchText) > 0;
 
                     if (categories.Count() > 0 && tags.Count() > 0)
@@ -371,9 +425,13 @@ namespace AppUI.ViewModels
             {
                 if (newList.Count == 0)
                 {
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                    bool hasSearchText = !string.IsNullOrWhiteSpace(searchText);
+                    if (!ShowOnlyLanguageCompatibleItems || hasSearchText)
+                    {
+                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                    }
 
-                    if (!string.IsNullOrWhiteSpace(searchText))
+                    if (hasSearchText || ShowOnlyLanguageCompatibleItems)
                     {
                         SetCatalogList(newList);
                     }
@@ -392,6 +450,8 @@ namespace AppUI.ViewModels
                 CatalogModList.Clear();
                 CatalogModList = newList;
             }
+
+            NotifyPropertyChanged(nameof(CanDownloadSelectedMod));
         }
 
         internal void ClearRememberedSearchTextAndCategories()
@@ -762,6 +822,11 @@ namespace AppUI.ViewModels
 
         internal void DownloadMod(CatalogModItemViewModel catalogModItemViewModel)
         {
+            if (catalogModItemViewModel?.CanDownload != true)
+            {
+                return;
+            }
+
             Mod modToDownload = catalogModItemViewModel.Mod;
             ModStatus status = Sys.GetStatus(modToDownload.ID);
 

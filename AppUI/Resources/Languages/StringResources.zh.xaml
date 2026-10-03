@@ -154,6 +154,13 @@
     <system:String x:Key="ShowGameLauncher">启动游戏时显示加载窗口</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">通过窗口显示FF7启动过程中的详细日志。如果游戏无法启动，则需要通过这个窗口来查看报错原因，建议开启。</system:String>
     <system:String x:Key="GameEditionLabel">游戏版本</system:String>
+    <system:String x:Key="GameLanguageEnglish">英语</system:String>
+    <system:String x:Key="GameLanguageFrench">法语</system:String>
+    <system:String x:Key="GameLanguageGerman">德语</system:String>
+    <system:String x:Key="GameLanguageSpanish">西班牙语</system:String>
+    <system:String x:Key="GameLanguageJapanese">日语</system:String>
+    <system:String x:Key="GameLanguageHeader">游戏语言</system:String>
+    <system:String x:Key="ShowOnlyLanguageCompatibleItems">仅显示与所选游戏语言兼容的项目</system:String>
 
     <system:String x:Key="ControlsLabel">按键设置:</system:String>
 

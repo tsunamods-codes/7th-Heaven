@@ -85,14 +85,20 @@ namespace AppUI.Classes
         {
             switch (Sys.Settings.FF7InstalledVersion)
             {
-                case FF7Version.ReRelease:
                 case FF7Version.SteamReRelease:
-                case FF7Version.GOG:
                 case FF7Version.WindowsStore:
+                case FF7Version.GOG:
                     return true;
                 default:
                     return false;
             }
+        }
+
+        internal static string GetSelectedGameLanguage()
+        {
+            return IsLanguageSelectorSupportedEdition()
+                ? GameLanguage.Normalize(Sys.Settings.GameLaunchSettings?.SelectedGameLanguage)
+                : GameLanguage.English;
         }
 
         internal static string GetLaunchExecutablePath()
@@ -104,11 +110,8 @@ namespace AppUI.Classes
                 return defaultExePath;
             }
 
-            string selectedLanguage = Sys.Settings.GameLaunchSettings?.SelectedGameLanguage;
-            if (!string.Equals(selectedLanguage, "ff7_ja", StringComparison.InvariantCultureIgnoreCase))
-            {
-                selectedLanguage = "ff7_en";
-            }
+            string selectedLanguage = GetSelectedGameLanguage();
+            string executableName = selectedLanguage == GameLanguage.Japanese ? "ff7_ja.exe" : "ff7_en.exe";
 
             string ff7Folder = Path.GetDirectoryName(defaultExePath);
             if (string.IsNullOrWhiteSpace(ff7Folder))
@@ -116,7 +119,7 @@ namespace AppUI.Classes
                 return defaultExePath;
             }
 
-            return Path.Combine(ff7Folder, $"{selectedLanguage}.exe");
+            return Path.Combine(ff7Folder, executableName);
         }
 
         public static async Task<bool> LaunchGame(bool varDump, bool debug, bool launchWithNoMods = false)

@@ -100,6 +100,30 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="LanguageFilterButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButton}">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Content" Value="{StaticResource iconLanguageFilterUnchecked}"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedTabIndex}" Value="0"/>
+                        <Condition Binding="{Binding MyMods.ShowOnlyLanguageCompatibleItems}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{DynamicResource PrimaryControlPressed}"/>
+                    <Setter Property="Content" Value="{StaticResource iconLanguageFilterChecked}"/>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedTabIndex}" Value="1"/>
+                        <Condition Binding="{Binding CatalogMods.ShowOnlyLanguageCompatibleItems}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{DynamicResource PrimaryControlPressed}"/>
+                    <Setter Property="Content" Value="{StaticResource iconLanguageFilterChecked}"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid Background="Transparent">
@@ -387,8 +411,11 @@
                     Grid.Column="2"
                     SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectionChanged="tabCtrlMain_SelectionChanged"
-                    Margin="0,23,5,-2">
-            <TabItem Padding="10,0,10,0"
+                    Margin="0,5,5,-2">
+            <TabItem x:Name="tabMyMods"
+                     Padding="10,0,10,0"
+                     Height="45"
+                     SizeChanged="TabHeader_SizeChanged"
                      ToolTip="{DynamicResource MyModsTooltip}"
                      MouseRightButtonUp="MyModsTabItem_MouseRightButtonUp">
                 <TabItem.Header>
@@ -399,7 +426,10 @@
 
                 <ctrl:MyModsUserControl x:Name="ctrlMyMods"/>
             </TabItem>
-            <TabItem MouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
+            <TabItem x:Name="tabBrowseCatalog"
+                     Height="45"
+                     SizeChanged="TabHeader_SizeChanged"
+                     MouseRightButtonUp="BrowseCatalogTabItem_MouseRightButtonUp"
                      ToolTip="{DynamicResource BrowseCatalogTooltip}">
                 <TabItem.Header>
                     <TextBlock Text="{DynamicResource BrowseCatalog}"
@@ -412,30 +442,36 @@
         </TabControl>
 
         <Grid Grid.Column="2"
-              Margin="0,25,56,0"
+              Margin="0,5,5,0"
+              Height="45"
               HorizontalAlignment="Right"
-              VerticalAlignment="Top">
+              VerticalAlignment="Top"
+              Panel.ZIndex="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
             <TextBox x:Name="txtSearch"
                      Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      TextChanged="txtSearch_TextChanged"
                      KeyDown="txtSearch_KeyDown"
-                     Grid.Column="2"
-                     HorizontalAlignment="Right"
-                     VerticalAlignment="Top"
+                     Grid.Column="0"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
                      VerticalContentAlignment="Center"
                      Panel.ZIndex="10"
-                     Width="260"
-                     Height="24"/>
+                     Height="45"/>
 
             <TextBlock Text="{DynamicResource SearchHint}"
                        Foreground="{DynamicResource PrimaryControlDisabledForeground}"
-                       Grid.Column="2"
+                       Grid.Column="0"
                        IsHitTestVisible="False"
                        Panel.ZIndex="10"
                        HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="5,4,0,0">
+                       VerticalAlignment="Center"
+                       Margin="8,0,0,0">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Hidden"/>
@@ -455,13 +491,21 @@
                           Style="{StaticResource DownArrowToggleButton}"
                           Background="Transparent"
                           Width="24"
-                          Height="22"
-                          Grid.Column="2"
+                          Height="41"
+                          Grid.Column="0"
                           HorizontalAlignment="Right"
-                          VerticalAlignment="Top"
+                          VerticalAlignment="Center"
                           VerticalContentAlignment="Center"
                           Panel.ZIndex="10"
-                          Margin="0,1,0,0"/>
+                          Margin="0,0,2,0"/>
+
+            <Button x:Name="btnLanguageFilter"
+                    Grid.Column="2"
+                    Visibility="{Binding LanguageFilterButtonVisibility}"
+                    Margin="0,0,3,0"
+                    Style="{StaticResource LanguageFilterButtonStyle}"
+                    Click="btnLanguageFilter_Click"
+                    ToolTip="{DynamicResource ShowOnlyLanguageCompatibleItems}"/>
         </Grid>
 
 
@@ -537,6 +581,6 @@
                 </StatusBarItem.Style>
             </StatusBarItem>
         </StatusBar>
-        <Image x:Name="TsunamodsSupport" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="246,5,0,0" VerticalAlignment="Top" Width="130" Source="/Resources/TsunamodsSupport.png" Stretch="UniformToFill" Grid.RowSpan="2" Cursor="Hand" MouseUp="TsunamodsSupport_MouseUp"/>
+        <Image x:Name="TsunamodsSupport" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Height="45" Margin="0,5,0,0" VerticalAlignment="Top" Width="130" Source="/Resources/TsunamodsSupport.png" Stretch="UniformToFill" Cursor="Hand" MouseUp="TsunamodsSupport_MouseUp"/>
     </Grid>
 </Window>

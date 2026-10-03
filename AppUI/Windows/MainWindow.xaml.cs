@@ -49,6 +49,7 @@ namespace AppUI
             App.ProcessCommandLineArgs(Environment.GetCommandLineArgs(), true);
 
             InitColumnSettings();
+            UpdateSupportBannerPosition();
         }
 
         private void InitColumnSettings()
@@ -272,6 +273,18 @@ namespace AppUI
             }
         }
 
+        private void btnLanguageFilter_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedTabIndex == (int)global::AppUI.ViewModels.TabIndex.MyMods)
+            {
+                ViewModel.MyMods.ShowOnlyLanguageCompatibleItems = !ViewModel.MyMods.ShowOnlyLanguageCompatibleItems;
+            }
+            else
+            {
+                ViewModel.CatalogMods.ShowOnlyLanguageCompatibleItems = !ViewModel.CatalogMods.ShowOnlyLanguageCompatibleItems;
+            }
+        }
+
         private void popupFilters_Closed(object sender, EventArgs e)
         {
             btnFilters.IsEnabled = true;
@@ -282,6 +295,34 @@ namespace AppUI
         {
             ctrlMyMods.RecalculateColumnWidths();
             ctrlCatalog.RecalculateColumnWidths();
+            UpdateSupportBannerPosition();
+        }
+
+        private void TabHeader_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateSupportBannerPosition();
+        }
+
+        private void UpdateSupportBannerPosition()
+        {
+            if (!IsLoaded || tabBrowseCatalog.ActualWidth <= 0)
+            {
+                return;
+            }
+
+            double tabHeaderRightEdge = tabBrowseCatalog
+                .TransformToAncestor(tabCtrlMain)
+                .Transform(new Point(tabBrowseCatalog.ActualWidth, 0)).X;
+            Thickness currentMargin = TsunamodsSupport.Margin;
+
+            if (Math.Abs(currentMargin.Left - tabHeaderRightEdge) > 0.1)
+            {
+                TsunamodsSupport.Margin = new Thickness(
+                    tabHeaderRightEdge,
+                    currentMargin.Top,
+                    currentMargin.Right,
+                    currentMargin.Bottom);
+            }
         }
 
         private void menuItemIroCreation_Click(object sender, RoutedEventArgs e)

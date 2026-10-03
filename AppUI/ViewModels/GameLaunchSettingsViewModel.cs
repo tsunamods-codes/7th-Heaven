@@ -66,7 +66,14 @@ namespace AppUI.ViewModels
         private int _voiceVolumeValue;
         private int _ambientVolumeValue;
         private int _movieVolumeValue;
-        private readonly List<string> _gameLanguageOptions = new List<string>() { "ff7_en", "ff7_ja" };
+        private readonly List<KeyValuePair<string, string>> _gameLanguageOptions = new List<KeyValuePair<string, string>>()
+        {
+            new KeyValuePair<string, string>(GameLanguage.English, ResourceHelper.Get(StringKey.GameLanguageEnglish)),
+            new KeyValuePair<string, string>(GameLanguage.French, ResourceHelper.Get(StringKey.GameLanguageFrench)),
+            new KeyValuePair<string, string>(GameLanguage.German, ResourceHelper.Get(StringKey.GameLanguageGerman)),
+            new KeyValuePair<string, string>(GameLanguage.Spanish, ResourceHelper.Get(StringKey.GameLanguageSpanish)),
+            new KeyValuePair<string, string>(GameLanguage.Japanese, ResourceHelper.Get(StringKey.GameLanguageJapanese)),
+        };
 
         #endregion
 
@@ -231,12 +238,21 @@ namespace AppUI.ViewModels
             }
             set
             {
-                _selectedGameLanguage = value;
+                _selectedGameLanguage = GameLanguage.Normalize(value);
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(SelectedGameLanguageOption));
             }
         }
 
-        public List<string> GameLanguageOptions
+        public KeyValuePair<string, string> SelectedGameLanguageOption
+        {
+            get
+            {
+                return GameLanguageOptions.FirstOrDefault(option => option.Key == SelectedGameLanguage);
+            }
+        }
+
+        public List<KeyValuePair<string, string>> GameLanguageOptions
         {
             get
             {
@@ -515,14 +531,14 @@ namespace AppUI.ViewModels
                                               .Select(s => s.Key)
                                               .FirstOrDefault();
 
-            SelectedGameLanguage = string.IsNullOrWhiteSpace(launchSettings.SelectedGameLanguage)
-                ? "ff7_en"
-                : launchSettings.SelectedGameLanguage.ToLowerInvariant();
-
-            if (!GameLanguageOptions.Contains(SelectedGameLanguage))
-            {
-                SelectedGameLanguage = "ff7_en";
-            }
+            bool gameLanguageIsAutomatic = Sys.Settings.FF7InstalledVersion != FF7Version.Original98
+                                           && Sys.FFNxConfig.HasKey("game_language")
+                                           && Sys.FFNxConfig.Get("game_language") == "0";
+            SelectedGameLanguage = !GameLauncher.IsLanguageSelectorSupportedEdition()
+                                   || string.IsNullOrWhiteSpace(launchSettings.SelectedGameLanguage)
+                                   || gameLanguageIsAutomatic
+                ? GameLanguage.English
+                : launchSettings.SelectedGameLanguage;
 
             GetVolumesFromRegistry();
 

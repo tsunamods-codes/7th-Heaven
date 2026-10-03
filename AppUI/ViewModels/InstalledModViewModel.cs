@@ -151,6 +151,7 @@ namespace AppUI.ViewModels
                 _activeModInfo = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(IsActive));
+                NotifyPropertyChanged(nameof(CanChangeActive));
             }
         }
 
@@ -176,6 +177,16 @@ namespace AppUI.ViewModels
             set
             {
                 ActivationChanged?.Invoke(this);
+            }
+        }
+
+        public bool CanChangeActive
+        {
+            get
+            {
+                return IsActive || GameLanguage.IsSupportedBy(
+                    InstallInfo?.GetModInfo()?.GameLanguages,
+                    GameLauncher.GetSelectedGameLanguage());
             }
         }
 
@@ -270,6 +281,7 @@ namespace AppUI.ViewModels
         public void RaiseIsActivePropertyChanged()
         {
             NotifyPropertyChanged(nameof(IsActive));
+            NotifyPropertyChanged(nameof(CanChangeActive));
         }
 
         internal void RaiseNotifyPropertyChangedForCategory()

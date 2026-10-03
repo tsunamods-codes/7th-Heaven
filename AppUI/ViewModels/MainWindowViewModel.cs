@@ -143,6 +143,10 @@ namespace AppUI.ViewModels
             }
         }
 
+        public Visibility LanguageFilterButtonVisibility => GameLauncher.IsLanguageSelectorSupportedEdition()
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
         public int SelectedTabIndex
         {
             get
@@ -1239,6 +1243,11 @@ namespace AppUI.ViewModels
             bool hasCode;
             var modInfo = mod.GetModInfo();
 
+            if (!GameLanguage.IsSupportedBy(modInfo?.GameLanguages, GameLauncher.GetSelectedGameLanguage()))
+            {
+                return false;
+            }
+
             if (mfile.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase))
             {
                 using (var arc = new AppWrapper.IrosArc(mfile))
@@ -1822,6 +1831,7 @@ namespace AppUI.ViewModels
 
         internal void ShowGeneralSettingsWindow()
         {
+            FF7Version previousGameVersion = Sys.Settings.FF7InstalledVersion;
             GeneralSettingsWindow settingsWindow = new GeneralSettingsWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -1830,6 +1840,17 @@ namespace AppUI.ViewModels
 
             if (didSave.GetValueOrDefault(false))
             {
+                if (previousGameVersion != Sys.Settings.FF7InstalledVersion)
+                {
+                    NotifyPropertyChanged(nameof(LanguageFilterButtonVisibility));
+
+                    Guid? selectedInstalledMod = MyMods.GetSelectedMod()?.InstallInfo?.ModID;
+                    Guid? selectedCatalogMod = CatalogMods.GetSelectedMod()?.Mod?.ID;
+                    MyMods.DeactivateModsUnsupportedByCurrentGameLanguage();
+                    MyMods.ReloadModListFromUIThread(selectedInstalledMod);
+                    CatalogMods.ReloadModList(selectedCatalogMod);
+                }
+
                 if (settingsWindow.ViewModel.SubscriptionsChanged)
                 {
                     CatalogMods.ForceCheckCatalogUpdateAsync();
@@ -1889,7 +1910,11 @@ namespace AppUI.ViewModels
             }
 
             GameLaunchSettingsWindow launchSettingsWindow = new GameLaunchSettingsWindow();
+            Guid? selectedModId = MyMods.GetSelectedMod()?.InstallInfo?.ModID;
             launchSettingsWindow.ShowDialog();
+            MyMods.DeactivateModsUnsupportedByCurrentGameLanguage();
+            CatalogMods.RefreshGameLanguageAvailability();
+            MyMods.ReloadModListFromUIThread(selectedModId, SearchText, CheckedCategories, CheckedTags);
         }
 
         internal void ShowCatalogCreationTool()

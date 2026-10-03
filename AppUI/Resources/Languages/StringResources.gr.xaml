@@ -153,6 +153,13 @@
     <system:String x:Key="ShowGameLauncher">Προβολή Προγράμματος Εκκίνησης Παιχνιδιού</system:String>
     <system:String x:Key="ShowGameLauncherTooltip">Εμφανίζει το παράθυρο Προγράμματος Εκκίνησης Παιχνιδιού καθώς ξεκινά το FF7 για λεπτομερή εμφάνισης της Διαδικασίας Εκκίνησης.</system:String>
     <system:String x:Key="GameEditionLabel">Έκδοση παιχνιδιού</system:String>
+    <system:String x:Key="GameLanguageEnglish">Αγγλικά</system:String>
+    <system:String x:Key="GameLanguageFrench">Γαλλικά</system:String>
+    <system:String x:Key="GameLanguageGerman">Γερμανικά</system:String>
+    <system:String x:Key="GameLanguageSpanish">Ισπανικά</system:String>
+    <system:String x:Key="GameLanguageJapanese">Ιαπωνικά</system:String>
+    <system:String x:Key="GameLanguageHeader">Γλώσσα παιχνιδιού</system:String>
+    <system:String x:Key="ShowOnlyLanguageCompatibleItems">Εμφάνιση μόνο συμβατών στοιχείων με την επιλεγμένη γλώσσα παιχνιδιού</system:String>
 
     <system:String x:Key="ControlsLabel">Χειρισμός:</system:String>
 

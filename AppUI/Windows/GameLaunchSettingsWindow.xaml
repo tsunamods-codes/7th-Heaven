@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         Title="{DynamicResource GameLauncherSettings}" 
         Width="470"
-        Height="665">
+        Height="715">
     <Window.Resources>
 
         <DataTemplate x:Key="programItem">
@@ -61,11 +61,70 @@
         </DataTemplate>
 
         <DataTemplate x:Key="languageItemTemplate">
-            <Grid x:Name="gd" DataContext="{Binding ElementName=windowSettings, Path=DataContext}" Background="Transparent">
-                <TextBlock Text="{Binding ElementName=gd, Path=DataContext.SelectedGameLanguage, FallbackValue='ff7_en'}" Margin="0,0,15,0"
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Width="22" Height="14" BorderBrush="#FF777777" BorderThickness="0.5" CornerRadius="1" ClipToBounds="True" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid x:Name="englishFlag" Background="#FFB22234" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1" Background="White"/>
+                            <Border Grid.Row="3" Background="White"/>
+                            <Border Grid.Row="5" Background="White"/>
+                            <Border Width="9" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF3C3B6E"/>
+                        </Grid>
+                        <Grid x:Name="frenchFlag" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#FF0055A4"/>
+                            <Border Grid.Column="1" Background="White"/>
+                            <Border Grid.Column="2" Background="#FFEF4135"/>
+                        </Grid>
+                        <Grid x:Name="germanFlag" Background="#FF000000" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1" Background="#FFDD0000"/>
+                            <Border Grid.Row="2" Background="#FFFFCE00"/>
+                        </Grid>
+                        <Grid x:Name="spanishFlag" Background="#FFAA151B" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/><RowDefinition Height="6*"/><RowDefinition Height="3*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1" Background="#FFF1BF00"/>
+                        </Grid>
+                        <Grid x:Name="japaneseFlag" Background="White" Visibility="Collapsed">
+                            <Ellipse Width="8" Height="8" Fill="#FFBC002D"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <TextBlock Grid.Column="1" Text="{Binding Value}" Margin="4,0,15,0"
                            TextWrapping="NoWrap"
                            TextTrimming="CharacterEllipsis"/>
             </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Key}" Value="en">
+                    <Setter TargetName="englishFlag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Key}" Value="fr">
+                    <Setter TargetName="frenchFlag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Key}" Value="de">
+                    <Setter TargetName="germanFlag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Key}" Value="es">
+                    <Setter TargetName="spanishFlag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Key}" Value="ja">
+                    <Setter TargetName="japaneseFlag" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
 
         <DataTemplate x:Key="midiDeviceTemplate">
@@ -102,6 +161,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <GroupBox x:Name="grpAudio"
@@ -388,7 +448,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdatePath}" 
                           Grid.Row="0"
@@ -396,37 +455,40 @@
                 <CheckBox Height="25" Content="{DynamicResource ShowGameLauncher}" 
                           Grid.Row="1"
                           IsChecked="{Binding IsShowLauncherChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Grid Grid.Row="2"
-                      Margin="0,3,0,0"
-                      HorizontalAlignment="Right"
-                      Visibility="{Binding GameLanguageSelectorVisibility}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{DynamicResource GameEditionLabel}"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource PrimaryTextBlockStyle}"
-                               Margin="0,0,10,0"/>
-                    <ComboBox Grid.Column="1"
-                               Width="60"
-                               Height="30"
-                               Style="{StaticResource MainComboBoxStyle}"
-                               ItemTemplate="{StaticResource languageItemTemplate}"
-                               ItemContainerStyle="{StaticResource TextComboBoxItemStyle}"
-                               ItemsSource="{Binding GameLanguageOptions}"
-                               SelectedItem="{Binding SelectedGameLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
             </Grid>
         </GroupBox>
 
 
+        <GroupBox x:Name="grpGameLanguage"
+                  Grid.Row="2"
+                  Header="{DynamicResource GameLanguageHeader}"
+                  Margin="10,0,10,0"
+                  HorizontalAlignment="Stretch"
+                  Visibility="{Binding GameLanguageSelectorVisibility}">
+            <Grid>
+                <ComboBox Height="30"
+                          HorizontalAlignment="Stretch"
+                          Margin="3"
+                          Style="{StaticResource MainComboBoxStyle}"
+                          ItemTemplate="{StaticResource languageItemTemplate}"
+                          ItemContainerStyle="{StaticResource MainComboBoxItemStyle}"
+                          ItemsSource="{Binding GameLanguageOptions}"
+                          SelectedValuePath="Key"
+                          SelectedValue="{Binding SelectedGameLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ContentPresenter Content="{Binding SelectedGameLanguageOption}"
+                                  ContentTemplate="{StaticResource languageItemTemplate}"
+                                  IsHitTestVisible="False"
+                                  Margin="11,0,34,0"
+                                  VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
         <GroupBox x:Name="grpPrograms"
-                  Grid.Row="2" 
+                  Grid.Row="3"
                   Header="{DynamicResource ProgramsToRunHeader}"
                   MinWidth="350"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Bottom"
+                                    VerticalAlignment="Stretch"
                   Margin="10,0,10,0" >
             <Grid Margin="3,3,3,5">
                 <Grid.RowDefinitions>
@@ -435,6 +497,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -475,7 +538,7 @@
 
                 <ListBox x:Name="lstPrograms"
                          Grid.Column="1"
-                         Grid.RowSpan="5"
+                         Grid.RowSpan="6"
                          HorizontalAlignment="Stretch"
                          ItemsSource="{Binding ProgramList}" 
                          VirtualizingPanel.IsVirtualizing="false"
@@ -484,10 +547,10 @@
             </Grid>
         </GroupBox>
 
-        <WrapPanel Grid.Row="3"
+        <WrapPanel Grid.Row="4"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Bottom"
-                   Margin="0,0,10,10">
+                   Margin="0,10,10,10">
             <Button x:Name="btnDefaults" 
                     Content="{DynamicResource ResetDefaults}" 
                     Click="btnDefaults_Click"

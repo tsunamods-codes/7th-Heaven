@@ -20,6 +20,10 @@
             <Setter Property="Tag" Value="TransparentBg"/>
 
             <Style.Triggers>
+                <DataTrigger Binding="{Binding CanDownload}" Value="False">
+                    <Setter Property="Opacity" Value="0.55"/>
+                    <Setter Property="ToolTip" Value="{Binding DownloadUnavailableReason}"/>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=ctrlCatalog, Path=DataContext.ThemeImage}" Value="{x:Null}">
                     <Setter Property="Tag" Value=""/>
                 </DataTrigger>
@@ -127,6 +131,8 @@
 
             <Button x:Name="btnDownload"
                     TabIndex="11"                    
+                    IsEnabled="{Binding CanDownloadSelectedMod}"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="{DynamicResource DownloadModTooltip}"
                     Style="{StaticResource SmallImageButton}"
                     Content="{StaticResource iconDownload}"
@@ -209,5 +215,6 @@
                     Click="btnRetryInstall_Click"/>
 
         </StackPanel>
+
     </Grid>
 </UserControl>

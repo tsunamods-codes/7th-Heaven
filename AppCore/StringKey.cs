@@ -662,6 +662,13 @@
         App4GBPatchRequired,
         App4GBPatchApplied,
         SimplifiedChinese,
-        ModShaders
+        ModShaders,
+        GameLanguageEnglish,
+        GameLanguageFrench,
+        GameLanguageGerman,
+        GameLanguageSpanish,
+        GameLanguageJapanese,
+        GameLanguageHeader,
+        ShowOnlyLanguageCompatibleItems
     }
 }

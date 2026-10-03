@@ -835,6 +835,10 @@ namespace AppWrapper
             LoadPrograms = new List<ProgramInfo>();
             FFNxConfig = new List<FFNxFlag>();
             Variables = new List<Variable>();
+            GameLanguages = GameLanguageParser.ParseSupportedLanguages(
+                doc.SelectNodes("/ModInfo/GameLanguage")
+                    .Cast<XmlNode>()
+                    .Select(node => node.InnerText));
 
             Guid.TryParse(doc.SelectSingleNode("/ModInfo/ID").NodeText(), out Guid parsedId);
             ID = parsedId;
@@ -971,6 +975,7 @@ namespace AppWrapper
             Compatibility = null;
             FFNxConfig = new List<FFNxFlag>();
             Variables = new List<Variable>();
+            GameLanguages = new List<string> { "EN" };
         }
 
         public Guid ID { get; set; }
@@ -1002,6 +1007,7 @@ namespace AppWrapper
         public List<Guid> OrderAfter { get; set; }
         public List<FFNxFlag> FFNxConfig { get; set; }
         public List<Variable> Variables { get; set; }
+        public List<string> GameLanguages { get; private set; }
     }
 
     [Serializable]

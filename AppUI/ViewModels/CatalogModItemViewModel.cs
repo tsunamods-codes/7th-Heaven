@@ -130,6 +130,22 @@ namespace AppUI.ViewModels
             }
         }
 
+        public bool IsCompatibleWithGameLanguage
+        {
+            get
+            {
+                return GameLanguage.IsSupportedBy(
+                    Mod?.GameLanguages,
+                    GameLauncher.GetSelectedGameLanguage());
+            }
+        }
+
+        public bool CanDownload => IsCompatibleWithGameLanguage;
+
+        public string DownloadUnavailableReason => CanDownload
+            ? null
+            : "Not available for the selected game language.";
+
         public Mod Mod
         {
             get
@@ -140,6 +156,9 @@ namespace AppUI.ViewModels
             {
                 _mod = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(IsCompatibleWithGameLanguage));
+                NotifyPropertyChanged(nameof(CanDownload));
+                NotifyPropertyChanged(nameof(DownloadUnavailableReason));
             }
         }
 
@@ -208,6 +227,13 @@ namespace AppUI.ViewModels
         internal void RaiseNotifyPropertyChangedForCategory()
         {
             NotifyPropertyChanged(nameof(Category));
+        }
+
+        internal void RefreshGameLanguageAvailability()
+        {
+            NotifyPropertyChanged(nameof(IsCompatibleWithGameLanguage));
+            NotifyPropertyChanged(nameof(CanDownload));
+            NotifyPropertyChanged(nameof(DownloadUnavailableReason));
         }
     }
 }
