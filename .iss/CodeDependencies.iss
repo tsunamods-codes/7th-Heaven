@@ -324,7 +324,7 @@ begin
     Dependency_Add('vcredist2022' + Dependency_ArchSuffix + '.exe',
       '/passive /norestart ' + Dependency_SilentParameter('', '/quiet'),
       'Visual C++ 2015-2022 Redistributable' + Dependency_ArchTitle,
-      Dependency_String('https://aka.ms/vs/17/release/vc_redist.x86.exe', 'https://aka.ms/vs/17/release/vc_redist.x64.exe'),
+      Dependency_String('https://aka.ms/vc14/vc_redist.x86.exe', 'https://aka.ms/vc14/vc_redist.x64.exe'),
       '', False, False);
   end;
 end;
