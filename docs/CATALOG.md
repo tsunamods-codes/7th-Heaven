@@ -68,14 +68,24 @@ The file is deserialized by 7th Heaven's catalog model. XML element names and ne
 
 ## Game Language
 
-Add one or more `<GameLanguage>` elements directly inside the catalog `<Mod>` entry, alongside `<Name>` and `<LatestVersion>`. Separate multiple codes in one element with commas; repeated elements are also supported. Codes are case-insensitive and are normalized to `EN`, `FR`, `DE`, `ES`, and `JA`.
+Add one or more `<GameLanguage>` elements directly inside the catalog `<Mod>` entry, alongside `<Name>` and `<LatestVersion>`. Separate multiple codes in one element with commas; repeated elements are also supported. Codes are case-insensitive and are normalized to `EN`, `FR`, `DE`, `ES`, `JA`, and `ANY`.
+
+| Code | Language |
+|---|---|
+| `EN` | English |
+| `FR` | French |
+| `DE` | German |
+| `ES` | Spanish |
+| `JA` | Japanese |
+| `ANY` | Any game language (wildcard) |
 
 ```xml
 <GameLanguage>EN, FR</GameLanguage>
 <GameLanguage>DE, ES, JA</GameLanguage>
+<GameLanguage>ANY</GameLanguage>
 ```
 
-If no codes are provided, the entry defaults to English only. The selected game language is used to disable incompatible entries in Browse Catalog while keeping them visible. This catalog metadata should match the languages declared by the mod's own `mod.xml`.
+`ANY` is a wildcard that matches every selected game language and is intended for mods that support all languages. If no codes are provided, the entry defaults to English only. The selected game language is used to disable incompatible entries in Browse Catalog while keeping them visible. This catalog metadata should match the languages declared by the mod's own `mod.xml`. `ANY` is metadata only and is not a selectable game language.
 
 The built-in Catalog/Mod Creation Tool currently does not expose a game-language field. After generating or saving the catalog, add `<GameLanguage>` manually to each applicable `<Mod>` entry before hosting it.
 
