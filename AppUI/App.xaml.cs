@@ -43,6 +43,9 @@ namespace AppUI
             if (isNewInstance)
             {
                 // This is the first instance - proceed normally.
+                GameLanguage.BypassLanguageCompatibility = e.Args.Any(argument =>
+                    argument.Equals("/BYPASSINTL", StringComparison.InvariantCultureIgnoreCase));
+
                 base.OnStartup(e);
 
                 // Enable Visual styles for Winform applications to support plugins that uses Winforms as a UI
