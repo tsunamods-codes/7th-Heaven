@@ -195,7 +195,24 @@ Combine conditions with `<And>`, `<Or>`, and `<Not>`:
 </ModFolder>
 ```
 
-These conditions refer to mod configuration options; they are separate from the language whitelist.
+Conditions can refer to mod configuration options or the selected game language. Language folder conditions choose runtime assets; they are separate from the top-level `<GameLanguage>` compatibility whitelist. For example, a mod can declare `ANY` in its whitelist and still load only the matching language folder:
+
+```xml
+<GameLanguage>ANY</GameLanguage>
+
+<ModFolder Folder="en">
+  <ActiveWhen>
+    <GameLanguage>EN</GameLanguage>
+  </ActiveWhen>
+</ModFolder>
+<ModFolder Folder="jp">
+  <ActiveWhen>
+    <GameLanguage>JA</GameLanguage>
+  </ActiveWhen>
+</ModFolder>
+```
+
+The condition is evaluated when the runtime profile is built for launch. Supported values are `EN`, `FR`, `DE`, `ES`, and `JA`; `ANY` and `*` match every language. `/BYPASSINTL` bypasses compatibility restrictions but does not change which language folder is selected.
 
 ## Runtime-Conditioned Folders
 

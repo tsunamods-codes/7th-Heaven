@@ -121,9 +121,16 @@ namespace AppCore
                 return selectedLanguage == "EN";
             }
 
-            return supportedLanguages.Any(supportedLanguage =>
-                string.Equals(supportedLanguage?.Trim(), Any, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(supportedLanguage?.Trim(), selectedLanguage, StringComparison.InvariantCultureIgnoreCase));
+            return supportedLanguages.Any(supportedLanguage => MatchesLanguage(supportedLanguage, selectedLanguage));
+        }
+
+        public static bool MatchesLanguage(string language, string selectedLanguage)
+        {
+            string normalizedSelectedLanguage = ToModXmlCode(selectedLanguage);
+            string normalizedLanguage = language?.Trim();
+            return string.Equals(normalizedLanguage, Any, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(normalizedLanguage, "*", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(normalizedLanguage, normalizedSelectedLanguage, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -482,9 +482,9 @@ namespace AppWrapper
             {
                 _children = source.SelectNodes("*").Cast<XmlNode>().Select(n => Create(n)).ToList();
             }
-            public override bool IsActive(Func<string, bool> check)
+            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage)
             {
-                return _children.All(a => a.IsActive(check));
+                return _children.All(a => a.IsActive(check, checkGameLanguage));
             }
         }
         public class Or : ActiveWhen
@@ -496,9 +496,9 @@ namespace AppWrapper
             {
                 _children = source.SelectNodes("*").Cast<XmlNode>().Select(n => Create(n)).ToList();
             }
-            public override bool IsActive(Func<string, bool> check)
+            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage)
             {
-                return _children.Any(a => a.IsActive(check));
+                return _children.Any(a => a.IsActive(check, checkGameLanguage));
             }
         }
         public class Not : ActiveWhen
@@ -514,9 +514,9 @@ namespace AppWrapper
             {
                 _child = Create(source.SelectSingleNode("*"));
             }
-            public override bool IsActive(Func<string, bool> check)
+            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage)
             {
-                return !_child.IsActive(check);
+                return !_child.IsActive(check, checkGameLanguage);
             }
         }
         public class Option : ActiveWhen
@@ -528,9 +528,24 @@ namespace AppWrapper
             {
                 Condition = source.InnerText;
             }
-            public override bool IsActive(Func<string, bool> check)
+            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage)
             {
                 return check(Condition);
+            }
+        }
+
+        public class GameLanguage : ActiveWhen
+        {
+            public string Condition { get; set; }
+
+            protected override void Load(XmlNode source)
+            {
+                Condition = source.InnerText.Trim();
+            }
+
+            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage)
+            {
+                return checkGameLanguage(Condition);
             }
         }
 
@@ -543,10 +558,11 @@ namespace AppWrapper
             _types["And"] = () => new And();
             _types["Not"] = () => new Not();
             _types["Option"] = () => new Option();
+            _types["GameLanguage"] = () => new GameLanguage();
         }
 
         protected abstract void Load(System.Xml.XmlNode source);
-        public abstract bool IsActive(Func<string, bool> check);
+        public abstract bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage);
 
         private static ActiveWhen Create(System.Xml.XmlNode source)
         {
@@ -578,6 +594,10 @@ namespace AppWrapper
             if (this is ActiveWhen.Option)
             {
                 writer.WriteElementString("Option", (this as Option).Condition);
+            }
+            else if (this is ActiveWhen.GameLanguage)
+            {
+                writer.WriteElementString("GameLanguage", (this as GameLanguage).Condition);
             }
             else if (this is ActiveWhen.Not)
             {
@@ -698,6 +718,10 @@ namespace AppWrapper
                     }
 
                     writer.WriteEndElement();
+                }
+                else if (ActiveWhen is ActiveWhen.GameLanguage)
+                {
+                    writer.WriteElementString("GameLanguage", (ActiveWhen as ActiveWhen.GameLanguage).Condition);
                 }
 
                 writer.WriteEndElement();

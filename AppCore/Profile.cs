@@ -208,7 +208,19 @@ namespace Iros.Workshop {
 
         private bool IsActive(AppWrapper.ActiveWhen aw) {
             if (aw == null) return true;
-            return aw.IsActive(IsConfigActive);
+            return aw.IsActive(IsConfigActive, IsGameLanguageActive);
+        }
+
+        private bool IsGameLanguageActive(string language)
+        {
+            bool supportsLanguageSelection = Sys.Settings.FF7InstalledVersion == FF7Version.SteamReRelease
+                || Sys.Settings.FF7InstalledVersion == FF7Version.WindowsStore
+                || Sys.Settings.FF7InstalledVersion == FF7Version.GOG;
+            string selectedLanguage = supportsLanguageSelection
+                ? GameLanguage.Normalize(Sys.Settings.GameLaunchSettings?.SelectedGameLanguage)
+                : GameLanguage.English;
+
+            return GameLanguage.MatchesLanguage(language, selectedLanguage);
         }
 
         public AppWrapper.RuntimeMod GetRuntime(AppWrapper.LoaderContext context) {
