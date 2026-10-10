@@ -73,6 +73,9 @@ static HRESULT(WINAPI* HostInitialize)(host_exports*) = nullptr;
 // CreateFileW
 static HANDLE(WINAPI* TrueCreateFileW)(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) = CreateFileW;
 
+// CreateFile2
+static HANDLE(WINAPI* TrueCreateFile2)(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, DWORD dwCreationDisposition, LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams) = CreateFile2;
+
 // ReadFile
 static BOOL(WINAPI* TrueReadFile)(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped) = ReadFile;
 
@@ -145,6 +148,27 @@ HANDLE WINAPI _CreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwSh
 
     if (ret == nullptr)
         ret = TrueCreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+
+    return ret;
+}
+
+HANDLE WINAPI _CreateFile2(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, DWORD dwCreationDisposition, LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams)
+{
+    HANDLE ret = nullptr;
+
+    if (exports.CreateFileW && !inDotNetCode)
+    {
+        inDotNetCode = true;
+        ret = exports.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode,
+            pCreateExParams ? pCreateExParams->lpSecurityAttributes : nullptr,
+            dwCreationDisposition,
+            (pCreateExParams ? pCreateExParams->dwFileAttributes : 0) | (pCreateExParams ? pCreateExParams->dwFileFlags : 0),
+            pCreateExParams ? pCreateExParams->hTemplateFile : nullptr);
+        inDotNetCode = false;
+    }
+
+    if (ret == nullptr)
+        ret = TrueCreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams);
 
     return ret;
 }
@@ -373,6 +397,7 @@ VOID WINAPI _PostQuitMessage(int nExitCode)
         DetourUpdateThread(GetCurrentThread());
         // ------------------------------------
         DetourDetach((PVOID*)&TrueCreateFileW, _CreateFileW);
+        DetourDetach((PVOID*)&TrueCreateFile2, _CreateFile2);
         DetourDetach((PVOID*)&TrueReadFile, _ReadFile);
         DetourDetach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
         DetourDetach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
@@ -592,6 +617,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
             DetourUpdateThread(GetCurrentThread());
             // ------------------------------------
             DetourAttach((PVOID*)&TrueCreateFileW, _CreateFileW);
+            DetourAttach((PVOID*)&TrueCreateFile2, _CreateFile2);
             DetourAttach((PVOID*)&TrueReadFile, _ReadFile);
             DetourAttach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
             DetourAttach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
