@@ -192,7 +192,7 @@ namespace AppUI.Classes
             using (FileStream fs = new FileStream(Path.Combine(InstallPath, "FFNx_steam_api.dll"), FileMode.Open))
             {
                 byte[] currentHash = SHA1.HashData(fs);
-                if (!currentHash.SequenceEqual(Convert.FromHexString("03BD9F3E352553A0AF41F5FE006F6249A168C243"))) return true;
+                if (!currentHash.SequenceEqual(Convert.FromHexString("772AFA31BD0D16A79DD1D0036BB9A9CB8F2EAF30"))) return true;
             }
 
             // check if given exe is a genuine one
