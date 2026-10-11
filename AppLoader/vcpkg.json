@@ -1,7 +1,7 @@
 {
   "name": "wrapper-loader",
   "version": "1.0.0",
-  "builtin-baseline": "c3867e714dd3a51c272826eea77267876517ed99",
+  "builtin-baseline": "e456309491fd875487bf02b8a0dca76c1b1b00cc",
   "dependencies": [
     "detours",
     "nlohmann-json",
