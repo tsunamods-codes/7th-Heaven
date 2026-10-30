@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using AppCore;
 using AppUI.Windows;
 using IniParser;
@@ -19,6 +19,7 @@ namespace AppUI.Classes
 {
     public class ReShadeUpdater
     {
+        private static readonly string ReShadeCachePath = Path.Combine(Path.GetTempPath(), "ReShade");
         private FileVersionInfo _currentReShadeVersion = null;
 
         private string GetUpdateInfoPath()
@@ -213,6 +214,9 @@ namespace AppUI.Classes
         {
             if (File.Exists(Sys.PathToReShade))
             {
+                if (Directory.Exists(ReShadeCachePath))
+                    Directory.Delete(ReShadeCachePath, true);
+
                 // ================================================================================================
                 // Always cleanup these files if present, to avoid conflict with various mods
                 // ================================================================================================
@@ -334,7 +338,7 @@ namespace AppUI.Classes
             if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
 
             data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders\**";
-            data["GENERAL"]["IntermediateCachePath"] = $"{Path.GetTempPath()}\\ReShade";
+            data["GENERAL"]["IntermediateCachePath"] = ReShadeCachePath;
             data["GENERAL"]["NoDebugInfo"] = "1";
             data["GENERAL"]["NoEffectCache"] = "0";
             data["GENERAL"]["NoReloadOnInit"] = "0";
