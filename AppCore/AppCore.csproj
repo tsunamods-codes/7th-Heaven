@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Ae.Dns.Client" Version="3.1.0" />
-    <PackageReference Include="AngleSharp" Version="1.8.5" />
+    <PackageReference Include="AngleSharp" Version="1.9.0" />
     <PackageReference Include="SharpCompress">
       <Version>0.50.7</Version>
     </PackageReference>
