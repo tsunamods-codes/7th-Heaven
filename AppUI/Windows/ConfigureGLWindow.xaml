@@ -42,6 +42,11 @@
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
             <Setter Property="ItemTemplate" Value="{StaticResource selectedOptionTemplate}"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource dropdownItemStyle}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="CheckBox" BasedOn="{StaticResource ToggleSwitchCheckbox}">
@@ -86,6 +91,7 @@
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top"
                                       MinWidth="200"
+                                      IsEnabled="{Binding IsDropdownEnabled}"
                                       Visibility="{Binding ComboBoxVisibility}"
                                       ItemsSource="{Binding DropdownOptions}"
                                       SelectedIndex="{Binding SelectedDropdownIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

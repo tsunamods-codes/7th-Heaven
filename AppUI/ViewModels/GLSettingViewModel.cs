@@ -27,6 +27,7 @@ namespace AppUI.ViewModels
         private string _textEntryOptionValue;
         private int _selectedDropdownIndex;
         private bool _isOptionChecked;
+        private bool _isDropdownEnabled = true;
 
         public Setting Setting { get; set; }
 
@@ -115,6 +116,19 @@ namespace AppUI.ViewModels
             set
             {
                 _dropdownOptions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsDropdownEnabled
+        {
+            get
+            {
+                return _isDropdownEnabled;
+            }
+            set
+            {
+                _isDropdownEnabled = value;
                 NotifyPropertyChanged();
             }
         }

@@ -130,6 +130,31 @@ namespace AppUI.Windows
                 tabCtrlMain.Items.Add(tab);
             }
 
+            GLSettingViewModel resolutionViewModel = ViewModels.Single(item => item.Setting == ResolutionDD);
+            GLSettingViewModel windowModeViewModel = ViewModels.Single(item => item.Setting.DefaultValue == "fullscreen = false,borderless = false");
+            int borderlessIndex = windowModeViewModel.DropdownOptions.FindIndex(item => item.SettingsValue == "fullscreen = false,borderless = true");
+            int autoResolutionIndex = resolutionViewModel.DropdownOptions.FindIndex(item => item.SettingsValue == "window_size_x = 0,window_size_y = 0");
+
+            void UpdateResolutionState()
+            {
+                bool isBorderless = windowModeViewModel.SelectedDropdownIndex == borderlessIndex;
+                if (isBorderless)
+                {
+                    resolutionViewModel.SelectedDropdownIndex = autoResolutionIndex;
+                }
+
+                resolutionViewModel.IsDropdownEnabled = !isBorderless;
+            }
+
+            windowModeViewModel.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(GLSettingViewModel.SelectedDropdownIndex))
+                {
+                    UpdateResolutionState();
+                }
+            };
+            UpdateResolutionState();
+
             return true;
         }
 
