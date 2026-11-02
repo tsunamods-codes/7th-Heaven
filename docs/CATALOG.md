@@ -54,7 +54,7 @@ The file is deserialized by 7th Heaven's catalog model. XML element names and ne
 | `<Tags><string>...</string></Tags>` | Optional tags used for catalog filtering. Repeat `<string>` for additional tags. |
 | `<GameLanguage>` | Optional language compatibility metadata. See [Game Language](#game-language). |
 | `<LatestVersion>` | Information for the current downloadable release. |
-| `<LatestVersion><DownloadSize>` | Download size in bytes. |
+| `<LatestVersion><DownloadSize>` | Download size in Kilobyte (KB) |
 | `<LatestVersion><Link>` | One or more download locations. Repeat `<Link>` to offer mirrors. These are 7th Heaven links, commonly `iros://Url/https$host/path/file.iro`. |
 | `<LatestVersion><Version>` | Mod release version, such as `1.00` or `1.10`. |
 | `<LatestVersion><ReleaseDate>` | Release date in a format parseable as a date; ISO 8601 is recommended. |
