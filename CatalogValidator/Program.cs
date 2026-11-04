@@ -1,6 +1,7 @@
 ﻿using AppCore;
-using Iros;
 using Iros.Workshop;
+using System.Xml;
+using System.Xml.Serialization;
 
 class Program
 {
@@ -8,7 +9,7 @@ class Program
     {
         if (args.Length == 0)
         {
-            Console.WriteLine("Usage: CatalogValidator <catalog.xml> [--validate-links]");
+            Console.WriteLine("Usage: CatalogValidator <catalog.xml|mod.xml> [--validate-links]");
             Environment.ExitCode = 1;
             return;
         }
@@ -20,7 +21,7 @@ class Program
 
         try
         {
-            Catalog catalog = Util.Deserialize<Catalog>(catalogPath);
+            Catalog catalog = DeserializeCatalogOrMod(catalogPath);
 
             if (validateLinks)
             {
@@ -49,6 +50,30 @@ class Program
             Console.WriteLine(ex.ToString());
             Environment.ExitCode = 1;
         }
+    }
+
+    private static Catalog DeserializeCatalogOrMod(string path)
+    {
+        using XmlReader reader = XmlReader.Create(path);
+        reader.MoveToContent();
+
+        if (reader.NamespaceURI.Length == 0 && reader.LocalName == "Catalog")
+        {
+            return (Catalog)new XmlSerializer(typeof(Catalog)).Deserialize(reader)!;
+        }
+
+        if (reader.NamespaceURI.Length == 0 && reader.LocalName == "Mod")
+        {
+            Mod mod = (Mod)new XmlSerializer(typeof(Mod)).Deserialize(reader)!;
+            return new Catalog { Mods = new List<Mod> { mod } };
+        }
+
+        IXmlLineInfo? lineInfo = reader as IXmlLineInfo;
+        throw new XmlException(
+            $"Expected a <Catalog> or <Mod> root element without a namespace, but found <{reader.Name}> in namespace '{reader.NamespaceURI}'.",
+            null,
+            lineInfo?.LineNumber ?? 0,
+            lineInfo?.LinePosition ?? 0);
     }
 
     private static async Task<(List<ModLinkStatus>, List<ModLinkStatus>)> ValidateDownloadLinksAsync(Catalog catalog)
