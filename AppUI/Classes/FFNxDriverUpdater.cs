@@ -102,6 +102,9 @@ namespace AppUI.Classes
 
         public void CheckForUpdates(FFNxUpdateChannelOptions channel, bool manualCheck = false)
         {
+            string gameExe = Sys.Settings.FF7Exe;
+            FF7Version gameVersion = Sys.Settings.FF7InstalledVersion;
+
             DownloadItem download = new DownloadItem()
             {
                 Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },
@@ -146,7 +149,12 @@ namespace AppUI.Classes
                                     {
                                         MainWindow window = App.Current.MainWindow as MainWindow;
 
-                                        window.ViewModel.FFNxUpdateVersion = $"{newVersion.ToString()} ({Sys.Settings.FFNxUpdateChannel.ToString()})";
+                                        if (string.Equals(gameExe, Sys.Settings.FF7Exe, StringComparison.OrdinalIgnoreCase) &&
+                                            gameVersion == Sys.Settings.FF7InstalledVersion &&
+                                            channel == Sys.Settings.FFNxUpdateChannel)
+                                        {
+                                            window.ViewModel.FFNxUpdateVersion = $"{newVersion.ToString()} ({channel})";
+                                        }
                                     });
                                 }
                                 break;

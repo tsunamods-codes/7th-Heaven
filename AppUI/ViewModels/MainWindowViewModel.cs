@@ -1831,7 +1831,9 @@ namespace AppUI.ViewModels
 
         internal void ShowGeneralSettingsWindow()
         {
+            string previousGameExe = Sys.Settings.FF7Exe;
             FF7Version previousGameVersion = Sys.Settings.FF7InstalledVersion;
+            FFNxUpdateChannelOptions previousFFNxUpdateChannel = Sys.Settings.FFNxUpdateChannel;
             GeneralSettingsWindow settingsWindow = new GeneralSettingsWindow()
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -1840,6 +1842,13 @@ namespace AppUI.ViewModels
 
             if (didSave.GetValueOrDefault(false))
             {
+                if (!string.Equals(previousGameExe, Sys.Settings.FF7Exe, StringComparison.OrdinalIgnoreCase) ||
+                    previousGameVersion != Sys.Settings.FF7InstalledVersion ||
+                    previousFFNxUpdateChannel != Sys.Settings.FFNxUpdateChannel)
+                {
+                    FFNxUpdateVersion = null;
+                }
+
                 if (previousGameVersion != Sys.Settings.FF7InstalledVersion)
                 {
                     NotifyPropertyChanged(nameof(LanguageFilterButtonVisibility));

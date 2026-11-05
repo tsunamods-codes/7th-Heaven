@@ -36,8 +36,13 @@ namespace Iros.Workshop.ConfigSettings
         {
             try
             {
-                // first launch the Sys Path was not setup correctly yet so _toml is null
-                if (_toml == null) _pathToFFNxToml = Sys.PathToFFNxToml;
+                string pathToFFNxToml = Sys.PathToFFNxToml;
+                if (!string.Equals(_pathToFFNxToml, pathToFFNxToml, StringComparison.OrdinalIgnoreCase))
+                {
+                    _toml = null;
+                    _lastException = null;
+                }
+                _pathToFFNxToml = pathToFFNxToml;
 
                 if (File.Exists(_pathToFFNxToml)) _toml = TomlSerializer.Deserialize<TomlTable>(File.ReadAllText(_pathToFFNxToml));
             }
