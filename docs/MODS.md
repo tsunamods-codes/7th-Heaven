@@ -41,7 +41,7 @@ Supported instruction forms include:
 | `ADDRESS:LENGTH` | Requests executable/read-write memory protection for the hexadecimal byte length; it does not write bytes. |
 | `Delay=MILLISECONDS` | Applies the patch after the given decimal delay. |
 
-An address may also use `BASE+OFFSET` or `BASE-OFFSET`; a base ending in `^` is dereferenced as a pointer. These forms are for advanced patches and must be validated against the target process. Do not include a `0x` prefix in hexadecimal values. Patch files contain executable-memory modifications, so distribute them only when you can verify their purpose and compatibility. Users may be warned when activating mods that contain HEXT patches or other code; recommend that they enable patches only from trusted sources.
+An address may also use `BASE+OFFSET` or `BASE-OFFSET`; a base ending in `^` is dereferenced as a pointer. These forms are for advanced patches and must be validated against the target process. Do not include a `0x` prefix in hexadecimal values. Patch files contain executable-memory modifications, so distribute them only when you can verify their purpose and compatibility. HEXT patches alone do not trigger the mod code warning; recommend that users enable patches only from trusted sources.
 
 ## Starter Manifest
 
@@ -308,6 +308,8 @@ Replace these example keys with keys present in the target FFNx version's `FFNx.
 ```
 
 Use the loader mechanism required by the component you are shipping; these entries are not interchangeable.
+
+Declaring any `LoadLibrary`, `LoadAssembly`, `LoadPlugin`, or `LoadPrograms` entry triggers the mandatory code warning on each activation, regardless of whether the mod also contains HEXT patches. This warning applies even without administrator privileges and cannot be disabled.
 
 ## Helper Programs
 

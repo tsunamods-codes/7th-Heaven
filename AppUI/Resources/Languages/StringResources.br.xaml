@@ -300,9 +300,13 @@ Você deveria usar essa opção apenas para testar um único mod ativo para pode
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Atualização disponível {0}\nClique em 'Sim' para abrir a página de downloads no navegador.\n\n{1} Notas de Lançamento:</system:String>
     <system:String x:Key="NewVersionAvailable">Nova Versão Disponível!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Este mod '{0}' contém dados que poderiam potencialmente danificar o seu computador. Você deve ativar apenas mods confiáveis.
-        
-Você ainda quer ativar este mod?</system:String>
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' pode carregar e executar código dinamicamente no seu computador.
+
+Esse código pode ser malicioso, acessar ou roubar seus dados, danificar arquivos ou comprometer seu sistema.
+
+Ative este mod somente se você confiar no autor e compreender os riscos. Você executa esse código por sua conta e risco.
+
+Você ainda deseja ativar este mod?</system:String>
 
     <system:String x:Key="CannotOpenHelp">Não foi possível abrir ajuda - Arquivo Resources/Help/index.html não encontrado</system:String>
 

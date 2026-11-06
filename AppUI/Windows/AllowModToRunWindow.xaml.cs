@@ -20,7 +20,6 @@ namespace AppUI.Windows
             {
                 Message = message,
                 WindowTitle = ResourceHelper.Get(StringKey.AllowModToRun),
-                CheckboxVisibility = Visibility.Visible,
             };
             this.DataContext = ViewModel;
             btnOkay.Focus();
@@ -28,7 +27,6 @@ namespace AppUI.Windows
 
         private void btnOkay_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Result = MessageBoxResult.OK;
             this.DialogResult = true;
             this.Close();
         }
@@ -44,7 +42,6 @@ namespace AppUI.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.CheckboxVisibility = Visibility.Collapsed; // hide checkbox after Window is loaded so the ActualHeight is calculated
             ResizeWindowToFitContent();
         }
 
@@ -52,14 +49,10 @@ namespace AppUI.Windows
         {
             double padding = 90; // this is to account for margins between controls
 
-            double newHeight = txtMessage.ActualHeight + btnOkay.ActualHeight + chkOption.ActualHeight + stackRadioOptions.ActualHeight + padding;
+            double newHeight = txtMessage.ActualHeight + btnOkay.ActualHeight + stackRadioOptions.ActualHeight + padding;
 
             this.Height = newHeight;
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            ResizeWindowToFitContent();
-        }
     }
 }

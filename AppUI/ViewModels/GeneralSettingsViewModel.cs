@@ -29,7 +29,6 @@ namespace AppUI.ViewModels
         private bool _bypassCompatibilityLocks;
         private bool _openIrosLinks;
         private bool _openModFilesWith7H;
-        private bool _warnAboutModCode;
         private bool _showContextMenuInExplorer;
 
         private ObservableCollection<SubscriptionSettingViewModel> _subscriptionList;
@@ -221,19 +220,6 @@ namespace AppUI.ViewModels
             }
         }
 
-        public bool WarnAboutModCode
-        {
-            get
-            {
-                return _warnAboutModCode;
-            }
-            set
-            {
-                _warnAboutModCode = value;
-                NotifyPropertyChanged();
-            }
-        }
-
         public bool ShowContextMenuInExplorer
         {
             get
@@ -409,7 +395,6 @@ namespace AppUI.ViewModels
             BypassCompatibilityLocks = settings.HasOption(GeneralOptions.BypassCompatibility);
             OpenIrosLinks = settings.HasOption(GeneralOptions.OpenIrosLinksWith7H);
             OpenModFilesWith7H = settings.HasOption(GeneralOptions.OpenModFilesWith7H);
-            WarnAboutModCode = settings.HasOption(GeneralOptions.WarnAboutModCode);
             ShowContextMenuInExplorer = settings.HasOption(GeneralOptions.Show7HInFileExplorerContextMenu);
         }
 
@@ -814,9 +799,6 @@ namespace AppUI.ViewModels
 
             if (OpenModFilesWith7H)
                 newOptions.Add(GeneralOptions.OpenModFilesWith7H);
-
-            if (WarnAboutModCode)
-                newOptions.Add(GeneralOptions.WarnAboutModCode);
 
             if (ShowContextMenuInExplorer)
                 newOptions.Add(GeneralOptions.Show7HInFileExplorerContextMenu);

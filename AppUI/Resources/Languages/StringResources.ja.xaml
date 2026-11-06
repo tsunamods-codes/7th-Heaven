@@ -291,9 +291,13 @@ Click 'Yes' to download the new installer and begin the update process.
     </system:String>
     <system:String x:Key="NewVersionAvailable">New Version Available!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">This mod '{0}' contains data that could potentially harm your computer. You should only activate mods you trust.
-        
-Do you still want to activate this mod?</system:String>
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' は、コンピューター上でコードを動的に読み込み、実行することがあります。
+
+このコードは悪意のあるものである可能性があり、データへのアクセスや窃取、ファイルの破損、システムの安全性の侵害を引き起こすおそれがあります。
+
+作者を信頼し、リスクを理解している場合にのみ、このModを有効にしてください。このコードの実行は自己責任となります。
+
+それでもこのModを有効にしますか？</system:String>
 
     <system:String x:Key="CannotOpenHelp">Cannot open help - Resources/Help/index.html file not found</system:String>
 

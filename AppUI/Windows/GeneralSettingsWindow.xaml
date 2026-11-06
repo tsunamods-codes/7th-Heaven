@@ -104,7 +104,6 @@
             <StackPanel Margin="3" HorizontalAlignment="Left">
                 <CheckBox Height="25" Content="{DynamicResource ActivateNewlyInstalledModsAutomatically}" IsChecked="{Binding ActivateInstalledModsAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource ImportModsFromLibraryAutomatically}" IsChecked="{Binding ImportLibraryFolderAuto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
-                <CheckBox Height="25" Content="{DynamicResource WarnWhenModContainsCode}" IsChecked="{Binding WarnAboutModCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource AutoSortModsByDefault}" IsChecked="{Binding AutoSortModsByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='True'}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource AutoUpdateModsByDefault}" IsChecked="{Binding AutoUpdateModsByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='True'}" Margin="0,0,0,2"/>
                 <CheckBox Height="25" Content="{DynamicResource IgnoreModCompatibilityRestrictions}" IsChecked="{Binding BypassCompatibilityLocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,2"/>

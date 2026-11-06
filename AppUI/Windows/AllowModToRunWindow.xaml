@@ -21,7 +21,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <ContentControl Template="{StaticResource iconWarning}" IsTabStop="False"/>
@@ -46,24 +45,15 @@
                     Margin="0,0,0,10">
             <RadioButton Content="{DynamicResource NoDontActivateThisMod}"
                          IsChecked="{Binding NoRadioButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Checked="RadioButton_Checked"
                          Margin="0,0,0,5"/>
             <RadioButton Content="{DynamicResource YesActivateThisMod}"
-                         Checked="RadioButton_Checked"
                          IsChecked="{Binding YesRadioButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
 
-        <CheckBox x:Name="chkOption" Content="{DynamicResource DontAskAgainForAnyMods}"
-                  Grid.Column="1"
-                  IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  Visibility="{Binding CheckboxVisibility, FallbackValue='Visible'}"
-                  Grid.Row="2"
-                  Margin="0,5,0,5"/>
-
         <Button x:Name="btnOkay"
                 Click="btnOkay_Click"
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"

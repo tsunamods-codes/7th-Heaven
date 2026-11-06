@@ -297,9 +297,13 @@ Vous ne devez utiliser cette option que lors du dépannage d'un seul mod actif a
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Une mise à jour est disponible pour {0}\nCliquer sur 'Oui' pour ouvrir la page de téléchargement dans un navigateur.\n\n{1} Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">Nouvelle Version Disponible !</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Ce mod '{0}' contient des données qui pourraient potentiellement endommager votre ordinateur. Vous ne devez activer que les mods auxquels vous faites confiance.
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' peut charger et exécuter du code de manière dynamique sur votre ordinateur.
 
-Voulez-vous toujours activer ce mod ?</system:String>
+Ce code pourrait être malveillant, accéder à vos données ou les voler, endommager des fichiers ou compromettre votre système.
+
+N'activez ce mod que si vous faites confiance à son auteur et comprenez les risques. Vous exécutez ce code à vos propres risques.
+
+Voulez-vous quand même activer ce mod ?</system:String>
 
     <system:String x:Key="CannotOpenHelp">Impossible d'ouvrir l'aide - le fichier "ressources/aide/index.html" est abscent.</system:String>
 

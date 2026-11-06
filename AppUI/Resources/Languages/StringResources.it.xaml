@@ -299,8 +299,12 @@ Dovresti utilizzare questa opzione solo mentre cerchi di individuare problemi in
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">È disponibile un aggiornamento per {0}\nClicca 'Sì' per aprire la pagina di download in un browser.\n\n{1} Note di Rilascio:</system:String>
     <system:String x:Key="NewVersionAvailable">Nuova Versione Disponibile!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">La mod '{0}' contiene dati potenzialmente capaci di danneggiare il tuo sistema. Attiva solo mod di cui ti fidi.
-        
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' può caricare ed eseguire dinamicamente codice sul tuo computer.
+
+Questo codice potrebbe essere dannoso, accedere ai tuoi dati o rubarli, danneggiare file o compromettere il tuo sistema.
+
+Attiva questa mod solo se ti fidi del suo autore e comprendi i rischi. Esegui questo codice a tuo rischio e pericolo.
+
 Vuoi comunque attivare questa mod?</system:String>
 
     <system:String x:Key="CannotOpenHelp">Impossibile aprire l'aiuto - Resources/Help/index.html non trovato</system:String>

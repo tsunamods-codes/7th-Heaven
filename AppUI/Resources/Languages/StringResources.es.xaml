@@ -303,9 +303,13 @@ Usa solo esta opción mientras buscas algún problema en Mods específicos y as�
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Hay una actualización disponible para {0}\nHaz Clic en 'Sí' para abrir la pagina de descarga en un navegador.\n\n{1} Notas de Lanzamiento:</system:String>
     <system:String x:Key="NewVersionAvailable">¡Nueva Versión Disponible!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Este Mod '{0}' contiene datos que pueden dañar potencialmente tu ordenador. Solo debes activar aquellos Mods en los que confíes.
-        
-Aún así, ¿quieres activar este Mod?</system:String>
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' puede cargar y ejecutar código dinámicamente en tu ordenador.
+
+Este código podría ser malicioso, acceder a tus datos o robarlos, dañar archivos o comprometer tu sistema.
+
+Activa este Mod solo si confías en su autor y comprendes los riesgos. Ejecutas este código bajo tu propia responsabilidad.
+
+¿Aun así quieres activar este Mod?</system:String>
 
     <system:String x:Key="CannotOpenHelp">No se puede abrir la ayuda - archivo Resources/Help/index.html no encontrado</system:String>
 

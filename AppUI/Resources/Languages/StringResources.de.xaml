@@ -301,8 +301,12 @@ Sie sollten diese Option nur bei der Fehlerbehebung eines einzelnen aktiven Mods
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">Für {0} ist eine Aktualisierung verfügbar.\nKlicken Sie auf "Ja", um das neue Installationsprogramm herunterzuladen und den Aktualisierungsprozess zu starten.\n\n{1} Versionshinweise:</system:String>
     <system:String x:Key="NewVersionAvailable">Eine neue Version ist verfügbar!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">Der Mod {0} hat die Möglichkeit, Code in eine EXE-Datei einzufügen. Dieser Vorgang könnte auch dazu verwendet werden, Ihrem Computer Schaden zuzufügen. Aus Sicherheitsgründen sollten Sie Mods nur von Quellen aktivieren, denen Sie vertrauen (zum Beispiel direkt aus dem Katalog).
-        
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' kann dynamisch Code auf Ihrem Computer laden und ausführen.
+
+Dieser Code könnte bösartig sein, auf Ihre Daten zugreifen oder sie stehlen, Dateien beschädigen oder Ihr System kompromittieren.
+
+Aktivieren Sie diesen Mod nur, wenn Sie seinem Autor vertrauen und die Risiken verstehen. Sie führen diesen Code auf eigenes Risiko aus.
+
 Möchten Sie diesen Mod trotzdem aktivieren?</system:String>
 
     <system:String x:Key="CannotOpenHelp">Hilfe kann nicht geöffnet werden. Die Datei "Resources/Help/index.html" konnte nicht gefunden werden.</system:String>

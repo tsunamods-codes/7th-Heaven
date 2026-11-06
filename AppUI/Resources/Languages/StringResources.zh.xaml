@@ -301,9 +301,13 @@
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">{0} 有新版本 \n 点击“是”进行更新 \n\n{1} 更新日志:</system:String>
     <system:String x:Key="NewVersionAvailable">有新版本！</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' 会为 EXE 注入代码，可能会有病毒。为了保障电脑安全，请确保你要开启的模组来自可信任的作者。例如直接从“在线模组目录”下载的模组。
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' 可以在你的电脑上动态加载并运行代码。
 
-确定开启此模组？</system:String>
+这些代码可能具有恶意，可能访问或窃取你的数据、损坏文件或危及系统安全。
+
+只有在你信任作者并了解风险的情况下，才应启用此模组。运行这些代码的风险由你自行承担。
+
+你仍然要启用此模组吗？</system:String>
 
     <system:String x:Key="CannotOpenHelp">无法打开帮助文档 - 软件根目录下 Resources/Help/index.html 文件丢失</system:String>
 

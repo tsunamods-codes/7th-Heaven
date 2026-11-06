@@ -1,14 +1,9 @@
-﻿using AppUI.ViewModels;
-using System.Windows;
-
-namespace AppUI.ViewModels
+﻿namespace AppUI.ViewModels
 {
     public class AllowModToRunViewModel : ViewModelBase
     {
         private string _windowTitle;
         private string _message;
-        private bool _isChecked;
-        private Visibility _checkboxVisibility;
         private bool _noRadioButtonIsChecked;
         private bool _yesRadioButtonIsChecked;
 
@@ -38,32 +33,6 @@ namespace AppUI.ViewModels
             }
         }
 
-        public Visibility CheckboxVisibility
-        {
-            get
-            {
-                return _checkboxVisibility;
-            }
-            set
-            {
-                _checkboxVisibility = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool IsChecked
-        {
-            get
-            {
-                return _isChecked;
-            }
-            set
-            {
-                _isChecked = value;
-                NotifyPropertyChanged();
-            }
-        }
-
         public bool NoRadioButtonIsChecked
         {
             get
@@ -74,11 +43,6 @@ namespace AppUI.ViewModels
             {
                 _noRadioButtonIsChecked = value;
                 NotifyPropertyChanged();
-
-                if (_noRadioButtonIsChecked)
-                {
-                    IsChecked = false;
-                }
             }
         }
 
@@ -92,27 +56,12 @@ namespace AppUI.ViewModels
             {
                 _yesRadioButtonIsChecked = value;
                 NotifyPropertyChanged();
-
-
-                if (_yesRadioButtonIsChecked)
-                {
-                    CheckboxVisibility = Visibility.Visible;
-                }
-                else
-                {
-                    CheckboxVisibility = Visibility.Collapsed;
-                }
             }
         }
 
 
-        public MessageBoxResult Result { get; set; }
-
         public AllowModToRunViewModel()
         {
-            Result = MessageBoxResult.Cancel;
-            IsChecked = false;
-            CheckboxVisibility = Visibility.Collapsed;
             NoRadioButtonIsChecked = true;
             YesRadioButtonIsChecked = false;
         }

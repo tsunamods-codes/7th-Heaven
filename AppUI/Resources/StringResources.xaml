@@ -301,8 +301,12 @@ You should only use this option while troubleshooting a single active mod so tha
     <system:String x:Key="AppUpdateIsAvailableMessage" xml:space="preserve">An update is available for {0}\nClick 'Yes' to download the new installer and begin the update process.\n\n{1} Release Notes:</system:String>
     <system:String x:Key="NewVersionAvailable">New Version Available!</system:String>
 
-    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' has the ability to inject code into an EXE. This process could also be used to harm your computer. To be safe, you should only activate mods from sources you trust. IE; directly from the catalog.
-        
+    <system:String x:Key="ThisModContainsDataThatCouldHarm" xml:space="preserve">'{0}' can dynamically load and run code on your computer.
+
+This code could be malicious, access or steal your data, damage files, or compromise your system.
+
+Only activate this mod if you trust its author and understand the risks. You run this code at your own risk.
+
 Do you still want to activate this mod?</system:String>
 
     <system:String x:Key="CannotOpenHelp">Cannot open help - Resources/Help/index.html file not found</system:String>
