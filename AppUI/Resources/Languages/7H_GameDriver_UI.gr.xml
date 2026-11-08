@@ -112,6 +112,25 @@
     </Option>
   </Setting>
 
+  <Setting xsi:type="DropDown">
+    <Group>Γραφικά</Group>
+    <Name>Αυτόματη προσαρμογή πλαισίου κειμένου πεδίου</Name>
+    <Description>Αυτόματο μέγεθος διαλόγων FIELD/WORLDMAP. Ιαπωνικά: πλάτος και ύψος, εκτός αν το αλλάξει mod.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
+    <Option>
+      <Text>Ανενεργό</Text>
+      <Settings>ff7_field_autosize_text_box = 0</Settings>
+    </Option>
+    <Option>
+      <Text>Μόνο πλάτος</Text>
+      <Settings>ff7_field_autosize_text_box = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Πλάτος και ύψος</Text>
+      <Settings>ff7_field_autosize_text_box = 2</Settings>
+    </Option>
+  </Setting>
+
   <Setting xsi:type="Checkbox">
 	<Group>Γραφικά</Group>
 	<Name>Vertical Uncrop</Name>
@@ -155,15 +174,6 @@
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
-  </Setting>
-
-  <Setting xsi:type="Checkbox">
-    <Group>Γραφικά</Group>
-    <Name>Αυτόματη προσαρμογή πλαισίου κειμένου πεδίου</Name>
-    <Description>Αλλάζει αυτόματα το μέγεθος των πλαισίων κειμένου πεδίου ώστε να προσαρμόζονται στο περιεχόμενο κειμένου.</Description>
-    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
-    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
-    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
   </Setting>
 
   <!-- CHEATS TAB -->

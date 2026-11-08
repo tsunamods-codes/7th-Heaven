@@ -112,6 +112,25 @@
     </Option>
   </Setting>
 
+  <Setting xsi:type="DropDown">
+    <Group>Grafik</Group>
+    <Name>Feld-Textfenster automatisch anpassen</Name>
+    <Description>Passt Dialogfenster in FIELD/WORLDMAP an. Japanisch: Breite und Höhe; Mods können dies ändern.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
+    <Option>
+      <Text>Aus</Text>
+      <Settings>ff7_field_autosize_text_box = 0</Settings>
+    </Option>
+    <Option>
+      <Text>Nur Breite</Text>
+      <Settings>ff7_field_autosize_text_box = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Breite und Höhe</Text>
+      <Settings>ff7_field_autosize_text_box = 2</Settings>
+    </Option>
+  </Setting>
+
   <Setting xsi:type="Checkbox">
 	<Group>Grafik</Group>
 	<Name>Vertical Uncrop</Name>
@@ -155,15 +174,6 @@
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
-  </Setting>
-
-  <Setting xsi:type="Checkbox">
-    <Group>Grafik</Group>
-    <Name>Feld-Textfenster automatisch anpassen</Name>
-    <Description>Passt Feld-Textfenster automatisch an den Textinhalt an.</Description>
-    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
-    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
-    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
   </Setting>
 
   <!-- CHEATS TAB -->

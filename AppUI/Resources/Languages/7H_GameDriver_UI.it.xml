@@ -112,6 +112,25 @@
     </Option>
   </Setting>
 
+  <Setting xsi:type="DropDown">
+    <Group>Grafica</Group>
+    <Name>Ridimensionamento automatico riquadro testo campo</Name>
+    <Description>Adatta i dialoghi FIELD/WORLDMAP. Giapponese: larghezza e altezza predefinite, salvo modifiche da mod.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
+    <Option>
+      <Text>Disattivato</Text>
+      <Settings>ff7_field_autosize_text_box = 0</Settings>
+    </Option>
+    <Option>
+      <Text>Solo larghezza</Text>
+      <Settings>ff7_field_autosize_text_box = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Larghezza e altezza</Text>
+      <Settings>ff7_field_autosize_text_box = 2</Settings>
+    </Option>
+  </Setting>
+
   <Setting xsi:type="Checkbox">
 	<Group>Grafica</Group>
 	<Name>Vertical Uncrop</Name>
@@ -155,15 +174,6 @@
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
-  </Setting>
-
-  <Setting xsi:type="Checkbox">
-    <Group>Grafica</Group>
-    <Name>Ridimensionamento automatico riquadro testo campo</Name>
-    <Description>Ridimensiona automaticamente i riquadri di testo del campo per adattarli al contenuto del testo.</Description>
-    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
-    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
-    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
   </Setting>
 
   <!-- CHEATS TAB -->

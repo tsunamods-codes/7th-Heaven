@@ -121,6 +121,25 @@
     </Option>
   </Setting>
 
+  <Setting xsi:type="DropDown">
+    <Group>Gráficos</Group>
+    <Name>Ajustar automaticamente a caixa de texto de campo</Name>
+    <Description>Ajusta diálogos em FIELD/WORLDMAP. Japonês: largura e altura por padrão; mods podem alterar.</Description>
+    <DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
+    <Option>
+      <Text>Desativado</Text>
+      <Settings>ff7_field_autosize_text_box = 0</Settings>
+    </Option>
+    <Option>
+      <Text>Apenas largura</Text>
+      <Settings>ff7_field_autosize_text_box = 1</Settings>
+    </Option>
+    <Option>
+      <Text>Largura e altura</Text>
+      <Settings>ff7_field_autosize_text_box = 2</Settings>
+    </Option>
+  </Setting>
+
   <Setting xsi:type="Checkbox">
     <Group>Gráficos</Group>
     <Name>filtragem anisotrópica</Name>
@@ -155,15 +174,6 @@
     <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
     <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
     <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
-  </Setting>
-
-  <Setting xsi:type="Checkbox">
-    <Group>Gráficos</Group>
-    <Name>Ajustar automaticamente a caixa de texto de campo</Name>
-    <Description>Redimensiona automaticamente as caixas de texto de campo para se ajustarem ao conteúdo de texto.</Description>
-    <DefaultValue>ff7_field_autosize_text_box = false</DefaultValue>
-    <TrueSetting>ff7_field_autosize_text_box = true</TrueSetting>
-    <FalseSetting>ff7_field_autosize_text_box = false</FalseSetting>
   </Setting>
 
   <!-- CHEATS TAB -->

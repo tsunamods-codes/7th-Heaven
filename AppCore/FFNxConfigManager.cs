@@ -263,8 +263,8 @@ namespace Iros.Workshop.ConfigSettings
             bool isJapaneseLanguage = selectedLanguage == AppCore.GameLanguage.Japanese;
             _toml["game_language"] = AppCore.GameLanguage.GetFFNxLanguageId(selectedLanguage);
 
-            bool userConfiguredFieldAutosize = _toml.ContainsKey("ff7_field_autosize_text_box") && _toml["ff7_field_autosize_text_box"] is bool currentFieldAutosize && currentFieldAutosize;
-            _toml["ff7_field_autosize_text_box"] = isJapaneseLanguage || userConfiguredFieldAutosize;
+            long userConfiguredFieldAutosize = _toml.ContainsKey("ff7_field_autosize_text_box") && _toml["ff7_field_autosize_text_box"] is long currentFieldAutosize ? currentFieldAutosize : 0L;
+            _toml["ff7_field_autosize_text_box"] = isJapaneseLanguage ? 2L : userConfiguredFieldAutosize;
         }
 
         public void ResetTo7thHeavenDefaults()
