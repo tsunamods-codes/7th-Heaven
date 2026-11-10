@@ -214,6 +214,18 @@ Conditions can refer to mod configuration options or the selected game language.
 
 The condition is evaluated when the runtime profile is built for launch. Supported values are `EN`, `FR`, `DE`, `ES`, and `JA`; `ANY` and `*` match every language. `/BYPASSINTL` bypasses compatibility restrictions but does not change which language folder is selected.
 
+A condition can also check whether another mod is active in the profile, by its ID. This lets a mod ship the files it needs to work next to another mod, and use them only when that mod is enabled:
+
+```xml
+<ModFolder Folder="WithOtherMod">
+  <ActiveWhen>
+    <Mod>11111111-2222-3333-4444-555555555555</Mod>
+  </ActiveWhen>
+</ModFolder>
+```
+
+`Mod` is true while that mod is enabled, wherever it sits in the load order, and can be combined with `And`, `Or` and `Not` like the other conditions. Which of the two mods wins a file both of them ship still follows the load order.
+
 ## Runtime-Conditioned Folders
 
 `<Conditional Folder="...">` is for selecting assets based on values read from game memory or runtime state. Its child condition nodes must include an `ApplyTo` attribute naming the game-relative path they control. The condition types are `And`, `Or`, `Not`, and `RuntimeVar`.

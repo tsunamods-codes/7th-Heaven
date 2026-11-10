@@ -208,7 +208,16 @@ namespace Iros.Workshop {
 
         private bool IsActive(AppWrapper.ActiveWhen aw) {
             if (aw == null) return true;
-            return aw.IsActive(IsConfigActive, IsGameLanguageActive);
+            return aw.IsActive(IsConfigActive, IsGameLanguageActive, IsOtherModActive);
+        }
+
+        /// <summary>
+        /// ActiveWhen Mod: true when the mod of this ID is in the profile and enabled.
+        /// </summary>
+        private static bool IsOtherModActive(string modID)
+        {
+            if (!Guid.TryParse(modID, out Guid id)) return false;
+            return Sys.ActiveProfile?.ActiveItems?.Any(item => item.ModID.Equals(id)) ?? false;
         }
 
         private bool IsGameLanguageActive(string language)
