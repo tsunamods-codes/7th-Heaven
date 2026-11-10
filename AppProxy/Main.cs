@@ -12,6 +12,7 @@ namespace AppProxy
 
         private static MethodInfo? _mRun = null;
         private static MethodInfo? _mShutdown = null;
+        private static MethodInfo? _mOnAfterHook = null;
         private static MethodInfo? _mHCreateFileW = null;
         private static MethodInfo? _mHReadFile = null;
         private static MethodInfo? _mHFindFirstFileW = null;
@@ -32,6 +33,7 @@ namespace AppProxy
         public struct HostExports
         {
             public delegate* unmanaged<void> Shutdown;
+            public delegate* unmanaged<void> OnAfterHook;
             public delegate* unmanaged<ushort*, uint, uint, void*, uint, uint, void*, void*> CreateFileW;
             public delegate* unmanaged<void*, void*, uint, uint*, void*, int> ReadFile;
             //public delegate* unmanaged<void*, void*, uint, uint*, void*, int> WriteFile;
@@ -60,6 +62,7 @@ namespace AppProxy
                 _exports = (HostExports*)exports;
 
                 _exports->Shutdown = &Shutdown;
+                _exports->OnAfterHook = &OnAfterHook;
                 _exports->CreateFileW = &HCreateFileW;
                 _exports->ReadFile = &HReadFile;
                 _exports->FindFirstFileW = &HFindFirstFileW;
@@ -83,6 +86,7 @@ namespace AppProxy
                 {
                     _mRun = t.GetMethod("Run", BindingFlags.Static | BindingFlags.Public);
                     _mShutdown = t.GetMethod("Shutdown", BindingFlags.Static | BindingFlags.Public);
+                    _mOnAfterHook = t.GetMethod("OnAfterHook", BindingFlags.Static | BindingFlags.Public);
                     _mHCreateFileW = t.GetMethod("HCreateFileW", BindingFlags.Static | BindingFlags.Public);
                     _mHReadFile = t.GetMethod("HReadFile", BindingFlags.Static | BindingFlags.Public);
                     _mHFindFirstFileW = t.GetMethod("HFindFirstFileW", BindingFlags.Static | BindingFlags.Public);
@@ -111,6 +115,19 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
+        public static void OnAfterHook()
+        {
+            try
+            {
+                if (_mOnAfterHook != null) _mOnAfterHook.Invoke(null, null);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        [UnmanagedCallersOnly]
         public static void Shutdown()
         {
             try
@@ -121,6 +138,7 @@ namespace AppProxy
                 lib = null;
 
                 _exports->Shutdown = null;
+                _exports->OnAfterHook = null;
                 _exports->CreateFileW = null;
                 _exports->ReadFile = null;
                 _exports->FindFirstFileW = null;
