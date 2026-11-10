@@ -336,6 +336,8 @@ The path may point into any sub-folder of the package, both for unpacked folders
 
 Declaring any `LoadLibrary`, `LoadAssembly`, `LoadPlugin`, or `LoadPrograms` entry triggers the mandatory code warning on each activation, regardless of whether the mod also contains HEXT patches. This warning applies even without administrator privileges and cannot be disabled.
 
+Code is loaded last during startup, after HEXT patches are applied and the files of every active mod are available. A DLL can therefore read mod files (through `CreateFileW`, using game-relative paths) as soon as it is loaded, and its own memory patches are applied after HEXT patches.
+
 ## Helper Programs
 
 `LoadPrograms` contains one or more child entries. Each program uses the following fields:
