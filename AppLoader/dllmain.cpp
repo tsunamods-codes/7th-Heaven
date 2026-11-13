@@ -5,10 +5,6 @@
 #define MAIN_TYP_NAME L"AppProxy.Proxy"
 #define MAIN_FUN_NAME L"Main"
 
-// PRAGMA ----------------------------------------
-
-#pragma comment(linker, "/export:DirectInputCreateA=C:\\Windows\\System32\\dinput.DirectInputCreateA,@1")
-
 // INCLUDE ---------------------------------------
 
 #include <iostream>
