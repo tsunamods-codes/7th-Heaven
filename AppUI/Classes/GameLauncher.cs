@@ -792,10 +792,19 @@ namespace AppUI.Classes
             return runtimeProfiles;
         }
 
+        private const string SystemDirectInputFileName = "7thHeaven.SystemDirectInput.dll";
+
         private static void Copy7thWrapperDlls()
         {
             string src = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dest = Path.GetDirectoryName(Sys.Settings.FF7Exe);
+
+            string systemDirectory = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86);
+            if (string.IsNullOrEmpty(systemDirectory))
+            {
+                throw new DirectoryNotFoundException("Could not locate the Windows x86 system directory.");
+            }
+            File.Copy(Path.Combine(systemDirectory, "dinput.dll"), Path.Combine(dest, SystemDirectInputFileName), true);
 
             File.Copy(Path.Combine(src, "AppProxy.runtimeconfig.json"), Path.Combine(dest, "AppProxy.runtimeconfig.json"), true);
             File.Copy(Path.Combine(src, "AppProxy.dll"), Path.Combine(dest, "AppProxy.dll"), true);
@@ -819,6 +828,7 @@ namespace AppUI.Classes
             File.Delete(Path.Combine(dest, "SharpCompress.dll"));
             File.Delete(Path.Combine(dest, "AppWrapper.dll"));
             File.Delete(Path.Combine(dest, "dinput.dll"));
+            File.Delete(Path.Combine(dest, SystemDirectInputFileName));
             File.Delete(Path.Combine(dest, "AppLoader.pdb"));
             File.Delete(Path.Combine(dest, "nethost.dll"));
             File.Delete(Path.Combine(dest, "System.Runtime.Serialization.Formatters.dll"));
