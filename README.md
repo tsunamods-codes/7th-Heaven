@@ -38,14 +38,16 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 
 ## Formatting
 
-When editing project files:
+This project now uses CSharpier and ClangFormat to ensure files are always indented the right way.
 
-1. Import [.vsconfig](.vsconfig) in the Visual Studio Installer to install the CSharpier extension.
-2. Run `dotnet tool restore` from the repository root after cloning or updating the formatter.
-3. In Visual Studio, enable **Reformat with CSharpier on Save** under **Tools > Options > CSharpier > General** for C#, XML and XAML.
-4. For C++, use **Format Document** (`Ctrl+K, Ctrl+D`) before saving. Leave Visual Studio's ClangFormat support enabled.
+In order to make sure you make use of them:
 
-To format all C#, XML/XAML and C++ files on demand, double-click [format.bat](format.bat). Visual Studio's components from [.vsconfig](.vsconfig) must be installed. The window stays open to show the result.
+0. Make sure you followed the [Visual Studio](#visual-studio) installation instructions.
+1. In Visual Studio, enable **Reformat with CSharpier on Save** under **Tools > Options > CSharpier > General** for C#, XML and XAML.
+2. For C++, use **Format Document** (`Ctrl+K, Ctrl+D`) before saving. Leave Visual Studio's ClangFormat support enabled.
+
+Additionally, you can always run the formatting script manually by double-clicking the [format.bat](format.bat).
+Make sure you do so before submitting a PR.
 
 ## Special thanks
 
