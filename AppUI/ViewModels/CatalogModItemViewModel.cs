@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using AppCore;
 using AppUI.Classes;
 using Iros.Workshop;
@@ -54,6 +55,21 @@ namespace AppUI.ViewModels
             {
                 _releaseDate = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(ReleaseDateSortValue));
+            }
+        }
+
+        public DateTime ReleaseDateSortValue
+        {
+            get
+            {
+                DateTime.TryParse(
+                    ReleaseDate,
+                    CultureInfo.CreateSpecificCulture(Sys.Settings.DateTimeCulture),
+                    DateTimeStyles.None,
+                    out DateTime date
+                );
+                return date;
             }
         }
 

@@ -206,14 +206,6 @@ namespace AppUI.UserControls
             }
         }
 
-        internal void SetSortColumn(string sortColumn, ListSortDirection sortDirection)
-        {
-            if (sortColumn != null && MinColumnWidths.ContainsKey(sortColumn))
-            {
-                Sort(sortColumn, sortDirection);
-            }
-        }
-
         internal void RecalculateColumnWidths()
         {
             RecalculateColumnWidths(lstCatalogMods.ActualWidth);
@@ -308,28 +300,18 @@ namespace AppUI.UserControls
             }
 
             dataView.SortDescriptions.Clear();
-            (dataView as ListCollectionView).CustomSort = null;
 
             if (sortBy == nameof(CatalogModItemViewModel.ReleaseDate) || sortBy == "Released")
             {
-                DateTimeComparer sorter = new DateTimeComparer() { SortDirection = direction };
-                (dataView as ListCollectionView).CustomSort = sorter;
+                sortBy = nameof(CatalogModItemViewModel.ReleaseDateSortValue);
             }
             else if (sortBy == nameof(CatalogModItemViewModel.DownloadSize) || sortBy == "Size")
             {
-                SortDescription sd = new SortDescription(
-                    nameof(CatalogModItemViewModel.DownloadSizeInBytes),
-                    direction
-                );
-                dataView.SortDescriptions.Add(sd);
-                dataView.Refresh();
+                sortBy = nameof(CatalogModItemViewModel.DownloadSizeInBytes);
             }
-            else
-            {
-                SortDescription sd = new SortDescription(sortBy, direction);
-                dataView.SortDescriptions.Add(sd);
-                dataView.Refresh();
-            }
+
+            dataView.SortDescriptions.Add(new SortDescription(sortBy, direction));
+            dataView.Refresh();
         }
 
         internal List<ColumnInfo> GetColumnSettings()
@@ -389,12 +371,6 @@ namespace AppUI.UserControls
         internal void SaveUsersColumnSettings()
         {
             Sys.Settings.UserColumnSettings.BrowseCatalogColumns = GetColumnSettings();
-
-            if (_lastHeaderClicked != null)
-            {
-                Sys.Settings.UserColumnSettings.SortColumn = _lastHeaderClicked.Content as string;
-            }
-            Sys.Settings.UserColumnSettings.SortDirection = (int)_lastDirection;
         }
 
         private void btnResetColumns_Click(object sender, RoutedEventArgs e)

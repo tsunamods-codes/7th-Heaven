@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using AppCore;
@@ -276,7 +277,7 @@ namespace AppUI.ViewModels
 
         /// <summary>
         /// Loads available mods from catalogs into <see cref="CatalogModList"/> from <see cref="Sys.Catalog.Mods"/>
-        /// Ordered by Catalog Subscription, Category, Name
+        /// Ordered by Category ascending, Released descending, Name ascending using column sorting.
         /// </summary>
         /// <param name="searchText"> empty string returns all mods </param>
         internal void ReloadModList(
@@ -308,13 +309,6 @@ namespace AppUI.ViewModels
             categories = _previousReloadOptions.SetOrGetPreviousCategories(categories);
             searchText = _previousReloadOptions.SetOrGetPreviousSearchText(searchText);
             tags = _previousReloadOptions.SetOrGetPreviousTags(tags);
-
-            // map the order of the subscriptions so the results can honor the list order when sorting
-            Dictionary<string, int> subscriptionOrder = new Dictionary<string, int>();
-            for (int i = 0; i < Sys.Settings.Subscriptions.Count; i++)
-            {
-                subscriptionOrder[Sys.Settings.Subscriptions[i].Url] = i;
-            }
 
             if (String.IsNullOrEmpty(searchText))
             {
@@ -379,20 +373,35 @@ namespace AppUI.ViewModels
 
             List<CatalogModItemViewModel> newList = new List<CatalogModItemViewModel>();
 
-            foreach (
-                Mod m in results
-                    .OrderBy(k =>
-                    {
-                        subscriptionOrder.TryGetValue(k.SourceCatalogUrl, out int sortOrder);
-                        return sortOrder;
-                    })
-                    .ThenBy(k => k.Category)
-                    .ThenBy(k => k.Name)
-            )
+            foreach (Mod m in results)
             {
                 CatalogModItemViewModel item = new CatalogModItemViewModel(m);
                 newList.Add(item);
             }
+
+            ListCollectionView sortedView = new ListCollectionView(newList);
+            using (sortedView.DeferRefresh())
+            {
+                sortedView.SortDescriptions.Add(
+                    new SortDescription(
+                        nameof(CatalogModItemViewModel.Category),
+                        ListSortDirection.Ascending
+                    )
+                );
+                sortedView.SortDescriptions.Add(
+                    new SortDescription(
+                        nameof(CatalogModItemViewModel.ReleaseDateSortValue),
+                        ListSortDirection.Descending
+                    )
+                );
+                sortedView.SortDescriptions.Add(
+                    new SortDescription(
+                        nameof(CatalogModItemViewModel.Name),
+                        ListSortDirection.Ascending
+                    )
+                );
+            }
+            newList = sortedView.Cast<CatalogModItemViewModel>().ToList();
 
             if (modToSelect != null)
             {

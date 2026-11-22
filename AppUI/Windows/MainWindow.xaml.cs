@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -74,10 +73,6 @@ namespace AppUI
 
             ctrlMyMods.ApplyColumnSettings(Sys.Settings.UserColumnSettings.MyModsColumns);
             ctrlCatalog.ApplyColumnSettings(Sys.Settings.UserColumnSettings.BrowseCatalogColumns);
-            ctrlCatalog.SetSortColumn(
-                Sys.Settings.UserColumnSettings.SortColumn,
-                (ListSortDirection)Sys.Settings.UserColumnSettings.SortDirection
-            );
         }
 
         /// <summary>
