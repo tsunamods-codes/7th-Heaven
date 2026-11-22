@@ -127,29 +127,10 @@
   <system:String x:Key="ManageProfiles">管理预设文件</system:String>
   <system:String x:Key="SetLanguageWindowTitle">选择语言</system:String>
 
-  <!--Allow Mod To Run Window-->
-  <system:String x:Key="NoDontActivateThisMod">不，禁用这个模组</system:String>
-  <system:String x:Key="YesActivateThisMod">好，开启这个模组</system:String>
-  <system:String x:Key="DontAskAgainForAnyMods">以后不要再询问这个问题</system:String>
-
   <!--Game Launcher Settings Window-->
   <system:String x:Key="OptionsHeader" xml:space="preserve"> 设置 </system:String>
-  <system:String x:Key="AutoMountDisc">自动加载虚拟光驱</system:String>
-  <system:String x:Key="AutoMountDiscTooltip"
-    >在启动游戏时自动加载软件附带的.ISO虚拟光驱，仅限Windows 8/10/11系统。如果你使用Windows 7甚至更旧的系统，则需要自己手动加载.ISO虚拟光驱，或插入游戏光盘。</system:String>
-
-  <system:String x:Key="AutoDismountDisc">自动卸载虚拟光驱</system:String>
-  <system:String x:Key="AutoDismountDiscTooltip"
-    >在退出游戏时自动卸载软件附带的.ISO虚拟光驱，仅限Windows 8/10/11系统。如果你使用Windows 7甚至更旧的系统，则需要自己手动弹出.ISO虚拟光驱或游戏光盘。</system:String>
-
   <system:String x:Key="AutoUpdatePath">自动更新光驱路径</system:String>
-  <system:String x:Key="AutoUpdatePathTooltip"
-    >自动检测光盘是否已更改驱动器号，并自动更新游戏所读取的路径。</system:String>
-
   <system:String x:Key="ShowGameLauncher">启动游戏时显示加载窗口</system:String>
-  <system:String x:Key="ShowGameLauncherTooltip"
-    >通过窗口显示FF7启动过程中的详细日志。如果游戏无法启动，则需要通过这个窗口来查看报错原因，建议开启。</system:String>
-  <system:String x:Key="GameEditionLabel">游戏版本</system:String>
   <system:String x:Key="GameLanguageEnglish">英语</system:String>
   <system:String x:Key="GameLanguageFrench">法语</system:String>
   <system:String x:Key="GameLanguageGerman">德语</system:String>
@@ -159,99 +140,22 @@
   <system:String x:Key="ShowOnlyLanguageCompatibleItems"
     >仅显示与所选游戏语言兼容的项目</system:String>
 
-  <system:String x:Key="ControlsLabel">按键设置:</system:String>
-
-  <system:String x:Key="SaveControlsTooltip">保存你当前的游戏内按键设置。</system:String>
-  <system:String x:Key="DeleteControlsTooltip">删除所选的按键预设。</system:String>
-
-  <system:String x:Key="CompatibilityHeader" xml:space="preserve"> 兼容性 </system:String>
-  <system:String x:Key="HighDpiScalingFix">高分辨率缩放修复</system:String>
-  <system:String x:Key="HighDpiScalingFixTooltip"
-    >可以修复游戏画面显示不全/无法居中。或者将你的Windows显示设置更改为100%缩放。</system:String>
-
-  <system:String x:Key="ReunionDriverFix">Reunion驱动修复</system:String>
-  <system:String x:Key="ReunionDriverFixTooltip"
-    >在游戏启动时暂时将draw.dll重命名为Reunion.dll.bak，然后立即恢复。不影响Reunion在第七天堂之外的可玩性。</system:String>
-
-  <system:String
-    x:Key="ImportMoviesHeader"
-    xml:space="preserve"> 从游戏光盘导入过场动画 </system:String>
   <system:String x:Key="Import">导入</system:String>
-  <system:String x:Key="ImportTooltip"
-    >提取游戏光盘里的过场动画文件，修复游戏丢失过场动画的问题。</system:String>
-
   <system:String x:Key="AudioDeviceHeader" xml:space="preserve"> 音频输出设备 </system:String>
   <system:String x:Key="SoundDeviceLabel">声音设备:</system:String>
-  <system:String x:Key="SoundDeviceTooltip">为游戏选择一个声音输出设备。</system:String>
-
-  <system:String x:Key="TestSoundTooltip"
-    >测试所选择的声音设备与音乐/音效的音量（由 Enrico Deiana 提供的技术）。</system:String>
-  <system:String x:Key="TestLeftSoundTooltip"
-    >试听左声道（由 Enrico Deiana 提供的技术）。</system:String>
-  <system:String x:Key="TestRightSoundTooltip"
-    >试听右声道（由 Enrico Deiana 提供的技术）。</system:String>
-
   <system:String x:Key="MidiDeviceLabel">MIDI 设备:</system:String>
   <system:String x:Key="MidiDataLabel">MIDI 数据:</system:String>
-  <system:String x:Key="MidiDeviceTooltip">为游戏选择一个MIDI输出设备。</system:String>
-
   <system:String x:Key="SFXVolumeLabel">音效音量:</system:String>
-  <system:String x:Key="SFXVolumeTooltip">设置游戏内音效的音量。</system:String>
-
   <system:String x:Key="MusicVolumeLabel">音乐音量:</system:String>
-  <system:String x:Key="MusicVolumeTooltip">设置游戏内音乐的音量。</system:String>
-
   <system:String x:Key="VoiceVolumeLabel">语音音量:</system:String>
-  <system:String x:Key="VoiceVolumeTooltip">设置游戏内语音的音量（需要语音模组）。</system:String>
-
   <system:String x:Key="AmbientVolumeLabel">环境效果音音量:</system:String>
-  <system:String x:Key="AmbientVolumeTooltip"
-    >设置游戏内环境效果音的音量（需要环境效果音模组）。</system:String>
-
   <system:String x:Key="MovieVolumeLabel">过场动画音量:</system:String>
-  <system:String x:Key="MovieVolumeTooltip">设置游戏内过场动画的音量。</system:String>
-
-  <system:String x:Key="LogVolumeControl">数字音量控制</system:String>
-  <system:String x:Key="LogVolumeControlTooltip"
-    >如果你觉得音量变化不平稳，请关闭此选项。</system:String>
-
   <system:String x:Key="ReverseSpeakers">左声道/右声道反转</system:String>
-  <system:String x:Key="ReverseSpeakersTooltip">将左声道/右声道反转。</system:String>
-
-  <system:String x:Key="GraphicsDriverHeader" xml:space="preserve"> 图形驱动选项</system:String>
-  <system:String x:Key="RendererLabel">渲染器:</system:String>
-  <system:String x:Key="RendererTooltip"
-    >选择一个图形驱动程序，用于渲染FF7。mod只能在设置为“自定义第七天堂游戏驱动”时生效。</system:String>
-
-  <system:String x:Key="QuarterScreen">四分之一屏</system:String>
-  <system:String x:Key="QuarterScreenTooltip"
-    >启动游戏窗口（四分之一屏幕大小）。仅在设置为“软件渲染器”或“Direct3D硬件加速”时生效。</system:String>
-
-  <system:String x:Key="FullScreen">全屏</system:String>
-  <system:String x:Key="FullScreenTooltip"
-    >全屏启动游戏。仅在设置为“软件渲染器”或“Direct3D硬件加速”时生效。</system:String>
-
-  <system:String x:Key="HardwareGraphicsTooltip"
-    >设置用于硬件加速的选项。仅在设置为“Direct3D硬件加速”时生效。</system:String>
-
   <system:String
     x:Key="ProgramsToRunHeader"
     xml:space="preserve"> 启动游戏时优先运行的程序: </system:String>
   <system:String x:Key="ProgramNameHint">输入程序的完整路径</system:String>
   <system:String x:Key="ProgramArgsHint">输入程序参数</system:String>
-
-  <system:String x:Key="AddProgramTooltip"
-    >设置优先运行的程序，在启动游戏时，先运行程序，再运行FF7。</system:String>
-  <system:String x:Key="RemoveProgramTooltip">移除所选的程序。</system:String>
-  <system:String x:Key="EditProgramTooltip">编辑所选程序的参数。</system:String>
-  <system:String x:Key="MoveProgramUpTooltip"
-    >左键点击向上移动/右键点击移动到最上方。</system:String>
-  <system:String x:Key="MoveProgramDownTooltip"
-    >左键点击向下移动/右键点击移动到末尾。</system:String>
-  <system:String x:Key="BrowseProgramTooltip">浏览要运行的程序</system:String>
-
-  <system:String x:Key="ResetLauncherDefaultsTooltip"
-    >将页面内所有选项重置到默认状态。</system:String>
 
   <!--Catalog Creation Window-->
   <system:String x:Key="CreateMod">创建模组 Mod</system:String>
@@ -486,17 +390,6 @@
   <system:String x:Key="NoFf7InputCfgFoundAt">ff7input.cfg 并没有存在于</system:String>
   <system:String x:Key="AlreadyExistsAt">已经存在于</system:String>
 
-  <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver"
-    >选择除了“自定义第七天堂游戏驱动”以外的任何选项，将会导致第七天堂安装的模组无法正常工作！</system:String>
-
-  <system:String
-    x:Key="ReunionWarningMessage"
-    xml:space="preserve">Reunion R06 及更新版本，即使在 Options.ini 中已禁用，也会在运行FF7时强制加载自定义游戏驱动。这会与第七天堂的游戏驱动冲突，破坏图形设置。
-
-如果你想游玩 Reunion模组，请使用为第七天堂构建的兼容版本。
-
-确定要继续吗？</system:String>
-
   <system:String x:Key="YouShouldLeaveThisSettingOn">不要关闭此选项！</system:String>
   <system:String x:Key="ProgramToRunNotFound">未找到要运行的程序</system:String>
 
@@ -556,9 +449,6 @@
   <system:String x:Key="MovedModsToNewLibrary">模组文件已经移动到新的位置。</system:String>
   <system:String x:Key="FailedToMoveModsToNewLibrary"
     >无法将模组文件移动到新的位置。查看日志以获取详细信息。</system:String>
-  <system:String x:Key="MissingTexturesPath"
-    >存放自定义贴图 (Aali OpenGL) 的文件夹路径丢失</system:String>
-  <system:String x:Key="MissingMoviePath">过场动画文件路径丢失</system:String>
   <system:String x:Key="LibraryPathCannotBeGameOrApp"
     >存放模组的文件夹路径不能是第七天堂软件根目录，也不能是游戏根目录！请使用默认路径或选择其他非上述路径。</system:String>
 
@@ -714,10 +604,6 @@
   <!--ConfigureGLWindow.xaml.cs Strings-->
   <system:String x:Key="FailedToReadRequiredSpecXmlFile"
     >无法读取显示设置所需的 spec xml 文件。窗口必须关闭。</system:String>
-  <system:String x:Key="WillDeleteEverythingUnder">将会删除以下的所有内容: </system:String>
-  <system:String x:Key="PathToCacheFolderDoesNotExist">缓存文件夹路径不存在。</system:String>
-  <system:String x:Key="TextureCacheCleared">纹理缓存已清除！</system:String>
-  <system:String x:Key="FailedToClearTextureCache">纹理缓存清除失败</system:String>
   <system:String x:Key="GameDriverSettingsSaved">游戏驱动设置已保存！</system:String>
   <system:String x:Key="CouldNotWriteTo7HGameDriverCfg"
     >无法写入 FFNx.toml 文件。请检查文件属性是否为只读，并确保FF7安装在“有完全写入权限”的文件夹中。</system:String>
@@ -726,9 +612,6 @@
     >游戏驱动设置已还原到默认值。点击“保存”以保存更改。</system:String>
 
   <!--GameLaunchSettingsWindow.xaml.cs Strings-->
-  <system:String x:Key="SelectProgramToRemove">选择要删除的程序。</system:String>
-  <system:String x:Key="SelectProgramToEdit">选择要编辑的程序。</system:String>
-  <system:String x:Key="SelectProgramToMove">选择要移动的程序。</system:String>
   <system:String x:Key="SelectProgramToRunSuchAs">选择要运行的程序，例如 .exe 或脚本</system:String>
 
   <!--GameLaunchWindow.xaml.cs Strings-->
@@ -744,7 +627,6 @@
     >新安装的模组自动开启</system:String>
   <system:String x:Key="ImportModsFromLibraryAutomatically"
     >从存放模组的文件夹自动导入新模组</system:String>
-  <system:String x:Key="WarnWhenModContainsCode">当模组包含注入型代码时提出警告</system:String>
   <system:String x:Key="AutoSortModsByDefault">自动调整模组加载顺序</system:String>
   <system:String x:Key="AutoUpdateModsByDefault">自动升级模组</system:String>
   <system:String x:Key="IgnoreModCompatibilityRestrictions">忽略模组兼容规则</system:String>
@@ -756,29 +638,9 @@
   <system:String x:Key="ContextMenuInExplorer">右键菜单选项</system:String>
 
   <system:String x:Key="PathsHeader" xml:space="preserve"> 游戏路径 </system:String>
-  <system:String x:Key="ShellIntegrationHeader" xml:space="preserve"> Shell 集成 </system:String>
-  <system:String
-    x:Key="CatalogSubscriptionsHeader"
-    xml:space="preserve"> 在线模组目录订阅: </system:String>
-  <system:String
-    x:Key="AdditionalFoldersToMonitorHeader"
-    xml:space="preserve"> 游戏根目录下必要的文件夹: </system:String>
-
   <system:String x:Key="Url">链接</system:String>
 
-  <system:String x:Key="ErrorIncorrectExe">出错 - 不正确的exe文件</system:String>
-  <system:String x:Key="ThisExeIsUsedForSteamReleaseFailedToCopyExe"
-    >这个exe适用于FF7 Steam版，而第七天堂不支持该版本。ff7.exe的1.02补丁复制失败，无法自动选择。</system:String>
-  <system:String x:Key="ThisExeIsUsedForSteamReleaseCopiedSelectedForYou"
-    >这个exe适用于FF7 Steam版，而第七天堂不支持该版本。ff7.exe的1.02补丁{0}，以确保第七天堂能正常运行。</system:String>
-  <system:String x:Key="Selected">已应用</system:String>
-  <system:String x:Key="CopiedAndSelected">已复制并应用</system:String>
-  <system:String x:Key="ThisExeIsUsedForConfiguringFf7Settings"
-    >这个exe用于配置FF7，并不是正确的游戏exe。请选择其它 FF7 EXE文件.</system:String>
-
   <system:String x:Key="SelectFf7Exe">选择 FF7_en或FF7.exe</system:String>
-  <system:String x:Key="SelectMoviesFolder">选择过场动画 movies文件夹</system:String>
-  <system:String x:Key="SelectTexturesFolder">选择外置贴图 Textures文件夹</system:String>
   <system:String x:Key="Select7thHeavenLibraryFolder">选择存放模组的文件夹</system:String>
 
   <system:String x:Key="SelectSubscriptionToEdit">选择一个要修改的订阅链接</system:String>
@@ -794,16 +656,7 @@
   <system:String x:Key="BatchImport">批量导入</system:String>
   <system:String x:Key="SelectIroFile">选择.iro文件</system:String>
 
-  <!--IroCreateWindow Strings-->
-  <system:String x:Key="PackIRO">打包IRO</system:String>
-  <system:String x:Key="UnpackIRO">解包IRO</system:String>
-  <system:String x:Key="PatchIRO">修补IRO</system:String>
-  <system:String x:Key="PatchIROAdvanced">修补IRO (高级)</system:String>
-
   <!--UnhandledErrorWindow Strings-->
-  <system:String x:Key="AnUnhandledExceptionOccurredAppMustClose"
-    >出现了未处理的异常，第七天堂必须关闭。</system:String>
-
   <system:String x:Key="SelectLanguage">选择语言:</system:String>
   <system:String x:Key="English">英语</system:String>
   <system:String x:Key="French">法语</system:String>
@@ -843,24 +696,6 @@
     >正在验证安装的游戏是否兼容 ...</system:String>
   <system:String x:Key="ErrorCodeYarr"
     >EXE/DLL完整性检查失败，请从CD/GOG重新安装或使用“验证我的文件”进行修复。</system:String>
-  <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder"
-    >正在验证游戏是否被安装到了系统文件夹/受保护的文件夹 ...</system:String>
-
-  <system:String
-    x:Key="Ff7IsCurrentlyInstalledInASystemFolder"
-    xml:space="preserve">FF7被安装到了系统文件夹/受保护的文件夹，任何包含“Program”文件名的文件夹都会导致模组无法加载。
-
-对于Steam版用户，请点击“否”，然后自己手动将Steam游戏库移动到没有“Program”文件名的文件夹。
-
-对于1998光盘版用户，可以点击“是”，自动把游戏本体移动到 C:\Games\Final Fantasy VII 文件夹。</system:String>
-
-  <system:String x:Key="CanNotContinueDueToFf7nstalledInProtectedFolder"
-    >由于FF7被安装到了系统文件夹/受保护的文件夹，无法进行下一步。正在中止...</system:String>
-  <system:String x:Key="CannotContinue">无法继续！</system:String>
-
-  <system:String x:Key="CopyingGameFilesTo">正在将游戏文件复制到</system:String>
-  <system:String x:Key="FailedToCopyFf7To">无法将FF7复制到</system:String>
-
   <system:String x:Key="VerifyingGameIsMaxInstall">正在验证游戏是否完整/最大安装 ...</system:String>
   <system:String
     x:Key="YourFf7InstallationFolderIsMissingCriticalFiles"
@@ -870,48 +705,12 @@
 
   <system:String x:Key="CreatingMissingRequiredDirectories"
     >正在创建缺失的必要目录 ...</system:String>
-  <system:String x:Key="VerifyingAdditionalFilesForBattleAndKernelFoldersExist"
-    >正在验证“battle”和“kernel”文件夹的附加文件是否存在 ...</system:String>
-  <system:String x:Key="FailedToVerifyCopyMissingAdditionalFiles"
-    >验证/复制缺失的附加文件失败。正在中止...</system:String>
-
-  <system:String x:Key="VerifyingAllMovieFilesExist"
-    >正在验证所有过场动画文件是否存在 ...</system:String>
-  <system:String x:Key="CouldNotFindAllMovieFilesAt"
-    >无法在以下位置找到所有过场动画文件: </system:String>
-  <system:String x:Key="AllFilesFoundAt">所有文件已在以下位置找到: </system:String>
-  <system:String x:Key="UpdatingMoviePathSetting"
-    >正在更新 过场动画movie文件夹路径设置</system:String>
-  <system:String x:Key="AttemptingToCopyMovieFiles">正在尝试复制过场动画文件 ...</system:String>
-
-  <system:String x:Key="MovieFilesAreMissing">过场动画文件丢失！</system:String>
-  <system:String
-    x:Key="InOrderToSeeInGameMoviesYouWillNeedMessage"
-    xml:space="preserve">为了在游戏中正常播放过场动画，你需要下载并启用一个过场动画模组。
-
-或者打开“工具 → 过场动画导入工具”，从FF7光盘中提取过场动画文件，导入到游戏文件夹中。</system:String>
-
   <system:String x:Key="VerifyingMusicFilesExist">正在验证音乐文件是否存在 ...</system:String>
-  <system:String x:Key="CouldNotFindAllMusicFilesAt"
-    >无法在以下位置找到所有音乐文件: </system:String>
-  <system:String x:Key="AttemptingToCopyMusicFiles">正在尝试复制音乐文件 ...</system:String>
-
-  <system:String x:Key="OggMusicFilesAreMissing">.OGG 音乐文件缺失！</system:String>
-  <system:String
-    x:Key="InOrderToHearHighQualityMusicYouWillNeedMessage"
-    xml:space="preserve">为了听到高质量的背景音乐，你需要下载并启用一个音乐模组。
-
-如果你想要体验原始MIDI音乐，可以考虑“在线模组目录”中的“FFNx FF7Music”模组。</system:String>
-
   <system:String x:Key="VerifyingLatestGameDriverIsInstalled"
     >正在验证是否安装了最新的游戏驱动 ...</system:String>
   <system:String x:Key="SomethingWentWrongTryingToDetectGameDriver"
     >尝试检测/安装游戏驱动时出错。正在中止 ...</system:String>
-  <system:String x:Key="VerifyingGameDriverShadersFoldersExist"
-    >正在验证游戏驱动的着色器文件夹是否存在 ...</system:String>
-
   <system:String x:Key="VerifyingFf7Exe">正在验证 ff7 exe ...</system:String>
-  <system:String x:Key="VerifyingFf7LauncherExe">正在验证 FF7_Launcher exe ...</system:String>
   <system:String x:Key="Ff7ExeDetectedToBeDifferent"
     >检测到 ff7.exe 不同。正在创建备份并复制正确的.exe ...</system:String>
   <system:String x:Key="FailedToCopyFf7Exe">ff7.exe 复制失败。正在中止 ...</system:String>
@@ -947,23 +746,10 @@
   <system:String x:Key="LookingForGameDisc">正在寻找游戏光盘 ...</system:String>
   <system:String x:Key="FoundGameDiscAt">已在以下位置找到游戏光盘: </system:String>
   <system:String x:Key="FailedToFindGameDisc">无法找到游戏光盘 ...</system:String>
-  <system:String x:Key="OsDoesNotSupportAutoMounting"
-    >操作系统不支持自动挂载虚拟光驱。必须挂载一个名为 FF7DISC1.ISO 的虚拟光驱，或插入一个名为 FF7DISC1 的U盘，或将一个硬盘驱动器重命名为 FF7DISC1 ...</system:String>
-  <system:String x:Key="AutoMountingVirtualGameDisc">正在自动挂载虚拟游戏光驱 ...</system:String>
-  <system:String x:Key="FailedToAutoMountVirtualDiscAt"
-    >无法在以下位置自动挂载虚拟光驱: </system:String>
-  <system:String x:Key="LookingForGameDiscAfterMounting"
-    >已挂载，正在寻找游戏光盘 ...</system:String>
-  <system:String x:Key="FailedToFindGameDiscAfterAutoMounting"
-    >自动挂载后无法找到游戏光盘 ...</system:String>
-
   <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla"
     >用户请求无模组游玩。正在以“原版”模式启动游戏 ...</system:String>
   <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla"
     >没有开启任何模组。正在以“原版”模式启动游戏 ...</system:String>
-  <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla"
-    >选择的渲染器未设置为“自定义第七天堂游戏驱动”。正在以“原版”模式启动游戏 ...</system:String>
-
   <system:String x:Key="CreatingRuntimeProfile">正在创建 Runtime配置文件 ...</system:String>
   <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods"
     >无法为已开启的模组创建Runtime配置文件 ...</system:String>
@@ -1000,21 +786,6 @@
     >在最大尝试次数之后，仍然无法注入</system:String>
 
   <system:String x:Key="ErrorFailedToStartGame">出错 - 游戏启动失败</system:String>
-  <system:String
-    x:Key="FailedToInjectWithEasyHookMessage"
-    xml:space="preserve">多次尝试之后，仍然无法通过 AppLoader 注入。通常的解决方法是在游戏启动器设置里将“Code 5 Fix”设置为“On”。
-
-是否要应用此设置并重试？</system:String>
-
-  <system:String x:Key="SettingCompatibilityFixAndTryingAgain"
-    >正在设置兼容性修复并重试 ...</system:String>
-  <system:String x:Key="StillFailedToInjectWithEasyHookAborting"
-    >设置兼容性修复后仍然无法通过 AppLoader 注入。正在中止 ...</system:String>
-  <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags"
-    >即使设置了兼容性标志，仍然无法通过 AppLoader 注入</system:String>
-  <system:String x:Key="UserChoseNotToSetCompatibilityFix"
-    >用户选择不设置兼容性修复。正在中止 ...</system:String>
-
   <system:String x:Key="GettingFf7Proc">正在获取FF7进程 ...</system:String>
   <system:String x:Key="FailedToGetFf7Proc">无法获取FF7进程。正在中止 ...</system:String>
   <system:String x:Key="DebugLoggingSetToTrueWiringUpLogFile"
@@ -1022,30 +793,19 @@
   <system:String x:Key="FailedToStartProcessForDebugLog">无法启动调试日志的进程</system:String>
 
   <system:String x:Key="StartingProgramsForMods">正在启动模组所需程序 ...</system:String>
-  <system:String x:Key="StartingPluginsForMods">正在启动模组所需插件 ...</system:String>
   <system:String x:Key="SettingUpFf7ExeToStopPluginsAndModPrograms"
     >正在设置 FF7.exe 在退出之后停止插件和模组程序 ...</system:String>
 
   <system:String x:Key="StoppingOtherProgramsForMods"
     >正在停止由第七天堂启动的其它模组程序 ...</system:String>
-  <system:String x:Key="AutoUnmountingGameDisc">正在自动卸载游戏光盘 ...</system:String>
-
   <system:String x:Key="WaitingForFf7ExeToRespond"
     >正在等待 FF7.exe 响应 (最多 {0} 秒) ...</system:String>
   <system:String x:Key="ExceptionOccurredWhileTryingToStart"
     >尝试启动FF7时发生异常 ...</system:String>
 
-  <system:String x:Key="PluginAdded">插件已添加</system:String>
-  <system:String x:Key="StartingPlugin">正在启动插件</system:String>
-
-  <system:String x:Key="FailedToGetListOfRuntimeMods"
-    >由于一个缺失的模组变量，无法获取 Runtime模组列表</system:String>
   <system:String x:Key="AddingPathsToMonitor">正在添加需要读取的路径 ...</system:String>
 
-  <system:String x:Key="DetectedToBeOlderVersion">检测到是旧版本</system:String>
   <system:String x:Key="Copied">已复制</system:String>
-  <system:String x:Key="SkippedCopying">已跳过复制</system:String>
-
   <system:String x:Key="AnExceptionOccurredTryingToStartFf7At"
     >尝试启动FF7时出现以下异常: </system:String>
 
@@ -1082,12 +842,6 @@
 
   <system:String x:Key="ApplyingChangedValuesToRegistry"
     >正在将更改的值应用到注册表 ...</system:String>
-  <system:String x:Key="ApplyingCompatibilityFlagsInRegistry"
-    >正在应用注册表中的兼容性标志 (如果有) ...</system:String>
-  <system:String x:Key="CompatibilityFlagsFoundDeleting">找到了兼容性标志 - 正在删除</system:String>
-  <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag"
-    >高DPI修复设置为 true - 正在注册表中应用 HIGHDPIAWARE 兼容性标志</system:String>
-
   <system:String x:Key="UsingControlConfigurationFile">正在使用按键配置文件</system:String>
   <system:String x:Key="InputCfgFileNotFoundAt">在以下位置找不到按键配置.cfg文件: </system:String>
   <system:String x:Key="FailedToCopyCfgFile">无法复制按键配置.cfg文件</system:String>
@@ -1115,36 +869,12 @@
     >无法复制源文件，因为它在以下位置缺失: </system:String>
   <system:String x:Key="CopyingFileFrom">正在从以下位置复制文件: </system:String>
 
-  <system:String x:Key="CannotCheckIfLatestDriverIsInstalledDueToMissingFile"
-    >由于文件缺失，无法检查是否安装了最新的驱动</system:String>
-  <system:String x:Key="GameDriverDllFileIsUpToDate">FFNx.dll文件是最新的。</system:String>
-  <system:String x:Key="BackingUpExistingGameDriverTo">正在将现有游戏驱动备份到</system:String>
-  <system:String x:Key="BackingUpExistingGameDriverCfgTo"
-    >正在将现有游戏驱动.cfg备份到</system:String>
-  <system:String x:Key="GameDriverCfgFileMissingCopyingDefaultFrom"
-    >FFNx.toml文件缺失。正在从以下位置复制默认文件: </system:String>
-  <system:String x:Key="CannotCreateDefaultCfgDueToMissingFile"
-    >由于文件缺失，无法创建默认.cfg</system:String>
-  <system:String x:Key="BackingUpExistingShadersFolderTo"
-    >正在将现有的“shaders”文件夹备份到</system:String>
-  <system:String x:Key="CopyingContentsOf">正在复制以下位置的内容: </system:String>
   <system:String x:Key="DirectoryMissingCreating">文件夹缺失。正在创建</system:String>
   <system:String x:Key="OldGameConverterRegistryKeysFoundBackingUp"
     >找到了旧的游戏转换器注册表项。正在备份旧的转换器文件和注册表 ...</system:String>
 
-  <system:String x:Key="MissingShadersNolightFolderCreatingDirectory"
-    >缺少 shaders/nolight文件夹。正在创建 ...</system:String>
-  <system:String x:Key="MissingShadersComplexMultiShaderFolderCreatingDirectory"
-    >缺少 shaders/ComplexMultiShader_Nvidia文件夹。正在创建 ...</system:String>
-  <system:String x:Key="MissingShadersFolderCreatingDirectory"
-    >缺少 shaders 文件夹。正在从 Resources/Game Driver/ 复制 ...</system:String>
-  <system:String x:Key="MissingShadersFilesCopyingFrom"
-    >缺少着色器文件: {0}。正在从 {1} 复制 ...</system:String>
-
   <!--UpdateChecker Class Strings-->
   <system:String x:Key="CheckingForUpdatesUsingChannel">检查更新</system:String>
-  <system:String x:Key="FailedToCheckForUpdatesAt">检查更新失败</system:String>
-
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
@@ -1168,9 +898,6 @@
   <system:String x:Key="Installed">已安装</system:String>
   <system:String x:Key="Updated">已升级</system:String>
   <system:String x:Key="ErrorUpdating">升级失败</system:String>
-
-  <system:String x:Key="FailedToGetModInfoDueToMissingVariable"
-    >警告: 由于缺少一个变量，导致无法获取模组信息，这可能会引发问题。</system:String>
 
   <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved"
     >找不到以下模组的安装信息，已从配置文件中移除。</system:String>
@@ -1208,8 +935,6 @@
   <system:String x:Key="ColorTheme">配色主题:</system:String>
   <system:String x:Key="AppBackground">底层背景色:</system:String>
   <system:String x:Key="SecondaryBackground">上层背景色:</system:String>
-  <system:String x:Key="ControlsDisabledBackground">二级按钮颜色:</system:String>
-  <system:String x:Key="ControlsDisabledForeground">二级字体颜色:</system:String>
   <system:String x:Key="BackgroundImage">背景图片:</system:String>
   <system:String x:Key="BackgroundHorizontalAlignment">背景图水平对齐:</system:String>
   <system:String x:Key="BackgroundVerticalAlignment">背景图垂直对齐:</system:String>
@@ -1232,13 +957,6 @@
   <system:String x:Key="SourceIro">IRO源文件:</system:String>
 
   <!--CreateModUserControl Strings-->
-  <system:String x:Key="OutputsCurrentModXmlToBelow"
-    >将当前 mod.xml 输出到下方文本区域。</system:String>
-  <system:String x:Key="SaveModXmlToFile">保存 mod.xml文件</system:String>
-  <system:String x:Key="LoadModXmlFileToEdit">加载一个 mod.xml文件并进行编辑</system:String>
-
-  <system:String x:Key="GeneralSettingsTitle">常规设置</system:String>
-
   <system:String x:Key="Greek">希腊语</system:String>
 
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
@@ -1247,13 +965,6 @@
     >模组 {0}, 设置 {1} - 无法找到兼容选项。以下模组限制了它的配置方式:\n\n{2}</system:String>
   <system:String x:Key="ModChangedSettingTo">模组 {0} - 已将设置 {1} 更改为 {2}</system:String>
 
-  <system:String x:Key="OutputsCurrentCatalogXmlToBelow"
-    >将当前 catalog.xml 输出到下方文本区域。</system:String>
-  <system:String x:Key="SaveCatalogXmlToFile">保存 catalog.xml文件</system:String>
-  <system:String x:Key="LoadCatalogXmlFileToEdit">加载一个 catalog.xml文件并进行编辑</system:String>
-  <system:String x:Key="AddModToCatalog">将模组添加到目录</system:String>
-  <system:String x:Key="ImportModFromModXmlOrIro">从 mod.xml 或.iro 导入模组</system:String>
-  <system:String x:Key="CatalogName">目录名称:</system:String>
   <system:String x:Key="SaveCatalogXml">保存 catalog.xml</system:String>
   <system:String x:Key="SelectCatalogXmlToLoad">选择要加载 catalog.xml</system:String>
   <system:String x:Key="SelectModXmlOrIroFileToLoad"
@@ -1271,35 +982,6 @@
     >选择一个文件夹，用于存放解包后的文件。</system:String>
 
   <system:String x:Key="SelectFLevelLgpFile">选择 FLevel.lgp文件</system:String>
-
-  <system:String x:Key="GameLauncherSettings">游戏启动器设置</system:String>
-
-  <system:String x:Key="ClickToSelectFf7ExeFile"
-    >点击选择你电脑上的 FF7.exe 或 FF7_en.exe 文件</system:String>
-  <system:String x:Key="ClickToSelectWhereYourMovieFolderIs"
-    >点击选择你电脑上的过场动画 movies文件夹</system:String>
-  <system:String x:Key="ClickToSelectWhereTexturesAreStored"
-    >点击选择你电脑上的外置贴图 Textures文件夹</system:String>
-  <system:String x:Key="ClickToSelectWhereYourModLibraryIs"
-    >点击选择你电脑上存放模组的文件夹</system:String>
-
-  <system:String x:Key="FF7ExeLabel">FF7 exe 文件所在路径:</system:String>
-  <system:String x:Key="MoviesLabel">过场动画 movies文件夹路径:</system:String>
-  <system:String x:Key="TexturesLabel">外置贴图 Textures文件夹路径:</system:String>
-  <system:String x:Key="LibraryLabel">存放模组的文件夹路径:</system:String>
-
-  <system:String x:Key="AddSubscriptionURL">添加订阅链接</system:String>
-  <system:String x:Key="RemoveSubscriptionURL">移除订阅链接</system:String>
-  <system:String x:Key="EditSubscriptionURL">编辑订阅链接/名称</system:String>
-  <system:String x:Key="MoveSubscriptionUp">向上移动订阅。右键点击移动到列表最上方。</system:String>
-  <system:String x:Key="MoveSubscriptionDown"
-    >向下移动订阅。右键点击移动到列表最下方。</system:String>
-
-  <system:String x:Key="AddFolder">添加文件夹</system:String>
-  <system:String x:Key="RemoveFolder">移除文件夹</system:String>
-  <system:String x:Key="MoveFolderUp">向上移动文件夹。右键点击移动到列表最上方。</system:String>
-  <system:String x:Key="MoveFolderDown">向下移动文件夹。右键点击移动到列表最下方。</system:String>
-  <system:String x:Key="EnterUrlInIrosFormat">通过 iros:// 格式访问链接</system:String>
 
   <system:String x:Key="SelectCustomThemeXmlFile">选择自定义主题的.xml文件</system:String>
   <system:String x:Key="SaveCustomThemeXmlFile">保存自定义主题的.xml文件</system:String>
@@ -1407,8 +1089,6 @@
   <system:String x:Key="WorldTextures">大地图贴图</system:String>
   <system:String x:Key="ModShaders">着色器</system:String>
 
-  <system:String x:Key="Cancelling">正在取消</system:String>
-
   <system:String x:Key="Volume">音量</system:String>
 
   <system:String x:Key="BrazilianPortuguese">巴西葡萄牙语</system:String>
@@ -1446,9 +1126,6 @@
 
   <system:String x:Key="ControlsTooltip">选择一个预设，然后点击“关闭”即可。</system:String>
 
-  <system:String x:Key="StartingPS4ControllerService">启动PS4手柄服务 ...</system:String>
-  <system:String x:Key="ServiceAlreadyRunning">服务已运行 ...</system:String>
-
   <system:String x:Key="RetryInstallTooltip">重新尝试安装模组</system:String>
 
   <system:String x:Key="MovieImporter">过场动画导入工具...</system:String>
@@ -1462,14 +1139,7 @@
   <system:String x:Key="TriggerDpadSupportTooltip"
     >使用键盘来模拟游戏内的方向键 (如果你使用 XInput 手柄，则不要选择此项)</system:String>
 
-  <system:String x:Key="MountDiscWithPowershell">通过 PowerShell 加载</system:String>
-  <system:String x:Key="MountDiscWithWinCDEmu">通过 WinCDEmu 加载</system:String>
-  <system:String x:Key="DoNotMount">不加载虚拟光驱</system:String>
-
   <system:String x:Key="LoadingDevices">加载设备 ...</system:String>
-
-  <system:String x:Key="MountOptionToolTip"
-    >选择加载虚拟光驱（FF7DISC1）的方式。Windows 7 系统只能使用 '通过 WinCDEmu 加载' 的选项。</system:String>
 
   <system:String x:Key="ControlsMenuItemText">键盘/手柄设置...</system:String>
 
@@ -1479,8 +1149,6 @@
   <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
   <system:String x:Key="VerifyingEnglishGameFilesExist"
     >正在验证英语版游戏文件是否存在 ...</system:String>
-  <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles"
-    >找到安装的语言: {0} 正在创建英语版游戏文件...</system:String>
   <system:String x:Key="ErrorOnlyEnglishLanguageSupported"
     >错误：仅支持英语原版游戏本体。请确保你的游戏本体是FF7 Steam英文原版或1998英语原版。</system:String>
   <system:String x:Key="ExtractingLGPFiles">正在提取.lgp文件 ...</system:String>
@@ -1489,8 +1157,6 @@
   <system:String x:Key="EncodingNewLGPFiles">正在为新的.lgp文件进行编码 ...</system:String>
   <system:String x:Key="DeletingTemporaryFiles">删除临时文件 ...</system:String>
   <system:String x:Key="BeginningToPollForGamePadInput">开始加载游戏手柄映射设置 ...</system:String>
-  <system:String x:Key="WaitingForFF7WindowToBeVisible"
-    >等待FF7窗口显示出来 (最多等待{0}秒) ...</system:String>
   <system:String x:Key="CouldNotFindFileToCopy">无法找到要复制的文件: {0} ...</system:String>
   <system:String x:Key="AnErrorOccurredStartingULGP">启动 ulgp.exe 时出现错误</system:String>
   <system:String x:Key="UpdatingPathsInSysSettings"

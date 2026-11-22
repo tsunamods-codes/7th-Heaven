@@ -134,29 +134,10 @@
   <system:String x:Key="ManageProfiles">Gestione Profili</system:String>
   <system:String x:Key="SetLanguageWindowTitle">Scegli Lingua</system:String>
 
-  <!--Allow Mod To Run Window-->
-  <system:String x:Key="NoDontActivateThisMod">No, non attivare questa mod</system:String>
-  <system:String x:Key="YesActivateThisMod">Sì, attiva questa mod</system:String>
-  <system:String x:Key="DontAskAgainForAnyMods">Non chiedermelo più</system:String>
-
   <!--Game Launcher Settings Window-->
   <system:String x:Key="OptionsHeader" xml:space="preserve"> Opzioni </system:String>
-  <system:String x:Key="AutoMountDisc">Auto-monta Disco di Gioco</system:String>
-  <system:String x:Key="AutoMountDiscTooltip"
-    >Auto-monta l'ISO del gioco all'avvio. Solo Windows 8 o superiori. Se si usa Windows 7 o precedenti dovrai inserire il disco o montare l'ISO manualmente.</system:String>
-
-  <system:String x:Key="AutoDismountDisc">Auto-smonta Disco di Gioco</system:String>
-  <system:String x:Key="AutoDismountDiscTooltip"
-    >Auto-smonta l'ISO del gioco alla chiusura. Solo Windows 8 o superiori. Se si usa Windows 7 o precedenti dovrai inserire il disco o montare l'ISO manualmente.</system:String>
-
   <system:String x:Key="AutoUpdatePath">Auto-aggiorna Percorso Disco</system:String>
-  <system:String x:Key="AutoUpdatePathTooltip"
-    >Individua se la lettera assegnata all'unità disco è cambiata e auto-aggiorna il gioco affinché faccia riferimento alla nuova posizione.</system:String>
-
   <system:String x:Key="ShowGameLauncher">Mostra Launcher di Gioco</system:String>
-  <system:String x:Key="ShowGameLauncherTooltip"
-    >Mostra la finestra del Launcher di Gioco contenente un rapporto dettagliato del processo all'avvio di FF7.</system:String>
-  <system:String x:Key="GameEditionLabel">Edizione del gioco</system:String>
   <system:String x:Key="GameLanguageEnglish">Inglese</system:String>
   <system:String x:Key="GameLanguageFrench">Francese</system:String>
   <system:String x:Key="GameLanguageGerman">Tedesco</system:String>
@@ -166,106 +147,23 @@
   <system:String x:Key="ShowOnlyLanguageCompatibleItems"
     >Mostra solo gli elementi compatibili con la lingua di gioco selezionata</system:String>
 
-  <system:String x:Key="ControlsLabel">Comandi:</system:String>
-
-  <system:String x:Key="SaveControlsTooltip"
-    >Salva la tua attuale configurazione dei comandi di gioco.</system:String>
-  <system:String x:Key="DeleteControlsTooltip"
-    >Elimina la configurazione dei comandi selezionata.</system:String>
-
-  <system:String x:Key="CompatibilityHeader" xml:space="preserve"> Compatibilità </system:String>
-  <system:String x:Key="HighDpiScalingFix">Fix Ridimensionamento DPI Elevati</system:String>
-  <system:String x:Key="HighDpiScalingFixTooltip"
-    >Può risolvere il problema qualora lo schermo di gioco si presenti tagliato o decentrato. Da usare solo con schermi a DPI elevati. In alternativa, cambia le Impostazioni dello Schermo di Windows portando il ridimensionamento a 100%.</system:String>
-
-  <system:String x:Key="ReunionDriverFix">Fix Driver Reunion</system:String>
-  <system:String x:Key="ReunionDriverFixTooltip"
-    >Rinomina temporaneamente ddraw.dll in Reunion.dll.bak all'avvio del gioco, per ripristinarlo alla chiusura. Non affligge in nessun modo la giocabilità di Reunion al di fuori di 7H.</system:String>
-
-  <system:String
-    x:Key="ImportMoviesHeader"
-    xml:space="preserve"> Importa Filmati Da Disco </system:String>
   <system:String x:Key="Import">Importa</system:String>
-  <system:String x:Key="ImportTooltip">Importa filmati mancati dal disco.</system:String>
-
   <system:String x:Key="AudioDeviceHeader" xml:space="preserve"> Dispositivo Audio </system:String>
   <system:String x:Key="SoundDeviceLabel">Dispositivo Suoni:</system:String>
-  <system:String x:Key="SoundDeviceTooltip"
-    >Scegli un dispositivo di output audio per FF7.</system:String>
-
-  <system:String x:Key="TestSoundTooltip"
-    >Prova il dispositivo audio selezionato e il volume di musica ed effetti. Suono test fornito da Enrico Deiana.</system:String>
-  <system:String x:Key="TestLeftSoundTooltip"
-    >Prova il dispositivo audio selezionato e il volume di musica ed effetti sul canale sinistro. Suono test fornito da Enrico Deiana.</system:String>
-  <system:String x:Key="TestRightSoundTooltip"
-    >Prova il dispositivo audio selezionato e il volume di musica ed effetti sul canale destro. Suono test fornito da Enrico Deiana.</system:String>
-
   <system:String x:Key="MidiDeviceLabel">Dispositivo MIDI:</system:String>
   <system:String x:Key="MidiDataLabel">Dati MIDI:</system:String>
-  <system:String x:Key="MidiDeviceTooltip"
-    >Scegli un dispositivo di output MIDI per FF7.</system:String>
-
   <system:String x:Key="SFXVolumeLabel">Volume Effetti:</system:String>
-  <system:String x:Key="SFXVolumeTooltip">Imposta il volume degli effetti di gioco.</system:String>
-
   <system:String x:Key="MusicVolumeLabel">Volume Musica:</system:String>
-  <system:String x:Key="MusicVolumeTooltip">Imposta il volume della musica di gioco.</system:String>
-
   <system:String x:Key="VoiceVolumeLabel">Voice Volume:</system:String>
-  <system:String x:Key="VoiceVolumeTooltip">Set the in-game voice volume.</system:String>
-
   <system:String x:Key="AmbientVolumeLabel">Ambient Volume:</system:String>
-  <system:String x:Key="AmbientVolumeTooltip">Set the in-game ambient volume.</system:String>
-
   <system:String x:Key="MovieVolumeLabel">Movie Volume:</system:String>
-  <system:String x:Key="MovieVolumeTooltip">Set the in-game movie volume.</system:String>
-
-  <system:String x:Key="LogVolumeControl">Controllo Logaritmico del Volume</system:String>
-  <system:String x:Key="LogVolumeControlTooltip"
-    >Disabilita quest'opzione se ritieni che il volume non vari in maniera uniforme.</system:String>
-
   <system:String x:Key="ReverseSpeakers">Inverti Altoparlanti</system:String>
-  <system:String x:Key="ReverseSpeakersTooltip"
-    >Inverte il canale destro con il sinistro se selezionato.</system:String>
-
-  <system:String
-    x:Key="GraphicsDriverHeader"
-    xml:space="preserve"> Opzioni Driver Grafico </system:String>
-  <system:String x:Key="RendererLabel">Renderer:</system:String>
-  <system:String x:Key="RendererTooltip"
-    >Scegli il driver grafico da usare per il rendering di FF7. Le mod funzioneranno solo se impostato su 'Custom 7H Game Driver'</system:String>
-
-  <system:String x:Key="QuarterScreen">Quarto di Schermo</system:String>
-  <system:String x:Key="QuarterScreenTooltip"
-    >Lancia il gioco in finestra (un quarto di schermo). Funziona solo se impostato su 'Software Renderer' o 'Direct3D Hardware Acceleration'.</system:String>
-
-  <system:String x:Key="FullScreen">Schermo Intero</system:String>
-  <system:String x:Key="FullScreenTooltip"
-    >Lancia il gioco a schermo intero. Funziona solo se impostato su 'Software Renderer' o 'Direct3D Hardware Acceleration'.</system:String>
-
-  <system:String x:Key="HardwareGraphicsTooltip"
-    >Sceglie l'opzione da usare per l'Accellerazione Hardware. Funziona solo se impostato su 'Direct3D Hardware Acceleration'.</system:String>
-
   <system:String
     x:Key="ProgramsToRunHeader"
     xml:space="preserve"> Programmi da Eseguire Prima di FF7: </system:String>
   <system:String x:Key="ProgramNameHint"
     >Inserisci il percorso completo del programma da eseguire</system:String>
   <system:String x:Key="ProgramArgsHint">Inserisci opzioni d'avvio</system:String>
-
-  <system:String x:Key="AddProgramTooltip"
-    >Aggiungi un programma da eseguire prima dell'avvio di FF7.</system:String>
-  <system:String x:Key="RemoveProgramTooltip">Rimuovi il programma selezionato.</system:String>
-  <system:String x:Key="EditProgramTooltip"
-    >Modifica il programma (e relative opzioni) selezionato.</system:String>
-  <system:String x:Key="MoveProgramUpTooltip"
-    >Sposta il programma selezionato più sù nella lista. Clicca con il destro per spostarlo in cima.</system:String>
-  <system:String x:Key="MoveProgramDownTooltip"
-    >Sposta il programma selezionato più giù nella lista. Clicca con il destro per spostarlo in fondo.</system:String>
-  <system:String x:Key="BrowseProgramTooltip">Cerca programma da avviare</system:String>
-
-  <system:String x:Key="ResetLauncherDefaultsTooltip"
-    >Reimposta le impostazioni del launcher di gioco ai valori predefiniti.</system:String>
 
   <!--Catalog Creation Window-->
   <system:String x:Key="CreateMod">Crea Mod</system:String>
@@ -512,17 +410,6 @@ Vuoi aprire ora il browser per scaricarla?</system:String>
   <system:String x:Key="NoFf7InputCfgFoundAt">Impoossibile trovare ff7input.cfg in</system:String>
   <system:String x:Key="AlreadyExistsAt">esiste già in</system:String>
 
-  <system:String x:Key="ChoosingAnyOtherOptionBesidesCustom7HGameDriver"
-    >Selezionare una qualunque opzione diversa da 'Custom 7H Game Driver' renderà le mod installate con 7H inagibili!</system:String>
-
-  <system:String
-    x:Key="ReunionWarningMessage"
-    xml:space="preserve">Reunion R06 e versioni successive, anche quando disabilita tramite Options.ini, costringe l'avvio di un driver di gioco personalizzato al lancio di FF7. Questo va in conflitto con il driver di gioco di 7th Heaven, annulla le tue impostazioni grafiche e porta sicuramente ad altri problemi.
-
-Se intendi comunque utilizzare Reunion, utilizza una versione moddata compatibile con 7th Heaven.
-
-Sei sicuro?</system:String>
-
   <system:String x:Key="YouShouldLeaveThisSettingOn"
     >Dovresti lasciare quest'impostazione su ON!</system:String>
   <system:String x:Key="ProgramToRunNotFound">Eseguibile non trovato</system:String>
@@ -589,9 +476,6 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     >I mod sono stati spostati nella nuova posizione della libreria.</system:String>
   <system:String x:Key="FailedToMoveModsToNewLibrary"
     >Impossibile spostare i mod nella nuova posizione della libreria. Controlla i log per i dettagli.</system:String>
-  <system:String x:Key="MissingTexturesPath"
-    >Percorso verso la cartella Textures (Aali OpenGL) mancante</system:String>
-  <system:String x:Key="MissingMoviePath">Percorso verso la cartella Movies mancante</system:String>
   <system:String x:Key="LibraryPathCannotBeGameOrApp"
     >Library path can not be the same used by the Game or 7th Heaven. Use the default path or pick any other one that is none of them.</system:String>
 
@@ -768,13 +652,6 @@ Premi 'Annulla' per interrompere il processo.</system:String>
   <!--ConfigureGLWindow.xaml.cs Strings-->
   <system:String x:Key="FailedToReadRequiredSpecXmlFile"
     >Impossibile leggere il file xml delle specifiche richiesto per le impostazioni grafiche. La finestra si chiuderà.</system:String>
-  <system:String x:Key="WillDeleteEverythingUnder"
-    >Cancellerà tutto ciò che si trova sotto</system:String>
-  <system:String x:Key="PathToCacheFolderDoesNotExist"
-    >Il percorso per la cartella cache non esiste.</system:String>
-  <system:String x:Key="TextureCacheCleared">Cache texture svuotata!</system:String>
-  <system:String x:Key="FailedToClearTextureCache"
-    >Svuotamento cache texture non riuscito</system:String>
   <system:String x:Key="GameDriverSettingsSaved"
     >Impostazioni Driver di Gioco salvate!</system:String>
   <system:String x:Key="CouldNotWriteTo7HGameDriverCfg"
@@ -785,9 +662,6 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     >Impostazioni del Driver di Gioco riportate ai valori predefiniti. Clicca 'Salva' per salvare i cambiamenti.</system:String>
 
   <!--GameLaunchSettingsWindow.xaml.cs Strings-->
-  <system:String x:Key="SelectProgramToRemove">Seleziona un programma da rimuovere</system:String>
-  <system:String x:Key="SelectProgramToEdit">Seleziona un programma da modificare</system:String>
-  <system:String x:Key="SelectProgramToMove">Seleziona un programma da spostare</system:String>
   <system:String x:Key="SelectProgramToRunSuchAs"
     >Seleziona un programma da eseguire come .exe o uno script</system:String>
 
@@ -806,8 +680,6 @@ Premi 'Annulla' per interrompere il processo.</system:String>
     >Attiva le Mod Appena Installate Automaticamente</system:String>
   <system:String x:Key="ImportModsFromLibraryAutomatically"
     >Importa le Mod dalla Libreria Automaticamente</system:String>
-  <system:String x:Key="WarnWhenModContainsCode"
-    >Avvisa Quando una Mod Contiene Codice</system:String>
   <system:String x:Key="AutoSortModsByDefault">Auto Sort Mods By Default</system:String>
   <system:String x:Key="AutoUpdateModsByDefault"
     >Imposta l'Auto-Aggiornamento delle Mod Automaticamente</system:String>
@@ -821,31 +693,9 @@ Premi 'Annulla' per interrompere il processo.</system:String>
   <system:String x:Key="ContextMenuInExplorer">Menu Contestuale in Explorer</system:String>
 
   <system:String x:Key="PathsHeader" xml:space="preserve"> Percorsi </system:String>
-  <system:String
-    x:Key="ShellIntegrationHeader"
-    xml:space="preserve"> Integrazione Shell </system:String>
-  <system:String
-    x:Key="CatalogSubscriptionsHeader"
-    xml:space="preserve"> Sottoscrizioni Cataloghi: </system:String>
-  <system:String
-    x:Key="AdditionalFoldersToMonitorHeader"
-    xml:space="preserve"> Ulteriori Cartelle da Controllare: </system:String>
-
   <system:String x:Key="Url">Url</system:String>
 
-  <system:String x:Key="ErrorIncorrectExe">Errore - Exe Sbagliato</system:String>
-  <system:String x:Key="ThisExeIsUsedForSteamReleaseFailedToCopyExe"
-    >Questo file exe è utilizzato dalla versione Steam di FF7, non supportata da 7th Heaven. Il file ff7.exe della patch 1.02 non è stato copiato e non sarà auto-selezionato per te.</system:String>
-  <system:String x:Key="ThisExeIsUsedForSteamReleaseCopiedSelectedForYou"
-    >Questo file exe è utilizzato dalla versione Steam di FF7, non supportata da 7th Heaven. Il file ff7.exe della patch 1.02 è stato {0} per te per assicurare il funzionamento di 7th Heaven.</system:String>
-  <system:String x:Key="Selected">selezionato</system:String>
-  <system:String x:Key="CopiedAndSelected">copiato e selezionato</system:String>
-  <system:String x:Key="ThisExeIsUsedForConfiguringFf7Settings"
-    >Questo file exe è utilizzato per configurare le impostazioni di FF7 e non è quello di gioco. Per favore seleziona un file exe di FF7 differente.</system:String>
-
   <system:String x:Key="SelectFf7Exe">Scegli FF7.exe</system:String>
-  <system:String x:Key="SelectMoviesFolder">Scegli Cartella Movies</system:String>
-  <system:String x:Key="SelectTexturesFolder">Scegli Cartella Texture</system:String>
   <system:String x:Key="Select7thHeavenLibraryFolder"
     >Scegli Cartella per la Libreria di 7th Heaven</system:String>
 
@@ -865,16 +715,7 @@ Premi 'Annulla' per interrompere il processo.</system:String>
   <system:String x:Key="BatchImport">Importazione di Massa</system:String>
   <system:String x:Key="SelectIroFile">Scegli File .iro</system:String>
 
-  <!--IroCreateWindow Strings-->
-  <system:String x:Key="PackIRO">Crea IRO</system:String>
-  <system:String x:Key="UnpackIRO">Estrai IRO</system:String>
-  <system:String x:Key="PatchIRO">Aggiorna IRO</system:String>
-  <system:String x:Key="PatchIROAdvanced">Aggiorna IRO (Avanzato)</system:String>
-
   <!--UnhandledErrorWindow Strings-->
-  <system:String x:Key="AnUnhandledExceptionOccurredAppMustClose"
-    >An unhandled exception has occurred and the app must close.</system:String>
-
   <system:String x:Key="SelectLanguage">Scegli Lingua:</system:String>
   <system:String x:Key="English">Inglese</system:String>
   <system:String x:Key="French">Francese</system:String>
@@ -914,22 +755,6 @@ Once done, do close the game and the launcher, and finally retry to click Play h
     >Controllo compatibilità gioco installato ...</system:String>
   <system:String x:Key="ErrorCodeYarr"
     >Errore nel controllo di integrità EXE/DLL, reinstallare da CD/GOG o utilizzare "Verifica i miei file" per riparare.</system:String>
-  <system:String x:Key="VerifyingGameIsNotInstalledInProtectedFolder"
-    >Controllo che il gioco non sia installato in una cartella di sistema/protetta ...</system:String>
-
-  <system:String
-    x:Key="Ff7IsCurrentlyInstalledInASystemFolder"
-    xml:space="preserve">FF7 è installato in una cartella di sistema e questo potrebbe portare al malfunzionamento di alcune mod. Si raccomanda di reinstallarlo in C:\Games\Final Fantasy VII.
-
-Vuoi copiare automaticamente la tua installazione in C:\Games\Final Fantasy VII per continuare?</system:String>
-
-  <system:String x:Key="CanNotContinueDueToFf7nstalledInProtectedFolder"
-    >impossibile continuare poiché FF7 è installato in una cartella di sistema/protetta. Annullo...</system:String>
-  <system:String x:Key="CannotContinue">Impossibile Continuare!</system:String>
-
-  <system:String x:Key="CopyingGameFilesTo">copia dei file di gioco in</system:String>
-  <system:String x:Key="FailedToCopyFf7To">impossibile copiare FF7 in</system:String>
-
   <system:String x:Key="VerifyingGameIsMaxInstall"
     >Controllo che l'installazione sia completa ...</system:String>
   <system:String
@@ -940,53 +765,13 @@ Vuoi copiare automaticamente la tua installazione in C:\Games\Final Fantasy VII 
 
   <system:String x:Key="CreatingMissingRequiredDirectories"
     >Creazione delle cartelle richieste mancanti ...</system:String>
-  <system:String x:Key="VerifyingAdditionalFilesForBattleAndKernelFoldersExist"
-    >Controllo presenza file aggiuntivi nelle cartelle 'battle' e 'kernel' ...</system:String>
-  <system:String x:Key="FailedToVerifyCopyMissingAdditionalFiles"
-    >Copia/verifica dei file mancanti addizionali non riuscita. Annullo...</system:String>
-
-  <system:String x:Key="VerifyingAllMovieFilesExist"
-    >Controllo presenza di tutti i filmati ...</system:String>
-  <system:String x:Key="CouldNotFindAllMovieFilesAt"
-    >impossibile trovare tutti i filmati in</system:String>
-  <system:String x:Key="AllFilesFoundAt">tutti i file trovati in</system:String>
-  <system:String x:Key="UpdatingMoviePathSetting"
-    >Aggiornamento impostazioni percorso filmati.</system:String>
-  <system:String x:Key="AttemptingToCopyMovieFiles">cerco di copiare i filmati ...</system:String>
-
-  <system:String x:Key="MovieFilesAreMissing">Mancano i filmati!</system:String>
-  <system:String
-    x:Key="InOrderToSeeInGameMoviesYouWillNeedMessage"
-    xml:space="preserve">Per poter visualizzare i filmati di gioco sarà necessario scaricare ed attivare una mod di tipo Filmati.
-
-In alternativa, puoi importare i tuoi filmati dal disco originale andando in Impostazioni>Launcher di Gioco... > Importa Filmati da Disco.
-
-Infine, puoi impostare il percorso alla cartella Movies in 'Impostazioni Generali' perché usi i file dei filmati contenuti nella cartella 'FF7\Movies' del disco, ma dovrai cambiare disco quando richiesto mentre giochi.</system:String>
-
   <system:String x:Key="VerifyingMusicFilesExist"
     >Controllo presenza file musicali ...</system:String>
-  <system:String x:Key="CouldNotFindAllMusicFilesAt">file musicali non trovati in</system:String>
-  <system:String x:Key="AttemptingToCopyMusicFiles"
-    >cerco di copiare i file musicali ...</system:String>
-
-  <system:String x:Key="OggMusicFilesAreMissing">Mancano i file musicali .OGG!</system:String>
-  <system:String
-    x:Key="InOrderToHearHighQualityMusicYouWillNeedMessage"
-    xml:space="preserve">Per poter ascolare la musica di sottofondo in alta qualità sarà necessario scaricare ed attivare una mod di tipo Musica.
-
-In alternativa, puoi ascoltare la musica MIDI originale in bassa qualità, ma dovrai selezionare 'Original MIDI' come 'Opzioni Musica' in Impostazioni>Driver di Gioco... > Avanzate.
-
-Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMstream'.</system:String>
-
   <system:String x:Key="VerifyingLatestGameDriverIsInstalled"
     >Controllo presenza dei driver di gioco più recenti ...</system:String>
   <system:String x:Key="SomethingWentWrongTryingToDetectGameDriver"
     >Qualcosa è andato storto nel mentre cercavo di individuare/installare i driver di gioco. Annullo ...</system:String>
-  <system:String x:Key="VerifyingGameDriverShadersFoldersExist"
-    >Conotrollo esistenza cartella shader dei driver di gioco ...</system:String>
-
   <system:String x:Key="VerifyingFf7Exe">Controllo l'eseguibile di ff7 ...</system:String>
-  <system:String x:Key="VerifyingFf7LauncherExe">Verifying FF7_Launcher exe ...</system:String>
   <system:String x:Key="Ff7ExeDetectedToBeDifferent"
     >ff7.exe individuato, ma differente. creo copia di backup e tento di correggere ...</system:String>
   <system:String x:Key="FailedToCopyFf7Exe"
@@ -1027,24 +812,10 @@ Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMst
   <system:String x:Key="FoundGameDiscAt">Disco di gioco trovato in</system:String>
   <system:String x:Key="FailedToFindGameDisc"
     >Impossibile trovare il disco di gioco ...</system:String>
-  <system:String x:Key="OsDoesNotSupportAutoMounting"
-    >Il SO non supporta l'auto montaggio dei dischi virtuali. Devi montare manualmente un disco virtuale chiamato FF7DISC1.ISO, inserire una chiave USB chiamata FF7DISC1 oppure rinominare una Unità Disco in FF7DISC1 ...</system:String>
-  <system:String x:Key="AutoMountingVirtualGameDisc"
-    >Auto montaggio disco di gioco virtuale ...</system:String>
-  <system:String x:Key="FailedToAutoMountVirtualDiscAt"
-    >Impossibile auto montare il disco in</system:String>
-  <system:String x:Key="LookingForGameDiscAfterMounting"
-    >Ricerca disco di gioco dopo montaggio ...</system:String>
-  <system:String x:Key="FailedToFindGameDiscAfterAutoMounting"
-    >Impossibile trovare il disco di gioco dopo l'auto montaggio ...</system:String>
-
   <system:String x:Key="UserRequestedToPlayWithNoModsLaunchingGameAsVanilla"
     >L'utente ha richiesto di giocare senza mod. Lancio il gioco come 'vanilla' ...</system:String>
   <system:String x:Key="NoModsActivatedLaunchingGameAsVanilla"
     >Nessuna mod è stata attivata. Lancio il gioco come 'vanilla' ...</system:String>
-  <system:String x:Key="SelectedRendererIsNotSetToCustomLaunchingGameAsVanilla"
-    >Il renderer selezionato non è impostato su 'Custom 7H Game Driver'. Lancio il gioco come 'vanilla' ...</system:String>
-
   <system:String x:Key="CreatingRuntimeProfile">Creo Profilo Runtime ...</system:String>
   <system:String x:Key="FailedToCreateRuntimeProfileForActiveMods"
     >Creazione del Profilo Runtime per le mod attive non riuscita ...</system:String>
@@ -1083,21 +854,6 @@ Quando vorrai utilizzare i file .OGG in alta qualità riporta l'opzione a 'VGMst
 
   <system:String x:Key="ErrorFailedToStartGame"
     >Errore - Avvio del Gioco non Riuscito</system:String>
-  <system:String
-    x:Key="FailedToInjectWithEasyHookMessage"
-    xml:space="preserve">Iniezione con AppLoader fallita dopo più tentativi. Solitamente è possibile risolvere il problema attivando la 'Fix Code 5' in Impostazioni>Avvio del Gioco.
-
-Vuoi applicare questa modifica e riprovare?</system:String>
-
-  <system:String x:Key="SettingCompatibilityFixAndTryingAgain"
-    >Imposto fix di compatibilità e riprovo ...</system:String>
-  <system:String x:Key="StillFailedToInjectWithEasyHookAborting"
-    >Iniezione con AppLoader fallita nuovamente dopo aver impostato la fix di compatibilità. Annullo ...</system:String>
-  <system:String x:Key="FailedToInjectWithEasyHookAfterSettingFlags"
-    >Iniezione con AppLoader fallita anche dopo aver impostato la fix di compatibilità</system:String>
-  <system:String x:Key="UserChoseNotToSetCompatibilityFix"
-    >l'utente ha scelto di non impostare la fix di compatibilità. Annullo ...</system:String>
-
   <system:String x:Key="GettingFf7Proc">Individuo il processo di FF7 ...</system:String>
   <system:String x:Key="FailedToGetFf7Proc"
     >impossibile individuare il processo di FF7. Annullo ...</system:String>
@@ -1107,31 +863,19 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     >Impossibile avviare il processo necessario al log di debug</system:String>
 
   <system:String x:Key="StartingProgramsForMods">Avvio i programmi per le mod ...</system:String>
-  <system:String x:Key="StartingPluginsForMods">Avvio i plugin per le mod ...</system:String>
   <system:String x:Key="SettingUpFf7ExeToStopPluginsAndModPrograms"
     >Imposto FF7 .exe affinché fermi i plugin e i programmi delle mod all'uscita del gioco ...</system:String>
 
   <system:String x:Key="StoppingOtherProgramsForMods"
     >Blocco i programmi delle mod avviati assieme a 7H ...</system:String>
-  <system:String x:Key="AutoUnmountingGameDisc">Auto smonto il disco di gioco ...</system:String>
-
   <system:String x:Key="WaitingForFf7ExeToRespond"
     >In attesa di risposta da parte di FF7 .exe  (max {0} secondi) ...</system:String>
   <system:String x:Key="ExceptionOccurredWhileTryingToStart"
     >Un'eccezione è avvenuta nel tentativo di avviare FF7 ...</system:String>
 
-  <system:String x:Key="PluginAdded">plugin aggiunto</system:String>
-  <system:String x:Key="StartingPlugin">avvio plugin</system:String>
-
-  <system:String x:Key="FailedToGetListOfRuntimeMods"
-    >impossibile ottenere la lista delle Runtime delle Mod a causa di una variabile mancante in una mod</system:String>
   <system:String x:Key="AddingPathsToMonitor">aggiungo percorsi da monitorare ...</system:String>
 
-  <system:String x:Key="DetectedToBeOlderVersion"
-    >è stato individuato essere una versione obsoleta</system:String>
   <system:String x:Key="Copied">copiato</system:String>
-  <system:String x:Key="SkippedCopying">copia saltata</system:String>
-
   <system:String x:Key="AnExceptionOccurredTryingToStartFf7At"
     >Un'eccezione è avvenuta nel tentativo di avviare FF7 in </system:String>
 
@@ -1168,13 +912,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
 
   <system:String x:Key="ApplyingChangedValuesToRegistry"
     >Applico cambiamenti al registro ...</system:String>
-  <system:String x:Key="ApplyingCompatibilityFlagsInRegistry"
-    >Applico impostazioni di compatibilità nel registro (se necessarie) ...</system:String>
-  <system:String x:Key="CompatibilityFlagsFoundDeleting"
-    >impostazioni di compatibilità trovate - cancello</system:String>
-  <system:String x:Key="HighDpiFixSetToTrueApplyingCompatibilityFlag"
-    >Fix DPI Elevati impostataa su true - applico l'impostazione di compatibilità HIGHDPIAWARE nel registro</system:String>
-
   <system:String x:Key="UsingControlConfigurationFile"
     >utilizzo file di configurazione dei comandi</system:String>
   <system:String x:Key="InputCfgFileNotFoundAt">file cfg dei comandi non trovato in</system:String>
@@ -1205,40 +942,14 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     >impossibile copiare il file perché non è presente in</system:String>
   <system:String x:Key="CopyingFileFrom">copia del file da</system:String>
 
-  <system:String x:Key="CannotCheckIfLatestDriverIsInstalledDueToMissingFile"
-    >impossibile controllare se l'ultimo driver è installato a causa di un file mancante</system:String>
-  <system:String x:Key="GameDriverDllFileIsUpToDate">FFNx.dll è aggiornato.</system:String>
-  <system:String x:Key="BackingUpExistingGameDriverTo"
-    >backup del driver di gioco esistente in</system:String>
-  <system:String x:Key="BackingUpExistingGameDriverCfgTo"
-    >backup del .cfg dei driver di gioco esistente in</system:String>
-  <system:String x:Key="GameDriverCfgFileMissingCopyingDefaultFrom"
-    >FFNx.toml mancante. Copia della versione predefinita da</system:String>
-  <system:String x:Key="CannotCreateDefaultCfgDueToMissingFile"
-    >impossibile creare file .cfg da copia predefinita a causa di un file mancante</system:String>
-  <system:String x:Key="BackingUpExistingShadersFolderTo"
-    >backup della cartella 'shaders' esistente in</system:String>
-  <system:String x:Key="CopyingContentsOf">copia dei contenuti di</system:String>
   <system:String x:Key="DirectoryMissingCreating"
     >cartella mancante. creazione in corso</system:String>
   <system:String x:Key="OldGameConverterRegistryKeysFoundBackingUp"
     >Chiavi di registro del vecchio Game Converter individuate. Backup del vecchio convertitore e dei file di registro in corso ...</system:String>
 
-  <system:String x:Key="MissingShadersNolightFolderCreatingDirectory"
-    >la cartella shaders/nolight è mancante. Creazione in corso ...</system:String>
-  <system:String x:Key="MissingShadersComplexMultiShaderFolderCreatingDirectory"
-    >la cartella shaders/ComplexMultiShader_Nvidia è mancante. Creazione in corso ...</system:String>
-  <system:String x:Key="MissingShadersFolderCreatingDirectory"
-    >la cartella shaders è mancante. Copia in corso da Resources/Game Driver/ ...</system:String>
-  <system:String x:Key="MissingShadersFilesCopyingFrom"
-    >file shader mancante: {0}. Copia in corso da {1} ...</system:String>
-
   <!--UpdateChecker Class Strings-->
   <system:String x:Key="CheckingForUpdatesUsingChannel"
     >Controllo degli aggiornamenti usando il canale</system:String>
-  <system:String x:Key="FailedToCheckForUpdatesAt"
-    >Controllo degli aggiornamenti fallito in</system:String>
-
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/5/20-->
@@ -1264,9 +975,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="Installed">Installata</system:String>
   <system:String x:Key="Updated">Aggiornata</system:String>
   <system:String x:Key="ErrorUpdating">Errore nell'aggiornare</system:String>
-
-  <system:String x:Key="FailedToGetModInfoDueToMissingVariable"
-    >ATTENZIONE: info sulla mod non ottenute a causa di una variabile mancante che potrebbe causare problemi</system:String>
 
   <system:String x:Key="TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved"
     >Le seguenti mod non risultano installate e sono state rimosse dal profilo</system:String>
@@ -1306,9 +1014,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="ColorTheme">Colore Tema:</system:String>
   <system:String x:Key="AppBackground">Sfondo App:</system:String>
   <system:String x:Key="SecondaryBackground">Sfondo Secondario:</system:String>
-  <system:String x:Key="ControlsDisabledBackground">Comandi non Attivi sullo Sfondo:</system:String>
-  <system:String x:Key="ControlsDisabledForeground"
-    >Comandi non Attivi in Primo Piano:</system:String>
   <system:String x:Key="BackgroundImage">Immagine di Sfondo:</system:String>
   <system:String x:Key="ControlsBackground">Comandi sullo Sfondo:</system:String>
   <system:String x:Key="ControlsForeground">Comandi in Primo Piano:</system:String>
@@ -1330,11 +1035,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <!--CreateModUserControl Strings-->
   <system:String x:Key="OuputsCurrentModXmlToBelow"
     >Scrive l'attuale mod.xml nell'area di testo sottostante.</system:String>
-  <system:String x:Key="SaveModXmlToFile">Salva mod.xml come...</system:String>
-  <system:String x:Key="LoadModXmlFileToEdit">Carica un file mod.xml da modificare</system:String>
-
-  <system:String x:Key="GeneralSettingsTitle">Impostazioni Generali</system:String>
-
   <system:String x:Key="Greek">Greco</system:String>
 
   <!--DEV NOTE TO REMOVE: STRINGS BELOW ADDED 4/6/20-->
@@ -1344,14 +1044,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="ModChangedSettingTo"
     >Mod {0} - impostazione cambiata da {1} a {2}</system:String>
 
-  <system:String x:Key="OutputsCurrentCatalogXmlToBelow"
-    >Scrive l'attuale catalog.xml nell'area di testo sottostante.</system:String>
-  <system:String x:Key="SaveCatalogXmlToFile">Salva catalog.xml come...</system:String>
-  <system:String x:Key="LoadCatalogXmlFileToEdit"
-    >Carica un file catalog.xml da modificare</system:String>
-  <system:String x:Key="AddModToCatalog">Aggiungi mod al catalogo</system:String>
-  <system:String x:Key="ImportModFromModXmlOrIro">Importa mod da mod.xml o file .iro</system:String>
-  <system:String x:Key="CatalogName">Nome del Catalogo:</system:String>
   <system:String x:Key="SaveCatalogXml">Salva catalog.xml</system:String>
   <system:String x:Key="SelectCatalogXmlToLoad">Seleziona catalog.xml da caricare</system:String>
   <system:String x:Key="SelectModXmlOrIroFileToLoad"
@@ -1369,38 +1061,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
     >Seleziona una cartella dove estrarre i file.</system:String>
 
   <system:String x:Key="SelectFLevelLgpFile">Seleziona il File FLevel.lgp</system:String>
-
-  <system:String x:Key="GameLauncherSettings">Impostazioni del Launcher di Gioco</system:String>
-
-  <system:String x:Key="ClickToSelectFf7ExeFile"
-    >Clicca per selezionare il tuo file FF7.exe</system:String>
-  <system:String x:Key="ClickToSelectWhereYourMovieFolderIs"
-    >Clicca per selezionare la posizione della tua cartella movies</system:String>
-  <system:String x:Key="ClickToSelectWhereTexturesAreStored"
-    >Clicca per selezionare dove sono conservate le Texture</system:String>
-  <system:String x:Key="ClickToSelectWhereYourModLibraryIs"
-    >Clicca per selezionare la posizione della tua Libreria di Mod</system:String>
-
-  <system:String x:Key="FF7ExeLabel">Exe FF7:</system:String>
-  <system:String x:Key="MoviesLabel">Movies:</system:String>
-  <system:String x:Key="TexturesLabel">Texture:</system:String>
-  <system:String x:Key="LibraryLabel">Libreria:</system:String>
-
-  <system:String x:Key="AddSubscriptionURL">Aggiungi URL Sottoscrizione</system:String>
-  <system:String x:Key="RemoveSubscriptionURL">Rimuovi URL Sottoscrizione</system:String>
-  <system:String x:Key="EditSubscriptionURL">Modifica Nome/URL Sottoscrizione</system:String>
-  <system:String x:Key="MoveSubscriptionUp"
-    >Sposta Sottoscrizione in Alto. Clicca con il destro per spostarla in cima.</system:String>
-  <system:String x:Key="MoveSubscriptionDown"
-    >Sposta Sottoscrizione in Basso. Clicca con il destro per spostarla in fondo.</system:String>
-
-  <system:String x:Key="AddFolder">Aggiungi Cartella</system:String>
-  <system:String x:Key="RemoveFolder">Rimuovi Cartella</system:String>
-  <system:String x:Key="MoveFolderUp"
-    >Sposta Cartella in Alto. Clicca con il destro per spostarla in cima.</system:String>
-  <system:String x:Key="MoveFolderDown"
-    >Sposta Cartella in Basso. Clicca con il destro per spostarla in fondo.</system:String>
-  <system:String x:Key="EnterUrlInIrosFormat">Inserisci url in formato iros://</system:String>
 
   <system:String x:Key="SelectCustomThemeXmlFile"
     >Seleziona il File .xml di un Tema Personalizzato</system:String>
@@ -1521,8 +1181,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="WorldTextures">Texture Mondo</system:String>
   <system:String x:Key="ModShaders">Shaders</system:String>
 
-  <system:String x:Key="Cancelling">Sto Cancellando</system:String>
-
   <system:String x:Key="Volume">Volume</system:String>
 
   <system:String x:Key="BrazilianPortuguese">Portoghese Brasiliano</system:String>
@@ -1562,9 +1220,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="ControlsTooltip"
     >Imposta i comandi di gioco da tastiera e gamepad. Clicca sull'icona di salvataggio per salvare la mappatura dei comandi con nome.</system:String>
 
-  <system:String x:Key="StartingPS4ControllerService">Avvio Servizio Gamepad PS4 ...</system:String>
-  <system:String x:Key="ServiceAlreadyRunning">servizio già avviato ...</system:String>
-
   <system:String x:Key="RetryInstallTooltip">Riprovo ad Installare la Mod</system:String>
 
   <system:String x:Key="MovieImporter">Importa Filmati...</system:String>
@@ -1579,14 +1234,7 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="TriggerDpadSupportTooltip"
     >Emula il DPad in-gioco inviando i corrispondenti input da tastiera. (Disattivare se si usa un controller XInput.)</system:String>
 
-  <system:String x:Key="MountDiscWithPowershell">Monta Disco con PowerShell</system:String>
-  <system:String x:Key="MountDiscWithWinCDEmu">Monta Disco con WinCDEmu</system:String>
-  <system:String x:Key="DoNotMount">Non montare il disco automaticamente</system:String>
-
   <system:String x:Key="LoadingDevices">Caricamento Dispositivi ...</system:String>
-
-  <system:String x:Key="MountOptionToolTip"
-    >Scegli come montare il disco virtuale FF7DISC1. Windows 7 supporta solo 'Monta Disco con WinCDEmu'.</system:String>
 
   <system:String x:Key="ControlsMenuItemText">Comandi...</system:String>
 
@@ -1596,8 +1244,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <!--DEV NOTE: STRINGS BELOW ADDED 7/11/20-->
   <system:String x:Key="VerifyingEnglishGameFilesExist"
     >Verifico l'esistenza dei file di gioco in Inglese...</system:String>
-  <system:String x:Key="FoundLanguageInstalledCreatingEnglishGameFiles"
-    >Trovata versione in lingua: {0} Creo i file di gioco in Inglese...</system:String>
   <system:String x:Key="ErrorOnlyEnglishLanguageSupported"
     >ERROR: Only English language is supported. Consider installing FF7 in English (US) on Steam.</system:String>
   <system:String x:Key="ExtractingLGPFiles">Estraggo i file .lgp ...</system:String>
@@ -1609,8 +1255,6 @@ Vuoi applicare questa modifica e riprovare?</system:String>
   <system:String x:Key="DeletingTemporaryFiles">Cancello i file temporanei ...</system:String>
   <system:String x:Key="BeginningToPollForGamePadInput"
     >Inizio a raccogliere informazioni per l'input da gamepad ...</system:String>
-  <system:String x:Key="WaitingForFF7WindowToBeVisible"
-    >Attendo compaia la finestra di FF7 (massimo 10 secondi) ...</system:String>
   <system:String x:Key="CouldNotFindFileToCopy"
     >Impossibile trovare il file da copiare: {0} ...</system:String>
   <system:String x:Key="AnErrorOccurredStartingULGP"
