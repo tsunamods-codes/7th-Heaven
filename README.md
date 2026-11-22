@@ -45,7 +45,7 @@ When editing project files:
 3. In Visual Studio, enable **Reformat with CSharpier on Save** under **Tools > Options > CSharpier > General** for C#, XML and XAML.
 4. For C++, use **Format Document** (`Ctrl+K, Ctrl+D`) before saving. Leave Visual Studio's ClangFormat support enabled.
 
-If editing outside Visual Studio, run `dotnet csharpier format .` from the repository root to format C#, XML and XAML before submitting changes.
+To format all C#, XML/XAML and C++ files on demand, double-click [format.bat](format.bat). Visual Studio's components from [.vsconfig](.vsconfig) must be installed. The window stays open to show the result.
 
 ## Special thanks
 
