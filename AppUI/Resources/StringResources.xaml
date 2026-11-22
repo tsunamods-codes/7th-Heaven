@@ -134,7 +134,6 @@
   <system:String x:Key="AutoUpdatePath">Auto-Update Disc Path</system:String>
 
   <system:String x:Key="ShowGameLauncher">Show Game Launcher</system:String>
-
   <system:String x:Key="GameLanguageEnglish">English</system:String>
   <system:String x:Key="GameLanguageFrench">French</system:String>
   <system:String x:Key="GameLanguageGerman">German</system:String>
@@ -733,9 +732,7 @@ Click Yes to close all current instances of FF7. Click No to start another insta
   <system:String
     x:Key="FF7SteamNotInstalledCorrectly"
     xml:space="preserve">No user configuration found. Looks like your Steam game installation has not been run yet.
-
 7th Heaven will now launch the original game for you. Please make sure you click Play and run the game at least once.
-
 Once done, do close the game and the launcher, and finally retry to click Play here on 7th Heaven.</system:String>
   <system:String x:Key="FileNotFoundAborting">file not found. Aborting ...</system:String>
   <system:String x:Key="Ff7ExeNotFoundYouMayNeedToConfigure"
