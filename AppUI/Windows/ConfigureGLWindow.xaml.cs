@@ -1,14 +1,14 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.Windows
 {
@@ -36,7 +36,6 @@ namespace AppUI.Windows
             txtStatusMessage.Text = message;
         }
 
-
         public bool Init(string cfgSpec)
         {
             try
@@ -46,35 +45,76 @@ namespace AppUI.Windows
             catch (Exception e)
             {
                 Logger.Error(e);
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToReadRequiredSpecXmlFile), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FailedToReadRequiredSpecXmlFile),
+                    ResourceHelper.Get(StringKey.Error),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
             // build new DDOption for resolutions
-            List<Iros.Workshop.ConfigSettings.DDOption> DigitalResolutions = new List<Iros.Workshop.ConfigSettings.DDOption>();
-            DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = "window_size_x = 0,window_size_y = 0", Text = "Auto" });
-            foreach(SupportedResolution sr in PrimaryScreen.GetSupportedResolutions())
+            List<Iros.Workshop.ConfigSettings.DDOption> DigitalResolutions =
+                new List<Iros.Workshop.ConfigSettings.DDOption>();
+            DigitalResolutions.Add(
+                new Iros.Workshop.ConfigSettings.DDOption()
+                {
+                    Settings = "window_size_x = 0,window_size_y = 0",
+                    Text = "Auto",
+                }
+            );
+            foreach (SupportedResolution sr in PrimaryScreen.GetSupportedResolutions())
             {
-                DigitalResolutions.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}", Text = $"{sr.H}x{sr.V}"});
+                DigitalResolutions.Add(
+                    new Iros.Workshop.ConfigSettings.DDOption()
+                    {
+                        Settings = $"window_size_x = {sr.H},window_size_y = {sr.V}",
+                        Text = $"{sr.H}x{sr.V}",
+                    }
+                );
             }
             // find the resolutions option
-            Iros.Workshop.ConfigSettings.DropDown ResolutionDD = (Iros.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
-                return item.DefaultValue == "window_size_x = 1280,window_size_y = 720";
-            });
+            Iros.Workshop.ConfigSettings.DropDown ResolutionDD =
+                (Iros.Workshop.ConfigSettings.DropDown)
+                    _spec.Settings.Find(item =>
+                    {
+                        return item.DefaultValue == "window_size_x = 1280,window_size_y = 720";
+                    });
             // override it with OS reported suported resolutions
             ResolutionDD.Options = DigitalResolutions;
 
             // build new DDOption for displays
-            List<Iros.Workshop.ConfigSettings.DDOption> AvailableScreens = new List<Iros.Workshop.ConfigSettings.DDOption>();
-            AvailableScreens.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = "display_index = -1", Text = "Primary Display" });
-            foreach(var (index, screen) in WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets().Index())
+            List<Iros.Workshop.ConfigSettings.DDOption> AvailableScreens =
+                new List<Iros.Workshop.ConfigSettings.DDOption>();
+            AvailableScreens.Add(
+                new Iros.Workshop.ConfigSettings.DDOption()
+                {
+                    Settings = "display_index = -1",
+                    Text = "Primary Display",
+                }
+            );
+            foreach (
+                var (index, screen) in WindowsDisplayAPI
+                    .DisplayConfig.PathDisplayTarget.GetDisplayTargets()
+                    .Index()
+            )
             {
-                AvailableScreens.Add(new Iros.Workshop.ConfigSettings.DDOption() { Settings = $"display_index = {index+1}", Text = $"{screen.FriendlyName}" });
+                AvailableScreens.Add(
+                    new Iros.Workshop.ConfigSettings.DDOption()
+                    {
+                        Settings = $"display_index = {index + 1}",
+                        Text = $"{screen.FriendlyName}",
+                    }
+                );
             }
             // find the display option
-            Iros.Workshop.ConfigSettings.DropDown DisplayDD = (Iros.Workshop.ConfigSettings.DropDown)_spec.Settings.Find(item => {
-                return item.DefaultValue == "display_index = -1";
-            });
+            Iros.Workshop.ConfigSettings.DropDown DisplayDD =
+                (Iros.Workshop.ConfigSettings.DropDown)
+                    _spec.Settings.Find(item =>
+                    {
+                        return item.DefaultValue == "display_index = -1";
+                    });
             // override it with OS reported displays
             DisplayDD.Options = AvailableScreens;
 
@@ -83,35 +123,35 @@ namespace AppUI.Windows
 
             Dictionary<string, int> tabOrders = new Dictionary<string, int>()
             {
-                {ResourceHelper.Get(StringKey.Graphics), 0},
-                {ResourceHelper.Get(StringKey.Controls), 1},
-                {ResourceHelper.Get(StringKey.Cheats), 2},
-                {ResourceHelper.Get(StringKey.Advanced), 3}
+                { ResourceHelper.Get(StringKey.Graphics), 0 },
+                { ResourceHelper.Get(StringKey.Controls), 1 },
+                { ResourceHelper.Get(StringKey.Cheats), 2 },
+                { ResourceHelper.Get(StringKey.Advanced), 3 },
             };
 
-            foreach (var items in _spec.Settings.GroupBy(s => s.Group)
-                                                .Select(g => new { settingGroup = g, SortOrder = tabOrders[g.Key] })
-                                                .OrderBy(g => g.SortOrder)
-                                                .Select(g => g.settingGroup))
+            foreach (
+                var items in _spec
+                    .Settings.GroupBy(s => s.Group)
+                    .Select(g => new { settingGroup = g, SortOrder = tabOrders[g.Key] })
+                    .OrderBy(g => g.SortOrder)
+                    .Select(g => g.settingGroup)
+            )
             {
-                TabItem tab = new TabItem()
-                {
-                    Header = items.Key,
-                };
+                TabItem tab = new TabItem() { Header = items.Key };
 
-                StackPanel stackPanel = new StackPanel()
-                {
-                    Margin = new Thickness(0, 5, 0, 0)
-                };
+                StackPanel stackPanel = new StackPanel() { Margin = new Thickness(0, 5, 0, 0) };
 
                 ScrollViewer scrollViewer = new ScrollViewer()
                 {
-                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 };
 
                 foreach (Iros.Workshop.ConfigSettings.Setting setting in items)
                 {
-                    GLSettingViewModel settingViewModel = new GLSettingViewModel(setting, _settings);
+                    GLSettingViewModel settingViewModel = new GLSettingViewModel(
+                        setting,
+                        _settings
+                    );
 
                     ContentControl settingControl = new ContentControl();
                     settingControl.DataContext = settingViewModel;
@@ -130,10 +170,18 @@ namespace AppUI.Windows
                 tabCtrlMain.Items.Add(tab);
             }
 
-            GLSettingViewModel resolutionViewModel = ViewModels.Single(item => item.Setting == ResolutionDD);
-            GLSettingViewModel windowModeViewModel = ViewModels.Single(item => item.Setting.DefaultValue == "fullscreen = false,borderless = false");
-            int borderlessIndex = windowModeViewModel.DropdownOptions.FindIndex(item => item.SettingsValue == "fullscreen = false,borderless = true");
-            int autoResolutionIndex = resolutionViewModel.DropdownOptions.FindIndex(item => item.SettingsValue == "window_size_x = 0,window_size_y = 0");
+            GLSettingViewModel resolutionViewModel = ViewModels.Single(item =>
+                item.Setting == ResolutionDD
+            );
+            GLSettingViewModel windowModeViewModel = ViewModels.Single(item =>
+                item.Setting.DefaultValue == "fullscreen = false,borderless = false"
+            );
+            int borderlessIndex = windowModeViewModel.DropdownOptions.FindIndex(item =>
+                item.SettingsValue == "fullscreen = false,borderless = true"
+            );
+            int autoResolutionIndex = resolutionViewModel.DropdownOptions.FindIndex(item =>
+                item.SettingsValue == "window_size_x = 0,window_size_y = 0"
+            );
 
             void UpdateResolutionState()
             {
@@ -165,7 +213,8 @@ namespace AppUI.Windows
                 return;
             }
 
-            GLSettingViewModel viewModel = ((ContentControl)sender)?.DataContext as GLSettingViewModel;
+            GLSettingViewModel viewModel =
+                ((ContentControl)sender)?.DataContext as GLSettingViewModel;
 
             if (viewModel == null)
             {
@@ -196,7 +245,12 @@ namespace AppUI.Windows
             }
             catch (UnauthorizedAccessException)
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.CouldNotWriteTo7HGameDriverCfg), ResourceHelper.Get(StringKey.SaveError), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.CouldNotWriteTo7HGameDriverCfg),
+                    ResourceHelper.Get(StringKey.SaveError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
             catch (Exception ex)
             {

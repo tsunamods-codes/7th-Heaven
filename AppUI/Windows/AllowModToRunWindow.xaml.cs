@@ -1,7 +1,7 @@
-﻿using AppCore;
+﻿using System.Windows;
+using AppCore;
 using AppUI.Classes;
 using AppUI.ViewModels;
-using System.Windows;
 
 namespace AppUI.Windows
 {
@@ -49,10 +49,13 @@ namespace AppUI.Windows
         {
             double padding = 90; // this is to account for margins between controls
 
-            double newHeight = txtMessage.ActualHeight + btnOkay.ActualHeight + stackRadioOptions.ActualHeight + padding;
+            double newHeight =
+                txtMessage.ActualHeight
+                + btnOkay.ActualHeight
+                + stackRadioOptions.ActualHeight
+                + padding;
 
             this.Height = newHeight;
         }
-
     }
 }

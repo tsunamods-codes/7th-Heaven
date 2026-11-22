@@ -3,8 +3,6 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
-using Iros.Workshop.ConfigSettings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +12,8 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using AppCore;
+using Iros.Workshop.ConfigSettings;
 
 namespace Iros.Workshop
 {
@@ -34,7 +34,7 @@ namespace Iros.Workshop
         Error,
         Info,
         LogOnly,
-        StatusOnly
+        StatusOnly,
     }
 
     public class WMessage
@@ -76,7 +76,6 @@ namespace Iros.Workshop
             IsImportant = false;
             LoggedException = exceptionToLog;
         }
-
 
         public StringKey? TextTranslationKey { get; set; }
         public string Text { get; set; }
@@ -121,177 +120,111 @@ namespace Iros.Workshop
         public static string SysFolder { get; private set; }
         public static string InstallPath
         {
-            get
-            {
-                return Path.GetDirectoryName(Settings.FF7Exe);
-            }
+            get { return Path.GetDirectoryName(Settings.FF7Exe); }
         }
 
         public static string PathToFF7Data
         {
-            get
-            {
-                return Path.Combine(InstallPath, "data");
-            }
+            get { return Path.Combine(InstallPath, "data"); }
         }
 
         public static string PathToFF7Movies
         {
-            get
-            {
-                return Path.Combine(PathToFF7Data, "movies");
-            }
+            get { return Path.Combine(PathToFF7Data, "movies"); }
         }
 
         public static string PathToFF7Textures
         {
-            get
-            {
-                return Path.Combine(InstallPath, "mods", "Textures");
-            }
+            get { return Path.Combine(InstallPath, "mods", "Textures"); }
         }
 
         public static string PathToApplog
         {
-            get
-            {
-                return Path.Combine(SysFolder, "applog.txt");
-            }
+            get { return Path.Combine(SysFolder, "applog.txt"); }
         }
 
         public static string PathToSettings
         {
-            get
-            {
-                return Path.Combine(SysFolder, "settings.xml");
-            }
+            get { return Path.Combine(SysFolder, "settings.xml"); }
         }
 
         public static string PathToCurrentProfileFile
         {
-            get
-            {
-                return Path.Combine(PathToProfiles, $"{Settings.CurrentProfile}.xml");
-            }
+            get { return Path.Combine(PathToProfiles, $"{Settings.CurrentProfile}.xml"); }
         }
 
         public static string PathToProfiles
         {
-            get
-            {
-                return Path.Combine(SysFolder, "profiles");
-            }
+            get { return Path.Combine(SysFolder, "profiles"); }
         }
 
         public static string PathToCacheFolder
         {
-            get
-            {
-                return Path.Combine(SysFolder, "cache");
-            }
+            get { return Path.Combine(SysFolder, "cache"); }
         }
 
         public static string PathToTempFolder
         {
-            get
-            {
-                return Path.Combine(SysFolder, "temp");
-            }
+            get { return Path.Combine(SysFolder, "temp"); }
         }
 
         public static string PathToLibraryTempFolder
         {
-            get
-            {
-                return Path.Combine(Sys.Settings.LibraryLocation, "temp");
-            }
+            get { return Path.Combine(Sys.Settings.LibraryLocation, "temp"); }
         }
 
         public static string PathToCrashReports
         {
-            get
-            {
-                return Path.Combine(SysFolder, "crashreports");
-            }
+            get { return Path.Combine(SysFolder, "crashreports"); }
         }
 
         public static string PathToControlsFolder
         {
-            get
-            {
-                return Path.Combine(_7HFolder, "Resources", "Controls");
-            }
+            get { return Path.Combine(_7HFolder, "Resources", "Controls"); }
         }
 
         public static string PathToGameDriverFolder
         {
-            get
-            {
-                return Path.Combine(SysFolder, "GameDriver");
-            }
+            get { return Path.Combine(SysFolder, "GameDriver"); }
         }
 
         public static string PathToReShadeFolder
         {
-            get
-            {
-                return Path.Combine(SysFolder, "ReShade");
-            }
+            get { return Path.Combine(SysFolder, "ReShade"); }
         }
 
         public static string PathToReShade
         {
-            get
-            {
-                return Path.Combine(Sys.PathToReShadeFolder, "ReShade32.dll");
-            }
+            get { return Path.Combine(Sys.PathToReShadeFolder, "ReShade32.dll"); }
         }
 
         public static string PathToReShadeINI
         {
-            get
-            {
-                return Path.Combine(Sys.InstallPath, "ReShade.ini");
-            }
+            get { return Path.Combine(Sys.InstallPath, "ReShade.ini"); }
         }
 
         public static string PathToPatchedExeFolder
         {
-            get
-            {
-                return Path.Combine(_7HFolder, "Resources", "FF7_1.02_Eng_Patch");
-            }
+            get { return Path.Combine(_7HFolder, "Resources", "FF7_1.02_Eng_Patch"); }
         }
 
         public static string PathToUlgpExe
         {
-            get
-            {
-                return Path.Combine(_7HFolder, "Resources", "ulgp_v1.3.2", "ulgp.exe");
-            }
+            get { return Path.Combine(_7HFolder, "Resources", "ulgp_v1.3.2", "ulgp.exe"); }
         }
 
         public static string PathToVBusDriver
         {
-            get
-            {
-                return Path.Combine(_7HFolder, "Resources", "VBusDriver");
-            }
+            get { return Path.Combine(_7HFolder, "Resources", "VBusDriver"); }
         }
 
         public static string PathToWinCDEmuExe
         {
-            get
-            {
-                return Path.Combine(_7HFolder, "Resources", "WinCDEmu", "PortableWinCDEmu.exe");
-            }
+            get { return Path.Combine(_7HFolder, "Resources", "WinCDEmu", "PortableWinCDEmu.exe"); }
         }
         public static string PathToScpDriverExe
         {
-            get
-            {
-                return Path.Combine(PathToVBusDriver, "ScpDriver.exe");
-            }
+            get { return Path.Combine(PathToVBusDriver, "ScpDriver.exe"); }
         }
         public static string PathToFFNxToml
         {
@@ -311,7 +244,11 @@ namespace Iros.Workshop
 
         public static string PathToGameDriverUiXml(string appLanguage = null)
         {
-            if (string.IsNullOrWhiteSpace(appLanguage) || appLanguage.StartsWith("en") || appLanguage.StartsWith("ja"))
+            if (
+                string.IsNullOrWhiteSpace(appLanguage)
+                || appLanguage.StartsWith("en")
+                || appLanguage.StartsWith("ja")
+            )
             {
                 return Path.Combine(Sys._7HFolder, "Resources", "7H_GameDriver_UI.xml");
             }
@@ -319,7 +256,12 @@ namespace Iros.Workshop
             {
                 appLanguage = (appLanguage == "pt-BR") ? "br" : appLanguage.Substring(0, 2);
 
-                return Path.Combine(Sys._7HFolder, "Resources", "Languages", $"7H_GameDriver_UI.{appLanguage}.xml");
+                return Path.Combine(
+                    Sys._7HFolder,
+                    "Resources",
+                    "Languages",
+                    $"7H_GameDriver_UI.{appLanguage}.xml"
+                );
             }
         }
 
@@ -330,7 +272,6 @@ namespace Iros.Workshop
         public static Profile ActiveProfile { get; set; }
         public static Version AppVersion { get; set; }
         public static FFNxConfigManager FFNxConfig { get; private set; }
-
 
         public static event EventHandler<ModStatusEventArgs> StatusChanged;
         public static event EventHandler<MessageEventArgs> MessageReceived;
@@ -355,28 +296,46 @@ namespace Iros.Workshop
         {
             ModStatus st;
             _statuses.TryGetValue(modID, out st);
-            ModStatusEventArgs e = new ModStatusEventArgs() { ModID = modID, Status = st, OldStatus = st };
+            ModStatusEventArgs e = new ModStatusEventArgs()
+            {
+                ModID = modID,
+                Status = st,
+                OldStatus = st,
+            };
             StatusChanged?.Invoke(null, e);
         }
 
         public static void PingInfoChange(Guid modID)
         {
-            ModStatusEventArgs e = new ModStatusEventArgs() { ModID = modID, Status = ModStatus.InfoChanged, OldStatus = ModStatus.InfoChanged };
+            ModStatusEventArgs e = new ModStatusEventArgs()
+            {
+                ModID = modID,
+                Status = ModStatus.InfoChanged,
+                OldStatus = ModStatus.InfoChanged,
+            };
             StatusChanged?.Invoke(null, e);
         }
+
         public static void SetStatus(Guid modID, ModStatus status)
         {
             ModStatus olds;
             _statuses.TryGetValue(modID, out olds);
             _statuses[modID] = status;
-            ModStatusEventArgs e = new ModStatusEventArgs() { ModID = modID, Status = status, OldStatus = olds };
+            ModStatusEventArgs e = new ModStatusEventArgs()
+            {
+                ModID = modID,
+                Status = status,
+                OldStatus = olds,
+            };
             StatusChanged?.Invoke(null, e);
         }
+
         public static void RevertStatus(Guid modID)
         {
             var lib = Library.GetItem(modID);
             SetStatus(modID, lib == null ? ModStatus.NotInstalled : ModStatus.Installed);
         }
+
         public static ModStatus GetStatus(Guid modID)
         {
             ModStatus s;
@@ -421,7 +380,7 @@ namespace Iros.Workshop
         }
 
         /// <summary>
-        /// Updates <see cref="Catalog"/> to <paramref name="newCatalog"/>; 
+        /// Updates <see cref="Catalog"/> to <paramref name="newCatalog"/>;
         /// thread safe by locking the object
         /// </summary>
         /// <param name="newCatalog"></param>
@@ -460,7 +419,6 @@ namespace Iros.Workshop
             SysFolder = Path.Combine(_7HFolder, "7thWorkshop");
             Directory.CreateDirectory(SysFolder);
 
-
             string sfile = PathToSettings;
             if (File.Exists(sfile))
             {
@@ -468,9 +426,15 @@ namespace Iros.Workshop
                 {
                     Settings = Util.Deserialize<Settings>(sfile);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Sys.Message(new WMessage(StringKey.ErrorLoadingSettingsPleaseConfigure7H, WMessageLogLevel.Error, e));
+                    Sys.Message(
+                        new WMessage(
+                            StringKey.ErrorLoadingSettingsPleaseConfigure7H,
+                            WMessageLogLevel.Error,
+                            e
+                        )
+                    );
                 }
             }
             if (Settings == null)
@@ -485,7 +449,7 @@ namespace Iros.Workshop
                 // Get default settings, including catalogs
                 Settings defaultSettings = Settings.UseDefaultSettings();
 
-                foreach(var sub in Settings.Subscriptions)
+                foreach (var sub in Settings.Subscriptions)
                 {
                     foreach (var defSub in defaultSettings.Subscriptions)
                     {
@@ -504,9 +468,11 @@ namespace Iros.Workshop
                 {
                     Library = Util.Deserialize<Library>(lfile);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Sys.Message(new WMessage(StringKey.ErrorLoadingLibraryFile, WMessageLogLevel.Error, e));
+                    Sys.Message(
+                        new WMessage(StringKey.ErrorLoadingLibraryFile, WMessageLogLevel.Error, e)
+                    );
                 }
             }
 
@@ -551,7 +517,7 @@ namespace Iros.Workshop
 
             ProcessStartInfo startInfo = new ProcessStartInfo(Sys.PathToApplog)
             {
-                UseShellExecute = true
+                UseShellExecute = true,
             };
             Process.Start(startInfo);
         }
@@ -585,14 +551,23 @@ namespace Iros.Workshop
             if (baseVars == null)
             {
                 baseVars = new List<AppWrapper.Variable>();
-                string baseVarFile = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Resources\\7thHeaven.var");
+                string baseVarFile = Path.Combine(
+                    Path.GetDirectoryName(
+                        System.Reflection.Assembly.GetExecutingAssembly().Location
+                    ),
+                    "Resources\\7thHeaven.var"
+                );
                 vars = new List<AppWrapper.Variable>();
 
                 // create the list in memory
                 foreach (string line in File.ReadAllLines(baseVarFile))
                 {
                     string[] defVar = line.Split('=');
-                    var currentVariable = new AppWrapper.Variable() { Name = defVar[0], Value = defVar[1] };
+                    var currentVariable = new AppWrapper.Variable()
+                    {
+                        Name = defVar[0],
+                        Value = defVar[1],
+                    };
                     vars.Add(currentVariable);
                     baseVars.Add(currentVariable);
                 }
@@ -603,13 +578,16 @@ namespace Iros.Workshop
                 baseVars.ForEach(var => vars.Add(var));
             }
 
-
             // go this installed mods
             foreach (var itm in Sys.Library.Items)
             {
                 var mod = Sys.Library.GetItem(itm.ModID);
-                if (mod == null) continue;
-                string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+                if (mod == null)
+                    continue;
+                string location = System.IO.Path.Combine(
+                    Sys.Settings.LibraryLocation,
+                    mod.LatestInstalled.InstalledLocation
+                );
 
                 // is this an IRO
                 if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
@@ -624,11 +602,18 @@ namespace Iros.Workshop
                                 doc.Load(arc.GetData("mod.xml"));
                                 foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
                                 {
-                                    vars.Add(new AppWrapper.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                                    vars.Add(
+                                        new AppWrapper.Variable()
+                                        {
+                                            Name = xmlNode.Attributes.GetNamedItem("Name").Value,
+                                            Value = xmlNode.InnerText.Trim(),
+                                        }
+                                    );
                                 }
                             }
                         }
-                    }catch(Exception) { }
+                    }
+                    catch (Exception) { }
                 }
                 else
                 {
@@ -639,14 +624,21 @@ namespace Iros.Workshop
                         doc.Load(mfile);
                         foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
                         {
-                            vars.Add(new AppWrapper.Variable() { Name = xmlNode.Attributes.GetNamedItem("Name").Value, Value = xmlNode.InnerText.Trim() });
+                            vars.Add(
+                                new AppWrapper.Variable()
+                                {
+                                    Name = xmlNode.Attributes.GetNamedItem("Name").Value,
+                                    Value = xmlNode.InnerText.Trim(),
+                                }
+                            );
                         }
                     }
-
                 }
             }
 
-            _context.VarAliases = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            _context.VarAliases = new Dictionary<string, string>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
             foreach (AppWrapper.Variable var in vars)
             {
                 _context.VarAliases[var.Name] = var.Value;
@@ -667,28 +659,68 @@ namespace Iros.Workshop
         {
             Sys.IsImporting = true;
 
-            if (Sys.Settings.HasOption(GeneralOptions.AutoImportMods) && Directory.Exists(Sys.Settings.LibraryLocation))
+            if (
+                Sys.Settings.HasOption(GeneralOptions.AutoImportMods)
+                && Directory.Exists(Sys.Settings.LibraryLocation)
+            )
             {
                 foreach (string folder in Directory.GetDirectories(Sys.Settings.LibraryLocation))
                 {
                     string name = Path.GetFileName(folder);
-                    if (!name.EndsWith("temp", StringComparison.InvariantCultureIgnoreCase) && !Sys.Library.PendingDelete.Contains(name, StringComparer.InvariantCultureIgnoreCase))
+                    if (
+                        !name.EndsWith("temp", StringComparison.InvariantCultureIgnoreCase)
+                        && !Sys.Library.PendingDelete.Contains(
+                            name,
+                            StringComparer.InvariantCultureIgnoreCase
+                        )
+                    )
                     {
-                        if (!Sys.Library.Items.SelectMany(ii => ii.Versions).Any(v => v.InstalledLocation.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
+                        if (
+                            !Sys
+                                .Library.Items.SelectMany(ii => ii.Versions)
+                                .Any(v =>
+                                    v.InstalledLocation.Equals(
+                                        name,
+                                        StringComparison.InvariantCultureIgnoreCase
+                                    )
+                                )
+                        )
                         {
-                            Sys.Message(new WMessage("Trying to auto-import file " + folder, WMessageLogLevel.LogOnly));
+                            Sys.Message(
+                                new WMessage(
+                                    "Trying to auto-import file " + folder,
+                                    WMessageLogLevel.LogOnly
+                                )
+                            );
                             try
                             {
-                                string modName = ModImporter.ParseNameFromFileOrFolder(Path.GetFileNameWithoutExtension(folder));
+                                string modName = ModImporter.ParseNameFromFileOrFolder(
+                                    Path.GetFileNameWithoutExtension(folder)
+                                );
                                 ModImporter.ImportMod(folder, modName, false, true);
                             }
                             catch (Exception ex)
                             {
-                                Sys.Message(new WMessage($"[{StringKey.FailedToImportMod}] {name}: " + ex.ToString(), true) { TextTranslationKey = StringKey.FailedToImportMod, LoggedException = ex });
+                                Sys.Message(
+                                    new WMessage(
+                                        $"[{StringKey.FailedToImportMod}] {name}: " + ex.ToString(),
+                                        true
+                                    )
+                                    {
+                                        TextTranslationKey = StringKey.FailedToImportMod,
+                                        LoggedException = ex,
+                                    }
+                                );
                                 continue;
                             }
 
-                            Sys.Message(new WMessage() { Text = $"[{StringKey.AutoImportedMod}] {name}", TextTranslationKey = StringKey.AutoImportedMod });
+                            Sys.Message(
+                                new WMessage()
+                                {
+                                    Text = $"[{StringKey.AutoImportedMod}] {name}",
+                                    TextTranslationKey = StringKey.AutoImportedMod,
+                                }
+                            );
                         }
                     }
                 }
@@ -696,29 +728,76 @@ namespace Iros.Workshop
                 foreach (string iro in Directory.GetFiles(Sys.Settings.LibraryLocation, "*.iro"))
                 {
                     string name = Path.GetFileName(iro);
-                    if (!name.EndsWith("temp", StringComparison.InvariantCultureIgnoreCase) && !Sys.Library.PendingDelete.Contains(name, StringComparer.InvariantCultureIgnoreCase))
+                    if (
+                        !name.EndsWith("temp", StringComparison.InvariantCultureIgnoreCase)
+                        && !Sys.Library.PendingDelete.Contains(
+                            name,
+                            StringComparer.InvariantCultureIgnoreCase
+                        )
+                    )
                     {
-                        if (!Sys.Library.Items.SelectMany(ii => ii.Versions).Any(v => v.InstalledLocation.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
+                        if (
+                            !Sys
+                                .Library.Items.SelectMany(ii => ii.Versions)
+                                .Any(v =>
+                                    v.InstalledLocation.Equals(
+                                        name,
+                                        StringComparison.InvariantCultureIgnoreCase
+                                    )
+                                )
+                        )
                         {
-                            Sys.Message(new WMessage($"Trying to auto-import file {iro}", WMessageLogLevel.LogOnly));
+                            Sys.Message(
+                                new WMessage(
+                                    $"Trying to auto-import file {iro}",
+                                    WMessageLogLevel.LogOnly
+                                )
+                            );
 
                             try
                             {
-                                string modName = ModImporter.ParseNameFromFileOrFolder(Path.GetFileNameWithoutExtension(iro));
+                                string modName = ModImporter.ParseNameFromFileOrFolder(
+                                    Path.GetFileNameWithoutExtension(iro)
+                                );
                                 ModImporter.ImportMod(iro, modName, true, true);
                             }
                             catch (AppWrapper.IrosArcException ae)
                             {
-                                Sys.Message(new WMessage($"[{StringKey.CouldNotImportIroFileIsCorrupt}] - {Path.GetFileNameWithoutExtension(iro)}", true) { TextTranslationKey = StringKey.CouldNotImportIroFileIsCorrupt, LoggedException = ae });
+                                Sys.Message(
+                                    new WMessage(
+                                        $"[{StringKey.CouldNotImportIroFileIsCorrupt}] - {Path.GetFileNameWithoutExtension(iro)}",
+                                        true
+                                    )
+                                    {
+                                        TextTranslationKey =
+                                            StringKey.CouldNotImportIroFileIsCorrupt,
+                                        LoggedException = ae,
+                                    }
+                                );
                                 continue;
                             }
                             catch (Exception ex)
                             {
-                                Sys.Message(new WMessage($"[{StringKey.FailedToImportMod}] {name}: " + ex.ToString(), true) { TextTranslationKey = StringKey.FailedToImportMod, LoggedException = ex });
+                                Sys.Message(
+                                    new WMessage(
+                                        $"[{StringKey.FailedToImportMod}] {name}: " + ex.ToString(),
+                                        true
+                                    )
+                                    {
+                                        TextTranslationKey = StringKey.FailedToImportMod,
+                                        LoggedException = ex,
+                                    }
+                                );
                                 continue;
                             }
 
-                            Sys.Message(new WMessage() { Text = $"[{StringKey.AutoImportedMod}] {name}", TextTranslationKey = StringKey.AutoImportedMod });
+                            Sys.Message(
+                                new WMessage()
+                                {
+                                    Text = $"[{StringKey.AutoImportedMod}] {name}",
+                                    TextTranslationKey = StringKey.AutoImportedMod,
+                                }
+                            );
                         }
                     }
                 }
@@ -741,7 +820,14 @@ namespace Iros.Workshop
                     Sys.Library.RemoveInstall(mod);
                     Sys.ActiveProfile.Items.RemoveAll(p => p.ModID == mod.ModID);
                     Mod details = mod.CachedDetails ?? new Mod();
-                    Sys.Message(new WMessage { Text = $"{details.Name} - [{StringKey.ModCouldNotBeFoundHasItBeenDeleted}]", TextTranslationKey = StringKey.ModCouldNotBeFoundHasItBeenDeleted });
+                    Sys.Message(
+                        new WMessage
+                        {
+                            Text =
+                                $"{details.Name} - [{StringKey.ModCouldNotBeFoundHasItBeenDeleted}]",
+                            TextTranslationKey = StringKey.ModCouldNotBeFoundHasItBeenDeleted,
+                        }
+                    );
                 }
             }
 
@@ -751,7 +837,9 @@ namespace Iros.Workshop
         public static bool IsRunningAppAsAdministrator()
         {
             // reference: https://stackoverflow.com/questions/11660184/c-sharp-check-if-run-as-administrator
-            return (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(
+                WindowsBuiltInRole.Administrator
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using AppUI.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {

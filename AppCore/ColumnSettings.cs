@@ -41,6 +41,7 @@ namespace AppCore
     {
         public string Name { get; set; }
         public double Width { get; set; }
+
         /// <summary>
         /// When set to true, the Width property is ignored and the column width will be calculated at run-time to auto size into remaining space
         /// </summary>

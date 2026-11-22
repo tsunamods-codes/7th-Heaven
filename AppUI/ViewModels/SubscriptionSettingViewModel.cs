@@ -1,19 +1,13 @@
 ﻿namespace AppUI.ViewModels
 {
-
     public class SubscriptionSettingViewModel : ViewModelBase
     {
         private string _name;
         private string _url;
 
-
-
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -23,17 +17,13 @@
 
         public string Url
         {
-            get
-            {
-                return _url;
-            }
+            get { return _url; }
             set
             {
                 _url = value;
                 NotifyPropertyChanged();
             }
         }
-
 
         public SubscriptionSettingViewModel(string url, string name)
         {

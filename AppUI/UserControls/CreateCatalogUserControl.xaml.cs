@@ -1,9 +1,9 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.UserControls
 {
@@ -29,7 +29,10 @@ namespace AppUI.UserControls
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string pathToFile = FileDialogHelper.OpenSaveDialog("catalog .xml|*.xml", ResourceHelper.Get(StringKey.SaveCatalogXml));
+            string pathToFile = FileDialogHelper.OpenSaveDialog(
+                "catalog .xml|*.xml",
+                ResourceHelper.Get(StringKey.SaveCatalogXml)
+            );
 
             if (!string.IsNullOrEmpty(pathToFile))
             {
@@ -39,7 +42,10 @@ namespace AppUI.UserControls
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            string pathToFile = FileDialogHelper.BrowseForFile("catalog .xml|*.xml", ResourceHelper.Get(StringKey.SelectCatalogXmlToLoad));
+            string pathToFile = FileDialogHelper.BrowseForFile(
+                "catalog .xml|*.xml",
+                ResourceHelper.Get(StringKey.SelectCatalogXmlToLoad)
+            );
 
             if (!string.IsNullOrEmpty(pathToFile))
             {
@@ -52,14 +58,17 @@ namespace AppUI.UserControls
             ViewModel.AddModToList();
 
             if (ViewModel.SelectedMod != null)
-            { 
+            {
                 lstMods.ScrollIntoView(ViewModel.SelectedMod);
             }
         }
 
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
-            string pathToFile = FileDialogHelper.BrowseForFile("mod .xml|*.xml|iro file (*.iro)|*.iro", ResourceHelper.Get(StringKey.SelectModXmlOrIroFileToLoad));
+            string pathToFile = FileDialogHelper.BrowseForFile(
+                "mod .xml|*.xml|iro file (*.iro)|*.iro",
+                ResourceHelper.Get(StringKey.SelectModXmlOrIroFileToLoad)
+            );
 
             if (!string.IsNullOrEmpty(pathToFile))
             {

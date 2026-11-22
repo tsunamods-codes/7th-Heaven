@@ -47,14 +47,17 @@ namespace Iros.Workshop
         public string SourceCatalogUrl { get; set; }
 
         public List<string> Tags { get; set; }
+
         [System.Xml.Serialization.XmlElement("GameLanguage")]
         public List<string> GameLanguageEntries { get; set; }
 
         [System.Xml.Serialization.XmlIgnore]
-        public List<string> GameLanguages => GameLanguage.ParseSupportedLanguages(GameLanguageEntries);
+        public List<string> GameLanguages =>
+            GameLanguage.ParseSupportedLanguages(GameLanguageEntries);
 
         [System.Xml.Serialization.XmlElement("Patch")]
         public List<ModPatch> Patches { get; set; }
+
         [System.Xml.Serialization.XmlElement("Requirement")]
         public List<ModRequirement> Requirements { get; set; }
 
@@ -64,7 +67,6 @@ namespace Iros.Workshop
         [System.Xml.Serialization.XmlIgnore]
         public bool ContainsMusic { get; set; }
 
-
         /// <summary>
         /// Set to true on import if mod has movie files
         /// </summary>
@@ -72,7 +74,7 @@ namespace Iros.Workshop
         public bool ContainsMovies { get; set; }
 
         /// <summary>
-        /// Returns list of patches to download to update <paramref name="from"/> version to  <paramref name="to"/> version 
+        /// Returns list of patches to download to update <paramref name="from"/> version to  <paramref name="to"/> version
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -88,13 +90,26 @@ namespace Iros.Workshop
                 if (patch == null)
                     continue;
 
-                if (patch.VerTo == to && patch.VerFrom.Split(',').Select(s =>
-                                                                    {
-                                                                        if (decimal.TryParse(s, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedVer))
-                                                                            return parsedVer;
-                                                                        else
-                                                                            return 0;
-                                                                    }).Contains(from))
+                if (
+                    patch.VerTo == to
+                    && patch
+                        .VerFrom.Split(',')
+                        .Select(s =>
+                        {
+                            if (
+                                decimal.TryParse(
+                                    s,
+                                    System.Globalization.NumberStyles.AllowDecimalPoint,
+                                    new System.Globalization.CultureInfo(""),
+                                    out decimal parsedVer
+                                )
+                            )
+                                return parsedVer;
+                            else
+                                return 0;
+                        })
+                        .Contains(from)
+                )
                 {
                     patchesForVersion.Add(patch);
                 }
@@ -105,27 +120,33 @@ namespace Iros.Workshop
 
         public int SearchRelevance(string text)
         {
-            if (Name.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0) return 200;
-            if (Description.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0) return 100;
-            if (Author.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0) return 50;
-            if (Category?.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0) return 25;
+            if (Name.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                return 200;
+            if (Description.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                return 100;
+            if (Author.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                return 50;
+            if (Category?.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                return 25;
             return 0;
         }
 
         /// <summary>
-        /// Compares properties to another Mod to see if 
+        /// Compares properties to another Mod to see if
         /// name, description, category, author, or link is different.
         /// </summary>
         /// <param name="other"></param>
         /// <returns> true if properties are different; false if they are equal. </returns>
         internal bool HasChanges(Mod other)
         {
-            return (this.Name != other.Name ||
-                    this.Description != other.Description ||
-                    this.Category != other.Category ||
-                    this.Author != other.Author ||
-                    this.Link != other.Link ||
-                    this.DonationLink != other.DonationLink);
+            return (
+                this.Name != other.Name
+                || this.Description != other.Description
+                || this.Category != other.Category
+                || this.Author != other.Author
+                || this.Link != other.Link
+                || this.DonationLink != other.DonationLink
+            );
         }
 
         public static Mod CopyMod(Mod modToCopy)
@@ -159,8 +180,8 @@ namespace Iros.Workshop
                     DownloadSize = modToCopy.LatestVersion.DownloadSize,
                     ExtractInto = modToCopy.LatestVersion.ExtractInto,
                     ExtractSubFolder = modToCopy.LatestVersion.ExtractSubFolder,
-                    PatchLinks = modToCopy.LatestVersion.PatchLinks?.ToList()
-                }
+                    PatchLinks = modToCopy.LatestVersion.PatchLinks?.ToList(),
+                },
             };
         }
     }

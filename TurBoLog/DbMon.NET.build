@@ -1,57 +1,55 @@
 <project name="DbMon.NET" default="run">
+  <target name="run">
+    <call target="clean" />
+    <call target="build" />
+    <call target="release" />
+  </target>
 
-	<target name="run">
-		<call target="clean" />
-		<call target="build" />	
-		<call target="release" />
-	</target>
-	
-	<target name="clean">
-		<delete file="DbMon.NET.exe" if="${file::exists('DbMon.NET.exe')}" />
-	</target>
-	
-	<target name="build">		
-		<csc target="winexe" output="DbMon.NET.exe" debug="true">
-			<sources>
-				<include name="AssemblyInfo.cs" />
-				<include name="DebugMonitor.cs" />
-				<include name="UI/FMain.cs" />				
-				<include name="UI/FPrompt.cs" />				
-			</sources>
-			<references>			
-				<include name="System.dll" />
-				<include name="System.Drawing.dll" />
-				<include name="System.Windows.Forms.dll" />
-			</references>
-		</csc>
-	</target>
+  <target name="clean">
+    <delete file="DbMon.NET.exe" if="${file::exists('DbMon.NET.exe')}" />
+  </target>
 
-	<target name="release">
-		<call target="create-archive-src" />
-		<call target="create-archive-bin" />
-	</target>
-	
-	<target name="create-archive-bin">
-		<zip zipfile="DbMon.NET - bin.zip">
-			<fileset>
-				<include name="DbMon.NET.exe" />
-			</fileset>
+  <target name="build">
+    <csc target="winexe" output="DbMon.NET.exe" debug="true">
+      <sources>
+        <include name="AssemblyInfo.cs" />
+        <include name="DebugMonitor.cs" />
+        <include name="UI/FMain.cs" />
+        <include name="UI/FPrompt.cs" />
+      </sources>
+      <references>
+        <include name="System.dll" />
+        <include name="System.Drawing.dll" />
+        <include name="System.Windows.Forms.dll" />
+      </references>
+    </csc>
+  </target>
+
+  <target name="release">
+    <call target="create-archive-src" />
+    <call target="create-archive-bin" />
+  </target>
+
+  <target name="create-archive-bin">
+    <zip zipfile="DbMon.NET - bin.zip">
+      <fileset>
+        <include name="DbMon.NET.exe" />
+      </fileset>
     </zip>
-	</target>
-		
-	<target name="create-archive-src">
-		<zip zipfile="DbMon.NET - src.zip">
-			<fileset prefix="src">			
-				<include name="AssemblyInfo.cs" />
-				<include name="DebugMonitor.cs" />
-				<include name="UI/FMain.cs" />				
-				<include name="UI/FMain.resx" />				
-				<include name="UI/FPrompt.cs" />								
-				<include name="UI/FPrompt.resx" />								
-				<include name="DbMon.NET.csproj" />
-				<include name="DbMon.NET.build" />
-    	</fileset>    	
+  </target>
+
+  <target name="create-archive-src">
+    <zip zipfile="DbMon.NET - src.zip">
+      <fileset prefix="src">
+        <include name="AssemblyInfo.cs" />
+        <include name="DebugMonitor.cs" />
+        <include name="UI/FMain.cs" />
+        <include name="UI/FMain.resx" />
+        <include name="UI/FPrompt.cs" />
+        <include name="UI/FPrompt.resx" />
+        <include name="DbMon.NET.csproj" />
+        <include name="DbMon.NET.build" />
+      </fileset>
     </zip>
-	</target>
-	
+  </target>
 </project>

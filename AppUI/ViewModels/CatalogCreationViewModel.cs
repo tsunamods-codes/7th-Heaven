@@ -1,17 +1,16 @@
-﻿using AppCore;
-using AppWrapper;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using AppCore;
+using AppUI.Classes;
+using AppWrapper;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class CatalogCreationViewModel : ViewModelBase
     {
         private string _nameInput;
@@ -38,10 +37,7 @@ namespace AppUI.ViewModels
 
         public string IDInput
         {
-            get
-            {
-                return _idInput;
-            }
+            get { return _idInput; }
             set
             {
                 _idInput = value;
@@ -51,10 +47,7 @@ namespace AppUI.ViewModels
 
         public string NameInput
         {
-            get
-            {
-                return _nameInput;
-            }
+            get { return _nameInput; }
             set
             {
                 _nameInput = value;
@@ -64,10 +57,7 @@ namespace AppUI.ViewModels
 
         public string AuthorInput
         {
-            get
-            {
-                return _authorInput;
-            }
+            get { return _authorInput; }
             set
             {
                 _authorInput = value;
@@ -77,10 +67,7 @@ namespace AppUI.ViewModels
 
         public string DescriptionInput
         {
-            get
-            {
-                return _descriptionInput;
-            }
+            get { return _descriptionInput; }
             set
             {
                 _descriptionInput = value;
@@ -90,10 +77,7 @@ namespace AppUI.ViewModels
 
         public string CategoryInput
         {
-            get
-            {
-                return _categoryInput;
-            }
+            get { return _categoryInput; }
             set
             {
                 _categoryInput = value;
@@ -107,9 +91,10 @@ namespace AppUI.ViewModels
             {
                 if (_categoryList == null)
                 {
-                    _categoryList = ModLoadOrder.Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s)))
-                                                            .OrderBy(s => s)
-                                                            .ToList();
+                    _categoryList = ModLoadOrder
+                        .Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s)))
+                        .OrderBy(s => s)
+                        .ToList();
                 }
 
                 return _categoryList;
@@ -118,10 +103,7 @@ namespace AppUI.ViewModels
 
         public string VersionInput
         {
-            get
-            {
-                return _versionInput;
-            }
+            get { return _versionInput; }
             set
             {
                 _versionInput = value;
@@ -131,10 +113,7 @@ namespace AppUI.ViewModels
 
         public string MetaVersionInput
         {
-            get
-            {
-                return _metaVersionInput;
-            }
+            get { return _metaVersionInput; }
             set
             {
                 _metaVersionInput = value;
@@ -144,10 +123,7 @@ namespace AppUI.ViewModels
 
         public string PreviewImageInput
         {
-            get
-            {
-                return _previewImageInput;
-            }
+            get { return _previewImageInput; }
             set
             {
                 _previewImageInput = value;
@@ -157,10 +133,7 @@ namespace AppUI.ViewModels
 
         public string InfoLinkInput
         {
-            get
-            {
-                return _infoLinkInput;
-            }
+            get { return _infoLinkInput; }
             set
             {
                 _infoLinkInput = value;
@@ -170,10 +143,7 @@ namespace AppUI.ViewModels
 
         public string DonationLinkInput
         {
-            get
-            {
-                return _donationLinkInput;
-            }
+            get { return _donationLinkInput; }
             set
             {
                 _donationLinkInput = value;
@@ -183,10 +153,7 @@ namespace AppUI.ViewModels
 
         public string ReleaseNotesInput
         {
-            get
-            {
-                return _releaseNotesInput;
-            }
+            get { return _releaseNotesInput; }
             set
             {
                 _releaseNotesInput = value;
@@ -196,10 +163,7 @@ namespace AppUI.ViewModels
 
         public string ReleaseDateInput
         {
-            get
-            {
-                return _releaseDateInput;
-            }
+            get { return _releaseDateInput; }
             set
             {
                 _releaseDateInput = value;
@@ -209,10 +173,7 @@ namespace AppUI.ViewModels
 
         public string TagsInput
         {
-            get
-            {
-                return _tagsInput;
-            }
+            get { return _tagsInput; }
             set
             {
                 _tagsInput = value;
@@ -222,17 +183,13 @@ namespace AppUI.ViewModels
 
         public string CatalogNameInput
         {
-            get
-            {
-                return _catalogNameInput;
-            }
+            get { return _catalogNameInput; }
             set
             {
                 _catalogNameInput = value;
                 NotifyPropertyChanged();
             }
         }
-
 
         public ObservableCollection<DownloadLinkViewModel> DownloadLinkList
         {
@@ -254,10 +211,7 @@ namespace AppUI.ViewModels
 
         public string CatalogOutput
         {
-            get
-            {
-                return _modOutput;
-            }
+            get { return _modOutput; }
             set
             {
                 _modOutput = value;
@@ -267,10 +221,7 @@ namespace AppUI.ViewModels
 
         public ObservableCollection<CatalogModItemViewModel> CatalogModList
         {
-            get
-            {
-                return _catalogModList;
-            }
+            get { return _catalogModList; }
             set
             {
                 _catalogModList = value;
@@ -280,10 +231,7 @@ namespace AppUI.ViewModels
 
         public CatalogModItemViewModel SelectedMod
         {
-            get
-            {
-                return _selectedMod;
-            }
+            get { return _selectedMod; }
             set
             {
                 if (_modToEdit != null && _selectedMod != null)
@@ -295,10 +243,14 @@ namespace AppUI.ViewModels
                     _selectedMod.Mod.Author = AuthorInput;
                     _selectedMod.Author = AuthorInput;
 
-                    _selectedMod.Mod.Category = ResourceHelper.ModCategoryTranslations[CategoryInput];
+                    _selectedMod.Mod.Category = ResourceHelper.ModCategoryTranslations[
+                        CategoryInput
+                    ];
                     _selectedMod.Category = ResourceHelper.ModCategoryTranslations[CategoryInput];
 
-                    _selectedMod.Mod.Tags = TagsInput.Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    _selectedMod.Mod.Tags = TagsInput
+                        .Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList();
 
                     _selectedMod.Mod.Description = DescriptionInput;
                     _selectedMod.Mod.Link = InfoLinkInput;
@@ -310,22 +262,37 @@ namespace AppUI.ViewModels
                     }
 
                     DateTime.TryParse(ReleaseDateInput, out DateTime parsedDate);
-                    decimal.TryParse(VersionInput, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedVersion);
+                    decimal.TryParse(
+                        VersionInput,
+                        System.Globalization.NumberStyles.AllowDecimalPoint,
+                        new System.Globalization.CultureInfo(""),
+                        out decimal parsedVersion
+                    );
 
                     _selectedMod.Mod.LatestVersion = new ModVersion()
                     {
-                        Links = DownloadLinkList.Where(d => !string.IsNullOrEmpty(d.SourceLinkInput)).Select(s => s.GetFormattedLink()).ToList(),
+                        Links = DownloadLinkList
+                            .Where(d => !string.IsNullOrEmpty(d.SourceLinkInput))
+                            .Select(s => s.GetFormattedLink())
+                            .ToList(),
                         ReleaseDate = parsedDate,
                         Version = parsedVersion,
                         PreviewImage = PreviewImageInput,
                         ReleaseNotes = ReleaseNotesInput,
-                        CompatibleGameVersions = GameVersions.All
+                        CompatibleGameVersions = GameVersions.All,
                     };
 
-                    decimal.TryParse(MetaVersionInput, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedMetaVersion);
+                    decimal.TryParse(
+                        MetaVersionInput,
+                        System.Globalization.NumberStyles.AllowDecimalPoint,
+                        new System.Globalization.CultureInfo(""),
+                        out decimal parsedMetaVersion
+                    );
                     _selectedMod.Mod.MetaVersion = parsedMetaVersion;
 
-                    _selectedMod.ReleaseDate = parsedDate.ToString(Sys.Settings.DateTimeStringFormat);
+                    _selectedMod.ReleaseDate = parsedDate.ToString(
+                        Sys.Settings.DateTimeStringFormat
+                    );
                 }
 
                 _selectedMod = value;
@@ -337,7 +304,9 @@ namespace AppUI.ViewModels
                     NameInput = _modToEdit.Name;
                     AuthorInput = _modToEdit.Author;
                     IDInput = _modToEdit.ID.ToString();
-                    CategoryInput = ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_modToEdit.Category));
+                    CategoryInput = ResourceHelper.Get(
+                        ModLoadOrder.GetCategoryKey(_modToEdit.Category)
+                    );
                     TagsInput = string.Join("\n", _modToEdit.Tags);
                     DescriptionInput = _modToEdit.Description;
                     InfoLinkInput = _modToEdit.Link;
@@ -346,14 +315,18 @@ namespace AppUI.ViewModels
                     PreviewImageInput = _modToEdit.LatestVersion.PreviewImage;
                     VersionInput = _modToEdit.LatestVersion.Version.ToString();
                     MetaVersionInput = _modToEdit.MetaVersion.ToString();
-                    ReleaseDateInput = _modToEdit.LatestVersion.ReleaseDate.ToString(Sys.Settings.DateTimeStringFormat);
+                    ReleaseDateInput = _modToEdit.LatestVersion.ReleaseDate.ToString(
+                        Sys.Settings.DateTimeStringFormat
+                    );
 
                     DownloadLinkList.Clear();
                     foreach (string link in _modToEdit.LatestVersion.Links)
                     {
                         if (LocationUtil.TryParse(link, out LocationType linkKind, out string url))
                         {
-                            DownloadLinkList.Add(new DownloadLinkViewModel(linkKind.ToString(), url));
+                            DownloadLinkList.Add(
+                                new DownloadLinkViewModel(linkKind.ToString(), url)
+                            );
                         }
                     }
 
@@ -361,7 +334,6 @@ namespace AppUI.ViewModels
                     {
                         AddEmptyDownloadLink();
                     }
-
                 }
 
                 NotifyPropertyChanged();
@@ -382,10 +354,14 @@ namespace AppUI.ViewModels
             Catalog generated = new Catalog()
             {
                 Mods = CatalogModList.Select(m => m.Mod).ToList(),
-                Name = CatalogNameInput
+                Name = CatalogNameInput,
             };
 
-            return Util.Serialize(generated).Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            return Util.Serialize(generated)
+                .Replace(
+                    "<?xml version=\"1.0\" encoding=\"utf-16\"?>",
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                );
         }
 
         internal void LoadModXml(string pathToModXml)
@@ -420,10 +396,15 @@ namespace AppUI.ViewModels
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotLoadModXml)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotLoadModXml)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -435,7 +416,12 @@ namespace AppUI.ViewModels
 
                 if (parsedMod == null)
                 {
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CouldNotLoadModXmlFromIroFile), true));
+                    Sys.Message(
+                        new WMessage(
+                            ResourceHelper.Get(StringKey.CouldNotLoadModXmlFromIroFile),
+                            true
+                        )
+                    );
                     return;
                 }
 
@@ -451,7 +437,9 @@ namespace AppUI.ViewModels
                 InfoLinkInput = parsedMod.Link;
                 DonationLinkInput = parsedMod.DonationLink;
                 ReleaseNotesInput = parsedMod.LatestVersion.ReleaseNotes;
-                ReleaseDateInput = parsedMod.LatestVersion.ReleaseDate.ToString(Sys.Settings.DateTimeStringFormat);
+                ReleaseDateInput = parsedMod.LatestVersion.ReleaseDate.ToString(
+                    Sys.Settings.DateTimeStringFormat
+                );
 
                 if (string.IsNullOrWhiteSpace(CategoryInput))
                 {
@@ -464,10 +452,15 @@ namespace AppUI.ViewModels
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotLoadModXmlFromIroFile)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotLoadModXmlFromIroFile)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -476,14 +469,24 @@ namespace AppUI.ViewModels
             try
             {
                 File.WriteAllText(pathToFile, GenerateCatalogOutput());
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullySavedTo)} {pathToFile}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.SuccessfullySavedTo)} {pathToFile}",
+                        true
+                    )
+                );
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToSaveCatalogXml)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.FailedToSaveCatalogXml)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -493,17 +496,24 @@ namespace AppUI.ViewModels
             {
                 Catalog catalog = Util.Deserialize<Catalog>(pathToFile);
                 CatalogNameInput = catalog.Name;
-                CatalogModList = new ObservableCollection<CatalogModItemViewModel>(catalog.Mods.Select(m => new CatalogModItemViewModel(m)));
+                CatalogModList = new ObservableCollection<CatalogModItemViewModel>(
+                    catalog.Mods.Select(m => new CatalogModItemViewModel(m))
+                );
                 SelectedMod = null;
                 ClearInputFields();
                 CatalogOutput = "";
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotLoadCatalogXml)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotLoadCatalogXml)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -554,8 +564,18 @@ namespace AppUI.ViewModels
             }
 
             DateTime.TryParse(ReleaseDateInput, out DateTime parsedDate);
-            decimal.TryParse(VersionInput, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedVersion);
-            decimal.TryParse(MetaVersionInput, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedMetaVersion);
+            decimal.TryParse(
+                VersionInput,
+                System.Globalization.NumberStyles.AllowDecimalPoint,
+                new System.Globalization.CultureInfo(""),
+                out decimal parsedVersion
+            );
+            decimal.TryParse(
+                MetaVersionInput,
+                System.Globalization.NumberStyles.AllowDecimalPoint,
+                new System.Globalization.CultureInfo(""),
+                out decimal parsedMetaVersion
+            );
 
             if (string.IsNullOrEmpty(ReleaseDateInput) || parsedDate == DateTime.MinValue)
             {
@@ -577,20 +597,27 @@ namespace AppUI.ViewModels
                 ID = parsedID,
                 Name = NameInput,
                 Author = AuthorInput,
-                Category = ResourceHelper.ModCategoryTranslations[string.IsNullOrEmpty(CategoryInput) ? "Unknown" : CategoryInput],
-                Tags = TagsInput.Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries).ToList(),
+                Category = ResourceHelper.ModCategoryTranslations[
+                    string.IsNullOrEmpty(CategoryInput) ? "Unknown" : CategoryInput
+                ],
+                Tags = TagsInput
+                    .Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList(),
                 Description = DescriptionInput,
                 Link = InfoLinkInput,
                 DonationLink = DonationLinkInput,
                 MetaVersion = parsedMetaVersion,
                 LatestVersion = new ModVersion()
                 {
-                    Links = DownloadLinkList.Where(d => !string.IsNullOrEmpty(d.SourceLinkInput)).Select(d => d.GetFormattedLink()).ToList(),
+                    Links = DownloadLinkList
+                        .Where(d => !string.IsNullOrEmpty(d.SourceLinkInput))
+                        .Select(d => d.GetFormattedLink())
+                        .ToList(),
                     ReleaseDate = parsedDate,
                     Version = parsedVersion,
                     CompatibleGameVersions = GameVersions.All,
-                    PreviewImage = PreviewImageInput
-                }
+                    PreviewImage = PreviewImageInput,
+                },
             };
 
             CatalogModList.Add(new CatalogModItemViewModel(newMod));

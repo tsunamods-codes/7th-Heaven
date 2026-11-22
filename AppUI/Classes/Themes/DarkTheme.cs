@@ -1,12 +1,15 @@
-﻿using AppUI;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using AppUI;
 
 namespace AppUI.Classes.Themes
 {
     public class DarkTheme : ITheme
     {
-        public string Name { get => "Dark Mode"; }
+        public string Name
+        {
+            get => "Dark Mode";
+        }
 
         public string PrimaryAppBackground
         {
@@ -21,7 +24,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("MedDarkBackgroundColor") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("MedDarkBackgroundColor") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -30,7 +34,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlBackground") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlBackground") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -39,7 +44,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlForeground") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlForeground") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -48,7 +54,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlSecondary") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlSecondary") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -66,7 +73,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlMouseOver") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlMouseOver") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -75,7 +83,8 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlDisabledBackground") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlDisabledBackground") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
@@ -84,15 +93,31 @@ namespace AppUI.Classes.Themes
         {
             get
             {
-                Color? colorResource = App.Current.TryFindResource("DarkControlDisabledForeground") as Color?;
+                Color? colorResource =
+                    App.Current.TryFindResource("DarkControlDisabledForeground") as Color?;
                 return ThemeSettings.ColorToHexString(colorResource.Value);
             }
         }
 
-        public string BackgroundImageName { get => null; }
-        public string BackgroundImageBase64 { get => null; }
-        public HorizontalAlignment BackgroundHorizontalAlignment { get => HorizontalAlignment.Center; }
-        public VerticalAlignment BackgroundVerticalAlignment { get => VerticalAlignment.Center; }
-        public Stretch BackgroundStretch { get => Stretch.Uniform; }
+        public string BackgroundImageName
+        {
+            get => null;
+        }
+        public string BackgroundImageBase64
+        {
+            get => null;
+        }
+        public HorizontalAlignment BackgroundHorizontalAlignment
+        {
+            get => HorizontalAlignment.Center;
+        }
+        public VerticalAlignment BackgroundVerticalAlignment
+        {
+            get => VerticalAlignment.Center;
+        }
+        public Stretch BackgroundStretch
+        {
+            get => Stretch.Uniform;
+        }
     }
 }

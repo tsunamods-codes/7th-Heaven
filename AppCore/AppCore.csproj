@@ -50,6 +50,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="false" />
+    <RuntimeHostConfigurationOption
+      Include="System.Net.SocketsHttpHandler.Http3Support"
+      Value="false"
+    />
   </ItemGroup>
 </Project>

@@ -1,16 +1,15 @@
-﻿using AppCore;
-using AppWrapper;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AppCore;
+using AppUI.Classes;
+using AppWrapper;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class ModCreationViewModel : ViewModelBase
     {
         private string _nameInput;
@@ -31,10 +30,7 @@ namespace AppUI.ViewModels
 
         public string IDInput
         {
-            get
-            {
-                return _idInput;
-            }
+            get { return _idInput; }
             set
             {
                 _idInput = value;
@@ -44,10 +40,7 @@ namespace AppUI.ViewModels
 
         public string NameInput
         {
-            get
-            {
-                return _nameInput;
-            }
+            get { return _nameInput; }
             set
             {
                 _nameInput = value;
@@ -57,10 +50,7 @@ namespace AppUI.ViewModels
 
         public string AuthorInput
         {
-            get
-            {
-                return _authorInput;
-            }
+            get { return _authorInput; }
             set
             {
                 _authorInput = value;
@@ -70,10 +60,7 @@ namespace AppUI.ViewModels
 
         public string DescriptionInput
         {
-            get
-            {
-                return _descriptionInput;
-            }
+            get { return _descriptionInput; }
             set
             {
                 _descriptionInput = value;
@@ -83,10 +70,7 @@ namespace AppUI.ViewModels
 
         public string CategoryInput
         {
-            get
-            {
-                return _categoryInput;
-            }
+            get { return _categoryInput; }
             set
             {
                 _categoryInput = value;
@@ -100,9 +84,10 @@ namespace AppUI.ViewModels
             {
                 if (_categoryList == null)
                 {
-                    _categoryList = ModLoadOrder.Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s)))
-                                                            .OrderBy(s => s)
-                                                            .ToList();
+                    _categoryList = ModLoadOrder
+                        .Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s)))
+                        .OrderBy(s => s)
+                        .ToList();
                 }
 
                 return _categoryList;
@@ -111,10 +96,7 @@ namespace AppUI.ViewModels
 
         public string VersionInput
         {
-            get
-            {
-                return _versionInput;
-            }
+            get { return _versionInput; }
             set
             {
                 _versionInput = value;
@@ -124,10 +106,7 @@ namespace AppUI.ViewModels
 
         public string PreviewImageInput
         {
-            get
-            {
-                return _previewImageInput;
-            }
+            get { return _previewImageInput; }
             set
             {
                 _previewImageInput = value;
@@ -137,10 +116,7 @@ namespace AppUI.ViewModels
 
         public string InfoLinkInput
         {
-            get
-            {
-                return _infoLinkInput;
-            }
+            get { return _infoLinkInput; }
             set
             {
                 _infoLinkInput = value;
@@ -150,10 +126,7 @@ namespace AppUI.ViewModels
 
         public string DonationLinkInput
         {
-            get
-            {
-                return _donationLinkInput;
-            }
+            get { return _donationLinkInput; }
             set
             {
                 _donationLinkInput = value;
@@ -163,10 +136,7 @@ namespace AppUI.ViewModels
 
         public string ReleaseNotesInput
         {
-            get
-            {
-                return _releaseNotesInput;
-            }
+            get { return _releaseNotesInput; }
             set
             {
                 _releaseNotesInput = value;
@@ -194,10 +164,7 @@ namespace AppUI.ViewModels
 
         public string LinkKindInput
         {
-            get
-            {
-                return _linkKindInput;
-            }
+            get { return _linkKindInput; }
             set
             {
                 _linkKindInput = value;
@@ -207,10 +174,7 @@ namespace AppUI.ViewModels
 
         public string SourceLinkInput
         {
-            get
-            {
-                return _sourceLinkInput;
-            }
+            get { return _sourceLinkInput; }
             set
             {
                 _sourceLinkInput = value;
@@ -220,10 +184,7 @@ namespace AppUI.ViewModels
 
         public string ModOutput
         {
-            get
-            {
-                return _modOutput;
-            }
+            get { return _modOutput; }
             set
             {
                 _modOutput = value;
@@ -251,7 +212,12 @@ namespace AppUI.ViewModels
 
         public ModInfo GenerateModFromInput()
         {
-            decimal.TryParse(VersionInput, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal parsedVersion);
+            decimal.TryParse(
+                VersionInput,
+                System.Globalization.NumberStyles.AllowDecimalPoint,
+                new System.Globalization.CultureInfo(""),
+                out decimal parsedVersion
+            );
             Guid.TryParse(IDInput, out Guid parsedId);
 
             string translatedCategory = ResourceHelper.ModCategoryTranslations[CategoryInput];
@@ -270,7 +236,7 @@ namespace AppUI.ViewModels
                     DonationLink = DonationLinkInput,
                     PreviewFile = PreviewImageInput,
                     ReleaseDate = DateTime.Now,
-                    ReleaseNotes = ReleaseNotesInput
+                    ReleaseNotes = ReleaseNotesInput,
                 };
             }
             else
@@ -353,7 +319,11 @@ namespace AppUI.ViewModels
                 LoadedMod.Compatibility.Settings = null;
             }
 
-            if (LoadedMod.Compatibility?.Requires == null && LoadedMod.Compatibility?.Settings == null && LoadedMod.Compatibility?.Forbids == null)
+            if (
+                LoadedMod.Compatibility?.Requires == null
+                && LoadedMod.Compatibility?.Settings == null
+                && LoadedMod.Compatibility?.Forbids == null
+            )
             {
                 LoadedMod.Compatibility = null;
             }
@@ -362,7 +332,11 @@ namespace AppUI.ViewModels
         public void GenerateModOutput()
         {
             var modInfo = GenerateModFromInput();
-            ModOutput = Util.Serialize(modInfo).Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            ModOutput = Util.Serialize(modInfo)
+                .Replace(
+                    "<?xml version=\"1.0\" encoding=\"utf-16\"?>",
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                );
         }
 
         internal void LoadModXml(string pathToFile)
@@ -384,10 +358,15 @@ namespace AppUI.ViewModels
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotLoadModXml)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotLoadModXml)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -397,14 +376,24 @@ namespace AppUI.ViewModels
             {
                 GenerateModOutput();
                 File.WriteAllText(pathToFile, ModOutput);
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullySavedTo)} {pathToFile}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.SuccessfullySavedTo)} {pathToFile}",
+                        true
+                    )
+                );
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotSaveModXml)}: {e.Message}", true)
-                {
-                    LoggedException = e
-                });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotSaveModXml)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
     }

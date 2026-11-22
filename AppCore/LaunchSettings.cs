@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace AppCore
 {
-
     [Serializable]
     public class LaunchSettings
     {
@@ -31,10 +30,8 @@ namespace AppCore
         /// </summary>
         public bool EnableGamepadPolling { get; set; }
 
-
-
         /// <summary>
-        /// File name of the ff7input.cfg file to copy to ff7 game dir 
+        /// File name of the ff7input.cfg file to copy to ff7 game dir
         /// e.g. "stock game.cfg" or "custom.cfg"
         /// </summary>
         public string InGameConfigOption { get; set; }
@@ -75,14 +72,19 @@ namespace AppCore
         {
             switch (language?.Trim().ToLowerInvariant())
             {
-                case "fr": return French;
-                case "de": return German;
-                case "es": return Spanish;
+                case "fr":
+                    return French;
+                case "de":
+                    return German;
+                case "es":
+                    return Spanish;
                 case "ja":
-                case "ff7_ja": return Japanese;
+                case "ff7_ja":
+                    return Japanese;
                 case "en":
                 case "ff7_en":
-                default: return English;
+                default:
+                    return English;
             }
         }
 
@@ -90,11 +92,16 @@ namespace AppCore
         {
             switch (Normalize(language))
             {
-                case French: return 2;
-                case German: return 3;
-                case Spanish: return 4;
-                case Japanese: return 6;
-                default: return 1;
+                case French:
+                    return 2;
+                case German:
+                    return 3;
+                case Spanish:
+                    return 4;
+                case Japanese:
+                    return 6;
+                default:
+                    return 1;
             }
         }
 
@@ -121,16 +128,30 @@ namespace AppCore
                 return selectedLanguage == "EN";
             }
 
-            return supportedLanguages.Any(supportedLanguage => MatchesLanguage(supportedLanguage, selectedLanguage));
+            return supportedLanguages.Any(supportedLanguage =>
+                MatchesLanguage(supportedLanguage, selectedLanguage)
+            );
         }
 
         public static bool MatchesLanguage(string language, string selectedLanguage)
         {
             string normalizedSelectedLanguage = ToModXmlCode(selectedLanguage);
             string normalizedLanguage = language?.Trim();
-            return string.Equals(normalizedLanguage, Any, StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(normalizedLanguage, "*", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(normalizedLanguage, normalizedSelectedLanguage, StringComparison.InvariantCultureIgnoreCase);
+            return string.Equals(
+                    normalizedLanguage,
+                    Any,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+                || string.Equals(
+                    normalizedLanguage,
+                    "*",
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+                || string.Equals(
+                    normalizedLanguage,
+                    normalizedSelectedLanguage,
+                    StringComparison.InvariantCultureIgnoreCase
+                );
         }
     }
 }

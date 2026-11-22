@@ -9,13 +9,18 @@ namespace AppUI.Classes
     {
         // See https://stackoverflow.com/a/744609
         [DllImport("user32.dll")]
-        public static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
+        public static extern bool EnumDisplaySettings(
+            string deviceName,
+            int modeNum,
+            ref DEVMODE devMode
+        );
 
         [StructLayout(LayoutKind.Sequential)]
         public struct DEVMODE
         {
             private const int CCHDEVICENAME = 0x20;
             private const int CCHFORMNAME = 0x20;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
             public string dmDeviceName;
             public short dmSpecVersion;
@@ -32,6 +37,7 @@ namespace AppUI.Classes
             public short dmYResolution;
             public short dmTTOption;
             public short dmCollate;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
             public string dmFormName;
             public short dmLogPixels;
@@ -48,7 +54,6 @@ namespace AppUI.Classes
             public int dmReserved2;
             public int dmPanningWidth;
             public int dmPanningHeight;
-
         }
 
         public static List<SupportedResolution> GetSupportedResolutions()
@@ -57,7 +62,10 @@ namespace AppUI.Classes
             int i = 0;
             while (EnumDisplaySettings(null, i, ref vDevMode))
             {
-                SupportedResolution.CreateIfNotExist((uint)vDevMode.dmPelsWidth, (uint)vDevMode.dmPelsHeight);
+                SupportedResolution.CreateIfNotExist(
+                    (uint)vDevMode.dmPelsWidth,
+                    (uint)vDevMode.dmPelsHeight
+                );
                 i++;
             }
 

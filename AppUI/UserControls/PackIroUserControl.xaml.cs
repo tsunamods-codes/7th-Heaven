@@ -1,7 +1,4 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.UserControls
 {
@@ -43,7 +43,10 @@ namespace AppUI.UserControls
 
         private void btnBrowseOutput_Click(object sender, RoutedEventArgs e)
         {
-            string saveFile = FileDialogHelper.OpenSaveDialog("*.iro|*.iro", ResourceHelper.Get(StringKey.SaveAsIroTitle));
+            string saveFile = FileDialogHelper.OpenSaveDialog(
+                "*.iro|*.iro",
+                ResourceHelper.Get(StringKey.SaveAsIroTitle)
+            );
 
             if (!string.IsNullOrEmpty(saveFile))
             {
@@ -53,7 +56,9 @@ namespace AppUI.UserControls
 
         private void btnBrowseSource_Click(object sender, RoutedEventArgs e)
         {
-            string sourceFolder = FileDialogHelper.BrowseForFolder(ResourceHelper.Get(StringKey.SelectTheFolderThatContainsAllTheModFiles));
+            string sourceFolder = FileDialogHelper.BrowseForFolder(
+                ResourceHelper.Get(StringKey.SelectTheFolderThatContainsAllTheModFiles)
+            );
 
             if (!string.IsNullOrEmpty(sourceFolder))
             {

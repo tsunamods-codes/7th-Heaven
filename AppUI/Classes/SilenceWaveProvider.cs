@@ -1,5 +1,5 @@
-﻿using NAudio.Wave;
-using System;
+﻿using System;
+using NAudio.Wave;
 
 namespace AppUI.Classes
 {
@@ -19,9 +19,9 @@ namespace AppUI.Classes
 
         public int Read(Span<byte> buffer)
         {
-            // the silenced wave provider will return 0 which indicates playback stopped 
+            // the silenced wave provider will return 0 which indicates playback stopped
             // ... because PlaybackStopped will be fired once ALL input audio sources are done streaming [which is indicated when Read() returns 0]
-            return 0; 
+            return 0;
         }
     }
 }

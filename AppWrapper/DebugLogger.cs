@@ -42,9 +42,7 @@ namespace AppWrapper
 
                 LogFile = null;
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
 
         public static void WriteLine(string message)
@@ -66,9 +64,7 @@ namespace AppWrapper
                     LogFile.Flush();
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
 
         public static void DetailedWriteLine(string message)

@@ -3,29 +3,33 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using Iros;
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using Iros;
+using Microsoft.Win32.SafeHandles;
 
-namespace AppWrapper {
-
-    public class IrosArcException : Exception {
-        public IrosArcException(string msg) : base(msg) { }
+namespace AppWrapper
+{
+    public class IrosArcException : Exception
+    {
+        public IrosArcException(string msg)
+            : base(msg) { }
     }
 
     [Flags]
-    public enum ArchiveFlags {
+    public enum ArchiveFlags
+    {
         None = 0,
         Patch = 0x1,
     }
 
     [Flags]
-    public enum FileFlags {
+    public enum FileFlags
+    {
         None = 0,
         CompressLZS = 0x1,
         CompressLZMA = 0x2,
@@ -39,66 +43,82 @@ namespace AppWrapper {
 #endif
     }
 
-    public enum CompressType {
+    public enum CompressType
+    {
         Nothing = 0,
         Everything,
         ByExtension,
         ByContent,
     }
 
-    public class IrosArc : IDisposable {
+    public class IrosArc : IDisposable
+    {
         public const int SIG = 0x534f5249;
         public const int MAX_VERSION = 0x10002;
         public const int MIN_VERSION = 0x10000;
 
-        internal const int SZ_OK =0;
-        internal const int SZ_ERROR_DATA =1;
-        internal const int SZ_ERROR_MEM =2;
-        internal const int SZ_ERROR_CRC =3;
-        internal const int SZ_ERROR_UNSUPPORTED =4;
-        internal const int SZ_ERROR_PARAM =5;
-        internal const int SZ_ERROR_INPUT_EOF =6;
-        internal const int SZ_ERROR_OUTPUT_EOF =7;
+        internal const int SZ_OK = 0;
+        internal const int SZ_ERROR_DATA = 1;
+        internal const int SZ_ERROR_MEM = 2;
+        internal const int SZ_ERROR_CRC = 3;
+        internal const int SZ_ERROR_UNSUPPORTED = 4;
+        internal const int SZ_ERROR_PARAM = 5;
+        internal const int SZ_ERROR_INPUT_EOF = 6;
+        internal const int SZ_ERROR_OUTPUT_EOF = 7;
 
-        private static HashSet<string> _noCompressExt = new HashSet<string>(new[] { 
-            ".jpg", ".png", ".mp3", ".ogg"
-        }, StringComparer.InvariantCultureIgnoreCase);
+        private static HashSet<string> _noCompressExt = new HashSet<string>(
+            new[] { ".jpg", ".png", ".mp3", ".ogg" },
+            StringComparer.InvariantCultureIgnoreCase
+        );
 
-        private class ArcHeader {
-
+        private class ArcHeader
+        {
             public int Version { get; set; }
             public ArchiveFlags Flags { get; set; }
             public int Directory { get; set; }
 
-            public void Open(System.IO.Stream s) {
-                if (s.ReadInt() != SIG) throw new IrosArcException("Signature mismatch");
+            public void Open(System.IO.Stream s)
+            {
+                if (s.ReadInt() != SIG)
+                    throw new IrosArcException("Signature mismatch");
                 Version = s.ReadInt();
                 Flags = (ArchiveFlags)s.ReadInt();
                 Directory = s.ReadInt();
-                if (Version < MIN_VERSION) throw new IrosArcException("Invalid header version " + Version.ToString());
-                if (Version > MAX_VERSION) throw new IrosArcException("Invalid header version " + Version.ToString());
+                if (Version < MIN_VERSION)
+                    throw new IrosArcException("Invalid header version " + Version.ToString());
+                if (Version > MAX_VERSION)
+                    throw new IrosArcException("Invalid header version " + Version.ToString());
             }
 
-            public void Save(System.IO.Stream s) {
+            public void Save(System.IO.Stream s)
+            {
                 s.WriteInt(SIG);
                 s.WriteInt(Version);
                 s.WriteInt((int)Flags);
                 s.WriteInt(Directory);
             }
 
-            public override string ToString() {
-                return String.Format("Version: {0}.{1}  Directory at: {2}  Flags: {3}", Version >> 16, Version & 0xffff, Directory, Flags);
+            public override string ToString()
+            {
+                return String.Format(
+                    "Version: {0}.{1}  Directory at: {2}  Flags: {3}",
+                    Version >> 16,
+                    Version & 0xffff,
+                    Directory,
+                    Flags
+                );
             }
-
         }
 
-        private class DirectoryEntry {
+        private class DirectoryEntry
+        {
             public string Filename { get; set; }
             public FileFlags Flags { get; set; }
             public long Offset { get; set; }
             public int Length { get; set; }
 
-            public void Open(System.IO.Stream s, int version) {
+            public void Open(System.IO.Stream s, int version)
+            {
                 long pos = s.Position;
                 ushort len = s.ReadUShort();
                 ushort flen = s.ReadUShort();
@@ -114,13 +134,15 @@ namespace AppWrapper {
                 s.Position = pos + len;
             }
 
-            public ushort GetSize() {
+            public ushort GetSize()
+            {
                 byte[] fndata = System.Text.Encoding.Unicode.GetBytes(Filename);
                 ushort len = (ushort)(fndata.Length + 4 + 16);
                 return len;
             }
 
-            public void Save(System.IO.Stream s) {
+            public void Save(System.IO.Stream s)
+            {
                 byte[] fndata = System.Text.Encoding.Unicode.GetBytes(Filename);
                 ushort len = (ushort)(fndata.Length + 4 + 16);
                 s.WriteUShort(len);
@@ -131,8 +153,15 @@ namespace AppWrapper {
                 s.WriteInt(Length);
             }
 
-            public override string ToString() {
-                return String.Format("File: {0} Offset: {1} Size: {2} Flags: {3}", Filename, Offset, Length, Flags);
+            public override string ToString()
+            {
+                return String.Format(
+                    "File: {0} Offset: {1} Size: {2} Flags: {3}",
+                    Filename,
+                    Offset,
+                    Length,
+                    Flags
+                );
             }
         }
 
@@ -143,34 +172,54 @@ namespace AppWrapper {
         private System.IO.FileStream _data;
         private string _source;
 
-        private class CacheEntry {
+        private class CacheEntry
+        {
             public byte[] Data;
             public DateTime LastAccess;
             public string File;
         }
 
-        private System.Collections.Concurrent.ConcurrentDictionary<long, CacheEntry> _cache = new System.Collections.Concurrent.ConcurrentDictionary<long, CacheEntry>();
+        private System.Collections.Concurrent.ConcurrentDictionary<long, CacheEntry> _cache =
+            new System.Collections.Concurrent.ConcurrentDictionary<long, CacheEntry>();
 
-        private struct DataRecord {
+        private struct DataRecord
+        {
             public byte[] Data;
             public bool Compressed;
         }
-        private static DataRecord GetData(byte[] input, string filename, CompressType compress) {
-            if (compress == CompressType.Nothing) {
-                    return new DataRecord() { Data = input };
+
+        private static DataRecord GetData(byte[] input, string filename, CompressType compress)
+        {
+            if (compress == CompressType.Nothing)
+            {
+                return new DataRecord() { Data = input };
             }
-            if (compress == CompressType.ByExtension && _noCompressExt.Contains(System.IO.Path.GetExtension(filename))) {
+            if (
+                compress == CompressType.ByExtension
+                && _noCompressExt.Contains(System.IO.Path.GetExtension(filename))
+            )
+            {
                 return new DataRecord() { Data = input };
             }
 
             var cdata = new System.IO.MemoryStream();
             //Lzs.Encode(new System.IO.MemoryStream(input), cdata);
             byte[] lprops;
-            using (var lzma = SharpCompress.Compressors.LZMA.LzmaStream.Create(new SharpCompress.Compressors.LZMA.LzmaEncoderProperties(), false, cdata)) {
+            using (
+                var lzma = SharpCompress.Compressors.LZMA.LzmaStream.Create(
+                    new SharpCompress.Compressors.LZMA.LzmaEncoderProperties(),
+                    false,
+                    cdata
+                )
+            )
+            {
                 lzma.Write(input, 0, input.Length);
                 lprops = lzma.Properties;
             }
-            if (/*compress == CompressType.ByContent &&*/ (cdata.Length + lprops.Length + 8) > (input.Length * 10 / 8)) {
+            if ( /*compress == CompressType.ByContent &&*/
+                (cdata.Length + lprops.Length + 8) > (input.Length * 10 / 8)
+            )
+            {
                 return new DataRecord() { Data = input };
             }
 
@@ -183,39 +232,55 @@ namespace AppWrapper {
             return new DataRecord() { Data = data, Compressed = true };
         }
 
-        public class ArchiveCreateEntry {
+        public class ArchiveCreateEntry
+        {
             public string Filename { get; set; }
             public Func<byte[]> GetData { get; set; }
-            public static ArchiveCreateEntry FromDisk(string baseFolder, string file) {
-                return new ArchiveCreateEntry() {
+
+            public static ArchiveCreateEntry FromDisk(string baseFolder, string file)
+            {
+                return new ArchiveCreateEntry()
+                {
                     Filename = file,
-                    GetData = () => System.IO.File.ReadAllBytes(System.IO.Path.Combine(baseFolder, file))
+                    GetData = () =>
+                        System.IO.File.ReadAllBytes(System.IO.Path.Combine(baseFolder, file)),
                 };
             }
         }
 
-        private class CompressEntry {
+        private class CompressEntry
+        {
             public ArchiveCreateEntry ACE;
             public DirectoryEntry Dir;
             public DataRecord DataRec;
         }
 
-        private class CompressWork {
+        private class CompressWork
+        {
             public System.Collections.Concurrent.ConcurrentBag<CompressEntry> Input;
             public System.Collections.Concurrent.BlockingCollection<CompressEntry> Compressed;
             public CompressType Compress;
         }
 
-        private static void CompressWorkThread(object param) {
+        private static void CompressWorkThread(object param)
+        {
             CompressWork cw = (CompressWork)param;
             CompressEntry ce;
-            while (cw.Input.TryTake(out ce)) {
+            while (cw.Input.TryTake(out ce))
+            {
                 ce.DataRec = GetData(ce.ACE.GetData(), ce.ACE.Filename, cw.Compress);
                 cw.Compressed.Add(ce);
             }
         }
 
-        public static void Create(System.IO.Stream output, IEnumerable<ArchiveCreateEntry> files, ArchiveFlags flags, CompressType compress, Action<double, string> onProgress) {
+        public static void Create(
+            System.IO.Stream output,
+            IEnumerable<ArchiveCreateEntry> files,
+            ArchiveFlags flags,
+            CompressType compress,
+            Action<double, string> onProgress
+        )
+        {
             if (!files.Any())
                 throw new IrosArcException("Can't create an archive that contains no files");
             var sw = new System.Diagnostics.Stopwatch();
@@ -224,36 +289,46 @@ namespace AppWrapper {
             int count = 0;
 
             onProgress(count / total, "");
-            ArcHeader h = new ArcHeader() { Flags = flags, Version = MAX_VERSION, Directory = 16 };
-            List<DirectoryEntry> entries = files.Select(f => new DirectoryEntry() {
-                Filename = f.Filename, Flags = 0, 
-            }).ToList();
+            ArcHeader h = new ArcHeader()
+            {
+                Flags = flags,
+                Version = MAX_VERSION,
+                Directory = 16,
+            };
+            List<DirectoryEntry> entries = files
+                .Select(f => new DirectoryEntry() { Filename = f.Filename, Flags = 0 })
+                .ToList();
             int dsize = entries.Select(e => (int)e.GetSize()).Sum();
             h.Save(output);
             output.WriteInt(entries.Count);
             long position = h.Directory + dsize + 4;
             onProgress(++count / total, "Wrote header");
             int index = 0;
-            var combined = entries.Zip(files, (d,e) => new { Dir = d, ACE = e }).ToList();
+            var combined = entries.Zip(files, (d, e) => new { Dir = d, ACE = e }).ToList();
 
-            var cw = new CompressWork() {
+            var cw = new CompressWork()
+            {
                 Input = new System.Collections.Concurrent.ConcurrentBag<CompressEntry>(),
                 Compressed = new System.Collections.Concurrent.BlockingCollection<CompressEntry>(8),
-                Compress = compress
+                Compress = compress,
             };
-            
-            foreach (var comb in combined) {
+
+            foreach (var comb in combined)
+            {
                 cw.Input.Add(new CompressEntry() { ACE = comb.ACE, Dir = comb.Dir });
             }
-            foreach (int _ in Enumerable.Range(0, 8)) System.Threading.ThreadPool.QueueUserWorkItem(CompressWorkThread, cw);
+            foreach (int _ in Enumerable.Range(0, 8))
+                System.Threading.ThreadPool.QueueUserWorkItem(CompressWorkThread, cw);
 
             int filesDone = 0;
 
-            while (filesDone < combined.Count) {
+            while (filesDone < combined.Count)
+            {
                 var entry = cw.Compressed.Take();
                 entry.Dir.Offset = position;
                 var data = entry.DataRec.Data;
-                if (entry.DataRec.Compressed) entry.Dir.Flags |= FileFlags.CompressLZMA;
+                if (entry.DataRec.Compressed)
+                    entry.Dir.Flags |= FileFlags.CompressLZMA;
                 entry.Dir.Length = data.Length;
 
                 output.Position = position;
@@ -266,86 +341,138 @@ namespace AppWrapper {
             }
 
             output.Position = h.Directory + 4;
-            foreach (var entry in entries) {
+            foreach (var entry in entries)
+            {
                 entry.Save(output);
             }
             sw.Stop();
-            onProgress(++count / total, String.Format("Complete: {0} files, {1:0.0}MB in {2} seconds", entries.Count, output.Length / (1024f*1024f), sw.Elapsed.TotalSeconds));
+            onProgress(
+                ++count / total,
+                String.Format(
+                    "Complete: {0} files, {1:0.0}MB in {2} seconds",
+                    entries.Count,
+                    output.Length / (1024f * 1024f),
+                    sw.Elapsed.TotalSeconds
+                )
+            );
         }
 
-        public bool CheckValid() {
-            foreach (var entry in _entries) {
-                if ((entry.Offset + entry.Length) > _data.Length) return false;
+        public bool CheckValid()
+        {
+            foreach (var entry in _entries)
+            {
+                if ((entry.Offset + entry.Length) > _data.Length)
+                    return false;
             }
             return true;
         }
 
-        public IrosArc(string filename, bool patchable = false, Action<int, int> progressAction = null) {
+        public IrosArc(
+            string filename,
+            bool patchable = false,
+            Action<int, int> progressAction = null
+        )
+        {
             _source = filename;
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             if (patchable)
-                _data = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite);
+                _data = new System.IO.FileStream(
+                    filename,
+                    System.IO.FileMode.Open,
+                    System.IO.FileAccess.ReadWrite
+                );
             else
-                _data = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                _data = new System.IO.FileStream(
+                    filename,
+                    System.IO.FileMode.Open,
+                    System.IO.FileAccess.Read
+                );
             _header = new ArcHeader();
             _header.Open(_data);
 
             int numfiles;
             _data.Position = _header.Directory;
-            do {
+            do
+            {
                 numfiles = _data.ReadInt();
-                if (numfiles == -1) {
+                if (numfiles == -1)
+                {
                     _data.Position = _data.ReadLong();
                 }
             } while (numfiles < 0);
             _entries = new List<DirectoryEntry>();
-            _lookup = new Dictionary<string, DirectoryEntry>(StringComparer.InvariantCultureIgnoreCase);
+            _lookup = new Dictionary<string, DirectoryEntry>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
             _folderNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-            for (int i = 0; i < numfiles; i++) {
+            for (int i = 0; i < numfiles; i++)
+            {
                 progressAction?.Invoke(i, numfiles);
                 DirectoryEntry e = new DirectoryEntry();
                 e.Open(_data, _header.Version);
 #if !RUDE
-                if ((e.Flags & FileFlags.RudeFlags) != 0) throw new IrosArcException(String.Format("Archive {0} entry {1} has invalid flags", filename, e.Filename));
+                if ((e.Flags & FileFlags.RudeFlags) != 0)
+                    throw new IrosArcException(
+                        String.Format(
+                            "Archive {0} entry {1} has invalid flags",
+                            filename,
+                            e.Filename
+                        )
+                    );
 #endif
 
                 _entries.Add(e);
                 _lookup[e.Filename] = e;
                 int lpos = e.Filename.LastIndexOf('\\');
-                if (lpos > 0) {
+                if (lpos > 0)
+                {
                     _folderNames.Add(e.Filename.Substring(0, lpos));
                 }
             }
             sw.Stop();
-            DebugLogger.DetailedWriteLine($"IrosArc: opened {filename}, contains {_lookup.Count} files, took {sw.ElapsedMilliseconds} ms to parse");
+            DebugLogger.DetailedWriteLine(
+                $"IrosArc: opened {filename}, contains {_lookup.Count} files, took {sw.ElapsedMilliseconds} ms to parse"
+            );
         }
 
-        public void ApplyPatch(IrosArc patch, Action<double, string> onProgress) {
+        public void ApplyPatch(IrosArc patch, Action<double, string> onProgress)
+        {
             int currentDirSize = _entries.Sum(e => e.GetSize());
             byte[] deldata = patch.GetBytes("%IrosPatch:Deleted");
-            if (deldata != null) {
-                string[] delfile = System.Text.Encoding.Unicode.GetString(deldata).Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string del in delfile) {
+            if (deldata != null)
+            {
+                string[] delfile = System
+                    .Text.Encoding.Unicode.GetString(deldata)
+                    .Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string del in delfile)
+                {
                     DebugLogger.DetailedWriteLine($"Removing file {del} from archive");
-                    _entries.RemoveAll(e => e.Filename.Equals(del, StringComparison.InvariantCultureIgnoreCase));
+                    _entries.RemoveAll(e =>
+                        e.Filename.Equals(del, StringComparison.InvariantCultureIgnoreCase)
+                    );
                 }
                 onProgress(0, "Removed " + delfile.Length + " deleted files");
             }
             int count = 0;
             var files = patch.AllFileNames().Where(s => !s.StartsWith("%")).ToArray();
-            foreach(string file in files) {
+            foreach (string file in files)
+            {
                 var patchEntry = patch._lookup[file];
                 byte[] data = new byte[patchEntry.Length];
                 patch._data.Position = patchEntry.Offset;
                 patch._data.ReadExactly(data);
-                if (HasFile(file)) { //update existing
+                if (HasFile(file))
+                { //update existing
                     DebugLogger.DetailedWriteLine($"File {file} is already in archive...");
                     DirectoryEntry exist = _lookup[file];
-                    if (exist.Length >= data.Length) { //put data in same position, woo
+                    if (exist.Length >= data.Length)
+                    { //put data in same position, woo
                         DebugLogger.DetailedWriteLine("...updating in place");
                         _data.Position = exist.Offset;
-                    } else { //stick at end of file
+                    }
+                    else
+                    { //stick at end of file
                         _data.Position = _data.Length;
                         exist.Offset = _data.Position;
                         DebugLogger.DetailedWriteLine("...size increase: writing to end of file");
@@ -353,13 +480,16 @@ namespace AppWrapper {
                     _data.Write(data, 0, data.Length);
                     exist.Length = data.Length;
                     exist.Flags = patchEntry.Flags;
-                } else { //new file, just append
+                }
+                else
+                { //new file, just append
                     DebugLogger.DetailedWriteLine($"File {file} is new, appending");
-                    DirectoryEntry de = new DirectoryEntry() {
+                    DirectoryEntry de = new DirectoryEntry()
+                    {
                         Filename = file,
                         Flags = patchEntry.Flags,
                         Length = patchEntry.Length,
-                        Offset = _data.Length
+                        Offset = _data.Length,
                     };
                     _data.Position = de.Offset;
                     _data.Write(data, 0, data.Length);
@@ -371,17 +501,23 @@ namespace AppWrapper {
                 onProgress(1.0 * count / files.Length, "Processed " + file);
             }
             int newDirSize = _entries.Sum(e => e.GetSize());
-            if (newDirSize <= currentDirSize) {
+            if (newDirSize <= currentDirSize)
+            {
                 DebugLogger.DetailedWriteLine("Directory will fit in existing location");
                 _data.Position = _header.Directory;
-            } else {
+            }
+            else
+            {
                 DebugLogger.DetailedWriteLine("Directory size increase, appending");
-                if (_data.Length >= int.MaxValue) { //write forwarder
+                if (_data.Length >= int.MaxValue)
+                { //write forwarder
                     _data.Position = _header.Directory;
                     _data.WriteInt(-1);
                     _data.WriteLong(_data.Length);
                     _data.Position = _data.Length;
-                } else { //write direct location
+                }
+                else
+                { //write direct location
                     _header.Directory = (int)_data.Length;
                     _data.Position = _header.Directory;
                 }
@@ -395,25 +531,29 @@ namespace AppWrapper {
             onProgress(1.0, "Wrote directory");
         } //TODO: track blank spaces in file and reuse where possible...
 
-        public IEnumerable<string> AllFileNames() {
+        public IEnumerable<string> AllFileNames()
+        {
             return _lookup.Keys;
         }
 
-        public IEnumerable<string> AllFolderNames() {
+        public IEnumerable<string> AllFolderNames()
+        {
             return _folderNames.Select(s => s);
         }
 
-        public bool HasFolder(string name) {
+        public bool HasFolder(string name)
+        {
             bool result = _folderNames.Contains(name);
             if (result)
             {
                 DebugLogger.DetailedWriteLine($"ARCHIVE: {_source} contains folder {name}");
             }
-            
+
             return result;
         }
 
-        public bool HasFile(string name) {
+        public bool HasFile(string name)
+        {
             bool result = _lookup.ContainsKey(name);
             if (result)
             {
@@ -423,10 +563,13 @@ namespace AppWrapper {
             return result;
         }
 
-        public int GetFileSize(string name) {
+        public int GetFileSize(string name)
+        {
             DirectoryEntry e;
-            if (_lookup.TryGetValue(name, out e)) {
-                switch (e.Flags & FileFlags.COMPRESSION_FLAGS) {
+            if (_lookup.TryGetValue(name, out e))
+            {
+                switch (e.Flags & FileFlags.COMPRESSION_FLAGS)
+                {
                     case FileFlags.CompressLZMA:
                         _data.Position = e.Offset;
                         return _data.ReadInt();
@@ -434,32 +577,42 @@ namespace AppWrapper {
                     case FileFlags.None:
                         return e.Length;
                 }
-            } else
+            }
+            else
                 return -1;
         }
 
-        private void CleanCache() {
+        private void CleanCache()
+        {
             long[] remove = _cache
                 .ToArray()
                 .Where(kv => kv.Value.LastAccess < DateTime.Now.AddSeconds(-60))
                 .Select(kv => kv.Key)
                 .ToArray();
-            if (remove.Any()) {
-                DebugLogger.DetailedWriteLine($"Removing {remove.Length} compressed files from cache: ");
+            if (remove.Any())
+            {
+                DebugLogger.DetailedWriteLine(
+                    $"Removing {remove.Length} compressed files from cache: "
+                );
                 CacheEntry _;
-                foreach (long r in remove) _cache.TryRemove(r, out _);
+                foreach (long r in remove)
+                    _cache.TryRemove(r, out _);
             }
         }
 
         //private int _cacheCounter = 0;
 
-        private CacheEntry GetCache(DirectoryEntry e) {
+        private CacheEntry GetCache(DirectoryEntry e)
+        {
             CacheEntry ce;
-            if (!_cache.TryGetValue(e.Offset, out ce)) {
+            if (!_cache.TryGetValue(e.Offset, out ce))
+            {
                 ce = new CacheEntry() { File = e.Filename };
                 byte[] data;
-                lock (_data) {
-                    switch (e.Flags & FileFlags.COMPRESSION_FLAGS) {
+                lock (_data)
+                {
+                    switch (e.Flags & FileFlags.COMPRESSION_FLAGS)
+                    {
                         case FileFlags.CompressLZS:
                             data = new byte[e.Length];
                             _data.Position = e.Offset;
@@ -474,13 +627,17 @@ namespace AppWrapper {
                             break;
                         case FileFlags.CompressLZMA:
                             _data.Position = e.Offset;
-                            int decSize = _data.ReadInt(), propSize = _data.ReadInt();
+                            int decSize = _data.ReadInt(),
+                                propSize = _data.ReadInt();
                             byte[] props = new byte[propSize];
                             _data.ReadExactly(props);
                             byte[] cdata = new byte[e.Length - propSize - 8];
                             _data.ReadExactly(cdata);
                             data = new byte[decSize];
-                            var lzma = SharpCompress.Compressors.LZMA.LzmaStream.Create(props, new System.IO.MemoryStream(cdata));
+                            var lzma = SharpCompress.Compressors.LZMA.LzmaStream.Create(
+                                props,
+                                new System.IO.MemoryStream(cdata)
+                            );
                             lzma.ReadExactly(data);
                             /*int srcSize = cdata.Length;
                             switch (LzmaUncompress(data, ref decSize, cdata, ref srcSize, props, props.Length)) {
@@ -493,7 +650,9 @@ namespace AppWrapper {
                             ce.Data = data;
                             break;
                         default:
-                            throw new IrosArcException("Bad compression flags " + e.Flags.ToString());
+                            throw new IrosArcException(
+                                "Bad compression flags " + e.Flags.ToString()
+                            );
                     }
                 }
                 _cache.AddOrUpdate(e.Offset, ce, (_, __) => ce);
@@ -509,75 +668,111 @@ namespace AppWrapper {
             return ce;
         }
 
-        public byte[] GetBytes(string name) {
+        public byte[] GetBytes(string name)
+        {
             DirectoryEntry e;
-            if (_lookup.TryGetValue(name, out e)) {
+            if (_lookup.TryGetValue(name, out e))
+            {
                 if ((e.Flags & FileFlags.COMPRESSION_FLAGS) != 0)
                     return GetCache(e).Data;
-                else {
-                    lock (_data) {
+                else
+                {
+                    lock (_data)
+                    {
                         byte[] data = new byte[e.Length];
                         _data.Position = e.Offset;
                         _data.ReadExactly(data, 0, e.Length);
                         return data;
                     }
                 }
-            } else
+            }
+            else
                 return null;
         }
-        public System.IO.Stream GetData(string name) {
+
+        public System.IO.Stream GetData(string name)
+        {
             byte[] data = GetBytes(name);
             return data == null ? null : new System.IO.MemoryStream(data);
         }
 
-        public void RawRead(string file, uint offset, uint length, IntPtr dest, ref uint bytesRead) {
+        public void RawRead(string file, uint offset, uint length, IntPtr dest, ref uint bytesRead)
+        {
             DirectoryEntry e;
-            if (_lookup.TryGetValue(file, out e)) {
-                if ((e.Flags & FileFlags.COMPRESSION_FLAGS) != 0) {
+            if (_lookup.TryGetValue(file, out e))
+            {
+                if ((e.Flags & FileFlags.COMPRESSION_FLAGS) != 0)
+                {
                     var cache = GetCache(e);
                     uint readLen = Math.Min(length, (uint)cache.Data.Length - offset);
                     Util.CopyToIntPtr(cache.Data, dest, (int)readLen, (int)offset);
                     bytesRead = readLen;
-                    if (readLen == 0) {
-                        DebugLogger.DetailedWriteLine($"IrosArc RawRead file {file} offset {offset} length {length} read {readLen} bytes - cache data size {cache.Data.Length}");
+                    if (readLen == 0)
+                    {
+                        DebugLogger.DetailedWriteLine(
+                            $"IrosArc RawRead file {file} offset {offset} length {length} read {readLen} bytes - cache data size {cache.Data.Length}"
+                        );
                     }
-                } else {
+                }
+                else
+                {
                     uint readLen = Math.Min(length, (uint)e.Length - offset);
                     long Loffset = offset + e.Offset;
-                    Win32.OVERLAPPED ov = new Win32.OVERLAPPED() {
+                    Win32.OVERLAPPED ov = new Win32.OVERLAPPED()
+                    {
                         EventHandle = IntPtr.Zero,
                         Internal = UIntPtr.Zero,
                         InternalHigh = UIntPtr.Zero,
                         Offset = (uint)(Loffset & 0xffffffff),
-                        OffsetHigh = (uint)(Loffset >> 32)
+                        OffsetHigh = (uint)(Loffset >> 32),
                     };
 
-                    Win32.ReadFile(_data.SafeFileHandle.DangerousGetHandle(), dest, readLen, ref bytesRead, ref ov);
+                    Win32.ReadFile(
+                        _data.SafeFileHandle.DangerousGetHandle(),
+                        dest,
+                        readLen,
+                        ref bytesRead,
+                        ref ov
+                    );
                 }
-            } else
+            }
+            else
                 bytesRead = 0;
         }
 
-        public void Dispose() {
-            if (_data != null) {
+        public void Dispose()
+        {
+            if (_data != null)
+            {
                 _data.Close();
                 _data = null;
             }
         }
 
-        public IntPtr GetDummyHandle(Process process) {
+        public IntPtr GetDummyHandle(Process process)
+        {
             IntPtr h;
 
-            Win32.DuplicateHandle(process.Handle, _data.SafeFileHandle.DangerousGetHandle(), process.Handle, out h, 0, false, 0x2);
+            Win32.DuplicateHandle(
+                process.Handle,
+                _data.SafeFileHandle.DangerousGetHandle(),
+                process.Handle,
+                out h,
+                0,
+                false,
+                0x2
+            );
 
             return h;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "[IrosArchive " + _source + "]";
         }
 
-        public IEnumerable<string> GetInformation() {
+        public IEnumerable<string> GetInformation()
+        {
             yield return _header.ToString();
 
             foreach (var entry in _entries)
@@ -585,42 +780,72 @@ namespace AppWrapper {
         }
     }
 
-    public static class IrosPatcher {
-        private static bool Same(byte[] b1, byte[] b2) {
-            if (b1.Length != b2.Length) return false;
+    public static class IrosPatcher
+    {
+        private static bool Same(byte[] b1, byte[] b2)
+        {
+            if (b1.Length != b2.Length)
+                return false;
             for (int i = 0; i < b1.Length; i++)
-                if (b1[i] != b2[i]) return false;
+                if (b1[i] != b2[i])
+                    return false;
             return true;
         }
-        public static void Create(IrosArc original, IrosArc updated, System.IO.Stream patchOutput, CompressType compress, Action<double, string> onProgress) {
-            string[] deleted = original.AllFileNames()
+
+        public static void Create(
+            IrosArc original,
+            IrosArc updated,
+            System.IO.Stream patchOutput,
+            CompressType compress,
+            Action<double, string> onProgress
+        )
+        {
+            string[] deleted = original
+                .AllFileNames()
                 .Except(updated.AllFileNames(), StringComparer.InvariantCultureIgnoreCase)
                 .ToArray();
             List<IrosArc.ArchiveCreateEntry> pentries = new List<IrosArc.ArchiveCreateEntry>();
-            if (deleted.Any()) {
+            if (deleted.Any())
+            {
                 onProgress(0, "Adding deleted entries");
                 byte[] deldata = System.Text.Encoding.Unicode.GetBytes(String.Join("\n", deleted));
-                pentries.Add(new IrosArc.ArchiveCreateEntry() {
-                    Filename = "%IrosPatch:Deleted",
-                    GetData = () => deldata
-                });
+                pentries.Add(
+                    new IrosArc.ArchiveCreateEntry()
+                    {
+                        Filename = "%IrosPatch:Deleted",
+                        GetData = () => deldata,
+                    }
+                );
             }
-            foreach (string newFile in updated.AllFileNames().Except(original.AllFileNames(), StringComparer.InvariantCultureIgnoreCase)) {
+            foreach (
+                string newFile in updated
+                    .AllFileNames()
+                    .Except(original.AllFileNames(), StringComparer.InvariantCultureIgnoreCase)
+            )
+            {
                 onProgress(0, "Adding new entries");
                 string fn = newFile;
-                pentries.Add(new IrosArc.ArchiveCreateEntry() {
-                    Filename = fn,
-                    GetData = () => updated.GetBytes(fn)
-                });
-            }
-            foreach (string check in original.AllFileNames().Intersect(updated.AllFileNames())) {
-                onProgress(0, "Checking " + check);
-                if (!Same(original.GetBytes(check), updated.GetBytes(check))) {
-                    string fn = check;
-                    pentries.Add(new IrosArc.ArchiveCreateEntry() {
+                pentries.Add(
+                    new IrosArc.ArchiveCreateEntry()
+                    {
                         Filename = fn,
-                        GetData = () => updated.GetBytes(fn)
-                    });
+                        GetData = () => updated.GetBytes(fn),
+                    }
+                );
+            }
+            foreach (string check in original.AllFileNames().Intersect(updated.AllFileNames()))
+            {
+                onProgress(0, "Checking " + check);
+                if (!Same(original.GetBytes(check), updated.GetBytes(check)))
+                {
+                    string fn = check;
+                    pentries.Add(
+                        new IrosArc.ArchiveCreateEntry()
+                        {
+                            Filename = fn,
+                            GetData = () => updated.GetBytes(fn),
+                        }
+                    );
                 }
             }
             IrosArc.Create(patchOutput, pentries, ArchiveFlags.Patch, compress, onProgress);

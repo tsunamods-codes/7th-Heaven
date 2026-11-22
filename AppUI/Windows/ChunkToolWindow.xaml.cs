@@ -1,7 +1,4 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -35,7 +35,10 @@ namespace AppUI.Windows
 
         private void btnBrowseFlevel_Click(object sender, RoutedEventArgs e)
         {
-            string pathToFile = FileDialogHelper.BrowseForFile("FLevel.lgp|FLevel.lgp", ResourceHelper.Get(StringKey.SelectFLevelLgpFile));
+            string pathToFile = FileDialogHelper.BrowseForFile(
+                "FLevel.lgp|FLevel.lgp",
+                ResourceHelper.Get(StringKey.SelectFLevelLgpFile)
+            );
 
             if (!string.IsNullOrEmpty(pathToFile))
             {

@@ -5,17 +5,19 @@
   Additional help and support on .NET internals + low level wiring by Benjamin Moir <https://github.com/DaZombieKiller>
 */
 
-using Iros;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Iros;
 using static AppWrapper.Win32;
 
-namespace AppWrapper {
-    public static class Wrap {
+namespace AppWrapper
+{
+    public static class Wrap
+    {
         private static Dictionary<IntPtr, VArchiveData> _varchives = new();
         private static Dictionary<string, List<OverrideFile>> _mappedFiles = new();
         private static Dictionary<IntPtr, Queue<string>> _foundMatches = new();
@@ -25,9 +27,15 @@ namespace AppWrapper {
         private static void MonitorThread(object rpo)
         {
             RuntimeProfile rp = (RuntimeProfile)rpo;
-            var accessors = rp.MonitorVars
-                .Select(t => new { Name = t.Item1, Data = t.Item2.Split(':') })
-                .Select(a => new { Type = (VarType)Enum.Parse(typeof(VarType), a.Data[0]), Addr = new IntPtr(RuntimeVar.Parse(a.Data[1])), Name = a.Name, Mask = a.Data.Length < 3 ? -1 : (int)RuntimeVar.Parse(a.Data[2]) })
+            var accessors = rp
+                .MonitorVars.Select(t => new { Name = t.Item1, Data = t.Item2.Split(':') })
+                .Select(a => new
+                {
+                    Type = (VarType)Enum.Parse(typeof(VarType), a.Data[0]),
+                    Addr = new IntPtr(RuntimeVar.Parse(a.Data[1])),
+                    Name = a.Name,
+                    Mask = a.Data.Length < 3 ? -1 : (int)RuntimeVar.Parse(a.Data[2]),
+                })
                 .Where(a => (int)a.Type <= 2)
                 .ToList();
             int[] values = accessors.Select(_ => 247834893).ToArray();
@@ -41,13 +49,19 @@ namespace AppWrapper {
                     switch (accessors[i].Type)
                     {
                         case VarType.Int:
-                            value = System.Runtime.InteropServices.Marshal.ReadInt32(accessors[i].Addr);
+                            value = System.Runtime.InteropServices.Marshal.ReadInt32(
+                                accessors[i].Addr
+                            );
                             break;
                         case VarType.Short:
-                            value = System.Runtime.InteropServices.Marshal.ReadInt16(accessors[i].Addr);
+                            value = System.Runtime.InteropServices.Marshal.ReadInt16(
+                                accessors[i].Addr
+                            );
                             break;
                         case VarType.Byte:
-                            value = System.Runtime.InteropServices.Marshal.ReadByte(accessors[i].Addr);
+                            value = System.Runtime.InteropServices.Marshal.ReadByte(
+                                accessors[i].Addr
+                            );
                             break;
                         default:
                             continue;
@@ -64,9 +78,11 @@ namespace AppWrapper {
 
         public static void Run(Process currentProcess, string profileFile = ".7thWrapperProfile")
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US", false);
+            System.Threading.Thread.CurrentThread.CurrentCulture =
+                new System.Globalization.CultureInfo("en-US", false);
 
-            try {
+            try
+            {
                 using (var fs = new FileStream(profileFile, FileMode.Open))
                 {
                     _profile = Iros.Util.DeserializeBinary<RuntimeProfile>(fs);
@@ -75,15 +91,25 @@ namespace AppWrapper {
 
                 File.Delete(profileFile);
 
-                if (!String.IsNullOrWhiteSpace(_profile.LogFile)) {
-                    try {
-                        try { File.Delete(_profile.LogFile); } catch { } // ensure old log is deleted since new run
+                if (!String.IsNullOrWhiteSpace(_profile.LogFile))
+                {
+                    try
+                    {
+                        try
+                        {
+                            File.Delete(_profile.LogFile);
+                        }
+                        catch { } // ensure old log is deleted since new run
 
                         DebugLogger.Init(_profile.LogFile);
-                        DebugLogger.IsDetailedLogging = _profile.Options.HasFlag(RuntimeOptions.DetailedLog);
+                        DebugLogger.IsDetailedLogging = _profile.Options.HasFlag(
+                            RuntimeOptions.DetailedLog
+                        );
 
                         DebugLogger.WriteLine("Logging debug output to " + _profile.LogFile);
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         DebugLogger.WriteLine("Failed to log debug output: " + ex.ToString());
                     }
                 }
@@ -109,17 +135,24 @@ namespace AppWrapper {
                 DebugLogger.WriteLine($">> FF7Path: {_profile.FF7Path}");
                 DebugLogger.WriteLine($">> ModPath: {_profile.ModPath}");
                 DebugLogger.WriteLine($">> MonitorPaths:");
-                foreach(string monPath in _profile.MonitorPaths)
+                foreach (string monPath in _profile.MonitorPaths)
                     DebugLogger.WriteLine($"   - {monPath}");
-                for (int i = _profile.MonitorPaths.Count - 1; i >= 0; i--) {
-                    if (!_profile.MonitorPaths[i].EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()))
+                for (int i = _profile.MonitorPaths.Count - 1; i >= 0; i--)
+                {
+                    if (
+                        !_profile
+                            .MonitorPaths[i]
+                            .EndsWith(System.IO.Path.DirectorySeparatorChar.ToString())
+                    )
                         _profile.MonitorPaths[i] += System.IO.Path.DirectorySeparatorChar;
-                    if (String.IsNullOrWhiteSpace(_profile.MonitorPaths[i])) _profile.MonitorPaths.RemoveAt(i);
+                    if (String.IsNullOrWhiteSpace(_profile.MonitorPaths[i]))
+                        _profile.MonitorPaths.RemoveAt(i);
                 }
 
                 DebugLogger.WriteLine($"\nLoading mods:");
 
-                foreach (var item in _profile.Mods) {
+                foreach (var item in _profile.Mods)
+                {
                     DebugLogger.WriteLine($">> Mod: {item.BaseFolder}");
                     DebugLogger.WriteLine($"   - Conditionals: {item.Conditionals.Count}");
                     DebugLogger.WriteLine($"   - Extra Folders:");
@@ -129,23 +162,40 @@ namespace AppWrapper {
                 }
 
                 if (_profile.MonitorVars != null)
-                    new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(_profile);
+                    new System.Threading.Thread(MonitorThread) { IsBackground = true }.Start(
+                        _profile
+                    );
 
                 DebugLogger.WriteLine($"\nLoading hext patches:");
 
-                foreach (var mod in _profile.Mods.AsEnumerable().Reverse()) {
-                    foreach (string file in mod.GetPathOverrideNames("hext")) {
-                        foreach (var of in mod.GetOverrides("hext\\" + file)) {
+                foreach (var mod in _profile.Mods.AsEnumerable().Reverse())
+                {
+                    foreach (string file in mod.GetPathOverrideNames("hext"))
+                    {
+                        foreach (var of in mod.GetOverrides("hext\\" + file))
+                        {
                             System.IO.Stream s;
-                            if (of.Archive == null) {
-                                s = new System.IO.FileStream(of.File, FileMode.Open, FileAccess.Read);
-                            } else {
+                            if (of.Archive == null)
+                            {
+                                s = new System.IO.FileStream(
+                                    of.File,
+                                    FileMode.Open,
+                                    FileAccess.Read
+                                );
+                            }
+                            else
+                            {
                                 s = of.Archive.GetData(of.File);
                             }
-                            DebugLogger.WriteLine($">> Applying hext patch {file} from mod {mod.BaseFolder}");
-                            try {
+                            DebugLogger.WriteLine(
+                                $">> Applying hext patch {file} from mod {mod.BaseFolder}"
+                            );
+                            try
+                            {
                                 HexPatch.Apply(s);
-                            } catch (Exception ex) {
+                            }
+                            catch (Exception ex)
+                            {
                                 DebugLogger.WriteLine("   - Error applying patch: " + ex.Message);
                             }
                         }
@@ -158,7 +208,10 @@ namespace AppWrapper {
                     {
                         var archive = mod.getArchive();
                         if (archive == null)
-                            AddFolderFilesToMappedFiles(Path.Combine(mod.BaseFolder, cFolder.Folder), cFolder);
+                            AddFolderFilesToMappedFiles(
+                                Path.Combine(mod.BaseFolder, cFolder.Folder),
+                                cFolder
+                            );
                         else
                             AddIROFilesToMappedFiles(cFolder.Folder, cFolder, archive);
                     }
@@ -183,7 +236,9 @@ namespace AppWrapper {
                 }
 
                 DebugLogger.WriteLine($"\nWrapper startup complete.");
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 DebugLogger.WriteLine(e.ToString());
                 return;
             }
@@ -194,40 +249,50 @@ namespace AppWrapper {
         /// </summary>
         public static void OnAfterHook()
         {
-            if (_profile == null) return;
+            if (_profile == null)
+                return;
 
-            try {
-                foreach (string LL in _profile.Mods.SelectMany(m => m.GetLoadLibraries())) {
+            try
+            {
+                foreach (string LL in _profile.Mods.SelectMany(m => m.GetLoadLibraries()))
+                {
                     DebugLogger.WriteLine($"Loading library DLL {LL}");
                     NativeLibrary.Load(LL);
                 }
 
-                foreach (var mod in _profile.Mods) {
-                    foreach (string LA in mod.GetLoadAssemblies()) {
+                foreach (var mod in _profile.Mods)
+                {
+                    foreach (string LA in mod.GetLoadAssemblies())
+                    {
                         DebugLogger.WriteLine($"Loading assembly DLL {LA}");
                         var asm = System.Reflection.Assembly.LoadFrom(LA);
-                        try {
+                        try
+                        {
                             string path = mod.BaseFolder;
                             asm.GetType("_7thHeaven.Main")
                                 .GetMethod("Init", new[] { typeof(RuntimeMod) })
                                 .Invoke(null, new object[] { mod });
-                        } catch { }
+                        }
+                        catch { }
                     }
                 }
 
                 DebugLogger.WriteLine($"\nListening for game actions...");
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 DebugLogger.WriteLine(e.ToString());
             }
         }
 
         public static void Shutdown()
         {
-            foreach(var mf in _mappedFiles)
+            foreach (var mf in _mappedFiles)
             {
-                foreach(var of in mf.Value)
+                foreach (var of in mf.Value)
                 {
-                    if (of.Archive != null) of.Archive.Dispose();
+                    if (of.Archive != null)
+                        of.Archive.Dispose();
                 }
             }
 
@@ -244,7 +309,11 @@ namespace AppWrapper {
             System.GC.WaitForFullGCComplete();
         }
 
-        private static void AddIROFilesToMappedFiles(string folderPath, ConditionalFolder cFolder, IrosArc archive)
+        private static void AddIROFilesToMappedFiles(
+            string folderPath,
+            ConditionalFolder cFolder,
+            IrosArc archive
+        )
         {
             foreach (string filename in archive.AllFileNames())
             {
@@ -259,20 +328,25 @@ namespace AppWrapper {
 
                     if (_mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
                     {
-                        overrideFiles.Add(new OverrideFile()
-                        {
-                            File = filename,
-                            CFolder = cFolder,
-                            CName = fileKey,
-                            Size = archive.GetFileSize(filename),
-                            Archive = archive
-                        });
+                        overrideFiles.Add(
+                            new OverrideFile()
+                            {
+                                File = filename,
+                                CFolder = cFolder,
+                                CName = fileKey,
+                                Size = archive.GetFileSize(filename),
+                                Archive = archive,
+                            }
+                        );
                     }
                 }
             }
         }
 
-        private static void AddFolderFilesToMappedFiles(string folderPath, ConditionalFolder conditionalFolder)
+        private static void AddFolderFilesToMappedFiles(
+            string folderPath,
+            ConditionalFolder conditionalFolder
+        )
         {
             try
             {
@@ -286,12 +360,14 @@ namespace AppWrapper {
 
                     if (_mappedFiles.TryGetValue(fileKey, out List<OverrideFile> overrideFiles))
                     {
-                        overrideFiles.Add(new OverrideFile()
-                        {
-                            File = fi.FullName,
-                            CFolder = conditionalFolder,
-                            CName = fileKey
-                        });
+                        overrideFiles.Add(
+                            new OverrideFile()
+                            {
+                                File = fi.FullName,
+                                CFolder = conditionalFolder,
+                                CName = fileKey,
+                            }
+                        );
                     }
                 }
             }
@@ -300,7 +376,6 @@ namespace AppWrapper {
                 DebugLogger.WriteLine(e.ToString());
             }
         }
-
 
         // ------------------------------------------------------------------------------------------------------
         public static int HCloseHandle(IntPtr hObject)
@@ -317,7 +392,7 @@ namespace AppWrapper {
         }
 
         public static uint HGetFileType(IntPtr hFile)
-        {            
+        {
             uint ret = 0;
 
             DebugLogger.DetailedWriteLine($">> GetFileType on {hFile}");
@@ -330,7 +405,12 @@ namespace AppWrapper {
             return ret;
         }
 
-        public static uint HSetFilePointer(IntPtr hFile, int lDistanceTomove, IntPtr lpDistanceToMoveHigh, uint dwMoveMethod)
+        public static uint HSetFilePointer(
+            IntPtr hFile,
+            int lDistanceTomove,
+            IntPtr lpDistanceToMoveHigh,
+            uint dwMoveMethod
+        )
         {
             //DebugLogger.WriteLine("SetFilePointer on {0} to {1} by {2}", handle, lDistanceTomove, dwMoveMethod);
             uint ret = uint.MaxValue;
@@ -344,11 +424,17 @@ namespace AppWrapper {
             {
                 ret = _varchives[hFile].SetFilePointer(offset, (Win32.EMoveMethod)dwMoveMethod);
             }
-            
+
             return ret;
         }
 
-        public static int HReadFile(IntPtr handle, IntPtr bytes, uint numBytesToRead, IntPtr numBytesRead, IntPtr overlapped)
+        public static int HReadFile(
+            IntPtr handle,
+            IntPtr bytes,
+            uint numBytesToRead,
+            IntPtr numBytesRead,
+            IntPtr overlapped
+        )
         {
             int ret = 0;
 
@@ -364,10 +450,13 @@ namespace AppWrapper {
             return ret;
         }
 
-        public static IntPtr CreateVA(OverrideFile of) {
+        public static IntPtr CreateVA(OverrideFile of)
+        {
             VArchiveData va = new VArchiveData(of.Archive.GetBytes(of.File));
             IntPtr dummy = of.Archive.GetDummyHandle(_process);
-            DebugLogger.WriteLine($">> Creating dummy file handle {dummy} to access {of.Archive}{of.File}");
+            DebugLogger.WriteLine(
+                $">> Creating dummy file handle {dummy} to access {of.Archive}{of.File}"
+            );
             _varchives[dummy] = va;
 
             return dummy;
@@ -380,22 +469,34 @@ namespace AppWrapper {
             IntPtr lpSecurityAttributes,
             [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition,
             [MarshalAs(UnmanagedType.U4)] FileAttributes dwFlagsAndAttributes,
-            IntPtr hTemplateFile)
+            IntPtr hTemplateFile
+        )
         {
             IntPtr ret = IntPtr.Zero;
 
             // Usually this check should be enough...
-            bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
+            bool isFF7GameFile = lpFileName.StartsWith(
+                _profile.FF7Path,
+                StringComparison.InvariantCultureIgnoreCase
+            );
             // ...but if it fails, last resort is to check if the file exists in the game directory
-            if (!isFF7GameFile && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase) && !Path.IsPathRooted(lpFileName))
+            if (
+                !isFF7GameFile
+                && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase)
+                && !Path.IsPathRooted(lpFileName)
+            )
             {
-                isFF7GameFile = _profile.gameFiles.Any(s => s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase));
+                isFF7GameFile = _profile.gameFiles.Any(s =>
+                    s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase)
+                );
             }
 
             // If a game file is found, process with replacing its content with relative mod file
             if (isFF7GameFile)
             {
-                lpFileName = Path.GetFullPath(lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\"));
+                lpFileName = Path.GetFullPath(
+                    lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\")
+                );
                 DebugLogger.DetailedWriteLine($">> CreateFileW for {lpFileName}...");
                 if (lpFileName.IndexOf('\\') < 0)
                 {
@@ -416,10 +517,20 @@ namespace AppWrapper {
 
                         if (mapped != null)
                         {
-                            DebugLogger.DetailedWriteLine($">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+                            DebugLogger.DetailedWriteLine(
+                                $">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]"
+                            );
 
                             if (mapped.Archive == null)
-                                ret = Win32.CreateFileW(mapped.File, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+                                ret = Win32.CreateFileW(
+                                    mapped.File,
+                                    dwDesiredAccess,
+                                    dwShareMode,
+                                    lpSecurityAttributes,
+                                    dwCreationDisposition,
+                                    dwFlagsAndAttributes,
+                                    hTemplateFile
+                                );
                             else
                                 ret = CreateVA(mapped);
 
@@ -438,19 +549,36 @@ namespace AppWrapper {
 
                     if (mapped != null)
                     {
-                        DebugLogger.DetailedWriteLine($">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]");
+                        DebugLogger.DetailedWriteLine(
+                            $">> CreateFileW remapping {lpFileName} to {mapped.File} [ Matched: '{match}' ]"
+                        );
 
                         if (mapped.Archive == null)
-                            ret = Win32.CreateFileW(mapped.File, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+                            ret = Win32.CreateFileW(
+                                mapped.File,
+                                dwDesiredAccess,
+                                dwShareMode,
+                                lpSecurityAttributes,
+                                dwCreationDisposition,
+                                dwFlagsAndAttributes,
+                                hTemplateFile
+                            );
                         else
                             ret = CreateVA(mapped);
                     }
                     else if (!Path.HasExtension(lpFileName)) // Is it a directory?
                     {
-                        if (_mappedFiles.Keys.Any(p => p.StartsWith(match, StringComparison.OrdinalIgnoreCase)))
+                        if (
+                            _mappedFiles.Keys.Any(p =>
+                                p.StartsWith(match, StringComparison.OrdinalIgnoreCase)
+                            )
+                        )
                         {
-                            if (!Path.Exists(lpFileName)) Directory.CreateDirectory(lpFileName);
-                            DebugLogger.DetailedWriteLine($">> CreateFileW creating missing dir {lpFileName}");
+                            if (!Path.Exists(lpFileName))
+                                Directory.CreateDirectory(lpFileName);
+                            DebugLogger.DetailedWriteLine(
+                                $">> CreateFileW creating missing dir {lpFileName}"
+                            );
                         }
                     }
                 }
@@ -466,37 +594,58 @@ namespace AppWrapper {
         public static Queue<string> FindFirstMatch(string lpFileName)
         {
             // Usually this check should be enough...
-            bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
+            bool isFF7GameFile = lpFileName.StartsWith(
+                _profile.FF7Path,
+                StringComparison.InvariantCultureIgnoreCase
+            );
             // ...but if it fails, last resort is to check if the file exists in the game directory
-            if (!isFF7GameFile && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase) && !Path.IsPathRooted(lpFileName))
+            if (
+                !isFF7GameFile
+                && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase)
+                && !Path.IsPathRooted(lpFileName)
+            )
             {
-                isFF7GameFile = _profile.gameFiles.Any(s => s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase));
+                isFF7GameFile = _profile.gameFiles.Any(s =>
+                    s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase)
+                );
             }
 
             // If a game file is found, process with replacing its content with relative mod file
             if (isFF7GameFile)
             {
-                string pattern = lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\").Replace("\\.\\", "\\").Substring(_profile.FF7Path.Length + 1).TrimEnd('*');
+                string pattern = lpFileName
+                    .Replace("\\/", "\\")
+                    .Replace("/", "\\")
+                    .Replace("\\\\", "\\")
+                    .Replace("\\.\\", "\\")
+                    .Substring(_profile.FF7Path.Length + 1)
+                    .TrimEnd('*');
                 if (pattern.Length > 1)
                 {
                     return new Queue<string>(
-                        _mappedFiles.Keys
-                        .Select(path => path.StartsWith(pattern, StringComparison.OrdinalIgnoreCase)
-                            ? path.Substring(pattern.Length)
-                            : null)
-                        .Where(relPath => relPath != null)
-                        .Select(relPath =>
-                        {
-                            int idx = relPath.IndexOf('\\');
-                            // If there is a backslash, take just the folder name without trailing '\'
-                            return idx == -1 ? relPath : relPath.Substring(0, idx);
-                        })
-                        .Distinct()
-                        .Select(child => Path.GetFileName(child))
-                        .OrderByDescending(p => _mappedFiles.Keys.Any(k => k.StartsWith(p + "\\", StringComparison.OrdinalIgnoreCase)))
-                        .ThenBy(p => p, StringComparer.OrdinalIgnoreCase)
-                        .Prepend("..")
-                        .Prepend(".")
+                        _mappedFiles
+                            .Keys.Select(path =>
+                                path.StartsWith(pattern, StringComparison.OrdinalIgnoreCase)
+                                    ? path.Substring(pattern.Length)
+                                    : null
+                            )
+                            .Where(relPath => relPath != null)
+                            .Select(relPath =>
+                            {
+                                int idx = relPath.IndexOf('\\');
+                                // If there is a backslash, take just the folder name without trailing '\'
+                                return idx == -1 ? relPath : relPath.Substring(0, idx);
+                            })
+                            .Distinct()
+                            .Select(child => Path.GetFileName(child))
+                            .OrderByDescending(p =>
+                                _mappedFiles.Keys.Any(k =>
+                                    k.StartsWith(p + "\\", StringComparison.OrdinalIgnoreCase)
+                                )
+                            )
+                            .ThenBy(p => p, StringComparer.OrdinalIgnoreCase)
+                            .Prepend("..")
+                            .Prepend(".")
                     );
                 }
             }
@@ -510,15 +659,22 @@ namespace AppWrapper {
             if (matches.Count > 2)
             {
                 string firstMatch = matches.Dequeue();
-                IntPtr searchHandle = Win32.FindFirstFileW(Path.Combine(_profile.FF7Path, "*"), lpFindFileData);
+                IntPtr searchHandle = Win32.FindFirstFileW(
+                    Path.Combine(_profile.FF7Path, "*"),
+                    lpFindFileData
+                );
 
-                DebugLogger.WriteLine($">> FindFirstFile for {searchHandle} : {lpFileName} => {firstMatch}");
+                DebugLogger.WriteLine(
+                    $">> FindFirstFile for {searchHandle} : {lpFileName} => {firstMatch}"
+                );
 
                 Win32.WIN32_FIND_DATA _lpFindFileData = new()
                 {
                     cFileName = firstMatch,
                     cAlternateFileName = null,
-                    dwFileAttributes = Path.HasExtension(firstMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                    dwFileAttributes = Path.HasExtension(firstMatch)
+                        ? FileAttributes.Archive
+                        : FileAttributes.Directory,
                 };
                 byte[] tmp = Util.StructToBytes(_lpFindFileData);
                 Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
@@ -529,27 +685,45 @@ namespace AppWrapper {
             return IntPtr.Zero;
         }
 
-        public static IntPtr HFindFirstFileExW(string lpFileName, uint fInfoLevelId, IntPtr lpFindFileData, uint fSearchOp, IntPtr lpSearchFilter, uint dwAdditionalFlags)
+        public static IntPtr HFindFirstFileExW(
+            string lpFileName,
+            uint fInfoLevelId,
+            IntPtr lpFindFileData,
+            uint fSearchOp,
+            IntPtr lpSearchFilter,
+            uint dwAdditionalFlags
+        )
         {
             var matches = FindFirstMatch(lpFileName);
 
             if (matches.Count > 2)
             {
                 string firstMatch = matches.Dequeue();
-                IntPtr searchHandle = Win32.FindFirstFileExW(Path.Combine(_profile.FF7Path, "*"), (FINDEX_INFO_LEVELS)fInfoLevelId, lpFindFileData, (FINDEX_SEARCH_OPS)fSearchOp, lpSearchFilter, dwAdditionalFlags);
+                IntPtr searchHandle = Win32.FindFirstFileExW(
+                    Path.Combine(_profile.FF7Path, "*"),
+                    (FINDEX_INFO_LEVELS)fInfoLevelId,
+                    lpFindFileData,
+                    (FINDEX_SEARCH_OPS)fSearchOp,
+                    lpSearchFilter,
+                    dwAdditionalFlags
+                );
 
                 _foundMatches[searchHandle] = matches;
 
-                string dbg = $">> FindFirstFileExW for {searchHandle} found '{matches.Count+1}' matches using {lpFileName}...";
+                string dbg =
+                    $">> FindFirstFileExW for {searchHandle} found '{matches.Count + 1}' matches using {lpFileName}...";
                 dbg += $"\n>> - {firstMatch} ( first match )";
-                foreach (var match in matches) dbg += $"\n>> - {match}";
+                foreach (var match in matches)
+                    dbg += $"\n>> - {match}";
                 DebugLogger.WriteLine(dbg);
 
                 Win32.WIN32_FIND_DATA _lpFindFileData = new()
                 {
                     cFileName = firstMatch,
                     cAlternateFileName = null,
-                    dwFileAttributes = Path.HasExtension(firstMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                    dwFileAttributes = Path.HasExtension(firstMatch)
+                        ? FileAttributes.Archive
+                        : FileAttributes.Directory,
                 };
                 byte[] tmp = Util.StructToBytes(_lpFindFileData);
                 Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
@@ -574,7 +748,9 @@ namespace AppWrapper {
                     {
                         cFileName = nextMatch,
                         cAlternateFileName = null,
-                        dwFileAttributes = Path.HasExtension(nextMatch) ? FileAttributes.Archive : FileAttributes.Directory,
+                        dwFileAttributes = Path.HasExtension(nextMatch)
+                            ? FileAttributes.Archive
+                            : FileAttributes.Directory,
                     };
                     byte[] tmp = Util.StructToBytes(_lpFindFileData);
                     Util.CopyToIntPtr(tmp, lpFindFileData, tmp.Length);
@@ -614,7 +790,9 @@ namespace AppWrapper {
 
             if (result && _varchives.ContainsKey(hFile))
             {
-                DebugLogger.DetailedWriteLine($">> Overriding GetFileInformationByHandle for dummy file {hFile}");
+                DebugLogger.DetailedWriteLine(
+                    $">> Overriding GetFileInformationByHandle for dummy file {hFile}"
+                );
                 _lpFileInformation.FileSizeHigh = (uint)(_varchives[hFile].Size >> 32);
                 _lpFileInformation.FileSizeLow = (uint)(_varchives[hFile].Size & 0xffffffff);
 
@@ -626,14 +804,24 @@ namespace AppWrapper {
             return result ? 1 : 0;
         }
 
-        public static int HDuplicateHandle(IntPtr hSourceProcessHandle, IntPtr hSourceHandle, IntPtr hTargetProcessHandle, IntPtr lpTargetHandle, uint dwDesiredAccess, int bInheritHandle, uint dwOptions)
+        public static int HDuplicateHandle(
+            IntPtr hSourceProcessHandle,
+            IntPtr hSourceHandle,
+            IntPtr hTargetProcessHandle,
+            IntPtr lpTargetHandle,
+            uint dwDesiredAccess,
+            int bInheritHandle,
+            uint dwOptions
+        )
         {
             // DebugLogger.DetailedWriteLine("DuplicateHandle on {0}", hSourceHandle);
 
             if (_varchives.ContainsKey(hSourceHandle))
             {
                 _varchives[lpTargetHandle] = _varchives[hSourceHandle];
-                DebugLogger.DetailedWriteLine($">> Duplicating dummy handle {hSourceHandle} to {lpTargetHandle}");
+                DebugLogger.DetailedWriteLine(
+                    $">> Duplicating dummy handle {hSourceHandle} to {lpTargetHandle}"
+                );
             }
 
             return 1;
@@ -668,30 +856,56 @@ namespace AppWrapper {
             return ret;
         }
 
-        public static int HSetFilePointerEx(IntPtr hFile, long liDistanceToMove, IntPtr lpNewFilePointer, uint dwMoveMethod)
+        public static int HSetFilePointerEx(
+            IntPtr hFile,
+            long liDistanceToMove,
+            IntPtr lpNewFilePointer,
+            uint dwMoveMethod
+        )
         {
             int ret = 0;
 
             if (_varchives.ContainsKey(hFile))
-                ret = _varchives[hFile].SetFilePointerEx(hFile, liDistanceToMove, lpNewFilePointer, (uint)dwMoveMethod);
+                ret = _varchives[hFile]
+                    .SetFilePointerEx(
+                        hFile,
+                        liDistanceToMove,
+                        lpNewFilePointer,
+                        (uint)dwMoveMethod
+                    );
 
             return ret;
         }
 
-        public static int HGetFileAttributesExW([MarshalAs(UnmanagedType.LPWStr)] string lpFileName, uint fInfoLevelId, IntPtr lpFileInformation)
+        public static int HGetFileAttributesExW(
+            [MarshalAs(UnmanagedType.LPWStr)] string lpFileName,
+            uint fInfoLevelId,
+            IntPtr lpFileInformation
+        )
         {
             // Usually this check should be enough...
-            bool isFF7GameFile = lpFileName.StartsWith(_profile.FF7Path, StringComparison.InvariantCultureIgnoreCase);
+            bool isFF7GameFile = lpFileName.StartsWith(
+                _profile.FF7Path,
+                StringComparison.InvariantCultureIgnoreCase
+            );
             // ...but if it fails, last resort is to check if the file exists in the game directory
-            if (!isFF7GameFile && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase) && !Path.IsPathRooted(lpFileName))
+            if (
+                !isFF7GameFile
+                && !lpFileName.StartsWith("\\", StringComparison.InvariantCultureIgnoreCase)
+                && !Path.IsPathRooted(lpFileName)
+            )
             {
-                isFF7GameFile = _profile.gameFiles.Any(s => s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase));
+                isFF7GameFile = _profile.gameFiles.Any(s =>
+                    s.EndsWith(lpFileName, StringComparison.InvariantCultureIgnoreCase)
+                );
             }
 
             // If a game file is found, process with replacing its content with relative mod file
             if (isFF7GameFile)
             {
-                string finalFileName = Path.GetFullPath(lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\"));
+                string finalFileName = Path.GetFullPath(
+                    lpFileName.Replace("\\/", "\\").Replace("/", "\\").Replace("\\\\", "\\")
+                );
                 if (finalFileName.IndexOf('\\') < 0)
                 {
                     //DebugLogger.WriteLine("No path: curdir is {0}", System.IO.Directory.GetCurrentDirectory(), 0);
@@ -701,7 +915,9 @@ namespace AppWrapper {
                 string match = finalFileName.Substring(_profile.FF7Path.Length + 1);
                 OverrideFile mapped = LGPWrapper.MapFile(match, _mappedFiles);
 
-                DebugLogger.DetailedWriteLine($">> HGetFileAttributesExW for {finalFileName} [ Matched: '{match}', Exists: '{mapped != null}' ]");
+                DebugLogger.DetailedWriteLine(
+                    $">> HGetFileAttributesExW for {finalFileName} [ Matched: '{match}', Exists: '{mapped != null}' ]"
+                );
 
                 if (mapped != null)
                 {
@@ -712,7 +928,7 @@ namespace AppWrapper {
                         nFileSizeLow = (uint)mapped.Size,
                         ftCreationTime = new FILETIME(),
                         ftLastAccessTime = new FILETIME(),
-                        ftLastWriteTime = new FILETIME()
+                        ftLastWriteTime = new FILETIME(),
                     };
                     byte[] tmp = Util.StructToBytes(lpFileInformation);
                     Util.CopyToIntPtr(tmp, lpFileInformation, tmp.Length);

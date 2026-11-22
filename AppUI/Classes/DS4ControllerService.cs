@@ -15,7 +15,10 @@ namespace AppUI.Classes
 
         internal ControlService RootHub { get; set; }
 
-        internal bool IsRunning { get => RootHub != null && RootHub.IsRunning; }
+        internal bool IsRunning
+        {
+            get => RootHub != null && RootHub.IsRunning;
+        }
 
         /// <summary>
         /// static instance that can be accessed from anywhere in app such as game launcher or controls window
@@ -32,7 +35,6 @@ namespace AppUI.Classes
                 return instance;
             }
         }
-
 
         public DS4ControllerService()
         {
@@ -68,7 +70,6 @@ namespace AppUI.Classes
             RootHub = null;
         }
 
-
         private void RootHub_LogDebug(object sender, DebugEventArgs e)
         {
             if (e.Warning)
@@ -86,23 +87,26 @@ namespace AppUI.Classes
             try
             {
                 // code reference from DS4Windows repo (DS4Form.cs)
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPSignedDriver");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(
+                    "SELECT * FROM Win32_PnPSignedDriver"
+                );
 
                 foreach (ManagementObject obj in searcher.Get())
                 {
                     try
                     {
-                        if (obj.GetPropertyValue("DeviceName").ToString() == "Scp Virtual Bus Driver")
+                        if (
+                            obj.GetPropertyValue("DeviceName").ToString()
+                            == "Scp Virtual Bus Driver"
+                        )
                         {
                             return true;
                         }
                     }
                     catch (Exception) { }
                 }
-
             }
             catch (Exception) { }
-
 
             return false;
         }

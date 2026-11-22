@@ -7,7 +7,8 @@
 
 // PRAGMA ----------------------------------------
 
-#pragma comment(linker, "/export:DirectInputCreateA=C:\\Windows\\System32\\dinput.DirectInputCreateA,@1")
+#pragma comment(linker,                                                                            \
+                "/export:DirectInputCreateA=C:\\Windows\\System32\\dinput.DirectInputCreateA,@1")
 
 // INCLUDE ---------------------------------------
 
@@ -36,21 +37,23 @@ using json = nlohmann::json;
 // UTILS
 
 // trim from start (in place)
-static inline void ltrim(std::string& s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
-        return !std::isspace(ch);
-        }));
+static inline void ltrim(std::string &s)
+{
+    s.erase(s.begin(),
+            std::find_if(s.begin(), s.end(), [](unsigned char ch) { return !std::isspace(ch); }));
 }
 
 // trim from end (in place)
-static inline void rtrim(std::string& s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
-        return !std::isspace(ch);
-        }).base(), s.end());
+static inline void rtrim(std::string &s)
+{
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !std::isspace(ch); })
+                .base(),
+            s.end());
 }
 
 // trim from both ends (in place)
-static inline void trim(std::string& s) {
+static inline void trim(std::string &s)
+{
     rtrim(s);
     ltrim(s);
 }
@@ -69,61 +72,85 @@ struct host_exports
 // IMPORTS ---------------------------------------
 
 // API to initialize AppProxy
-static HRESULT(WINAPI* HostInitialize)(host_exports*) = nullptr;
+static HRESULT(WINAPI *HostInitialize)(host_exports *) = nullptr;
 
 // CreateFileW
-static HANDLE(WINAPI* TrueCreateFileW)(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) = CreateFileW;
+static HANDLE(WINAPI *TrueCreateFileW)(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
+                                       LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+                                       DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes,
+                                       HANDLE hTemplateFile) = CreateFileW;
 
 // CreateFile2
-static HANDLE(WINAPI* TrueCreateFile2)(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, DWORD dwCreationDisposition, LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams) = CreateFile2;
+static HANDLE(WINAPI *TrueCreateFile2)(
+    LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, DWORD dwCreationDisposition,
+    LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams) = CreateFile2;
 
 // ReadFile
-static BOOL(WINAPI* TrueReadFile)(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped) = ReadFile;
+static BOOL(WINAPI *TrueReadFile)(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead,
+                                  LPDWORD lpNumberOfBytesRead,
+                                  LPOVERLAPPED lpOverlapped) = ReadFile;
 
 // FindFirstFileW
-static HANDLE(WINAPI* TrueFindFirstFileW)(LPCWSTR lpFileName, LPWIN32_FIND_DATAW lpFindFileData) = FindFirstFileW;
+static HANDLE(WINAPI *TrueFindFirstFileW)(LPCWSTR lpFileName,
+                                          LPWIN32_FIND_DATAW lpFindFileData) = FindFirstFileW;
 
 // FindFirstFileExW
-static HANDLE(WINAPI* TrueFindFirstFileExW)(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, LPVOID lpSearchFilter, DWORD dwAdditionalFlags) = FindFirstFileExW;
+static HANDLE(WINAPI *TrueFindFirstFileExW)(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId,
+                                            LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp,
+                                            LPVOID lpSearchFilter,
+                                            DWORD dwAdditionalFlags) = FindFirstFileExW;
 
 // FindNextFileW
-static BOOL(WINAPI* TrueFindNextFileW)(HANDLE hFindFile, LPWIN32_FIND_DATAW lpFindFileData) = FindNextFileW;
+static BOOL(WINAPI *TrueFindNextFileW)(HANDLE hFindFile,
+                                       LPWIN32_FIND_DATAW lpFindFileData) = FindNextFileW;
 
 // FindClose
-static BOOL(WINAPI* TrueFindClose)(HANDLE hFindFile) = FindClose;
+static BOOL(WINAPI *TrueFindClose)(HANDLE hFindFile) = FindClose;
 
 // SetFilePointer
-static DWORD(WINAPI* TrueSetFilePointer)(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod) = SetFilePointer;
+static DWORD(WINAPI *TrueSetFilePointer)(HANDLE hFile, LONG lDistanceToMove,
+                                         PLONG lpDistanceToMoveHigh,
+                                         DWORD dwMoveMethod) = SetFilePointer;
 
 // SetFilePointerEx
-static BOOL(WINAPI* TrueSetFilePointerEx)(HANDLE hFile, LARGE_INTEGER liDistanceToMove, PLARGE_INTEGER lpNewFilePointer, DWORD dwMoveMethod) = SetFilePointerEx;
+static BOOL(WINAPI *TrueSetFilePointerEx)(HANDLE hFile, LARGE_INTEGER liDistanceToMove,
+                                          PLARGE_INTEGER lpNewFilePointer,
+                                          DWORD dwMoveMethod) = SetFilePointerEx;
 
 // CloseHandle
-static BOOL(WINAPI* TrueCloseHandle)(HANDLE hObject) = CloseHandle;
+static BOOL(WINAPI *TrueCloseHandle)(HANDLE hObject) = CloseHandle;
 
 // GetFileType
-static DWORD(WINAPI* TrueGetFileType)(HANDLE hFile) = GetFileType;
+static DWORD(WINAPI *TrueGetFileType)(HANDLE hFile) = GetFileType;
 
 // GetFileInformationByHandle
-static BOOL(WINAPI* TrueGetFileInformationByHandle)(HANDLE hFile, LPBY_HANDLE_FILE_INFORMATION lpFileInformation) = GetFileInformationByHandle;
+static BOOL(WINAPI *TrueGetFileInformationByHandle)(
+    HANDLE hFile, LPBY_HANDLE_FILE_INFORMATION lpFileInformation) = GetFileInformationByHandle;
 
 // DuplicateHandle
-static BOOL(WINAPI* TrueDuplicateHandle)(HANDLE hSourceProcessHandle, HANDLE hSourceHandle, HANDLE hTargetProcessHandle, LPHANDLE lpTargetHandle, DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwOptions) = DuplicateHandle;
+static BOOL(WINAPI *TrueDuplicateHandle)(HANDLE hSourceProcessHandle, HANDLE hSourceHandle,
+                                         HANDLE hTargetProcessHandle, LPHANDLE lpTargetHandle,
+                                         DWORD dwDesiredAccess, BOOL bInheritHandle,
+                                         DWORD dwOptions) = DuplicateHandle;
 
 // GetFileSize
-static DWORD(WINAPI* TrueGetFileSize)(HANDLE hFile, LPDWORD lpFileSizeHigh) = GetFileSize;
+static DWORD(WINAPI *TrueGetFileSize)(HANDLE hFile, LPDWORD lpFileSizeHigh) = GetFileSize;
 
 // GetFileSizeEx
-static BOOL(WINAPI* TrueGetFileSizeEx)(HANDLE hFile, PLARGE_INTEGER lpFileSize) = GetFileSizeEx;
+static BOOL(WINAPI *TrueGetFileSizeEx)(HANDLE hFile, PLARGE_INTEGER lpFileSize) = GetFileSizeEx;
 
 // GetFileAttributesExW
-static BOOL(WINAPI* TrueGetFileAttributesExW)(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fInfoLevelId, LPVOID lpFileInformation) = GetFileAttributesExW;
+static BOOL(WINAPI *TrueGetFileAttributesExW)(LPCWSTR lpFileName,
+                                              GET_FILEEX_INFO_LEVELS fInfoLevelId,
+                                              LPVOID lpFileInformation) = GetFileAttributesExW;
 
 // PostQuitMessage
-static VOID(WINAPI* TruePostQuitMessage)(int nExitCode) = PostQuitMessage;
+static VOID(WINAPI *TruePostQuitMessage)(int nExitCode) = PostQuitMessage;
 
 // Game WinMain
-static int(WINAPI* GameWinMain)(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) = (int(WINAPI*)(HINSTANCE, HINSTANCE, LPSTR, int))0x67DB30;
+static int(WINAPI *GameWinMain)(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine,
+                                int nShowCmd) = (int(WINAPI *)(HINSTANCE, HINSTANCE, LPSTR,
+                                                               int))0x67DB30;
 
 // VARS ------------------------------------------
 
@@ -133,7 +160,9 @@ BOOL inDotNetCode = false;
 
 // FUNCTIONS -------------------------------------
 
-HANDLE WINAPI _CreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
+HANDLE WINAPI _CreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
+                           LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition,
+                           DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
 {
     HANDLE ret = nullptr;
 
@@ -142,18 +171,23 @@ HANDLE WINAPI _CreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwSh
         if (!inDotNetCode)
         {
             inDotNetCode = true;
-            ret = exports.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+            ret =
+                exports.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes,
+                                    dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
             inDotNetCode = false;
         }
     }
 
     if (ret == nullptr)
-        ret = TrueCreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+        ret = TrueCreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes,
+                              dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 
     return ret;
 }
 
-HANDLE WINAPI _CreateFile2(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, DWORD dwCreationDisposition, LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams)
+HANDLE WINAPI _CreateFile2(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
+                           DWORD dwCreationDisposition,
+                           LPCREATEFILE2_EXTENDED_PARAMETERS pCreateExParams)
 {
     HANDLE ret = nullptr;
 
@@ -161,30 +195,35 @@ HANDLE WINAPI _CreateFile2(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwSh
     {
         inDotNetCode = true;
         ret = exports.CreateFileW(lpFileName, dwDesiredAccess, dwShareMode,
-            pCreateExParams ? pCreateExParams->lpSecurityAttributes : nullptr,
-            dwCreationDisposition,
-            (pCreateExParams ? pCreateExParams->dwFileAttributes : 0) | (pCreateExParams ? pCreateExParams->dwFileFlags : 0),
-            pCreateExParams ? pCreateExParams->hTemplateFile : nullptr);
+                                  pCreateExParams ? pCreateExParams->lpSecurityAttributes : nullptr,
+                                  dwCreationDisposition,
+                                  (pCreateExParams ? pCreateExParams->dwFileAttributes : 0) |
+                                      (pCreateExParams ? pCreateExParams->dwFileFlags : 0),
+                                  pCreateExParams ? pCreateExParams->hTemplateFile : nullptr);
         inDotNetCode = false;
     }
 
     if (ret == nullptr)
-        ret = TrueCreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams);
+        ret = TrueCreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition,
+                              pCreateExParams);
 
     return ret;
 }
 
-BOOL WINAPI _ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)
+BOOL WINAPI _ReadFile(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead,
+                      LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)
 {
     BOOL ret = FALSE;
 
     if (exports.ReadFile)
     {
-        ret = exports.ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+        ret = exports.ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead,
+                               lpOverlapped);
     }
 
     if (ret == FALSE)
-        ret = TrueReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+        ret =
+            TrueReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
 
     return ret;
 }
@@ -204,17 +243,21 @@ HANDLE WINAPI _FindFirstFileW(LPCWSTR lpFileName, LPWIN32_FIND_DATAW lpFindFileD
     return ret;
 }
 
-HANDLE WINAPI _FindFirstFileExW(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId, LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp, LPVOID lpSearchFilter, DWORD dwAdditionalFlags)
+HANDLE WINAPI _FindFirstFileExW(LPCWSTR lpFileName, FINDEX_INFO_LEVELS fInfoLevelId,
+                                LPVOID lpFindFileData, FINDEX_SEARCH_OPS fSearchOp,
+                                LPVOID lpSearchFilter, DWORD dwAdditionalFlags)
 {
     HANDLE ret = nullptr;
 
     if (exports.FindFirstFileExW)
     {
-        ret = exports.FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags);
+        ret = exports.FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp,
+                                       lpSearchFilter, dwAdditionalFlags);
     }
 
     if (ret == nullptr)
-        ret = TrueFindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, lpSearchFilter, dwAdditionalFlags);
+        ret = TrueFindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp,
+                                   lpSearchFilter, dwAdditionalFlags);
 
     return ret;
 }
@@ -251,7 +294,8 @@ BOOL WINAPI _FindClose(HANDLE hFindFile)
     return ret;
 }
 
-DWORD WINAPI _SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh, DWORD dwMoveMethod)
+DWORD WINAPI _SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveHigh,
+                             DWORD dwMoveMethod)
 {
     DWORD ret = INVALID_SET_FILE_POINTER;
 
@@ -266,7 +310,8 @@ DWORD WINAPI _SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanc
     return ret;
 }
 
-BOOL WINAPI _SetFilePointerEx(HANDLE hFile, LARGE_INTEGER liDistanceToMove, PLARGE_INTEGER lpNewFilePointer, DWORD dwMoveMethod)
+BOOL WINAPI _SetFilePointerEx(HANDLE hFile, LARGE_INTEGER liDistanceToMove,
+                              PLARGE_INTEGER lpNewFilePointer, DWORD dwMoveMethod)
 {
     BOOL ret = FALSE;
 
@@ -309,7 +354,8 @@ DWORD WINAPI _GetFileType(HANDLE hFile)
     return ret;
 }
 
-BOOL WINAPI _GetFileInformationByHandle(HANDLE hFile, LPBY_HANDLE_FILE_INFORMATION lpFileInformation)
+BOOL WINAPI _GetFileInformationByHandle(HANDLE hFile,
+                                        LPBY_HANDLE_FILE_INFORMATION lpFileInformation)
 {
     BOOL ret = FALSE;
 
@@ -329,15 +375,19 @@ BOOL WINAPI _GetFileInformationByHandle(HANDLE hFile, LPBY_HANDLE_FILE_INFORMATI
     return ret;
 }
 
-BOOL WINAPI _DuplicateHandle(HANDLE hSourceProcessHandle, HANDLE hSourceHandle, HANDLE hTargetProcessHandle, LPHANDLE lpTargetHandle, DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwOptions)
+BOOL WINAPI _DuplicateHandle(HANDLE hSourceProcessHandle, HANDLE hSourceHandle,
+                             HANDLE hTargetProcessHandle, LPHANDLE lpTargetHandle,
+                             DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwOptions)
 {
-    BOOL ret = TrueDuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions);
+    BOOL ret = TrueDuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle,
+                                   lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions);
 
     if (exports.DuplicateHandle)
     {
         if (GetCurrentThreadId() == currentMainThreadId)
         {
-            exports.DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions);
+            exports.DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle,
+                                    lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions);
         }
     }
 
@@ -374,7 +424,8 @@ BOOL WINAPI _GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize)
     return ret;
 }
 
-BOOL WINAPI _GetFileAttributesExW(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fInfoLevelId, LPVOID lpFileInformation)
+BOOL WINAPI _GetFileAttributesExW(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fInfoLevelId,
+                                  LPVOID lpFileInformation)
 {
     BOOL ret = FALSE;
 
@@ -397,28 +448,29 @@ VOID WINAPI _PostQuitMessage(int nExitCode)
         DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread());
         // ------------------------------------
-        DetourDetach((PVOID*)&TrueCreateFileW, _CreateFileW);
-        DetourDetach((PVOID*)&TrueCreateFile2, _CreateFile2);
-        DetourDetach((PVOID*)&TrueReadFile, _ReadFile);
-        DetourDetach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
-        DetourDetach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
-        DetourDetach((PVOID*)&TrueFindNextFileW, _FindNextFileW);
-        DetourDetach((PVOID*)&TrueFindClose, _FindClose);
-        DetourDetach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
-        DetourDetach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
-        DetourDetach((PVOID*)&TrueCloseHandle, _CloseHandle);
-        DetourDetach((PVOID*)&TrueGetFileType, _GetFileType);
-        DetourDetach((PVOID*)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
-        DetourDetach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
-        DetourDetach((PVOID*)&TrueGetFileSize, _GetFileSize);
-        DetourDetach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
-        DetourDetach((PVOID*)&TrueGetFileAttributesExW, _GetFileAttributesExW);
-        DetourDetach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
+        DetourDetach((PVOID *)&TrueCreateFileW, _CreateFileW);
+        DetourDetach((PVOID *)&TrueCreateFile2, _CreateFile2);
+        DetourDetach((PVOID *)&TrueReadFile, _ReadFile);
+        DetourDetach((PVOID *)&TrueFindFirstFileW, _FindFirstFileW);
+        DetourDetach((PVOID *)&TrueFindFirstFileExW, _FindFirstFileExW);
+        DetourDetach((PVOID *)&TrueFindNextFileW, _FindNextFileW);
+        DetourDetach((PVOID *)&TrueFindClose, _FindClose);
+        DetourDetach((PVOID *)&TrueSetFilePointer, _SetFilePointer);
+        DetourDetach((PVOID *)&TrueSetFilePointerEx, _SetFilePointerEx);
+        DetourDetach((PVOID *)&TrueCloseHandle, _CloseHandle);
+        DetourDetach((PVOID *)&TrueGetFileType, _GetFileType);
+        DetourDetach((PVOID *)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
+        DetourDetach((PVOID *)&TrueDuplicateHandle, _DuplicateHandle);
+        DetourDetach((PVOID *)&TrueGetFileSize, _GetFileSize);
+        DetourDetach((PVOID *)&TrueGetFileSizeEx, _GetFileSizeEx);
+        DetourDetach((PVOID *)&TrueGetFileAttributesExW, _GetFileAttributesExW);
+        DetourDetach((PVOID *)&TruePostQuitMessage, _PostQuitMessage);
         // ------------------------------------
         DetourTransactionCommit();
 
         // Ask the .NET code to gracefully shutdown
-        if (exports.Shutdown) exports.Shutdown();
+        if (exports.Shutdown)
+            exports.Shutdown();
     }
 
     // Continue with the usual execution
@@ -429,28 +481,29 @@ VOID WINAPI _PostQuitMessage(int nExitCode)
 
 class _7thStackWalker : public StackWalker
 {
-public:
-    _7thStackWalker(bool muted = false) : StackWalker(), _baseAddress(0), _size(0), _muted(muted) {}
-    DWORD64 getBaseAddress() const {
+  public:
+    _7thStackWalker(bool muted = false) : StackWalker(), _baseAddress(0), _size(0), _muted(muted)
+    {
+    }
+    DWORD64 getBaseAddress() const
+    {
         return _baseAddress;
     }
-    DWORD getSize() const {
+    DWORD getSize() const
+    {
         return _size;
     }
-protected:
-    virtual void OnLoadModule(LPCSTR img, LPCSTR mod, DWORD64 baseAddr,
-        DWORD size, DWORD result, LPCSTR symType, LPCSTR pdbName,
-        ULONGLONG fileVersion
-    )
+
+  protected:
+    virtual void OnLoadModule(LPCSTR img, LPCSTR mod, DWORD64 baseAddr, DWORD size, DWORD result,
+                              LPCSTR symType, LPCSTR pdbName, ULONGLONG fileVersion)
     {
         if (_baseAddress == 0 && _size == 0)
         {
             _baseAddress = baseAddr;
             _size = size;
         }
-        StackWalker::OnLoadModule(
-            img, mod, baseAddr, size, result, symType, pdbName, fileVersion
-        );
+        StackWalker::OnLoadModule(img, mod, baseAddr, size, result, symType, pdbName, fileVersion);
     }
 
     virtual void OnDbgHelpErr(LPCSTR szFuncName, DWORD gle, DWORD64 addr)
@@ -467,21 +520,20 @@ protected:
             PLOGV << tmp;
         }
     }
-private:
+
+  private:
     DWORD64 _baseAddress;
     DWORD _size;
     bool _muted;
 };
 
-LONG WINAPI ExceptionHandler(EXCEPTION_POINTERS* ep)
+LONG WINAPI ExceptionHandler(EXCEPTION_POINTERS *ep)
 {
-    PLOGV << "*** Exception 0x" << std::hex << ep->ExceptionRecord->ExceptionCode << ", address 0x" << std::hex << ep->ExceptionRecord->ExceptionAddress << " ***";
-    
+    PLOGV << "*** Exception 0x" << std::hex << ep->ExceptionRecord->ExceptionCode << ", address 0x"
+          << std::hex << ep->ExceptionRecord->ExceptionAddress << " ***";
+
     _7thStackWalker sw;
-    sw.ShowCallstack(
-        GetCurrentThread(),
-        ep->ContextRecord
-    );
+    sw.ShowCallstack(GetCurrentThread(), ep->ContextRecord);
 
     PLOGE << "Unhandled Exception. See dumped information above.";
 
@@ -490,7 +542,10 @@ LONG WINAPI ExceptionHandler(EXCEPTION_POINTERS* ep)
     json data = json::parse(f);
 
     std::string version = data["runtimeOptions"]["framework"]["version"];
-    std::string msg = "Could not start the .NET Desktop Runtime version " + version + ".\n\nPlease make sure you have both the x86 and x64 editions installed. Try using the 7th Heaven exe installer, or visit https://dotnet.microsoft.com for more information.";
+    std::string msg =
+        "Could not start the .NET Desktop Runtime version " + version +
+        ".\n\nPlease make sure you have both the x86 and x64 editions installed. Try using the 7th "
+        "Heaven exe installer, or visit https://dotnet.microsoft.com for more information.";
     MessageBoxA(NULL, msg.c_str(), "Error", MB_OK | MB_ICONERROR);
 
     // let OS handle the crash
@@ -508,7 +563,8 @@ DWORD GetCurrentProcessMainThreadId()
     ULONGLONG ullMinCreateTime = MAXULONGLONG;
 
     HANDLE hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-    if (hThreadSnap != INVALID_HANDLE_VALUE) {
+    if (hThreadSnap != INVALID_HANDLE_VALUE)
+    {
         THREADENTRY32 th32;
         th32.dwSize = sizeof(THREADENTRY32);
         BOOL bOK = TRUE;
@@ -519,10 +575,11 @@ DWORD GetCurrentProcessMainThreadId()
                 HANDLE hThread = OpenThread(THREAD_QUERY_INFORMATION, TRUE, th32.th32ThreadID);
                 if (hThread)
                 {
-                    FILETIME afTimes[4] = { 0 };
+                    FILETIME afTimes[4] = {0};
                     if (GetThreadTimes(hThread, &afTimes[0], &afTimes[1], &afTimes[2], &afTimes[3]))
                     {
-                        ULONGLONG ullTest = MAKEULONGLONG(afTimes[0].dwLowDateTime, afTimes[0].dwHighDateTime);
+                        ULONGLONG ullTest =
+                            MAKEULONGLONG(afTimes[0].dwLowDateTime, afTimes[0].dwHighDateTime);
                         if (ullTest && ullTest < ullMinCreateTime)
                         {
                             ullMinCreateTime = ullTest;
@@ -543,10 +600,9 @@ DWORD GetCurrentProcessMainThreadId()
     return dwMainThreadID;
 }
 
-DWORD WINAPI StartProxy(LPVOID lpParam) {
+DWORD WINAPI StartProxy(LPVOID lpParam)
+{
     HINSTANCE hinstDLL = (HINSTANCE)lpParam;
-
-    
 
     return 0;
 }
@@ -554,8 +610,10 @@ DWORD WINAPI StartProxy(LPVOID lpParam) {
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
 {
     // Move on if the current process is an helper process or the reason is not attach
-    if (fdwReason != DLL_PROCESS_ATTACH) return TRUE;
-    if (DetourIsHelperProcess()) return TRUE;
+    if (fdwReason != DLL_PROCESS_ATTACH)
+        return TRUE;
+    if (DetourIsHelperProcess())
+        return TRUE;
 
     // Setup logging layer
     remove("AppLoader.log");
@@ -575,81 +633,85 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
 
     // Begin the detouring
     static auto target = GameWinMain;
-    static decltype(target) detour = [](HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) -> int
-        {
-            DetourTransactionBegin();
-            DetourUpdateThread(GetCurrentThread());
-            // ------------------------------------
-            DetourDetach((void**)&target, detour);
-            // ------------------------------------
-            DetourTransactionCommit();
+    static decltype(target) detour = [](HINSTANCE hInstance, HINSTANCE hPrevInstance,
+                                        LPSTR lpCmdLine, int nShowCmd) -> int {
+        DetourTransactionBegin();
+        DetourUpdateThread(GetCurrentThread());
+        // ------------------------------------
+        DetourDetach((void **)&target, detour);
+        // ------------------------------------
+        DetourTransactionCommit();
 
-            size_t buffer_size = 0;
-            get_hostfxr_path(nullptr, &buffer_size, nullptr);
+        size_t buffer_size = 0;
+        get_hostfxr_path(nullptr, &buffer_size, nullptr);
 
-            auto buffer = new char_t[buffer_size];
-            get_hostfxr_path(buffer, &buffer_size, nullptr);
+        auto buffer = new char_t[buffer_size];
+        get_hostfxr_path(buffer, &buffer_size, nullptr);
 
-            auto hostfxr = LoadLibraryW(buffer);
-            delete[] buffer;
+        auto hostfxr = LoadLibraryW(buffer);
+        delete[] buffer;
 
-#define X(n) *(void**)&n = GetProcAddress(hostfxr, #n);
+#define X(n) *(void **)&n = GetProcAddress(hostfxr, #n);
 #include "hostfxr.x.h"
 #undef X
 
-            hostfxr_handle context = nullptr;
-            hostfxr_set_error_writer([](auto message) { OutputDebugString(message); });
-            hostfxr_initialize_for_runtime_config(MAIN_ASM_NAME L".runtimeconfig.json", nullptr, &context);
+        hostfxr_handle context = nullptr;
+        hostfxr_set_error_writer([](auto message) { OutputDebugString(message); });
+        hostfxr_initialize_for_runtime_config(MAIN_ASM_NAME L".runtimeconfig.json", nullptr,
+                                              &context);
 
-#define X(n) hostfxr_get_runtime_delegate(context, hdt_##n, (void**)&n);
+#define X(n) hostfxr_get_runtime_delegate(context, hdt_##n, (void **)&n);
 #include "delegates.x.h"
 #undef X
 
-            hostfxr_close(context);
+        hostfxr_close(context);
 
-            // Get main entry point and load the assembly
-            load_assembly_and_get_function_pointer(MAIN_ASM_NAME L".dll", MAIN_TYP_NAME L", " MAIN_ASM_NAME, MAIN_FUN_NAME, UNMANAGEDCALLERSONLY_METHOD, nullptr, (void**)&HostInitialize);
+        // Get main entry point and load the assembly
+        load_assembly_and_get_function_pointer(
+            MAIN_ASM_NAME L".dll", MAIN_TYP_NAME L", " MAIN_ASM_NAME, MAIN_FUN_NAME,
+            UNMANAGEDCALLERSONLY_METHOD, nullptr, (void **)&HostInitialize);
 
-            // Start the AppProxy process
-            HostInitialize(&exports);
+        // Start the AppProxy process
+        HostInitialize(&exports);
 
-            // Hook Win32 APIs
-            DetourTransactionBegin();
-            DetourUpdateThread(GetCurrentThread());
-            // ------------------------------------
-            DetourAttach((PVOID*)&TrueCreateFileW, _CreateFileW);
-            DetourAttach((PVOID*)&TrueCreateFile2, _CreateFile2);
-            DetourAttach((PVOID*)&TrueReadFile, _ReadFile);
-            DetourAttach((PVOID*)&TrueFindFirstFileW, _FindFirstFileW);
-            DetourAttach((PVOID*)&TrueFindFirstFileExW, _FindFirstFileExW);
-            DetourAttach((PVOID*)&TrueFindNextFileW, _FindNextFileW);
-            DetourAttach((PVOID*)&TrueFindClose, _FindClose);
-            DetourAttach((PVOID*)&TrueSetFilePointer, _SetFilePointer);
-            DetourAttach((PVOID*)&TrueSetFilePointerEx, _SetFilePointerEx);
-            DetourAttach((PVOID*)&TrueCloseHandle, _CloseHandle);
-            DetourAttach((PVOID*)&TrueGetFileType, _GetFileType);
-            DetourAttach((PVOID*)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
-            DetourAttach((PVOID*)&TrueDuplicateHandle, _DuplicateHandle);
-            DetourAttach((PVOID*)&TrueGetFileSize, _GetFileSize);
-            DetourAttach((PVOID*)&TrueGetFileSizeEx, _GetFileSizeEx);
-            DetourAttach((PVOID*)&TrueGetFileAttributesExW, _GetFileAttributesExW);
-            DetourAttach((PVOID*)&TruePostQuitMessage, _PostQuitMessage);
-            // ------------------------------------
-            DetourTransactionCommit();
+        // Hook Win32 APIs
+        DetourTransactionBegin();
+        DetourUpdateThread(GetCurrentThread());
+        // ------------------------------------
+        DetourAttach((PVOID *)&TrueCreateFileW, _CreateFileW);
+        DetourAttach((PVOID *)&TrueCreateFile2, _CreateFile2);
+        DetourAttach((PVOID *)&TrueReadFile, _ReadFile);
+        DetourAttach((PVOID *)&TrueFindFirstFileW, _FindFirstFileW);
+        DetourAttach((PVOID *)&TrueFindFirstFileExW, _FindFirstFileExW);
+        DetourAttach((PVOID *)&TrueFindNextFileW, _FindNextFileW);
+        DetourAttach((PVOID *)&TrueFindClose, _FindClose);
+        DetourAttach((PVOID *)&TrueSetFilePointer, _SetFilePointer);
+        DetourAttach((PVOID *)&TrueSetFilePointerEx, _SetFilePointerEx);
+        DetourAttach((PVOID *)&TrueCloseHandle, _CloseHandle);
+        DetourAttach((PVOID *)&TrueGetFileType, _GetFileType);
+        DetourAttach((PVOID *)&TrueGetFileInformationByHandle, _GetFileInformationByHandle);
+        DetourAttach((PVOID *)&TrueDuplicateHandle, _DuplicateHandle);
+        DetourAttach((PVOID *)&TrueGetFileSize, _GetFileSize);
+        DetourAttach((PVOID *)&TrueGetFileSizeEx, _GetFileSizeEx);
+        DetourAttach((PVOID *)&TrueGetFileAttributesExW, _GetFileAttributesExW);
+        DetourAttach((PVOID *)&TruePostQuitMessage, _PostQuitMessage);
+        // ------------------------------------
+        DetourTransactionCommit();
 
-            // Hooks are active: run the post-hook step (loads mod code, which can now read mod files)
-            if (exports.OnAfterHook) exports.OnAfterHook();
+        // Hooks are active: run the post-hook step (loads mod code, which can now read mod files)
+        if (exports.OnAfterHook)
+            exports.OnAfterHook();
 
-            PLOGI << "AppLoader started successfully";
+        PLOGI << "AppLoader started successfully";
 
-            return target(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
-        };
+        return target(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
+    };
 
     DisableThreadLibraryCalls(hinstDLL);
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
     // ------------------------------------
-    DetourAttach((void**)&target, detour);
+    DetourAttach((void **)&target, detour);
     // ------------------------------------
     DetourTransactionCommit();
 

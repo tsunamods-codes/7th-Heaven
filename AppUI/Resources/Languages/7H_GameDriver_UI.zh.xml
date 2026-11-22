@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<ConfigSpec
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
   <!-- GRAPHICS TAB -->
   <Setting xsi:type="DropDown">
     <Group>画面</Group>
@@ -132,12 +134,12 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
-	<Group>画面</Group>
-	<Name>垂直裁剪解除</Name>
-	<Description>解除画面裁剪，移除游戏画面顶部和底部的黑边。</Description>
-	<DefaultValue>enable_uncrop = true</DefaultValue>
-	<TrueSetting>enable_uncrop = true</TrueSetting>
-	<FalseSetting>enable_uncrop = false</FalseSetting>
+    <Group>画面</Group>
+    <Name>垂直裁剪解除</Name>
+    <Description>解除画面裁剪，移除游戏画面顶部和底部的黑边。</Description>
+    <DefaultValue>enable_uncrop = true</DefaultValue>
+    <TrueSetting>enable_uncrop = true</TrueSetting>
+    <FalseSetting>enable_uncrop = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
@@ -157,7 +159,7 @@
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="Checkbox">
     <Group>画面</Group>
     <Name>高级光照效果</Name>
@@ -187,7 +189,7 @@
       <Settings></Settings>
     </Option>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>自动普通攻击</Name>
@@ -209,7 +211,7 @@
       <Settings></Settings>
     </Option>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>快捷键</Group>
     <Name>软重启</Name>
@@ -270,7 +272,7 @@
       <Settings>speedhack_max = 12.0</Settings>
     </Option>
   </Setting>
-  
+
   <!-- CONTROLS TAB -->
   <Setting xsi:type="Checkbox">
     <Group>控制</Group>
@@ -317,7 +319,7 @@
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="Checkbox">
     <Group>高级</Group>
     <Name>游戏内显示调试信息</Name>
@@ -353,7 +355,7 @@
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>高级</Group>
     <Name>内部分辨率放大倍数</Name>
@@ -384,5 +386,4 @@
       <Settings>internal_resolution_scale = 8</Settings>
     </Option>
   </Setting>
-
 </ConfigSpec>

@@ -1,11 +1,11 @@
-﻿using Iros.Workshop.ConfigSettings;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppUI.ViewModels;
+using Iros.Workshop.ConfigSettings;
 
 namespace AppUI.ViewModels
 {
@@ -13,7 +13,7 @@ namespace AppUI.ViewModels
     {
         TextEntry,
         Checkbox,
-        Dropdown
+        Dropdown,
     }
 
     class GLSettingViewModel : ViewModelBase
@@ -33,10 +33,7 @@ namespace AppUI.ViewModels
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -47,18 +44,12 @@ namespace AppUI.ViewModels
 
         public string DisplayName
         {
-            get
-            {
-                return $"{Name}:";
-            }
+            get { return $"{Name}:"; }
         }
 
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 _description = String.Format(value, "\r\n");
@@ -68,10 +59,7 @@ namespace AppUI.ViewModels
 
         public string Group
         {
-            get
-            {
-                return _group;
-            }
+            get { return _group; }
             set
             {
                 _group = value;
@@ -81,10 +69,7 @@ namespace AppUI.ViewModels
 
         public GLSettingType SettingType
         {
-            get
-            {
-                return _settingType;
-            }
+            get { return _settingType; }
             set
             {
                 _settingType = value;
@@ -97,10 +82,7 @@ namespace AppUI.ViewModels
 
         public bool IsOptionChecked
         {
-            get
-            {
-                return _isOptionChecked;
-            }
+            get { return _isOptionChecked; }
             set
             {
                 _isOptionChecked = value;
@@ -109,10 +91,7 @@ namespace AppUI.ViewModels
         }
         public List<GLSettingDropdownOptionViewModel> DropdownOptions
         {
-            get
-            {
-                return _dropdownOptions;
-            }
+            get { return _dropdownOptions; }
             set
             {
                 _dropdownOptions = value;
@@ -122,10 +101,7 @@ namespace AppUI.ViewModels
 
         public bool IsDropdownEnabled
         {
-            get
-            {
-                return _isDropdownEnabled;
-            }
+            get { return _isDropdownEnabled; }
             set
             {
                 _isDropdownEnabled = value;
@@ -135,10 +111,7 @@ namespace AppUI.ViewModels
 
         public int SelectedDropdownIndex
         {
-            get
-            {
-                return _selectedDropdownIndex;
-            }
+            get { return _selectedDropdownIndex; }
             set
             {
                 _selectedDropdownIndex = value;
@@ -146,25 +119,25 @@ namespace AppUI.ViewModels
                 NotifyPropertyChanged(nameof(SelectedDropdownOptionText));
             }
         }
-        
+
         public string SelectedDropdownOptionText
         {
             get
             {
-                if (DropdownOptions == null || SelectedDropdownIndex < 0 || SelectedDropdownIndex >= DropdownOptions.Count)
+                if (
+                    DropdownOptions == null
+                    || SelectedDropdownIndex < 0
+                    || SelectedDropdownIndex >= DropdownOptions.Count
+                )
                     return "";
 
                 return DropdownOptions[SelectedDropdownIndex].DisplayText;
             }
         }
 
-
         public string TextEntryOptionName
         {
-            get
-            {
-                return _textEntryOptionName;
-            }
+            get { return _textEntryOptionName; }
             set
             {
                 _textEntryOptionName = value;
@@ -174,10 +147,7 @@ namespace AppUI.ViewModels
 
         public string TextEntryOptionValue
         {
-            get
-            {
-                return _textEntryOptionValue;
-            }
+            get { return _textEntryOptionValue; }
             set
             {
                 _textEntryOptionValue = value;
@@ -185,7 +155,6 @@ namespace AppUI.ViewModels
             }
         }
 
-        
         public Visibility CheckBoxVisibility
         {
             get
@@ -219,7 +188,6 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public GLSettingViewModel(Setting setting, Settings settings)
         {
             Setting = setting;
@@ -246,14 +214,16 @@ namespace AppUI.ViewModels
             else if (Setting is Iros.Workshop.ConfigSettings.DropDown)
             {
                 SettingType = GLSettingType.Dropdown;
-                
+
                 if (DropdownOptions == null)
                 {
-                    DropdownOptions = (Setting as DropDown).Options.Select(item => new GLSettingDropdownOptionViewModel()
-                                                                                    {
-                                                                                        DisplayText = item.Text,
-                                                                                        SettingsValue = item.Settings
-                                                                                    }).ToList();
+                    DropdownOptions = (Setting as DropDown)
+                        .Options.Select(item => new GLSettingDropdownOptionViewModel()
+                        {
+                            DisplayText = item.Text,
+                            SettingsValue = item.Settings,
+                        })
+                        .ToList();
                 }
 
                 int i = 0;
@@ -266,7 +236,6 @@ namespace AppUI.ViewModels
 
                     i++;
                 }
-
             }
         }
 
@@ -283,7 +252,9 @@ namespace AppUI.ViewModels
             }
             else if (SettingType == GLSettingType.Checkbox)
             {
-                string settingValue = IsOptionChecked ? (Setting as Checkbox).TrueSetting : (Setting as Checkbox).FalseSetting;
+                string settingValue = IsOptionChecked
+                    ? (Setting as Checkbox).TrueSetting
+                    : (Setting as Checkbox).FalseSetting;
                 settings.Apply(settingValue);
             }
         }
@@ -307,10 +278,7 @@ namespace AppUI.ViewModels
 
         public string DisplayText
         {
-            get
-            {
-                return _displayText;
-            }
+            get { return _displayText; }
             set
             {
                 _displayText = value;
@@ -320,10 +288,7 @@ namespace AppUI.ViewModels
 
         public string SettingsValue
         {
-            get
-            {
-                return _settingsValue;
-            }
+            get { return _settingsValue; }
             set
             {
                 _settingsValue = value;

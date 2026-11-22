@@ -16,7 +16,10 @@ namespace AppUI.Classes
     {
         static ButtonWithImage()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ButtonWithImage), new FrameworkPropertyMetadata(typeof(ButtonWithImage)));
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(ButtonWithImage),
+                new FrameworkPropertyMetadata(typeof(ButtonWithImage))
+            );
         }
 
         #region Public properties
@@ -32,7 +35,6 @@ namespace AppUI.Classes
             get { return (ControlTemplate)GetValue(TemplateSourceProperty); }
             set { SetValue(TemplateSourceProperty, value); }
         }
-
 
         public SolidColorBrush ImageForeground
         {
@@ -52,47 +54,48 @@ namespace AppUI.Classes
             set { SetValue(ImageWidthProperty, value); }
         }
 
-
         #endregion
 
 
         #region Dependency Properties
 
 
-        public static readonly DependencyProperty UriSourceProperty =
-            DependencyProperty.Register(
+        public static readonly DependencyProperty UriSourceProperty = DependencyProperty.Register(
             "UriSource",
             typeof(Uri),
             typeof(ButtonWithImage),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(null)
+        );
 
         public static readonly DependencyProperty TemplateSourceProperty =
             DependencyProperty.Register(
-            "TemplateSource",
-            typeof(ControlTemplate),
-            typeof(ButtonWithImage),
-            new FrameworkPropertyMetadata(null));
+                "TemplateSource",
+                typeof(ControlTemplate),
+                typeof(ButtonWithImage),
+                new FrameworkPropertyMetadata(null)
+            );
 
         public static readonly DependencyProperty ImageForegroundProperty =
             DependencyProperty.Register(
-            "ImageForeground",
-            typeof(SolidColorBrush),
-            typeof(ButtonWithImage),
-            new FrameworkPropertyMetadata(null));
+                "ImageForeground",
+                typeof(SolidColorBrush),
+                typeof(ButtonWithImage),
+                new FrameworkPropertyMetadata(null)
+            );
 
-        public static readonly DependencyProperty ImageHeightProperty =
-            DependencyProperty.Register(
+        public static readonly DependencyProperty ImageHeightProperty = DependencyProperty.Register(
             "ImageHeight",
             typeof(double),
             typeof(ButtonWithImage),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(null)
+        );
 
-        public static readonly DependencyProperty ImageWidthProperty =
-            DependencyProperty.Register(
+        public static readonly DependencyProperty ImageWidthProperty = DependencyProperty.Register(
             "ImageWidth",
             typeof(double),
             typeof(ButtonWithImage),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(null)
+        );
 
         #endregion
     }

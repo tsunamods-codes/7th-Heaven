@@ -3,60 +3,62 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
-using AppWrapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AppCore;
+using AppWrapper;
 
-namespace Iros.Workshop {
-    public class Profile {
+namespace Iros.Workshop
+{
+    public class Profile
+    {
         public List<ProfileItem> Items { get; set; }
         public string OpenGLConfig { get; set; }
 
         [System.Xml.Serialization.XmlIgnore]
         public List<ProfileItem> ActiveItems
         {
-            get
-            {
-                return Items?.Where(m => m.IsModActive).ToList();
-            }
+            get { return Items?.Where(m => m.IsModActive).ToList(); }
         }
 
-        public Profile() {
+        public Profile()
+        {
             Items = new List<ProfileItem>();
         }
 
-        public IEnumerable<string> GetDetails() 
+        public IEnumerable<string> GetDetails()
         {
             List<string> profileDetails = new List<string>();
 
             profileDetails.Add($"App Version: {Sys.AppVersion}\n");
 
-            foreach (ProfileItem item in Items) 
+            foreach (ProfileItem item in Items)
             {
                 InstalledItem mod = Sys.Library.GetItem(item.ModID);
 
-                if (mod != null) 
+                if (mod != null)
                 {
                     Mod details = mod.CachedDetails;
 
-                    if (details != null) 
+                    if (details != null)
                     {
                         profileDetails.Add(String.Format("# {0}", details.Name));
                         profileDetails.Add(String.Format("\tID: {0}", details.ID));
-                        profileDetails.Add(String.Format("\tVersion: {0}", mod.LatestInstalled.VersionDetails.Version));
-                    } 
+                        profileDetails.Add(
+                            String.Format(
+                                "\tVersion: {0}",
+                                mod.LatestInstalled.VersionDetails.Version
+                            )
+                        );
+                    }
                     else
                     {
                         profileDetails.Add(String.Format("\tModID {0}", mod.ModID));
                     }
 
                     profileDetails.Add(String.Format("\tIs Active: {0}", item.IsModActive));
-
-
-
 
                     ModInfo info = mod.GetModInfo();
                     string detailFormat = "";
@@ -66,12 +68,14 @@ namespace Iros.Workshop {
                         detailFormat = item.GetFormatString(info);
                     }
 
-                    foreach (ProfileSetting config in item.Settings.ToList()) 
+                    foreach (ProfileSetting config in item.Settings.ToList())
                     {
                         if (info != null)
                         {
                             // extract configuration variable name and name of the selected value from Mod Info
-                            ConfigOption configOption = info.Options.FirstOrDefault(o => o.ID == config.ID);
+                            ConfigOption configOption = info.Options.FirstOrDefault(o =>
+                                o.ID == config.ID
+                            );
                             string optionValue = "";
 
                             if (configOption == null)
@@ -87,19 +91,23 @@ namespace Iros.Workshop {
                             }
                             else
                             {
-                                optionValue = $"\"{configOption.Values.Where(o => o.Value == config.Value).Select(o => o.Name).FirstOrDefault()}\"";
+                                optionValue =
+                                    $"\"{configOption.Values.Where(o => o.Value == config.Value).Select(o => o.Name).FirstOrDefault()}\"";
                             }
-
 
                             string name = $"\"{configOption.Name}\"";
                             string id = $"({config.ID})";
                             string value = $"({config.Value})";
 
-                            profileDetails.Add(string.Format(detailFormat, name, id, "=", optionValue, value)); // "=" is passed into string.Format() so all equal signs are aligned using the {2, 2} syntax
+                            profileDetails.Add(
+                                string.Format(detailFormat, name, id, "=", optionValue, value)
+                            ); // "=" is passed into string.Format() so all equal signs are aligned using the {2, 2} syntax
                         }
                         else
                         {
-                            profileDetails.Add(String.Format("\t{0} = {1}", config.ID, config.Value));
+                            profileDetails.Add(
+                                String.Format("\t{0} = {1}", config.ID, config.Value)
+                            );
                         }
                     }
                 }
@@ -141,12 +149,22 @@ namespace Iros.Workshop {
 
             if (removedMods.Count > 0 && doWarn)
             {
-                Sys.Message(new WMessage($"[{StringKey.TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved}]: {string.Join(", ", removedMods)}", true) { TextTranslationKey = StringKey.TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved });
+                Sys.Message(
+                    new WMessage(
+                        $"[{StringKey.TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved}]: {string.Join(", ", removedMods)}",
+                        true
+                    )
+                    {
+                        TextTranslationKey =
+                            StringKey.TheFollowingModsWereNotFoundInstalledAndHaveBeenRemoved,
+                    }
+                );
             }
         }
     }
 
-    public class ProfileItem {
+    public class ProfileItem
+    {
         public Guid ModID { get; set; }
         public List<ProfileSetting> Settings { get; set; }
 
@@ -165,30 +183,48 @@ namespace Iros.Workshop {
         private static string[] _comparison = new[] { "=", "!=", "<", ">", "<=", ">=" };
         private static List<string> _comparisonL = _comparison.ToList();
 
-        private bool IsConfigActive(string spec) {
-            if (String.IsNullOrWhiteSpace(spec)) return true;
+        private bool IsConfigActive(string spec)
+        {
+            if (String.IsNullOrWhiteSpace(spec))
+                return true;
 
             string[] parts = spec.Split(_comparison, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 2) return false;
-            parts = new[] { parts[0].Trim(), spec.Substring(parts[0].Length, spec.Length - parts[1].Length - parts[0].Length), parts[1].Trim() };
+            if (parts.Length != 2)
+                return false;
+            parts = new[]
+            {
+                parts[0].Trim(),
+                spec.Substring(parts[0].Length, spec.Length - parts[1].Length - parts[0].Length),
+                parts[1].Trim(),
+            };
 
             var conf = new ProfileSetting();
 
             if (parts[0].StartsWith("ffnx_", StringComparison.InvariantCultureIgnoreCase))
             {
                 var key = parts[0].Substring(5);
-                if (Sys.FFNxConfig.HasKey(key)) conf = new ProfileSetting() { ID = key, Value = int.Parse(Sys.FFNxConfig.Get(key)) };
+                if (Sys.FFNxConfig.HasKey(key))
+                    conf = new ProfileSetting()
+                    {
+                        ID = key,
+                        Value = int.Parse(Sys.FFNxConfig.Get(key)),
+                    };
             }
             else
             {
-                conf = Settings.Find(c => c.ID.Equals(parts[0], StringComparison.InvariantCultureIgnoreCase));
-                if (conf == null) return false;
+                conf = Settings.Find(c =>
+                    c.ID.Equals(parts[0], StringComparison.InvariantCultureIgnoreCase)
+                );
+                if (conf == null)
+                    return false;
             }
 
             int val;
-            if (!int.TryParse(parts[2], out val)) return false;
+            if (!int.TryParse(parts[2], out val))
+                return false;
 
-            switch (_comparisonL.IndexOf(parts[1])) {
+            switch (_comparisonL.IndexOf(parts[1]))
+            {
                 case 0:
                     return val == conf.Value;
                 case 1:
@@ -206,8 +242,10 @@ namespace Iros.Workshop {
             }
         }
 
-        private bool IsActive(AppWrapper.ActiveWhen aw) {
-            if (aw == null) return true;
+        private bool IsActive(AppWrapper.ActiveWhen aw)
+        {
+            if (aw == null)
+                return true;
             return aw.IsActive(IsConfigActive, IsGameLanguageActive, IsOtherModActive);
         }
 
@@ -216,13 +254,15 @@ namespace Iros.Workshop {
         /// </summary>
         private static bool IsOtherModActive(string modID)
         {
-            if (!Guid.TryParse(modID, out Guid id)) return false;
+            if (!Guid.TryParse(modID, out Guid id))
+                return false;
             return Sys.ActiveProfile?.ActiveItems?.Any(item => item.ModID.Equals(id)) ?? false;
         }
 
         private bool IsGameLanguageActive(string language)
         {
-            bool supportsLanguageSelection = Sys.Settings.FF7InstalledVersion == FF7Version.SteamReRelease
+            bool supportsLanguageSelection =
+                Sys.Settings.FF7InstalledVersion == FF7Version.SteamReRelease
                 || Sys.Settings.FF7InstalledVersion == FF7Version.WindowsStore
                 || Sys.Settings.FF7InstalledVersion == FF7Version.GOG;
             string selectedLanguage = supportsLanguageSelection
@@ -232,28 +272,43 @@ namespace Iros.Workshop {
             return GameLanguage.MatchesLanguage(language, selectedLanguage);
         }
 
-        public AppWrapper.RuntimeMod GetRuntime(AppWrapper.LoaderContext context) {
+        public AppWrapper.RuntimeMod GetRuntime(AppWrapper.LoaderContext context)
+        {
             var mod = Sys.Library.GetItem(ModID);
-            if (mod == null) return null;
-            string location = System.IO.Path.Combine(Sys.Settings.LibraryLocation, mod.LatestInstalled.InstalledLocation);
+            if (mod == null)
+                return null;
+            string location = System.IO.Path.Combine(
+                Sys.Settings.LibraryLocation,
+                mod.LatestInstalled.InstalledLocation
+            );
             AppWrapper.ModInfo modinfo = null;
-            if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro")) {
-                using (var arc = new AppWrapper.IrosArc(location)) {
-                    if (arc.HasFile("mod.xml")) {
+            if (mod.LatestInstalled.InstalledLocation.EndsWith(".iro"))
+            {
+                using (var arc = new AppWrapper.IrosArc(location))
+                {
+                    if (arc.HasFile("mod.xml"))
+                    {
                         var doc = new System.Xml.XmlDocument();
                         doc.Load(arc.GetData("mod.xml"));
                         modinfo = new AppWrapper.ModInfo(doc, context);
                     }
                 }
-            } else {
+            }
+            else
+            {
                 string mfile = System.IO.Path.Combine(location, "mod.xml");
                 if (System.IO.File.Exists(mfile))
                     modinfo = new AppWrapper.ModInfo(mfile, context);
             }
             modinfo = modinfo ?? new AppWrapper.ModInfo();
 
-            foreach (var opt in modinfo.Options) {
-                if (!Settings.Any(s => s.ID.Equals(opt.ID, StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var opt in modinfo.Options)
+            {
+                if (
+                    !Settings.Any(s =>
+                        s.ID.Equals(opt.ID, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                )
                     Settings.Add(new ProfileSetting() { ID = opt.ID, Value = opt.Default });
             }
 
@@ -262,7 +317,7 @@ namespace Iros.Workshop {
                 modinfo.Conditionals.Where(f => IsActive(f.ActiveWhen)),
                 modinfo.ModFolders.Where(f => IsActive(f.ActiveWhen)).Select(f => f.Folder),
                 modinfo
-                );
+            );
         }
 
         /// <summary>
@@ -273,8 +328,9 @@ namespace Iros.Workshop {
         internal string GetFormatString(ModInfo info)
         {
             int longestNameLength = 0;
-            int longestVarLength = Settings.Count > 0 ? Settings.Select(s => s.ID.Length).Max() + 3 : 0; // use LINQ to get max length of a setting variable ID
-            int longestValueNameLength = 4; // length of 'True' 
+            int longestVarLength =
+                Settings.Count > 0 ? Settings.Select(s => s.ID.Length).Max() + 3 : 0; // use LINQ to get max length of a setting variable ID
+            int longestValueNameLength = 4; // length of 'True'
 
             // loop over each setting and get the max length of the variable name and variables value name
             foreach (var config in Settings)
@@ -287,7 +343,10 @@ namespace Iros.Workshop {
 
                 if (configOption?.Type == OptionType.List)
                 {
-                    string value = configOption.Values.Where(o => o.Value == config.Value).Select(o => o.Name).FirstOrDefault();
+                    string value = configOption
+                        .Values.Where(o => o.Value == config.Value)
+                        .Select(o => o.Name)
+                        .FirstOrDefault();
                     if (value?.Length > longestValueNameLength)
                     {
                         longestValueNameLength = value.Length;
@@ -295,15 +354,23 @@ namespace Iros.Workshop {
                 }
             }
 
-            longestNameLength += 3; // add 3 to account for the quotes wrapping name and space e.g. "Aerith" 
+            longestNameLength += 3; // add 3 to account for the quotes wrapping name and space e.g. "Aerith"
             longestValueNameLength += 3;
 
-            string format = "\t{0, -" + longestNameLength.ToString() + "} {1, -" + longestVarLength + "} {2, 2} {3, -" + longestValueNameLength + "} {4, -10}";
+            string format =
+                "\t{0, -"
+                + longestNameLength.ToString()
+                + "} {1, -"
+                + longestVarLength
+                + "} {2, 2} {3, -"
+                + longestValueNameLength
+                + "} {4, -10}";
             return format;
         }
     }
 
-    public class ProfileSetting {
+    public class ProfileSetting
+    {
         public string ID { get; set; }
         public int Value { get; set; }
     }

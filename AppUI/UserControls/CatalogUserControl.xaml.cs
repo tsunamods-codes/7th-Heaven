@@ -1,8 +1,4 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using Iros.Workshop;
 
 namespace AppUI.UserControls
 {
@@ -31,7 +31,7 @@ namespace AppUI.UserControls
             { "Released", 90 },
             { "Category", 100 },
             { "Size", 70 },
-            { "Inst.", 30 }
+            { "Inst.", 30 },
         };
 
         Dictionary<string, string> ColumnTranslations
@@ -45,11 +45,10 @@ namespace AppUI.UserControls
                     { ResourceHelper.Get(StringKey.Released), "Released" },
                     { ResourceHelper.Get(StringKey.Category), "Category" },
                     { ResourceHelper.Get(StringKey.Size), "Size" },
-                    { ResourceHelper.Get(StringKey.Inst), "Inst." }
+                    { ResourceHelper.Get(StringKey.Inst), "Inst." },
                 };
             }
         }
-
 
         public CatalogUserControl()
         {
@@ -64,7 +63,10 @@ namespace AppUI.UserControls
 
         private void lstCatalogMods_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.RaiseSelectedModChanged(sender, (lstCatalogMods.SelectedItem as CatalogModItemViewModel));
+            ViewModel.RaiseSelectedModChanged(
+                sender,
+                (lstCatalogMods.SelectedItem as CatalogModItemViewModel)
+            );
         }
 
         private void btnRefresh_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -77,14 +79,19 @@ namespace AppUI.UserControls
         {
             if (lstCatalogMods.SelectedItem == null)
             {
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.SelectModToDownloadFirst), true));
+                Sys.Message(
+                    new WMessage(ResourceHelper.Get(StringKey.SelectModToDownloadFirst), true)
+                );
                 return;
             }
 
             ViewModel.DownloadMod((lstCatalogMods.SelectedItem as CatalogModItemViewModel));
         }
 
-        private void ListViewItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListViewItem_MouseDoubleClick(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             if (lstCatalogMods.SelectedItem != null)
             {
@@ -110,7 +117,6 @@ namespace AppUI.UserControls
             {
                 padding = 26;
             }
-
 
             double remainingWidth = listWidth - staticColumnWidth - padding;
 
@@ -155,7 +161,9 @@ namespace AppUI.UserControls
                 return; // can not determine current column widths so return (translation problem?)
             }
 
-            double staticColumnWidth = currentColumnSettings.Where(c => !c.AutoResize).Sum(s => s.Width); // sum of columns with static widths
+            double staticColumnWidth = currentColumnSettings
+                .Where(c => !c.AutoResize)
+                .Sum(s => s.Width); // sum of columns with static widths
             double padding = 8;
 
             if (listWidth == 0)
@@ -171,7 +179,6 @@ namespace AppUI.UserControls
             {
                 padding = 26;
             }
-
 
             double remainingWidth = listWidth - staticColumnWidth - padding;
 
@@ -241,7 +248,6 @@ namespace AppUI.UserControls
                 return;
             }
 
-
             if (headerClicked != _lastHeaderClicked)
             {
                 direction = ListSortDirection.Ascending;
@@ -262,8 +268,9 @@ namespace AppUI.UserControls
 
             if (headerClicked.Column.DisplayMemberBinding != null)
             {
-                Binding headerBinding = headerClicked.Column.DisplayMemberBinding.ProvideValue(null) as Binding;
-                
+                Binding headerBinding =
+                    headerClicked.Column.DisplayMemberBinding.ProvideValue(null) as Binding;
+
                 if (headerBinding == null)
                 {
                     return;
@@ -283,7 +290,6 @@ namespace AppUI.UserControls
                 }
             }
 
-
             Sort(propertyNameToSortBy, direction);
 
             _lastHeaderClicked = headerClicked;
@@ -292,7 +298,9 @@ namespace AppUI.UserControls
 
         private void Sort(string sortBy, ListSortDirection direction)
         {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(lstCatalogMods.ItemsSource);
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(
+                lstCatalogMods.ItemsSource
+            );
 
             if (dataView == null)
             {
@@ -304,15 +312,15 @@ namespace AppUI.UserControls
 
             if (sortBy == nameof(CatalogModItemViewModel.ReleaseDate) || sortBy == "Released")
             {
-                DateTimeComparer sorter = new DateTimeComparer()
-                {
-                    SortDirection = direction
-                };
+                DateTimeComparer sorter = new DateTimeComparer() { SortDirection = direction };
                 (dataView as ListCollectionView).CustomSort = sorter;
             }
             else if (sortBy == nameof(CatalogModItemViewModel.DownloadSize) || sortBy == "Size")
             {
-                SortDescription sd = new SortDescription(nameof(CatalogModItemViewModel.DownloadSizeInBytes), direction);
+                SortDescription sd = new SortDescription(
+                    nameof(CatalogModItemViewModel.DownloadSizeInBytes),
+                    direction
+                );
                 dataView.SortDescriptions.Add(sd);
                 dataView.Refresh();
             }
@@ -322,7 +330,6 @@ namespace AppUI.UserControls
                 dataView.SortDescriptions.Add(sd);
                 dataView.Refresh();
             }
-
         }
 
         internal List<ColumnInfo> GetColumnSettings()
@@ -336,7 +343,10 @@ namespace AppUI.UserControls
 
             bool hasInvalidColumns = columns.Any(c =>
             {
-                ColumnTranslations.TryGetValue((c.Header as GridViewColumnHeader).Content as string, out string translatedName);
+                ColumnTranslations.TryGetValue(
+                    (c.Header as GridViewColumnHeader).Content as string,
+                    out string translatedName
+                );
                 return string.IsNullOrEmpty(translatedName);
             });
 
@@ -347,12 +357,16 @@ namespace AppUI.UserControls
 
             List<string> columnsThatAutoResize = new List<string>() { "Name", "Author" };
 
-            return columns.Select(c => new ColumnInfo()
-            {
-                Name = ColumnTranslations[(c.Header as GridViewColumnHeader).Content as string],
-                Width = c.ActualWidth,
-                AutoResize = columnsThatAutoResize.Contains(ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)])
-            }).ToList();
+            return columns
+                .Select(c => new ColumnInfo()
+                {
+                    Name = ColumnTranslations[(c.Header as GridViewColumnHeader).Content as string],
+                    Width = c.ActualWidth,
+                    AutoResize = columnsThatAutoResize.Contains(
+                        ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)]
+                    ),
+                })
+                .ToList();
         }
 
         /// <summary>
@@ -366,7 +380,9 @@ namespace AppUI.UserControls
             if (e.NewSize.Width < MinColumnWidths[ColumnTranslations[columnName]])
             {
                 e.Handled = true;
-                ((GridViewColumnHeader)sender).Column.Width = MinColumnWidths[ColumnTranslations[columnName]];
+                ((GridViewColumnHeader)sender).Column.Width = MinColumnWidths[
+                    ColumnTranslations[columnName]
+                ];
             }
         }
 
@@ -383,7 +399,9 @@ namespace AppUI.UserControls
 
         private void btnResetColumns_Click(object sender, RoutedEventArgs e)
         {
-            List<ColumnInfo> defaultColumns = ColumnSettings.GetDefaultSettings().BrowseCatalogColumns;
+            List<ColumnInfo> defaultColumns = ColumnSettings
+                .GetDefaultSettings()
+                .BrowseCatalogColumns;
             ApplyColumnSettings(defaultColumns);
         }
 
@@ -394,7 +412,12 @@ namespace AppUI.UserControls
             for (int i = 0; i < newColumns.Count; i++)
             {
                 // get the current index of the column
-                int colIndex = columns.ToList().FindIndex(c => ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)] == newColumns[i].Name);
+                int colIndex = columns
+                    .ToList()
+                    .FindIndex(c =>
+                        ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)]
+                        == newColumns[i].Name
+                    );
 
                 // apply the new width if the column does not auto resize
                 if (!newColumns[i].AutoResize)
@@ -430,6 +453,7 @@ namespace AppUI.UserControls
 
             ViewModel.CancelDownload((lstDownloads.SelectedItem as DownloadItemViewModel));
         }
+
         private void lstCatalogMods_GotFocus(object sender, RoutedEventArgs e)
         {
             ViewModel.SelectedDownload = null;

@@ -1,5 +1,4 @@
-﻿using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -20,7 +20,6 @@ namespace AppUI.Windows
     /// </summary>
     public partial class ConfigureModWindow : Window
     {
-
         public ConfigureModViewModel ViewModel { get; set; }
 
         public ConfigureModWindow()
@@ -58,7 +57,10 @@ namespace AppUI.Windows
             ViewModel.ResetToModDefaultValues();
         }
 
-        private void treeOptions_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void treeOptions_SelectedItemChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<object> e
+        )
         {
             ConfigOptionViewModel option = e.NewValue as ConfigOptionViewModel;
             ViewModel.SelectedOption = option;

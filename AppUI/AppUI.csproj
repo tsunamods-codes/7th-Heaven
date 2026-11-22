@@ -26,8 +26,7 @@
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowedReferenceRelatedFileExtensions>
@@ -60,7 +59,10 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="false" />
+    <RuntimeHostConfigurationOption
+      Include="System.Net.SocketsHttpHandler.Http3Support"
+      Value="false"
+    />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DS4WindowsCore">
@@ -644,6 +646,10 @@
     <NoWarn>CA1416</NoWarn>
   </PropertyGroup>
   <Target Name="7thAfterBuild" AfterTargets="AfterBuild">
-    <Copy SourceFiles="../AppProxy/bin/$(Configuration)/$(TargetFramework)/AppProxy.runtimeconfig.json" DestinationFolder="$(OutputPath)" ContinueOnError="false" />
+    <Copy
+      SourceFiles="../AppProxy/bin/$(Configuration)/$(TargetFramework)/AppProxy.runtimeconfig.json"
+      DestinationFolder="$(OutputPath)"
+      ContinueOnError="false"
+    />
   </Target>
 </Project>

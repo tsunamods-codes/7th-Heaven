@@ -1,15 +1,15 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
 
 namespace AppUI.ViewModels
 {
@@ -30,10 +30,7 @@ namespace AppUI.ViewModels
 
         public string PathToSourceFolder
         {
-            get
-            {
-                return _pathToSourceFolder;
-            }
+            get { return _pathToSourceFolder; }
             set
             {
                 _pathToSourceFolder = value;
@@ -43,10 +40,7 @@ namespace AppUI.ViewModels
 
         public string PathToOriginalIroFile
         {
-            get
-            {
-                return _pathToOriginalIroFile;
-            }
+            get { return _pathToOriginalIroFile; }
             set
             {
                 _pathToOriginalIroFile = value;
@@ -56,10 +50,7 @@ namespace AppUI.ViewModels
 
         public string PathToNewIroFile
         {
-            get
-            {
-                return _pathToNewIroFile;
-            }
+            get { return _pathToNewIroFile; }
             set
             {
                 _pathToNewIroFile = value;
@@ -69,10 +60,7 @@ namespace AppUI.ViewModels
 
         public string PathToIropFile
         {
-            get
-            {
-                return _pathToIropFile;
-            }
+            get { return _pathToIropFile; }
             set
             {
                 _pathToIropFile = value;
@@ -82,10 +70,7 @@ namespace AppUI.ViewModels
 
         public string FilesToDeleteText
         {
-            get
-            {
-                return _filesToDeleteText;
-            }
+            get { return _filesToDeleteText; }
             set
             {
                 _filesToDeleteText = value;
@@ -97,16 +82,15 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return FilesToDeleteText.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                return FilesToDeleteText
+                    .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
             }
         }
 
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get { return _statusText; }
             set
             {
                 _statusText = value;
@@ -116,10 +100,7 @@ namespace AppUI.ViewModels
 
         public string SelectedCompressionOptionText
         {
-            get
-            {
-                return ((AppWrapper.CompressType)CompressionSelectedIndex).ToString();
-            }
+            get { return ((AppWrapper.CompressType)CompressionSelectedIndex).ToString(); }
         }
         public List<string> CompressionOptions
         {
@@ -139,10 +120,7 @@ namespace AppUI.ViewModels
 
         public int CompressionSelectedIndex
         {
-            get
-            {
-                return _compressionSelectedIndex;
-            }
+            get { return _compressionSelectedIndex; }
             set
             {
                 _compressionSelectedIndex = value;
@@ -153,10 +131,7 @@ namespace AppUI.ViewModels
 
         public int ProgressValue
         {
-            get
-            {
-                return _progressValue;
-            }
+            get { return _progressValue; }
             set
             {
                 _progressValue = value;
@@ -166,10 +141,7 @@ namespace AppUI.ViewModels
 
         public bool IsPatching
         {
-            get
-            {
-                return _isPatching;
-            }
+            get { return _isPatching; }
             set
             {
                 _isPatching = value;
@@ -178,13 +150,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public bool IsNotPatching
         {
-            get
-            {
-                return !_isPatching;
-            }
+            get { return !_isPatching; }
         }
 
         public bool IsAdvancedMode { get; private set; }
@@ -236,7 +204,12 @@ namespace AppUI.ViewModels
             if (!isValid && showErrorMsg)
             {
                 Logger.Warn($"{ResourceHelper.Get(StringKey.InvalidPackIroOptions)}: {errorMsg}");
-                MessageDialogWindow.Show(errorMsg, ResourceHelper.Get(StringKey.MissingRequiredInput), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    errorMsg,
+                    ResourceHelper.Get(StringKey.MissingRequiredInput),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
 
             return isValid;
@@ -247,7 +220,8 @@ namespace AppUI.ViewModels
             string pathToOriginalIro = PathToOriginalIroFile;
             string pathToNewIro = PathToNewIroFile;
             string iropFile = PathToIropFile;
-            AppWrapper.CompressType compressType = (AppWrapper.CompressType)CompressionSelectedIndex;
+            AppWrapper.CompressType compressType =
+                (AppWrapper.CompressType)CompressionSelectedIndex;
 
             IsPatching = true;
 
@@ -258,25 +232,34 @@ namespace AppUI.ViewModels
                     using (AppWrapper.IrosArc newiro = new AppWrapper.IrosArc(pathToNewIro))
                     {
                         using (var fs = new FileStream(iropFile, FileMode.Create))
-                            AppWrapper.IrosPatcher.Create(orig, newiro, fs, compressType, IroProgress);
+                            AppWrapper.IrosPatcher.Create(
+                                orig,
+                                newiro,
+                                fs,
+                                compressType,
+                                IroProgress
+                            );
                     }
                 }
             });
 
-            patchTask.ContinueWith((result) =>
-            {
-                IsPatching = false;
-                ProgressValue = 0;
-
-                if (result.IsFaulted)
+            patchTask.ContinueWith(
+                (result) =>
                 {
-                    Logger.Warn(result.Exception.GetBaseException());
-                    StatusText = $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePatching)}: {result.Exception.GetBaseException().Message}";
-                    return;
-                }
+                    IsPatching = false;
+                    ProgressValue = 0;
 
-                StatusText = ResourceHelper.Get(StringKey.PatchingComplete);
-            });
+                    if (result.IsFaulted)
+                    {
+                        Logger.Warn(result.Exception.GetBaseException());
+                        StatusText =
+                            $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePatching)}: {result.Exception.GetBaseException().Message}";
+                        return;
+                    }
+
+                    StatusText = ResourceHelper.Get(StringKey.PatchingComplete);
+                }
+            );
         }
 
         internal void PatchIroAdvanced()
@@ -284,47 +267,59 @@ namespace AppUI.ViewModels
             string pathToSource = PathToSourceFolder;
             string iropFile = PathToIropFile;
             List<string> filesToDelete = FilesToDelete;
-            AppWrapper.CompressType compressType = (AppWrapper.CompressType)CompressionSelectedIndex;
+            AppWrapper.CompressType compressType =
+                (AppWrapper.CompressType)CompressionSelectedIndex;
 
             IsPatching = true;
 
             Task patchTask = Task.Factory.StartNew(() =>
             {
-                var files = Directory.GetFiles(pathToSource, "*", SearchOption.AllDirectories)
-                                     .Select(s => s.Substring(pathToSource.Length).Trim('\\', '/'))
-                                     .Select(s => AppWrapper.IrosArc.ArchiveCreateEntry.FromDisk(pathToSource, s))
-                                     .ToList();
+                var files = Directory
+                    .GetFiles(pathToSource, "*", SearchOption.AllDirectories)
+                    .Select(s => s.Substring(pathToSource.Length).Trim('\\', '/'))
+                    .Select(s => AppWrapper.IrosArc.ArchiveCreateEntry.FromDisk(pathToSource, s))
+                    .ToList();
 
                 if (filesToDelete.Any())
                 {
                     byte[] deldata = Encoding.Unicode.GetBytes(String.Join("\n", filesToDelete));
-                    files.Add(new AppWrapper.IrosArc.ArchiveCreateEntry()
-                    {
-                        Filename = "%IrosPatch:Deleted",
-                        GetData = () => deldata
-                    });
+                    files.Add(
+                        new AppWrapper.IrosArc.ArchiveCreateEntry()
+                        {
+                            Filename = "%IrosPatch:Deleted",
+                            GetData = () => deldata,
+                        }
+                    );
                 }
 
                 using (var fs = new FileStream(iropFile, FileMode.Create))
-                    AppWrapper.IrosArc.Create(fs, files, AppWrapper.ArchiveFlags.Patch, compressType, IroProgress);
+                    AppWrapper.IrosArc.Create(
+                        fs,
+                        files,
+                        AppWrapper.ArchiveFlags.Patch,
+                        compressType,
+                        IroProgress
+                    );
             });
 
-            patchTask.ContinueWith((result) =>
-            {
-                IsPatching = false;
-                ProgressValue = 0;
-
-                if (result.IsFaulted)
+            patchTask.ContinueWith(
+                (result) =>
                 {
-                    Logger.Warn(result.Exception.GetBaseException());
-                    StatusText = $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePatching)}: {result.Exception.GetBaseException().Message}";
-                    return;
+                    IsPatching = false;
+                    ProgressValue = 0;
+
+                    if (result.IsFaulted)
+                    {
+                        Logger.Warn(result.Exception.GetBaseException());
+                        StatusText =
+                            $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePatching)}: {result.Exception.GetBaseException().Message}";
+                        return;
+                    }
+
+                    StatusText = ResourceHelper.Get(StringKey.PatchingComplete);
                 }
-
-                StatusText = ResourceHelper.Get(StringKey.PatchingComplete);
-            });
+            );
         }
-
 
         private void IroProgress(double d, string s)
         {

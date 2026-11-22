@@ -12,7 +12,7 @@ namespace AppUI.Classes.Themes
         LightModeWithBackground,
         Classic7H,
         Tsunamods,
-        SeventhHeavenTheme
+        SeventhHeavenTheme,
     }
 
     public interface ITheme
@@ -33,6 +33,5 @@ namespace AppUI.Classes.Themes
         HorizontalAlignment BackgroundHorizontalAlignment { get; }
         VerticalAlignment BackgroundVerticalAlignment { get; }
         Stretch BackgroundStretch { get; }
-
     }
 }

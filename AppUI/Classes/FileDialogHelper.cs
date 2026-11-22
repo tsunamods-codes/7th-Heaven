@@ -9,7 +9,11 @@ namespace AppUI.Classes
 {
     public static class FileDialogHelper
     {
-        public static string BrowseForFile(string filter, string title = "Select File", string initialDir = null)
+        public static string BrowseForFile(
+            string filter,
+            string title = "Select File",
+            string initialDir = null
+        )
         {
             using (OpenFileDialog fileBrowserDialog = new OpenFileDialog())
             {
@@ -28,7 +32,11 @@ namespace AppUI.Classes
             return "";
         }
 
-        public static string BrowseForFolder(string description = "", string initialDir = null, bool multiselect = false)
+        public static string BrowseForFolder(
+            string description = "",
+            string initialDir = null,
+            bool multiselect = false
+        )
         {
             OpenFolderDialog folder = new OpenFolderDialog()
             {
@@ -37,7 +45,7 @@ namespace AppUI.Classes
                 CheckPathExists = true,
                 InitialDirectory = initialDir,
                 Multiselect = multiselect,
-                RestoreDirectory = true
+                RestoreDirectory = true,
             };
             DialogResult result = folder.ShowDialog(IntPtr.Zero);
 

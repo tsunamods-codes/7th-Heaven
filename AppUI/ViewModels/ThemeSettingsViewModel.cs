@@ -1,11 +1,4 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Classes.Themes;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +6,13 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.Classes.Themes;
+using AppUI.ViewModels;
+using Iros;
+using Iros.Workshop;
 using Xceed.Wpf.AvalonDock.Themes;
 
 namespace AppUI.ViewModels
@@ -23,7 +23,11 @@ namespace AppUI.ViewModels
 
         public delegate void OnImageChanged(byte[] newImage);
         public event OnImageChanged BackgroundImageChanged;
-        public delegate void OnBackgroundPropsChanged(HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, Stretch stretch);
+        public delegate void OnBackgroundPropsChanged(
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            Stretch stretch
+        );
         public event OnBackgroundPropsChanged BackgroundPropsChanged;
 
         private string _statusText;
@@ -42,10 +46,7 @@ namespace AppUI.ViewModels
 
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get { return _statusText; }
             set
             {
                 _statusText = value;
@@ -55,18 +56,12 @@ namespace AppUI.ViewModels
 
         public bool IsCustomThemeEnabled
         {
-            get
-            {
-                return SelectedThemeText == "Custom";
-            }
+            get { return SelectedThemeText == "Custom"; }
         }
 
         public string SelectedThemeText
         {
-            get
-            {
-                return _selectedThemeText;
-            }
+            get { return _selectedThemeText; }
             set
             {
                 _selectedThemeText = value;
@@ -78,17 +73,17 @@ namespace AppUI.ViewModels
 
         public List<string> ThemeDropdownItems
         {
-            get
-            {
-                return DropDownOptionEnums.Keys.ToList();
-            }
+            get { return DropDownOptionEnums.Keys.ToList(); }
         }
 
         public List<string> BackgroundHorizontalAlignmentDropdownItems
         {
             get
             {
-                return Enum.GetValues(typeof(HorizontalAlignment)).Cast<HorizontalAlignment>().Select(v => v.ToString()).ToList();
+                return Enum.GetValues(typeof(HorizontalAlignment))
+                    .Cast<HorizontalAlignment>()
+                    .Select(v => v.ToString())
+                    .ToList();
             }
         }
 
@@ -96,7 +91,10 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return Enum.GetValues(typeof(VerticalAlignment)).Cast<VerticalAlignment>().Select(v => v.ToString()).ToList();
+                return Enum.GetValues(typeof(VerticalAlignment))
+                    .Cast<VerticalAlignment>()
+                    .Select(v => v.ToString())
+                    .ToList();
             }
         }
 
@@ -104,16 +102,16 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return Enum.GetValues(typeof(Stretch)).Cast<Stretch>().Select(v => v.ToString()).ToList();
+                return Enum.GetValues(typeof(Stretch))
+                    .Cast<Stretch>()
+                    .Select(v => v.ToString())
+                    .ToList();
             }
         }
 
         public string AppBackgroundText
         {
-            get
-            {
-                return _appBackgroundText;
-            }
+            get { return _appBackgroundText; }
             set
             {
                 _appBackgroundText = value;
@@ -123,10 +121,7 @@ namespace AppUI.ViewModels
 
         public string SecondaryBackgroundText
         {
-            get
-            {
-                return _secondaryBackgroundText;
-            }
+            get { return _secondaryBackgroundText; }
             set
             {
                 _secondaryBackgroundText = value;
@@ -136,10 +131,7 @@ namespace AppUI.ViewModels
 
         public string ControlDisabledBgText
         {
-            get
-            {
-                return _controlDisabledBgText;
-            }
+            get { return _controlDisabledBgText; }
             set
             {
                 _controlDisabledBgText = value;
@@ -149,10 +141,7 @@ namespace AppUI.ViewModels
 
         public string ControlDisabledFgText
         {
-            get
-            {
-                return _controlDisabledFgText;
-            }
+            get { return _controlDisabledFgText; }
             set
             {
                 _controlDisabledFgText = value;
@@ -162,10 +151,7 @@ namespace AppUI.ViewModels
 
         public string ControlBackgroundText
         {
-            get
-            {
-                return _controlBackgroundText;
-            }
+            get { return _controlBackgroundText; }
             set
             {
                 _controlBackgroundText = value;
@@ -175,10 +161,7 @@ namespace AppUI.ViewModels
 
         public string ControlForegroundText
         {
-            get
-            {
-                return _controlForegroundText;
-            }
+            get { return _controlForegroundText; }
             set
             {
                 _controlForegroundText = value;
@@ -188,10 +171,7 @@ namespace AppUI.ViewModels
 
         public string ControlSecondaryText
         {
-            get
-            {
-                return _controlSecondaryText;
-            }
+            get { return _controlSecondaryText; }
             set
             {
                 _controlSecondaryText = value;
@@ -201,10 +181,7 @@ namespace AppUI.ViewModels
 
         public string ControlMouseOverText
         {
-            get
-            {
-                return _controlMouseOverText;
-            }
+            get { return _controlMouseOverText; }
             set
             {
                 _controlMouseOverText = value;
@@ -214,10 +191,7 @@ namespace AppUI.ViewModels
 
         public string ControlPressedText
         {
-            get
-            {
-                return _controlPressedText;
-            }
+            get { return _controlPressedText; }
             set
             {
                 _controlPressedText = value;
@@ -227,10 +201,7 @@ namespace AppUI.ViewModels
 
         public string BackgroundImageText
         {
-            get
-            {
-                return _backgroundImageText;
-            }
+            get { return _backgroundImageText; }
             set
             {
                 _backgroundImageText = value;
@@ -243,13 +214,23 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return Enum.GetName(_backgroundHorizontalAlignment.GetType(), _backgroundHorizontalAlignment);
+                return Enum.GetName(
+                    _backgroundHorizontalAlignment.GetType(),
+                    _backgroundHorizontalAlignment
+                );
             }
             set
             {
-                if (value != Enum.GetName(_backgroundHorizontalAlignment.GetType(), _backgroundHorizontalAlignment))
+                if (
+                    value
+                    != Enum.GetName(
+                        _backgroundHorizontalAlignment.GetType(),
+                        _backgroundHorizontalAlignment
+                    )
+                )
                 {
-                    _backgroundHorizontalAlignment = (HorizontalAlignment)Enum.Parse(typeof(HorizontalAlignment), value);
+                    _backgroundHorizontalAlignment = (HorizontalAlignment)
+                        Enum.Parse(typeof(HorizontalAlignment), value);
                     NotifyPropertyChanged();
                 }
             }
@@ -260,13 +241,23 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return Enum.GetName(_backgroundVerticalAlignment.GetType(), _backgroundVerticalAlignment);
+                return Enum.GetName(
+                    _backgroundVerticalAlignment.GetType(),
+                    _backgroundVerticalAlignment
+                );
             }
             set
             {
-                if (value != Enum.GetName(_backgroundVerticalAlignment.GetType(), _backgroundVerticalAlignment))
+                if (
+                    value
+                    != Enum.GetName(
+                        _backgroundVerticalAlignment.GetType(),
+                        _backgroundVerticalAlignment
+                    )
+                )
                 {
-                    _backgroundVerticalAlignment = (VerticalAlignment)Enum.Parse(typeof(VerticalAlignment), value);
+                    _backgroundVerticalAlignment = (VerticalAlignment)
+                        Enum.Parse(typeof(VerticalAlignment), value);
                     NotifyPropertyChanged();
                 }
             }
@@ -275,10 +266,7 @@ namespace AppUI.ViewModels
         private Stretch _backgroundStretch = Stretch.Uniform;
         public string SelectedBackgroundStretch
         {
-            get
-            {
-                return Enum.GetName(_backgroundStretch.GetType(), _backgroundStretch);
-            }
+            get { return Enum.GetName(_backgroundStretch.GetType(), _backgroundStretch); }
             set
             {
                 if (value != Enum.GetName(_backgroundStretch.GetType(), _backgroundStretch))
@@ -289,8 +277,8 @@ namespace AppUI.ViewModels
             }
         }
 
-        public byte[] CurrentImageTheme 
-        { 
+        public byte[] CurrentImageTheme
+        {
             get => currentImageTheme;
             set
             {
@@ -310,7 +298,7 @@ namespace AppUI.ViewModels
                     { "Dark Mode", AppTheme.DarkMode },
                     { "Dark Mode w/ Background", AppTheme.DarkModeWithBackground },
                     { "Light Mode", AppTheme.LightMode },
-                    { "Light Mode w/ Background", AppTheme.LightModeWithBackground},
+                    { "Light Mode w/ Background", AppTheme.LightModeWithBackground },
                     { "Classic 7H", AppTheme.Classic7H },
                     { "Custom", AppTheme.Custom },
                 };
@@ -343,7 +331,9 @@ namespace AppUI.ViewModels
             // dark theme w/ background will be applied as the default when theme.xml file does not exist
             if (!File.Exists(pathToThemeFile))
             {
-                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(AppTheme.SeventhHeavenTheme);
+                new ThemeSettingsViewModel(loadThemeXml: false).ApplyBuiltInTheme(
+                    AppTheme.SeventhHeavenTheme
+                );
                 return;
             }
 
@@ -383,9 +373,14 @@ namespace AppUI.ViewModels
             try
             {
                 ThemeSettings theme = Util.Deserialize<ThemeSettings>(themeFile);
-                ThemeSettingsViewModel settingsViewModel = new ThemeSettingsViewModel(loadThemeXml: false);
+                ThemeSettingsViewModel settingsViewModel = new ThemeSettingsViewModel(
+                    loadThemeXml: false
+                );
 
-                settingsViewModel.DropDownOptionEnums.TryGetValue(theme.Name, out AppTheme appTheme);
+                settingsViewModel.DropDownOptionEnums.TryGetValue(
+                    theme.Name,
+                    out AppTheme appTheme
+                );
 
                 if (appTheme == AppTheme.Custom)
                 {
@@ -446,7 +441,7 @@ namespace AppUI.ViewModels
             ThemeSettings settings = new ThemeSettings()
             {
                 Name = SelectedThemeText,
-                BackgroundImageName = BackgroundImageText
+                BackgroundImageName = BackgroundImageText,
             };
 
             if (settings.Name == "Custom")
@@ -462,9 +457,6 @@ namespace AppUI.ViewModels
                 settings.PrimaryControlPressed = ControlPressedText;
             }
 
-
-
-
             try
             {
                 if (CurrentImageTheme?.Length > 0)
@@ -476,19 +468,25 @@ namespace AppUI.ViewModels
                 settings.BackgroundVerticalAlignment = _backgroundVerticalAlignment;
                 settings.BackgroundStretch = _backgroundStretch;
 
-                using (FileStream file = new FileStream(pathToTheme, FileMode.Create, FileAccess.ReadWrite))
+                using (
+                    FileStream file = new FileStream(
+                        pathToTheme,
+                        FileMode.Create,
+                        FileAccess.ReadWrite
+                    )
+                )
                 {
                     Util.Serialize(settings, file);
                 }
 
-                StatusText = $"{ResourceHelper.Get(StringKey.ThemeSavedAs)} {Path.GetFileName(pathToTheme)}";
+                StatusText =
+                    $"{ResourceHelper.Get(StringKey.ThemeSavedAs)} {Path.GetFileName(pathToTheme)}";
             }
             catch (Exception e)
             {
                 Logger.Error(e);
                 StatusText = ResourceHelper.Get(StringKey.FailedToSaveTheme);
             }
-
         }
 
         internal void ChangeTheme()
@@ -520,8 +518,14 @@ namespace AppUI.ViewModels
             ControlDisabledBgText = theme.PrimaryControlDisabledBackground;
             ControlDisabledFgText = theme.PrimaryControlDisabledForeground;
             BackgroundImageText = theme.BackgroundImageName;
-            SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), theme.BackgroundHorizontalAlignment);
-            SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), theme.BackgroundVerticalAlignment);
+            SelectedBackgroundHorizontalAlignment = Enum.GetName(
+                typeof(HorizontalAlignment),
+                theme.BackgroundHorizontalAlignment
+            );
+            SelectedBackgroundVerticalAlignment = Enum.GetName(
+                typeof(VerticalAlignment),
+                theme.BackgroundVerticalAlignment
+            );
             SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), theme.BackgroundStretch);
 
             if (!string.IsNullOrEmpty(theme.BackgroundImageBase64))
@@ -551,22 +555,46 @@ namespace AppUI.ViewModels
         {
             try
             {
-                App.Current.Resources["PrimaryAppBackground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppBackgroundText));
-                App.Current.Resources["SecondaryAppBackground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(SecondaryBackgroundText));
+                App.Current.Resources["PrimaryAppBackground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(AppBackgroundText)
+                );
+                App.Current.Resources["SecondaryAppBackground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(SecondaryBackgroundText)
+                );
 
-                App.Current.Resources["PrimaryControlBackground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlBackgroundText));
-                App.Current.Resources["PrimaryControlForeground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlForegroundText));
-                App.Current.Resources["PrimaryControlSecondary"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlSecondaryText));
-                App.Current.Resources["PrimaryControlPressed"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlPressedText));
-                App.Current.Resources["PrimaryControlMouseOver"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlMouseOverText));
+                App.Current.Resources["PrimaryControlBackground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlBackgroundText)
+                );
+                App.Current.Resources["PrimaryControlForeground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlForegroundText)
+                );
+                App.Current.Resources["PrimaryControlSecondary"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlSecondaryText)
+                );
+                App.Current.Resources["PrimaryControlPressed"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlPressedText)
+                );
+                App.Current.Resources["PrimaryControlMouseOver"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlMouseOverText)
+                );
 
-                App.Current.Resources["PrimaryControlDisabledBackground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlDisabledBgText));
-                App.Current.Resources["PrimaryControlDisabledForeground"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlDisabledFgText));
+                App.Current.Resources["PrimaryControlDisabledBackground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlDisabledBgText)
+                );
+                App.Current.Resources["PrimaryControlDisabledForeground"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlDisabledFgText)
+                );
 
-                App.Current.Resources["iconColorBrush"] = (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlForegroundText));
+                App.Current.Resources["iconColorBrush"] = (SolidColorBrush)(
+                    new BrushConverter().ConvertFrom(ControlForegroundText)
+                );
 
-                App.Current.Resources["PrimaryControlPressedColor"] = ((SolidColorBrush)(new BrushConverter().ConvertFrom(ControlPressedText))).Color;
-                App.Current.Resources["PrimaryControlMouseOverColor"] = ((SolidColorBrush)(new BrushConverter().ConvertFrom(ControlMouseOverText))).Color;
+                App.Current.Resources["PrimaryControlPressedColor"] = (
+                    (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlPressedText))
+                ).Color;
+                App.Current.Resources["PrimaryControlMouseOverColor"] = (
+                    (SolidColorBrush)(new BrushConverter().ConvertFrom(ControlMouseOverText))
+                ).Color;
             }
             catch (Exception e)
             {
@@ -574,7 +602,11 @@ namespace AppUI.ViewModels
                 StatusText = $"Failed to apply theme: {e.Message}";
             }
 
-            BackgroundPropsChanged?.Invoke(_backgroundHorizontalAlignment, _backgroundVerticalAlignment, _backgroundStretch);
+            BackgroundPropsChanged?.Invoke(
+                _backgroundHorizontalAlignment,
+                _backgroundVerticalAlignment,
+                _backgroundStretch
+            );
         }
 
         /// <summary>
@@ -597,8 +629,14 @@ namespace AppUI.ViewModels
                 ControlDisabledBgText = theme.PrimaryControlDisabledBackground;
                 ControlDisabledFgText = theme.PrimaryControlDisabledForeground;
                 BackgroundImageText = theme.BackgroundImageName;
-                SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), theme.BackgroundHorizontalAlignment);
-                SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), theme.BackgroundVerticalAlignment);
+                SelectedBackgroundHorizontalAlignment = Enum.GetName(
+                    typeof(HorizontalAlignment),
+                    theme.BackgroundHorizontalAlignment
+                );
+                SelectedBackgroundVerticalAlignment = Enum.GetName(
+                    typeof(VerticalAlignment),
+                    theme.BackgroundVerticalAlignment
+                );
                 SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), theme.BackgroundStretch);
 
                 if (!string.IsNullOrEmpty(theme.BackgroundImageBase64))
@@ -643,7 +681,9 @@ namespace AppUI.ViewModels
 
                 if (!File.Exists(pathToThemeFile))
                 {
-                    savedTheme = ThemeSettings.GetThemeFromEnum(AppTheme.SeventhHeavenTheme) as ThemeSettings;
+                    savedTheme =
+                        ThemeSettings.GetThemeFromEnum(AppTheme.SeventhHeavenTheme)
+                        as ThemeSettings;
                 }
                 else
                 {
@@ -671,8 +711,14 @@ namespace AppUI.ViewModels
             ControlDisabledBgText = savedTheme.PrimaryControlDisabledBackground;
             ControlDisabledFgText = savedTheme.PrimaryControlDisabledForeground;
             BackgroundImageText = savedTheme.BackgroundImageName;
-            SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), savedTheme.BackgroundHorizontalAlignment);
-            SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), savedTheme.BackgroundVerticalAlignment);
+            SelectedBackgroundHorizontalAlignment = Enum.GetName(
+                typeof(HorizontalAlignment),
+                savedTheme.BackgroundHorizontalAlignment
+            );
+            SelectedBackgroundVerticalAlignment = Enum.GetName(
+                typeof(VerticalAlignment),
+                savedTheme.BackgroundVerticalAlignment
+            );
             SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), savedTheme.BackgroundStretch);
 
             if (!string.IsNullOrEmpty(savedTheme.BackgroundImageBase64))
@@ -715,7 +761,10 @@ namespace AppUI.ViewModels
 
         internal void SelectBackgroundImage()
         {
-            string pathToFile = FileDialogHelper.BrowseForFile("*.png,*.jpg,*.jpeg|*.png;*.jpg;*.jpeg", ResourceHelper.Get(StringKey.SelectBackgroundImageFile));
+            string pathToFile = FileDialogHelper.BrowseForFile(
+                "*.png,*.jpg,*.jpeg|*.png;*.jpg;*.jpeg",
+                ResourceHelper.Get(StringKey.SelectBackgroundImageFile)
+            );
 
             if (!string.IsNullOrEmpty(pathToFile))
             {

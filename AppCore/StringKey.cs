@@ -120,7 +120,7 @@
         EnterNameForCatalog,
         GeneralSettingsHaveBeenUpdated,
         SettingsNotValid,
-        MissingFf7ExePath, 
+        MissingFf7ExePath,
         Ff7ExePathChanged,
         MissingLibraryPath,
         MissingTexturesPath,
@@ -669,6 +669,6 @@
         GameLanguageSpanish,
         GameLanguageJapanese,
         GameLanguageHeader,
-        ShowOnlyLanguageCompatibleItems
+        ShowOnlyLanguageCompatibleItems,
     }
 }

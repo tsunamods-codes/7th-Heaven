@@ -3,14 +3,14 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
-using SharpCompress.Archives;
-using SharpCompress.Common;
-using SharpCompress.Readers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AppCore;
+using SharpCompress.Archives;
+using SharpCompress.Common;
+using SharpCompress.Readers;
 
 namespace Iros.Workshop
 {
@@ -27,30 +27,59 @@ namespace Iros.Workshop
             ModStatus status = Sys.GetStatus(m.ID);
             if (status == ModStatus.Downloading)
             {
-                Sys.Message(new WMessage($"{m.Name} [{StringKey.IsAlreadyDownloading}]", true) { TextTranslationKey = StringKey.IsAlreadyDownloading });
+                Sys.Message(
+                    new WMessage($"{m.Name} [{StringKey.IsAlreadyDownloading}]", true)
+                    {
+                        TextTranslationKey = StringKey.IsAlreadyDownloading,
+                    }
+                );
                 return;
             }
 
             if (status == ModStatus.Updating)
             {
-                Sys.Message(new WMessage($"{m.Name} [{StringKey.IsAlreadyUpdating}]", true) { TextTranslationKey = StringKey.IsAlreadyUpdating });
+                Sys.Message(
+                    new WMessage($"{m.Name} [{StringKey.IsAlreadyUpdating}]", true)
+                    {
+                        TextTranslationKey = StringKey.IsAlreadyUpdating,
+                    }
+                );
                 return;
             }
 
             if (status == ModStatus.Installed && !isUpdatingMod)
             {
-                Sys.Message(new WMessage($"{m.Name} [{StringKey.IsAlreadyDownloadedAndInstalled}]", true) { TextTranslationKey = StringKey.IsAlreadyDownloadedAndInstalled });
+                Sys.Message(
+                    new WMessage($"{m.Name} [{StringKey.IsAlreadyDownloadedAndInstalled}]", true)
+                    {
+                        TextTranslationKey = StringKey.IsAlreadyDownloadedAndInstalled,
+                    }
+                );
                 return;
             }
 
             Action onCancel = () => Sys.RevertStatus(m.ID);
             Action<Exception> onError = ex =>
             {
-                Sys.Message(new WMessage($"[{StringKey.ErrorOccurredDownloadingInstalling}] {m.Name} - {ex.Message}", WMessageLogLevel.Error, ex) { TextTranslationKey = StringKey.ErrorOccurredDownloadingInstalling });
+                Sys.Message(
+                    new WMessage(
+                        $"[{StringKey.ErrorOccurredDownloadingInstalling}] {m.Name} - {ex.Message}",
+                        WMessageLogLevel.Error,
+                        ex
+                    )
+                    {
+                        TextTranslationKey = StringKey.ErrorOccurredDownloadingInstalling,
+                    }
+                );
                 Sys.RevertStatus(m.ID);
             };
 
-            string file = String.Format("{0}_{1}_{2}.iro", m.ID, SafeStr(m.Name), m.LatestVersion.Version);
+            string file = String.Format(
+                "{0}_{1}_{2}.iro",
+                m.ID,
+                SafeStr(m.Name),
+                m.LatestVersion.Version
+            );
             string temppath = Path.Combine(Sys.Settings.LibraryLocation, "temp");
             Directory.CreateDirectory(temppath);
 
@@ -60,19 +89,28 @@ namespace Iros.Workshop
                 // mod is installed so download update files for updating mod
                 Sys.SetStatus(m.ID, ModStatus.Updating);
 
-                List<ModPatch> patches = m.GetPatchesFromTo(install.LatestInstalled.VersionDetails.Version, m.LatestVersion.Version);
+                List<ModPatch> patches = m.GetPatchesFromTo(
+                    install.LatestInstalled.VersionDetails.Version,
+                    m.LatestVersion.Version
+                );
                 if (patches.Any())
                 {
                     // download patches to update the mod
-                    string pfile = String.Format("{0}_{1}_{2}.irop", m.ID, SafeStr(m.Name), m.LatestVersion.Version);
+                    string pfile = String.Format(
+                        "{0}_{1}_{2}.irop",
+                        m.ID,
+                        SafeStr(m.Name),
+                        m.LatestVersion.Version
+                    );
                     DownloadItem download = new DownloadItem()
                     {
                         Links = patches.Select(p => p.Link).ToList(),
                         SaveFilePath = Path.Combine(temppath, pfile),
                         Category = DownloadCategory.ModPatch,
-                        ItemName = $"[{StringKey.Downloading}] {m.Name} patch {install.LatestInstalled.VersionDetails.Version} -> {m.LatestVersion.Version}",
+                        ItemName =
+                            $"[{StringKey.Downloading}] {m.Name} patch {install.LatestInstalled.VersionDetails.Version} -> {m.LatestVersion.Version}",
                         ItemNameTranslationKey = StringKey.Downloading,
-                        OnCancel = onCancel
+                        OnCancel = onCancel,
                     };
 
                     download.IProc = new PatchModProcedure()
@@ -80,7 +118,7 @@ namespace Iros.Workshop
                         Filename = pfile,
                         Install = install,
                         Mod = m,
-                        Error = onError
+                        Error = onError,
                     };
 
                     Sys.Downloads.AddToDownloadQueue(download);
@@ -94,7 +132,6 @@ namespace Iros.Workshop
                 }
             }
 
-
             Sys.SetStatus(m.ID, ModStatus.Downloading);
 
             if (m.Patches.Any())
@@ -105,26 +142,37 @@ namespace Iros.Workshop
                 Guid downloadId = DownloadAndInstallMod(m, temppath, file);
 
                 int pCount = 0;
-                foreach (IGrouping<decimal, ModPatch> linksPerVersion in m.Patches.GroupBy(mp => mp.VerTo))
+                foreach (
+                    IGrouping<decimal, ModPatch> linksPerVersion in m.Patches.GroupBy(mp =>
+                        mp.VerTo
+                    )
+                )
                 {
-                    string pfile = String.Format("{0}_{1}_{2}_patch{3}.irop", m.ID, SafeStr(m.Name), m.LatestVersion.Version, pCount);
+                    string pfile = String.Format(
+                        "{0}_{1}_{2}_patch{3}.irop",
+                        m.ID,
+                        SafeStr(m.Name),
+                        m.LatestVersion.Version,
+                        pCount
+                    );
 
                     DownloadItem patchDownload = new DownloadItem()
                     {
                         ParentUniqueID = downloadId, // this is set to know these patch downloads are dependent of the main mod download or previous patch.
                         Links = linksPerVersion.Select(mp => mp.Link).ToList(),
                         SaveFilePath = Path.Combine(temppath, pfile),
-                        ItemName = $"[{StringKey.Downloading}] {m.Name} patch {linksPerVersion.Key}",
+                        ItemName =
+                            $"[{StringKey.Downloading}] {m.Name} patch {linksPerVersion.Key}",
                         ItemNameTranslationKey = StringKey.Downloading,
                         Category = DownloadCategory.ModPatch,
-                        OnCancel = onCancel
+                        OnCancel = onCancel,
                     };
 
                     patchDownload.IProc = new PatchModProcedure()
                     {
                         Filename = pfile,
                         Error = onError,
-                        Mod = m
+                        Mod = m,
                     };
 
                     downloadId = patchDownload.UniqueId; // get the id of the patch download so it can be set as the parent for the following patch
@@ -132,7 +180,6 @@ namespace Iros.Workshop
                     Sys.Downloads.AddToDownloadQueue(patchDownload);
                     pCount++;
                 }
-
             }
             else
             {
@@ -149,7 +196,7 @@ namespace Iros.Workshop
                 SaveFilePath = Path.Combine(pathToFolder, fileName),
                 Category = DownloadCategory.Mod,
                 ItemName = $"[{StringKey.Downloading}] {m.Name}",
-                ItemNameTranslationKey = StringKey.Downloading
+                ItemNameTranslationKey = StringKey.Downloading,
             };
 
             installDownload.IProc = new InstallModProcedure()
@@ -157,7 +204,7 @@ namespace Iros.Workshop
                 FileName = fileName,
                 Mod = m,
                 ExtractSubFolder = m.LatestVersion.ExtractSubFolder,
-                ExtractInto = m.LatestVersion.ExtractInto
+                ExtractInto = m.LatestVersion.ExtractInto,
             };
 
             installDownload.OnCancel = () =>
@@ -169,7 +216,16 @@ namespace Iros.Workshop
             installDownload.IProc.Error = ex =>
             {
                 Sys.Library.QueuePendingInstall(installDownload);
-                Sys.Message(new WMessage($"Error installing {m.Name} - The mod is queued for install.", WMessageLogLevel.Error, ex) { TextTranslationKey = StringKey.ErrorOccurredDownloadingInstalling });
+                Sys.Message(
+                    new WMessage(
+                        $"Error installing {m.Name} - The mod is queued for install.",
+                        WMessageLogLevel.Error,
+                        ex
+                    )
+                    {
+                        TextTranslationKey = StringKey.ErrorOccurredDownloadingInstalling,
+                    }
+                );
                 Sys.SetStatus(m.ID, ModStatus.PendingInstall);
             };
 
@@ -202,7 +258,9 @@ namespace Iros.Workshop
         {
             private Action<System.ComponentModel.AsyncCompletedEventArgs> _callback;
 
-            public InstallProcedureCallback(Action<System.ComponentModel.AsyncCompletedEventArgs> callback)
+            public InstallProcedureCallback(
+                Action<System.ComponentModel.AsyncCompletedEventArgs> callback
+            )
             {
                 try
                 {
@@ -249,7 +307,10 @@ namespace Iros.Workshop
                         }
                     }
 
-                    string source = Path.Combine(Sys.Settings.LibraryLocation, Install.LatestInstalled.InstalledLocation);
+                    string source = Path.Combine(
+                        Sys.Settings.LibraryLocation,
+                        Install.LatestInstalled.InstalledLocation
+                    );
                     using (var iro = new AppWrapper.IrosArc(source, true))
                     {
                         using (var patch = new AppWrapper.IrosArc(patchfile))
@@ -278,11 +339,18 @@ namespace Iros.Workshop
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(ProcessDownload);
             }
+
             public override void DownloadComplete(System.ComponentModel.AsyncCompletedEventArgs e)
             {
                 if (e.Error != null)
                 {
-                    Sys.Message(new WMessage($"[{StringKey.ErrorUpdating}] {Mod.Name}") { TextTranslationKey = StringKey.ErrorUpdating, LoggedException = e.Error });
+                    Sys.Message(
+                        new WMessage($"[{StringKey.ErrorUpdating}] {Mod.Name}")
+                        {
+                            TextTranslationKey = StringKey.ErrorUpdating,
+                            LoggedException = e.Error,
+                        }
+                    );
                     Sys.RevertStatus(Mod.ID);
                 }
                 else
@@ -294,9 +362,20 @@ namespace Iros.Workshop
 
                     Install.CachedDetails = updatedMod;
                     Install.Versions.Clear();
-                    Install.Versions.Add(new InstalledVersion() { VersionDetails = updatedMod.LatestVersion, InstalledLocation = sourceFileName });
+                    Install.Versions.Add(
+                        new InstalledVersion()
+                        {
+                            VersionDetails = updatedMod.LatestVersion,
+                            InstalledLocation = sourceFileName,
+                        }
+                    );
 
-                    Sys.Message(new WMessage($"[{StringKey.Updated}] {Mod.Name}") { TextTranslationKey = StringKey.Updated });
+                    Sys.Message(
+                        new WMessage($"[{StringKey.Updated}] {Mod.Name}")
+                        {
+                            TextTranslationKey = StringKey.Updated,
+                        }
+                    );
                     Sys.SetStatus(Mod.ID, ModStatus.Installed);
                 }
 
@@ -312,7 +391,6 @@ namespace Iros.Workshop
             public string ExtractInto { get; set; }
             private string _dest;
             private bool HasProcessed { get; set; } = false;
-
 
             private void ProcessDownload(object state)
             {
@@ -343,7 +421,9 @@ namespace Iros.Workshop
                         //plain IRO file, just move into place
                         using (var iro = new AppWrapper.IrosArc(source))
                             if (!iro.CheckValid())
-                                throw new Exception("IRO archive appears to be invalid: corrupted download?");
+                                throw new Exception(
+                                    "IRO archive appears to be invalid: corrupted download?"
+                                );
 
                         SetPercentComplete?.Invoke(50);
 
@@ -355,7 +435,10 @@ namespace Iros.Workshop
                         using (var fs = new FileStream(source, FileMode.Open, FileAccess.Read))
                         {
                             var archive = ArchiveFactory.OpenArchive(fs);
-                            var iroEnt = archive.Entries.FirstOrDefault(e => Path.GetExtension(e.Key).Equals(".iro", StringComparison.InvariantCultureIgnoreCase));
+                            var iroEnt = archive.Entries.FirstOrDefault(e =>
+                                Path.GetExtension(e.Key)
+                                    .Equals(".iro", StringComparison.InvariantCultureIgnoreCase)
+                            );
                             if (iroEnt != null)
                             {
                                 SetPercentComplete?.Invoke(50);
@@ -364,9 +447,16 @@ namespace Iros.Workshop
                             else
                             {
                                 //extract entire archive...
-                                if (_dest.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase)) _dest = _dest.Substring(0, _dest.Length - 4);
+                                if (
+                                    _dest.EndsWith(
+                                        ".iro",
+                                        StringComparison.InvariantCultureIgnoreCase
+                                    )
+                                )
+                                    _dest = _dest.Substring(0, _dest.Length - 4);
                                 string extractTo = _dest;
-                                if (!String.IsNullOrEmpty(ExtractInto)) extractTo = Path.Combine(extractTo, ExtractInto);
+                                if (!String.IsNullOrEmpty(ExtractInto))
+                                    extractTo = Path.Combine(extractTo, ExtractInto);
                                 Directory.CreateDirectory(extractTo);
 
                                 using (var reader = archive.ExtractAllEntries())
@@ -377,11 +467,14 @@ namespace Iros.Workshop
                                     {
                                         if (!reader.Entry.IsDirectory)
                                         {
-                                            reader.WriteEntryToDirectory(extractTo, new ExtractionOptions()
-                                            {
-                                                ExtractFullPath = true,
-                                                Overwrite = true
-                                            });
+                                            reader.WriteEntryToDirectory(
+                                                extractTo,
+                                                new ExtractionOptions()
+                                                {
+                                                    ExtractFullPath = true,
+                                                    Overwrite = true,
+                                                }
+                                            );
                                         }
 
                                         count++;
@@ -402,7 +495,6 @@ namespace Iros.Workshop
                     return;
                 }
 
-
                 HasProcessed = true; // if reached this point then successfully processed the download with no error
                 SetPercentComplete?.Invoke(100);
                 Complete();
@@ -412,7 +504,13 @@ namespace Iros.Workshop
             {
                 if (e.Error != null)
                 {
-                    Sys.Message(new WMessage($"[{StringKey.ErrorDownloading}] {Mod.Name}") { TextTranslationKey = StringKey.ErrorDownloading, LoggedException = e.Error });
+                    Sys.Message(
+                        new WMessage($"[{StringKey.ErrorDownloading}] {Mod.Name}")
+                        {
+                            TextTranslationKey = StringKey.ErrorDownloading,
+                            LoggedException = e.Error,
+                        }
+                    );
                     Sys.RevertStatus(Mod.ID);
                     return;
                 }
@@ -438,11 +536,21 @@ namespace Iros.Workshop
 
                 if (inst == null)
                 {
-                    Sys.Message(new WMessage($"[{StringKey.Installed}] {Mod.Name}") { TextTranslationKey = StringKey.Installed });
+                    Sys.Message(
+                        new WMessage($"[{StringKey.Installed}] {Mod.Name}")
+                        {
+                            TextTranslationKey = StringKey.Installed,
+                        }
+                    );
                 }
                 else
                 {
-                    Sys.Message(new WMessage($"[{StringKey.Updated}] {Mod.Name}") { TextTranslationKey = StringKey.Updated });
+                    Sys.Message(
+                        new WMessage($"[{StringKey.Updated}] {Mod.Name}")
+                        {
+                            TextTranslationKey = StringKey.Updated,
+                        }
+                    );
                 }
 
                 Sys.SetStatus(Mod.ID, ModStatus.Installed);
@@ -454,7 +562,5 @@ namespace Iros.Workshop
                 System.Threading.ThreadPool.QueueUserWorkItem(ProcessDownload);
             }
         }
-
-
     }
 }

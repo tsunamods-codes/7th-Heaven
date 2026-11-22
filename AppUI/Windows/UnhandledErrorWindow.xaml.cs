@@ -1,5 +1,4 @@
-﻿using AppUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppUI;
 
 namespace AppUI.Windows
 {
@@ -22,14 +22,13 @@ namespace AppUI.Windows
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-
         public static void Show(string message)
         {
             App.Current.Dispatcher.Invoke(() =>
             {
                 UnhandledErrorWindow window = new UnhandledErrorWindow(message)
                 {
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 };
 
                 window.ShowDialog();

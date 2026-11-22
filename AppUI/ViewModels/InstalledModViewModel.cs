@@ -1,9 +1,9 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using AppCore;
+using AppUI.Classes;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
@@ -33,13 +33,9 @@ namespace AppUI.ViewModels
         public delegate void OnCategoryChanged(InstalledModViewModel selected);
         public event OnCategoryChanged CategoryChanged;
 
-
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -49,10 +45,7 @@ namespace AppUI.ViewModels
 
         public string Author
         {
-            get
-            {
-                return _author;
-            }
+            get { return _author; }
             set
             {
                 _author = value;
@@ -62,10 +55,7 @@ namespace AppUI.ViewModels
 
         public string Version
         {
-            get
-            {
-                return _version;
-            }
+            get { return _version; }
             set
             {
                 _version = value;
@@ -74,15 +64,12 @@ namespace AppUI.ViewModels
         }
 
         /// <summary>
-        /// Returns the mod category, translated. 
+        /// Returns the mod category, translated.
         /// Setting Category will translate and store the category in english.
         /// </summary>
         public string Category
         {
-            get
-            {
-                return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_category));
-            }
+            get { return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_category)); }
             set
             {
                 _category = ResourceHelper.ModCategoryTranslations[value];
@@ -97,7 +84,10 @@ namespace AppUI.ViewModels
             get
             {
                 if (_categoryList == null)
-                    _categoryList = ModLoadOrder.Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s))).OrderBy(s => s).ToList();
+                    _categoryList = ModLoadOrder
+                        .Orders.Keys.Select(s => ResourceHelper.Get(ModLoadOrder.GetCategoryKey(s)))
+                        .OrderBy(s => s)
+                        .ToList();
 
                 return _categoryList;
             }
@@ -108,13 +98,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public string ReleaseDate
         {
-            get
-            {
-                return _releaseDate;
-            }
+            get { return _releaseDate; }
             set
             {
                 _releaseDate = value;
@@ -124,10 +110,7 @@ namespace AppUI.ViewModels
 
         public bool IsSelected
         {
-            get
-            {
-                return _isSelected;
-            }
+            get { return _isSelected; }
             set
             {
                 _isSelected = value;
@@ -136,16 +119,13 @@ namespace AppUI.ViewModels
         }
 
         /// <summary>
-        /// Returns info about the active mod and its setting 
+        /// Returns info about the active mod and its setting
         /// when the mod is active for the current profile.
         /// Will return null if installed mod is not active
         /// </summary>
         public ProfileItem ActiveModInfo
         {
-            get
-            {
-                return _activeModInfo;
-            }
+            get { return _activeModInfo; }
             set
             {
                 _activeModInfo = value;
@@ -157,10 +137,7 @@ namespace AppUI.ViewModels
 
         public InstalledItem InstallInfo
         {
-            get
-            {
-                return _installInfo;
-            }
+            get { return _installInfo; }
             set
             {
                 _installInfo = value;
@@ -170,32 +147,25 @@ namespace AppUI.ViewModels
 
         public bool IsActive
         {
-            get
-            {
-                return ActiveModInfo != null && ActiveModInfo.IsModActive;
-            }
-            set
-            {
-                ActivationChanged?.Invoke(this);
-            }
+            get { return ActiveModInfo != null && ActiveModInfo.IsModActive; }
+            set { ActivationChanged?.Invoke(this); }
         }
 
         public bool CanChangeActive
         {
             get
             {
-                return IsActive || GameLanguage.IsSupportedBy(
-                    InstallInfo?.GetModInfo()?.GameLanguages,
-                    GameLauncher.GetSelectedGameLanguage());
+                return IsActive
+                    || GameLanguage.IsSupportedBy(
+                        InstallInfo?.GetModInfo()?.GameLanguages,
+                        GameLauncher.GetSelectedGameLanguage()
+                    );
             }
         }
 
         public int SortOrder
         {
-            get
-            {
-                return _sortOrder;
-            }
+            get { return _sortOrder; }
             set
             {
                 _sortOrder = value;
@@ -205,10 +175,7 @@ namespace AppUI.ViewModels
 
         public Thickness BorderThickness
         {
-            get
-            {
-                return _borderThickness;
-            }
+            get { return _borderThickness; }
             set
             {
                 _borderThickness = value;
@@ -218,10 +185,7 @@ namespace AppUI.ViewModels
 
         public bool HasReadMe
         {
-            get
-            {
-                return InstallInfo.HasReadmeFile;
-            }
+            get { return InstallInfo.HasReadmeFile; }
         }
 
         public bool HasOptions
@@ -239,10 +203,7 @@ namespace AppUI.ViewModels
 
         public bool IsUpdateAvailable
         {
-            get
-            {
-                return InstallInfo.IsUpdateAvailable;
-            }
+            get { return InstallInfo.IsUpdateAvailable; }
         }
 
         public InstalledModViewModel(InstalledItem installedItem, ProfileItem profileItem)
@@ -253,7 +214,9 @@ namespace AppUI.ViewModels
             Name = InstallInfo.CachedDetails.Name;
             Author = InstallInfo.CachedDetails.Author;
             Version = InstallInfo.CachedDetails.LatestVersion.Version.ToString();
-            ReleaseDate = InstallInfo.CachedDetails.LatestVersion.ReleaseDate.ToString(Sys.Settings.DateTimeStringFormat);
+            ReleaseDate = InstallInfo.CachedDetails.LatestVersion.ReleaseDate.ToString(
+                Sys.Settings.DateTimeStringFormat
+            );
 
             SortOrder = defaultSortOrder;
 
@@ -268,7 +231,6 @@ namespace AppUI.ViewModels
             {
                 Category = ResourceHelper.Get(StringKey.Unknown);
             }
-
 
             BorderThickness = new Thickness(0);
         }

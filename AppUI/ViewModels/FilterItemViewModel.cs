@@ -1,9 +1,9 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AppCore;
+using AppUI.Classes;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
@@ -12,7 +12,7 @@ namespace AppUI.ViewModels
         Category,
         Tag,
         ShowAll,
-        Separator
+        Separator,
     }
 
     public class FilterItemViewModel : ViewModelBase
@@ -23,10 +23,7 @@ namespace AppUI.ViewModels
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -36,10 +33,7 @@ namespace AppUI.ViewModels
 
         public FilterItemType FilterType
         {
-            get
-            {
-                return _filterType;
-            }
+            get { return _filterType; }
             set
             {
                 _filterType = value;
@@ -51,10 +45,7 @@ namespace AppUI.ViewModels
 
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get { return _isChecked; }
             set
             {
                 _isChecked = value;
@@ -79,7 +70,6 @@ namespace AppUI.ViewModels
             NotifyPropertyChanged(nameof(IsChecked));
         }
 
-
         /// <summary>
         /// Returns true if <paramref name="mod"/> has a tag matching the given <paramref name="tags"/>.
         /// Returns true if <paramref name="tags"/> is empty.
@@ -93,7 +83,10 @@ namespace AppUI.ViewModels
                 return true;
 
             // Check that the tag exists in the mods list of Tags or it matches the source catalog name (the catalog name is treated as a Tag)
-            return tags.Any(t => t.Name.Equals(mod.SourceCatalogName, StringComparison.InvariantCultureIgnoreCase) ||  mod.Tags.Contains(t.Name, StringComparer.CurrentCultureIgnoreCase));
+            return tags.Any(t =>
+                t.Name.Equals(mod.SourceCatalogName, StringComparison.InvariantCultureIgnoreCase)
+                || mod.Tags.Contains(t.Name, StringComparer.CurrentCultureIgnoreCase)
+            );
         }
 
         /// <summary>
@@ -114,8 +107,12 @@ namespace AppUI.ViewModels
             if (string.IsNullOrWhiteSpace(modCategory))
                 modCategory = ResourceHelper.Get(StringKey.Unknown);
 
-            return categories.Count() == 0 ||
-                   categories.Any(c => ResourceHelper.ModCategoryTranslations[c.Name].Equals(modCategory, StringComparison.InvariantCultureIgnoreCase));
+            return categories.Count() == 0
+                || categories.Any(c =>
+                    ResourceHelper
+                        .ModCategoryTranslations[c.Name]
+                        .Equals(modCategory, StringComparison.InvariantCultureIgnoreCase)
+                );
         }
     }
 }

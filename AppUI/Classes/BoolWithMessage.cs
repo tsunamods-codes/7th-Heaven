@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace AppUI.Classes
 {
-
     /// <summary>
     /// Used to return true or false and a string like an exception message.
     /// </summary>
@@ -42,5 +41,4 @@ namespace AppUI.Classes
             return new BoolWithMessage(true);
         }
     }
-
 }

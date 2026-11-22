@@ -1,11 +1,10 @@
-﻿using AppCore;
-using Iros.Workshop;
+﻿using System;
+using AppCore;
 using AppUI.Classes;
-using System;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class CatalogModItemViewModel : ViewModelBase
     {
         private string _name;
@@ -20,10 +19,7 @@ namespace AppUI.ViewModels
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -33,10 +29,7 @@ namespace AppUI.ViewModels
 
         public string DownloadSize
         {
-            get
-            {
-                return _downloadSize;
-            }
+            get { return _downloadSize; }
             set
             {
                 _downloadSize = value;
@@ -46,10 +39,7 @@ namespace AppUI.ViewModels
 
         public int DownloadSizeInBytes
         {
-            get
-            {
-                return _downloadSizeInBytes;
-            }
+            get { return _downloadSizeInBytes; }
             set
             {
                 _downloadSizeInBytes = value;
@@ -59,10 +49,7 @@ namespace AppUI.ViewModels
 
         public string ReleaseDate
         {
-            get
-            {
-                return _releaseDate;
-            }
+            get { return _releaseDate; }
             set
             {
                 _releaseDate = value;
@@ -72,10 +59,7 @@ namespace AppUI.ViewModels
 
         public string Author
         {
-            get
-            {
-                return _author;
-            }
+            get { return _author; }
             set
             {
                 _author = value;
@@ -85,10 +69,7 @@ namespace AppUI.ViewModels
 
         public string Version
         {
-            get
-            {
-                return _version;
-            }
+            get { return _version; }
             set
             {
                 _version = value;
@@ -98,10 +79,7 @@ namespace AppUI.ViewModels
 
         public string Category
         {
-            get
-            {
-                return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_category));
-            }
+            get { return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_category)); }
             set
             {
                 _category = value;
@@ -111,10 +89,7 @@ namespace AppUI.ViewModels
 
         public bool IsSelected
         {
-            get
-            {
-                return _isSelected;
-            }
+            get { return _isSelected; }
             set
             {
                 _isSelected = value;
@@ -124,10 +99,7 @@ namespace AppUI.ViewModels
 
         public bool IsInstalled
         {
-            get
-            {
-                return Sys.GetStatus(Mod.ID) == ModStatus.Installed;
-            }
+            get { return Sys.GetStatus(Mod.ID) == ModStatus.Installed; }
         }
 
         public bool IsCompatibleWithGameLanguage
@@ -136,22 +108,19 @@ namespace AppUI.ViewModels
             {
                 return GameLanguage.IsSupportedBy(
                     Mod?.GameLanguages,
-                    GameLauncher.GetSelectedGameLanguage());
+                    GameLauncher.GetSelectedGameLanguage()
+                );
             }
         }
 
         public bool CanDownload => IsCompatibleWithGameLanguage;
 
-        public string DownloadUnavailableReason => CanDownload
-            ? null
-            : "Not available for the selected game language.";
+        public string DownloadUnavailableReason =>
+            CanDownload ? null : "Not available for the selected game language.";
 
         public Mod Mod
         {
-            get
-            {
-                return _mod;
-            }
+            get { return _mod; }
             set
             {
                 _mod = value;
@@ -161,7 +130,6 @@ namespace AppUI.ViewModels
                 NotifyPropertyChanged(nameof(DownloadUnavailableReason));
             }
         }
-
 
         public CatalogModItemViewModel(Mod mod)
         {

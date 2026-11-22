@@ -12,17 +12,22 @@ class OpenFolderDialog
 {
     //public bool AddExtension { get; set; }
     public bool AutoUpgradeEnabled { get; set; }
+
     //public bool CheckFileExists { get; set; }
     public bool CheckPathExists { get; set; }
+
     //public bool DereferenceLinks { get; set; }
     public string Title { get; set; }
+
     //public string DefaultExt { get; set; }
     public string InitialDirectory { get; set; }
+
     //public bool ValidateNames { get; set; }
     //public bool SupportMultiDottedExtensions { get; set; }
     //public bool ShowHelp { get; set; }
     public bool Multiselect { get; set; }
     public bool RestoreDirectory { get; set; }
+
     //public string Filter { get; set; }
     public string SelectedPath { get; private set; }
     public string[] SelectedPaths { get; private set; }
@@ -35,7 +40,7 @@ class OpenFolderDialog
             {
                 ShowNewFolderButton = true,
                 Description = Title,
-                SelectedPath = InitialDirectory
+                SelectedPath = InitialDirectory,
             };
         }
     }
@@ -60,7 +65,7 @@ class OpenFolderDialog
                 Multiselect = Multiselect,
                 RestoreDirectory = RestoreDirectory,
                 Filter = string.Empty,
-                FileName = SelectedPath
+                FileName = SelectedPath,
             };
         }
     }

@@ -1,9 +1,8 @@
-﻿using Iros.Workshop;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class DownloadLinkViewModel : ViewModelBase
     {
         private string _sourceLinkInput;
@@ -21,7 +20,7 @@ namespace AppUI.ViewModels
                         LocationType.GDrive.ToString(),
                         LocationType.MegaSharedFolder.ToString(),
                         LocationType.Url.ToString(),
-                        LocationType.ExternalUrl.ToString()
+                        LocationType.ExternalUrl.ToString(),
                     };
                 }
 
@@ -31,15 +30,18 @@ namespace AppUI.ViewModels
 
         public string SourceLinkInput
         {
-            get
-            {
-                return _sourceLinkInput;
-            }
+            get { return _sourceLinkInput; }
             set
             {
                 _sourceLinkInput = value;
 
-                if (LocationUtil.TryParse(_sourceLinkInput, out LocationType downloadType, out string url))
+                if (
+                    LocationUtil.TryParse(
+                        _sourceLinkInput,
+                        out LocationType downloadType,
+                        out string url
+                    )
+                )
                 {
                     _sourceLinkInput = url;
                     LinkKindInput = downloadType.ToString();
@@ -51,10 +53,7 @@ namespace AppUI.ViewModels
 
         public string LinkKindInput
         {
-            get
-            {
-                return _linkKindInput;
-            }
+            get { return _linkKindInput; }
             set
             {
                 _linkKindInput = value;
@@ -66,7 +65,6 @@ namespace AppUI.ViewModels
         {
             return $"iros://{LinkKindInput}/{SourceLinkInput?.Replace("://", "$")}";
         }
-
 
         public DownloadLinkViewModel(string linkKind, string link)
         {

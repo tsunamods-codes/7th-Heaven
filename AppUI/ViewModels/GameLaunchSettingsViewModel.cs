@@ -1,23 +1,23 @@
-﻿using AppCore;
-using Iros.Workshop;
-using Microsoft.Win32;
-using NAudio.CoreAudioApi;
-using NAudio.Wave;
-using NAudio.Midi;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Runtime.InteropServices;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros.Workshop;
+using Microsoft.Win32;
+using NAudio.CoreAudioApi;
+using NAudio.Midi;
+using NAudio.Wave;
 
 namespace AppUI.ViewModels
 {
@@ -25,7 +25,7 @@ namespace AppUI.ViewModels
     {
         Left,
         Center,
-        Right
+        Right,
     }
 
     internal enum VolumeSlider
@@ -34,7 +34,7 @@ namespace AppUI.ViewModels
         Sfx,
         Voice,
         Ambient,
-        Movie
+        Movie,
     }
 
     class GameLaunchSettingsViewModel : ViewModelBase
@@ -66,13 +66,30 @@ namespace AppUI.ViewModels
         private int _voiceVolumeValue;
         private int _ambientVolumeValue;
         private int _movieVolumeValue;
-        private readonly List<KeyValuePair<string, string>> _gameLanguageOptions = new List<KeyValuePair<string, string>>()
+        private readonly List<KeyValuePair<string, string>> _gameLanguageOptions = new List<
+            KeyValuePair<string, string>
+        >()
         {
-            new KeyValuePair<string, string>(GameLanguage.English, ResourceHelper.Get(StringKey.GameLanguageEnglish)),
-            new KeyValuePair<string, string>(GameLanguage.French, ResourceHelper.Get(StringKey.GameLanguageFrench)),
-            new KeyValuePair<string, string>(GameLanguage.German, ResourceHelper.Get(StringKey.GameLanguageGerman)),
-            new KeyValuePair<string, string>(GameLanguage.Spanish, ResourceHelper.Get(StringKey.GameLanguageSpanish)),
-            new KeyValuePair<string, string>(GameLanguage.Japanese, ResourceHelper.Get(StringKey.GameLanguageJapanese)),
+            new KeyValuePair<string, string>(
+                GameLanguage.English,
+                ResourceHelper.Get(StringKey.GameLanguageEnglish)
+            ),
+            new KeyValuePair<string, string>(
+                GameLanguage.French,
+                ResourceHelper.Get(StringKey.GameLanguageFrench)
+            ),
+            new KeyValuePair<string, string>(
+                GameLanguage.German,
+                ResourceHelper.Get(StringKey.GameLanguageGerman)
+            ),
+            new KeyValuePair<string, string>(
+                GameLanguage.Spanish,
+                ResourceHelper.Get(StringKey.GameLanguageSpanish)
+            ),
+            new KeyValuePair<string, string>(
+                GameLanguage.Japanese,
+                ResourceHelper.Get(StringKey.GameLanguageJapanese)
+            ),
         };
 
         #endregion
@@ -82,26 +99,17 @@ namespace AppUI.ViewModels
 
         public bool IsAudioPlaying
         {
-            get
-            {
-                return _audioTest != null && _audioTest.PlaybackState == PlaybackState.Playing;
-            }
+            get { return _audioTest != null && _audioTest.PlaybackState == PlaybackState.Playing; }
         }
 
         public bool IsAudioNotPlaying
         {
-            get
-            {
-                return _audioTest == null;
-            }
+            get { return _audioTest == null; }
         }
 
         public bool IsSoundDevicesLoaded
         {
-            get
-            {
-                return _isSoundDevicesLoaded;
-            }
+            get { return _isSoundDevicesLoaded; }
             set
             {
                 _isSoundDevicesLoaded = value;
@@ -111,10 +119,7 @@ namespace AppUI.ViewModels
 
         public bool AutoUpdatePathChecked
         {
-            get
-            {
-                return _autoUpdatePathChecked;
-            }
+            get { return _autoUpdatePathChecked; }
             set
             {
                 _autoUpdatePathChecked = value;
@@ -124,10 +129,7 @@ namespace AppUI.ViewModels
 
         public bool IsShowLauncherChecked
         {
-            get
-            {
-                return _isShowLauncherChecked;
-            }
+            get { return _isShowLauncherChecked; }
             set
             {
                 _isShowLauncherChecked = value;
@@ -137,10 +139,7 @@ namespace AppUI.ViewModels
 
         public bool IsReverseSpeakersChecked
         {
-            get
-            {
-                return _isReverseSpeakersChecked;
-            }
+            get { return _isReverseSpeakersChecked; }
             set
             {
                 _isReverseSpeakersChecked = value;
@@ -150,10 +149,7 @@ namespace AppUI.ViewModels
 
         public bool IsLogVolumeChecked
         {
-            get
-            {
-                return _isLogVolumeChecked;
-            }
+            get { return _isLogVolumeChecked; }
             set
             {
                 _isLogVolumeChecked = value;
@@ -163,10 +159,7 @@ namespace AppUI.ViewModels
 
         public string SelectedSoundDevice
         {
-            get
-            {
-                return _selectedSoundDevice;
-            }
+            get { return _selectedSoundDevice; }
             set
             {
                 _selectedSoundDevice = value;
@@ -176,20 +169,14 @@ namespace AppUI.ViewModels
 
         public List<string> SoundDevices
         {
-            get
-            {
-                return SoundDeviceGuids?.Keys.ToList();
-            }
+            get { return SoundDeviceGuids?.Keys.ToList(); }
         }
 
         public Dictionary<string, Guid> SoundDeviceGuids { get; set; }
-        
+
         public string SelectedMidiDevice
         {
-            get
-            {
-                return _selectedMidiDevice;
-            }
+            get { return _selectedMidiDevice; }
             set
             {
                 _selectedMidiDevice = value;
@@ -199,20 +186,14 @@ namespace AppUI.ViewModels
 
         public List<string> MidiDevices
         {
-            get
-            {
-                return MidiDeviceIDs?.Keys.ToList();
-            }
+            get { return MidiDeviceIDs?.Keys.ToList(); }
         }
 
         public Dictionary<string, int> MidiDeviceIDs { get; set; }
 
         public string SelectedMidiData
         {
-            get
-            {
-                return _selectedMidiData;
-            }
+            get { return _selectedMidiData; }
             set
             {
                 _selectedMidiData = value;
@@ -222,20 +203,14 @@ namespace AppUI.ViewModels
 
         public List<string> MidiDataList
         {
-            get
-            {
-                return MidiDataFormats?.Keys.ToList();
-            }
+            get { return MidiDataFormats?.Keys.ToList(); }
         }
 
         public Dictionary<string, string> MidiDataFormats { get; set; }
 
         public string SelectedGameLanguage
         {
-            get
-            {
-                return _selectedGameLanguage;
-            }
+            get { return _selectedGameLanguage; }
             set
             {
                 _selectedGameLanguage = GameLanguage.Normalize(value);
@@ -248,32 +223,30 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return GameLanguageOptions.FirstOrDefault(option => option.Key == SelectedGameLanguage);
+                return GameLanguageOptions.FirstOrDefault(option =>
+                    option.Key == SelectedGameLanguage
+                );
             }
         }
 
         public List<KeyValuePair<string, string>> GameLanguageOptions
         {
-            get
-            {
-                return _gameLanguageOptions;
-            }
+            get { return _gameLanguageOptions; }
         }
 
         public Visibility GameLanguageSelectorVisibility
         {
             get
             {
-                return GameLauncher.IsLanguageSelectorSupportedEdition() ? Visibility.Visible : Visibility.Collapsed;
+                return GameLauncher.IsLanguageSelectorSupportedEdition()
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
         }
 
         public int MusicVolumeValue
         {
-            get
-            {
-                return _musicVolumeValue;
-            }
+            get { return _musicVolumeValue; }
             set
             {
                 _musicVolumeValue = value;
@@ -289,10 +262,7 @@ namespace AppUI.ViewModels
         }
         public int VoiceVolumeValue
         {
-            get
-            {
-                return _voiceVolumeValue;
-            }
+            get { return _voiceVolumeValue; }
             set
             {
                 _voiceVolumeValue = value;
@@ -309,10 +279,7 @@ namespace AppUI.ViewModels
 
         public int AmbientVolumeValue
         {
-            get
-            {
-                return _ambientVolumeValue;
-            }
+            get { return _ambientVolumeValue; }
             set
             {
                 _ambientVolumeValue = value;
@@ -329,10 +296,7 @@ namespace AppUI.ViewModels
 
         public int MovieVolumeValue
         {
-            get
-            {
-                return _movieVolumeValue;
-            }
+            get { return _movieVolumeValue; }
             set
             {
                 _movieVolumeValue = value;
@@ -349,10 +313,7 @@ namespace AppUI.ViewModels
 
         public int SfxVolumeValue
         {
-            get
-            {
-                return _sfxVolumeValue;
-            }
+            get { return _sfxVolumeValue; }
             set
             {
                 _sfxVolumeValue = value;
@@ -369,48 +330,30 @@ namespace AppUI.ViewModels
 
         public string SfxVolumeDisplayText
         {
-            get
-            {
-                return $"{ResourceHelper.Get(StringKey.Volume)}: {SfxVolumeValue}";
-            }
+            get { return $"{ResourceHelper.Get(StringKey.Volume)}: {SfxVolumeValue}"; }
         }
 
         public string MusicVolumeDisplayText
         {
-            get
-            {
-                return $"{ResourceHelper.Get(StringKey.Volume)}: {MusicVolumeValue}";
-            }
+            get { return $"{ResourceHelper.Get(StringKey.Volume)}: {MusicVolumeValue}"; }
         }
 
         public string VoiceVolumeDisplayText
         {
-            get
-            {
-                return $"{ResourceHelper.Get(StringKey.Volume)}: {VoiceVolumeValue}";
-            }
+            get { return $"{ResourceHelper.Get(StringKey.Volume)}: {VoiceVolumeValue}"; }
         }
         public string AmbientVolumeDisplayText
         {
-            get
-            {
-                return $"{ResourceHelper.Get(StringKey.Volume)}: {AmbientVolumeValue}";
-            }
+            get { return $"{ResourceHelper.Get(StringKey.Volume)}: {AmbientVolumeValue}"; }
         }
         public string MovieVolumeDisplayText
         {
-            get
-            {
-                return $"{ResourceHelper.Get(StringKey.Volume)}: {MovieVolumeValue}";
-            }
+            get { return $"{ResourceHelper.Get(StringKey.Volume)}: {MovieVolumeValue}"; }
         }
 
         public bool IsProgramPopupOpen
         {
-            get
-            {
-                return _isProgramPopupOpen;
-            }
+            get { return _isProgramPopupOpen; }
             set
             {
                 _isProgramPopupOpen = value;
@@ -436,10 +379,7 @@ namespace AppUI.ViewModels
 
         public string NewProgramPathText
         {
-            get
-            {
-                return _newProgramPathText;
-            }
+            get { return _newProgramPathText; }
             set
             {
                 _newProgramPathText = value;
@@ -449,10 +389,7 @@ namespace AppUI.ViewModels
 
         public string NewProgramArgsText
         {
-            get
-            {
-                return _newProgramArgsText;
-            }
+            get { return _newProgramArgsText; }
             set
             {
                 _newProgramArgsText = value;
@@ -464,10 +401,7 @@ namespace AppUI.ViewModels
 
         public VolumeSlider LastVolumeSliderChanged
         {
-            get
-            {
-                return _lastVolumeSliderChanged;
-            }
+            get { return _lastVolumeSliderChanged; }
             set
             {
                 _lastVolumeSliderChanged = value;
@@ -488,12 +422,12 @@ namespace AppUI.ViewModels
             HasLoaded = false;
             LastVolumeSliderChanged = VolumeSlider.Music;
 
-
             // initialize sound devices on background task because it can take up to 1-3 seconds to loop over audio devices and get their names
             SelectedSoundDevice = ResourceHelper.Get(StringKey.LoadingDevices);
             InitSoundDevicesAsync();
 
-            if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98) Sys.FFNxConfig.Reload();
+            if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
+                Sys.FFNxConfig.Reload();
 
             InitMidiDevices();
             LoadSettings(Sys.Settings.GameLaunchSettings);
@@ -520,25 +454,33 @@ namespace AppUI.ViewModels
                 launchSettings = Sys.Settings.GameLaunchSettings;
             }
 
-            ProgramList = new ObservableCollection<ProgramToRunViewModel>(Sys.Settings.ProgramsToLaunchPrior.Select(s => new ProgramToRunViewModel(s.PathToProgram, s.ProgramArgs)));
+            ProgramList = new ObservableCollection<ProgramToRunViewModel>(
+                Sys.Settings.ProgramsToLaunchPrior.Select(s => new ProgramToRunViewModel(
+                    s.PathToProgram,
+                    s.ProgramArgs
+                ))
+            );
 
             AutoUpdatePathChecked = launchSettings.AutoUpdateDiscPath;
             IsShowLauncherChecked = launchSettings.ShowLauncherWindow;
 
             SetSelectedSoundDeviceFromSettings(launchSettings);
 
-            SelectedMidiData = MidiDataFormats.Where(s => s.Value == launchSettings.SelectedMidiData)
-                                              .Select(s => s.Key)
-                                              .FirstOrDefault();
+            SelectedMidiData = MidiDataFormats
+                .Where(s => s.Value == launchSettings.SelectedMidiData)
+                .Select(s => s.Key)
+                .FirstOrDefault();
 
-            bool gameLanguageIsAutomatic = Sys.Settings.FF7InstalledVersion != FF7Version.Original98
-                                           && Sys.FFNxConfig.HasKey("game_language")
-                                           && Sys.FFNxConfig.Get("game_language") == "0";
-            SelectedGameLanguage = !GameLauncher.IsLanguageSelectorSupportedEdition()
-                                   || string.IsNullOrWhiteSpace(launchSettings.SelectedGameLanguage)
-                                   || gameLanguageIsAutomatic
-                ? GameLanguage.English
-                : launchSettings.SelectedGameLanguage;
+            bool gameLanguageIsAutomatic =
+                Sys.Settings.FF7InstalledVersion != FF7Version.Original98
+                && Sys.FFNxConfig.HasKey("game_language")
+                && Sys.FFNxConfig.Get("game_language") == "0";
+            SelectedGameLanguage =
+                !GameLauncher.IsLanguageSelectorSupportedEdition()
+                || string.IsNullOrWhiteSpace(launchSettings.SelectedGameLanguage)
+                || gameLanguageIsAutomatic
+                    ? GameLanguage.English
+                    : launchSettings.SelectedGameLanguage;
 
             GetVolumesFromRegistry();
 
@@ -552,19 +494,32 @@ namespace AppUI.ViewModels
 
         private void SetMidiDeviceInRegistry()
         {
-            string ff7KeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+            string ff7KeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
             string midiKeyPath = $"{ff7KeyPath}\\1.00\\MIDI";
 
-            string virtualStorePath = $"{RegistryHelper.GetKeyPath(FF7RegKey.VirtualStoreKeyPath)}\\Final Fantasy VII";
+            string virtualStorePath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.VirtualStoreKeyPath)}\\Final Fantasy VII";
             string midiVirtualKeyPath = $"{virtualStorePath}\\1.00\\MIDI";
 
-            RegistryHelper.SetValueIfChanged(midiKeyPath, "MIDI_DeviceID", MidiDeviceIDs[SelectedMidiDevice], RegistryValueKind.DWord);
-            RegistryHelper.SetValueIfChanged(midiVirtualKeyPath, "MIDI_DeviceID", MidiDeviceIDs[SelectedMidiDevice], RegistryValueKind.DWord);
+            RegistryHelper.SetValueIfChanged(
+                midiKeyPath,
+                "MIDI_DeviceID",
+                MidiDeviceIDs[SelectedMidiDevice],
+                RegistryValueKind.DWord
+            );
+            RegistryHelper.SetValueIfChanged(
+                midiVirtualKeyPath,
+                "MIDI_DeviceID",
+                MidiDeviceIDs[SelectedMidiDevice],
+                RegistryValueKind.DWord
+            );
         }
 
         private int GetMidiDeviceInRegistry()
         {
-            string ff7KeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+            string ff7KeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
             string midiKeyPath = $"{ff7KeyPath}\\1.00\\MIDI";
 
             return (int)RegistryHelper.GetValue(midiKeyPath, "MIDI_DeviceID", 0);
@@ -572,7 +527,8 @@ namespace AppUI.ViewModels
 
         private void GetVolumesFromRegistry()
         {
-            string ff7KeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+            string ff7KeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
             string midiKeyPath = $"{ff7KeyPath}\\1.00\\MIDI";
             string soundKeyPath = $"{ff7KeyPath}\\1.00\\Sound";
             string ffnxKeyPath = $"{ff7KeyPath}\\1.00\\FFNx";
@@ -580,39 +536,46 @@ namespace AppUI.ViewModels
             if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
             {
                 SfxVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_sfx_volume"));
-                if (SfxVolumeValue < 0) SfxVolumeValue = 100;
+                if (SfxVolumeValue < 0)
+                    SfxVolumeValue = 100;
 
                 MusicVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_music_volume"));
-                if (MusicVolumeValue < 0) MusicVolumeValue = 100;
+                if (MusicVolumeValue < 0)
+                    MusicVolumeValue = 100;
 
                 VoiceVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_voice_volume"));
-                if (VoiceVolumeValue < 0) VoiceVolumeValue = 100;
+                if (VoiceVolumeValue < 0)
+                    VoiceVolumeValue = 100;
 
                 AmbientVolumeValue = int.Parse(Sys.FFNxConfig.Get("external_ambient_volume"));
-                if (AmbientVolumeValue < 0) AmbientVolumeValue = 100;
+                if (AmbientVolumeValue < 0)
+                    AmbientVolumeValue = 100;
 
                 MovieVolumeValue = int.Parse(Sys.FFNxConfig.Get("ffmpeg_video_volume"));
-                if (MovieVolumeValue < 0) MovieVolumeValue = 100;
+                if (MovieVolumeValue < 0)
+                    MovieVolumeValue = 100;
             }
             else
             {
                 SfxVolumeValue = (int)RegistryHelper.GetValue(soundKeyPath, "SFXVolume", 100);
                 MusicVolumeValue = (int)RegistryHelper.GetValue(midiKeyPath, "MusicVolume", 100);
                 VoiceVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "VoiceVolume", 100);
-                AmbientVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "AmbientVolume", 100);
+                AmbientVolumeValue = (int)
+                    RegistryHelper.GetValue(ffnxKeyPath, "AmbientVolume", 100);
                 MovieVolumeValue = (int)RegistryHelper.GetValue(ffnxKeyPath, "MovieVolume", 100);
             }
-           
         }
 
         private void SetVolumesInRegistry()
         {
-            string ff7KeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+            string ff7KeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
             string midiKeyPath = $"{ff7KeyPath}\\1.00\\MIDI";
             string soundKeyPath = $"{ff7KeyPath}\\1.00\\Sound";
             string ffnxKeyPath = $"{ff7KeyPath}\\1.00\\FFNx";
 
-            string virtualStorePath = $"{RegistryHelper.GetKeyPath(FF7RegKey.VirtualStoreKeyPath)}\\Final Fantasy VII";
+            string virtualStorePath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.VirtualStoreKeyPath)}\\Final Fantasy VII";
             string midiVirtualKeyPath = $"{virtualStorePath}\\1.00\\MIDI";
             string soundVirtualKeyPath = $"{virtualStorePath}\\1.00\\Sound";
             string ffnxVirtualKeyPath = $"{virtualStorePath}\\1.00\\FFNx";
@@ -627,20 +590,70 @@ namespace AppUI.ViewModels
             }
             else
             {
-                RegistryHelper.SetValueIfChanged(soundKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
-                RegistryHelper.SetValueIfChanged(soundVirtualKeyPath, "SFXVolume", SfxVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(
+                    soundKeyPath,
+                    "SFXVolume",
+                    SfxVolumeValue,
+                    RegistryValueKind.DWord
+                );
+                RegistryHelper.SetValueIfChanged(
+                    soundVirtualKeyPath,
+                    "SFXVolume",
+                    SfxVolumeValue,
+                    RegistryValueKind.DWord
+                );
 
-                RegistryHelper.SetValueIfChanged(midiKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
-                RegistryHelper.SetValueIfChanged(midiVirtualKeyPath, "MusicVolume", MusicVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(
+                    midiKeyPath,
+                    "MusicVolume",
+                    MusicVolumeValue,
+                    RegistryValueKind.DWord
+                );
+                RegistryHelper.SetValueIfChanged(
+                    midiVirtualKeyPath,
+                    "MusicVolume",
+                    MusicVolumeValue,
+                    RegistryValueKind.DWord
+                );
 
-                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
-                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "VoiceVolume", VoiceVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(
+                    ffnxKeyPath,
+                    "VoiceVolume",
+                    VoiceVolumeValue,
+                    RegistryValueKind.DWord
+                );
+                RegistryHelper.SetValueIfChanged(
+                    ffnxVirtualKeyPath,
+                    "VoiceVolume",
+                    VoiceVolumeValue,
+                    RegistryValueKind.DWord
+                );
 
-                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
-                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "AmbientVolume", AmbientVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(
+                    ffnxKeyPath,
+                    "AmbientVolume",
+                    AmbientVolumeValue,
+                    RegistryValueKind.DWord
+                );
+                RegistryHelper.SetValueIfChanged(
+                    ffnxVirtualKeyPath,
+                    "AmbientVolume",
+                    AmbientVolumeValue,
+                    RegistryValueKind.DWord
+                );
 
-                RegistryHelper.SetValueIfChanged(ffnxKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
-                RegistryHelper.SetValueIfChanged(ffnxVirtualKeyPath, "MovieVolume", MovieVolumeValue, RegistryValueKind.DWord);
+                RegistryHelper.SetValueIfChanged(
+                    ffnxKeyPath,
+                    "MovieVolume",
+                    MovieVolumeValue,
+                    RegistryValueKind.DWord
+                );
+                RegistryHelper.SetValueIfChanged(
+                    ffnxVirtualKeyPath,
+                    "MovieVolume",
+                    MovieVolumeValue,
+                    RegistryValueKind.DWord
+                );
             }
         }
 
@@ -651,16 +664,18 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            SelectedSoundDevice = SoundDeviceGuids.Where(s => s.Value == launchSettings.SelectedSoundDevice)
-                                                  .Select(s => s.Key)
-                                                  .FirstOrDefault();
+            SelectedSoundDevice = SoundDeviceGuids
+                .Where(s => s.Value == launchSettings.SelectedSoundDevice)
+                .Select(s => s.Key)
+                .FirstOrDefault();
 
             // switch back to 'Auto' if device not found
             if (SelectedSoundDevice == null)
             {
-                SelectedSoundDevice = SoundDeviceGuids.Where(s => s.Value == Guid.Empty)
-                                                      .Select(s => s.Key)
-                                                      .FirstOrDefault();
+                SelectedSoundDevice = SoundDeviceGuids
+                    .Where(s => s.Value == Guid.Empty)
+                    .Select(s => s.Key)
+                    .FirstOrDefault();
             }
         }
 
@@ -689,8 +704,12 @@ namespace AppUI.ViewModels
 
                 Sys.Settings.GameLaunchSettings.DisableReunionOnLaunch = true; // always have this set to true
 
-                Sys.Settings.GameLaunchSettings.SelectedSoundDevice = SoundDeviceGuids[SelectedSoundDevice];
-                Sys.Settings.GameLaunchSettings.SelectedMidiData = MidiDataFormats[SelectedMidiData];
+                Sys.Settings.GameLaunchSettings.SelectedSoundDevice = SoundDeviceGuids[
+                    SelectedSoundDevice
+                ];
+                Sys.Settings.GameLaunchSettings.SelectedMidiData = MidiDataFormats[
+                    SelectedMidiData
+                ];
                 Sys.Settings.GameLaunchSettings.SelectedGameLanguage = SelectedGameLanguage;
                 Sys.Settings.GameLaunchSettings.ReverseSpeakers = IsReverseSpeakersChecked;
                 Sys.Settings.GameLaunchSettings.LogarithmicVolumeControl = IsLogVolumeChecked;
@@ -700,16 +719,25 @@ namespace AppUI.ViewModels
                 SetMidiDeviceInRegistry();
                 RegistryHelper.CommitTransaction();
 
-                if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98) Sys.FFNxConfig.Save();
+                if (Sys.Settings.FF7InstalledVersion != FF7Version.Original98)
+                    Sys.FFNxConfig.Save();
 
                 Sys.SaveSettings();
 
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GameLauncherSettingsUpdated)));
+                Sys.Message(
+                    new WMessage(ResourceHelper.Get(StringKey.GameLauncherSettingsUpdated))
+                );
                 return true;
             }
             catch (Exception e)
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToSaveLaunchSettings), e.Message, ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FailedToSaveLaunchSettings),
+                    e.Message,
+                    ResourceHelper.Get(StringKey.Error),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 Logger.Error(e);
                 return false;
             }
@@ -740,11 +768,21 @@ namespace AppUI.ViewModels
 
                 // reference: https://stackoverflow.com/questions/1449162/get-the-full-name-of-a-wavein-device
                 MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-                foreach (MMDevice device in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+                foreach (
+                    MMDevice device in enumerator.EnumerateAudioEndPoints(
+                        DataFlow.Render,
+                        DeviceState.Active
+                    )
+                )
                 {
-                    if (device.FriendlyName.StartsWith(caps.ProductName) && !deviceGuids.ContainsKey(device.FriendlyName))
+                    if (
+                        device.FriendlyName.StartsWith(caps.ProductName)
+                        && !deviceGuids.ContainsKey(device.FriendlyName)
+                    )
                     {
-                        Guid audioGuid = new Guid(device.Properties[PropertyKeys.PKEY_AudioEndpoint_GUID].Value as string);
+                        Guid audioGuid = new Guid(
+                            device.Properties[PropertyKeys.PKEY_AudioEndpoint_GUID].Value as string
+                        );
                         deviceGuids.Add(device.FriendlyName, audioGuid);
                         break;
                     }
@@ -761,7 +799,7 @@ namespace AppUI.ViewModels
             {
                 { "General MIDI", "GENERAL_MIDI" },
                 { "Soundfont MIDI (Creative AWE32/AWE64)", "SOUNDFONT_MIDI" },
-                { "Yamaha XG MIDI", "YAMAHA_XG" }
+                { "Yamaha XG MIDI", "YAMAHA_XG" },
             };
 
             var deviceIDs = new Dictionary<string, int>();
@@ -781,7 +819,7 @@ namespace AppUI.ViewModels
             }
 
             MidiDeviceIDs = deviceIDs;
-            NotifyPropertyChanged(nameof(MidiDevices));    
+            NotifyPropertyChanged(nameof(MidiDevices));
         }
 
         /// <summary>
@@ -792,7 +830,6 @@ namespace AppUI.ViewModels
         {
             string pathToTestFile = Path.Combine(Sys._7HFolder, "Resources", "audio_test_file.ogg");
 
-
             if (_audioTest == null)
             {
                 // reference: https://markheath.net/post/handling-multi-channel-audio-in-naudio
@@ -801,7 +838,15 @@ namespace AppUI.ViewModels
                 // input 0 - audio test .ogg
                 // input 1 - silenced wave provider to play silent audio
                 _audioTestReader = new VorbisSampleProvider(pathToTestFile);
-                NAudio.Wave.SampleProviders.MultiplexingSampleProvider waveProvider = new NAudio.Wave.SampleProviders.MultiplexingSampleProvider(new List<ISampleProvider>() { _audioTestReader, new SilenceProvider(_audioTestReader.WaveFormat).ToSampleProvider() }, 2);
+                NAudio.Wave.SampleProviders.MultiplexingSampleProvider waveProvider =
+                    new NAudio.Wave.SampleProviders.MultiplexingSampleProvider(
+                        new List<ISampleProvider>()
+                        {
+                            _audioTestReader,
+                            new SilenceProvider(_audioTestReader.WaveFormat).ToSampleProvider(),
+                        },
+                        2
+                    );
 
                 int leftChannel = 0;
                 int rightChannel = 1;
@@ -847,7 +892,7 @@ namespace AppUI.ViewModels
                 _audioTest = new WaveOut
                 {
                     DeviceNumber = GetSelectedSoundDeviceNumber(),
-                    Volume = outVolume
+                    Volume = outVolume,
                 };
 
                 _audioTest.Init(waveProvider);
@@ -869,11 +914,18 @@ namespace AppUI.ViewModels
                 var caps = WaveOut.GetCapabilities(n);
 
                 MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-                foreach (MMDevice device in enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+                foreach (
+                    MMDevice device in enumerator.EnumerateAudioEndPoints(
+                        DataFlow.Render,
+                        DeviceState.Active
+                    )
+                )
                 {
                     if (device.FriendlyName.StartsWith(caps.ProductName))
                     {
-                        Guid soundGuid = new Guid(device.Properties[PropertyKeys.PKEY_AudioEndpoint_GUID].Value as string);
+                        Guid soundGuid = new Guid(
+                            device.Properties[PropertyKeys.PKEY_AudioEndpoint_GUID].Value as string
+                        );
 
                         if (soundGuid == selectedGuid)
                         {
@@ -924,7 +976,12 @@ namespace AppUI.ViewModels
         {
             if (!File.Exists(NewProgramPathText))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ProgramToRunNotFound), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.ProgramToRunNotFound),
+                    ResourceHelper.Get(StringKey.Error),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
@@ -934,7 +991,9 @@ namespace AppUI.ViewModels
             }
             else
             {
-                ProgramToRunViewModel toEdit = ProgramList.FirstOrDefault(s => s.ProgramPath == NewProgramPathText);
+                ProgramToRunViewModel toEdit = ProgramList.FirstOrDefault(s =>
+                    s.ProgramPath == NewProgramPathText
+                );
                 toEdit.ProgramArguments = NewProgramArgsText;
             }
 
@@ -963,11 +1022,17 @@ namespace AppUI.ViewModels
 
             foreach (ProgramToRunViewModel item in ProgramList.ToList())
             {
-                ProgramLaunchInfo existingProg = Sys.Settings.ProgramsToLaunchPrior.FirstOrDefault(s => s.PathToProgram == item.ProgramPath);
+                ProgramLaunchInfo existingProg = Sys.Settings.ProgramsToLaunchPrior.FirstOrDefault(
+                    s => s.PathToProgram == item.ProgramPath
+                );
 
                 if (existingProg == null)
                 {
-                    existingProg = new ProgramLaunchInfo() { PathToProgram = item.ProgramPath, ProgramArgs = item.ProgramArguments };
+                    existingProg = new ProgramLaunchInfo()
+                    {
+                        PathToProgram = item.ProgramPath,
+                        ProgramArgs = item.ProgramArguments,
+                    };
                 }
                 else
                 {
@@ -998,6 +1063,5 @@ namespace AppUI.ViewModels
             Logger.Info("Resetting game launcher settings to defaults.");
             LoadSettings(LaunchSettings.DefaultSettings());
         }
-
     }
 }

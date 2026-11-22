@@ -1,5 +1,5 @@
-﻿using SharpDX.DirectInput;
-using System.Linq;
+﻿using System.Linq;
+using SharpDX.DirectInput;
 
 namespace AppUI.Classes
 {
@@ -12,10 +12,7 @@ namespace AppUI.Classes
 
         internal bool IsConnected
         {
-            get
-            {
-                return JoystickInstance != null;
-            }
+            get { return JoystickInstance != null; }
         }
 
         internal void CreateDevice()
@@ -25,7 +22,12 @@ namespace AppUI.Classes
             DirectInput dinput = new DirectInput();
 
             // search for devices
-            foreach (DeviceInstance device in dinput.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly))
+            foreach (
+                DeviceInstance device in dinput.GetDevices(
+                    DeviceClass.GameControl,
+                    DeviceEnumerationFlags.AttachedOnly
+                )
+            )
             {
                 // create the device
                 try
@@ -35,9 +37,7 @@ namespace AppUI.Classes
 
                     break;
                 }
-                catch
-                {
-                }
+                catch { }
             }
 
             if (JoystickInstance != null)
@@ -47,7 +47,6 @@ namespace AppUI.Classes
                 // acquire the device
                 TryAcquire();
             }
-
         }
 
         internal void ReleaseDevice()
@@ -200,19 +199,43 @@ namespace AppUI.Classes
                 pressedDPadButton = State.PointOfViewControllers.First(i => i != -1);
             }
 
-            if ((pressedDPadButton == 0 || pressedDPadButton == 4500 || pressedDPadButton == 31500) && button == GamePadButton.DPadUp)
+            if (
+                (pressedDPadButton == 0 || pressedDPadButton == 4500 || pressedDPadButton == 31500)
+                && button == GamePadButton.DPadUp
+            )
             {
                 return true;
             }
-            else if ((pressedDPadButton == 4500 || pressedDPadButton == 9000 || pressedDPadButton == 13500) && button == GamePadButton.DPadRight)
+            else if (
+                (
+                    pressedDPadButton == 4500
+                    || pressedDPadButton == 9000
+                    || pressedDPadButton == 13500
+                )
+                && button == GamePadButton.DPadRight
+            )
             {
                 return true;
             }
-            else if ((pressedDPadButton == 13500 || pressedDPadButton == 18000 || pressedDPadButton == 22500) && button == GamePadButton.DPadDown)
+            else if (
+                (
+                    pressedDPadButton == 13500
+                    || pressedDPadButton == 18000
+                    || pressedDPadButton == 22500
+                )
+                && button == GamePadButton.DPadDown
+            )
             {
                 return true;
             }
-            else if ((pressedDPadButton == 22500 || pressedDPadButton == 27000 || pressedDPadButton == 31500) && button == GamePadButton.DPadLeft)
+            else if (
+                (
+                    pressedDPadButton == 22500
+                    || pressedDPadButton == 27000
+                    || pressedDPadButton == 31500
+                )
+                && button == GamePadButton.DPadLeft
+            )
             {
                 return true;
             }

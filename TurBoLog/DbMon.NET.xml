@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
 <doc>
-    <assembly>
-        <name>TurBoLog</name>
-    </assembly>
-    <members>
-        <member name="T:TurBoLog.OnOutputDebugStringHandler">
-            <summary>
+  <assembly>
+    <name>TurBoLog</name>
+  </assembly>
+  <members>
+    <member name="T:TurBoLog.OnOutputDebugStringHandler">
+      <summary>
             Delegate used when firing DebugMonitor.OnOutputDebug event
             </summary>
-        </member>
-        <member name="T:TurBoLog.DebugMonitor">
-            <summary>
+    </member>
+    <member name="T:TurBoLog.DebugMonitor">
+      <summary>
             This class captures all strings passed to <c>OutputDebugString</c> when
             the application is not debugged.	
             </summary>
-            <remarks>	
+      <remarks
+        >	
             This class is a port of Microsofts Visual Studio's C++ example "dbmon", which
             can be found at <c>http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcsample98/html/vcsmpdbmon.asp</c>.
             </remarks>
-            <remarks>
-            	<code>
+      <remarks>
+        <code>
             		public static void Main(string[] args) {
             			DebugMonitor.Start();
             			DebugMonitor.OnOutputDebugString += new OnOutputDebugStringHandler(OnOutputDebugString);
@@ -32,113 +33,112 @@
             			Console.WriteLine(DateTime.Now + ": " + text);
             		}
             	</code>
-            </remarks>
-        </member>
-        <member name="E:TurBoLog.DebugMonitor.OnOutputDebugString">
-            <summary>
+      </remarks>
+    </member>
+    <member name="E:TurBoLog.DebugMonitor.OnOutputDebugString">
+      <summary>
             Fired if an application calls <c>OutputDebugString</c>
-            </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_AckEvent">
-            <summary>
+      </summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_AckEvent">
+      <summary>
             Event handle for slot 'DBWIN_BUFFER_READY'
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_ReadyEvent">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_ReadyEvent">
+      <summary>
             Event handle for slot 'DBWIN_DATA_READY'
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_SharedFile">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_SharedFile">
+      <summary>
             Handle for our shared file
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_SharedMem">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_SharedMem">
+      <summary>
             Handle for our shared memory
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_Capturer">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_Capturer">
+      <summary>
             Our capturing thread
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_SyncRoot">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_SyncRoot">
+      <summary>
             Our synchronization root
             </summary>
-        </member>
-        <member name="F:TurBoLog.DebugMonitor.m_Mutex">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.DebugMonitor.m_Mutex">
+      <summary>
             Mutex for singleton check
             </summary>
-        </member>
-        <member name="M:TurBoLog.DebugMonitor.Start">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.DebugMonitor.Start">
+      <summary>
             Starts this debug monitor
             </summary>
-            
-        </member>
-        <member name="M:TurBoLog.DebugMonitor.Capture">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.DebugMonitor.Capture">
+      <summary>
             Captures 
             </summary>
-        </member>
-        <member name="M:TurBoLog.DebugMonitor.Dispose">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.DebugMonitor.Dispose">
+      <summary>
             Dispose all resources
             </summary>
-        </member>
-        <member name="M:TurBoLog.DebugMonitor.Stop">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.DebugMonitor.Stop">
+      <summary>
             Stops this debug monitor. This call we block the executing thread
             until this debug monitor is stopped.
             </summary>
-        </member>
-        <member name="M:TurBoLog.DebugMonitor.CreateApplicationException(System.String)">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.DebugMonitor.CreateApplicationException(System.String)">
+      <summary>
             Helper to create a new application exception, which has automaticly the 
             last win 32 error code appended.
             </summary>
-            <param name="text">text</param>
-        </member>
-        <member name="T:TurBoLog.UI.FMonitor">
-            <summary>
+      <param name="text">text</param>
+    </member>
+    <member name="T:TurBoLog.UI.FMonitor">
+      <summary>
             Summary description for FMonitor.
             </summary>
-        </member>
-        <member name="M:TurBoLog.UI.FMonitor.Dispose(System.Boolean)">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.UI.FMonitor.Dispose(System.Boolean)">
+      <summary>
             Clean up any resources being used.
             </summary>
-        </member>
-        <member name="M:TurBoLog.UI.FMonitor.InitializeComponent">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.UI.FMonitor.InitializeComponent">
+      <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
-        </member>
-        <member name="T:TurBoLog.UI.FPrompt">
-            <summary>
+    </member>
+    <member name="T:TurBoLog.UI.FPrompt">
+      <summary>
             Summary description for FPrompt.
             </summary>
-        </member>
-        <member name="F:TurBoLog.UI.FPrompt.components">
-            <summary>
+    </member>
+    <member name="F:TurBoLog.UI.FPrompt.components">
+      <summary>
             Required designer variable.
             </summary>
-        </member>
-        <member name="M:TurBoLog.UI.FPrompt.Dispose(System.Boolean)">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.UI.FPrompt.Dispose(System.Boolean)">
+      <summary>
             Clean up any resources being used.
             </summary>
-        </member>
-        <member name="M:TurBoLog.UI.FPrompt.InitializeComponent">
-            <summary>
+    </member>
+    <member name="M:TurBoLog.UI.FPrompt.InitializeComponent">
+      <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
-        </member>
-    </members>
+    </member>
+  </members>
 </doc>

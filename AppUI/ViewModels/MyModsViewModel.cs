@@ -1,8 +1,4 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -11,6 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using AppCore;
+using AppUI.Classes;
+using AppUI.Windows;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
@@ -28,7 +28,7 @@ namespace AppUI.ViewModels
         public event OnRefreshListRequested RefreshListRequested;
 
         private object listLock = new object();
-        
+
         /// <summary>
         /// Keep track of load order (row index) of mods
         /// </summary>
@@ -86,15 +86,14 @@ namespace AppUI.ViewModels
 
         public bool HasPreviousCategoriesOrTags
         {
-            get => _previousReloadOptions?.Categories?.Count > 0 || _previousReloadOptions?.Tags?.Count > 0;
+            get =>
+                _previousReloadOptions?.Categories?.Count > 0
+                || _previousReloadOptions?.Tags?.Count > 0;
         }
 
         public BitmapImage ThemeImage
         {
-            get
-            {
-                return _themeImage;
-            }
+            get { return _themeImage; }
             set
             {
                 if (value != _themeImage)
@@ -108,10 +107,7 @@ namespace AppUI.ViewModels
         private HorizontalAlignment _themeHorizontalAlignment = HorizontalAlignment.Center;
         public HorizontalAlignment ThemeHorizontalAlignment
         {
-            get
-            {
-                return _themeHorizontalAlignment;
-            }
+            get { return _themeHorizontalAlignment; }
             set
             {
                 if (value != _themeHorizontalAlignment)
@@ -125,10 +121,7 @@ namespace AppUI.ViewModels
         private VerticalAlignment _themeVerticalAlignment = VerticalAlignment.Center;
         public VerticalAlignment ThemeVerticalAlignment
         {
-            get
-            {
-                return _themeVerticalAlignment;
-            }
+            get { return _themeVerticalAlignment; }
             set
             {
                 if (value != _themeVerticalAlignment)
@@ -142,10 +135,7 @@ namespace AppUI.ViewModels
         private Stretch _themeStretch = Stretch.Uniform;
         public Stretch ThemeStretch
         {
-            get
-            {
-                return _themeStretch;
-            }
+            get { return _themeStretch; }
             set
             {
                 if (value != _themeStretch)
@@ -206,14 +196,20 @@ namespace AppUI.ViewModels
         {
             foreach (InstalledItem item in Sys.Library.Items)
             {
-                string absolutePath = Path.Combine(Sys.Settings.LibraryLocation, item.LatestInstalled?.InstalledLocation);
+                string absolutePath = Path.Combine(
+                    Sys.Settings.LibraryLocation,
+                    item.LatestInstalled?.InstalledLocation
+                );
                 if (Directory.Exists(absolutePath))
                 {
                     string pathToXml = Path.Combine(absolutePath, "mod.xml");
-                    
+
                     if (File.Exists(pathToXml))
                     {
-                        Mod parsedModXml = new ModImporter().ParseModXmlFromSource(absolutePath, item.CachedDetails);
+                        Mod parsedModXml = new ModImporter().ParseModXmlFromSource(
+                            absolutePath,
+                            item.CachedDetails
+                        );
                         item.CachedDetails = parsedModXml;
                     }
                 }
@@ -223,7 +219,12 @@ namespace AppUI.ViewModels
         /// <summary>
         /// Loads installed and active mods into <see cref="ModList"/> from <see cref="Sys.Library"/> and <see cref="Sys.ActiveProfile"/>
         /// </summary>
-        internal void ReloadModList(Guid? modToSelect = null, string searchText = "", IEnumerable<FilterItemViewModel> categories = null, IEnumerable<FilterItemViewModel> tags = null)
+        internal void ReloadModList(
+            Guid? modToSelect = null,
+            string searchText = "",
+            IEnumerable<FilterItemViewModel> categories = null,
+            IEnumerable<FilterItemViewModel> tags = null
+        )
         {
             // make sure to remove any deleted items and auto import mods first
             Sys.ActiveProfile.RemoveDeletedItems();
@@ -259,7 +260,8 @@ namespace AppUI.ViewModels
                         categories,
                         tags,
                         mod.CachedDetails,
-                        ShowOnlyLanguageCompatibleItems ? mod.GetModInfo()?.GameLanguages : null);
+                        ShowOnlyLanguageCompatibleItems ? mod.GetModInfo()?.GameLanguages : null
+                    );
 
                     if (includeMod)
                     {
@@ -273,14 +275,24 @@ namespace AppUI.ViewModels
 
             foreach (InstalledItem item in Sys.Library.Items.ToList())
             {
-                bool isAdded = allMods.Any(m => m.InstallInfo.ModID == item.ModID && m.InstallInfo.LatestInstalled.InstalledLocation == item.LatestInstalled.InstalledLocation);
+                bool isAdded = allMods.Any(m =>
+                    m.InstallInfo.ModID == item.ModID
+                    && m.InstallInfo.LatestInstalled.InstalledLocation
+                        == item.LatestInstalled.InstalledLocation
+                );
 
                 // ensure installed mod is included under the active profile if it is missing so you can toggle activation later
                 ProfileItem profileItem = Sys.ActiveProfile.GetItem(item.ModID);
 
                 if (profileItem == null)
                 {
-                    profileItem = new ProfileItem() { ModID = item.ModID, Name = item.CachedDetails.Name, Settings = new List<ProfileSetting>(), IsModActive = false };
+                    profileItem = new ProfileItem()
+                    {
+                        ModID = item.ModID,
+                        Name = item.CachedDetails.Name,
+                        Settings = new List<ProfileSetting>(),
+                        IsModActive = false,
+                    };
                     Sys.ActiveProfile.AddItem(profileItem);
                 }
 
@@ -290,12 +302,15 @@ namespace AppUI.ViewModels
                     categories,
                     tags,
                     item.CachedDetails,
-                    ShowOnlyLanguageCompatibleItems ? item.GetModInfo()?.GameLanguages : null);
-
+                    ShowOnlyLanguageCompatibleItems ? item.GetModInfo()?.GameLanguages : null
+                );
 
                 if (!isAdded && includeMod)
                 {
-                    InstalledModViewModel installedMod = new InstalledModViewModel(item, profileItem);
+                    InstalledModViewModel installedMod = new InstalledModViewModel(
+                        item,
+                        profileItem
+                    );
                     installedMod.ActivationChanged += InstalledMod_ActivationChanged;
                     installedMod.CategoryChanged += InstalledMod_CategoryChanged;
                     allMods.Add(installedMod);
@@ -323,7 +338,6 @@ namespace AppUI.ViewModels
                 }
             }
 
-
             int installedModCount = Sys.Library.Items.Count;
             bool isFilteredBySearch = (allMods.Count != installedModCount);
 
@@ -334,7 +348,9 @@ namespace AppUI.ViewModels
                 {
                     if (hasSearchText)
                     {
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                        Sys.Message(
+                            new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true)
+                        );
                     }
 
                     ClearModList();
@@ -342,7 +358,6 @@ namespace AppUI.ViewModels
 
                 return;
             }
-
 
             if (!isFilteredBySearch)
             {
@@ -356,7 +371,9 @@ namespace AppUI.ViewModels
             {
                 if (allMods.Any(m => m.SortOrder != InstalledModViewModel.defaultSortOrder))
                 {
-                    ModList = new ObservableCollection<InstalledModViewModel>(allMods.OrderBy(m => m.SortOrder));
+                    ModList = new ObservableCollection<InstalledModViewModel>(
+                        allMods.OrderBy(m => m.SortOrder)
+                    );
                 }
                 else
                 {
@@ -370,7 +387,6 @@ namespace AppUI.ViewModels
         /// </summary>
         private void SetPreviousLoadOrder(List<InstalledModViewModel> allMods, bool storeLoadOrder)
         {
-
             if (storeLoadOrder)
             {
                 SetModLoadOrders();
@@ -413,10 +429,15 @@ namespace AppUI.ViewModels
         /// <param name="searchText"></param>
         /// <param name="categories"></param>
         /// <param name="tags"></param>
-        internal void ReloadModListFromUIThread(Guid? modToSelect = null, string searchText = "", IEnumerable<FilterItemViewModel> categories = null, IEnumerable<FilterItemViewModel> tags = null)
+        internal void ReloadModListFromUIThread(
+            Guid? modToSelect = null,
+            string searchText = "",
+            IEnumerable<FilterItemViewModel> categories = null,
+            IEnumerable<FilterItemViewModel> tags = null
+        )
         {
             App.Current.Dispatcher.Invoke(() =>
-            {   
+            {
                 // Auto sort mods on launch if user has the option active
                 if (Sys.Settings.HasOption(GeneralOptions.AutoSortMods))
                 {
@@ -435,24 +456,33 @@ namespace AppUI.ViewModels
             IEnumerable<FilterItemViewModel> categories,
             IEnumerable<FilterItemViewModel> tags,
             Mod mod,
-            IEnumerable<string> gameLanguages)
+            IEnumerable<string> gameLanguages
+        )
         {
-            if (ShowOnlyLanguageCompatibleItems && !GameLanguage.IsSupportedBy(
-                gameLanguages,
-                GameLauncher.GetSelectedGameLanguage()))
+            if (
+                ShowOnlyLanguageCompatibleItems
+                && !GameLanguage.IsSupportedBy(
+                    gameLanguages,
+                    GameLauncher.GetSelectedGameLanguage()
+                )
+            )
             {
                 return false;
             }
 
-            bool isSearchTextRelevant = !string.IsNullOrWhiteSpace(searchText) && mod.SearchRelevance(searchText) > 0;
+            bool isSearchTextRelevant =
+                !string.IsNullOrWhiteSpace(searchText) && mod.SearchRelevance(searchText) > 0;
 
             if (categories.Count() > 0 && tags.Count() > 0)
             {
-                return FilterItemViewModel.FilterByCategory(mod, categories) || FilterItemViewModel.FilterByTags(mod, tags) || isSearchTextRelevant;
+                return FilterItemViewModel.FilterByCategory(mod, categories)
+                    || FilterItemViewModel.FilterByTags(mod, tags)
+                    || isSearchTextRelevant;
             }
             else if (categories.Count() > 0)
             {
-                return FilterItemViewModel.FilterByCategory(mod, categories) || isSearchTextRelevant;
+                return FilterItemViewModel.FilterByCategory(mod, categories)
+                    || isSearchTextRelevant;
             }
             else if (tags.Count() > 0)
             {
@@ -462,7 +492,6 @@ namespace AppUI.ViewModels
             {
                 return isSearchTextRelevant || string.IsNullOrWhiteSpace(searchText); // returns all if search text is empty and no category/tags are checked
             }
-
         }
 
         internal void ClearModList()
@@ -495,7 +524,7 @@ namespace AppUI.ViewModels
         {
             ImportModWindow modWindow = new ImportModWindow()
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
 
             modWindow.ShowDialog();
@@ -513,11 +542,15 @@ namespace AppUI.ViewModels
             {
                 selected = ModList.Where(m => m.IsSelected).LastOrDefault();
 
-                // due to virtualization, IsSelected could be set on multiple items... 
+                // due to virtualization, IsSelected could be set on multiple items...
                 // ... so we will deselect the other items to avoid problems of multiple items being selected
                 if (ModList.Where(m => m.IsSelected).Count() > 1)
                 {
-                    foreach (var mod in ModList.Where(m => m.IsSelected && m.InstallInfo.ModID != selected.InstallInfo.ModID))
+                    foreach (
+                        var mod in ModList.Where(m =>
+                            m.IsSelected && m.InstallInfo.ModID != selected.InstallInfo.ModID
+                        )
+                    )
                     {
                         mod.IsSelected = false;
                     }
@@ -529,7 +562,8 @@ namespace AppUI.ViewModels
 
         internal void ToggleActivateMod(Guid modID, bool reloadList = true)
         {
-            if (String.IsNullOrWhiteSpace(Sys.Settings.CurrentProfile)) return;
+            if (String.IsNullOrWhiteSpace(Sys.Settings.CurrentProfile))
+                return;
 
             ProfileItem item = Sys.ActiveProfile.Items.Find(i => i.ModID.Equals(modID));
 
@@ -559,7 +593,12 @@ namespace AppUI.ViewModels
                     examined.Add(toExamine.Peek().ModID);
                     var info = toExamine.Pop().GetModInfo();
 
-                    if (!GameLanguage.IsSupportedBy(info?.GameLanguages, GameLauncher.GetSelectedGameLanguage()))
+                    if (
+                        !GameLanguage.IsSupportedBy(
+                            info?.GameLanguages,
+                            GameLauncher.GetSelectedGameLanguage()
+                        )
+                    )
                     {
                         return;
                     }
@@ -569,7 +608,6 @@ namespace AppUI.ViewModels
                         continue;
                     }
 
-
                     foreach (var req in info.Compatibility.Requires)
                     {
                         if (!examined.Contains(req.ModID))
@@ -577,11 +615,20 @@ namespace AppUI.ViewModels
                             var inst = Sys.Library.GetItem(req.ModID);
                             if (inst == null)
                                 missing.Add(req.Description);
-                            else if (req.Versions.Any() && !req.Versions.Contains(inst.Versions.Last().VersionDetails.Version))
+                            else if (
+                                req.Versions.Any()
+                                && !req.Versions.Contains(
+                                    inst.Versions.Last().VersionDetails.Version
+                                )
+                            )
                                 badVersion.Add(inst);
                             else
                             {
-                                if (Sys.ActiveProfile.ActiveItems.Find(pi => pi.ModID.Equals(req.ModID)) == null)
+                                if (
+                                    Sys.ActiveProfile.ActiveItems.Find(pi =>
+                                        pi.ModID.Equals(req.ModID)
+                                    ) == null
+                                )
                                     pulledIn.Add(inst);
                                 toExamine.Push(inst);
                             }
@@ -593,10 +640,19 @@ namespace AppUI.ViewModels
                         if (!examined.Contains(forbid.ModID))
                         {
                             examined.Add(forbid.ModID);
-                            var pItem = Sys.ActiveProfile.ActiveItems.Find(i => i.ModID.Equals(forbid.ModID));
+                            var pItem = Sys.ActiveProfile.ActiveItems.Find(i =>
+                                i.ModID.Equals(forbid.ModID)
+                            );
                             if (pItem != null)
                             {
-                                if (!forbid.Versions.Any() || forbid.Versions.Contains(Sys.Library.GetItem(pItem.ModID).LatestInstalled.VersionDetails.Version))
+                                if (
+                                    !forbid.Versions.Any()
+                                    || forbid.Versions.Contains(
+                                        Sys.Library.GetItem(
+                                            pItem.ModID
+                                        ).LatestInstalled.VersionDetails.Version
+                                    )
+                                )
                                 {
                                     remove.Add(pItem);
                                 }
@@ -610,7 +666,9 @@ namespace AppUI.ViewModels
                     var info = Sys.Library.GetItem(active.ModID)?.GetModInfo();
                     if (info != null)
                     {
-                        foreach (Guid mID in pulledIn.Select(ii => ii.ModID).Concat(new[] { modID }))
+                        foreach (
+                            Guid mID in pulledIn.Select(ii => ii.ModID).Concat(new[] { modID })
+                        )
                         {
                             var forbid = info.Compatibility.Forbids.Find(f => f.ModID.Equals(mID));
 
@@ -619,12 +677,34 @@ namespace AppUI.ViewModels
                                 continue;
                             }
 
-                            if (!forbid.Versions.Any() || forbid.Versions.Contains(Sys.Library.GetItem(mID).LatestInstalled.VersionDetails.Version))
+                            if (
+                                !forbid.Versions.Any()
+                                || forbid.Versions.Contains(
+                                    Sys.Library.GetItem(mID).LatestInstalled.VersionDetails.Version
+                                )
+                            )
                             {
                                 if (mID.Equals(modID))
-                                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.CannotActivateModBecauseItIsIncompatibleWithOtherMod), Sys.Library.GetItem(active.ModID).CachedDetails.Name), ResourceHelper.Get(StringKey.Warning));
+                                    MessageDialogWindow.Show(
+                                        String.Format(
+                                            ResourceHelper.Get(
+                                                StringKey.CannotActivateModBecauseItIsIncompatibleWithOtherMod
+                                            ),
+                                            Sys.Library.GetItem(active.ModID).CachedDetails.Name
+                                        ),
+                                        ResourceHelper.Get(StringKey.Warning)
+                                    );
                                 else
-                                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.CannotActivateModBecauseDependentIsIncompatible), Sys.Library.GetItem(mID).CachedDetails.Name, Sys.Library.GetItem(active.ModID).CachedDetails.Name), ResourceHelper.Get(StringKey.Warning));
+                                    MessageDialogWindow.Show(
+                                        String.Format(
+                                            ResourceHelper.Get(
+                                                StringKey.CannotActivateModBecauseDependentIsIncompatible
+                                            ),
+                                            Sys.Library.GetItem(mID).CachedDetails.Name,
+                                            Sys.Library.GetItem(active.ModID).CachedDetails.Name
+                                        ),
+                                        ResourceHelper.Get(StringKey.Warning)
+                                    );
                                 return;
                             }
                         }
@@ -633,19 +713,48 @@ namespace AppUI.ViewModels
 
                 if (missing.Any())
                 {
-                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.ModRequiresModsIsMissingWarning), String.Join("\n", missing)), ResourceHelper.Get(StringKey.MissingRequirements));
+                    MessageDialogWindow.Show(
+                        String.Format(
+                            ResourceHelper.Get(StringKey.ModRequiresModsIsMissingWarning),
+                            String.Join("\n", missing)
+                        ),
+                        ResourceHelper.Get(StringKey.MissingRequirements)
+                    );
                 }
                 if (badVersion.Any())
                 {
-                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.UnsupportedModVersionsWarning), String.Join("\n", badVersion.Select(ii => ii.CachedDetails.Name))), ResourceHelper.Get(StringKey.UnsupportedVersion));
+                    MessageDialogWindow.Show(
+                        String.Format(
+                            ResourceHelper.Get(StringKey.UnsupportedModVersionsWarning),
+                            String.Join("\n", badVersion.Select(ii => ii.CachedDetails.Name))
+                        ),
+                        ResourceHelper.Get(StringKey.UnsupportedVersion)
+                    );
                 }
                 if (pulledIn.Any())
                 {
-                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.ThisModRequiresYouActivateFollowingMods), String.Join("\n", pulledIn.Select(ii => ii.CachedDetails.Name))), ResourceHelper.Get(StringKey.MissingRequiredActiveMods));
+                    MessageDialogWindow.Show(
+                        String.Format(
+                            ResourceHelper.Get(StringKey.ThisModRequiresYouActivateFollowingMods),
+                            String.Join("\n", pulledIn.Select(ii => ii.CachedDetails.Name))
+                        ),
+                        ResourceHelper.Get(StringKey.MissingRequiredActiveMods)
+                    );
                 }
                 if (remove.Any())
                 {
-                    MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.ModRequiresYouDeactivateTheFollowingMods), String.Join("\n", remove.Select(pi => Sys.Library.GetItem(pi.ModID).CachedDetails.Name))), ResourceHelper.Get(StringKey.DeactivateModsWarning));
+                    MessageDialogWindow.Show(
+                        String.Format(
+                            ResourceHelper.Get(StringKey.ModRequiresYouDeactivateTheFollowingMods),
+                            String.Join(
+                                "\n",
+                                remove.Select(pi =>
+                                    Sys.Library.GetItem(pi.ModID).CachedDetails.Name
+                                )
+                            )
+                        ),
+                        ResourceHelper.Get(StringKey.DeactivateModsWarning)
+                    );
                 }
 
                 DoActivate(modID, reloadList);
@@ -653,14 +762,14 @@ namespace AppUI.ViewModels
                 foreach (InstalledItem req in pulledIn)
                 {
                     DoActivate(req.ModID, reloadList);
-                    if (reloadList) 
+                    if (reloadList)
                         Sys.Ping(req.ModID);
                 }
 
                 foreach (ProfileItem pi in remove)
                 {
                     DoDeactivate(pi, reloadList);
-                    if (reloadList) 
+                    if (reloadList)
                         Sys.Ping(pi.ModID);
                 }
 
@@ -679,13 +788,17 @@ namespace AppUI.ViewModels
 
         internal void DeactivateModsUnsupportedByCurrentGameLanguage()
         {
-            if (Sys.ActiveProfile == null) return;
+            if (Sys.ActiveProfile == null)
+                return;
 
             string selectedLanguage = GameLauncher.GetSelectedGameLanguage();
-            List<Guid> unsupportedActiveMods = Sys.ActiveProfile.ActiveItems
-                .Where(item => !GameLanguage.IsSupportedBy(
-                    Sys.Library.GetItem(item.ModID)?.GetModInfo()?.GameLanguages,
-                    selectedLanguage))
+            List<Guid> unsupportedActiveMods = Sys
+                .ActiveProfile.ActiveItems.Where(item =>
+                    !GameLanguage.IsSupportedBy(
+                        Sys.Library.GetItem(item.ModID)?.GetModInfo()?.GameLanguages,
+                        selectedLanguage
+                    )
+                )
                 .Select(item => item.ModID)
                 .ToList();
 
@@ -698,7 +811,9 @@ namespace AppUI.ViewModels
         private void DoDeactivate(ProfileItem item, bool reloadList = true)
         {
             item.IsModActive = false;
-            ModList.FirstOrDefault(m => m.InstallInfo.ModID == item.ModID)?.RaiseIsActivePropertyChanged();
+            ModList
+                .FirstOrDefault(m => m.InstallInfo.ModID == item.ModID)
+                ?.RaiseIsActivePropertyChanged();
 
             if (reloadList)
             {
@@ -708,7 +823,8 @@ namespace AppUI.ViewModels
 
         private void DoActivate(Guid modID, bool reloadList = true)
         {
-            if (!MainWindowViewModel.CheckAllowedActivate(modID)) return;
+            if (!MainWindowViewModel.CheckAllowedActivate(modID))
+                return;
 
             var mod = Sys.ActiveProfile.Items.FirstOrDefault(m => m.ModID == modID);
 
@@ -721,11 +837,19 @@ namespace AppUI.ViewModels
             {
                 var installedItem = Sys.Library.GetItem(modID);
 
-                var item = new ProfileItem() { ModID = modID, Name = installedItem?.CachedDetails.Name, Settings = new List<ProfileSetting>(), IsModActive = true };
+                var item = new ProfileItem()
+                {
+                    ModID = modID,
+                    Name = installedItem?.CachedDetails.Name,
+                    Settings = new List<ProfileSetting>(),
+                    IsModActive = true,
+                };
                 Sys.ActiveProfile.AddItem(item);
             }
 
-            ModList.FirstOrDefault(m => m.InstallInfo.ModID == modID)?.RaiseIsActivePropertyChanged();
+            ModList
+                .FirstOrDefault(m => m.InstallInfo.ModID == modID)
+                ?.RaiseIsActivePropertyChanged();
 
             if (reloadList)
             {
@@ -764,7 +888,11 @@ namespace AppUI.ViewModels
             }
 
             Sys.Library.DeleteAndRemoveInstall(installed);
-            Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.Uninstalled)} {installed.CachedDetails.Name}"));
+            Sys.Message(
+                new WMessage(
+                    $"{ResourceHelper.Get(StringKey.Uninstalled)} {installed.CachedDetails.Name}"
+                )
+            );
             ReloadModList();
         }
 
@@ -779,7 +907,15 @@ namespace AppUI.ViewModels
             if (!mod.InstallInfo.ModExistsOnFileSystem())
             {
                 Sys.ValidateAndRemoveDeletedMods();
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved), mod.Name), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved),
+                            mod.Name
+                        ),
+                        true
+                    )
+                );
                 ReloadModListFromUIThread();
                 return;
             }
@@ -793,7 +929,7 @@ namespace AppUI.ViewModels
 
             App.Current.Dispatcher.Invoke(() =>
             {
-                // ensure to modify observable collection on UI thread 
+                // ensure to modify observable collection on UI thread
                 lock (listLock)
                 {
                     ModList.RemoveAt(index);
@@ -812,7 +948,15 @@ namespace AppUI.ViewModels
             if (!mod.InstallInfo.ModExistsOnFileSystem())
             {
                 Sys.ValidateAndRemoveDeletedMods();
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved), mod.Name), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved),
+                            mod.Name
+                        ),
+                        true
+                    )
+                );
                 ReloadModListFromUIThread();
                 return;
             }
@@ -821,7 +965,7 @@ namespace AppUI.ViewModels
 
             App.Current.Dispatcher.Invoke(() =>
             {
-                // ensure to modify observable collection on UI thread 
+                // ensure to modify observable collection on UI thread
                 lock (listLock)
                 {
                     ModList.RemoveAt(index);
@@ -840,7 +984,15 @@ namespace AppUI.ViewModels
             if (!mod.InstallInfo.ModExistsOnFileSystem())
             {
                 Sys.ValidateAndRemoveDeletedMods();
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved), mod.Name), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.CanNotReOrderModItHasBeenRemoved),
+                            mod.Name
+                        ),
+                        true
+                    )
+                );
                 ReloadModListFromUIThread();
                 return;
             }
@@ -849,7 +1001,7 @@ namespace AppUI.ViewModels
 
             App.Current.Dispatcher.Invoke(() =>
             {
-                // ensure to modify observable collection on UI thread 
+                // ensure to modify observable collection on UI thread
                 lock (listLock)
                 {
                     ModList.RemoveAt(index);
@@ -872,7 +1024,15 @@ namespace AppUI.ViewModels
             if (!modToConfigure.InstallInfo.ModExistsOnFileSystem())
             {
                 Sys.ValidateAndRemoveDeletedMods();
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.CanNotConfigureModItHasBeenRemoved), modToConfigure.Name), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.CanNotConfigureModItHasBeenRemoved),
+                            modToConfigure.Name
+                        ),
+                        true
+                    )
+                );
                 ReloadModListFromUIThread();
                 return;
             }
@@ -880,16 +1040,33 @@ namespace AppUI.ViewModels
             AppWrapper.ModInfo info = modToConfigure.InstallInfo.GetModInfo();
             if (info == null)
             {
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.CanNotConfigureModFailedToReadModXml), modToConfigure.Name), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.CanNotConfigureModFailedToReadModXml),
+                            modToConfigure.Name
+                        ),
+                        true
+                    )
+                );
                 return;
             }
 
-            InstalledVersion installed = Sys.Library.GetItem(modToConfigure.InstallInfo.ModID)?.LatestInstalled;
+            InstalledVersion installed = Sys
+                .Library.GetItem(modToConfigure.InstallInfo.ModID)
+                ?.LatestInstalled;
             Func<string, string> imageReader;
             Func<string, Stream> audioReader;
 
-            string config_temp_folder = Path.Combine(Sys.PathToTempFolder, "configmod", modToConfigure.InstallInfo.CachedDetails.ID.ToString());
-            string pathToModXml = Path.Combine(Sys.Settings.LibraryLocation, installed.InstalledLocation);
+            string config_temp_folder = Path.Combine(
+                Sys.PathToTempFolder,
+                "configmod",
+                modToConfigure.InstallInfo.CachedDetails.ID.ToString()
+            );
+            string pathToModXml = Path.Combine(
+                Sys.Settings.LibraryLocation,
+                installed.InstalledLocation
+            );
 
             // wire up the imageReader and audioReader to extract/read files from the .iro archive
             IDisposable arcToDispose = null;
@@ -922,7 +1099,14 @@ namespace AppUI.ViewModels
                         {
                             try
                             {
-                                using (FileStream fileStream = new FileStream(tempImgPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
+                                using (
+                                    FileStream fileStream = new FileStream(
+                                        tempImgPath,
+                                        FileMode.Create,
+                                        FileAccess.ReadWrite,
+                                        FileShare.ReadWrite
+                                    )
+                                )
                                 {
                                     fileStream.Seek(0, SeekOrigin.Begin);
                                     imgStream.CopyTo(fileStream);
@@ -970,7 +1154,12 @@ namespace AppUI.ViewModels
                 {
                     string ifile = Path.Combine(pathToModXml, s);
                     if (File.Exists(ifile))
-                        return new FileStream(ifile, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        return new FileStream(
+                            ifile,
+                            FileMode.Open,
+                            FileAccess.Read,
+                            FileShare.Read
+                        );
                     return null;
                 };
             }
@@ -980,15 +1169,29 @@ namespace AppUI.ViewModels
                 info = info ?? new AppWrapper.ModInfo();
                 if (info.Options.Count == 0)
                 {
-                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ThereAreNoOptionsToConfigureForThisMod), ResourceHelper.Get(StringKey.NoOptions), MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageDialogWindow.Show(
+                        ResourceHelper.Get(StringKey.ThereAreNoOptionsToConfigureForThisMod),
+                        ResourceHelper.Get(StringKey.NoOptions),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                     return;
                 }
 
-
-                List<Constraint> modConstraints = GameLauncher.GetConstraints().Where(c => c.ModID.Equals(modToConfigure.InstallInfo.ModID)).ToList();
+                List<Constraint> modConstraints = GameLauncher
+                    .GetConstraints()
+                    .Where(c => c.ModID.Equals(modToConfigure.InstallInfo.ModID))
+                    .ToList();
 
                 ConfigureModWindow modWindow = new ConfigureModWindow();
-                modWindow.ViewModel.Init(info, imageReader, audioReader, modToConfigure.ActiveModInfo, modConstraints, pathToModXml);
+                modWindow.ViewModel.Init(
+                    info,
+                    imageReader,
+                    audioReader,
+                    modToConfigure.ActiveModInfo,
+                    modConstraints,
+                    pathToModXml
+                );
 
                 // Open dialog for configuring settings - if true is returned then the settings are saved
                 bool? dialogResult = modWindow.ShowDialog();
@@ -1010,9 +1213,10 @@ namespace AppUI.ViewModels
         /// </summary>
         public void AutoSortBasedOnCategory()
         {
-            List<InstalledModViewModel> sortedList = ModList.OrderBy(s => ModLoadOrder.Get(ResourceHelper.ModCategoryTranslations[s.Category]))
-                                                            .ThenBy(m => m.Name)
-                                                            .ToList();
+            List<InstalledModViewModel> sortedList = ModList
+                .OrderBy(s => ModLoadOrder.Get(ResourceHelper.ModCategoryTranslations[s.Category]))
+                .ThenBy(m => m.Name)
+                .ToList();
 
             // loop over and check mod info for ordering of before/after other mods
             foreach (var installedMod in sortedList.ToList())
@@ -1049,7 +1253,7 @@ namespace AppUI.ViewModels
                 foreach (Guid before in info.OrderBefore)
                 {
                     // always find current mod IDs so we don't move wrong mod due to movement
-                    int modBefore = sortedList.FindIndex(m => m.InstallInfo.ModID.Equals(before));               
+                    int modBefore = sortedList.FindIndex(m => m.InstallInfo.ModID.Equals(before));
 
                     if (modBefore == -1)
                     {
@@ -1093,12 +1297,22 @@ namespace AppUI.ViewModels
                     switch (inst.UpdateType)
                     {
                         case UpdateType.Notify:
-                            Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.NewVersionOfModAvailable), cat.Name)));
+                            Sys.Message(
+                                new WMessage(
+                                    string.Format(
+                                        ResourceHelper.Get(StringKey.NewVersionOfModAvailable),
+                                        cat.Name
+                                    )
+                                )
+                            );
                             Sys.PingInfoChange(inst.ModID);
                             break;
 
                         case UpdateType.Install:
-                            if (Sys.GetStatus(cat.ID) != ModStatus.Downloading && Sys.GetStatus(cat.ID) != ModStatus.Updating)
+                            if (
+                                Sys.GetStatus(cat.ID) != ModStatus.Downloading
+                                && Sys.GetStatus(cat.ID) != ModStatus.Updating
+                            )
                             {
                                 Install.DownloadAndInstall(cat, true);
                             }

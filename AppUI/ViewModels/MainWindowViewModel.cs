@@ -1,11 +1,4 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Classes.Themes;
-using AppUI.ViewModels;
-using AppUI.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,13 +8,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using AppCore;
+using AppUI.Classes;
+using AppUI.Classes.Themes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
     enum TabIndex
     {
         MyMods,
-        BrowseCatalog
+        BrowseCatalog,
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -83,7 +83,7 @@ namespace AppUI.ViewModels
             ResourceHelper.Get(StringKey.AppHint40),
             ResourceHelper.Get(StringKey.AppHint41),
             ResourceHelper.Get(StringKey.AppHint42),
-            ResourceHelper.Get(StringKey.AppHint43)
+            ResourceHelper.Get(StringKey.AppHint43),
         };
 
         private string _catFile;
@@ -111,7 +111,6 @@ namespace AppUI.ViewModels
         private bool _previewIgnoreModUpdatesChecked;
         private Visibility _modUpdateMenuVisibility;
 
-
         public MyModsViewModel MyMods { get; set; }
 
         public CatalogViewModel CatalogMods { get; set; }
@@ -132,10 +131,7 @@ namespace AppUI.ViewModels
 
         public string SearchText
         {
-            get
-            {
-                return _searchText;
-            }
+            get { return _searchText; }
             set
             {
                 _searchText = value;
@@ -143,16 +139,14 @@ namespace AppUI.ViewModels
             }
         }
 
-        public Visibility LanguageFilterButtonVisibility => GameLauncher.IsLanguageSelectorSupportedEdition()
-            ? Visibility.Visible
-            : Visibility.Collapsed;
+        public Visibility LanguageFilterButtonVisibility =>
+            GameLauncher.IsLanguageSelectorSupportedEdition()
+                ? Visibility.Visible
+                : Visibility.Collapsed;
 
         public int SelectedTabIndex
         {
-            get
-            {
-                return _selectedTabIndex;
-            }
+            get { return _selectedTabIndex; }
             set
             {
                 if (_selectedTabIndex != value)
@@ -165,7 +159,10 @@ namespace AppUI.ViewModels
 
                     if ((TabIndex)_selectedTabIndex == TabIndex.MyMods)
                     {
-                        if (CatalogMods.PreviousSearchText != MyMods.PreviousSearchText || MyMods.HasPreviousCategoriesOrTags)
+                        if (
+                            CatalogMods.PreviousSearchText != MyMods.PreviousSearchText
+                            || MyMods.HasPreviousCategoriesOrTags
+                        )
                         {
                             SearchText = "";
                             DoSearch();
@@ -176,7 +173,10 @@ namespace AppUI.ViewModels
                     }
                     else
                     {
-                        if (MyMods.PreviousSearchText != CatalogMods.PreviousSearchText || CatalogMods.HasPreviousCategoriesOrTags)
+                        if (
+                            MyMods.PreviousSearchText != CatalogMods.PreviousSearchText
+                            || CatalogMods.HasPreviousCategoriesOrTags
+                        )
                         {
                             SearchText = "";
                             DoSearch();
@@ -191,10 +191,7 @@ namespace AppUI.ViewModels
 
         public string StatusMessage
         {
-            get
-            {
-                return _statusMessage;
-            }
+            get { return _statusMessage; }
             set
             {
                 _statusMessage = value;
@@ -205,10 +202,7 @@ namespace AppUI.ViewModels
 
         public string CurrentProfile
         {
-            get
-            {
-                return _currentProfile;
-            }
+            get { return _currentProfile; }
             set
             {
                 _currentProfile = value;
@@ -221,7 +215,9 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return string.IsNullOrEmpty(_ffnxUpdateVersion) ? string.Empty : $"[{ResourceHelper.Get(StringKey.UpdateAvailable)}: FFNx v{_ffnxUpdateVersion}]";
+                return string.IsNullOrEmpty(_ffnxUpdateVersion)
+                    ? string.Empty
+                    : $"[{ResourceHelper.Get(StringKey.UpdateAvailable)}: FFNx v{_ffnxUpdateVersion}]";
             }
             set
             {
@@ -233,10 +229,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModAuthor
         {
-            get
-            {
-                return _previewModAuthor;
-            }
+            get { return _previewModAuthor; }
             set
             {
                 _previewModAuthor = value;
@@ -246,10 +239,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModName
         {
-            get
-            {
-                return _previewModName;
-            }
+            get { return _previewModName; }
             set
             {
                 _previewModName = value;
@@ -259,10 +249,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModVersion
         {
-            get
-            {
-                return _previewModVersion;
-            }
+            get { return _previewModVersion; }
             set
             {
                 _previewModVersion = value;
@@ -272,10 +259,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModReleaseDate
         {
-            get
-            {
-                return _previewModReleaseDate;
-            }
+            get { return _previewModReleaseDate; }
             set
             {
                 _previewModReleaseDate = value;
@@ -285,10 +269,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModReleaseNotes
         {
-            get
-            {
-                return _previewModReleaseNotes;
-            }
+            get { return _previewModReleaseNotes; }
             set
             {
                 _previewModReleaseNotes = value;
@@ -298,10 +279,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModCategory
         {
-            get
-            {
-                return _previewModCategory;
-            }
+            get { return _previewModCategory; }
             set
             {
                 _previewModCategory = value;
@@ -311,10 +289,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModDescription
         {
-            get
-            {
-                return _previewModDescription;
-            }
+            get { return _previewModDescription; }
             set
             {
                 _previewModDescription = value;
@@ -324,10 +299,7 @@ namespace AppUI.ViewModels
 
         public string PreviewModLink
         {
-            get
-            {
-                return _previewModLink;
-            }
+            get { return _previewModLink; }
             set
             {
                 _previewModLink = value;
@@ -338,10 +310,7 @@ namespace AppUI.ViewModels
 
         public string PreviewDonationModLink
         {
-            get
-            {
-                return _previewDonationModLink;
-            }
+            get { return _previewDonationModLink; }
             set
             {
                 _previewDonationModLink = value;
@@ -352,26 +321,17 @@ namespace AppUI.ViewModels
 
         public bool PreviewModHasLink
         {
-            get
-            {
-                return !string.IsNullOrEmpty(PreviewModLink);
-            }
+            get { return !string.IsNullOrEmpty(PreviewModLink); }
         }
 
         public bool PreviewDonationModHasLink
         {
-            get
-            {
-                return !string.IsNullOrEmpty(PreviewDonationModLink);
-            }
+            get { return !string.IsNullOrEmpty(PreviewDonationModLink); }
         }
 
         public bool PreviewModHasReadMe
         {
-            get
-            {
-                return _previewModHasReadMe;
-            }
+            get { return _previewModHasReadMe; }
             set
             {
                 _previewModHasReadMe = value;
@@ -381,10 +341,7 @@ namespace AppUI.ViewModels
 
         public bool PreviewIsNotifyAboutUpdatesChecked
         {
-            get
-            {
-                return _previewIsNotifyAboutUpdatesChecked;
-            }
+            get { return _previewIsNotifyAboutUpdatesChecked; }
             set
             {
                 if (_previewIsNotifyAboutUpdatesChecked != value)
@@ -398,10 +355,7 @@ namespace AppUI.ViewModels
 
         public bool PreviewIsAutoUpdateModsChecked
         {
-            get
-            {
-                return _previewIsAutoUpdateModsChecked;
-            }
+            get { return _previewIsAutoUpdateModsChecked; }
             set
             {
                 if (_previewIsAutoUpdateModsChecked != value)
@@ -415,10 +369,7 @@ namespace AppUI.ViewModels
 
         public bool PreviewIgnoreModUpdatesChecked
         {
-            get
-            {
-                return _previewIgnoreModUpdatesChecked;
-            }
+            get { return _previewIgnoreModUpdatesChecked; }
             set
             {
                 if (_previewIgnoreModUpdatesChecked != value)
@@ -432,10 +383,7 @@ namespace AppUI.ViewModels
 
         public Visibility ModUpdateMenuVisibility
         {
-            get
-            {
-                return _modUpdateMenuVisibility;
-            }
+            get { return _modUpdateMenuVisibility; }
             set
             {
                 if (_modUpdateMenuVisibility != value)
@@ -507,10 +455,7 @@ namespace AppUI.ViewModels
 
         public Uri PreviewModImageSource
         {
-            get
-            {
-                return _previewModImageSource;
-            }
+            get { return _previewModImageSource; }
             set
             {
                 if (_previewModImageSource == null || !_previewModImageSource.Equals(value))
@@ -541,7 +486,13 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return AvailableFilters.Where(c => c.FilterType == FilterItemType.Category && c.IsChecked && c.Name != ShowAllText).ToList();
+                return AvailableFilters
+                    .Where(c =>
+                        c.FilterType == FilterItemType.Category
+                        && c.IsChecked
+                        && c.Name != ShowAllText
+                    )
+                    .ToList();
             }
         }
 
@@ -549,16 +500,17 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return AvailableFilters.Where(c => c.FilterType == FilterItemType.Tag && c.IsChecked && c.Name != ShowAllText).ToList();
+                return AvailableFilters
+                    .Where(c =>
+                        c.FilterType == FilterItemType.Tag && c.IsChecked && c.Name != ShowAllText
+                    )
+                    .ToList();
             }
         }
 
         public Visibility LoadingGifVisibility
         {
-            get
-            {
-                return _loadingGifVisibility;
-            }
+            get { return _loadingGifVisibility; }
             set
             {
                 if (_loadingGifVisibility != value)
@@ -571,10 +523,7 @@ namespace AppUI.ViewModels
 
         public Visibility NoImageTextVisibility
         {
-            get
-            {
-                return _noImageTextVisibility;
-            }
+            get { return _noImageTextVisibility; }
             set
             {
                 if (_noImageTextVisibility != value)
@@ -587,10 +536,7 @@ namespace AppUI.ViewModels
 
         public bool IsFlashingStatus
         {
-            get
-            {
-                return _isFlashingStatus;
-            }
+            get { return _isFlashingStatus; }
             set
             {
                 _isFlashingStatus = value;
@@ -611,18 +557,12 @@ namespace AppUI.ViewModels
 
         public bool IsPlayButtonEnabled
         {
-            get
-            {
-                return !IsGameLaunching;
-            }
+            get { return !IsGameLaunching; }
         }
 
         public bool IsPlayToggleButtonEnabled
         {
-            get
-            {
-                return !IsGameLaunching && _isPlayToggleButtonEnabled;
-            }
+            get { return !IsGameLaunching && _isPlayToggleButtonEnabled; }
             set
             {
                 _isPlayToggleButtonEnabled = value;
@@ -632,10 +572,7 @@ namespace AppUI.ViewModels
 
         public bool IsGameLaunching
         {
-            get
-            {
-                return _isGameLaunching;
-            }
+            get { return _isGameLaunching; }
             private set
             {
                 _isGameLaunching = value;
@@ -645,13 +582,12 @@ namespace AppUI.ViewModels
             }
         }
 
-
         #endregion
 
         private UpdateChecker updater = new UpdateChecker();
         private FFNxDriverUpdater ffnxUpdater = new FFNxDriverUpdater();
         private ReShadeUpdater reShadeUpdater = new ReShadeUpdater();
-        
+
         public MainWindowViewModel()
         {
             SearchText = "";
@@ -666,7 +602,6 @@ namespace AppUI.ViewModels
 
             LoadingGifVisibility = Visibility.Hidden;
         }
-
 
         /// <summary>
         /// Initializes the view model and initializes other files/profiles to be used in the app
@@ -686,7 +621,6 @@ namespace AppUI.ViewModels
 
             Sys.InitLoaderContext();
 
-
             ThemeSettingsViewModel.LoadThemeFromFile();
             ITheme themeSettings = ThemeSettingsViewModel.GetThemeSettingsFromFile();
 
@@ -694,9 +628,15 @@ namespace AppUI.ViewModels
             {
                 try
                 {
-                    byte[] imageBytes = Convert.FromBase64String(themeSettings.BackgroundImageBase64);
+                    byte[] imageBytes = Convert.FromBase64String(
+                        themeSettings.BackgroundImageBase64
+                    );
                     UpdateBackgroundImage(imageBytes);
-                    UpdateBackgroundProps(themeSettings.BackgroundHorizontalAlignment, themeSettings.BackgroundVerticalAlignment, themeSettings.BackgroundStretch);
+                    UpdateBackgroundProps(
+                        themeSettings.BackgroundHorizontalAlignment,
+                        themeSettings.BackgroundVerticalAlignment,
+                        themeSettings.BackgroundStretch
+                    );
                 }
                 catch (Exception e)
                 {
@@ -720,9 +660,15 @@ namespace AppUI.ViewModels
                 IEnumerable<string> errors = Sys.Settings.VerifySettings();
                 if (errors.Any())
                 {
-                    string msg = $"{ResourceHelper.Get(StringKey.FollowingErrorsFoundInConfiguration)}\n" + string.Join("\n", errors);
+                    string msg =
+                        $"{ResourceHelper.Get(StringKey.FollowingErrorsFoundInConfiguration)}\n"
+                        + string.Join("\n", errors);
                     Logger.Warn(msg);
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.ErrorsFoundInGeneralSettingsViewAppLog)));
+                    Sys.Message(
+                        new WMessage(
+                            ResourceHelper.Get(StringKey.ErrorsFoundInGeneralSettingsViewAppLog)
+                        )
+                    );
                     showSettings = true;
                 }
             }
@@ -741,28 +687,25 @@ namespace AppUI.ViewModels
 
             Sys.TryAutoImportModsAsync();
 
-
             CatalogMods.RefreshListRequested += CatalogList_RefreshRequested;
             MyMods.RefreshListRequested += ModList_RefreshRequested;
 
-
             CatalogMods.ReloadModList();
             CatalogMods.CheckForCatalogUpdatesAsync();
-
 
             ReloadAvailableFilters();
 
             // this deletes any temp images that were extracted from IRO archives
             // ... the temp images are used for the configure mod window
-            // ... the app does not release the file lock on the images at runtime of the app so 
+            // ... the app does not release the file lock on the images at runtime of the app so
             // ... this will ensure the images from last app session are deleted
             ConfigureModViewModel.DeleteTempConfigModFolder();
 
             Sys.AppVersion = App.GetAppVersion();
-            StatusMessage = $"{App.GetAppName()} v{Sys.AppVersion.ToString()} {ResourceHelper.Get(StringKey.StartedClickHereToViewAppLog)}  |  {ResourceHelper.Get(StringKey.HintLabel)} {GetRandomHint()}";
+            StatusMessage =
+                $"{App.GetAppName()} v{Sys.AppVersion.ToString()} {ResourceHelper.Get(StringKey.StartedClickHereToViewAppLog)}  |  {ResourceHelper.Get(StringKey.HintLabel)} {GetRandomHint()}";
 
             MyMods.ScanForModUpdates();
-
 
             // enable ds4 support on init - starts the service that treats ds4 controlers as xbox360/xinput device
             if (Sys.Settings.GameLaunchSettings.EnablePs4ControllerService)
@@ -788,9 +731,16 @@ namespace AppUI.ViewModels
                 Task.Factory.StartNew(() =>
                 {
                     System.Threading.Thread.Sleep(5000); // wait 5 seconds after init before checking for update to let UI render
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.CheckingForUpdates), WMessageLogLevel.LogOnly));
-                    if (updater.GetCurrentAppVersion() != "0.0.0.0") updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
-                    if (ffnxUpdater.GetCurrentDriverVersion() != "0.0.0.0") ffnxUpdater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
+                    Sys.Message(
+                        new WMessage(
+                            ResourceHelper.Get(StringKey.CheckingForUpdates),
+                            WMessageLogLevel.LogOnly
+                        )
+                    );
+                    if (updater.GetCurrentAppVersion() != "0.0.0.0")
+                        updater.CheckForUpdates(Sys.Settings.AppUpdateChannel);
+                    if (ffnxUpdater.GetCurrentDriverVersion() != "0.0.0.0")
+                        ffnxUpdater.CheckForUpdates(Sys.Settings.FFNxUpdateChannel);
                 });
             }
 
@@ -804,7 +754,17 @@ namespace AppUI.ViewModels
             Exception FFNxConfigError = Sys.FFNxConfig.GetLastError();
             if (FFNxConfigError != null)
             {
-                MessageDialogWindow.Show("Something went wrong while parsing \"" + Sys.PathToFFNxToml + "\".\n\n" + Encoding.UTF8.GetString(Encoding.Default.GetBytes(FFNxConfigError.Message)), "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    "Something went wrong while parsing \""
+                        + Sys.PathToFFNxToml
+                        + "\".\n\n"
+                        + Encoding.UTF8.GetString(
+                            Encoding.Default.GetBytes(FFNxConfigError.Message)
+                        ),
+                    "Error",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error
+                );
             }
 
             // Cleanup the library temp folder if it exist
@@ -840,9 +800,18 @@ namespace AppUI.ViewModels
             {
                 if (MyMods.GetSelectedMod() != null)
                 {
-                    string relativePath = MyMods.GetSelectedMod()?.InstallInfo?.LatestInstalled?.InstalledLocation ?? "";
-                    string pathToSelectedMod = Path.Combine(Sys.Settings.LibraryLocation, relativePath);
-                    if (Directory.Exists(pathToSelectedMod) && File.Exists(Path.Combine(pathToSelectedMod, "mod.xml")))
+                    string relativePath = MyMods
+                        .GetSelectedMod()
+                        ?.InstallInfo?.LatestInstalled?.InstalledLocation
+                        ?? "";
+                    string pathToSelectedMod = Path.Combine(
+                        Sys.Settings.LibraryLocation,
+                        relativePath
+                    );
+                    if (
+                        Directory.Exists(pathToSelectedMod)
+                        && File.Exists(Path.Combine(pathToSelectedMod, "mod.xml"))
+                    )
                     {
                         // Set the preview image to null before doing a refresh because the mod.xml will be re-parsed and the image cache may get updated with a new image
                         // ... setting to null will prevent IOException due to file being in use
@@ -854,9 +823,18 @@ namespace AppUI.ViewModels
             {
                 if (MyMods.GetSelectedMod() != null)
                 {
-                    string relativePath = MyMods.GetSelectedMod()?.InstallInfo?.LatestInstalled?.InstalledLocation ?? "";
-                    string pathToSelectedMod = Path.Combine(Sys.Settings.LibraryLocation, relativePath);
-                    if (Directory.Exists(pathToSelectedMod) && File.Exists(Path.Combine(pathToSelectedMod, "mod.xml")))
+                    string relativePath = MyMods
+                        .GetSelectedMod()
+                        ?.InstallInfo?.LatestInstalled?.InstalledLocation
+                        ?? "";
+                    string pathToSelectedMod = Path.Combine(
+                        Sys.Settings.LibraryLocation,
+                        relativePath
+                    );
+                    if (
+                        Directory.Exists(pathToSelectedMod)
+                        && File.Exists(Path.Combine(pathToSelectedMod, "mod.xml"))
+                    )
                     {
                         // ensure the mod preview is reloaded so the new preview image and other info is displayed if the currently selected mod is installed via folder format
                         UpdateModPreviewInfo(MyMods.GetSelectedMod(), forceUpdate: true);
@@ -872,7 +850,10 @@ namespace AppUI.ViewModels
             }
         }
 
-        private void CatalogViewModel_SelectedModChanged(object sender, CatalogModItemViewModel selected)
+        private void CatalogViewModel_SelectedModChanged(
+            object sender,
+            CatalogModItemViewModel selected
+        )
         {
             if ((TabIndex)SelectedTabIndex == TabIndex.BrowseCatalog)
             {
@@ -903,21 +884,33 @@ namespace AppUI.ViewModels
                 InstalledItem mod = Sys.Library.GetItem(e.ModID);
                 string mfile = mod.LatestInstalled.InstalledLocation;
                 InstalledItem.RemoveFromInfoCache(mfile);
-                MyMods.ReloadModListFromUIThread(MyMods.GetSelectedMod()?.InstallInfo.ModID, SearchText, CheckedCategories, CheckedTags);
+                MyMods.ReloadModListFromUIThread(
+                    MyMods.GetSelectedMod()?.InstallInfo.ModID,
+                    SearchText,
+                    CheckedCategories,
+                    CheckedTags
+                );
             }
 
-            if (e.Status == ModStatus.Installed && e.OldStatus != ModStatus.Installed && Sys.Settings.HasOption(GeneralOptions.AutoActiveNewMods))
+            if (
+                e.Status == ModStatus.Installed
+                && e.OldStatus != ModStatus.Installed
+                && Sys.Settings.HasOption(GeneralOptions.AutoActiveNewMods)
+            )
             {
                 if (Sys.ActiveProfile.Items.Any(i => i.ModID.Equals(e.ModID) && !i.IsModActive))
                 {
                     MyMods.ToggleActivateMod(e.ModID);
                 }
             }
-            if (e.OldStatus == ModStatus.Installed && e.Status == ModStatus.NotInstalled && Sys.ActiveProfile.Items.Any(i => i.ModID.Equals(e.ModID) && !i.IsModActive))
+            if (
+                e.OldStatus == ModStatus.Installed
+                && e.Status == ModStatus.NotInstalled
+                && Sys.ActiveProfile.Items.Any(i => i.ModID.Equals(e.ModID) && !i.IsModActive)
+            )
             {
                 MyMods.ToggleActivateMod(e.ModID);
             }
-
 
             if (e.Status == ModStatus.InfoChanged)
             {
@@ -941,7 +934,6 @@ namespace AppUI.ViewModels
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -1010,13 +1002,20 @@ namespace AppUI.ViewModels
 
             ModUpdateMenuVisibility = Visibility.Visible;
             PreviewIsAutoUpdateModsChecked = selected.InstallInfo?.UpdateType == UpdateType.Install;
-            PreviewIsNotifyAboutUpdatesChecked = selected.InstallInfo?.UpdateType == UpdateType.Notify;
+            PreviewIsNotifyAboutUpdatesChecked =
+                selected.InstallInfo?.UpdateType == UpdateType.Notify;
             PreviewIgnoreModUpdatesChecked = selected.InstallInfo?.UpdateType == UpdateType.Ignore;
 
-
-            if (!string.IsNullOrWhiteSpace(selected.InstallInfo.CachedDetails.LatestVersion.PreviewImage))
+            if (
+                !string.IsNullOrWhiteSpace(
+                    selected.InstallInfo.CachedDetails.LatestVersion.PreviewImage
+                )
+            )
             {
-                string pathToImage = Sys.ImageCache.GetImagePath(selected.InstallInfo.CachedDetails.LatestVersion.PreviewImage, selected.InstallInfo.CachedDetails.ID);
+                string pathToImage = Sys.ImageCache.GetImagePath(
+                    selected.InstallInfo.CachedDetails.LatestVersion.PreviewImage,
+                    selected.InstallInfo.CachedDetails.ID
+                );
                 SetPreviewImage(pathToImage, forceUpdate);
             }
             else
@@ -1028,7 +1027,10 @@ namespace AppUI.ViewModels
             }
         }
 
-        private void UpdateModPreviewInfo(CatalogModItemViewModel selected, bool forceUpdate = false)
+        private void UpdateModPreviewInfo(
+            CatalogModItemViewModel selected,
+            bool forceUpdate = false
+        )
         {
             if (selected == null)
             {
@@ -1061,7 +1063,10 @@ namespace AppUI.ViewModels
 
             ModUpdateMenuVisibility = Visibility.Collapsed; // do not display the 'update avaialble' menu on catalog mods
 
-            string pathToImage = Sys.ImageCache.GetImagePath(selected.Mod.LatestVersion.PreviewImage, selected.Mod.ID);
+            string pathToImage = Sys.ImageCache.GetImagePath(
+                selected.Mod.LatestVersion.PreviewImage,
+                selected.Mod.ID
+            );
 
             SetPreviewImage(pathToImage, forceUpdate);
         }
@@ -1088,7 +1093,10 @@ namespace AppUI.ViewModels
 
             Directory.CreateDirectory(Path.Combine(Sys.SysFolder, "profiles"));
 
-            if (!String.IsNullOrWhiteSpace(Sys.Settings.CurrentProfile) && File.Exists(Sys.PathToCurrentProfileFile))
+            if (
+                !String.IsNullOrWhiteSpace(Sys.Settings.CurrentProfile)
+                && File.Exists(Sys.PathToCurrentProfileFile)
+            )
             {
                 try
                 {
@@ -1098,7 +1106,9 @@ namespace AppUI.ViewModels
                 catch (Exception e)
                 {
                     Logger.Warn(e);
-                    Logger.Warn("Failed to load current profile xml ... Setting current profile to null");
+                    Logger.Warn(
+                        "Failed to load current profile xml ... Setting current profile to null"
+                    );
                     Sys.Settings.CurrentProfile = null;
                 }
             }
@@ -1125,7 +1135,6 @@ namespace AppUI.ViewModels
 
             CurrentProfile = Sys.Settings.CurrentProfile;
 
-
             // reload list of active mods for the profile
             MyMods.ClearModList();
             MyMods.ReloadModList(null, SearchText, CheckedCategories, CheckedTags);
@@ -1143,7 +1152,9 @@ namespace AppUI.ViewModels
 
             try
             {
-                using (FileStream fs = new FileStream(Sys.PathToCurrentProfileFile, FileMode.Create))
+                using (
+                    FileStream fs = new FileStream(Sys.PathToCurrentProfileFile, FileMode.Create)
+                )
                 {
                     Util.Serialize(Sys.ActiveProfile, fs);
                 }
@@ -1169,7 +1180,10 @@ namespace AppUI.ViewModels
             else if (e.Message.TextTranslationKey.HasValue)
             {
                 // replace key in existing string with translated text
-                receivedMessage = receivedMessage.Replace($"[{e.Message.TextTranslationKey}]", ResourceHelper.Get(e.Message.TextTranslationKey.Value));
+                receivedMessage = receivedMessage.Replace(
+                    $"[{e.Message.TextTranslationKey}]",
+                    ResourceHelper.Get(e.Message.TextTranslationKey.Value)
+                );
             }
 
             // log message to app log or status bar
@@ -1241,7 +1255,12 @@ namespace AppUI.ViewModels
             bool hasCode = false;
             var modInfo = mod.GetModInfo();
 
-            if (!GameLanguage.IsSupportedBy(modInfo?.GameLanguages, GameLauncher.GetSelectedGameLanguage()))
+            if (
+                !GameLanguage.IsSupportedBy(
+                    modInfo?.GameLanguages,
+                    GameLauncher.GetSelectedGameLanguage()
+                )
+            )
             {
                 return false;
             }
@@ -1254,16 +1273,20 @@ namespace AppUI.ViewModels
                 hasCode |= modInfo.LoadPrograms.Any();
             }
 
-            if (!hasCode) return true;
-
+            if (!hasCode)
+                return true;
 
             // invoke the message on the Dispatcher UI Thread since this could be called from background threads
             return App.Current.Dispatcher.Invoke(() =>
             {
-                string msg = String.Format(ResourceHelper.Get(StringKey.ThisModContainsDataThatCouldHarm), mod.CachedDetails.Name);
+                string msg = String.Format(
+                    ResourceHelper.Get(StringKey.ThisModContainsDataThatCouldHarm),
+                    mod.CachedDetails.Name
+                );
 
                 AllowModToRunWindow warningWindow = new AllowModToRunWindow(msg);
-                return warningWindow.ShowDialog() == true && warningWindow.ViewModel.YesRadioButtonIsChecked;
+                return warningWindow.ShowDialog() == true
+                    && warningWindow.ViewModel.YesRadioButtonIsChecked;
             });
         }
 
@@ -1278,12 +1301,22 @@ namespace AppUI.ViewModels
             if ((TabIndex)SelectedTabIndex == TabIndex.BrowseCatalog)
             {
                 CatalogMods.ClearRememberedSearchTextAndCategories();
-                CatalogMods.ReloadModList(CatalogMods.GetSelectedMod()?.Mod?.ID, SearchText, CheckedCategories, CheckedTags);
+                CatalogMods.ReloadModList(
+                    CatalogMods.GetSelectedMod()?.Mod?.ID,
+                    SearchText,
+                    CheckedCategories,
+                    CheckedTags
+                );
             }
             else
             {
                 MyMods.ClearRememberedSearchTextAndCategories();
-                MyMods.ReloadModList(MyMods.GetSelectedMod()?.InstallInfo?.ModID, SearchText, CheckedCategories, CheckedTags);
+                MyMods.ReloadModList(
+                    MyMods.GetSelectedMod()?.InstallInfo?.ModID,
+                    SearchText,
+                    CheckedCategories,
+                    CheckedTags
+                );
             }
 
             ReloadAvailableFilters();
@@ -1310,7 +1343,6 @@ namespace AppUI.ViewModels
             {
                 Logger.Error(e);
             }
-
         }
 
         internal void OpenDonationModLink()
@@ -1334,7 +1366,6 @@ namespace AppUI.ViewModels
             {
                 Logger.Error(e);
             }
-
         }
 
         /// <summary>
@@ -1394,7 +1425,13 @@ namespace AppUI.ViewModels
             {
                 using (Stream s = inst.GetData(tempFileName))
                 {
-                    using (FileStream tempFile = new FileStream(pathToTempFile, FileMode.Create, FileAccess.Write))
+                    using (
+                        FileStream tempFile = new FileStream(
+                            pathToTempFile,
+                            FileMode.Create,
+                            FileAccess.Write
+                        )
+                    )
                     {
                         s.CopyTo(tempFile);
                     }
@@ -1411,15 +1448,18 @@ namespace AppUI.ViewModels
                 Logger.Error(e, "failed to open readme");
                 return;
             }
-
         }
 
         /// <summary>
-        /// sets IsChecked to value of <paramref name="isChecked"/> for all items in <paramref name="filterItems"/> except for the 'Show All' category 
+        /// sets IsChecked to value of <paramref name="isChecked"/> for all items in <paramref name="filterItems"/> except for the 'Show All' category
         /// </summary>
         private void ToggleIsCheckedForAll(bool isChecked, List<FilterItemViewModel> filterItems)
         {
-            foreach (var item in filterItems.Where(c => c.Name != ShowAllText && c.FilterType != FilterItemType.Separator).ToList())
+            foreach (
+                var item in filterItems
+                    .Where(c => c.Name != ShowAllText && c.FilterType != FilterItemType.Separator)
+                    .ToList()
+            )
             {
                 item.IsChecked = isChecked;
             }
@@ -1437,7 +1477,13 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            item.SetIsChecked(filterItems.Where(cat => cat.Name != ShowAllText && cat.FilterType != FilterItemType.Separator).All(cat => cat.IsChecked));
+            item.SetIsChecked(
+                filterItems
+                    .Where(cat =>
+                        cat.Name != ShowAllText && cat.FilterType != FilterItemType.Separator
+                    )
+                    .All(cat => cat.IsChecked)
+            );
         }
 
         internal List<string> GetTagsForSelectedTab()
@@ -1446,30 +1492,40 @@ namespace AppUI.ViewModels
 
             if ((TabIndex)SelectedTabIndex == TabIndex.BrowseCatalog)
             {
-                foreach (List<string> modTags in Sys.Catalog.Mods.Where(c => c.Tags.Count > 0).Select(c => c.Tags))
+                foreach (
+                    List<string> modTags in Sys
+                        .Catalog.Mods.Where(c => c.Tags.Count > 0)
+                        .Select(c => c.Tags)
+                )
                 {
                     tags.AddRange(modTags);
                 }
 
                 // include the name of the catalogs as a tag
-                List<string> catalogNames = Sys.Catalog.Mods.Where(m => !string.IsNullOrWhiteSpace(m.SourceCatalogName))
-                                                            .Select(m => m.SourceCatalogName)
-                                                            .Distinct().ToList();
+                List<string> catalogNames = Sys
+                    .Catalog.Mods.Where(m => !string.IsNullOrWhiteSpace(m.SourceCatalogName))
+                    .Select(m => m.SourceCatalogName)
+                    .Distinct()
+                    .ToList();
 
                 tags.AddRange(catalogNames);
             }
             else
             {
-                foreach (List<string> modTags in Sys.Library.Items.Where(m => m.CachedDetails.Tags.Count > 0).Select(m => m.CachedDetails.Tags))
+                foreach (
+                    List<string> modTags in Sys
+                        .Library.Items.Where(m => m.CachedDetails.Tags.Count > 0)
+                        .Select(m => m.CachedDetails.Tags)
+                )
                 {
                     tags.AddRange(modTags);
                 }
             }
 
             tags = tags.Select(s => $"{s.Substring(0, 1).ToUpper()}{s.Substring(1)}") // make Tag display as proper case e.g. 'My tag' intead of 'my tag'
-                       .Distinct(StringComparer.CurrentCultureIgnoreCase)
-                       .OrderBy(s => s)
-                       .ToList();
+                .Distinct(StringComparer.CurrentCultureIgnoreCase)
+                .OrderBy(s => s)
+                .ToList();
 
             return tags;
         }
@@ -1480,25 +1536,27 @@ namespace AppUI.ViewModels
 
             if ((TabIndex)SelectedTabIndex == TabIndex.BrowseCatalog)
             {
-                categories = Sys.Catalog.Mods.Select(c =>
-                                                {
-                                                    if (string.IsNullOrEmpty(c.Category))
-                                                        return UnknownText;
+                categories = Sys
+                    .Catalog.Mods.Select(c =>
+                    {
+                        if (string.IsNullOrEmpty(c.Category))
+                            return UnknownText;
 
-                                                    return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(c.Category));
-                                                })
-                                             .ToList();
+                        return ResourceHelper.Get(ModLoadOrder.GetCategoryKey(c.Category));
+                    })
+                    .ToList();
             }
             else
             {
-                categories = MyMods.ModList.Select(c =>
-                                                {
-                                                    if (string.IsNullOrEmpty(c.Category))
-                                                        return UnknownText;
+                categories = MyMods
+                    .ModList.Select(c =>
+                    {
+                        if (string.IsNullOrEmpty(c.Category))
+                            return UnknownText;
 
-                                                    return c.Category;
-                                                })
-                                           .ToList();
+                        return c.Category;
+                    })
+                    .ToList();
             }
 
             categories = categories.Distinct().OrderBy(s => s).ToList();
@@ -1517,12 +1575,22 @@ namespace AppUI.ViewModels
             if ((TabIndex)SelectedTabIndex == TabIndex.BrowseCatalog)
             {
                 CatalogMods.ClearRememberedSearchTextAndCategories();
-                CatalogMods.ReloadModList(CatalogMods.GetSelectedMod()?.Mod?.ID, SearchText, CheckedCategories, CheckedTags);
+                CatalogMods.ReloadModList(
+                    CatalogMods.GetSelectedMod()?.Mod?.ID,
+                    SearchText,
+                    CheckedCategories,
+                    CheckedTags
+                );
             }
             else
             {
                 MyMods.ClearRememberedSearchTextAndCategories();
-                MyMods.ReloadModList(MyMods.GetSelectedMod()?.InstallInfo?.ModID, SearchText, CheckedCategories, CheckedTags);
+                MyMods.ReloadModList(
+                    MyMods.GetSelectedMod()?.InstallInfo?.ModID,
+                    SearchText,
+                    CheckedCategories,
+                    CheckedTags
+                );
             }
 
             ReloadAvailableFilters(true);
@@ -1537,21 +1605,31 @@ namespace AppUI.ViewModels
             List<string> categories = GetCategoriesForSelectedTab();
             List<FilterItemViewModel> newList = new List<FilterItemViewModel>();
 
-            newList.AddRange(categories.Select(c => new FilterItemViewModel(c, FilterItemType.Category)
-            {
-                OnChecked = new Action<bool>(isChecked => CheckOrUncheckShowAllFilter(AvailableFilters))
-            }).ToList());
+            newList.AddRange(
+                categories
+                    .Select(c => new FilterItemViewModel(c, FilterItemType.Category)
+                    {
+                        OnChecked = new Action<bool>(isChecked =>
+                            CheckOrUncheckShowAllFilter(AvailableFilters)
+                        ),
+                    })
+                    .ToList()
+            );
 
             if (tags.Count > 0)
             {
                 newList.Add(new FilterItemViewModel("", FilterItemType.Separator));
 
-                newList.AddRange(tags.Select(t => new FilterItemViewModel(t, FilterItemType.Tag)
-                {
-                    OnChecked = new Action<bool>(isChecked => CheckOrUncheckShowAllFilter(AvailableFilters))
-                }).ToList());
+                newList.AddRange(
+                    tags.Select(t => new FilterItemViewModel(t, FilterItemType.Tag)
+                        {
+                            OnChecked = new Action<bool>(isChecked =>
+                                CheckOrUncheckShowAllFilter(AvailableFilters)
+                            ),
+                        })
+                        .ToList()
+                );
             }
-
 
             // re-check items
             if (recheckFilters)
@@ -1560,7 +1638,11 @@ namespace AppUI.ViewModels
 
                 foreach (FilterItemViewModel item in newList)
                 {
-                    if (oldItems.Any(c => c.Name == item.Name && c.IsChecked && c.FilterType == item.FilterType))
+                    if (
+                        oldItems.Any(c =>
+                            c.Name == item.Name && c.IsChecked && c.FilterType == item.FilterType
+                        )
+                    )
                     {
                         item.IsChecked = true;
                     }
@@ -1568,11 +1650,18 @@ namespace AppUI.ViewModels
             }
 
             // setup 'Show All' filter item as first in the list
-            bool allChecked = newList.Where(c => c.FilterType != FilterItemType.Separator).All(c => c.IsChecked);
-            FilterItemViewModel showAllItem = new FilterItemViewModel(ShowAllText, FilterItemType.ShowAll)
+            bool allChecked = newList
+                .Where(c => c.FilterType != FilterItemType.Separator)
+                .All(c => c.IsChecked);
+            FilterItemViewModel showAllItem = new FilterItemViewModel(
+                ShowAllText,
+                FilterItemType.ShowAll
+            )
             {
                 IsChecked = allChecked,
-                OnChecked = new Action<bool>(isChecked => ToggleIsCheckedForAll(isChecked, AvailableFilters))
+                OnChecked = new Action<bool>(isChecked =>
+                    ToggleIsCheckedForAll(isChecked, AvailableFilters)
+                ),
             };
             newList.Insert(0, showAllItem);
 
@@ -1584,7 +1673,9 @@ namespace AppUI.ViewModels
         /// </summary>
         internal void LaunchHelpPage()
         {
-            string helpFile = Path.Combine(new string[] { Sys._7HFolder, "Resources", "Help", "index.html" });
+            string helpFile = Path.Combine(
+                new string[] { Sys._7HFolder, "Resources", "Help", "index.html" }
+            );
 
             if (!File.Exists(helpFile))
             {
@@ -1592,10 +1683,7 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(helpFile)
-            {
-                UseShellExecute = true,
-            };
+            ProcessStartInfo startInfo = new ProcessStartInfo(helpFile) { UseShellExecute = true };
 
             Process.Start(startInfo);
         }
@@ -1611,7 +1699,11 @@ namespace AppUI.ViewModels
             return AppHints[r.Next(0, AppHints.Count)];
         }
 
-        internal void LaunchGame(bool variableDump = false, bool debugLogging = false, bool noMods = false)
+        internal void LaunchGame(
+            bool variableDump = false,
+            bool debugLogging = false,
+            bool noMods = false
+        )
         {
             IsGameLaunching = true;
             GameLauncher.Instance.LaunchCompleted += GameLauncher_LaunchCompleted;
@@ -1628,29 +1720,63 @@ namespace AppUI.ViewModels
         {
             if (LocationUtil.TryParse(irosUrl, out LocationType type, out string httpUrl))
             {
-                if (Sys.Settings.Subscriptions.Any(s => s.Url.Equals(irosUrl, StringComparison.InvariantCultureIgnoreCase)))
+                if (
+                    Sys.Settings.Subscriptions.Any(s =>
+                        s.Url.Equals(irosUrl, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                )
                 {
-                    Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.SubscriptionIsAlreadyAdded), irosUrl), true));
+                    Sys.Message(
+                        new WMessage(
+                            string.Format(
+                                ResourceHelper.Get(StringKey.SubscriptionIsAlreadyAdded),
+                                irosUrl
+                            ),
+                            true
+                        )
+                    );
                     return;
                 }
 
                 GeneralSettingsViewModel.ResolveCatalogNameFromUrl(irosUrl, name =>
                 {
-                    Sys.Settings.Subscriptions.Add(new Subscription() { Url = irosUrl, Name = name });
-                    Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.AddedToSubscriptions), irosUrl), true));
+                    Sys.Settings.Subscriptions.Add(
+                        new Subscription() { Url = irosUrl, Name = name }
+                    );
+                    Sys.Message(
+                        new WMessage(
+                            string.Format(
+                                ResourceHelper.Get(StringKey.AddedToSubscriptions),
+                                irosUrl
+                            ),
+                            true
+                        )
+                    );
 
                     CatalogMods.ForceCheckCatalogUpdateAsync();
                 });
             }
             else
             {
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.IrosLinkMayBeFormatedIncorrectly), irosUrl), WMessageLogLevel.LogOnly));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.IrosLinkMayBeFormatedIncorrectly),
+                            irosUrl
+                        ),
+                        WMessageLogLevel.LogOnly
+                    )
+                );
             }
         }
 
         private void ChangeUpdateModTypeForSelectedMod()
         {
-            if (!PreviewIsAutoUpdateModsChecked && !PreviewIgnoreModUpdatesChecked && !PreviewIsNotifyAboutUpdatesChecked)
+            if (
+                !PreviewIsAutoUpdateModsChecked
+                && !PreviewIgnoreModUpdatesChecked
+                && !PreviewIsNotifyAboutUpdatesChecked
+            )
             {
                 return; // all three options are false so skip changing the type to avoid incorrect assigning of Ignore
             }
@@ -1675,13 +1801,11 @@ namespace AppUI.ViewModels
                 {
                     selected.InstallInfo.UpdateType = updateType; // update info in viewmodel
                     libraryItem.UpdateType = updateType; // and also make sure info is updated in Sys.Library so it will be saved back to library.xml
-
                 }
 
                 NotifyPropertyChanged(nameof(UpdateModButtonText));
                 NotifyPropertyChanged(nameof(IsUpdateModButtonEnabled));
             }
-
         }
 
         internal void UpdateSelectedMod()
@@ -1724,15 +1848,23 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Warn(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToSetBackgroundImageFromTheme), true));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToSetBackgroundImageFromTheme),
+                        true
+                    )
+                );
 
                 MyMods.ThemeImage = null;
                 CatalogMods.ThemeImage = null;
             }
-
         }
 
-        internal void UpdateBackgroundProps(HorizontalAlignment horizontalAlignment = HorizontalAlignment.Center, VerticalAlignment verticalAlignment = VerticalAlignment.Center, Stretch stretch = Stretch.Uniform)
+        internal void UpdateBackgroundProps(
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment verticalAlignment = VerticalAlignment.Center,
+            Stretch stretch = Stretch.Uniform
+        )
         {
             MyMods.ThemeHorizontalAlignment = horizontalAlignment;
             MyMods.ThemeVerticalAlignment = verticalAlignment;
@@ -1761,7 +1893,9 @@ namespace AppUI.ViewModels
                 item.RaiseNotifyPropertyChangedForCategory();
             }
 
-            PreviewModCategory = ResourceHelper.Get(ModLoadOrder.GetCategoryKey(_previewMod?.Category));
+            PreviewModCategory = ResourceHelper.Get(
+                ModLoadOrder.GetCategoryKey(_previewMod?.Category)
+            );
 
             ReloadAvailableFilters();
         }
@@ -1788,7 +1922,7 @@ namespace AppUI.ViewModels
         {
             ChunkToolWindow toolWindow = new ChunkToolWindow()
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             toolWindow.ShowDialog();
         }
@@ -1800,15 +1934,21 @@ namespace AppUI.ViewModels
             FFNxUpdateChannelOptions previousFFNxUpdateChannel = Sys.Settings.FFNxUpdateChannel;
             GeneralSettingsWindow settingsWindow = new GeneralSettingsWindow()
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             bool? didSave = settingsWindow.ShowDialog();
 
             if (didSave.GetValueOrDefault(false))
             {
-                if (!string.Equals(previousGameExe, Sys.Settings.FF7Exe, StringComparison.OrdinalIgnoreCase) ||
-                    previousGameVersion != Sys.Settings.FF7InstalledVersion ||
-                    previousFFNxUpdateChannel != Sys.Settings.FFNxUpdateChannel)
+                if (
+                    !string.Equals(
+                        previousGameExe,
+                        Sys.Settings.FF7Exe,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                    || previousGameVersion != Sys.Settings.FF7InstalledVersion
+                    || previousFFNxUpdateChannel != Sys.Settings.FFNxUpdateChannel
+                )
                 {
                     FFNxUpdateVersion = null;
                 }
@@ -1829,7 +1969,10 @@ namespace AppUI.ViewModels
                     CatalogMods.ForceCheckCatalogUpdateAsync();
                 }
 
-                if (settingsWindow.ViewModel.HasChangedInstalledModUpdateTypes && SelectedTabIndex == (int)TabIndex.MyMods)
+                if (
+                    settingsWindow.ViewModel.HasChangedInstalledModUpdateTypes
+                    && SelectedTabIndex == (int)TabIndex.MyMods
+                )
                 {
                     MyMods.ScanForModUpdates();
                     UpdateModPreviewInfo(MyMods.GetSelectedMod(), true);
@@ -1841,7 +1984,7 @@ namespace AppUI.ViewModels
         {
             IroCreateWindow createWindow = new IroCreateWindow()
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             createWindow.ShowDialog();
         }
@@ -1863,12 +2006,22 @@ namespace AppUI.ViewModels
                 catch (Exception e)
                 {
                     Logger.Error(e);
-                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.PleaseUpdateFFNx), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageDialogWindow.Show(
+                        ResourceHelper.Get(StringKey.PleaseUpdateFFNx),
+                        ResourceHelper.Get(StringKey.Error),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
             else
             {
-                MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.MissingPath), ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow messageDialog = new MessageDialogWindow(
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 messageDialog.ShowDialog();
             }
         }
@@ -1877,7 +2030,12 @@ namespace AppUI.ViewModels
         {
             if (Sys.PathToFFNxToml == null || !File.Exists(Sys.PathToFFNxToml))
             {
-                MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.MissingPath), ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow messageDialog = new MessageDialogWindow(
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    ResourceHelper.Get(StringKey.FFNxTomlNotFoundRunGameFirst),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 messageDialog.ShowDialog();
                 return;
             }
@@ -1887,7 +2045,12 @@ namespace AppUI.ViewModels
             launchSettingsWindow.ShowDialog();
             MyMods.DeactivateModsUnsupportedByCurrentGameLanguage();
             CatalogMods.RefreshGameLanguageAvailability();
-            MyMods.ReloadModListFromUIThread(selectedModId, SearchText, CheckedCategories, CheckedTags);
+            MyMods.ReloadModListFromUIThread(
+                selectedModId,
+                SearchText,
+                CheckedCategories,
+                CheckedTags
+            );
         }
 
         internal void ShowCatalogCreationTool()
@@ -1897,6 +2060,5 @@ namespace AppUI.ViewModels
         }
 
         #endregion
-
     }
 }

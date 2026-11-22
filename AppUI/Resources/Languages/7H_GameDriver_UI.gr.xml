@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<ConfigSpec
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
   <!-- GRAPHICS TAB -->
   <Setting xsi:type="DropDown">
     <Group>Γραφικά</Group>
@@ -132,12 +134,12 @@
   </Setting>
 
   <Setting xsi:type="Checkbox">
-	<Group>Γραφικά</Group>
-	<Name>Vertical Uncrop</Name>
-	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
-	<DefaultValue>enable_uncrop = true</DefaultValue>
-	<TrueSetting>enable_uncrop = true</TrueSetting>
-	<FalseSetting>enable_uncrop = false</FalseSetting>
+    <Group>Γραφικά</Group>
+    <Name>Vertical Uncrop</Name>
+    <Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
+    <DefaultValue>enable_uncrop = true</DefaultValue>
+    <TrueSetting>enable_uncrop = true</TrueSetting>
+    <FalseSetting>enable_uncrop = false</FalseSetting>
   </Setting>
 
   <Setting xsi:type="Checkbox">
@@ -157,7 +159,7 @@
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="Checkbox">
     <Group>Γραφικά</Group>
     <Name>Advanced Lighting</Name>
@@ -198,7 +200,7 @@
       <Settings></Settings>
     </Option>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>Απατώ</Group>
     <Name>Γρήγορη επαναφορά</Name>
@@ -342,7 +344,7 @@
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
-	
+
   <Setting xsi:type="DropDown">
     <Group>Για προχωρημένους</Group>
     <Name>Internal Resolution Scaler</Name>
@@ -373,5 +375,4 @@
       <Settings>internal_resolution_scale = 8</Settings>
     </Option>
   </Setting>
-
 </ConfigSpec>

@@ -15,7 +15,6 @@ using System.Xml.Serialization;
 
 namespace AppWrapper
 {
-
     public class ProfileConfig
     {
         public string OptionID { get; set; }
@@ -48,17 +47,28 @@ namespace AppWrapper
 
         public bool IsConfigActive(string spec)
         {
-            if (String.IsNullOrWhiteSpace(spec)) return true;
+            if (String.IsNullOrWhiteSpace(spec))
+                return true;
 
             string[] parts = spec.Split(_comparison, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 2) return false;
-            parts = new[] { parts[0].Trim(), spec.Substring(parts[0].Length, spec.Length - parts[1].Length - parts[0].Length), parts[1].Trim() };
+            if (parts.Length != 2)
+                return false;
+            parts = new[]
+            {
+                parts[0].Trim(),
+                spec.Substring(parts[0].Length, spec.Length - parts[1].Length - parts[0].Length),
+                parts[1].Trim(),
+            };
 
-            var conf = ConfigOptions.Find(c => c.OptionID.Equals(parts[0], StringComparison.InvariantCultureIgnoreCase));
-            if (conf == null) return false;
+            var conf = ConfigOptions.Find(c =>
+                c.OptionID.Equals(parts[0], StringComparison.InvariantCultureIgnoreCase)
+            );
+            if (conf == null)
+                return false;
 
             int val;
-            if (!int.TryParse(parts[2], out val)) return false;
+            if (!int.TryParse(parts[2], out val))
+                return false;
 
             switch (_comparisonL.IndexOf(parts[1]))
             {
@@ -157,12 +167,19 @@ namespace AppWrapper
         public List<FFNxFlag> FFNxConfig { get; private set; }
         public List<Variable> Variables { get; private set; }
 
+        private HashSet<string> _activated = new HashSet<string>(
+            StringComparer.InvariantCultureIgnoreCase
+        );
 
-        private HashSet<string> _activated = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
         [NonSerialized]
         private IrosArc _archive;
 
-        public RuntimeMod(string folder, IEnumerable<ConditionalFolder> conditionalFolders, IEnumerable<string> extraFolders, ModInfo modInfo)
+        public RuntimeMod(
+            string folder,
+            IEnumerable<ConditionalFolder> conditionalFolders,
+            IEnumerable<string> extraFolders,
+            ModInfo modInfo
+        )
         {
             BaseFolder = folder;
             Conditionals = conditionalFolders.ToList();
@@ -170,19 +187,31 @@ namespace AppWrapper
 
             // A DLL may sit in any sub-folder of the mod. When that sub-folder is a ModFolder or a
             // Conditional folder, the DLL follows the folder: it is loaded only while the folder is active.
-            List<string> declaredFolders = modInfo.ModFolders.Select(f => f.Folder)
+            List<string> declaredFolders = modInfo
+                .ModFolders.Select(f => f.Folder)
                 .Concat(modInfo.Conditionals.Select(c => c.Folder))
                 .ToList();
             List<string> activeFolders = ExtraFolders
                 .Concat(Conditionals.Select(c => c.Folder))
                 .ToList();
-            LoadLibraries = KeepDllsOfActiveFolders(modInfo.LoadLibraries, declaredFolders, activeFolders);
-            LoadAssemblies = KeepDllsOfActiveFolders(modInfo.LoadAssemblies, declaredFolders, activeFolders);
-            LoadPlugins = KeepDllsOfActiveFolders(modInfo.LoadPlugins, declaredFolders, activeFolders);
+            LoadLibraries = KeepDllsOfActiveFolders(
+                modInfo.LoadLibraries,
+                declaredFolders,
+                activeFolders
+            );
+            LoadAssemblies = KeepDllsOfActiveFolders(
+                modInfo.LoadAssemblies,
+                declaredFolders,
+                activeFolders
+            );
+            LoadPlugins = KeepDllsOfActiveFolders(
+                modInfo.LoadPlugins,
+                declaredFolders,
+                activeFolders
+            );
             LoadPrograms = modInfo.LoadPrograms.ToList();
             FFNxConfig = modInfo.FFNxConfig;
             Variables = modInfo.Variables;
-
         }
 
         /// <summary>
@@ -191,7 +220,8 @@ namespace AppWrapper
         private static string NormalizeModPath(string path)
         {
             string result = (path ?? String.Empty).Trim().Replace('/', '\\');
-            while (result.StartsWith(".\\")) result = result.Substring(2);
+            while (result.StartsWith(".\\"))
+                result = result.Substring(2);
             return result.Trim('\\');
         }
 
@@ -199,17 +229,26 @@ namespace AppWrapper
         {
             string normalizedFolder = NormalizeModPath(folder);
             return normalizedFolder.Length > 0
-                && normalizedPath.StartsWith(normalizedFolder + "\\", StringComparison.InvariantCultureIgnoreCase);
+                && normalizedPath.StartsWith(
+                    normalizedFolder + "\\",
+                    StringComparison.InvariantCultureIgnoreCase
+                );
         }
 
         /// <summary>
         /// Keeps the DLLs that are outside every ModFolder/Conditional folder, and the ones inside at least one active folder.
         /// </summary>
-        private static List<string> KeepDllsOfActiveFolders(IEnumerable<string> dlls, List<string> declaredFolders, List<string> activeFolders)
+        private static List<string> KeepDllsOfActiveFolders(
+            IEnumerable<string> dlls,
+            List<string> declaredFolders,
+            List<string> activeFolders
+        )
         {
-            return dlls
-                .Select(NormalizeModPath)
-                .Where(dll => !declaredFolders.Any(f => IsInFolder(dll, f)) || activeFolders.Any(f => IsInFolder(dll, f)))
+            return dlls.Select(NormalizeModPath)
+                .Where(dll =>
+                    !declaredFolders.Any(f => IsInFolder(dll, f))
+                    || activeFolders.Any(f => IsInFolder(dll, f))
+                )
                 .ToList();
         }
 
@@ -218,7 +257,10 @@ namespace AppWrapper
         /// </summary>
         public void Startup()
         {
-            if (BaseFolder.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase) && _archive == null)
+            if (
+                BaseFolder.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase)
+                && _archive == null
+            )
             {
                 DebugLogger.WriteLine("      Loading archive " + BaseFolder);
                 _archive = new IrosArc(BaseFolder);
@@ -227,9 +269,11 @@ namespace AppWrapper
 
         private static bool SameData(byte[] b1, byte[] b2)
         {
-            if (b1.Length != b2.Length) return false;
+            if (b1.Length != b2.Length)
+                return false;
             foreach (int i in Enumerable.Range(0, b1.Length))
-                if (b1[i] != b2[i]) return false;
+                if (b1[i] != b2[i])
+                    return false;
             return true;
         }
 
@@ -243,7 +287,9 @@ namespace AppWrapper
             string full = System.IO.Path.GetFullPath(System.IO.Path.Combine(root, archivePath));
             if (!full.StartsWith(root, StringComparison.InvariantCultureIgnoreCase))
             {
-                DebugLogger.WriteLine($"      Refusing to extract {archivePath}: outside of {libpath}");
+                DebugLogger.WriteLine(
+                    $"      Refusing to extract {archivePath}: outside of {libpath}"
+                );
                 return null;
             }
             return full;
@@ -270,24 +316,38 @@ namespace AppWrapper
             }
             else
             {
-                string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string appPath = System.IO.Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location
+                );
                 string libpath = System.IO.Path.Combine(appPath, "7thWorkshop", "LoadLibTemp");
                 System.IO.Directory.CreateDirectory(libpath);
                 List<string> saved = new List<string>();
                 if (loadaside)
                 {
-                    foreach (string path in dlls.Select(s => System.IO.Path.GetDirectoryName(s)).Distinct(StringComparer.InvariantCultureIgnoreCase))
+                    foreach (
+                        string path in dlls.Select(s => System.IO.Path.GetDirectoryName(s))
+                            .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                    )
                     {
-                        foreach (string dll in _archive
-                            .AllFileNames()
-                            .Where(s => System.IO.Path.GetDirectoryName(s).Equals(path, StringComparison.InvariantCultureIgnoreCase))
-                            .Where(s => s.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase))
-                            )
+                        foreach (
+                            string dll in _archive
+                                .AllFileNames()
+                                .Where(s =>
+                                    System
+                                        .IO.Path.GetDirectoryName(s)
+                                        .Equals(path, StringComparison.InvariantCultureIgnoreCase)
+                                )
+                                .Where(s =>
+                                    s.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase)
+                                )
+                        )
                         {
                             string loc = GetExtractPath(libpath, dll);
-                            if (loc == null) continue;
+                            if (loc == null)
+                                continue;
                             WriteIfNecessary(loc, _archive.GetBytes(dll));
-                            if (dlls.Contains(dll, StringComparer.InvariantCultureIgnoreCase)) saved.Add(loc);
+                            if (dlls.Contains(dll, StringComparer.InvariantCultureIgnoreCase))
+                                saved.Add(loc);
                         }
                     }
                 }
@@ -302,7 +362,8 @@ namespace AppWrapper
                             continue;
                         }
                         string path = GetExtractPath(libpath, LL);
-                        if (path == null) continue;
+                        if (path == null)
+                            continue;
                         WriteIfNecessary(path, data);
                         saved.Add(path);
                     }
@@ -315,10 +376,12 @@ namespace AppWrapper
         {
             return GetDlls(LoadLibraries, false);
         }
+
         public IEnumerable<string> GetLoadAssemblies()
         {
             return GetDlls(LoadAssemblies, true);
         }
+
         public IEnumerable<string> GetLoadPlugins()
         {
             return GetDlls(LoadPlugins, true);
@@ -328,12 +391,16 @@ namespace AppWrapper
         {
             if (_archive == null)
             {
-                LoadPrograms.ForEach(s => s.PathToProgram = Path.Combine(BaseFolder, s.PathToProgram));
+                LoadPrograms.ForEach(s =>
+                    s.PathToProgram = Path.Combine(BaseFolder, s.PathToProgram)
+                );
                 return LoadPrograms.ToList();
             }
             else
             {
-                string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string appPath = Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location
+                );
                 string libpath = Path.Combine(appPath, "7thWorkshop", "LoadLibTemp");
                 Directory.CreateDirectory(libpath);
                 List<ProgramInfo> saved = new List<ProgramInfo>();
@@ -344,22 +411,35 @@ namespace AppWrapper
                     string dirPath = Path.GetDirectoryName(prog.PathToProgram);
 
                     // copy all dll/exe files in same directory as the Program to run
-                    foreach (string dll in _archive.AllFileNames()
-                                                   .Where(s => Path.GetDirectoryName(s).Equals(dirPath, StringComparison.InvariantCultureIgnoreCase))
-                                                   .Where(s => fileExtensions.Any(ext => s.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase))))
+                    foreach (
+                        string dll in _archive
+                            .AllFileNames()
+                            .Where(s =>
+                                Path.GetDirectoryName(s)
+                                    .Equals(dirPath, StringComparison.InvariantCultureIgnoreCase)
+                            )
+                            .Where(s =>
+                                fileExtensions.Any(ext =>
+                                    s.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase)
+                                )
+                            )
+                    )
                     {
                         string tempLibPath = GetExtractPath(libpath, dll);
-                        if (tempLibPath == null) continue;
+                        if (tempLibPath == null)
+                            continue;
                         WriteIfNecessary(tempLibPath, _archive.GetBytes(dll));
-                        saved.Add(new ProgramInfo()
-                        {
-                            PathToProgram = tempLibPath,
-                            ProgramArgs = prog.ProgramArgs,
-                            CloseAllInstances = prog.CloseAllInstances,
-                            WaitForWindowToShow = prog.WaitForWindowToShow,
-                            WaitTimeOutInSeconds = prog.WaitTimeOutInSeconds,
-                            WindowTitle = prog.WindowTitle
-                        });
+                        saved.Add(
+                            new ProgramInfo()
+                            {
+                                PathToProgram = tempLibPath,
+                                ProgramArgs = prog.ProgramArgs,
+                                CloseAllInstances = prog.CloseAllInstances,
+                                WaitForWindowToShow = prog.WaitForWindowToShow,
+                                WaitTimeOutInSeconds = prog.WaitTimeOutInSeconds,
+                                WindowTitle = prog.WindowTitle,
+                            }
+                        );
                     }
                 }
 
@@ -378,22 +458,28 @@ namespace AppWrapper
         {
             if (_archive != null)
             {
-                if (_archive.HasFolder(which)) return true;
+                if (_archive.HasFolder(which))
+                    return true;
                 foreach (string extra in ExtraFolders)
-                    if (_archive.HasFolder(extra + "\\" + which)) return true;
+                    if (_archive.HasFolder(extra + "\\" + which))
+                        return true;
                 foreach (var cf in Conditionals)
-                    if (_archive.HasFolder(cf.Folder + "\\" + which)) return true;
+                    if (_archive.HasFolder(cf.Folder + "\\" + which))
+                        return true;
             }
             else
             {
                 string file = System.IO.Path.Combine(BaseFolder, which);
-                if (DirExists(file)) return true;
+                if (DirExists(file))
+                    return true;
                 foreach (string extra in ExtraFolders)
-                    if (DirExists(System.IO.Path.Combine(BaseFolder, extra, which))) return true;
+                    if (DirExists(System.IO.Path.Combine(BaseFolder, extra, which)))
+                        return true;
                 foreach (var cf in Conditionals)
                 {
                     file = System.IO.Path.Combine(BaseFolder, cf.Folder, which);
-                    if (DirExists(file)) return true;
+                    if (DirExists(file))
+                        return true;
                 }
             }
             return false;
@@ -407,7 +493,8 @@ namespace AppWrapper
             else
             {
                 exist = System.IO.File.Exists(file);
-                if (exist) _activated.Add(file);
+                if (exist)
+                    _activated.Add(file);
             }
             //DebugLogger.DetailedWriteLine($"MOD: Check if file exists {file}: {exist}");
             return exist;
@@ -426,8 +513,11 @@ namespace AppWrapper
             if (_archive != null)
                 return _archive.GetData(file);
             else
-                return new System.IO.FileStream(System.IO.Path.Combine(BaseFolder, file), System.IO.FileMode.Open, System.IO.FileAccess.Read);
-
+                return new System.IO.FileStream(
+                    System.IO.Path.Combine(BaseFolder, file),
+                    System.IO.FileMode.Open,
+                    System.IO.FileAccess.Read
+                );
         }
 
         public IEnumerable<OverrideFile> GetOverrides(string path)
@@ -437,14 +527,38 @@ namespace AppWrapper
                 foreach (var cf in Conditionals)
                 {
                     string file = System.IO.Path.Combine(cf.Folder, path);
-                    if (_archive.HasFile(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = _archive.GetFileSize(file), Archive = _archive };
+                    if (_archive.HasFile(file))
+                        yield return new OverrideFile()
+                        {
+                            File = file,
+                            CName = path,
+                            CFolder = cf,
+                            Size = _archive.GetFileSize(file),
+                            Archive = _archive,
+                        };
                 }
                 foreach (string extra in ExtraFolders)
                 {
                     string file = System.IO.Path.Combine(extra, path);
-                    if (_archive.HasFile(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = _archive.GetFileSize(file), Archive = _archive };
+                    if (_archive.HasFile(file))
+                        yield return new OverrideFile()
+                        {
+                            File = file,
+                            CName = path,
+                            CFolder = null,
+                            Size = _archive.GetFileSize(file),
+                            Archive = _archive,
+                        };
                 }
-                if (_archive.HasFile(path)) yield return new OverrideFile() { File = path, CName = path, CFolder = null, Size = _archive.GetFileSize(path), Archive = _archive };
+                if (_archive.HasFile(path))
+                    yield return new OverrideFile()
+                    {
+                        File = path,
+                        CName = path,
+                        CFolder = null,
+                        Size = _archive.GetFileSize(path),
+                        Archive = _archive,
+                    };
             }
             else
             {
@@ -452,24 +566,48 @@ namespace AppWrapper
                 foreach (var cf in Conditionals)
                 {
                     file = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
-                    if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = cf, Size = (int)new System.IO.FileInfo(file).Length };
+                    if (FileExists(file))
+                        yield return new OverrideFile()
+                        {
+                            File = file,
+                            CName = path,
+                            CFolder = cf,
+                            Size = (int)new System.IO.FileInfo(file).Length,
+                        };
                 }
                 foreach (string extra in ExtraFolders)
                 {
                     file = System.IO.Path.Combine(BaseFolder, extra, path);
-                    if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                    if (FileExists(file))
+                        yield return new OverrideFile()
+                        {
+                            File = file,
+                            CName = path,
+                            CFolder = null,
+                            Size = (int)new System.IO.FileInfo(file).Length,
+                        };
                 }
                 file = System.IO.Path.Combine(BaseFolder, path);
-                if (FileExists(file)) yield return new OverrideFile() { File = file, CName = path, CFolder = null, Size = (int)new System.IO.FileInfo(file).Length };
+                if (FileExists(file))
+                    yield return new OverrideFile()
+                    {
+                        File = file,
+                        CName = path,
+                        CFolder = null,
+                        Size = (int)new System.IO.FileInfo(file).Length,
+                    };
             }
         }
 
-        private Dictionary<string, string[]> _pathOverrideNames = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
+        private Dictionary<string, string[]> _pathOverrideNames = new Dictionary<string, string[]>(
+            StringComparer.InvariantCultureIgnoreCase
+        );
 
         public IEnumerable<string> GetPathOverrideNames(string path)
         {
             string[] cache;
-            if (_pathOverrideNames.TryGetValue(path, out cache)) return cache;
+            if (_pathOverrideNames.TryGetValue(path, out cache))
+                return cache;
             cache = GetPathOverrideNamesInt(path).ToArray();
             _pathOverrideNames[path] = cache;
             return cache;
@@ -481,25 +619,34 @@ namespace AppWrapper
             {
                 string spath = path;
                 foreach (string file in _archive.AllFileNames())
-                    if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
+                    if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase))
+                        yield return file.Substring(spath.Length).TrimStart('\\');
                 foreach (var cf in Conditionals)
                 {
                     spath = System.IO.Path.Combine(cf.Folder, path);
                     foreach (string file in _archive.AllFileNames())
-                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
+                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase))
+                            yield return file.Substring(spath.Length).TrimStart('\\');
                 }
                 foreach (string extra in ExtraFolders)
                 {
                     spath = System.IO.Path.Combine(extra, path);
                     foreach (string file in _archive.AllFileNames())
-                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase)) yield return file.Substring(spath.Length).TrimStart('\\');
+                        if (file.StartsWith(spath, StringComparison.InvariantCultureIgnoreCase))
+                            yield return file.Substring(spath.Length).TrimStart('\\');
                 }
             }
             else
             {
                 string spath = System.IO.Path.Combine(BaseFolder, path);
                 if (DirExists(spath))
-                    foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
+                    foreach (
+                        string file in System.IO.Directory.GetFiles(
+                            spath,
+                            "*",
+                            System.IO.SearchOption.AllDirectories
+                        )
+                    )
                     {
                         _activated.Add(file);
                         yield return file.Substring(spath.Length).TrimStart('\\');
@@ -508,7 +655,13 @@ namespace AppWrapper
                 {
                     spath = System.IO.Path.Combine(BaseFolder, cf.Folder, path);
                     if (DirExists(spath))
-                        foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
+                        foreach (
+                            string file in System.IO.Directory.GetFiles(
+                                spath,
+                                "*",
+                                System.IO.SearchOption.AllDirectories
+                            )
+                        )
                         {
                             _activated.Add(file);
                             yield return file.Substring(spath.Length).TrimStart('\\');
@@ -518,7 +671,13 @@ namespace AppWrapper
                 {
                     spath = System.IO.Path.Combine(BaseFolder, extra, path);
                     if (DirExists(spath))
-                        foreach (string file in System.IO.Directory.GetFiles(spath, "*", System.IO.SearchOption.AllDirectories))
+                        foreach (
+                            string file in System.IO.Directory.GetFiles(
+                                spath,
+                                "*",
+                                System.IO.SearchOption.AllDirectories
+                            )
+                        )
                         {
                             _activated.Add(file);
                             yield return file.Substring(spath.Length).TrimStart('\\');
@@ -539,31 +698,49 @@ namespace AppWrapper
         {
             private List<ActiveWhen> _children;
 
-            public List<ActiveWhen> Children { get => _children; }
+            public List<ActiveWhen> Children
+            {
+                get => _children;
+            }
 
             protected override void Load(XmlNode source)
             {
                 _children = source.SelectNodes("*").Cast<XmlNode>().Select(n => Create(n)).ToList();
             }
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return _children.All(a => a.IsActive(check, checkGameLanguage, checkMod));
             }
         }
+
         public class Or : ActiveWhen
         {
             private List<ActiveWhen> _children;
-            public List<ActiveWhen> Children { get => _children; }
+            public List<ActiveWhen> Children
+            {
+                get => _children;
+            }
 
             protected override void Load(XmlNode source)
             {
                 _children = source.SelectNodes("*").Cast<XmlNode>().Select(n => Create(n)).ToList();
             }
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return _children.Any(a => a.IsActive(check, checkGameLanguage, checkMod));
             }
         }
+
         public class Not : ActiveWhen
         {
             private ActiveWhen _child;
@@ -577,11 +754,17 @@ namespace AppWrapper
             {
                 _child = Create(source.SelectSingleNode("*"));
             }
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return !_child.IsActive(check, checkGameLanguage, checkMod);
             }
         }
+
         public class Option : ActiveWhen
         {
             [XmlElement("Option")]
@@ -591,7 +774,12 @@ namespace AppWrapper
             {
                 Condition = source.InnerText;
             }
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return check(Condition);
             }
@@ -606,7 +794,11 @@ namespace AppWrapper
                 Condition = source.InnerText.Trim();
             }
 
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return checkGameLanguage(Condition);
             }
@@ -625,7 +817,11 @@ namespace AppWrapper
                 Condition = source.InnerText.Trim();
             }
 
-            public override bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod)
+            public override bool IsActive(
+                Func<string, bool> check,
+                Func<string, bool> checkGameLanguage,
+                Func<string, bool> checkMod
+            )
             {
                 return checkMod(Condition);
             }
@@ -635,7 +831,9 @@ namespace AppWrapper
 
         static ActiveWhen()
         {
-            _types = new Dictionary<string, Func<ActiveWhen>>(StringComparer.InvariantCultureIgnoreCase);
+            _types = new Dictionary<string, Func<ActiveWhen>>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
             _types["Or"] = () => new Or();
             _types["And"] = () => new And();
             _types["Not"] = () => new Not();
@@ -645,7 +843,11 @@ namespace AppWrapper
         }
 
         protected abstract void Load(System.Xml.XmlNode source);
-        public abstract bool IsActive(Func<string, bool> check, Func<string, bool> checkGameLanguage, Func<string, bool> checkMod);
+        public abstract bool IsActive(
+            Func<string, bool> check,
+            Func<string, bool> checkGameLanguage,
+            Func<string, bool> checkMod
+        );
 
         private static ActiveWhen Create(System.Xml.XmlNode source)
         {
@@ -721,8 +923,6 @@ namespace AppWrapper
         }
     }
 
-
-
     public class ModFolder : IXmlSerializable
     {
         public string Folder { get; set; }
@@ -735,9 +935,7 @@ namespace AppWrapper
             ActiveWhen = ActiveWhen.Parse(source);
         }
 
-        public ModFolder()
-        {
-        }
+        public ModFolder() { }
 
         public XmlSchema GetSchema()
         {
@@ -764,7 +962,10 @@ namespace AppWrapper
             if (ActiveWhen is ActiveWhen.Option)
             {
                 // ActiveWhen is treated as an attribute when it is just an Option
-                writer.WriteAttributeString("ActiveWhen", (ActiveWhen as ActiveWhen.Option).Condition);
+                writer.WriteAttributeString(
+                    "ActiveWhen",
+                    (ActiveWhen as ActiveWhen.Option).Condition
+                );
             }
             else
             {
@@ -808,7 +1009,10 @@ namespace AppWrapper
                 }
                 else if (ActiveWhen is ActiveWhen.GameLanguage)
                 {
-                    writer.WriteElementString("GameLanguage", (ActiveWhen as ActiveWhen.GameLanguage).Condition);
+                    writer.WriteElementString(
+                        "GameLanguage",
+                        (ActiveWhen as ActiveWhen.GameLanguage).Condition
+                    );
                 }
 
                 writer.WriteEndElement();
@@ -842,11 +1046,16 @@ namespace AppWrapper
             Description = n.InnerText;
             ModID = Guid.Parse(n.Attributes["ModID"].Value);
             if (n.Attributes["Versions"] != null)
-                Versions = n.Attributes["Versions"].Value
-                    .Split(',')
+                Versions = n.Attributes["Versions"]
+                    .Value.Split(',')
                     .Select(s =>
                     {
-                        decimal.TryParse(s, NumberStyles.AllowDecimalPoint, new CultureInfo("") ,out decimal parsedVer);
+                        decimal.TryParse(
+                            s,
+                            NumberStyles.AllowDecimalPoint,
+                            new CultureInfo(""),
+                            out decimal parsedVer
+                        );
                         return parsedVer;
                     })
                     .ToList();
@@ -854,9 +1063,7 @@ namespace AppWrapper
                 Versions = new List<decimal>();
         }
 
-        public CompatEntry()
-        {
-        }
+        public CompatEntry() { }
     }
 
     public class CompatSetting
@@ -885,9 +1092,7 @@ namespace AppWrapper
                 .ToList();
         }
 
-        public CompatSetting()
-        {
-        }
+        public CompatSetting() { }
     }
 
     public class Compatibility
@@ -921,9 +1126,7 @@ namespace AppWrapper
             }
         }
 
-        public Compatibility()
-        {
-        }
+        public Compatibility() { }
     }
 
     public class ModInfo
@@ -949,16 +1152,26 @@ namespace AppWrapper
             GameLanguages = GameLanguageParser.ParseSupportedLanguages(
                 doc.SelectNodes("/ModInfo/GameLanguage")
                     .Cast<XmlNode>()
-                    .Select(node => node.InnerText));
+                    .Select(node => node.InnerText)
+            );
 
             Guid.TryParse(doc.SelectSingleNode("/ModInfo/ID").NodeText(), out Guid parsedId);
             ID = parsedId;
-            
+
             Name = doc.SelectSingleNode("/ModInfo/Name").NodeText();
             Author = doc.SelectSingleNode("/ModInfo/Author").NodeText();
 
-            string versionText = doc.SelectSingleNode("/ModInfo/Version").NodeText("0.00").Replace(',', '.'); // in-case Xml has "1,7" format then replace with "1.70"
-            if (decimal.TryParse(versionText, NumberStyles.AllowDecimalPoint, new CultureInfo("") ,out decimal parsedVersion))
+            string versionText = doc.SelectSingleNode("/ModInfo/Version")
+                .NodeText("0.00")
+                .Replace(',', '.'); // in-case Xml has "1,7" format then replace with "1.70"
+            if (
+                decimal.TryParse(
+                    versionText,
+                    NumberStyles.AllowDecimalPoint,
+                    new CultureInfo(""),
+                    out decimal parsedVersion
+                )
+            )
             {
                 Version = parsedVersion;
             }
@@ -969,7 +1182,10 @@ namespace AppWrapper
             Link = doc.SelectSingleNode("/ModInfo/Link").NodeText();
             PreviewFile = doc.SelectSingleNode("/ModInfo/PreviewFile").NodeText();
 
-            DateTime.TryParse(doc.SelectSingleNode("/ModInfo/ReleaseDate").NodeText(), out DateTime parsedDate);
+            DateTime.TryParse(
+                doc.SelectSingleNode("/ModInfo/ReleaseDate").NodeText(),
+                out DateTime parsedDate
+            );
             ReleaseDate = parsedDate;
 
             foreach (XmlNode cond in doc.SelectNodes("/ModInfo/Conditional"))
@@ -986,7 +1202,7 @@ namespace AppWrapper
                 LoadPlugins.Add(LP.InnerText);
             foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/FFNxConfig"))
             {
-                foreach(XmlNode child in xmlNode)
+                foreach (XmlNode child in xmlNode)
                 {
                     var flag = new FFNxFlag();
 
@@ -1010,12 +1226,10 @@ namespace AppWrapper
 
                     FFNxConfig.Add(flag);
                 }
-                    
             }
 
             foreach (XmlNode xmlNode in doc.SelectNodes("/ModInfo/Variable"))
             {
-
                 Variable var = new Variable();
 
                 var.Name = xmlNode.Attributes.GetNamedItem("Name").Value;
@@ -1032,26 +1246,30 @@ namespace AppWrapper
                 {
                     string programPath = pi.SelectSingleNode("PathToProgram").NodeText();
                     string programArgs = pi.SelectSingleNode("ProgramArgs").NodeText();
-                    bool closeAll = pi.SelectSingleNode("CloseAllInstances").NodeText().Equals("true", StringComparison.InvariantCultureIgnoreCase);
+                    bool closeAll = pi.SelectSingleNode("CloseAllInstances")
+                        .NodeText()
+                        .Equals("true", StringComparison.InvariantCultureIgnoreCase);
 
                     string windowTitle = pi.SelectSingleNode("WindowTitle").NodeText();
-                    bool waitToShow = pi.SelectSingleNode("WaitForWindowToShow").NodeText().Equals("true", StringComparison.InvariantCultureIgnoreCase);
+                    bool waitToShow = pi.SelectSingleNode("WaitForWindowToShow")
+                        .NodeText()
+                        .Equals("true", StringComparison.InvariantCultureIgnoreCase);
                     string waitTimeoutTxt = pi.SelectSingleNode("WaitTimeOutInSeconds").NodeText();
                     int.TryParse(waitTimeoutTxt, out int waitTimeout);
 
-
-                    LoadPrograms.Add(new ProgramInfo()
-                    {
-                        PathToProgram = programPath,
-                        ProgramArgs = programArgs,
-                        CloseAllInstances = closeAll,
-                        WindowTitle = windowTitle,
-                        WaitForWindowToShow = waitToShow,
-                        WaitTimeOutInSeconds = waitTimeout
-                    });
+                    LoadPrograms.Add(
+                        new ProgramInfo()
+                        {
+                            PathToProgram = programPath,
+                            ProgramArgs = programArgs,
+                            CloseAllInstances = closeAll,
+                            WindowTitle = windowTitle,
+                            WaitForWindowToShow = waitToShow,
+                            WaitTimeOutInSeconds = waitTimeout,
+                        }
+                    );
                 }
             }
-
 
             OrderBefore = doc.SelectNodes("/ModInfo/OrderConstraints/Before")
                 .Cast<XmlNode>()
@@ -1105,14 +1323,14 @@ namespace AppWrapper
 
         [XmlElement(ElementName = "ModFolder")]
         public List<ModFolder> ModFolders { get; private set; }
-        public List<ConditionalFolder> Conditionals { get;  set; }
+        public List<ConditionalFolder> Conditionals { get; set; }
 
         [XmlElement(ElementName = "ConfigOption")]
-        public List<ConfigOption> Options { get;  set; }
-        public List<string> LoadLibraries { get;  set; }
-        public List<string> LoadAssemblies { get;  set; }
-        public List<string> LoadPlugins { get;  set; }
-        public List<ProgramInfo> LoadPrograms { get;  set; }
+        public List<ConfigOption> Options { get; set; }
+        public List<string> LoadLibraries { get; set; }
+        public List<string> LoadAssemblies { get; set; }
+        public List<string> LoadPlugins { get; set; }
+        public List<ProgramInfo> LoadPrograms { get; set; }
         public Compatibility Compatibility { get; set; }
         public List<Guid> OrderBefore { get; set; }
         public List<Guid> OrderAfter { get; set; }
@@ -1146,7 +1364,7 @@ namespace AppWrapper
         public string WindowTitle { get; set; }
 
         /// <summary>
-        /// Defaults to 0 if missing from mod.xml; If set to 0, then no time out. 
+        /// Defaults to 0 if missing from mod.xml; If set to 0, then no time out.
         /// Otherwise will wait for this amount of time before continuing the launch process
         /// </summary>
         public int WaitTimeOutInSeconds { get; set; }
@@ -1161,9 +1379,9 @@ namespace AppWrapper
         // override object.Equals
         public override bool Equals(object obj)
         {
-            //       
+            //
             // See the full list of guidelines at
-            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            //   http://go.microsoft.com/fwlink/?LinkID=85237
             // and also the guidance for operator== at
             //   http://go.microsoft.com/fwlink/?LinkId=85238
             //
@@ -1173,7 +1391,10 @@ namespace AppWrapper
                 return false;
             }
 
-            return PathToProgram.Equals((obj as ProgramInfo).PathToProgram, StringComparison.InvariantCultureIgnoreCase);
+            return PathToProgram.Equals(
+                (obj as ProgramInfo).PathToProgram,
+                StringComparison.InvariantCultureIgnoreCase
+            );
         }
 
         // override object.GetHashCode
@@ -1193,10 +1414,13 @@ namespace AppWrapper
     {
         [XmlAttribute]
         public int Value { get; set; }
+
         [XmlAttribute]
         public string Name { get; set; }
+
         [XmlAttribute]
         public string PreviewFile { get; set; }
+
         [XmlAttribute]
         public string PreviewAudio { get; set; }
 
@@ -1231,12 +1455,17 @@ namespace AppWrapper
 
         public ConfigOption(XmlNode source)
         {
-            Type = (OptionType)Enum.Parse(typeof(OptionType), source.SelectSingleNode("Type").NodeText());
+            Type = (OptionType)
+                Enum.Parse(typeof(OptionType), source.SelectSingleNode("Type").NodeText());
             Default = int.Parse(source.SelectSingleNode("Default").NodeText());
             Name = source.SelectSingleNode("Name").NodeText();
             ID = source.SelectSingleNode("ID").NodeText();
             Description = source.SelectSingleNode("Description").NodeText();
-            Values = source.SelectNodes("Option").Cast<XmlNode>().Select(n => new OptionValue(n)).ToList();
+            Values = source
+                .SelectNodes("Option")
+                .Cast<XmlNode>()
+                .Select(n => new OptionValue(n))
+                .ToList();
         }
 
         public override string ToString()
@@ -1253,9 +1482,14 @@ namespace AppWrapper
 
         public string Folder { get; set; }
 
-        public ActiveWhen ActiveWhen { get { return _activeWhen; } set { _activeWhen = value; } }
+        public ActiveWhen ActiveWhen
+        {
+            get { return _activeWhen; }
+            set { _activeWhen = value; }
+        }
 
         private Dictionary<string, Conditional> _conditions;
+
         //private bool _active = false;
 
         public bool IsActive(string path)
@@ -1274,7 +1508,9 @@ namespace AppWrapper
         {
             Folder = node.Attributes["Folder"].InnerText;
             ActiveWhen = ActiveWhen.Parse(node);
-            _conditions = new Dictionary<string, Conditional>(StringComparer.InvariantCultureIgnoreCase);
+            _conditions = new Dictionary<string, Conditional>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
             foreach (XmlNode n in node.SelectNodes("./*"))
             {
                 if (!n.LocalName.Equals("ActiveWhen", StringComparison.InvariantCultureIgnoreCase))
@@ -1285,9 +1521,7 @@ namespace AppWrapper
             }
         }
 
-        public ConditionalFolder()
-        {
-        }
+        public ConditionalFolder() { }
     }
 
     [Serializable]
@@ -1300,7 +1534,9 @@ namespace AppWrapper
 
         static Conditional()
         {
-            _types = new Dictionary<string, Func<Conditional>>(StringComparer.InvariantCultureIgnoreCase);
+            _types = new Dictionary<string, Func<Conditional>>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
             _types["And"] = () => new CAnd();
             _types["Or"] = () => new COr();
             _types["Not"] = () => new CNot();
@@ -1318,11 +1554,11 @@ namespace AppWrapper
     [Serializable]
     class CRuntimeVar : Conditional
     {
-
         [NonSerialized]
         private Func<bool> _eval;
 
-        private string _var, _values;
+        private string _var,
+            _values;
 
         protected override void Init(XmlNode source, LoaderContext ctx)
         {
@@ -1349,7 +1585,6 @@ namespace AppWrapper
     [Serializable]
     class CAnd : Conditional
     {
-
         private List<Conditional> _children;
 
         protected override void Init(XmlNode source, LoaderContext ctx)

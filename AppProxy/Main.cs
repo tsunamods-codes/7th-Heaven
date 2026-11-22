@@ -34,11 +34,27 @@ namespace AppProxy
         {
             public delegate* unmanaged<void> Shutdown;
             public delegate* unmanaged<void> OnAfterHook;
-            public delegate* unmanaged<ushort*, uint, uint, void*, uint, uint, void*, void*> CreateFileW;
+            public delegate* unmanaged<
+                ushort*,
+                uint,
+                uint,
+                void*,
+                uint,
+                uint,
+                void*,
+                void*> CreateFileW;
             public delegate* unmanaged<void*, void*, uint, uint*, void*, int> ReadFile;
+
             //public delegate* unmanaged<void*, void*, uint, uint*, void*, int> WriteFile;
             public delegate* unmanaged<ushort*, void*, void*> FindFirstFileW;
-            public delegate* unmanaged<ushort*, uint, void*, uint, void*, uint, void*> FindFirstFileExW;
+            public delegate* unmanaged<
+                ushort*,
+                uint,
+                void*,
+                uint,
+                void*,
+                uint,
+                void*> FindFirstFileExW;
             public delegate* unmanaged<void*, void*, int> FindNextFileW;
             public delegate* unmanaged<void*, int> FindClose;
             public delegate* unmanaged<void*, int, int*, uint, uint> SetFilePointer;
@@ -46,7 +62,15 @@ namespace AppProxy
             public delegate* unmanaged<void*, int> CloseHandle;
             public delegate* unmanaged<void*, uint> GetFileType;
             public delegate* unmanaged<void*, void*, int> GetFileInformationByHandle;
-            public delegate* unmanaged<void*, void*, void*, void**, uint, int, uint, int> DuplicateHandle;
+            public delegate* unmanaged<
+                void*,
+                void*,
+                void*,
+                void**,
+                uint,
+                int,
+                uint,
+                int> DuplicateHandle;
             public delegate* unmanaged<void*, uint*, uint> GetFileSize;
             public delegate* unmanaged<void*, int*, int> GetFileSizeEx;
             public delegate* unmanaged<ushort*, uint, void*, int> GetFileAttributesExW;
@@ -79,32 +103,85 @@ namespace AppProxy
                 _exports->GetFileSizeEx = &HGetFileSizeEx;
                 _exports->GetFileAttributesExW = &HGetFileAttributesExW;
 
-                lib = AssemblyLoadContext.GetLoadContext(typeof(Proxy).Assembly).LoadFromAssemblyPath(Path.Combine(Directory.GetCurrentDirectory(), "AppWrapper.dll"));
+                lib = AssemblyLoadContext
+                    .GetLoadContext(typeof(Proxy).Assembly)
+                    .LoadFromAssemblyPath(
+                        Path.Combine(Directory.GetCurrentDirectory(), "AppWrapper.dll")
+                    );
                 t = lib.GetType("AppWrapper.Wrap");
 
                 if (t != null)
                 {
                     _mRun = t.GetMethod("Run", BindingFlags.Static | BindingFlags.Public);
                     _mShutdown = t.GetMethod("Shutdown", BindingFlags.Static | BindingFlags.Public);
-                    _mOnAfterHook = t.GetMethod("OnAfterHook", BindingFlags.Static | BindingFlags.Public);
-                    _mHCreateFileW = t.GetMethod("HCreateFileW", BindingFlags.Static | BindingFlags.Public);
-                    _mHReadFile = t.GetMethod("HReadFile", BindingFlags.Static | BindingFlags.Public);
-                    _mHFindFirstFileW = t.GetMethod("HFindFirstFileW", BindingFlags.Static | BindingFlags.Public);
-                    _mHFindFirstFileExW = t.GetMethod("HFindFirstFileExW", BindingFlags.Static | BindingFlags.Public);
-                    _mHFindNextFileW = t.GetMethod("HFindNextFileW", BindingFlags.Static | BindingFlags.Public);
-                    _mHFindClose = t.GetMethod("HFindClose", BindingFlags.Static | BindingFlags.Public);
-                    _mHSetFilePointer = t.GetMethod("HSetFilePointer", BindingFlags.Static | BindingFlags.Public);
-                    _mHSetFilePointerEx = t.GetMethod("HSetFilePointerEx", BindingFlags.Static | BindingFlags.Public);
-                    _mHCloseHandle = t.GetMethod("HCloseHandle", BindingFlags.Static | BindingFlags.Public);
-                    _mHGetFileType = t.GetMethod("HGetFileType", BindingFlags.Static | BindingFlags.Public);
-                    _mHGetFileInformationByHandle = t.GetMethod("HGetFileInformationByHandle", BindingFlags.Static | BindingFlags.Public);
-                    _mHDuplicateHandle = t.GetMethod("HDuplicateHandle", BindingFlags.Static | BindingFlags.Public);
-                    _mHGetFileSize = t.GetMethod("HGetFileSize", BindingFlags.Static | BindingFlags.Public);
-                    _mHGetFileSizeEx = t.GetMethod("HGetFileSizeEx", BindingFlags.Static | BindingFlags.Public);
-                    _mHGetFileAttributesExW = t.GetMethod("HGetFileAttributesExW", BindingFlags.Static | BindingFlags.Public);
+                    _mOnAfterHook = t.GetMethod(
+                        "OnAfterHook",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHCreateFileW = t.GetMethod(
+                        "HCreateFileW",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHReadFile = t.GetMethod(
+                        "HReadFile",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHFindFirstFileW = t.GetMethod(
+                        "HFindFirstFileW",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHFindFirstFileExW = t.GetMethod(
+                        "HFindFirstFileExW",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHFindNextFileW = t.GetMethod(
+                        "HFindNextFileW",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHFindClose = t.GetMethod(
+                        "HFindClose",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHSetFilePointer = t.GetMethod(
+                        "HSetFilePointer",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHSetFilePointerEx = t.GetMethod(
+                        "HSetFilePointerEx",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHCloseHandle = t.GetMethod(
+                        "HCloseHandle",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHGetFileType = t.GetMethod(
+                        "HGetFileType",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHGetFileInformationByHandle = t.GetMethod(
+                        "HGetFileInformationByHandle",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHDuplicateHandle = t.GetMethod(
+                        "HDuplicateHandle",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHGetFileSize = t.GetMethod(
+                        "HGetFileSize",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHGetFileSizeEx = t.GetMethod(
+                        "HGetFileSizeEx",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
+                    _mHGetFileAttributesExW = t.GetMethod(
+                        "HGetFileAttributesExW",
+                        BindingFlags.Static | BindingFlags.Public
+                    );
                 }
 
-                if (_mRun != null) _mRun.Invoke(null, new object[] { Process.GetCurrentProcess(), Type.Missing });
+                if (_mRun != null)
+                    _mRun.Invoke(null, new object[] { Process.GetCurrentProcess(), Type.Missing });
             }
             catch (Exception ex)
             {
@@ -119,7 +196,8 @@ namespace AppProxy
         {
             try
             {
-                if (_mOnAfterHook != null) _mOnAfterHook.Invoke(null, null);
+                if (_mOnAfterHook != null)
+                    _mOnAfterHook.Invoke(null, null);
             }
             catch (Exception ex)
             {
@@ -132,7 +210,8 @@ namespace AppProxy
         {
             try
             {
-                if (_mShutdown != null) _mShutdown.Invoke(null, null);
+                if (_mShutdown != null)
+                    _mShutdown.Invoke(null, null);
 
                 t = null;
                 lib = null;
@@ -166,13 +245,36 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static void* HCreateFileW(ushort* lpFileName, uint dwDesiredAccess, uint dwShareMode, void* lpSecurityAttributes, uint dwCreationDisposition, uint dwFlagsAndAttributes, void* hTemplateFile)
+        public static void* HCreateFileW(
+            ushort* lpFileName,
+            uint dwDesiredAccess,
+            uint dwShareMode,
+            void* lpSecurityAttributes,
+            uint dwCreationDisposition,
+            uint dwFlagsAndAttributes,
+            void* hTemplateFile
+        )
         {
             IntPtr ret = IntPtr.Zero;
 
             try
             {
-                if (_mHCreateFileW != null) ret = (IntPtr)(_mHCreateFileW.Invoke(null, new object[] { new string((char*)lpFileName), (System.IO.FileAccess)dwDesiredAccess, (System.IO.FileShare)dwShareMode, new IntPtr(lpSecurityAttributes), (System.IO.FileMode)dwCreationDisposition, (System.IO.FileAttributes)dwFlagsAndAttributes, new IntPtr(hTemplateFile) }) ?? IntPtr.Zero);
+                if (_mHCreateFileW != null)
+                    ret = (IntPtr)(
+                        _mHCreateFileW.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new string((char*)lpFileName),
+                                (System.IO.FileAccess)dwDesiredAccess,
+                                (System.IO.FileShare)dwShareMode,
+                                new IntPtr(lpSecurityAttributes),
+                                (System.IO.FileMode)dwCreationDisposition,
+                                (System.IO.FileAttributes)dwFlagsAndAttributes,
+                                new IntPtr(hTemplateFile),
+                            }
+                        ) ?? IntPtr.Zero
+                    );
             }
             catch (Exception ex)
             {
@@ -183,13 +285,32 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static int HReadFile(void* handle, void* bytes, uint numBytesToRead, uint* numBytesRead, void* overlapped)
+        public static int HReadFile(
+            void* handle,
+            void* bytes,
+            uint numBytesToRead,
+            uint* numBytesRead,
+            void* overlapped
+        )
         {
             int ret = 0;
 
             try
             {
-                if (_mHReadFile != null) ret = (int)(_mHReadFile.Invoke(null, new object[] { new IntPtr(handle), new IntPtr(bytes), numBytesToRead, new IntPtr(numBytesRead), new IntPtr(overlapped) }) ?? 0);
+                if (_mHReadFile != null)
+                    ret = (int)(
+                        _mHReadFile.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new IntPtr(handle),
+                                new IntPtr(bytes),
+                                numBytesToRead,
+                                new IntPtr(numBytesRead),
+                                new IntPtr(overlapped),
+                            }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -206,7 +327,17 @@ namespace AppProxy
 
             try
             {
-                if (_mHFindFirstFileW != null) ret = (IntPtr)(_mHFindFirstFileW.Invoke(null, new object[] { new string((char*)lpFileName), new IntPtr(lpFindFileData) }) ?? IntPtr.Zero);
+                if (_mHFindFirstFileW != null)
+                    ret = (IntPtr)(
+                        _mHFindFirstFileW.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new string((char*)lpFileName),
+                                new IntPtr(lpFindFileData),
+                            }
+                        ) ?? IntPtr.Zero
+                    );
             }
             catch (Exception ex)
             {
@@ -217,13 +348,34 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static void* HFindFirstFileExW(ushort* lpFileName, uint fInfoLevelId, void* lpFindFileData, uint fSearchOp, void* lpSearchFilter, uint dwAdditionalFlags)
+        public static void* HFindFirstFileExW(
+            ushort* lpFileName,
+            uint fInfoLevelId,
+            void* lpFindFileData,
+            uint fSearchOp,
+            void* lpSearchFilter,
+            uint dwAdditionalFlags
+        )
         {
             IntPtr ret = IntPtr.Zero;
 
             try
             {
-                if (_mHFindFirstFileExW != null) ret = (IntPtr)(_mHFindFirstFileExW.Invoke(null, new object[] { new string((char*)lpFileName), fInfoLevelId, new IntPtr(lpFindFileData), fSearchOp, new IntPtr(lpSearchFilter), dwAdditionalFlags }) ?? IntPtr.Zero);
+                if (_mHFindFirstFileExW != null)
+                    ret = (IntPtr)(
+                        _mHFindFirstFileExW.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new string((char*)lpFileName),
+                                fInfoLevelId,
+                                new IntPtr(lpFindFileData),
+                                fSearchOp,
+                                new IntPtr(lpSearchFilter),
+                                dwAdditionalFlags,
+                            }
+                        ) ?? IntPtr.Zero
+                    );
             }
             catch (Exception ex)
             {
@@ -240,7 +392,13 @@ namespace AppProxy
 
             try
             {
-                if (_mHFindNextFileW != null) ret = (int)(_mHFindNextFileW.Invoke(null, new object[] { new IntPtr(hFindFile), new IntPtr(lpFindFileData) }) ?? 0);
+                if (_mHFindNextFileW != null)
+                    ret = (int)(
+                        _mHFindNextFileW.Invoke(
+                            null,
+                            new object[] { new IntPtr(hFindFile), new IntPtr(lpFindFileData) }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -257,7 +415,10 @@ namespace AppProxy
 
             try
             {
-                if (_mHFindClose != null) ret = (int)(_mHFindClose.Invoke(null, new object[] { new IntPtr(hFindFile) }) ?? 0);
+                if (_mHFindClose != null)
+                    ret = (int)(
+                        _mHFindClose.Invoke(null, new object[] { new IntPtr(hFindFile) }) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -268,13 +429,30 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static uint HSetFilePointer(void* hFile, int lDistanceTomove, int* lpDistanceToMoveHigh, uint dwMoveMethod)
+        public static uint HSetFilePointer(
+            void* hFile,
+            int lDistanceTomove,
+            int* lpDistanceToMoveHigh,
+            uint dwMoveMethod
+        )
         {
             uint ret = uint.MaxValue;
 
             try
             {
-                if (_mHSetFilePointer != null) ret = (uint)(_mHSetFilePointer.Invoke(null, new object[] { new IntPtr(hFile), lDistanceTomove, new IntPtr(lpDistanceToMoveHigh), dwMoveMethod }) ?? 0);
+                if (_mHSetFilePointer != null)
+                    ret = (uint)(
+                        _mHSetFilePointer.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new IntPtr(hFile),
+                                lDistanceTomove,
+                                new IntPtr(lpDistanceToMoveHigh),
+                                dwMoveMethod,
+                            }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -285,13 +463,30 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static int HSetFilePointerEx(void* hFile, long liDistanceToMove, void* lpNewFilePointer, uint dwMoveMethod)
+        public static int HSetFilePointerEx(
+            void* hFile,
+            long liDistanceToMove,
+            void* lpNewFilePointer,
+            uint dwMoveMethod
+        )
         {
             int ret = 0;
 
             try
             {
-                if (_mHSetFilePointerEx != null) ret = (int)(_mHSetFilePointerEx.Invoke(null, new object[] { new IntPtr(hFile), liDistanceToMove, new IntPtr(lpNewFilePointer), dwMoveMethod }) ?? 0);
+                if (_mHSetFilePointerEx != null)
+                    ret = (int)(
+                        _mHSetFilePointerEx.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new IntPtr(hFile),
+                                liDistanceToMove,
+                                new IntPtr(lpNewFilePointer),
+                                dwMoveMethod,
+                            }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -308,7 +503,10 @@ namespace AppProxy
 
             try
             {
-                if (_mHCloseHandle != null) ret = (int)(_mHCloseHandle.Invoke(null, new object[] { new IntPtr(hObject) }) ?? 0);
+                if (_mHCloseHandle != null)
+                    ret = (int)(
+                        _mHCloseHandle.Invoke(null, new object[] { new IntPtr(hObject) }) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -325,7 +523,10 @@ namespace AppProxy
 
             try
             {
-                if (_mHGetFileType != null) ret = (uint)(_mHGetFileType.Invoke(null, new object[] { new IntPtr(hFile) }) ?? 0);
+                if (_mHGetFileType != null)
+                    ret = (uint)(
+                        _mHGetFileType.Invoke(null, new object[] { new IntPtr(hFile) }) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -342,7 +543,13 @@ namespace AppProxy
 
             try
             {
-                if (_mHGetFileInformationByHandle != null) ret = (int)(_mHGetFileInformationByHandle.Invoke(null, new object[] { new IntPtr(hFile), new IntPtr(lpFileInformation) }) ?? 0);
+                if (_mHGetFileInformationByHandle != null)
+                    ret = (int)(
+                        _mHGetFileInformationByHandle.Invoke(
+                            null,
+                            new object[] { new IntPtr(hFile), new IntPtr(lpFileInformation) }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -353,13 +560,36 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static int HDuplicateHandle(void* hSourceProcessHandle, void* hSourceHandle, void* hTargetProcessHandle, void** lpTargetHandle, uint dwDesiredAccess, int bInheritHandle, uint dwOptions)
+        public static int HDuplicateHandle(
+            void* hSourceProcessHandle,
+            void* hSourceHandle,
+            void* hTargetProcessHandle,
+            void** lpTargetHandle,
+            uint dwDesiredAccess,
+            int bInheritHandle,
+            uint dwOptions
+        )
         {
             int ret = 0;
 
             try
             {
-                if (_mHDuplicateHandle != null) ret = (int)(_mHDuplicateHandle.Invoke(null, new object[] { new IntPtr(hSourceProcessHandle), new IntPtr(hSourceHandle), new IntPtr(hTargetProcessHandle), new IntPtr(lpTargetHandle), dwDesiredAccess, bInheritHandle, dwOptions }) ?? 0);
+                if (_mHDuplicateHandle != null)
+                    ret = (int)(
+                        _mHDuplicateHandle.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new IntPtr(hSourceProcessHandle),
+                                new IntPtr(hSourceHandle),
+                                new IntPtr(hTargetProcessHandle),
+                                new IntPtr(lpTargetHandle),
+                                dwDesiredAccess,
+                                bInheritHandle,
+                                dwOptions,
+                            }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -376,7 +606,13 @@ namespace AppProxy
 
             try
             {
-                if (_mHGetFileSize != null) ret = (uint)(_mHGetFileSize.Invoke(null, new object[] { new IntPtr(hFile), new IntPtr(lpFileSizeHigh) }) ?? 0);
+                if (_mHGetFileSize != null)
+                    ret = (uint)(
+                        _mHGetFileSize.Invoke(
+                            null,
+                            new object[] { new IntPtr(hFile), new IntPtr(lpFileSizeHigh) }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -393,7 +629,13 @@ namespace AppProxy
 
             try
             {
-                if (_mHGetFileSizeEx != null) ret = (int)(_mHGetFileSizeEx.Invoke(null, new object[] { new IntPtr(hFile), new IntPtr(lpFileSize) }) ?? 0);
+                if (_mHGetFileSizeEx != null)
+                    ret = (int)(
+                        _mHGetFileSizeEx.Invoke(
+                            null,
+                            new object[] { new IntPtr(hFile), new IntPtr(lpFileSize) }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {
@@ -404,13 +646,28 @@ namespace AppProxy
         }
 
         [UnmanagedCallersOnly]
-        public static int HGetFileAttributesExW(ushort* lpFileName, uint fInfoLevelId, void* lpFileInformation)
+        public static int HGetFileAttributesExW(
+            ushort* lpFileName,
+            uint fInfoLevelId,
+            void* lpFileInformation
+        )
         {
             int ret = 0;
 
             try
             {
-                if (_mHGetFileAttributesExW != null) ret = (int)(_mHGetFileAttributesExW.Invoke(null, new object[] { new string((char*)lpFileName), fInfoLevelId, new IntPtr(lpFileInformation) }) ?? 0);
+                if (_mHGetFileAttributesExW != null)
+                    ret = (int)(
+                        _mHGetFileAttributesExW.Invoke(
+                            null,
+                            new object[]
+                            {
+                                new string((char*)lpFileName),
+                                fInfoLevelId,
+                                new IntPtr(lpFileInformation),
+                            }
+                        ) ?? 0
+                    );
             }
             catch (Exception ex)
             {

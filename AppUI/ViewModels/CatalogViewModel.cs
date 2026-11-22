@@ -1,11 +1,4 @@
-﻿using AppCore;
-using CG.Web.MegaApiClient;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using AppUI.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,6 +12,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using CG.Web.MegaApiClient;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
@@ -47,7 +47,9 @@ namespace AppUI.ViewModels
 
         public bool HasPreviousCategoriesOrTags
         {
-            get => _previousReloadOptions?.Categories?.Count > 0 || _previousReloadOptions?.Tags?.Count > 0;
+            get =>
+                _previousReloadOptions?.Categories?.Count > 0
+                || _previousReloadOptions?.Tags?.Count > 0;
         }
 
         private object _listLock = new object();
@@ -121,10 +123,7 @@ namespace AppUI.ViewModels
 
         public DownloadItemViewModel SelectedDownload
         {
-            get
-            {
-                return _selectedDownload;
-            }
+            get { return _selectedDownload; }
             set
             {
                 _selectedDownload = value;
@@ -136,10 +135,7 @@ namespace AppUI.ViewModels
 
         public bool IsSelectedDownloadPaused
         {
-            get
-            {
-                return _isSelectedDownloadPaused;
-            }
+            get { return _isSelectedDownloadPaused; }
             set
             {
                 _isSelectedDownloadPaused = value;
@@ -149,10 +145,7 @@ namespace AppUI.ViewModels
 
         public bool PauseDownloadIsEnabled
         {
-            get
-            {
-                return _pauseDownloadIsEnabled;
-            }
+            get { return _pauseDownloadIsEnabled; }
             set
             {
                 _pauseDownloadIsEnabled = value;
@@ -162,10 +155,7 @@ namespace AppUI.ViewModels
 
         public string PauseDownloadToolTip
         {
-            get
-            {
-                return _pauseDownloadToolTip;
-            }
+            get { return _pauseDownloadToolTip; }
             set
             {
                 _pauseDownloadToolTip = value;
@@ -175,10 +165,7 @@ namespace AppUI.ViewModels
 
         public BitmapImage ThemeImage
         {
-            get
-            {
-                return _themeImage;
-            }
+            get { return _themeImage; }
             set
             {
                 if (value != _themeImage)
@@ -192,10 +179,7 @@ namespace AppUI.ViewModels
         private HorizontalAlignment _themeHorizontalAlignment = HorizontalAlignment.Center;
         public HorizontalAlignment ThemeHorizontalAlignment
         {
-            get
-            {
-                return _themeHorizontalAlignment;
-            }
+            get { return _themeHorizontalAlignment; }
             set
             {
                 if (value != _themeHorizontalAlignment)
@@ -209,10 +193,7 @@ namespace AppUI.ViewModels
         private VerticalAlignment _themeVerticalAlignment = VerticalAlignment.Center;
         public VerticalAlignment ThemeVerticalAlignment
         {
-            get
-            {
-                return _themeVerticalAlignment;
-            }
+            get { return _themeVerticalAlignment; }
             set
             {
                 if (value != _themeVerticalAlignment)
@@ -226,9 +207,7 @@ namespace AppUI.ViewModels
         private Stretch _themeStretch = Stretch.Uniform;
         public Stretch ThemeStretch
         {
-            get {
-                return _themeStretch;
-            }
+            get { return _themeStretch; }
             set
             {
                 if (value != _themeStretch)
@@ -288,9 +267,11 @@ namespace AppUI.ViewModels
 
         private bool MatchesCurrentGameLanguage(Mod mod)
         {
-            return !ShowOnlyLanguageCompatibleItems || GameLanguage.IsSupportedBy(
-                mod.GameLanguages,
-                GameLauncher.GetSelectedGameLanguage());
+            return !ShowOnlyLanguageCompatibleItems
+                || GameLanguage.IsSupportedBy(
+                    mod.GameLanguages,
+                    GameLauncher.GetSelectedGameLanguage()
+                );
         }
 
         /// <summary>
@@ -298,7 +279,12 @@ namespace AppUI.ViewModels
         /// Ordered by Catalog Subscription, Category, Name
         /// </summary>
         /// <param name="searchText"> empty string returns all mods </param>
-        internal void ReloadModList(Guid? modToSelect = null, string searchText = "", IEnumerable<FilterItemViewModel> categories = null, IEnumerable<FilterItemViewModel> tags = null)
+        internal void ReloadModList(
+            Guid? modToSelect = null,
+            string searchText = "",
+            IEnumerable<FilterItemViewModel> categories = null,
+            IEnumerable<FilterItemViewModel> tags = null
+        )
         {
             // if there are no mods in the catalog then just clear the list and return since no extra filtering work needs to be done
             if (Sys.Catalog.Mods.Count == 0)
@@ -317,7 +303,6 @@ namespace AppUI.ViewModels
                 return;
             }
 
-
             List<Mod> results;
 
             categories = _previousReloadOptions.SetOrGetPreviousCategories(categories);
@@ -333,66 +318,77 @@ namespace AppUI.ViewModels
 
             if (String.IsNullOrEmpty(searchText))
             {
-                results = Sys.Catalog.Mods.Where(m =>
-                {
-                    if (!MatchesCurrentGameLanguage(m))
+                results = Sys
+                    .Catalog.Mods.Where(m =>
                     {
-                        return false;
-                    }
+                        if (!MatchesCurrentGameLanguage(m))
+                        {
+                            return false;
+                        }
 
-                    if (categories.Count() > 0 && tags.Count() > 0)
-                    {
-                        return FilterItemViewModel.FilterByCategory(m, categories) || FilterItemViewModel.FilterByTags(m, tags);
-                    }
-                    else if (categories.Count() > 0)
-                    {
-                        return FilterItemViewModel.FilterByCategory(m, categories);
-                    }
-                    else
-                    {
-                        return FilterItemViewModel.FilterByTags(m, tags);
-                    }
-                }).ToList();
+                        if (categories.Count() > 0 && tags.Count() > 0)
+                        {
+                            return FilterItemViewModel.FilterByCategory(m, categories)
+                                || FilterItemViewModel.FilterByTags(m, tags);
+                        }
+                        else if (categories.Count() > 0)
+                        {
+                            return FilterItemViewModel.FilterByCategory(m, categories);
+                        }
+                        else
+                        {
+                            return FilterItemViewModel.FilterByTags(m, tags);
+                        }
+                    })
+                    .ToList();
             }
             else
             {
-                results = Sys.Catalog.Mods.Where(m =>
-                {
-                    if (!MatchesCurrentGameLanguage(m))
+                results = Sys
+                    .Catalog.Mods.Where(m =>
                     {
-                        return false;
-                    }
+                        if (!MatchesCurrentGameLanguage(m))
+                        {
+                            return false;
+                        }
 
-                    bool isRelevant = m.SearchRelevance(searchText) > 0;
+                        bool isRelevant = m.SearchRelevance(searchText) > 0;
 
-                    if (categories.Count() > 0 && tags.Count() > 0)
-                    {
-                        return FilterItemViewModel.FilterByCategory(m, categories) || FilterItemViewModel.FilterByTags(m, tags) || isRelevant;
-                    }
-                    else if (categories.Count() > 0)
-                    {
-                        return FilterItemViewModel.FilterByCategory(m, categories) || isRelevant;
-                    }
-                    else if (tags.Count() > 0)
-                    {
-                        return FilterItemViewModel.FilterByTags(m, tags) || isRelevant;
-                    }
-                    else
-                    {
-                        return isRelevant;
-                    }
-                }).ToList();
+                        if (categories.Count() > 0 && tags.Count() > 0)
+                        {
+                            return FilterItemViewModel.FilterByCategory(m, categories)
+                                || FilterItemViewModel.FilterByTags(m, tags)
+                                || isRelevant;
+                        }
+                        else if (categories.Count() > 0)
+                        {
+                            return FilterItemViewModel.FilterByCategory(m, categories)
+                                || isRelevant;
+                        }
+                        else if (tags.Count() > 0)
+                        {
+                            return FilterItemViewModel.FilterByTags(m, tags) || isRelevant;
+                        }
+                        else
+                        {
+                            return isRelevant;
+                        }
+                    })
+                    .ToList();
             }
 
             List<CatalogModItemViewModel> newList = new List<CatalogModItemViewModel>();
 
-            foreach (Mod m in results.OrderBy(k =>
-                                        {
-                                            subscriptionOrder.TryGetValue(k.SourceCatalogUrl, out int sortOrder);
-                                            return sortOrder;
-                                        })
-                                     .ThenBy(k => k.Category)
-                                     .ThenBy(k => k.Name))
+            foreach (
+                Mod m in results
+                    .OrderBy(k =>
+                    {
+                        subscriptionOrder.TryGetValue(k.SourceCatalogUrl, out int sortOrder);
+                        return sortOrder;
+                    })
+                    .ThenBy(k => k.Category)
+                    .ThenBy(k => k.Name)
+            )
             {
                 CatalogModItemViewModel item = new CatalogModItemViewModel(m);
                 newList.Add(item);
@@ -428,7 +424,9 @@ namespace AppUI.ViewModels
                     bool hasSearchText = !string.IsNullOrWhiteSpace(searchText);
                     if (!ShowOnlyLanguageCompatibleItems || hasSearchText)
                     {
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true));
+                        Sys.Message(
+                            new WMessage(ResourceHelper.Get(StringKey.NoResultsFound), true)
+                        );
                     }
 
                     if (hasSearchText || ShowOnlyLanguageCompatibleItems)
@@ -482,13 +480,17 @@ namespace AppUI.ViewModels
                 selectedCount = CatalogModList.Where(m => m.IsSelected).Count();
             }
 
-            // due to virtualization, IsSelected could be set on multiple items... 
+            // due to virtualization, IsSelected could be set on multiple items...
             // ... so we will deselect the other items to avoid problems of multiple items being selected
             if (selectedCount > 1)
             {
                 lock (_listLock)
                 {
-                    foreach (var mod in CatalogModList.Where(m => m.IsSelected && m.Mod.ID != selected.Mod.ID))
+                    foreach (
+                        var mod in CatalogModList.Where(m =>
+                            m.IsSelected && m.Mod.ID != selected.Mod.ID
+                        )
+                    )
                     {
                         mod.IsSelected = false;
                     }
@@ -543,16 +545,25 @@ namespace AppUI.ViewModels
 
                 foreach (string subUrl in Sys.Settings.SubscribedUrls.ToArray())
                 {
-                    Subscription sub = Sys.Settings.Subscriptions.Find(s => s.Url.Equals(subUrl, StringComparison.InvariantCultureIgnoreCase));
+                    Subscription sub = Sys.Settings.Subscriptions.Find(s =>
+                        s.Url.Equals(subUrl, StringComparison.InvariantCultureIgnoreCase)
+                    );
                     if (sub == null)
                     {
-                        sub = new Subscription() { Url = subUrl, FailureCount = 0, LastSuccessfulCheck = DateTime.MinValue };
+                        sub = new Subscription()
+                        {
+                            Url = subUrl,
+                            FailureCount = 0,
+                            LastSuccessfulCheck = DateTime.MinValue,
+                        };
                         Sys.Settings.Subscriptions.Add(sub);
                     }
 
                     if ((sub.LastSuccessfulCheck < DateTime.Now.AddDays(-1)) || forceCheck)
                     {
-                        Logger.Info($"{ResourceHelper.Get(StringKey.CheckingSubscription)} {sub.Url}");
+                        Logger.Info(
+                            $"{ResourceHelper.Get(StringKey.CheckingSubscription)} {sub.Url}"
+                        );
 
                         string uniqueFileName = $"cattemp{Path.GetRandomFileName()}.xml"; // save temp catalog update to unique filename so multiple catalog updates can download async
                         string path = Path.Combine(Sys.SysFolder, "temp", uniqueFileName);
@@ -562,7 +573,7 @@ namespace AppUI.ViewModels
                             Links = new List<string>() { subUrl },
                             SaveFilePath = path,
                             Category = DownloadCategory.Catalog,
-                            ItemName = $"{ResourceHelper.Get(StringKey.CheckingCatalog)} {subUrl}"
+                            ItemName = $"{ResourceHelper.Get(StringKey.CheckingCatalog)} {subUrl}",
                         };
 
                         download.IProc = new Install.InstallProcedureCallback(e =>
@@ -589,18 +600,25 @@ namespace AppUI.ViewModels
                                         m.SourceCatalogUrl = subUrl;
                                     });
 
-
                                     lock (Sys.CatalogLock) // put a lock on the Catalog so multiple threads can only merge one at a time
                                     {
                                         Sys.Catalog = Catalog.Merge(Sys.Catalog, c, out pingIDs);
 
-                                        using (FileStream fs = new FileStream(catFile, FileMode.Create))
+                                        using (
+                                            FileStream fs = new FileStream(catFile, FileMode.Create)
+                                        )
                                         {
                                             Util.Serialize(Sys.Catalog, fs);
                                         }
                                     }
 
-                                    Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.UpdatedCatalogFrom)} {subUrl}" });
+                                    Sys.Message(
+                                        new WMessage()
+                                        {
+                                            Text =
+                                                $"{ResourceHelper.Get(StringKey.UpdatedCatalogFrom)} {subUrl}",
+                                        }
+                                    );
 
                                     sub.LastSuccessfulCheck = DateTime.Now;
                                     sub.FailureCount = 0;
@@ -613,7 +631,14 @@ namespace AppUI.ViewModels
                                 catch (Exception ex)
                                 {
                                     sub.FailureCount++;
-                                    Sys.Message(new WMessage() { Text = $"{ResourceHelper.Get(StringKey.FailedToLoadSubscription)} {subUrl}: {ex.Message} {ex.InnerException?.Message}", LoggedException = ex });
+                                    Sys.Message(
+                                        new WMessage()
+                                        {
+                                            Text =
+                                                $"{ResourceHelper.Get(StringKey.FailedToLoadSubscription)} {subUrl}: {ex.Message} {ex.InnerException?.Message}",
+                                            LoggedException = ex,
+                                        }
+                                    );
                                 }
                                 finally
                                 {
@@ -644,7 +669,6 @@ namespace AppUI.ViewModels
                                 ReloadModList(GetSelectedMod()?.Mod.ID);
                                 RefreshListRequested?.Invoke();
                             }
-
                         });
 
                         Sys.Downloads.AddToDownloadQueue(download);
@@ -674,7 +698,6 @@ namespace AppUI.ViewModels
                 return;
             }
 
-
             if (downloadItem.Download.FileDownloadTask?.IsPaused == true)
             {
                 downloadItem.DownloadSpeed = ResourceHelper.Get(StringKey.Resuming);
@@ -695,13 +718,15 @@ namespace AppUI.ViewModels
         {
             Task t = CheckForCatalogUpdatesAsync(forceCheck: true);
 
-            t.ContinueWith((taskResult) =>
-            {
-                if (taskResult.IsFaulted)
+            t.ContinueWith(
+                (taskResult) =>
                 {
-                    Logger.Warn(taskResult.Exception);
+                    if (taskResult.IsFaulted)
+                    {
+                        Logger.Warn(taskResult.Exception);
+                    }
                 }
-            });
+            );
         }
 
         private void UpdatePauseDownloadButtonUI()
@@ -712,7 +737,10 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            if (!SelectedDownload.Download.IsModOrPatchDownload || SelectedDownload.Download.FileDownloadTask == null)
+            if (
+                !SelectedDownload.Download.IsModOrPatchDownload
+                || SelectedDownload.Download.FileDownloadTask == null
+            )
             {
                 PauseDownloadToolTip = ResourceHelper.Get(StringKey.PauseResumeSelectedDownload);
                 PauseDownloadIsEnabled = false;
@@ -733,30 +761,44 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            if (SelectedDownload.Download.Category == DownloadCategory.ModPatch && SelectedDownload.Download.ParentUniqueID != null)
+            if (
+                SelectedDownload.Download.Category == DownloadCategory.ModPatch
+                && SelectedDownload.Download.ParentUniqueID != null
+            )
             {
                 // if the selected download is a ModPatch then check to see if the parent download is still downlading
                 DownloadItemViewModel parentDownload = null;
                 lock (_downloadLock)
                 {
-                    parentDownload = DownloadList.Where(m => m.Download.UniqueId == SelectedDownload.Download.ParentUniqueID).FirstOrDefault();
+                    parentDownload = DownloadList
+                        .Where(m => m.Download.UniqueId == SelectedDownload.Download.ParentUniqueID)
+                        .FirstOrDefault();
                 }
 
                 if (parentDownload != null && !parentDownload.Download.IsFileDownloadPaused)
                 {
                     // parent download is paused in queue so don't allow patch to pause/resume
-                    PauseDownloadToolTip = ResourceHelper.Get(StringKey.PauseResumeSelectedDownload);
+                    PauseDownloadToolTip = ResourceHelper.Get(
+                        StringKey.PauseResumeSelectedDownload
+                    );
                     PauseDownloadIsEnabled = false;
                     return;
                 }
             }
 
-
-            if (LocationUtil.TryParse(SelectedDownload.Download.Links[0], out LocationType downloadType, out string url))
+            if (
+                LocationUtil.TryParse(
+                    SelectedDownload.Download.Links[0],
+                    out LocationType downloadType,
+                    out string url
+                )
+            )
             {
                 if (downloadType != LocationType.Url && downloadType != LocationType.GDrive) // current implementation only supports Url/GDrive
                 {
-                    PauseDownloadToolTip = ResourceHelper.Get(StringKey.PauseResumeSelectedDownload);
+                    PauseDownloadToolTip = ResourceHelper.Get(
+                        StringKey.PauseResumeSelectedDownload
+                    );
                     PauseDownloadIsEnabled = false;
                     return;
                 }
@@ -765,34 +807,52 @@ namespace AppUI.ViewModels
             // if another mod is already downloading then don't allow to resume other mods
             lock (_downloadLock)
             {
-                PauseDownloadIsEnabled = !DownloadList.Any(d => d.Download.UniqueId != SelectedDownload.Download.UniqueId && d.Download.IsModOrPatchDownload && d.Download.HasStarted && !d.Download.IsFileDownloadPaused);
+                PauseDownloadIsEnabled = !DownloadList.Any(d =>
+                    d.Download.UniqueId != SelectedDownload.Download.UniqueId
+                    && d.Download.IsModOrPatchDownload
+                    && d.Download.HasStarted
+                    && !d.Download.IsFileDownloadPaused
+                );
             }
 
             IsSelectedDownloadPaused = SelectedDownload.Download.FileDownloadTask.IsPaused;
             if (IsSelectedDownloadPaused)
             {
-                PauseDownloadToolTip = ResourceHelper.Get(StringKey.ResumeSelectedDownload); ;
+                PauseDownloadToolTip = ResourceHelper.Get(StringKey.ResumeSelectedDownload);
+                ;
             }
             else
             {
-                PauseDownloadToolTip = ResourceHelper.Get(StringKey.PauseSelectedDownload); ;
+                PauseDownloadToolTip = ResourceHelper.Get(StringKey.PauseSelectedDownload);
+                ;
             }
         }
 
         #region Methods Related to Downloads
 
-        internal void CancelDownload(DownloadItemViewModel downloadItemViewModel, bool isCancellingChild = false)
+        internal void CancelDownload(
+            DownloadItemViewModel downloadItemViewModel,
+            bool isCancellingChild = false
+        )
         {
             bool hasChildren = false;
             lock (_downloadLock)
             {
-                hasChildren = DownloadList.Any(d => d.Download.ParentUniqueID == downloadItemViewModel.Download.UniqueId);
+                hasChildren = DownloadList.Any(d =>
+                    d.Download.ParentUniqueID == downloadItemViewModel.Download.UniqueId
+                );
             }
 
             if (hasChildren)
             {
                 // cancel any child downloads when the parent download is being cancelled
-                foreach (var item in DownloadList.Where(d => d.Download.ParentUniqueID == downloadItemViewModel.Download.UniqueId).ToList())
+                foreach (
+                    var item in DownloadList
+                        .Where(d =>
+                            d.Download.ParentUniqueID == downloadItemViewModel.Download.UniqueId
+                        )
+                        .ToList()
+                )
                 {
                     CancelDownload(item, true);
                 }
@@ -804,8 +864,14 @@ namespace AppUI.ViewModels
             }
 
             downloadItemViewModel.IsCancelling = true;
-            downloadItemViewModel.ItemName = downloadItemViewModel.ItemName.Replace(ResourceHelper.Get(StringKey.Downloading), ResourceHelper.Get(StringKey.Cancelling));
-            downloadItemViewModel.ItemName = downloadItemViewModel.ItemName.Replace(ResourceHelper.Get(StringKey.Installing), ResourceHelper.Get(StringKey.Cancelling));
+            downloadItemViewModel.ItemName = downloadItemViewModel.ItemName.Replace(
+                ResourceHelper.Get(StringKey.Downloading),
+                ResourceHelper.Get(StringKey.Cancelling)
+            );
+            downloadItemViewModel.ItemName = downloadItemViewModel.ItemName.Replace(
+                ResourceHelper.Get(StringKey.Installing),
+                ResourceHelper.Get(StringKey.Cancelling)
+            );
 
             if (downloadItemViewModel?.Download?.PerformCancel != null)
             {
@@ -832,13 +898,23 @@ namespace AppUI.ViewModels
 
             if (status == ModStatus.Downloading)
             {
-                MessageDialogWindow.Show($"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyDownloading)}", ResourceHelper.Get(StringKey.Warning), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    $"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyDownloading)}",
+                    ResourceHelper.Get(StringKey.Warning),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             if (status == ModStatus.Updating)
             {
-                MessageDialogWindow.Show($"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyUpdating)}", ResourceHelper.Get(StringKey.Warning), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    $"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyUpdating)}",
+                    ResourceHelper.Get(StringKey.Warning),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
@@ -852,12 +928,22 @@ namespace AppUI.ViewModels
             {
                 InstalledItem installedItem = Sys.Library.GetItem(modToDownload.ID);
 
-                bool hasPatches = modToDownload.GetPatchesFromTo(installedItem.LatestInstalled.VersionDetails.Version, modToDownload.LatestVersion.Version).Any();
+                bool hasPatches = modToDownload
+                    .GetPatchesFromTo(
+                        installedItem.LatestInstalled.VersionDetails.Version,
+                        modToDownload.LatestVersion.Version
+                    )
+                    .Any();
 
                 // no update is available and no patches available so warn user that latest version is already installed
                 if (installedItem != null && !installedItem.IsUpdateAvailable && !hasPatches)
                 {
-                    MessageDialogWindow.Show($"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyDownloadedAndInstalled)}", ResourceHelper.Get(StringKey.Warning), MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageDialogWindow.Show(
+                        $"{modToDownload.Name} {ResourceHelper.Get(StringKey.IsAlreadyDownloadedAndInstalled)}",
+                        ResourceHelper.Get(StringKey.Warning),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                     return;
                 }
                 else
@@ -892,7 +978,21 @@ namespace AppUI.ViewModels
 
             if (required.Any())
             {
-                if (MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.ThisModAlsoRequiresYouDownloadTheFollowing), String.Join("\n", required.Select(m => m.Name))), ResourceHelper.Get(StringKey.Requirements), MessageBoxButton.YesNo, MessageBoxImage.Question).Result == MessageBoxResult.Yes)
+                if (
+                    MessageDialogWindow
+                        .Show(
+                            String.Format(
+                                ResourceHelper.Get(
+                                    StringKey.ThisModAlsoRequiresYouDownloadTheFollowing
+                                ),
+                                String.Join("\n", required.Select(m => m.Name))
+                            ),
+                            ResourceHelper.Get(StringKey.Requirements),
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Question
+                        )
+                        .Result == MessageBoxResult.Yes
+                )
                 {
                     foreach (Mod rMod in required)
                     {
@@ -903,7 +1003,17 @@ namespace AppUI.ViewModels
 
             if (notFound.Any())
             {
-                MessageDialogWindow.Show(String.Format(ResourceHelper.Get(StringKey.ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog), String.Join("\n", notFound)), ResourceHelper.Get(StringKey.Warning), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    String.Format(
+                        ResourceHelper.Get(
+                            StringKey.ThisModRequiresTheFollowingButCouldNotBeFoundInCatalog
+                        ),
+                        String.Join("\n", notFound)
+                    ),
+                    ResourceHelper.Get(StringKey.Warning),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
         }
 
@@ -931,14 +1041,25 @@ namespace AppUI.ViewModels
 
                     // determine if the next url is ExternalUrl and has an empty url
                     string backupLink = backupLinks[1];
-                    LocationUtil.TryParse(backupLink, out LocationType backupType, out string backupUrl);
+                    LocationUtil.TryParse(
+                        backupLink,
+                        out LocationType backupType,
+                        out string backupUrl
+                    );
 
-                    if (backupType == LocationType.ExternalUrl && string.IsNullOrWhiteSpace(backupUrl))
+                    if (
+                        backupType == LocationType.ExternalUrl
+                        && string.IsNullOrWhiteSpace(backupUrl)
+                    )
                     {
                         backupLinks[1] = backupLinks[0].Replace("iros://Url", "iros://ExternalUrl");
                     }
 
-                    Sys.Message(new WMessage($"{downloadInfo.ItemName} - {ResourceHelper.Get(StringKey.SwitchingToBackupUrl)} {backupLinks[1]}"));
+                    Sys.Message(
+                        new WMessage(
+                            $"{downloadInfo.ItemName} - {ResourceHelper.Get(StringKey.SwitchingToBackupUrl)} {backupLinks[1]}"
+                        )
+                    );
                     Download(backupLinks.Skip(1), downloadInfo);
                 };
             }
@@ -947,7 +1068,12 @@ namespace AppUI.ViewModels
 
             if (links == null || links?.Count() == 0)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.NoLinksFor)} {downloadInfo.ItemName}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.NoLinksFor)} {downloadInfo.ItemName}",
+                        true
+                    )
+                );
                 downloadInfo.OnError?.Invoke();
                 return;
             }
@@ -955,7 +1081,12 @@ namespace AppUI.ViewModels
             string link = links.First();
             if (!LocationUtil.TryParse(link, out LocationType type, out string location))
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToParseLinkFor)} {downloadInfo.ItemName}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.FailedToParseLinkFor)} {downloadInfo.ItemName}",
+                        true
+                    )
+                );
                 downloadInfo.OnError?.Invoke();
                 return;
             }
@@ -969,12 +1100,21 @@ namespace AppUI.ViewModels
 
                         App.Current.Dispatcher.Invoke(() =>
                         {
-                            dialogViewModel = MessageDialogWindow.Show(downloadInfo.ExternalUrlDownloadMessage, ResourceHelper.Get(StringKey.ExternalDownload), MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            dialogViewModel = MessageDialogWindow.Show(
+                                downloadInfo.ExternalUrlDownloadMessage,
+                                ResourceHelper.Get(StringKey.ExternalDownload),
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Information
+                            );
                         });
 
                         if (dialogViewModel?.Result == MessageBoxResult.Yes)
                         {
-                            Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.OpeningExternalUrlInBrowserFor)} {downloadInfo.ItemName} - {location}"));
+                            Sys.Message(
+                                new WMessage(
+                                    $"{ResourceHelper.Get(StringKey.OpeningExternalUrlInBrowserFor)} {downloadInfo.ItemName} - {location}"
+                                )
+                            );
                             ProcessStartInfo startInfo = new ProcessStartInfo(location)
                             {
                                 UseShellExecute = true,
@@ -988,7 +1128,11 @@ namespace AppUI.ViewModels
                         break;
 
                     case LocationType.Url:
-                        FileDownloadTask fileDownload = new FileDownloadTask(location, downloadInfo.SaveFilePath, downloadInfo);
+                        FileDownloadTask fileDownload = new FileDownloadTask(
+                            location,
+                            downloadInfo.SaveFilePath,
+                            downloadInfo
+                        );
 
                         downloadInfo.PerformCancel = () =>
                         {
@@ -1012,7 +1156,13 @@ namespace AppUI.ViewModels
                         break;
 
                     case LocationType.GDrive:
-                        FileDownloadTask gdriveDownload = new FileDownloadTask(location, downloadInfo.SaveFilePath, downloadInfo, new CookieContainer(), FileDownloadTaskMode.GDRIVE);
+                        FileDownloadTask gdriveDownload = new FileDownloadTask(
+                            location,
+                            downloadInfo.SaveFilePath,
+                            downloadInfo,
+                            new CookieContainer(),
+                            FileDownloadTaskMode.GDRIVE
+                        );
 
                         downloadInfo.PerformCancel = () =>
                         {
@@ -1020,7 +1170,8 @@ namespace AppUI.ViewModels
                             downloadInfo.OnCancel?.Invoke();
                         };
 
-                        gdriveDownload.DownloadProgressChanged += WebRequest_DownloadProgressChanged;
+                        gdriveDownload.DownloadProgressChanged +=
+                            WebRequest_DownloadProgressChanged;
                         gdriveDownload.DownloadFileCompleted += WebRequest_DownloadFileCompleted;
 
                         if (downloadInfo.IsModOrPatchDownload)
@@ -1062,98 +1213,141 @@ namespace AppUI.ViewModels
                         };
 
                         var client = new MegaApiClient();
-                        client.LoginAnonymousAsync().ContinueWith((loginResult) =>
-                        {
-                            if (wasCanceled)
-                            {
-                                return; // don't continue after async login since user already canceled download
-                            }
-
-                            if (loginResult.IsFaulted)
-                            {
-                                Sys.Message(new WMessage($"Failed to login to mega - {loginResult.Exception.GetBaseException().Message}", WMessageLogLevel.Error, loginResult.Exception));
-                                downloadInfo.OnError?.Invoke();
-                                return;
-                            }
-
-
-                            // get nodes from mega folder
-                            Uri folderLink = new Uri($"https://mega.nz/{parts[0]}");
-                            IEnumerable<INode> nodes = client.GetNodesFromLink(folderLink);
-
-                            // first look for node by Id
-                            INode fileNode = nodes.Where(x => x.Type == NodeType.File && x.Id == parts[1]).FirstOrDefault();
-
-                            // if not found check by name (exact match on file name)
-                            if (fileNode == null)
-                            {
-                                fileNode = nodes.Where(x => x.Type == NodeType.File && x.Name == parts[2]).FirstOrDefault();
-                            }
-
-                            if (wasCanceled)
-                            {
-                                return; // don't continue after async login since user already canceled download
-                            }
-
-                            if (fileNode != null)
-                            {
-                                if (File.Exists(downloadInfo.SaveFilePath))
+                        client
+                            .LoginAnonymousAsync()
+                            .ContinueWith(
+                                (loginResult) =>
                                 {
-                                    File.Delete(downloadInfo.SaveFilePath); //delete old temp file if it exists (throws exception otherwise)
-                                }
-
-                                IProgress<double> progressHandler = new Progress<double>(x =>
-                                {
-                                    double estimatedBytesReceived = (double)fileNode.Size * (x / 100);
-                                    UpdateDownloadProgress(downloadInfo, (int)x, (long)estimatedBytesReceived, fileNode.Size);
-                                });
-
-
-
-                                _megaDownloadCancelTokenSource = new CancellationTokenSource();
-                                Task downloadTask = client.DownloadFileAsync(fileNode, downloadInfo.SaveFilePath, progressHandler, _megaDownloadCancelTokenSource.Token);
-
-                                downloadTask.ContinueWith((downloadResult) =>
-                                {
-                                    _megaDownloadCancelTokenSource?.Dispose();
-                                    _megaDownloadCancelTokenSource = null;
-                                    client.LogoutAsync();
-
-                                    if (downloadResult.IsCanceled)
+                                    if (wasCanceled)
                                     {
-                                        return;
+                                        return; // don't continue after async login since user already canceled download
                                     }
 
-                                    if (downloadResult.IsFaulted)
+                                    if (loginResult.IsFaulted)
                                     {
-                                        Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.ErrorDownloading)} {downloadInfo.ItemName}", WMessageLogLevel.StatusOnly, downloadResult.Exception));
+                                        Sys.Message(
+                                            new WMessage(
+                                                $"Failed to login to mega - {loginResult.Exception.GetBaseException().Message}",
+                                                WMessageLogLevel.Error,
+                                                loginResult.Exception
+                                            )
+                                        );
                                         downloadInfo.OnError?.Invoke();
                                         return;
                                     }
 
+                                    // get nodes from mega folder
+                                    Uri folderLink = new Uri($"https://mega.nz/{parts[0]}");
+                                    IEnumerable<INode> nodes = client.GetNodesFromLink(folderLink);
 
-                                    ProcessDownloadComplete(downloadInfo, new AsyncCompletedEventArgs(null, false, downloadInfo));
-                                });
+                                    // first look for node by Id
+                                    INode fileNode = nodes
+                                        .Where(x => x.Type == NodeType.File && x.Id == parts[1])
+                                        .FirstOrDefault();
 
-                            }
-                            else
-                            {
-                                Sys.Message(new WMessage($"Failed to find mega node for {downloadInfo.ItemName}"));
-                                downloadInfo.OnError?.Invoke();
-                                client.LogoutAsync();
-                            }
-                        });
+                                    // if not found check by name (exact match on file name)
+                                    if (fileNode == null)
+                                    {
+                                        fileNode = nodes
+                                            .Where(x =>
+                                                x.Type == NodeType.File && x.Name == parts[2]
+                                            )
+                                            .FirstOrDefault();
+                                    }
+
+                                    if (wasCanceled)
+                                    {
+                                        return; // don't continue after async login since user already canceled download
+                                    }
+
+                                    if (fileNode != null)
+                                    {
+                                        if (File.Exists(downloadInfo.SaveFilePath))
+                                        {
+                                            File.Delete(downloadInfo.SaveFilePath); //delete old temp file if it exists (throws exception otherwise)
+                                        }
+
+                                        IProgress<double> progressHandler = new Progress<double>(
+                                            x =>
+                                            {
+                                                double estimatedBytesReceived =
+                                                    (double)fileNode.Size * (x / 100);
+                                                UpdateDownloadProgress(
+                                                    downloadInfo,
+                                                    (int)x,
+                                                    (long)estimatedBytesReceived,
+                                                    fileNode.Size
+                                                );
+                                            }
+                                        );
+
+                                        _megaDownloadCancelTokenSource =
+                                            new CancellationTokenSource();
+                                        Task downloadTask = client.DownloadFileAsync(
+                                            fileNode,
+                                            downloadInfo.SaveFilePath,
+                                            progressHandler,
+                                            _megaDownloadCancelTokenSource.Token
+                                        );
+
+                                        downloadTask.ContinueWith(
+                                            (downloadResult) =>
+                                            {
+                                                _megaDownloadCancelTokenSource?.Dispose();
+                                                _megaDownloadCancelTokenSource = null;
+                                                client.LogoutAsync();
+
+                                                if (downloadResult.IsCanceled)
+                                                {
+                                                    return;
+                                                }
+
+                                                if (downloadResult.IsFaulted)
+                                                {
+                                                    Sys.Message(
+                                                        new WMessage(
+                                                            $"{ResourceHelper.Get(StringKey.ErrorDownloading)} {downloadInfo.ItemName}",
+                                                            WMessageLogLevel.StatusOnly,
+                                                            downloadResult.Exception
+                                                        )
+                                                    );
+                                                    downloadInfo.OnError?.Invoke();
+                                                    return;
+                                                }
+
+                                                ProcessDownloadComplete(
+                                                    downloadInfo,
+                                                    new AsyncCompletedEventArgs(
+                                                        null,
+                                                        false,
+                                                        downloadInfo
+                                                    )
+                                                );
+                                            }
+                                        );
+                                    }
+                                    else
+                                    {
+                                        Sys.Message(
+                                            new WMessage(
+                                                $"Failed to find mega node for {downloadInfo.ItemName}"
+                                            )
+                                        );
+                                        downloadInfo.OnError?.Invoke();
+                                        client.LogoutAsync();
+                                    }
+                                }
+                            );
                         break;
                 }
             }
             catch (Exception e)
             {
-                string msg = $"{ResourceHelper.Get(StringKey.Error)} {downloadInfo.ItemName} - {e.Message}";
+                string msg =
+                    $"{ResourceHelper.Get(StringKey.Error)} {downloadInfo.ItemName} - {e.Message}";
                 Sys.Message(new WMessage(msg, WMessageLogLevel.Error, e));
                 downloadInfo.OnError?.Invoke();
             }
-
-
         }
 
         private void WebRequest_DownloadProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -1167,14 +1361,22 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            if (item.Category == DownloadCategory.Image && download.ContentLength > (3 * 1024*1024))
+            if (
+                item.Category == DownloadCategory.Image
+                && download.ContentLength > (3 * 1024 * 1024)
+            )
             {
                 Logger.Warn("preview image greater than 3MiB, cancelling download");
                 item.PerformCancel?.Invoke();
                 return;
             }
 
-            UpdateDownloadProgress(item, e.ProgressPercentage, download.BytesWritten, download.ContentLength);
+            UpdateDownloadProgress(
+                item,
+                e.ProgressPercentage,
+                download.BytesWritten,
+                download.ContentLength
+            );
             UpdatePauseDownloadButtonUI();
         }
 
@@ -1185,7 +1387,10 @@ namespace AppUI.ViewModels
             // translate item name if needed
             if (newDownload.ItemNameTranslationKey.HasValue)
             {
-                newDownload.ItemName = newDownload.ItemName.Replace($"[{newDownload.ItemNameTranslationKey}]", ResourceHelper.Get(newDownload.ItemNameTranslationKey.Value));
+                newDownload.ItemName = newDownload.ItemName.Replace(
+                    $"[{newDownload.ItemNameTranslationKey}]",
+                    ResourceHelper.Get(newDownload.ItemNameTranslationKey.Value)
+                );
             }
 
             // ensure you can cancel downloads that are pending download in queue
@@ -1212,7 +1417,6 @@ namespace AppUI.ViewModels
                     downloadCount = DownloadList.Count;
                 }
             });
-
 
             if (downloadCount == 1)
             {
@@ -1250,7 +1454,8 @@ namespace AppUI.ViewModels
             }
             else if (e.Error != null)
             {
-                string msg = $"{ResourceHelper.Get(StringKey.Error)} {item.ItemName} - {e.Error.GetBaseException().Message}";
+                string msg =
+                    $"{ResourceHelper.Get(StringKey.Error)} {item.ItemName} - {e.Error.GetBaseException().Message}";
                 Sys.Message(new WMessage(msg, WMessageLogLevel.Error, e.Error.GetBaseException()));
                 item.OnError?.Invoke();
             }
@@ -1278,14 +1483,15 @@ namespace AppUI.ViewModels
         {
             int downloadCount = 0;
 
-
             App.Current.Dispatcher.Invoke(() =>
             {
                 lock (_downloadLock)
                 {
                     if (DownloadList.Any(d => d.Download.UniqueId == item.UniqueId))
                     {
-                        DownloadItemViewModel viewModel = DownloadList.FirstOrDefault(d => d.Download.UniqueId == item.UniqueId);
+                        DownloadItemViewModel viewModel = DownloadList.FirstOrDefault(d =>
+                            d.Download.UniqueId == item.UniqueId
+                        );
                         DownloadList.Remove(viewModel);
                     }
 
@@ -1307,8 +1513,14 @@ namespace AppUI.ViewModels
 
             lock (_downloadLock)
             {
-                isDownloadingMod = DownloadList.Any(d => d.Download.IsModOrPatchDownload && d.Download.HasStarted && !d.Download.IsFileDownloadPaused);
-                isDownloadingImageOrCat = DownloadList.Any(d => !d.Download.IsModOrPatchDownload && d.Download.HasStarted);
+                isDownloadingMod = DownloadList.Any(d =>
+                    d.Download.IsModOrPatchDownload
+                    && d.Download.HasStarted
+                    && !d.Download.IsFileDownloadPaused
+                );
+                isDownloadingImageOrCat = DownloadList.Any(d =>
+                    !d.Download.IsModOrPatchDownload && d.Download.HasStarted
+                );
 
                 // loop over each download in queue to see which is allowed to be started next
                 foreach (DownloadItemViewModel item in DownloadList)
@@ -1321,7 +1533,9 @@ namespace AppUI.ViewModels
                     if (item.Download.ParentUniqueID != null)
                     {
                         // ... check if this child download is allowed to start downloading if the parent download is finished
-                        var parentDownload = DownloadList.Where(d => d.Download.UniqueId == item.Download.ParentUniqueID).FirstOrDefault();
+                        var parentDownload = DownloadList
+                            .Where(d => d.Download.UniqueId == item.Download.ParentUniqueID)
+                            .FirstOrDefault();
                         if (parentDownload != null)
                         {
                             // skip download where parent download is still in download queue
@@ -1379,11 +1593,16 @@ namespace AppUI.ViewModels
                             continue; // skip downloads that already started
                         }
 
-                        if (item.Download.Category == DownloadCategory.ModPatch && item.Download.ParentUniqueID != null)
+                        if (
+                            item.Download.Category == DownloadCategory.ModPatch
+                            && item.Download.ParentUniqueID != null
+                        )
                         {
                             // when a mod patch is queued for download it may have a 'parent' download in the queue which is the full mod to be installed
                             // ... here we check if this mod patch is allowed to start downloading if the parent download is finished
-                            var parentDownload = DownloadList.Where(d => d.Download.UniqueId == item.Download.ParentUniqueID).FirstOrDefault();
+                            var parentDownload = DownloadList
+                                .Where(d => d.Download.UniqueId == item.Download.ParentUniqueID)
+                                .FirstOrDefault();
                             if (parentDownload == null)
                             {
                                 nextDownload = item;
@@ -1431,7 +1650,9 @@ namespace AppUI.ViewModels
                     DownloadItemViewModel failedItem = null;
                     lock (_downloadLock)
                     {
-                        failedItem = DownloadList.FirstOrDefault(i => i.Download.UniqueId == item.UniqueId);
+                        failedItem = DownloadList.FirstOrDefault(i =>
+                            i.Download.UniqueId == item.UniqueId
+                        );
                     }
 
                     if (failedItem != null)
@@ -1449,12 +1670,13 @@ namespace AppUI.ViewModels
                 CompleteIProc(item, e);
             };
 
-
             // update UI viewmodel to reflect installation status
             DownloadItemViewModel itemViewModel = null;
             lock (_downloadLock)
             {
-                itemViewModel = DownloadList.FirstOrDefault(i => i.Download.UniqueId == item.UniqueId);
+                itemViewModel = DownloadList.FirstOrDefault(i =>
+                    i.Download.UniqueId == item.UniqueId
+                );
             }
 
             if (itemViewModel == null || itemViewModel.IsCancelling)
@@ -1464,7 +1686,10 @@ namespace AppUI.ViewModels
 
             if (item.IsModOrPatchDownload && itemViewModel != null)
             {
-                itemViewModel.ItemName = item.ItemName.Replace(ResourceHelper.Get(StringKey.Downloading), ResourceHelper.Get(StringKey.Installing));
+                itemViewModel.ItemName = item.ItemName.Replace(
+                    ResourceHelper.Get(StringKey.Downloading),
+                    ResourceHelper.Get(StringKey.Installing)
+                );
                 itemViewModel.DownloadSpeed = "N/A";
                 itemViewModel.RemainingTime = ResourceHelper.Get(StringKey.Unknown);
             }
@@ -1481,7 +1706,12 @@ namespace AppUI.ViewModels
             item.IProc.Schedule();
         }
 
-        private void UpdateDownloadProgress(DownloadItem item, int percentDone, long bytesReceived, long totalBytes)
+        private void UpdateDownloadProgress(
+            DownloadItem item,
+            int percentDone,
+            long bytesReceived,
+            long totalBytes
+        )
         {
             DownloadItemViewModel viewModel = null;
 
@@ -1508,12 +1738,15 @@ namespace AppUI.ViewModels
             {
                 if (bytesReceived > 0)
                 {
-                    double estimatedSpeed = (((bytesReceived - item.LastBytes) / 1024.0) / interval.TotalSeconds); // estimated speed in KB/s
+                    double estimatedSpeed = (
+                        ((bytesReceived - item.LastBytes) / 1024.0) / interval.TotalSeconds
+                    ); // estimated speed in KB/s
 
                     if ((estimatedSpeed / 1024.0) > 1.0)
                     {
                         // show speed in MB/s
-                        viewModel.DownloadSpeed = (estimatedSpeed / 1024.0).ToString("0.0") + "MB/s";
+                        viewModel.DownloadSpeed =
+                            (estimatedSpeed / 1024.0).ToString("0.0") + "MB/s";
                     }
                     else
                     {
@@ -1521,7 +1754,8 @@ namespace AppUI.ViewModels
                         viewModel.DownloadSpeed = estimatedSpeed.ToString("0.0") + "KB/s";
                     }
 
-                    double estimatedSecondsLeft = ((totalBytes - bytesReceived) / 1024.0) / estimatedSpeed; // divide bytes by 1024 to get total KB
+                    double estimatedSecondsLeft =
+                        ((totalBytes - bytesReceived) / 1024.0) / estimatedSpeed; // divide bytes by 1024 to get total KB
 
                     if ((estimatedSecondsLeft / 60) > 60)
                     {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<ConfigSpec
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
   <!-- GRAPHICS TAB -->
   <Setting xsi:type="DropDown">
     <Group>Graphics</Group>
@@ -133,8 +135,8 @@
 
   <Setting xsi:type="Checkbox">
     <Group>Graphics</Group>
-	<Name>Vertical Uncrop</Name>
-	<Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
+    <Name>Vertical Uncrop</Name>
+    <Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
     <DefaultValue>enable_uncrop = true</DefaultValue>
     <TrueSetting>enable_uncrop = true</TrueSetting>
     <FalseSetting>enable_uncrop = false</FalseSetting>
@@ -157,7 +159,7 @@
     <TrueSetting>enable_vsync = true</TrueSetting>
     <FalseSetting>enable_vsync = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="Checkbox">
     <Group>Graphics</Group>
     <Name>Advanced Lighting</Name>
@@ -187,7 +189,7 @@
       <Settings></Settings>
     </Option>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Auto-Attack</Name>
@@ -209,7 +211,7 @@
       <Settings></Settings>
     </Option>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>Cheats</Group>
     <Name>Soft Reset</Name>
@@ -270,7 +272,7 @@
       <Settings>speedhack_max = 12.0</Settings>
     </Option>
   </Setting>
-  
+
   <!-- CONTROLS TAB -->
   <Setting xsi:type="Checkbox">
     <Group>Controls</Group>
@@ -317,7 +319,7 @@
     <TrueSetting>enable_steam_achievements = true</TrueSetting>
     <FalseSetting>enable_steam_achievements = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="Checkbox">
     <Group>Advanced</Group>
     <Name>Show Debug Info</Name>
@@ -353,7 +355,7 @@
     <TrueSetting>show_renderer_backend = true</TrueSetting>
     <FalseSetting>show_renderer_backend = false</FalseSetting>
   </Setting>
-  
+
   <Setting xsi:type="DropDown">
     <Group>Advanced</Group>
     <Name>Internal Resolution Scaler</Name>
@@ -384,5 +386,4 @@
       <Settings>internal_resolution_scale = 8</Settings>
     </Option>
   </Setting>
-
 </ConfigSpec>

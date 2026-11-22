@@ -1,11 +1,4 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using Microsoft.Win32;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,6 +7,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros;
+using Iros.Workshop;
+using Microsoft.Win32;
 
 namespace AppUI.ViewModels
 {
@@ -21,16 +21,12 @@ namespace AppUI.ViewModels
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-
         private List<string> _profiles;
         private string _selectedProfile;
 
         public List<string> Profiles
         {
-            get
-            {
-                return _profiles;
-            }
+            get { return _profiles; }
             set
             {
                 _profiles = value;
@@ -41,18 +37,12 @@ namespace AppUI.ViewModels
 
         public bool OkButtonIsEnabled
         {
-            get
-            {
-                return !string.IsNullOrEmpty(SelectedProfile);
-            }
+            get { return !string.IsNullOrEmpty(SelectedProfile); }
         }
 
         public string SelectedProfile
         {
-            get
-            {
-                return _selectedProfile;
-            }
+            get { return _selectedProfile; }
             set
             {
                 _selectedProfile = value;
@@ -61,11 +51,17 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public OpenProfileViewModel()
         {
             ReloadProfiles();
-            SelectedProfile = Profiles.Where(p => p.Equals(Sys.Settings.CurrentProfile, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+            SelectedProfile = Profiles
+                .Where(p =>
+                    p.Equals(
+                        Sys.Settings.CurrentProfile,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                )
+                .FirstOrDefault();
         }
 
         public void ReloadProfiles()
@@ -88,12 +84,20 @@ namespace AppUI.ViewModels
         {
             if (!File.Exists(Sys.PathToCurrentProfileFile))
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.ActiveProfileFileDoesNotExist)}: {Sys.PathToCurrentProfileFile}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.ActiveProfileFileDoesNotExist)}: {Sys.PathToCurrentProfileFile}",
+                        true
+                    )
+                );
                 ReloadProfiles();
                 return;
             }
 
-            string profileName = InputNewProfileName(ResourceHelper.Get(StringKey.EnterProfileName), ResourceHelper.Get(StringKey.SaveActiveProfile));
+            string profileName = InputNewProfileName(
+                ResourceHelper.Get(StringKey.EnterProfileName),
+                ResourceHelper.Get(StringKey.SaveActiveProfile)
+            );
 
             if (profileName == null)
             {
@@ -105,16 +109,33 @@ namespace AppUI.ViewModels
                 MainWindowViewModel.SaveActiveProfile(); // save current profile
 
                 // copy active profile to new xml file
-                File.Copy(Sys.PathToCurrentProfileFile, Path.Combine(Sys.PathToProfiles, $"{profileName}.xml"));
+                File.Copy(
+                    Sys.PathToCurrentProfileFile,
+                    Path.Combine(Sys.PathToProfiles, $"{profileName}.xml")
+                );
 
                 ReloadProfiles();
                 SelectedProfile = profileName;
 
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.SuccessfullySavedAsNewProfile), Sys.Settings.CurrentProfile, profileName), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.SuccessfullySavedAsNewProfile),
+                            Sys.Settings.CurrentProfile,
+                            profileName
+                        ),
+                        true
+                    )
+                );
             }
             catch (Exception e)
             {
-                string errorMsg = string.Format(ResourceHelper.Get(StringKey.FailToSaveAsNewProfile), Sys.Settings.CurrentProfile, profileName, e.Message);
+                string errorMsg = string.Format(
+                    ResourceHelper.Get(StringKey.FailToSaveAsNewProfile),
+                    Sys.Settings.CurrentProfile,
+                    profileName,
+                    e.Message
+                );
                 Sys.Message(new WMessage(errorMsg, true) { LoggedException = e });
             }
         }
@@ -125,7 +146,12 @@ namespace AppUI.ViewModels
 
             if (!File.Exists(pathToProfile))
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile} {ResourceHelper.Get(StringKey.HasItBeenDeletedAlready)}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile} {ResourceHelper.Get(StringKey.HasItBeenDeletedAlready)}",
+                        true
+                    )
+                );
                 ReloadProfiles();
                 return;
             }
@@ -133,11 +159,24 @@ namespace AppUI.ViewModels
             try
             {
                 File.Delete(pathToProfile);
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullyDeletedProfile)} {name}", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.SuccessfullyDeletedProfile)} {name}",
+                        true
+                    )
+                );
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToDeleteProfile)}: {name}", true) { LoggedException = e });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.FailedToDeleteProfile)}: {name}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
 
             ReloadProfiles();
@@ -149,7 +188,9 @@ namespace AppUI.ViewModels
 
             if (!File.Exists(pathToProfile))
             {
-                Logger.Warn($"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile}");
+                Logger.Warn(
+                    $"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile}"
+                );
                 ReloadProfiles();
                 return;
             }
@@ -158,7 +199,10 @@ namespace AppUI.ViewModels
 
             try
             {
-                newProfileName = InputNewProfileName(ResourceHelper.Get(StringKey.EnterProfileNameForTheCopy), ResourceHelper.Get(StringKey.CopyProfile));
+                newProfileName = InputNewProfileName(
+                    ResourceHelper.Get(StringKey.EnterProfileNameForTheCopy),
+                    ResourceHelper.Get(StringKey.CopyProfile)
+                );
 
                 if (newProfileName == null)
                 {
@@ -167,7 +211,11 @@ namespace AppUI.ViewModels
 
                 File.Copy(pathToProfile, Path.Combine(Sys.PathToProfiles, $"{newProfileName}.xml"));
 
-                string successMsg = string.Format(ResourceHelper.Get(StringKey.SuccessfullyCopiedProfile), name, newProfileName);
+                string successMsg = string.Format(
+                    ResourceHelper.Get(StringKey.SuccessfullyCopiedProfile),
+                    name,
+                    newProfileName
+                );
                 Sys.Message(new WMessage(successMsg, true));
 
                 ReloadProfiles();
@@ -175,7 +223,11 @@ namespace AppUI.ViewModels
             }
             catch (Exception e)
             {
-                string errorMsg = string.Format(ResourceHelper.Get(StringKey.FailedToCopyProfile), name, newProfileName);
+                string errorMsg = string.Format(
+                    ResourceHelper.Get(StringKey.FailedToCopyProfile),
+                    name,
+                    newProfileName
+                );
                 Sys.Message(new WMessage(errorMsg, true) { LoggedException = e });
             }
         }
@@ -191,7 +243,9 @@ namespace AppUI.ViewModels
 
             if (!File.Exists(pathToProfile))
             {
-                Logger.Warn($"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile}");
+                Logger.Warn(
+                    $"{ResourceHelper.Get(StringKey.ProfileDoesNotExist)}: {pathToProfile}"
+                );
                 ReloadProfiles();
                 return;
             }
@@ -201,7 +255,10 @@ namespace AppUI.ViewModels
                 Profile profileToView = Util.Deserialize<Profile>(pathToProfile);
 
                 string tempFolder = Path.Combine(Sys.PathToTempFolder, "profile_details");
-                string tempFile = Path.Combine(tempFolder, $"{name.Replace(" ", "")}_{Path.GetRandomFileName()}.txt");
+                string tempFile = Path.Combine(
+                    tempFolder,
+                    $"{name.Replace(" ", "")}_{Path.GetRandomFileName()}.txt"
+                );
                 Directory.CreateDirectory(tempFolder);
 
                 IEnumerable<string> profileDetails = profileToView.GetDetails();
@@ -216,7 +273,15 @@ namespace AppUI.ViewModels
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToOpenProfileDetails)}: {e.Message}", true) { LoggedException = e });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.FailedToOpenProfileDetails)}: {e.Message}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
             }
         }
 
@@ -251,9 +316,13 @@ namespace AppUI.ViewModels
                 if (string.IsNullOrEmpty(profileName))
                 {
                     isValid = false;
-                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ProfileNameIsEmpty), ResourceHelper.Get(StringKey.ProfileError), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageDialogWindow.Show(
+                        ResourceHelper.Get(StringKey.ProfileNameIsEmpty),
+                        ResourceHelper.Get(StringKey.ProfileError),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
-
             } while (!isValid);
 
             return profileName;
@@ -292,7 +361,15 @@ namespace AppUI.ViewModels
 
             if (!File.Exists(xmlFile))
             {
-                Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.WarningProfileXmlDoesNotExistCanNotSwitch), selectedProfile), true));
+                Sys.Message(
+                    new WMessage(
+                        string.Format(
+                            ResourceHelper.Get(StringKey.WarningProfileXmlDoesNotExistCanNotSwitch),
+                            selectedProfile
+                        ),
+                        true
+                    )
+                );
                 ReloadProfiles();
                 return false;
             }
@@ -304,14 +381,24 @@ namespace AppUI.ViewModels
                 Sys.Settings.CurrentProfile = SelectedProfile;
                 Sys.ActiveProfile = Util.Deserialize<Profile>(Sys.PathToCurrentProfileFile);
 
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.LoadedProfile)} {selectedProfile}"));
+                Sys.Message(
+                    new WMessage($"{ResourceHelper.Get(StringKey.LoadedProfile)} {selectedProfile}")
+                );
                 Sys.ActiveProfile.RemoveDeletedItems(doWarn: true);
 
                 return true;
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToSwitchToProfile)} {selectedProfile}", true) { LoggedException = e });
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.FailedToSwitchToProfile)} {selectedProfile}",
+                        true
+                    )
+                    {
+                        LoggedException = e,
+                    }
+                );
                 return false;
             }
         }

@@ -9,10 +9,7 @@
 
         public string WindowTitle
         {
-            get
-            {
-                return _windowTitle;
-            }
+            get { return _windowTitle; }
             set
             {
                 _windowTitle = value;
@@ -22,10 +19,7 @@
 
         public string Message
         {
-            get
-            {
-                return _message;
-            }
+            get { return _message; }
             set
             {
                 _message = value;
@@ -35,10 +29,7 @@
 
         public bool NoRadioButtonIsChecked
         {
-            get
-            {
-                return _noRadioButtonIsChecked;
-            }
+            get { return _noRadioButtonIsChecked; }
             set
             {
                 _noRadioButtonIsChecked = value;
@@ -48,10 +39,7 @@
 
         public bool YesRadioButtonIsChecked
         {
-            get
-            {
-                return _yesRadioButtonIsChecked;
-            }
+            get { return _yesRadioButtonIsChecked; }
             set
             {
                 _yesRadioButtonIsChecked = value;
@@ -59,12 +47,10 @@
             }
         }
 
-
         public AllowModToRunViewModel()
         {
             NoRadioButtonIsChecked = true;
             YesRadioButtonIsChecked = false;
         }
-
     }
 }

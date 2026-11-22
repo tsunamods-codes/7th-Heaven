@@ -3,57 +3,72 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AppCore;
 
-namespace Iros.Workshop {
-
-    public class ImageCacheEntry {
+namespace Iros.Workshop
+{
+    public class ImageCacheEntry
+    {
         public string Url { get; set; }
         public string File { get; set; }
         public DateTime Updated { get; set; }
     }
 
-    public class ImageCacheData {
+    public class ImageCacheData
+    {
         public List<ImageCacheEntry> Entries { get; set; }
     }
 
-    public class ImageCache {
-
+    public class ImageCache
+    {
         private string _folder;
         private Dictionary<string, ImageCacheEntry> _entries;
         private HashSet<string> _usedFiles;
 
         private object _entryLock = new object();
 
-        public ImageCache(string folder) {
+        public ImageCache(string folder)
+        {
             Directory.CreateDirectory(folder);
             string file = Path.Combine(folder, "cache.xml");
-            
-            if (File.Exists(file)) {
+
+            if (File.Exists(file))
+            {
                 ImageCacheData data = Util.Deserialize<ImageCacheData>(file);
-                _entries = data.Entries.ToDictionary(e => e.Url, e => e, StringComparer.InvariantCultureIgnoreCase);
-            } 
+                _entries = data.Entries.ToDictionary(
+                    e => e.Url,
+                    e => e,
+                    StringComparer.InvariantCultureIgnoreCase
+                );
+            }
             else
             {
-                _entries = new Dictionary<string, ImageCacheEntry>(StringComparer.InvariantCultureIgnoreCase);
+                _entries = new Dictionary<string, ImageCacheEntry>(
+                    StringComparer.InvariantCultureIgnoreCase
+                );
             }
 
-            _usedFiles = new HashSet<string>(_entries.Select(e => e.Value.File), StringComparer.InvariantCultureIgnoreCase);
+            _usedFiles = new HashSet<string>(
+                _entries.Select(e => e.Value.File),
+                StringComparer.InvariantCultureIgnoreCase
+            );
             _folder = folder;
 
             DeleteUnusedCacheFiles();
         }
 
-        public void Save() {
+        public void Save()
+        {
             string file = Path.Combine(_folder, "cache.xml");
             ImageCacheData data;
 
-            lock (_entryLock) {
+            lock (_entryLock)
+            {
                 data = new ImageCacheData() { Entries = _entries.Values.ToList() };
             }
 
@@ -93,7 +108,7 @@ namespace Iros.Workshop {
                 SaveFilePath = pathToTempDownload,
                 ItemName = $"[{StringKey.DownloadingPreviewImage}]",
                 ItemNameTranslationKey = StringKey.DownloadingPreviewImage,
-                Category = DownloadCategory.Image
+                Category = DownloadCategory.Image,
             };
 
             download.IProc = new Install.InstallProcedureCallback(ae =>
@@ -112,10 +127,10 @@ namespace Iros.Workshop {
                             // delete existing cache file and rename .tmp file to match cache file name
                             string f = Path.Combine(_folder, file);
 
-                            if (File.Exists(f)) File.Delete(f);
+                            if (File.Exists(f))
+                                File.Delete(f);
 
                             File.Move(pathToTempDownload, f);
-
                         }
                         catch (IOException)
                         {
@@ -126,19 +141,28 @@ namespace Iros.Workshop {
                         }
 
                         Sys.PingInfoChange(modID);
-
                     }
                     catch (Exception ex)
                     {
-                        Sys.Message(new WMessage(StringKey.FailedToGetPreviewImage, WMessageLogLevel.Error, ex));
+                        Sys.Message(
+                            new WMessage(
+                                StringKey.FailedToGetPreviewImage,
+                                WMessageLogLevel.Error,
+                                ex
+                            )
+                        );
                     }
-
                 }
                 else
                 {
-                    Sys.Message(new WMessage(StringKey.FailedToGetPreviewImage, WMessageLogLevel.LogOnly, ae.Error));
+                    Sys.Message(
+                        new WMessage(
+                            StringKey.FailedToGetPreviewImage,
+                            WMessageLogLevel.LogOnly,
+                            ae.Error
+                        )
+                    );
                 }
-
             });
 
             Sys.Downloads.AddToDownloadQueue(download);
@@ -166,10 +190,13 @@ namespace Iros.Workshop {
             return file;
         }
 
-        public void InsertManual(string url, byte[] data) {
+        public void InsertManual(string url, byte[] data)
+        {
             ImageCacheEntry e;
-            lock (_entryLock) {
-                if (!_entries.TryGetValue(url, out e)) {
+            lock (_entryLock)
+            {
+                if (!_entries.TryGetValue(url, out e))
+                {
                     e = new ImageCacheEntry();
                     e.Url = url;
                     _entries[url] = e;
@@ -178,10 +205,12 @@ namespace Iros.Workshop {
 
             e.Updated = DateTime.Now;
 
-            if (String.IsNullOrWhiteSpace(e.File)) {
+            if (String.IsNullOrWhiteSpace(e.File))
+            {
                 string prefix = url.GetHashCode().ToString("x");
                 int count = 0;
-                do {
+                do
+                {
                     e.File = prefix + count.ToString();
                     count++;
                 } while (_usedFiles.Contains(e.File));
@@ -195,11 +224,18 @@ namespace Iros.Workshop {
             catch (IOException ioex)
             {
                 // IOException can be thrown if image is in-use at the time e.g. being previewed
-                Sys.Message(new WMessage($"Failed to update image cache file: {ioex.Message}", WMessageLogLevel.LogOnly));
+                Sys.Message(
+                    new WMessage(
+                        $"Failed to update image cache file: {ioex.Message}",
+                        WMessageLogLevel.LogOnly
+                    )
+                );
             }
             catch (Exception ex)
             {
-                Sys.Message(new WMessage("Failed to update image cache file", WMessageLogLevel.LogOnly, ex));
+                Sys.Message(
+                    new WMessage("Failed to update image cache file", WMessageLogLevel.LogOnly, ex)
+                );
             }
         }
 
@@ -211,7 +247,8 @@ namespace Iros.Workshop {
         /// <param name="modID"> ID of Mod for cached image to look up </param>
         public string GetImagePath(string url, Guid modID)
         {
-            if (String.IsNullOrWhiteSpace(url)) return null;
+            if (String.IsNullOrWhiteSpace(url))
+                return null;
 
             bool gotValue = false;
             string pathToImage = null;
@@ -231,12 +268,20 @@ namespace Iros.Workshop {
                 }
 
                 // re-download image if older than a day to keep cache updated (exlude images that came from auto import)
-                if ((!File.Exists(file) || e.Updated < DateTime.Now.AddDays(-5)) && !url.StartsWith("iros://Preview/Auto", StringComparison.InvariantCultureIgnoreCase))
+                if (
+                    (!File.Exists(file) || e.Updated < DateTime.Now.AddDays(-5))
+                    && !url.StartsWith(
+                        "iros://Preview/Auto",
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                )
                 {
                     TriggerDownload(url, modID);
                 }
             }
-            else if (!url.StartsWith("iros://Preview/Auto", StringComparison.InvariantCultureIgnoreCase))
+            else if (
+                !url.StartsWith("iros://Preview/Auto", StringComparison.InvariantCultureIgnoreCase)
+            )
             {
                 TriggerDownload(url, modID);
             }
@@ -264,7 +309,13 @@ namespace Iros.Workshop {
                     }
                     catch (Exception ex)
                     {
-                        Sys.Message(new WMessage($"Failed to delete old image cache entry {file}", WMessageLogLevel.LogOnly, ex));
+                        Sys.Message(
+                            new WMessage(
+                                $"Failed to delete old image cache entry {file}",
+                                WMessageLogLevel.LogOnly,
+                                ex
+                            )
+                        );
                     }
                 }
             }

@@ -1,11 +1,4 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-//using AppUI.Classes.WCF;
-using AppUI.ViewModels;
-using AppUI.Windows;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +10,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using AppCore;
+using AppUI.Classes;
+//using AppUI.Classes.WCF;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI
 {
@@ -44,7 +44,8 @@ namespace AppUI
             {
                 // This is the first instance - proceed normally.
                 GameLanguage.BypassLanguageCompatibility = e.Args.Any(argument =>
-                    argument.Equals("/BYPASSINTL", StringComparison.InvariantCultureIgnoreCase));
+                    argument.Equals("/BYPASSINTL", StringComparison.InvariantCultureIgnoreCase)
+                );
 
                 base.OnStartup(e);
 
@@ -70,9 +71,14 @@ namespace AppUI
             }
         }
 
-        internal static void ProcessCommandLineArgs(string[] args, bool closeAfterProcessing = false)
+        internal static void ProcessCommandLineArgs(
+            string[] args,
+            bool closeAfterProcessing = false
+        )
         {
-            bool hasLaunchCommand = args.Any(s => s.Equals("/LAUNCH", StringComparison.InvariantCultureIgnoreCase));
+            bool hasLaunchCommand = args.Any(s =>
+                s.Equals("/LAUNCH", StringComparison.InvariantCultureIgnoreCase)
+            );
 
             foreach (string parm in args)
             {
@@ -81,7 +87,6 @@ namespace AppUI
                     // check if its a catalog url or a mod download url
                     if (parm.StartsWith("iros://mod/"))
                     {
-
                         App.Current.Dispatcher.Invoke(() =>
                         {
                             Mod newMod = new Mod()
@@ -90,7 +95,10 @@ namespace AppUI
                                 ID = Guid.NewGuid(),
                                 LatestVersion = new ModVersion()
                                 {
-                                    Links = new System.Collections.Generic.List<string>() { parm.Replace("iros://mod/", "iros://") },
+                                    Links = new System.Collections.Generic.List<string>()
+                                    {
+                                        parm.Replace("iros://mod/", "iros://"),
+                                    },
                                     Version = 1,
                                 },
                             };
@@ -109,7 +117,6 @@ namespace AppUI
                             window.ViewModel.AddIrosUrlToSubscriptions(parm);
                         });
                     }
-
                 }
                 else if (parm.Equals("/MINI", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -122,13 +129,20 @@ namespace AppUI
                 {
                     try
                     {
-                        string profileToLoad = Path.Combine(Sys.PathToProfiles, $"{parm.Substring(9)}.xml");
+                        string profileToLoad = Path.Combine(
+                            Sys.PathToProfiles,
+                            $"{parm.Substring(9)}.xml"
+                        );
                         Profile profile = Util.Deserialize<Profile>(profileToLoad);
 
                         Sys.Settings.CurrentProfile = parm.Substring(9);
                         Sys.ActiveProfile = profile;
 
-                        Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.LoadedProfile)} {Sys.Settings.CurrentProfile}"));
+                        Sys.Message(
+                            new WMessage(
+                                $"{ResourceHelper.Get(StringKey.LoadedProfile)} {Sys.Settings.CurrentProfile}"
+                            )
+                        );
                         Sys.ActiveProfile.RemoveDeletedItems(doWarn: true);
 
                         App.Current.Dispatcher.Invoke(() =>
@@ -139,7 +153,13 @@ namespace AppUI
                     }
                     catch (Exception e)
                     {
-                        Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.CouldNotLoadProfile)} {parm.Substring(9)}", WMessageLogLevel.Error, e));
+                        Sys.Message(
+                            new WMessage(
+                                $"{ResourceHelper.Get(StringKey.CouldNotLoadProfile)} {parm.Substring(9)}",
+                                WMessageLogLevel.Error,
+                                e
+                            )
+                        );
                     }
                 }
                 else if (parm.Equals("/LAUNCH", StringComparison.InvariantCultureIgnoreCase))
@@ -193,21 +213,38 @@ namespace AppUI
                         irofilenoext = Path.GetFileNameWithoutExtension(irofile);
                         Logger.Info("Importing IRO from Windows " + irofile);
 
-                        ModImporter.ImportMod(irofile, ModImporter.ParseNameFromFileOrFolder(irofilenoext), true, false);
+                        ModImporter.ImportMod(
+                            irofile,
+                            ModImporter.ParseNameFromFileOrFolder(irofilenoext),
+                            true,
+                            false
+                        );
                     }
                     catch (Exception ex)
                     {
-                        Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToImportMod)} {irofilenoext}: {ex.Message}", true) { LoggedException = ex });
+                        Sys.Message(
+                            new WMessage(
+                                $"{ResourceHelper.Get(StringKey.FailedToImportMod)} {irofilenoext}: {ex.Message}",
+                                true
+                            )
+                            {
+                                LoggedException = ex,
+                            }
+                        );
                         continue;
                     }
 
-                    Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.AutoImportedMod)} {irofilenoext}", true));
+                    Sys.Message(
+                        new WMessage(
+                            $"{ResourceHelper.Get(StringKey.AutoImportedMod)} {irofilenoext}",
+                            true
+                        )
+                    );
                 }
                 else if (parm.StartsWith("/OPENIROP:", StringComparison.InvariantCultureIgnoreCase))
                 {
                     string iropFile = null;
                     var importer = new ModImporter();
-
 
                     try
                     {
@@ -223,12 +260,22 @@ namespace AppUI
                         }
                         else
                         {
-                            Sys.Message(new WMessage($"Failed to apply patch {iropFile}. Check applog for details.", true));
+                            Sys.Message(
+                                new WMessage(
+                                    $"Failed to apply patch {iropFile}. Check applog for details.",
+                                    true
+                                )
+                            );
                         }
                     }
                     catch (Exception ex)
                     {
-                        Sys.Message(new WMessage($"Failed to apply patch {iropFile}: {ex.Message}", true) { LoggedException = ex });
+                        Sys.Message(
+                            new WMessage($"Failed to apply patch {iropFile}: {ex.Message}", true)
+                            {
+                                LoggedException = ex,
+                            }
+                        );
                         continue;
                     }
                     finally
@@ -252,25 +299,46 @@ namespace AppUI
                             PathToOutputFile = Path.Combine(parentDir, $"{folderName}.iro"),
                         };
 
-                        Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.PackingIntoIro), folderName), true));
+                        Sys.Message(
+                            new WMessage(
+                                string.Format(
+                                    ResourceHelper.Get(StringKey.PackingIntoIro),
+                                    folderName
+                                ),
+                                true
+                            )
+                        );
 
                         Task packTask = packViewModel.PackIro();
-                        packTask.ContinueWith((result) =>
-                        {
-                            Sys.Message(new WMessage(packViewModel.StatusText, true));
-
-                            if (closeAfterProcessing)
+                        packTask.ContinueWith(
+                            (result) =>
                             {
-                                ShutdownApp();
+                                Sys.Message(new WMessage(packViewModel.StatusText, true));
+
+                                if (closeAfterProcessing)
+                                {
+                                    ShutdownApp();
+                                }
                             }
-                        });
+                        );
                     }
                     catch (Exception e)
                     {
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToPackIntoIro), WMessageLogLevel.Error, e) { IsImportant = true });
+                        Sys.Message(
+                            new WMessage(
+                                ResourceHelper.Get(StringKey.FailedToPackIntoIro),
+                                WMessageLogLevel.Error,
+                                e
+                            )
+                            {
+                                IsImportant = true,
+                            }
+                        );
                     }
                 }
-                else if (parm.StartsWith("/UNPACKIRO:", StringComparison.InvariantCultureIgnoreCase))
+                else if (
+                    parm.StartsWith("/UNPACKIRO:", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
                     string pathToIro;
 
@@ -286,22 +354,41 @@ namespace AppUI
                             PathToOutputFolder = Path.Combine(pathToDir, fileName),
                         };
 
-                        Sys.Message(new WMessage(string.Format(ResourceHelper.Get(StringKey.UnpackingIroIntoSubfolder), fileName), true));
+                        Sys.Message(
+                            new WMessage(
+                                string.Format(
+                                    ResourceHelper.Get(StringKey.UnpackingIroIntoSubfolder),
+                                    fileName
+                                ),
+                                true
+                            )
+                        );
 
                         Task unpackTask = unpackViewModel.UnpackIro();
-                        unpackTask.ContinueWith((result) =>
-                        {
-                            Sys.Message(new WMessage(unpackViewModel.StatusText, true));
-
-                            if (closeAfterProcessing)
+                        unpackTask.ContinueWith(
+                            (result) =>
                             {
-                                ShutdownApp();
+                                Sys.Message(new WMessage(unpackViewModel.StatusText, true));
+
+                                if (closeAfterProcessing)
+                                {
+                                    ShutdownApp();
+                                }
                             }
-                        });
+                        );
                     }
                     catch (Exception e)
                     {
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToUnpackIro), WMessageLogLevel.Error, e) { IsImportant = true });
+                        Sys.Message(
+                            new WMessage(
+                                ResourceHelper.Get(StringKey.FailedToUnpackIro),
+                                WMessageLogLevel.Error,
+                                e
+                            )
+                            {
+                                IsImportant = true,
+                            }
+                        );
                     }
                 }
             }
@@ -329,7 +416,11 @@ namespace AppUI
 
         internal static string GetAppName()
         {
-            foreach (object item in System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(false))
+            foreach (
+                object item in System
+                    .Reflection.Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(false)
+            )
             {
                 if (item is System.Reflection.AssemblyTitleAttribute)
                 {
@@ -343,10 +434,16 @@ namespace AppUI
         private void SetupExceptionHandling()
         {
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
-                LogUnhandledException((Exception)e.ExceptionObject, "AppDomain.CurrentDomain.UnhandledException");
+                LogUnhandledException(
+                    (Exception)e.ExceptionObject,
+                    "AppDomain.CurrentDomain.UnhandledException"
+                );
 
             Dispatcher.UnhandledException += (s, e) =>
-                LogUnhandledException(e.Exception, "Application.Current.DispatcherUnhandledException");
+                LogUnhandledException(
+                    e.Exception,
+                    "Application.Current.DispatcherUnhandledException"
+                );
 
             TaskScheduler.UnobservedTaskException += (s, e) =>
                 LogUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
@@ -369,11 +466,17 @@ namespace AppUI
         {
             DispatcherFrame frame = new DispatcherFrame();
 
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new DispatcherOperationCallback(delegate (object parameter)
-            {
-                frame.Continue = false;
-                return null;
-            }), null);
+            Dispatcher.CurrentDispatcher.BeginInvoke(
+                DispatcherPriority.Render,
+                new DispatcherOperationCallback(
+                    delegate(object parameter)
+                    {
+                        frame.Continue = false;
+                        return null;
+                    }
+                ),
+                null
+            );
 
             Dispatcher.PushFrame(frame);
         }
@@ -387,11 +490,15 @@ namespace AppUI
         {
             ResourceDictionary dict = new ResourceDictionary();
 
-            if (string.IsNullOrWhiteSpace(cultureCode) || cultureCode.Length < 2) cultureCode = "en";
+            if (string.IsNullOrWhiteSpace(cultureCode) || cultureCode.Length < 2)
+                cultureCode = "en";
 
             if (cultureCode == "pt-BR")
             {
-                dict.Source = new Uri("Resources\\Languages\\StringResources.br.xaml", UriKind.Relative);
+                dict.Source = new Uri(
+                    "Resources\\Languages\\StringResources.br.xaml",
+                    UriKind.Relative
+                );
             }
             else
             {
@@ -403,22 +510,40 @@ namespace AppUI
                         dict.Source = new Uri("Resources\\StringResources.xaml", UriKind.Relative);
                         break;
                     case "fr":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.fr.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.fr.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     case "es":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.es.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.es.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     case "de":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.de.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.de.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     case "gr":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.gr.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.gr.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     case "it":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.it.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.it.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     case "zh":
-                        dict.Source = new Uri("Resources\\Languages\\StringResources.zh.xaml", UriKind.Relative);
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.zh.xaml",
+                            UriKind.Relative
+                        );
                         break;
                     default:
                         dict.Source = new Uri("Resources\\StringResources.xaml", UriKind.Relative);

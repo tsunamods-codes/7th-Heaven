@@ -1,12 +1,12 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Classes.Themes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using AppCore;
+using AppUI.Classes;
+using AppUI.Classes.Themes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -37,15 +37,24 @@ namespace AppUI.Windows
         {
             try
             {
-                pickerAppBg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.AppBackgroundText);
-                pickerSecondBg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.SecondaryBackgroundText);
-                pickerDisabledBg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlDisabledBgText);
-                pickerDisabledFg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlDisabledFgText);
-                pickerControlBg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlBackgroundText);
-                pickerControlFg.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlForegroundText);
-                pickerControlSecnd.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlSecondaryText);
-                pickerMouseOver.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlMouseOverText);
-                pickerPressed.SelectedColor = (Color)ColorConverter.ConvertFromString(ViewModel.ControlPressedText);
+                pickerAppBg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.AppBackgroundText);
+                pickerSecondBg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.SecondaryBackgroundText);
+                pickerDisabledBg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlDisabledBgText);
+                pickerDisabledFg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlDisabledFgText);
+                pickerControlBg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlBackgroundText);
+                pickerControlFg.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlForegroundText);
+                pickerControlSecnd.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlSecondaryText);
+                pickerMouseOver.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlMouseOverText);
+                pickerPressed.SelectedColor = (Color)
+                    ColorConverter.ConvertFromString(ViewModel.ControlPressedText);
             }
             catch (Exception)
             {
@@ -84,7 +93,10 @@ namespace AppUI.Windows
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            string themeFile = FileDialogHelper.BrowseForFile("theme xml(*.xml)|*.xml", ResourceHelper.Get(StringKey.SelectCustomThemeXmlFile));
+            string themeFile = FileDialogHelper.BrowseForFile(
+                "theme xml(*.xml)|*.xml",
+                ResourceHelper.Get(StringKey.SelectCustomThemeXmlFile)
+            );
 
             if (!string.IsNullOrWhiteSpace(themeFile))
             {
@@ -100,7 +112,10 @@ namespace AppUI.Windows
 
         private void menuExport_Click(object sender, RoutedEventArgs e)
         {
-            string saveFile = FileDialogHelper.OpenSaveDialog("theme xml (*.xml)|*.xml", ResourceHelper.Get(StringKey.SaveCustomThemeXmlFile));
+            string saveFile = FileDialogHelper.OpenSaveDialog(
+                "theme xml (*.xml)|*.xml",
+                ResourceHelper.Get(StringKey.SaveCustomThemeXmlFile)
+            );
 
             if (!string.IsNullOrWhiteSpace(saveFile))
             {
@@ -129,9 +144,18 @@ namespace AppUI.Windows
                 ITheme themeSettings = ThemeSettingsViewModel.GetThemeSettingsFromFile();
                 byte[] imageBytes = Convert.FromBase64String(themeSettings.BackgroundImageBase64);
                 ViewModel.CurrentImageTheme = imageBytes;
-                ViewModel.SelectedBackgroundHorizontalAlignment = Enum.GetName(typeof(HorizontalAlignment), themeSettings.BackgroundHorizontalAlignment);
-                ViewModel.SelectedBackgroundVerticalAlignment = Enum.GetName(typeof(VerticalAlignment), themeSettings.BackgroundVerticalAlignment);
-                ViewModel.SelectedBackgroundStretch = Enum.GetName(typeof(Stretch), themeSettings.BackgroundStretch);
+                ViewModel.SelectedBackgroundHorizontalAlignment = Enum.GetName(
+                    typeof(HorizontalAlignment),
+                    themeSettings.BackgroundHorizontalAlignment
+                );
+                ViewModel.SelectedBackgroundVerticalAlignment = Enum.GetName(
+                    typeof(VerticalAlignment),
+                    themeSettings.BackgroundVerticalAlignment
+                );
+                ViewModel.SelectedBackgroundStretch = Enum.GetName(
+                    typeof(Stretch),
+                    themeSettings.BackgroundStretch
+                );
             }
             catch (Exception)
             {
@@ -151,39 +175,74 @@ namespace AppUI.Windows
 
         #region Color Picker Color Changed Events
 
-        private void pickerAppBg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        private void pickerAppBg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.AppBackgroundText), e.NewValue);
         }
-        private void pickerSecondBg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerSecondBg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.SecondaryBackgroundText), e.NewValue);
         }
-        private void pickerDisabledBg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerDisabledBg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlDisabledBgText), e.NewValue);
         }
-        private void pickerDisabledFg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerDisabledFg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlDisabledFgText), e.NewValue);
         }
-        private void pickerControlBg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerControlBg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlBackgroundText), e.NewValue);
         }
-        private void pickerControlFg_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerControlFg_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlForegroundText), e.NewValue);
         }
-        private void pickerControlSecnd_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerControlSecnd_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlSecondaryText), e.NewValue);
         }
-        private void pickerMouseOver_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerMouseOver_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlMouseOverText), e.NewValue);
         }
-        private void pickerPressed_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+
+        private void pickerPressed_SelectedColorChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<Color?> e
+        )
         {
             ViewModel.ColorChanged(nameof(ViewModel.ControlPressedText), e.NewValue);
         }

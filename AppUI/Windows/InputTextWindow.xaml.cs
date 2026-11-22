@@ -1,5 +1,5 @@
-﻿using AppUI.ViewModels;
-using System.Windows;
+﻿using System.Windows;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -23,11 +23,7 @@ namespace AppUI.Windows
         {
             InitializeComponent();
 
-            ViewModel = new InputTextViewModel()
-            {
-                WindowTitle = windowTitle,
-                Message = prompt
-            };
+            ViewModel = new InputTextViewModel() { WindowTitle = windowTitle, Message = prompt };
 
             this.DataContext = ViewModel;
             txtInput.Focus();

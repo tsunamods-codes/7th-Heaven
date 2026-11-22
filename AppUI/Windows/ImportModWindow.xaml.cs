@@ -1,12 +1,12 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using AppUI;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using Iros.Workshop;
 
 namespace AppUI.Windows
 {
@@ -37,40 +37,53 @@ namespace AppUI.Windows
             this.Cursor = System.Windows.Input.Cursors.Wait;
             App.ForceUpdateUI();
 
-            t.ContinueWith((taskResult) =>
-            {
-                App.Current.Dispatcher.Invoke(() =>
+            t.ContinueWith(
+                (taskResult) =>
                 {
-                    this.Cursor = System.Windows.Input.Cursors.Arrow;
-                }); 
-                
-                if (taskResult.IsFaulted)
-                {
-                    Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged)} {taskResult.Exception.GetBaseException()?.Message}", true) { LoggedException = taskResult.Exception.GetBaseException() });
-                    return;
-                }
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.Cursor = System.Windows.Input.Cursors.Arrow;
+                    });
 
-                // close window on succesful import
-                if (taskResult.Result)
-                {
-                    CloseWindow();
-                }
+                    if (taskResult.IsFaulted)
+                    {
+                        Sys.Message(
+                            new WMessage(
+                                $"{ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged)} {taskResult.Exception.GetBaseException()?.Message}",
+                                true
+                            )
+                            {
+                                LoggedException = taskResult.Exception.GetBaseException(),
+                            }
+                        );
+                        return;
+                    }
 
-                ViewModel.ProgressValue = 0;
-            });
+                    // close window on succesful import
+                    if (taskResult.Result)
+                    {
+                        CloseWindow();
+                    }
+
+                    ViewModel.ProgressValue = 0;
+                }
+            );
         }
 
         private void CloseWindow()
         {
-            App.Current.Dispatcher.Invoke(() => 
-            { 
+            App.Current.Dispatcher.Invoke(() =>
+            {
                 this.Close();
             });
         }
 
         private void btnBrowseIro_Click(object sender, RoutedEventArgs e)
         {
-            string selectedFile = FileDialogHelper.BrowseForFile("*.iro *.irop|*.iro;*.irop", ResourceHelper.Get(StringKey.SelectIroFile));
+            string selectedFile = FileDialogHelper.BrowseForFile(
+                "*.iro *.irop|*.iro;*.irop",
+                ResourceHelper.Get(StringKey.SelectIroFile)
+            );
 
             if (!string.IsNullOrEmpty(selectedFile))
             {
@@ -97,6 +110,5 @@ namespace AppUI.Windows
                 ViewModel.PathToBatchFolderInput = selectedFolder;
             }
         }
-
     }
 }

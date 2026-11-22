@@ -1,6 +1,5 @@
 ﻿namespace AppUI.ViewModels
 {
-
     public class ProgramToRunViewModel : ViewModelBase
     {
         private string _programPath;
@@ -8,10 +7,7 @@
 
         public string ProgramPath
         {
-            get
-            {
-                return _programPath;
-            }
+            get { return _programPath; }
             set
             {
                 _programPath = value;
@@ -22,10 +18,7 @@
 
         public string ProgramArguments
         {
-            get
-            {
-                return _programArguments;
-            }
+            get { return _programArguments; }
             set
             {
                 _programArguments = value;
@@ -36,12 +29,8 @@
 
         public string DisplayName
         {
-            get
-            {
-                return $"{ProgramPath} {ProgramArguments}";
-            }
+            get { return $"{ProgramPath} {ProgramArguments}"; }
         }
-
 
         public ProgramToRunViewModel(string programPath, string args)
         {

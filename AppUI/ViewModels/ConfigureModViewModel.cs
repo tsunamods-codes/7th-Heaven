@@ -1,14 +1,14 @@
-﻿using AppCore;
-using AppWrapper;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppWrapper;
+using Iros.Workshop;
 using NAudio.Wave;
 
 namespace AppUI.ViewModels
@@ -23,12 +23,11 @@ namespace AppUI.ViewModels
         private Func<string, string> _imageReader;
         private Func<string, Stream> _audioReader;
         private List<Constraint> _constraints;
-        
+
         /// <summary>
         /// Dictionary mapping mod settings to their values
         /// </summary>
         private Dictionary<string, int> _values;
-
 
         private string _windowTitle;
         private string _description;
@@ -47,7 +46,6 @@ namespace AppUI.ViewModels
         private Visibility _treeViewVisibility;
         private Visibility _optionListVisibility;
 
-
         private bool _checkBoxIsEnabled;
         private bool _comboBoxIsEnabled;
         private string _audioFileName;
@@ -59,10 +57,7 @@ namespace AppUI.ViewModels
 
         public string WindowTitle
         {
-            get
-            {
-                return _windowTitle;
-            }
+            get { return _windowTitle; }
             set
             {
                 _windowTitle = value;
@@ -72,18 +67,12 @@ namespace AppUI.ViewModels
 
         public bool IsPlayingAudio
         {
-            get
-            {
-                return _audio != null;
-            }
+            get { return _audio != null; }
         }
 
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 _description = value;
@@ -93,10 +82,7 @@ namespace AppUI.ViewModels
 
         public string CheckBoxText
         {
-            get
-            {
-                return _checkBoxText;
-            }
+            get { return _checkBoxText; }
             set
             {
                 _checkBoxText = value;
@@ -106,10 +92,7 @@ namespace AppUI.ViewModels
 
         public string CompatibilityNote
         {
-            get
-            {
-                return _compatibilityNote;
-            }
+            get { return _compatibilityNote; }
             set
             {
                 _compatibilityNote = value;
@@ -132,10 +115,7 @@ namespace AppUI.ViewModels
 
         public bool IsOptionChecked
         {
-            get
-            {
-                return _isOptionChecked;
-            }
+            get { return _isOptionChecked; }
             set
             {
                 _isOptionChecked = value;
@@ -146,10 +126,7 @@ namespace AppUI.ViewModels
 
         public bool CheckBoxIsEnabled
         {
-            get
-            {
-                return _checkBoxIsEnabled;
-            }
+            get { return _checkBoxIsEnabled; }
             set
             {
                 _checkBoxIsEnabled = value;
@@ -159,10 +136,7 @@ namespace AppUI.ViewModels
 
         public bool ComboBoxIsEnabled
         {
-            get
-            {
-                return _comboBoxIsEnabled;
-            }
+            get { return _comboBoxIsEnabled; }
             set
             {
                 _comboBoxIsEnabled = value;
@@ -188,10 +162,7 @@ namespace AppUI.ViewModels
 
         public ConfigOptionViewModel SelectedOption
         {
-            get
-            {
-                return _selectedOption;
-            }
+            get { return _selectedOption; }
             set
             {
                 _selectedOption = value;
@@ -218,10 +189,7 @@ namespace AppUI.ViewModels
 
         public Uri ImageOptionSource
         {
-            get
-            {
-                return _imageOptionSource;
-            }
+            get { return _imageOptionSource; }
             set
             {
                 _imageOptionSource = value;
@@ -231,10 +199,7 @@ namespace AppUI.ViewModels
 
         public int DropdownSelectedIndex
         {
-            get
-            {
-                return _dropdownSelectedIndex;
-            }
+            get { return _dropdownSelectedIndex; }
             set
             {
                 _dropdownSelectedIndex = value;
@@ -246,10 +211,7 @@ namespace AppUI.ViewModels
 
         public Visibility CheckBoxVisibility
         {
-            get
-            {
-                return _checkBoxVisibility;
-            }
+            get { return _checkBoxVisibility; }
             set
             {
                 _checkBoxVisibility = value;
@@ -259,10 +221,7 @@ namespace AppUI.ViewModels
 
         public Visibility ComboBoxVisibility
         {
-            get
-            {
-                return _comboBoxVisibility;
-            }
+            get { return _comboBoxVisibility; }
             set
             {
                 _comboBoxVisibility = value;
@@ -272,10 +231,7 @@ namespace AppUI.ViewModels
 
         public Visibility PreviewButtonVisibility
         {
-            get
-            {
-                return _previewButtonVisibility;
-            }
+            get { return _previewButtonVisibility; }
             set
             {
                 _previewButtonVisibility = value;
@@ -285,10 +241,7 @@ namespace AppUI.ViewModels
 
         public Visibility TreeViewVisibility
         {
-            get
-            {
-                return _treeViewVisibility;
-            }
+            get { return _treeViewVisibility; }
             set
             {
                 _treeViewVisibility = value;
@@ -298,10 +251,7 @@ namespace AppUI.ViewModels
 
         public Visibility OptionListVisibility
         {
-            get
-            {
-                return _optionListVisibility;
-            }
+            get { return _optionListVisibility; }
             set
             {
                 _optionListVisibility = value;
@@ -309,22 +259,31 @@ namespace AppUI.ViewModels
             }
         }
 
-
-
         public ConfigureModViewModel()
         {
             OptionListVisibility = Visibility.Visible;
             TreeViewVisibility = Visibility.Collapsed;
         }
 
-        internal void Init(ModInfo info, Func<string, string> imageReader, Func<string, Stream> audioReader, Iros.Workshop.ProfileItem activeModInfo, List<Constraint> modConstraints, string pathToModFolderOrIro)
+        internal void Init(
+            ModInfo info,
+            Func<string, string> imageReader,
+            Func<string, Stream> audioReader,
+            Iros.Workshop.ProfileItem activeModInfo,
+            List<Constraint> modConstraints,
+            string pathToModFolderOrIro
+        )
         {
             _iroPath = pathToModFolderOrIro;
             _info = info;
             _imageReader = imageReader;
             _audioReader = audioReader;
             _constraints = modConstraints;
-            _values = activeModInfo.Settings.ToDictionary(s => s.ID, s => s.Value, StringComparer.InvariantCultureIgnoreCase);
+            _values = activeModInfo.Settings.ToDictionary(
+                s => s.ID,
+                s => s.Value,
+                StringComparer.InvariantCultureIgnoreCase
+            );
 
             if (info.Options.Any(c => c.Name.StartsWith("===")))
             {
@@ -339,7 +298,7 @@ namespace AppUI.ViewModels
                     if (info.Options[i].Name.StartsWith("==="))
                     {
                         ConfigOptionViewModel parent = new ConfigOptionViewModel(info.Options[i]);
-                        for (int j = i+1; j < info.Options.Count; j++)
+                        for (int j = i + 1; j < info.Options.Count; j++)
                         {
                             if (info.Options[j].Name.StartsWith("==="))
                             {
@@ -347,7 +306,9 @@ namespace AppUI.ViewModels
                                 break;
                             }
 
-                            ConfigOptionViewModel child = new ConfigOptionViewModel(info.Options[j]);
+                            ConfigOptionViewModel child = new ConfigOptionViewModel(
+                                info.Options[j]
+                            );
                             parent.Children.Add(child);
                         }
 
@@ -359,10 +320,13 @@ namespace AppUI.ViewModels
             }
             else
             {
-                ModOptions.AddRange(info.Options.Select(o => new ConfigOptionViewModel(o)).ToList());
+                ModOptions.AddRange(
+                    info.Options.Select(o => new ConfigOptionViewModel(o)).ToList()
+                );
             }
 
-            WindowTitle = $"{ResourceHelper.Get(StringKey.ConfigureMod)} - {Sys.Library.GetItem(activeModInfo.ModID)?.CachedDetails.Name}";
+            WindowTitle =
+                $"{ResourceHelper.Get(StringKey.ConfigureMod)} - {Sys.Library.GetItem(activeModInfo.ModID)?.CachedDetails.Name}";
 
             SelectedOption = ModOptions.Count > 0 ? ModOptions[0] : null;
         }
@@ -372,7 +336,9 @@ namespace AppUI.ViewModels
         /// </summary>
         internal List<ProfileSetting> GetSettings()
         {
-            return _values.Select(kv => new ProfileSetting() { ID = kv.Key, Value = kv.Value }).ToList();
+            return _values
+                .Select(kv => new ProfileSetting() { ID = kv.Key, Value = kv.Value })
+                .ToList();
         }
 
         /// <summary>
@@ -393,7 +359,9 @@ namespace AppUI.ViewModels
             if (!_values.TryGetValue(option.ID, out value))
                 value = option.Default;
 
-            Constraint ct = _constraints.Find(c => c.Setting.Equals(option.ID, StringComparison.InvariantCultureIgnoreCase));
+            Constraint ct = _constraints.Find(c =>
+                c.Setting.Equals(option.ID, StringComparison.InvariantCultureIgnoreCase)
+            );
 
             switch (option.Type)
             {
@@ -420,15 +388,23 @@ namespace AppUI.ViewModels
             if (ct.Require.Any())
             {
                 value = ct.Require[0];
-                CompatibilityNote = $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
+                CompatibilityNote =
+                    $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
                 ComboBoxIsEnabled = false;
             }
             else if (ct.Forbid.Any())
             {
                 var remove = values.Where(v => ct.Forbid.Contains(v.Value));
-                CompatibilityNote = string.Format(ResourceHelper.Get(StringKey.TheFollowingValuesHaveBeenRemovedDueToCompatibility), string.Join(", ", remove.Select(o => o.Name)), string.Join(", ", ct.ParticipatingMods.Values));
+                CompatibilityNote = string.Format(
+                    ResourceHelper.Get(
+                        StringKey.TheFollowingValuesHaveBeenRemovedDueToCompatibility
+                    ),
+                    string.Join(", ", remove.Select(o => o.Name)),
+                    string.Join(", ", ct.ParticipatingMods.Values)
+                );
                 values = values.Except(remove);
-                if (!values.Any(v => v.Value == value)) value = values.First().Value;
+                if (!values.Any(v => v.Value == value))
+                    value = values.First().Value;
                 ComboBoxIsEnabled = true;
             }
             else
@@ -450,13 +426,15 @@ namespace AppUI.ViewModels
             if (ct.Require.Any())
             {
                 value = ct.Require[0];
-                CompatibilityNote = $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
+                CompatibilityNote =
+                    $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
                 CheckBoxIsEnabled = false;
             }
             else if (ct.Forbid.Any())
             {
                 value = new[] { 0, 1 }.Except(ct.Forbid).FirstOrDefault();
-                CompatibilityNote = $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
+                CompatibilityNote =
+                    $"{ResourceHelper.Get(StringKey.ThisOptionCannotBeChangedDueToCompatibility)} ({string.Join(", ", ct.ParticipatingMods.Values)})";
                 CheckBoxIsEnabled = false;
             }
             else
@@ -477,7 +455,9 @@ namespace AppUI.ViewModels
             if (SelectedOption == null)
                 return;
 
-            OptionValue o = SelectedOption.Option.Values.Find(v => v.Value == (IsOptionChecked ? 1 : 0));
+            OptionValue o = SelectedOption.Option.Values.Find(v =>
+                v.Value == (IsOptionChecked ? 1 : 0)
+            );
 
             if (o != null)
             {
@@ -524,7 +504,6 @@ namespace AppUI.ViewModels
                     _audioFile = _audioReader(o.PreviewAudio);
                 }
             }
-            
         }
 
         private void StopAudio()
@@ -543,7 +522,6 @@ namespace AppUI.ViewModels
                     _mp3Reader = null;
                 }
 
-
                 try
                 {
                     _audio.PlaybackStopped -= PreviewAudio_PlaybackStopped;
@@ -554,7 +532,6 @@ namespace AppUI.ViewModels
                 {
                     Logger.Warn($"Error stopping audio: {e.Message}");
                 }
-
 
                 _audio = null;
                 NotifyPropertyChanged(nameof(IsPlayingAudio));
@@ -618,7 +595,6 @@ namespace AppUI.ViewModels
         {
             IrosArc iro = new IrosArc(iroFile);
 
-
             string filter = path;
             string fullPathToAudioFile = "";
 
@@ -645,8 +621,9 @@ namespace AppUI.ViewModels
             {
                 try
                 {
-
-                    if (_audioFileName.EndsWith(".ogg", StringComparison.InvariantCultureIgnoreCase))
+                    if (
+                        _audioFileName.EndsWith(".ogg", StringComparison.InvariantCultureIgnoreCase)
+                    )
                     {
                         if (!string.IsNullOrWhiteSpace(_audioPath))
                         {
@@ -661,7 +638,9 @@ namespace AppUI.ViewModels
                             _audio.Init(_oggReader);
                         }
                     }
-                    else if (_audioFileName.EndsWith(".mp3", StringComparison.InvariantCultureIgnoreCase))
+                    else if (
+                        _audioFileName.EndsWith(".mp3", StringComparison.InvariantCultureIgnoreCase)
+                    )
                     {
                         if (!string.IsNullOrWhiteSpace(_audioPath))
                         {
@@ -689,7 +668,11 @@ namespace AppUI.ViewModels
                     }
                     else
                     {
-                        Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToPlayPreviewAudio)} {_audioFileName}"));
+                        Sys.Message(
+                            new WMessage(
+                                $"{ResourceHelper.Get(StringKey.FailedToPlayPreviewAudio)} {_audioFileName}"
+                            )
+                        );
                     }
 
                     NotifyPropertyChanged(nameof(IsPlayingAudio));
@@ -697,9 +680,12 @@ namespace AppUI.ViewModels
                 catch (Exception e)
                 {
                     Logger.Error(e);
-                    Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.FailedToPlayPreviewAudio)} {_audioFileName}: {e.Message}"));
+                    Sys.Message(
+                        new WMessage(
+                            $"{ResourceHelper.Get(StringKey.FailedToPlayPreviewAudio)} {_audioFileName}: {e.Message}"
+                        )
+                    );
                 }
-
             }
             else
             {
@@ -764,7 +750,13 @@ namespace AppUI.ViewModels
                 return;
             }
 
-            foreach (string filePath in Directory.GetFiles(pathToTemp, "*.*", SearchOption.AllDirectories))
+            foreach (
+                string filePath in Directory.GetFiles(
+                    pathToTemp,
+                    "*.*",
+                    SearchOption.AllDirectories
+                )
+            )
             {
                 try
                 {
@@ -780,7 +772,6 @@ namespace AppUI.ViewModels
 
     public class ConfigOptionViewModel : ViewModelBase
     {
-        
         internal ConfigOption Option { get; set; }
 
         private string _optionName;
@@ -790,10 +781,7 @@ namespace AppUI.ViewModels
 
         public string OptionName
         {
-            get
-            {
-                return _optionName;
-            }
+            get { return _optionName; }
             set
             {
                 _optionName = value;
@@ -803,10 +791,7 @@ namespace AppUI.ViewModels
 
         public List<ConfigOptionViewModel> Children
         {
-            get
-            {
-                return _children;
-            }
+            get { return _children; }
             set
             {
                 _children = value;
@@ -816,10 +801,7 @@ namespace AppUI.ViewModels
 
         public bool IsExpanded
         {
-            get
-            {
-                return _isExpanded;
-            }
+            get { return _isExpanded; }
             set
             {
                 _isExpanded = value;
@@ -829,17 +811,13 @@ namespace AppUI.ViewModels
 
         public bool IsSelected
         {
-            get
-            {
-                return _isSelected;
-            }
+            get { return _isSelected; }
             set
             {
                 _isSelected = value;
                 NotifyPropertyChanged();
             }
         }
-
 
         public ConfigOptionViewModel(ConfigOption option)
         {
@@ -864,10 +842,7 @@ namespace AppUI.ViewModels
 
         public string ValueName
         {
-            get
-            {
-                return _valueName;
-            }
+            get { return _valueName; }
             set
             {
                 _valueName = value;

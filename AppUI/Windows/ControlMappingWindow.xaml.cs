@@ -1,6 +1,4 @@
-﻿using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -39,7 +39,6 @@ namespace AppUI.Windows
             if (e.Key == Key.System)
             {
                 didCapture = ViewModel.SetControlIfCapturing(e.SystemKey);
-
             }
             else if (IsNumpadEnterKey(e))
             {
@@ -107,11 +106,16 @@ namespace AppUI.Windows
             // https://social.msdn.microsoft.com/Forums/vstudio/en-US/b59e38f1-38a1-4da9-97ab-c9a648e60af5/whats-the-difference-between-keyenter-and-keyreturn?forum=wpf
             try
             {
-                return (bool)typeof(KeyEventArgs).InvokeMember("IsExtendedKey", BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, e, null);
+                return (bool)
+                    typeof(KeyEventArgs).InvokeMember(
+                        "IsExtendedKey",
+                        BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Instance,
+                        null,
+                        e,
+                        null
+                    );
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
 
             return false;
         }
@@ -123,7 +127,6 @@ namespace AppUI.Windows
         {
             ViewModel.StartCapturingKeyboardInput(GameControl.Ok);
         }
-
 
         private void btnCancelKeyboard_Click(object sender, RoutedEventArgs e)
         {

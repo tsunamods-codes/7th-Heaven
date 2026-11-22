@@ -1,11 +1,11 @@
-﻿using AppCore;
-using CG.Web.MegaApiClient;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using CG.Web.MegaApiClient;
 
 namespace AppUI.ViewModels
 {
@@ -19,10 +19,7 @@ namespace AppUI.ViewModels
 
         public string FolderIDInput
         {
-            get
-            {
-                return _folderIDInput;
-            }
+            get { return _folderIDInput; }
             set
             {
                 _folderIDInput = value;
@@ -32,10 +29,7 @@ namespace AppUI.ViewModels
 
         public string LinkOutput
         {
-            get
-            {
-                return _linkOutput;
-            }
+            get { return _linkOutput; }
             set
             {
                 _linkOutput = value;
@@ -45,10 +39,7 @@ namespace AppUI.ViewModels
 
         public bool IsGenerating
         {
-            get
-            {
-                return _isGenerating;
-            }
+            get { return _isGenerating; }
             set
             {
                 _isGenerating = value;
@@ -59,10 +50,7 @@ namespace AppUI.ViewModels
 
         public bool IsNotGenerating
         {
-            get
-            {
-                return !_isGenerating;
-            }
+            get { return !_isGenerating; }
         }
 
         public MegaLinkGenViewModel()
@@ -81,16 +69,19 @@ namespace AppUI.ViewModels
                 GenerateLinks();
             });
 
-            t.ContinueWith((result) =>
-            {
-                IsGenerating = false;
-
-                if (result.IsFaulted)
+            t.ContinueWith(
+                (result) =>
                 {
-                    LinkOutput = $"{ResourceHelper.Get(StringKey.FailedToGenerateLinks)}: {result.Exception.GetBaseException()?.Message}.";
-                    Logger.Warn(result.Exception.GetBaseException());
+                    IsGenerating = false;
+
+                    if (result.IsFaulted)
+                    {
+                        LinkOutput =
+                            $"{ResourceHelper.Get(StringKey.FailedToGenerateLinks)}: {result.Exception.GetBaseException()?.Message}.";
+                        Logger.Warn(result.Exception.GetBaseException());
+                    }
                 }
-            });
+            );
 
             return t;
         }
@@ -109,11 +100,14 @@ namespace AppUI.ViewModels
 
             client.LoginAnonymous();
 
-            IEnumerable<INode> nodes = client.GetNodesFromLink(new Uri($"https://mega.nz/{megaFolderId}"));
+            IEnumerable<INode> nodes = client.GetNodesFromLink(
+                new Uri($"https://mega.nz/{megaFolderId}")
+            );
 
             if (nodes?.Any() == false)
             {
-                LinkOutput = $"{ResourceHelper.Get(StringKey.NoLinksFoundInFolder)}: {megaFolderId}";
+                LinkOutput =
+                    $"{ResourceHelper.Get(StringKey.NoLinksFoundInFolder)}: {megaFolderId}";
                 client.Logout();
                 return;
             }
@@ -121,7 +115,12 @@ namespace AppUI.ViewModels
             LinkOutput = "";
             foreach (INode node in nodes.Where(x => x.Type == NodeType.File))
             {
-                LinkOutput += String.Format("iros://MegaSharedFolder/{0},{1},{2}\r\n", megaFolderId, node.Id, node.Name);
+                LinkOutput += String.Format(
+                    "iros://MegaSharedFolder/{0},{1},{2}\r\n",
+                    megaFolderId,
+                    node.Id,
+                    node.Name
+                );
             }
 
             client.Logout();

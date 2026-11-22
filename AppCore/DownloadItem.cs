@@ -1,9 +1,9 @@
-﻿using Iros.Workshop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Iros.Workshop;
 
 namespace AppCore
 {
@@ -13,7 +13,7 @@ namespace AppCore
         Catalog,
         Image,
         AppUpdate,
-        ModPatch
+        ModPatch,
     }
 
     public class DownloadItem
@@ -103,6 +103,5 @@ namespace AppCore
             ExternalUrlDownloadMessage = "";
             ItemNameTranslationKey = null;
         }
-
     }
 }

@@ -1,15 +1,15 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
 
 namespace AppUI.ViewModels
 {
@@ -33,10 +33,7 @@ namespace AppUI.ViewModels
 
         public string PathToFlevelFile
         {
-            get
-            {
-                return _pathToFlevelFile;
-            }
+            get { return _pathToFlevelFile; }
             set
             {
                 _pathToFlevelFile = value;
@@ -46,10 +43,7 @@ namespace AppUI.ViewModels
 
         public string PathToOutputFolder
         {
-            get
-            {
-                return _pathToOutputFolder;
-            }
+            get { return _pathToOutputFolder; }
             set
             {
                 _pathToOutputFolder = value;
@@ -59,10 +53,7 @@ namespace AppUI.ViewModels
 
         public int ProgressValue
         {
-            get
-            {
-                return _progressValue;
-            }
+            get { return _progressValue; }
             set
             {
                 _progressValue = value;
@@ -72,10 +63,7 @@ namespace AppUI.ViewModels
 
         public bool IsExtracting
         {
-            get
-            {
-                return _isExtracting;
-            }
+            get { return _isExtracting; }
             set
             {
                 _isExtracting = value;
@@ -86,18 +74,12 @@ namespace AppUI.ViewModels
 
         public bool IsNotExtracting
         {
-            get
-            {
-                return !_isExtracting;
-            }
+            get { return !_isExtracting; }
         }
 
         public bool SectionOneIsChecked
         {
-            get
-            {
-                return _sectionOneIsChecked;
-            }
+            get { return _sectionOneIsChecked; }
             set
             {
                 _sectionOneIsChecked = value;
@@ -107,10 +89,7 @@ namespace AppUI.ViewModels
 
         public bool SectionTwoIsChecked
         {
-            get
-            {
-                return _sectionTwoIsChecked;
-            }
+            get { return _sectionTwoIsChecked; }
             set
             {
                 _sectionTwoIsChecked = value;
@@ -120,10 +99,7 @@ namespace AppUI.ViewModels
 
         public bool SectionThreeIsChecked
         {
-            get
-            {
-                return _sectionThreeIsChecked;
-            }
+            get { return _sectionThreeIsChecked; }
             set
             {
                 _sectionThreeIsChecked = value;
@@ -133,10 +109,7 @@ namespace AppUI.ViewModels
 
         public bool SectionFourIsChecked
         {
-            get
-            {
-                return _sectionFourIsChecked;
-            }
+            get { return _sectionFourIsChecked; }
             set
             {
                 _sectionFourIsChecked = value;
@@ -146,10 +119,7 @@ namespace AppUI.ViewModels
 
         public bool SectionFiveIsChecked
         {
-            get
-            {
-                return _sectionFiveIsChecked;
-            }
+            get { return _sectionFiveIsChecked; }
             set
             {
                 _sectionFiveIsChecked = value;
@@ -159,10 +129,7 @@ namespace AppUI.ViewModels
 
         public bool SectionSixIsChecked
         {
-            get
-            {
-                return _sectionSixIsChecked;
-            }
+            get { return _sectionSixIsChecked; }
             set
             {
                 _sectionSixIsChecked = value;
@@ -172,10 +139,7 @@ namespace AppUI.ViewModels
 
         public bool SectionSevenIsChecked
         {
-            get
-            {
-                return _sectionSevenIsChecked;
-            }
+            get { return _sectionSevenIsChecked; }
             set
             {
                 _sectionSevenIsChecked = value;
@@ -183,13 +147,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public bool SectionEightIsChecked
         {
-            get
-            {
-                return _sectionEightIsChecked;
-            }
+            get { return _sectionEightIsChecked; }
             set
             {
                 _sectionEightIsChecked = value;
@@ -199,10 +159,7 @@ namespace AppUI.ViewModels
 
         public bool SectionNineIsChecked
         {
-            get
-            {
-                return _sectionNineIsChecked;
-            }
+            get { return _sectionNineIsChecked; }
             set
             {
                 _sectionNineIsChecked = value;
@@ -231,50 +188,81 @@ namespace AppUI.ViewModels
         {
             if (string.IsNullOrWhiteSpace(PathToFlevelFile))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.PathToFlevelRequired), ResourceHelper.Get(StringKey.MissingPath), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.PathToFlevelRequired),
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(PathToOutputFolder))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.PathToOutputFolderRequired), ResourceHelper.Get(StringKey.MissingPath), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.PathToOutputFolderRequired),
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             if (GetSelectedChunks()?.Count == 0)
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.SelectTheSectionsToExtract), ResourceHelper.Get(StringKey.MissingPath), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.SelectTheSectionsToExtract),
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             if (!File.Exists(PathToFlevelFile))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FlevelFileDoesNotExistAtGivenPath), ResourceHelper.Get(StringKey.MissingPath), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FlevelFileDoesNotExistAtGivenPath),
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             if (!Directory.Exists(PathToOutputFolder))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.OutputFolderDoesNotExist), ResourceHelper.Get(StringKey.MissingPath), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.OutputFolderDoesNotExist),
+                    ResourceHelper.Get(StringKey.MissingPath),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
-
             Task t = ExtractFlevelAsync();
 
-            t.ContinueWith((taskResult) =>
-            {
-                string message = ResourceHelper.Get(StringKey.Complete);
-
-                if (taskResult.IsFaulted)
+            t.ContinueWith(
+                (taskResult) =>
                 {
-                    Logger.Error(taskResult.Exception?.GetBaseException());
-                    message = ResourceHelper.Get(StringKey.FailedToExtractTheErrorHasBeenLogged);
-                }
+                    string message = ResourceHelper.Get(StringKey.Complete);
 
-                MessageDialogWindow.Show(message, ResourceHelper.Get(StringKey.ExtractComplete));
-                ProgressValue = 0;
-            });
+                    if (taskResult.IsFaulted)
+                    {
+                        Logger.Error(taskResult.Exception?.GetBaseException());
+                        message = ResourceHelper.Get(
+                            StringKey.FailedToExtractTheErrorHasBeenLogged
+                        );
+                    }
+
+                    MessageDialogWindow.Show(
+                        message,
+                        ResourceHelper.Get(StringKey.ExtractComplete)
+                    );
+                    ProgressValue = 0;
+                }
+            );
         }
 
         private Task ExtractFlevelAsync()
@@ -284,10 +272,12 @@ namespace AppUI.ViewModels
 
             Task t = Task.Factory.StartNew(() =>
             {
-
                 using (FileStream fLevelStream = new FileStream(PathToFlevelFile, FileMode.Open))
                 {
-                    ProcMonParser.DataFile df = ProcMonParser.FF7Files.LoadLGP(fLevelStream, PathToFlevelFile);
+                    ProcMonParser.DataFile df = ProcMonParser.FF7Files.LoadLGP(
+                        fLevelStream,
+                        PathToFlevelFile
+                    );
                     int file = 0;
 
                     foreach (ProcMonParser.DataItem item in df.Items)
@@ -312,7 +302,10 @@ namespace AppUI.ViewModels
                             {
                                 foreach (int i in selectedChunks)
                                 {
-                                    string outputFile = Path.Combine(PathToOutputFolder, Path.GetFileNameWithoutExtension(item.Name) + ".chunk." + i);
+                                    string outputFile = Path.Combine(
+                                        PathToOutputFolder,
+                                        Path.GetFileNameWithoutExtension(item.Name) + ".chunk." + i
+                                    );
                                     File.WriteAllBytes(outputFile, chunks[i - 1]);
                                 }
                             }
@@ -377,6 +370,5 @@ namespace AppUI.ViewModels
 
             return selected;
         }
-
     }
 }

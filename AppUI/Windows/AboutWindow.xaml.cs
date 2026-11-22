@@ -1,8 +1,8 @@
-﻿using AppUI.ViewModels;
-using AppUI;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using AppUI;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -34,6 +34,5 @@ namespace AppUI.Windows
             Process.Start(startInfo);
             e.Handled = true;
         }
-
     }
 }

@@ -1,15 +1,15 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
 
 namespace AppUI.ViewModels
 {
@@ -27,10 +27,7 @@ namespace AppUI.ViewModels
 
         public string PathToSourceFolder
         {
-            get
-            {
-                return _pathToSourceFolder;
-            }
+            get { return _pathToSourceFolder; }
             set
             {
                 _pathToSourceFolder = value;
@@ -40,10 +37,7 @@ namespace AppUI.ViewModels
 
         public string PathToOutputFile
         {
-            get
-            {
-                return _pathToOutputFile;
-            }
+            get { return _pathToOutputFile; }
             set
             {
                 _pathToOutputFile = value;
@@ -53,10 +47,7 @@ namespace AppUI.ViewModels
 
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get { return _statusText; }
             set
             {
                 _statusText = value;
@@ -66,10 +57,7 @@ namespace AppUI.ViewModels
 
         public string SelectedCompressionOptionText
         {
-            get
-            {
-                return ((AppWrapper.CompressType)CompressionSelectedIndex).ToString();
-            }
+            get { return ((AppWrapper.CompressType)CompressionSelectedIndex).ToString(); }
         }
         public List<string> CompressionOptions
         {
@@ -89,10 +77,7 @@ namespace AppUI.ViewModels
 
         public int CompressionSelectedIndex
         {
-            get
-            {
-                return _compressionSelectedIndex;
-            }
+            get { return _compressionSelectedIndex; }
             set
             {
                 _compressionSelectedIndex = value;
@@ -103,10 +88,7 @@ namespace AppUI.ViewModels
 
         public int ProgressValue
         {
-            get
-            {
-                return _progressValue;
-            }
+            get { return _progressValue; }
             set
             {
                 _progressValue = value;
@@ -116,10 +98,7 @@ namespace AppUI.ViewModels
 
         public bool IsPacking
         {
-            get
-            {
-                return _isPacking;
-            }
+            get { return _isPacking; }
             set
             {
                 _isPacking = value;
@@ -130,12 +109,8 @@ namespace AppUI.ViewModels
 
         public bool IsNotPacking
         {
-            get
-            {
-                return !_isPacking;
-            }
+            get { return !_isPacking; }
         }
-
 
         public PackIroViewModel()
         {
@@ -172,7 +147,12 @@ namespace AppUI.ViewModels
             if (!isValid && showErrorMsg)
             {
                 Logger.Warn($"{ResourceHelper.Get(StringKey.InvalidPackIroOptions)}: {errorMsg}");
-                MessageDialogWindow.Show(errorMsg, ResourceHelper.Get(StringKey.MissingRequiredInput), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    errorMsg,
+                    ResourceHelper.Get(StringKey.MissingRequiredInput),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
 
             return isValid;
@@ -182,35 +162,47 @@ namespace AppUI.ViewModels
         {
             string pathToSource = PathToSourceFolder;
             string outputFile = PathToOutputFile;
-            AppWrapper.CompressType compressType = (AppWrapper.CompressType)CompressionSelectedIndex;
+            AppWrapper.CompressType compressType =
+                (AppWrapper.CompressType)CompressionSelectedIndex;
 
             IsPacking = true;
 
             Task packTask = Task.Factory.StartNew(() =>
             {
-
-                var files = Directory.GetFiles(pathToSource, "*", SearchOption.AllDirectories)
-                                     .Select(s => s.Substring(pathToSource.Length).Trim('\\', '/'))
-                                     .ToList();
+                var files = Directory
+                    .GetFiles(pathToSource, "*", SearchOption.AllDirectories)
+                    .Select(s => s.Substring(pathToSource.Length).Trim('\\', '/'))
+                    .ToList();
 
                 using (var fs = new FileStream(outputFile, FileMode.Create))
-                    AppWrapper.IrosArc.Create(fs, files.Select(s => AppWrapper.IrosArc.ArchiveCreateEntry.FromDisk(pathToSource, s)), AppWrapper.ArchiveFlags.None, compressType, IroProgress);
+                    AppWrapper.IrosArc.Create(
+                        fs,
+                        files.Select(s =>
+                            AppWrapper.IrosArc.ArchiveCreateEntry.FromDisk(pathToSource, s)
+                        ),
+                        AppWrapper.ArchiveFlags.None,
+                        compressType,
+                        IroProgress
+                    );
             });
 
-            packTask.ContinueWith((result) =>
-            {
-                IsPacking = false;
-                ProgressValue = 0;
-
-                if (result.IsFaulted)
+            packTask.ContinueWith(
+                (result) =>
                 {
-                    Logger.Warn(result.Exception.GetBaseException());
-                    StatusText = $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePacking)}: {result.Exception.GetBaseException().Message}";
-                    return;
-                }
+                    IsPacking = false;
+                    ProgressValue = 0;
 
-                StatusText = ResourceHelper.Get(StringKey.PackingComplete);
-            });
+                    if (result.IsFaulted)
+                    {
+                        Logger.Warn(result.Exception.GetBaseException());
+                        StatusText =
+                            $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhilePacking)}: {result.Exception.GetBaseException().Message}";
+                        return;
+                    }
+
+                    StatusText = ResourceHelper.Get(StringKey.PackingComplete);
+                }
+            );
 
             return packTask;
         }

@@ -1,11 +1,4 @@
-﻿using AppCore;
-using Iros;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,18 +6,23 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
-
     public class ImportModViewModel : ViewModelBase
     {
         enum ImportTabIndex
         {
             FromIro,
             FromFolder,
-            BatchImport
+            BatchImport,
         }
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -39,10 +37,7 @@ namespace AppUI.ViewModels
 
         public string PathToIroArchiveInput
         {
-            get
-            {
-                return _pathToIroArchiveInput;
-            }
+            get { return _pathToIroArchiveInput; }
             set
             {
                 _pathToIroArchiveInput = value;
@@ -52,10 +47,7 @@ namespace AppUI.ViewModels
 
         public string PathToModFolderInput
         {
-            get
-            {
-                return _pathToModFolderInput;
-            }
+            get { return _pathToModFolderInput; }
             set
             {
                 _pathToModFolderInput = value;
@@ -65,10 +57,7 @@ namespace AppUI.ViewModels
 
         public string PathToBatchFolderInput
         {
-            get
-            {
-                return _pathToBatchFolderInput;
-            }
+            get { return _pathToBatchFolderInput; }
             set
             {
                 _pathToBatchFolderInput = value;
@@ -78,10 +67,7 @@ namespace AppUI.ViewModels
 
         public string HelpText
         {
-            get
-            {
-                return _helpText;
-            }
+            get { return _helpText; }
             set
             {
                 _helpText = value;
@@ -91,10 +77,7 @@ namespace AppUI.ViewModels
 
         public bool IsImporting
         {
-            get
-            {
-                return _isImporting;
-            }
+            get { return _isImporting; }
             set
             {
                 _isImporting = value;
@@ -105,18 +88,12 @@ namespace AppUI.ViewModels
 
         public bool IsNotImporting
         {
-            get
-            {
-                return !_isImporting;
-            }
+            get { return !_isImporting; }
         }
 
         public int SelectedTabIndex
         {
-            get
-            {
-                return _selectedTabIndex;
-            }
+            get { return _selectedTabIndex; }
             set
             {
                 _selectedTabIndex = value;
@@ -127,10 +104,7 @@ namespace AppUI.ViewModels
 
         public int ProgressValue
         {
-            get
-            {
-                return _progressValue;
-            }
+            get { return _progressValue; }
             set
             {
                 _progressValue = value;
@@ -169,10 +143,11 @@ namespace AppUI.ViewModels
             }
             else
             {
-                HelpText = ResourceHelper.Get(StringKey.SelectAFolderThatContainsIroModFilesAndFolders);
+                HelpText = ResourceHelper.Get(
+                    StringKey.SelectAFolderThatContainsIroModFilesAndFolders
+                );
             }
         }
-
 
         public Task<bool> ImportModFromWindowAsync()
         {
@@ -214,13 +189,23 @@ namespace AppUI.ViewModels
         {
             if (string.IsNullOrWhiteSpace(PathToIroArchiveInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.EnterPathToAnIroFile), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.EnterPathToAnIroFile),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
             if (!File.Exists(PathToIroArchiveInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.IroFileDoesNotExist), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.IroFileDoesNotExist),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
@@ -240,7 +225,12 @@ namespace AppUI.ViewModels
 
                     if (!didPatch)
                     {
-                        MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged), ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageDialogWindow.Show(
+                            ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged),
+                            ResourceHelper.Get(StringKey.ImportError),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                         return false;
                     }
 
@@ -248,8 +238,17 @@ namespace AppUI.ViewModels
                 }
                 else
                 {
-                    importer.Import(PathToIroArchiveInput, ModImporter.ParseNameFromFileOrFolder(fileName), true, false);
-                    Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {fileName}!"));
+                    importer.Import(
+                        PathToIroArchiveInput,
+                        ModImporter.ParseNameFromFileOrFolder(fileName),
+                        true,
+                        false
+                    );
+                    Sys.Message(
+                        new WMessage(
+                            $"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {fileName}!"
+                        )
+                    );
                 }
 
                 return true;
@@ -257,20 +256,29 @@ namespace AppUI.ViewModels
             catch (DuplicateModException de)
             {
                 Logger.Error(de);
-                MessageDialogWindow.Show($"{ResourceHelper.Get(StringKey.CanNotImportMod)} {de.Message}", ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    $"{ResourceHelper.Get(StringKey.CanNotImportMod)} {de.Message}",
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged), ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged),
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             finally
             {
                 importer.ImportProgressChanged -= Importer_ImportProgressChanged;
             }
-
         }
 
         private void Importer_ImportProgressChanged(string message, double percentComplete)
@@ -285,13 +293,23 @@ namespace AppUI.ViewModels
         {
             if (string.IsNullOrWhiteSpace(PathToModFolderInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.EnterPathToFolderContainingModFiles), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.EnterPathToFolderContainingModFiles),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
             if (!Directory.Exists(PathToModFolderInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.DirectoryDoesNotExist), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.DirectoryDoesNotExist),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
@@ -302,21 +320,41 @@ namespace AppUI.ViewModels
 
                 importer = new ModImporter();
                 importer.ImportProgressChanged += Importer_ImportProgressChanged;
-                importer.Import(PathToModFolderInput, ModImporter.ParseNameFromFileOrFolder(folderName), false, false);
+                importer.Import(
+                    PathToModFolderInput,
+                    ModImporter.ParseNameFromFileOrFolder(folderName),
+                    false,
+                    false
+                );
 
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {folderName}!", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {folderName}!",
+                        true
+                    )
+                );
                 return true;
             }
             catch (DuplicateModException de)
             {
                 Logger.Error(de);
-                MessageDialogWindow.Show($"{ResourceHelper.Get(StringKey.CanNotImportMod)} {de.Message}", ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    $"{ResourceHelper.Get(StringKey.CanNotImportMod)} {de.Message}",
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged), ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged),
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             finally
@@ -329,13 +367,23 @@ namespace AppUI.ViewModels
         {
             if (string.IsNullOrWhiteSpace(PathToBatchFolderInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.EnterPathToFolderContainingIroFilesOrModFolders), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.EnterPathToFolderContainingIroFilesOrModFolders),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
             if (!Directory.Exists(PathToBatchFolderInput))
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.DirectoryDoesNotExist), ResourceHelper.Get(StringKey.ValidationError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.DirectoryDoesNotExist),
+                    ResourceHelper.Get(StringKey.ValidationError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
 
@@ -350,31 +398,50 @@ namespace AppUI.ViewModels
 
                 foreach (string iro in Directory.GetFiles(PathToBatchFolderInput, "*.iro"))
                 {
-                    string modName = ModImporter.ParseNameFromFileOrFolder(Path.GetFileNameWithoutExtension(iro));
+                    string modName = ModImporter.ParseNameFromFileOrFolder(
+                        Path.GetFileNameWithoutExtension(iro)
+                    );
                     importer.Import(iro, modName, true, false);
                     modImportCount++;
                 }
 
                 foreach (string dir in Directory.GetDirectories(PathToBatchFolderInput))
                 {
-                    string modName = ModImporter.ParseNameFromFileOrFolder(Path.GetFileNameWithoutExtension(dir));
+                    string modName = ModImporter.ParseNameFromFileOrFolder(
+                        Path.GetFileNameWithoutExtension(dir)
+                    );
                     importer.Import(dir, modName, false, false);
                     modImportCount++;
                 }
 
-                Sys.Message(new WMessage($"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {modImportCount} mod(s)!", true));
+                Sys.Message(
+                    new WMessage(
+                        $"{ResourceHelper.Get(StringKey.SuccessfullyImported)} {modImportCount} mod(s)!",
+                        true
+                    )
+                );
                 return true;
             }
             catch (DuplicateModException de)
             {
                 Logger.Error(de);
-                MessageDialogWindow.Show($"{ResourceHelper.Get(StringKey.CanNotImportMod)}(s). {de.Message}", ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    $"{ResourceHelper.Get(StringKey.CanNotImportMod)}(s). {de.Message}",
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged), ResourceHelper.Get(StringKey.ImportError), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.FailedToImportModTheErrorHasBeenLogged),
+                    ResourceHelper.Get(StringKey.ImportError),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             finally

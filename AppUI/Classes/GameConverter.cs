@@ -1,4 +1,10 @@
-﻿using AppCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using AppCore;
 using GameFinder.Common;
 using GameFinder.RegistryUtils;
 using GameFinder.StoreHandlers.GOG;
@@ -7,12 +13,6 @@ using GameFinder.StoreHandlers.Steam.Models.ValueTypes;
 using GameFinder.StoreHandlers.Xbox;
 using Iros.Workshop;
 using NexusMods.Paths;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using ValveKeyValue;
 
 namespace AppUI.Classes
@@ -49,30 +49,44 @@ namespace AppUI.Classes
                     foreach (var result in steamHandler.FindAllGames())
                     {
                         // using the switch method
-                        result.Switch(game =>
-                        {
-                            if (game.AppId == steamGameId)
-                                installPath = game.Path.GetFullPath().Replace("/", "\\");
-                        }, error =>
-                        {
-                            // Do nothing
-                        });
+                        result.Switch(
+                            game =>
+                            {
+                                if (game.AppId == steamGameId)
+                                    installPath = game.Path.GetFullPath().Replace("/", "\\");
+                            },
+                            error =>
+                            {
+                                // Do nothing
+                            }
+                        );
                     }
                     break;
 
                 case FF7Version.ReRelease:
                     // check 32-bit then 64-bit registry if not exists
-                    installPath = RegistryHelper.GetValue(RegistryHelper.RereleaseKeyPath32Bit, "InstallLocation", "") as string;
+                    installPath =
+                        RegistryHelper.GetValue(
+                            RegistryHelper.RereleaseKeyPath32Bit,
+                            "InstallLocation",
+                            ""
+                        ) as string;
 
                     if (string.IsNullOrWhiteSpace(installPath))
                     {
-                        installPath = RegistryHelper.GetValue(RegistryHelper.RereleaseKeyPath64Bit, "InstallLocation", "") as string;
+                        installPath =
+                            RegistryHelper.GetValue(
+                                RegistryHelper.RereleaseKeyPath64Bit,
+                                "InstallLocation",
+                                ""
+                            ) as string;
                     }
 
                     break;
 
                 case FF7Version.Original98:
-                    installPath = RegistryHelper.GetValue(FF7RegKey.FF7AppKeyPath, "Path", "") as string;
+                    installPath =
+                        RegistryHelper.GetValue(FF7RegKey.FF7AppKeyPath, "Path", "") as string;
                     break;
 
                 case FF7Version.WindowsStore:
@@ -81,14 +95,17 @@ namespace AppUI.Classes
                     foreach (var result in wsHandler.FindAllGames())
                     {
                         // using the switch method
-                        result.Switch(game =>
-                        {
-                            if (game.Id == "39EA002F.FINALFANTASYVII")
-                                installPath = game.Path.GetFullPath().Replace("/", "\\");
-                        }, error =>
-                        {
-                            // Do nothing
-                        });
+                        result.Switch(
+                            game =>
+                            {
+                                if (game.Id == "39EA002F.FINALFANTASYVII")
+                                    installPath = game.Path.GetFullPath().Replace("/", "\\");
+                            },
+                            error =>
+                            {
+                                // Do nothing
+                            }
+                        );
                     }
                     break;
 
@@ -99,32 +116,41 @@ namespace AppUI.Classes
                     foreach (var result in gogHandler.FindAllGames())
                     {
                         // using the switch method
-                        result.Switch(game =>
-                        {
-                            if (game.Id == gogGameId)
-                                installPath = game.Path.GetFullPath().Replace("/", "\\");
-                        }, error =>
-                        {
-                            // Do nothing
-                        });
+                        result.Switch(
+                            game =>
+                            {
+                                if (game.Id == gogGameId)
+                                    installPath = game.Path.GetFullPath().Replace("/", "\\");
+                            },
+                            error =>
+                            {
+                                // Do nothing
+                            }
+                        );
                     }
                     break;
 
                 case FF7Version.SteamReRelease:
-                    var steamRRHandler = new SteamHandler(FileSystem.Shared, WindowsRegistry.Shared);
+                    var steamRRHandler = new SteamHandler(
+                        FileSystem.Shared,
+                        WindowsRegistry.Shared
+                    );
                     var steamRRGameId = AppId.From(3837340);
 
                     foreach (var result in steamRRHandler.FindAllGames())
                     {
                         // using the switch method
-                        result.Switch(game =>
-                        {
-                            if (game.AppId == steamRRGameId)
-                                installPath = game.Path.GetFullPath().Replace("/", "\\");
-                        }, error =>
-                        {
-                            // Do nothing
-                        });
+                        result.Switch(
+                            game =>
+                            {
+                                if (game.AppId == steamRRGameId)
+                                    installPath = game.Path.GetFullPath().Replace("/", "\\");
+                            },
+                            error =>
+                            {
+                                // Do nothing
+                            }
+                        );
                     }
                     break;
             }
@@ -134,25 +160,35 @@ namespace AppUI.Classes
 
         public static string GetSteamPath()
         {
-            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamPath") as string;
+            string ret =
+                RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamPath") as string;
 
-            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath") as string;
+            if (ret == null)
+                ret =
+                    RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamPath")
+                    as string;
 
-            return ret != null ? ret.Replace("/","\\") : ret;
+            return ret != null ? ret.Replace("/", "\\") : ret;
         }
 
         public static string GetSteamExePath()
         {
-            string ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamExe", "") as string;
-            
-            if (ret == null) ret = RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamExe", "") as string;
+            string ret =
+                RegistryHelper.GetValue(RegistryHelper.SteamKeyPath32Bit, "SteamExe", "") as string;
 
-            return ret.Replace("/","\\");
+            if (ret == null)
+                ret =
+                    RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "SteamExe", "")
+                    as string;
+
+            return ret.Replace("/", "\\");
         }
 
         public static string GetSteamFF7UserPath()
         {
-            string ret = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Square Enix\\FINAL FANTASY VII Steam";
+            string ret =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                + "\\Square Enix\\FINAL FANTASY VII Steam";
 
             return ret;
         }
@@ -166,7 +202,11 @@ namespace AppUI.Classes
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(subfolder);
 
-                if (foldersToExclude.Any(f => dirInfo.Name.Equals(f, StringComparison.InvariantCultureIgnoreCase)))
+                if (
+                    foldersToExclude.Any(f =>
+                        dirInfo.Name.Equals(f, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                )
                 {
                     continue; // don't check these folders for signs of pirated files
                 }
@@ -189,10 +229,20 @@ namespace AppUI.Classes
             }
 
             // check if steam api is a genuine one
-            using (FileStream fs = new FileStream(Path.Combine(InstallPath, "FFNx_steam_api.dll"), FileMode.Open))
+            using (
+                FileStream fs = new FileStream(
+                    Path.Combine(InstallPath, "FFNx_steam_api.dll"),
+                    FileMode.Open
+                )
+            )
             {
                 byte[] currentHash = SHA1.HashData(fs);
-                if (!currentHash.SequenceEqual(Convert.FromHexString("772AFA31BD0D16A79DD1D0036BB9A9CB8F2EAF30"))) return true;
+                if (
+                    !currentHash.SequenceEqual(
+                        Convert.FromHexString("772AFA31BD0D16A79DD1D0036BB9A9CB8F2EAF30")
+                    )
+                )
+                    return true;
             }
 
             // check if given exe is a genuine one
@@ -200,41 +250,63 @@ namespace AppUI.Classes
             {
                 case FF7Version.Steam:
                     {
-                        byte[][] requiredHashes = {
+                        byte[][] requiredHashes =
+                        {
                             Convert.FromHexString("1C9A6F4B6F554B1B4ECB38812F9396A026A677D6"), // Steam
                             Convert.FromHexString("3D02CFD6441C89A0062B5D8F842C0271C5F2F410"), // Steam 4GB NTCore
                             Convert.FromHexString("769B90800B17AF7A7DC31A0C4C37F256AF934876"), // Steam 4GB 7thHeaven auto-patch
                         };
-                        using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7_en.exe"), FileMode.Open))
+                        using (
+                            FileStream fs = new FileStream(
+                                Path.Combine(InstallPath, "ff7_en.exe"),
+                                FileMode.Open
+                            )
+                        )
                         {
                             bool matchesAtLeastOne = false;
                             byte[] currentHash = SHA1.HashData(fs);
                             foreach (byte[] hash in requiredHashes)
                             {
-                                if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                                if (currentHash.SequenceEqual(hash))
+                                {
+                                    matchesAtLeastOne = true;
+                                    break;
+                                }
                             }
 
-                            if (!matchesAtLeastOne) return true;
+                            if (!matchesAtLeastOne)
+                                return true;
                         }
                     }
                     break;
                 case FF7Version.Original98:
                     {
-                        byte[][] requiredHashes = {
+                        byte[][] requiredHashes =
+                        {
                             Convert.FromHexString("4EECAF14F30E8B0CC87B88C943F1119B567452D7"), // 1.00
                             Convert.FromHexString("684A0E87840138B4E02FC8EDB9AE2E2591CE4982"), // 1.02
                             Convert.FromHexString("141822081B3F24EA70BE35D59449E0CA098881E3"), // 1.02 4GB
                         };
-                        using (FileStream fs = new FileStream(Path.Combine(InstallPath, "ff7.exe"), FileMode.Open))
+                        using (
+                            FileStream fs = new FileStream(
+                                Path.Combine(InstallPath, "ff7.exe"),
+                                FileMode.Open
+                            )
+                        )
                         {
                             bool matchesAtLeastOne = false;
                             byte[] currentHash = SHA1.HashData(fs);
                             foreach (byte[] hash in requiredHashes)
                             {
-                                if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                                if (currentHash.SequenceEqual(hash))
+                                {
+                                    matchesAtLeastOne = true;
+                                    break;
+                                }
                             }
 
-                            if (!matchesAtLeastOne) return true;
+                            if (!matchesAtLeastOne)
+                                return true;
                         }
                     }
                     break;
@@ -242,18 +314,18 @@ namespace AppUI.Classes
                 case FF7Version.GOG:
                 case FF7Version.WindowsStore:
                     {
-                        byte[][] requiredHashes = {
+                        byte[][] requiredHashes =
+                        {
                             Convert.FromHexString("AC306AE92615AF75FF36BBA6347C67CA1284151D"), // ff7_en
                             Convert.FromHexString("D270E690A0EA2C9D57AF506D102CF1A794E2ADCD"), // ff7_en 4GB
                             Convert.FromHexString("DF38B7E2B9C9AB5CBB4A016DD56A076F5D0719E0"), // ff7_ja
                             Convert.FromHexString("2283794DCAAD5A04775C5E1179A1793C56950ACD"), // ff7_ja 4GB
                         };
                         string computedFf7ExePath = GameLauncher.GetLaunchExecutablePath();
-                        string[] paths =
-                        {
-                            computedFf7ExePath,
-                        };
-                        foreach (string path in paths.Distinct(StringComparer.InvariantCultureIgnoreCase))
+                        string[] paths = { computedFf7ExePath };
+                        foreach (
+                            string path in paths.Distinct(StringComparer.InvariantCultureIgnoreCase)
+                        )
                         {
                             using (FileStream fs = new FileStream(path, FileMode.Open))
                             {
@@ -261,10 +333,15 @@ namespace AppUI.Classes
                                 byte[] currentHash = SHA1.HashData(fs);
                                 foreach (byte[] hash in requiredHashes)
                                 {
-                                    if (currentHash.SequenceEqual(hash)) { matchesAtLeastOne = true; break; }
+                                    if (currentHash.SequenceEqual(hash))
+                                    {
+                                        matchesAtLeastOne = true;
+                                        break;
+                                    }
                                 }
 
-                                if (!matchesAtLeastOne) return true;
+                                if (!matchesAtLeastOne)
+                                    return true;
                             }
                         }
                     }
@@ -275,24 +352,37 @@ namespace AppUI.Classes
         }
 
         /// <summary>
-        /// Checks all files, folders, and sub-folders for signs of pirated files 
+        /// Checks all files, folders, and sub-folders for signs of pirated files
         /// </summary>
         /// <param name="folderPath"> folder to loop over and check </param>
         private bool DirectoryHasPirates(string folderPath)
         {
-
             string[] filesToAllow = new string[] { "00422 [F - Crackling fire, looped].ogg" };
 
-            foreach (string fileEntry in Directory.GetFileSystemEntries(folderPath, "*", SearchOption.AllDirectories))
+            foreach (
+                string fileEntry in Directory.GetFileSystemEntries(
+                    folderPath,
+                    "*",
+                    SearchOption.AllDirectories
+                )
+            )
             {
                 FileInfo info = new FileInfo(fileEntry);
 
-                if (fileEntry.IndexOf("torrent", StringComparison.InvariantCultureIgnoreCase) >= 0 && fileEntry.IndexOf("Reunion", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                if (
+                    fileEntry.IndexOf("torrent", StringComparison.InvariantCultureIgnoreCase) >= 0
+                    && fileEntry.IndexOf("Reunion", StringComparison.InvariantCultureIgnoreCase)
+                        >= 0
+                )
                 {
                     continue; // allow Reunion torrent files
                 }
 
-                if (filesToAllow.Any(f => info.Name.Equals(f, StringComparison.InvariantCultureIgnoreCase)))
+                if (
+                    filesToAllow.Any(f =>
+                        info.Name.Equals(f, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                )
                 {
                     continue; // this file has been marked as allowed by us so we skip the file
                 }
@@ -313,9 +403,21 @@ namespace AppUI.Classes
         /// </summary>
         private bool IsFileOrFolderAPirate(string pathToFileOrFolder)
         {
-            string[] pirateKeyWords = new string[] { "crack", "warez", "torrent", "skidrow", "goodies" }; // folders and keywords usually found in files when the game is pirated
-            string[] pirateExtensions = new string[] { ".nfo" };                                          // file extensions that indicate the game could be pirated
-            string[] pirateExactKeywords = new string[] { "ali213.ini", "rld.dll", "gameservices.dll" };  // files that indicate the game is pirated
+            string[] pirateKeyWords = new string[]
+            {
+                "crack",
+                "warez",
+                "torrent",
+                "skidrow",
+                "goodies",
+            }; // folders and keywords usually found in files when the game is pirated
+            string[] pirateExtensions = new string[] { ".nfo" }; // file extensions that indicate the game could be pirated
+            string[] pirateExactKeywords = new string[]
+            {
+                "ali213.ini",
+                "rld.dll",
+                "gameservices.dll",
+            }; // files that indicate the game is pirated
 
             string name;
             string ext;
@@ -331,8 +433,11 @@ namespace AppUI.Classes
                 ext = new FileInfo(pathToFileOrFolder).Extension;
             }
 
-
-            if (pirateExactKeywords.Any(s => s.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
+            if (
+                pirateExactKeywords.Any(s =>
+                    s.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+                )
+            )
             {
                 return true;
             }
@@ -342,7 +447,11 @@ namespace AppUI.Classes
                 return true;
             }
 
-            if (pirateKeyWords.Any(s => pathToFileOrFolder.IndexOf(s, StringComparison.InvariantCultureIgnoreCase) >= 0))
+            if (
+                pirateKeyWords.Any(s =>
+                    pathToFileOrFolder.IndexOf(s, StringComparison.InvariantCultureIgnoreCase) >= 0
+                )
+            )
             {
                 return true;
             }
@@ -432,35 +541,65 @@ namespace AppUI.Classes
             if (Environment.Is64BitOperatingSystem)
             {
                 // check which registry key exists for the steam release (could be in 32-bit or 64-bit area
-                if (RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "InstallLocation") != null)
+                if (
+                    RegistryHelper.GetValue(RegistryHelper.SteamKeyPath64Bit, "InstallLocation")
+                    != null
+                )
                 {
-                    RegistryHelper.ExportKey(RegistryHelper.SteamKeyPath64Bit, Path.Combine(pathToBackup, "FF7-01.reg"));
+                    RegistryHelper.ExportKey(
+                        RegistryHelper.SteamKeyPath64Bit,
+                        Path.Combine(pathToBackup, "FF7-01.reg")
+                    );
                 }
                 else
                 {
-                    RegistryHelper.ExportKey(RegistryHelper.SteamKeyPath32Bit, Path.Combine(pathToBackup, "FF7-01.reg"));
+                    RegistryHelper.ExportKey(
+                        RegistryHelper.SteamKeyPath32Bit,
+                        Path.Combine(pathToBackup, "FF7-01.reg")
+                    );
                 }
             }
 
-            RegistryHelper.ExportKey(RegistryHelper.GetKeyPath(FF7RegKey.RereleaseKeyPath), Path.Combine(pathToBackup, "FF7-02.reg"));
-            RegistryHelper.ExportKey(RegistryHelper.GetKeyPath(FF7RegKey.FF7AppKeyPath), Path.Combine(pathToBackup, "FF7-03.reg"));
+            RegistryHelper.ExportKey(
+                RegistryHelper.GetKeyPath(FF7RegKey.RereleaseKeyPath),
+                Path.Combine(pathToBackup, "FF7-02.reg")
+            );
+            RegistryHelper.ExportKey(
+                RegistryHelper.GetKeyPath(FF7RegKey.FF7AppKeyPath),
+                Path.Combine(pathToBackup, "FF7-03.reg")
+            );
 
-            string oldGameConverterKeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII\\GameConverterkeys";
-            RegistryHelper.ExportKey(oldGameConverterKeyPath, Path.Combine(pathToBackup, "FF7-OldGC.reg"));
+            string oldGameConverterKeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII\\GameConverterkeys";
+            RegistryHelper.ExportKey(
+                oldGameConverterKeyPath,
+                Path.Combine(pathToBackup, "FF7-OldGC.reg")
+            );
         }
 
         public void MoveOriginalConverterFilesToBackup(string pathToBackup)
         {
             Directory.CreateDirectory(pathToBackup);
 
-            List<string> foldersToMove = new List<string>() { "DLL_in", "Hext_in", "LOADR", "Multi_DLL", "FF7anyCDv2", "BackupGC" };
+            List<string> foldersToMove = new List<string>()
+            {
+                "DLL_in",
+                "Hext_in",
+                "LOADR",
+                "Multi_DLL",
+                "FF7anyCDv2",
+                "BackupGC",
+            };
 
             foreach (string folder in foldersToMove)
             {
                 string fullPath = Path.Combine(InstallPath, folder);
                 if (Directory.Exists(fullPath))
                 {
-                    FileUtils.MoveDirectoryRecursively(fullPath, Path.Combine(pathToBackup, folder));
+                    FileUtils.MoveDirectoryRecursively(
+                        fullPath,
+                        Path.Combine(pathToBackup, folder)
+                    );
                     Directory.Delete(fullPath, true);
                 }
             }
@@ -470,7 +609,35 @@ namespace AppUI.Classes
         {
             Directory.CreateDirectory(pathToBackup);
 
-            List<string> filesToMove = new List<string>() { "app.log", "ff7.exe", "ff7config.exe", "RunFFVIIConfig.bat", "RunFFVIIConfig.exe", "ff7_mo.exe", "ff7_nt.exe", "ff7_ss.exe", "ff7_ss_safer.exe", "ff7_bc.exe", "ff7input.cfg", "Multi_Readme.txt", "cfg.log", "Hext.log", "FF7_GC.log", "eax.dll", "Hext.dll", "multi.dll", "ff7_opengl.cfg", "ff7_opengl.pdb", "ff7_opengl.reg", "crash.dmp", "ff7_opengl.fgd", @"\plugins\ff7music.fgp", @"\plugins\ffmpeg_movies.fgp", @"\plugins\vgmstream_music.fgp" };
+            List<string> filesToMove = new List<string>()
+            {
+                "app.log",
+                "ff7.exe",
+                "ff7config.exe",
+                "RunFFVIIConfig.bat",
+                "RunFFVIIConfig.exe",
+                "ff7_mo.exe",
+                "ff7_nt.exe",
+                "ff7_ss.exe",
+                "ff7_ss_safer.exe",
+                "ff7_bc.exe",
+                "ff7input.cfg",
+                "Multi_Readme.txt",
+                "cfg.log",
+                "Hext.log",
+                "FF7_GC.log",
+                "eax.dll",
+                "Hext.dll",
+                "multi.dll",
+                "ff7_opengl.cfg",
+                "ff7_opengl.pdb",
+                "ff7_opengl.reg",
+                "crash.dmp",
+                "ff7_opengl.fgd",
+                @"\plugins\ff7music.fgp",
+                @"\plugins\ffmpeg_movies.fgp",
+                @"\plugins\vgmstream_music.fgp",
+            };
 
             foreach (string file in filesToMove)
             {
@@ -513,8 +680,6 @@ namespace AppUI.Classes
                 Logger.Error(ex);
                 return false;
             }
-
-
         }
 
         #endregion
@@ -565,7 +730,10 @@ namespace AppUI.Classes
         {
             string pathToPlugins = Path.Combine(InstallPath, "plugins");
             string pathToShaders = Path.Combine(InstallPath, "shaders");
-            string sourceOpenGlFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OpenGL");
+            string sourceOpenGlFolder = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "OpenGL"
+            );
 
             if (!Directory.Exists(sourceOpenGlFolder) || !Directory.Exists(InstallPath))
             {
@@ -578,9 +746,14 @@ namespace AppUI.Classes
                 Directory.CreateDirectory(pathToPlugins);
                 Directory.CreateDirectory(pathToShaders);
 
-                FileUtils.CopyDirectoryRecursively(Path.Combine(sourceOpenGlFolder, "plugins"), pathToPlugins);
-                FileUtils.CopyDirectoryRecursively(Path.Combine(sourceOpenGlFolder, "shaders"), pathToShaders);
-
+                FileUtils.CopyDirectoryRecursively(
+                    Path.Combine(sourceOpenGlFolder, "plugins"),
+                    pathToPlugins
+                );
+                FileUtils.CopyDirectoryRecursively(
+                    Path.Combine(sourceOpenGlFolder, "shaders"),
+                    pathToShaders
+                );
 
                 // Copy all ff7_opengl.* files to root install folder.
                 foreach (string file in Directory.GetFiles(sourceOpenGlFolder, "ff7_opengl.*"))
@@ -600,7 +773,7 @@ namespace AppUI.Classes
 
         /// <summary>
         /// Verifies a FF7 install is a Full/Max install by checking if specific files are in the game dir.
-        /// They will automatically be copied from discs if not found. 
+        /// They will automatically be copied from discs if not found.
         /// Returns false if failed to find/copy all files
         /// </summary>
         /// <returns> Returns true if all files found and/or copied; false otherwise </returns>
@@ -618,7 +791,7 @@ namespace AppUI.Classes
                 @"minigame\condor.lgp",
                 @"minigame\high-us.lgp",
                 @"minigame\snowboard-us.lgp",
-                @"minigame\sub.lgp"
+                @"minigame\sub.lgp",
             };
 
             string[] volumeLabels = new string[]
@@ -626,7 +799,7 @@ namespace AppUI.Classes
                 "ff7install",
                 "ff7disc1",
                 "ff7disc2",
-                "ff7disc3"
+                "ff7disc3",
             };
 
             foreach (string file in expectedFiles)
@@ -639,7 +812,10 @@ namespace AppUI.Classes
                     continue;
                 }
 
-                SendMessage($"...\t {file} {ResourceHelper.Get(StringKey.NotFoundScanningDiscsForFiles)}", NLog.LogLevel.Warn);
+                SendMessage(
+                    $"...\t {file} {ResourceHelper.Get(StringKey.NotFoundScanningDiscsForFiles)}",
+                    NLog.LogLevel.Warn
+                );
 
                 // search all drives for the file
                 bool foundFileOnDrive = false;
@@ -655,11 +831,12 @@ namespace AppUI.Classes
                             fullSourcePath = Path.Combine(driveLetter, "data", file); // ff7install disc has a different path then disc1-3
                         }
 
-
                         if (File.Exists(fullSourcePath))
                         {
                             foundFileOnDrive = true;
-                            SendMessage($"... \t {string.Format(ResourceHelper.Get(StringKey.FoundFileOnAtCopyingFile), label, driveLetter)}");
+                            SendMessage(
+                                $"... \t {string.Format(ResourceHelper.Get(StringKey.FoundFileOnAtCopyingFile), label, driveLetter)}"
+                            );
                             try
                             {
                                 Directory.CreateDirectory(Path.GetDirectoryName(fullTargetPath)); // ensure all subfolders are created
@@ -669,7 +846,10 @@ namespace AppUI.Classes
                             catch (Exception e)
                             {
                                 Logger.Error(e);
-                                SendMessage($"... \t\t {ResourceHelper.Get(StringKey.FailedToCopyErrorHasBeenLogged)}", NLog.LogLevel.Warn);
+                                SendMessage(
+                                    $"... \t\t {ResourceHelper.Get(StringKey.FailedToCopyErrorHasBeenLogged)}",
+                                    NLog.LogLevel.Warn
+                                );
                             }
                         }
                     }
@@ -683,7 +863,10 @@ namespace AppUI.Classes
                 // at this point if file not found/copied on any drive then failed verification
                 if (!foundFileOnDrive)
                 {
-                    SendMessage($"... \t {string.Format(ResourceHelper.Get(StringKey.FailedToFindOnAnyDisc), file)}", NLog.LogLevel.Warn);
+                    SendMessage(
+                        $"... \t {string.Format(ResourceHelper.Get(StringKey.FailedToFindOnAnyDisc), file)}",
+                        NLog.LogLevel.Warn
+                    );
                     foundAllFiles = false;
                 }
             }
@@ -707,7 +890,7 @@ namespace AppUI.Classes
                 @"battle\scene.bin",
                 @"kernel\KERNEL.BIN",
                 @"kernel\kernel2.bin",
-                @"kernel\WINDOW.BIN"
+                @"kernel\WINDOW.BIN",
             };
 
             string installedLang = GetInstalledLanguage();
@@ -725,25 +908,40 @@ namespace AppUI.Classes
                     continue; // file exists as expected
                 }
 
-                SendMessage($"... \t{file} {ResourceHelper.Get(StringKey.FileNotFound)}", NLog.LogLevel.Warn);
+                SendMessage(
+                    $"... \t{file} {ResourceHelper.Get(StringKey.FileNotFound)}",
+                    NLog.LogLevel.Warn
+                );
 
-                string fullSourcePath = Path.Combine(InstallPath, "data", $"lang-{installedLang}", file);
+                string fullSourcePath = Path.Combine(
+                    InstallPath,
+                    "data",
+                    $"lang-{installedLang}",
+                    file
+                );
                 if (!File.Exists(fullSourcePath))
                 {
-                    SendMessage($"... \t{ResourceHelper.Get(StringKey.CannotCopySourceFileBecauseItIsMissingAt)} {fullSourcePath}", NLog.LogLevel.Warn);
+                    SendMessage(
+                        $"... \t{ResourceHelper.Get(StringKey.CannotCopySourceFileBecauseItIsMissingAt)} {fullSourcePath}",
+                        NLog.LogLevel.Warn
+                    );
                     return false;
                 }
 
-
                 try
                 {
-                    SendMessage($"... \t{ResourceHelper.Get(StringKey.CopyingFileFrom)} {fullSourcePath}");
+                    SendMessage(
+                        $"... \t{ResourceHelper.Get(StringKey.CopyingFileFrom)} {fullSourcePath}"
+                    );
                     File.Copy(fullSourcePath, fullTargetPath, true);
                 }
                 catch (Exception e)
                 {
                     Logger.Error(e);
-                    SendMessage($"... \t{ResourceHelper.Get(StringKey.FailedToCopyErrorHasBeenLogged)}: {e.Message}", NLog.LogLevel.Warn);
+                    SendMessage(
+                        $"... \t{ResourceHelper.Get(StringKey.FailedToCopyErrorHasBeenLogged)}: {e.Message}",
+                        NLog.LogLevel.Warn
+                    );
                     return false;
                 }
             }
@@ -803,7 +1001,7 @@ namespace AppUI.Classes
                     continue; // no need to copy file as it exists as expected
                 }
 
-                // check if they exist at data/lang-en/movies location and copy them 
+                // check if they exist at data/lang-en/movies location and copy them
                 // ... note we get the installed language and copy from there e.g. "lang-en" "lang-es" "lang-fr" "land-de"
                 string language = GetInstalledLanguage();
                 if (language == "")
@@ -811,10 +1009,18 @@ namespace AppUI.Classes
                     language = "en";
                 }
 
-                string otherPath = Path.Combine(InstallPath, "data", $"lang-{language}", "movies", file);
+                string otherPath = Path.Combine(
+                    InstallPath,
+                    "data",
+                    $"lang-{language}",
+                    "movies",
+                    file
+                );
                 if (File.Exists(otherPath))
                 {
-                    SendMessage($"\t{ResourceHelper.Get(StringKey.Copying).ToLower()} {otherPath} -> {fullPath}");
+                    SendMessage(
+                        $"\t{ResourceHelper.Get(StringKey.Copying).ToLower()} {otherPath} -> {fullPath}"
+                    );
                     File.Copy(otherPath, fullPath, true);
                     continue;
                 }
@@ -878,7 +1084,9 @@ namespace AppUI.Classes
 
                 try
                 {
-                    SendMessage($"\t{ResourceHelper.Get(StringKey.Copying).ToLower()} {sourcePath} -> {fullTargetPath}");
+                    SendMessage(
+                        $"\t{ResourceHelper.Get(StringKey.Copying).ToLower()} {sourcePath} -> {fullTargetPath}"
+                    );
                     File.Copy(sourcePath, fullTargetPath, true);
                 }
                 catch (Exception e)
@@ -919,7 +1127,9 @@ namespace AppUI.Classes
             {
                 if (!Directory.Exists(dir))
                 {
-                    Logger.Info($"\t{ResourceHelper.Get(StringKey.DirectoryMissingCreating)} {dir}");
+                    Logger.Info(
+                        $"\t{ResourceHelper.Get(StringKey.DirectoryMissingCreating)} {dir}"
+                    );
                     Directory.CreateDirectory(dir);
                 }
             }
@@ -932,14 +1142,18 @@ namespace AppUI.Classes
         /// <param name="pathToBackup"></param>
         internal void CheckAndCopyOldGameConverterFiles(string pathToBackup)
         {
-            string converterKeyPath = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII\\GameConverterkeys";
+            string converterKeyPath =
+                $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII\\GameConverterkeys";
 
-
-            string regValue = RegistryHelper.GetValue(converterKeyPath, "Manipulated_by_GameConverter", "") as string;
+            string regValue =
+                RegistryHelper.GetValue(converterKeyPath, "Manipulated_by_GameConverter", "")
+                as string;
 
             if (!string.IsNullOrWhiteSpace(regValue))
             {
-                SendMessage(ResourceHelper.Get(StringKey.OldGameConverterRegistryKeysFoundBackingUp));
+                SendMessage(
+                    ResourceHelper.Get(StringKey.OldGameConverterRegistryKeysFoundBackingUp)
+                );
                 MoveOriginalAppFilesToBackup(pathToBackup);
                 MoveOriginalConverterFilesToBackup(pathToBackup);
                 BackupRegistry(pathToBackup);
@@ -1015,12 +1229,27 @@ namespace AppUI.Classes
 
             Dictionary<string, string> sourceFilesToCopy = new Dictionary<string, string>()
             {
-                {Path.Combine(InstallPath, "data", "cd", $"cr_{fileSuffix}.lgp"), "cr_us.lgp"},
-                {Path.Combine(InstallPath, "data", "menu", $"menu_{fileSuffix}.lgp"), "menu_us.lgp"},
-                {Path.Combine(InstallPath, "data", "wm", $"world_{fileSuffix}.lgp"), "world_us.lgp"},
-                {Path.Combine(InstallPath, "data", "field", $"{filePrefix}flevel.lgp"), "flevel.lgp"},
-                {Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}chocobo.lgp"), "chocobo.lgp"},
-                {Path.Combine(InstallPath, "data", "minigame", $"high-{fileSuffix2}.lgp"), "high-us.lgp"},
+                { Path.Combine(InstallPath, "data", "cd", $"cr_{fileSuffix}.lgp"), "cr_us.lgp" },
+                {
+                    Path.Combine(InstallPath, "data", "menu", $"menu_{fileSuffix}.lgp"),
+                    "menu_us.lgp"
+                },
+                {
+                    Path.Combine(InstallPath, "data", "wm", $"world_{fileSuffix}.lgp"),
+                    "world_us.lgp"
+                },
+                {
+                    Path.Combine(InstallPath, "data", "field", $"{filePrefix}flevel.lgp"),
+                    "flevel.lgp"
+                },
+                {
+                    Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}chocobo.lgp"),
+                    "chocobo.lgp"
+                },
+                {
+                    Path.Combine(InstallPath, "data", "minigame", $"high-{fileSuffix2}.lgp"),
+                    "high-us.lgp"
+                },
             };
 
             string destFilePath;
@@ -1035,7 +1264,10 @@ namespace AppUI.Classes
                 }
                 else
                 {
-                    SendMessage($"{string.Format(ResourceHelper.Get(StringKey.CouldNotFindFileToCopy), sourceFile.Key)}", NLog.LogLevel.Warn);
+                    SendMessage(
+                        $"{string.Format(ResourceHelper.Get(StringKey.CouldNotFindFileToCopy), sourceFile.Key)}",
+                        NLog.LogLevel.Warn
+                    );
                 }
             }
 
@@ -1046,79 +1278,96 @@ namespace AppUI.Classes
             string pathToSnowboard = Path.Combine(Sys.PathToTempFolder, "snowboard-us");
             string pathToSub = Path.Combine(Sys.PathToTempFolder, "sub");
 
-            RunUlgp(Path.Combine(InstallPath, "data", "cd", $"disc_{fileSuffix}.lgp"), pathToDiscUs);
-            RunUlgp(Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}condor.lgp"), pathToCondor);
-            RunUlgp(Path.Combine(InstallPath, "data", "minigame", $"snowboard-{fileSuffix2}.lgp"), pathToSnowboard);
-            RunUlgp(Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}sub.lgp"), pathToSub);
+            RunUlgp(
+                Path.Combine(InstallPath, "data", "cd", $"disc_{fileSuffix}.lgp"),
+                pathToDiscUs
+            );
+            RunUlgp(
+                Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}condor.lgp"),
+                pathToCondor
+            );
+            RunUlgp(
+                Path.Combine(InstallPath, "data", "minigame", $"snowboard-{fileSuffix2}.lgp"),
+                pathToSnowboard
+            );
+            RunUlgp(
+                Path.Combine(InstallPath, "data", "minigame", $"{filePrefix}sub.lgp"),
+                pathToSub
+            );
 
             // copy _pal specific Condor .tga files
-            string condorTranFolder = Path.Combine(Sys._7HFolder, "Resources", "Languages", "Condor_Tran");
-            FileUtils.CopyDirectoryRecursively(condorTranFolder, Path.Combine(Sys.PathToTempFolder, "condor"));
+            string condorTranFolder = Path.Combine(
+                Sys._7HFolder,
+                "Resources",
+                "Languages",
+                "Condor_Tran"
+            );
+            FileUtils.CopyDirectoryRecursively(
+                condorTranFolder,
+                Path.Combine(Sys.PathToTempFolder, "condor")
+            );
 
             //
             // Rename extracted files to match english file names
             //
             Dictionary<string, string> filesToRename = new Dictionary<string, string>()
             {
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk1_a.tex"), "disk1_a.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk1_b.tex"), "disk1_b.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk1_x.tex"), "disk1_x.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk2_a.tex"), "disk2_a.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk2_b.tex"), "disk2_b.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk2_x.tex"), "disk2_x.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk3_a.tex"), "disk3_a.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk3_b.tex"), "disk3_b.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}disk3_x.tex"), "disk3_x.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_a.tex"), "e_over_a.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_b.tex"), "e_over_b.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_c.tex"), "e_over_c.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_d.tex"), "e_over_d.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_e.tex"), "e_over_e.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_f.tex"), "e_over_f.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_la.tex"), "e_over_la.tex"},
-                {Path.Combine(pathToDiscUs, $"{filePrefix}_over_lb.tex"), "e_over_lb.tex"},
-
-                {Path.Combine(pathToCondor, $"{filePrefix}help.tim"), "ehelp.tim" },
-                {Path.Combine(pathToCondor, $"{filePrefix}help_1.tim"), "ehelp_1.tim" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes00.tex"), "emes00.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes00a.tex"), "emes00a.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes00b.tex"), "emes00b.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes00c.tex"), "emes00c.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes00d.tex"), "emes00d.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes01.tex"), "emes01.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes01a.tex"), "emes01a.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes01b.tex"), "emes01b.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}mes08.tex"), "emes08.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit00.tex"), "eunit00.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit00a.tex"), "eunit00a.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit00b.tex"), "eunit00b.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit00c.tex"), "eunit00c.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit00d.tex"), "eunit00d.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit01.tex"), "eunit01.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit01a.tex"), "eunit01a.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit01b.tex"), "eunit01b.tex" },
-                {Path.Combine(pathToCondor, $"{filePrefix}unit01c.tex"), "eunit01c.tex" },
-
-                {Path.Combine(pathToSnowboard, $"{filePrefix}a.tex"), "ea_k.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}b.tex"), "eb_k.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}c.tex"), "ec_k.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}g.tex"), "eg_k.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}eita_k.tex"), "eita_k.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}stamp0.tex"), "estamp0.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}stamp1.tex"), "estamp1.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}time1.tex"), "time1.tex" },
-                {Path.Combine(pathToSnowboard, $"{filePrefix}time2.tex"), "time2.tex" },
-
-                {Path.Combine(pathToSub, $"{filePrefix}hud.tex"), "hud.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}huda.tex"), "huda.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}hudb.tex"), "hudb.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}hudc.tex"), "hudc.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}hudd.tex"), "hudd.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}text.tex"), "text.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}texta.tex"), "texta.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}textb.tex"), "textb.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}textc.tex"), "textc.tex"},
-                {Path.Combine(pathToSub, $"{filePrefix}textd.tex"), "textd.tex"},
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk1_a.tex"), "disk1_a.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk1_b.tex"), "disk1_b.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk1_x.tex"), "disk1_x.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk2_a.tex"), "disk2_a.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk2_b.tex"), "disk2_b.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk2_x.tex"), "disk2_x.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk3_a.tex"), "disk3_a.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk3_b.tex"), "disk3_b.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}disk3_x.tex"), "disk3_x.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_a.tex"), "e_over_a.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_b.tex"), "e_over_b.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_c.tex"), "e_over_c.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_d.tex"), "e_over_d.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_e.tex"), "e_over_e.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_f.tex"), "e_over_f.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_la.tex"), "e_over_la.tex" },
+                { Path.Combine(pathToDiscUs, $"{filePrefix}_over_lb.tex"), "e_over_lb.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}help.tim"), "ehelp.tim" },
+                { Path.Combine(pathToCondor, $"{filePrefix}help_1.tim"), "ehelp_1.tim" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes00.tex"), "emes00.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes00a.tex"), "emes00a.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes00b.tex"), "emes00b.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes00c.tex"), "emes00c.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes00d.tex"), "emes00d.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes01.tex"), "emes01.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes01a.tex"), "emes01a.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes01b.tex"), "emes01b.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}mes08.tex"), "emes08.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit00.tex"), "eunit00.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit00a.tex"), "eunit00a.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit00b.tex"), "eunit00b.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit00c.tex"), "eunit00c.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit00d.tex"), "eunit00d.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit01.tex"), "eunit01.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit01a.tex"), "eunit01a.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit01b.tex"), "eunit01b.tex" },
+                { Path.Combine(pathToCondor, $"{filePrefix}unit01c.tex"), "eunit01c.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}a.tex"), "ea_k.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}b.tex"), "eb_k.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}c.tex"), "ec_k.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}g.tex"), "eg_k.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}eita_k.tex"), "eita_k.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}stamp0.tex"), "estamp0.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}stamp1.tex"), "estamp1.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}time1.tex"), "time1.tex" },
+                { Path.Combine(pathToSnowboard, $"{filePrefix}time2.tex"), "time2.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}hud.tex"), "hud.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}huda.tex"), "huda.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}hudb.tex"), "hudb.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}hudc.tex"), "hudc.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}hudd.tex"), "hudd.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}text.tex"), "text.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}texta.tex"), "texta.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}textb.tex"), "textb.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}textc.tex"), "textc.tex" },
+                { Path.Combine(pathToSub, $"{filePrefix}textd.tex"), "textd.tex" },
             };
 
             SendMessage($"\t{ResourceHelper.Get(StringKey.RenamingLanguageSpecificFiles)}");
@@ -1133,8 +1382,10 @@ namespace AppUI.Classes
                 }
                 else
                 {
-                    SendMessage($"{ResourceHelper.Get(StringKey.CouldNotFindFileToRename)}: {file.Key}", NLog.LogLevel.Warn);
-
+                    SendMessage(
+                        $"{ResourceHelper.Get(StringKey.CouldNotFindFileToRename)}: {file.Key}",
+                        NLog.LogLevel.Warn
+                    );
                 }
             }
 
@@ -1143,9 +1394,11 @@ namespace AppUI.Classes
 
             RunUlgp(pathToDiscUs, Path.Combine(InstallPath, "data", "cd", "disc_us.lgp"));
             RunUlgp(pathToCondor, Path.Combine(InstallPath, "data", "minigame", "condor.lgp"));
-            RunUlgp(pathToSnowboard, Path.Combine(InstallPath, "data", "minigame", "snowboard-us.lgp"));
+            RunUlgp(
+                pathToSnowboard,
+                Path.Combine(InstallPath, "data", "minigame", "snowboard-us.lgp")
+            );
             RunUlgp(pathToSub, Path.Combine(InstallPath, "data", "minigame", "sub.lgp"));
-
 
             SendMessage($"\t{ResourceHelper.Get(StringKey.DeletingTemporaryFiles)}");
 
@@ -1186,7 +1439,10 @@ namespace AppUI.Classes
             catch (Exception e)
             {
                 Logger.Error(e);
-                SendMessage($"{ResourceHelper.Get(StringKey.AnErrorOccurredStartingULGP)}", NLog.LogLevel.Error);
+                SendMessage(
+                    $"{ResourceHelper.Get(StringKey.AnErrorOccurredStartingULGP)}",
+                    NLog.LogLevel.Error
+                );
             }
         }
 

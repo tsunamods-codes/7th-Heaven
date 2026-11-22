@@ -1,8 +1,8 @@
-﻿using Iros.Workshop;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Iros.Workshop;
 using static AppUI.Classes.KeyboardInputSender;
 
 namespace AppUI.Classes
@@ -35,16 +35,21 @@ namespace AppUI.Classes
             bool wasLeftPressed = false;
             bool wasRightPressed = false;
 
-
             return Task.Factory.StartNew(() =>
             {
-                ControlConfiguration loadedConfig = ControlMapper.LoadConfigurationFromFile(Path.Combine(Sys.PathToControlsFolder, Sys.Settings.GameLaunchSettings.InGameConfigOption));
+                ControlConfiguration loadedConfig = ControlMapper.LoadConfigurationFromFile(
+                    Path.Combine(
+                        Sys.PathToControlsFolder,
+                        Sys.Settings.GameLaunchSettings.InGameConfigOption
+                    )
+                );
 
-                bool hasDpadBinded = loadedConfig.GamepadInputs.Values.Any(i => i?.GamepadInput.Value == GamePadButton.DPadUp ||
-                                                                                i?.GamepadInput.Value == GamePadButton.DPadDown ||
-                                                                                i?.GamepadInput.Value == GamePadButton.DPadLeft ||
-                                                                                i?.GamepadInput.Value == GamePadButton.DPadRight);
-
+                bool hasDpadBinded = loadedConfig.GamepadInputs.Values.Any(i =>
+                    i?.GamepadInput.Value == GamePadButton.DPadUp
+                    || i?.GamepadInput.Value == GamePadButton.DPadDown
+                    || i?.GamepadInput.Value == GamePadButton.DPadLeft
+                    || i?.GamepadInput.Value == GamePadButton.DPadRight
+                );
 
                 ScanCodeShort? upKey = null;
                 bool upIsExtended = false;
@@ -59,30 +64,66 @@ namespace AppUI.Classes
 
                 if (hasDpadBinded)
                 {
-                    if (loadedConfig.GamepadInputs.Any(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadUp))
+                    if (
+                        loadedConfig.GamepadInputs.Any(kv =>
+                            kv.Value?.GamepadInput.Value == GamePadButton.DPadUp
+                        )
+                    )
                     {
-                        bindedControl = loadedConfig.GamepadInputs.Where(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadUp).Select(kv => kv.Key).FirstOrDefault();
+                        bindedControl = loadedConfig
+                            .GamepadInputs.Where(kv =>
+                                kv.Value?.GamepadInput.Value == GamePadButton.DPadUp
+                            )
+                            .Select(kv => kv.Key)
+                            .FirstOrDefault();
                         upKey = loadedConfig.KeyboardInputs[bindedControl].KeyScanCode;
                         upIsExtended = loadedConfig.KeyboardInputs[bindedControl].KeyIsExtended;
                     }
 
-                    if (loadedConfig.GamepadInputs.Any(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadDown))
+                    if (
+                        loadedConfig.GamepadInputs.Any(kv =>
+                            kv.Value?.GamepadInput.Value == GamePadButton.DPadDown
+                        )
+                    )
                     {
-                        bindedControl = loadedConfig.GamepadInputs.Where(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadDown).Select(kv => kv.Key).FirstOrDefault();
+                        bindedControl = loadedConfig
+                            .GamepadInputs.Where(kv =>
+                                kv.Value?.GamepadInput.Value == GamePadButton.DPadDown
+                            )
+                            .Select(kv => kv.Key)
+                            .FirstOrDefault();
                         downKey = loadedConfig.KeyboardInputs[bindedControl].KeyScanCode;
                         downIsExtended = loadedConfig.KeyboardInputs[bindedControl].KeyIsExtended;
                     }
 
-                    if (loadedConfig.GamepadInputs.Any(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadLeft))
+                    if (
+                        loadedConfig.GamepadInputs.Any(kv =>
+                            kv.Value?.GamepadInput.Value == GamePadButton.DPadLeft
+                        )
+                    )
                     {
-                        bindedControl = loadedConfig.GamepadInputs.Where(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadLeft).Select(kv => kv.Key).FirstOrDefault();
+                        bindedControl = loadedConfig
+                            .GamepadInputs.Where(kv =>
+                                kv.Value?.GamepadInput.Value == GamePadButton.DPadLeft
+                            )
+                            .Select(kv => kv.Key)
+                            .FirstOrDefault();
                         leftKey = loadedConfig.KeyboardInputs[bindedControl].KeyScanCode;
                         leftIsExtended = loadedConfig.KeyboardInputs[bindedControl].KeyIsExtended;
                     }
 
-                    if (loadedConfig.GamepadInputs.Any(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadRight))
+                    if (
+                        loadedConfig.GamepadInputs.Any(kv =>
+                            kv.Value?.GamepadInput.Value == GamePadButton.DPadRight
+                        )
+                    )
                     {
-                        bindedControl = loadedConfig.GamepadInputs.Where(kv => kv.Value?.GamepadInput.Value == GamePadButton.DPadRight).Select(kv => kv.Key).FirstOrDefault();
+                        bindedControl = loadedConfig
+                            .GamepadInputs.Where(kv =>
+                                kv.Value?.GamepadInput.Value == GamePadButton.DPadRight
+                            )
+                            .Select(kv => kv.Key)
+                            .FirstOrDefault();
                         rightKey = loadedConfig.KeyboardInputs[bindedControl].KeyScanCode;
                         rightIsExtended = loadedConfig.KeyboardInputs[bindedControl].KeyIsExtended;
                     }
@@ -125,47 +166,77 @@ namespace AppUI.Classes
                         continue;
                     }
 
-
-
-                    if (upKey != null && ConnectedController.IsButtonPressed(GamePadButton.DPadUp) && !wasUpPressed)
+                    if (
+                        upKey != null
+                        && ConnectedController.IsButtonPressed(GamePadButton.DPadUp)
+                        && !wasUpPressed
+                    )
                     {
                         wasUpPressed = true;
                         SendKey(upKey.Value, upIsExtended);
                     }
-                    else if (upKey != null && !ConnectedController.IsButtonPressed(GamePadButton.DPadUp) && wasUpPressed)
+                    else if (
+                        upKey != null
+                        && !ConnectedController.IsButtonPressed(GamePadButton.DPadUp)
+                        && wasUpPressed
+                    )
                     {
                         ReleaseKey(upKey.Value, upIsExtended);
                         wasUpPressed = false;
                     }
 
-                    if (downKey != null && ConnectedController.IsButtonPressed(GamePadButton.DPadDown) && !wasDownPressed)
+                    if (
+                        downKey != null
+                        && ConnectedController.IsButtonPressed(GamePadButton.DPadDown)
+                        && !wasDownPressed
+                    )
                     {
                         wasDownPressed = true;
                         SendKey(downKey.Value, downIsExtended);
                     }
-                    else if (downKey != null && !ConnectedController.IsButtonPressed(GamePadButton.DPadDown) && wasDownPressed)
+                    else if (
+                        downKey != null
+                        && !ConnectedController.IsButtonPressed(GamePadButton.DPadDown)
+                        && wasDownPressed
+                    )
                     {
                         ReleaseKey(downKey.Value, downIsExtended);
                         wasDownPressed = false;
                     }
 
-                    if (leftKey != null && ConnectedController.IsButtonPressed(GamePadButton.DPadLeft) && !wasLeftPressed)
+                    if (
+                        leftKey != null
+                        && ConnectedController.IsButtonPressed(GamePadButton.DPadLeft)
+                        && !wasLeftPressed
+                    )
                     {
                         wasLeftPressed = true;
                         SendKey(leftKey.Value, leftIsExtended);
                     }
-                    else if (leftKey != null && !ConnectedController.IsButtonPressed(GamePadButton.DPadLeft) && wasLeftPressed)
+                    else if (
+                        leftKey != null
+                        && !ConnectedController.IsButtonPressed(GamePadButton.DPadLeft)
+                        && wasLeftPressed
+                    )
                     {
                         ReleaseKey(leftKey.Value, leftIsExtended);
                         wasLeftPressed = false;
                     }
 
-                    if (rightKey != null && ConnectedController.IsButtonPressed(GamePadButton.DPadRight) && !wasRightPressed)
+                    if (
+                        rightKey != null
+                        && ConnectedController.IsButtonPressed(GamePadButton.DPadRight)
+                        && !wasRightPressed
+                    )
                     {
                         wasRightPressed = true;
                         SendKey(rightKey.Value, rightIsExtended);
                     }
-                    else if (rightKey != null && !ConnectedController.IsButtonPressed(GamePadButton.DPadRight) && wasRightPressed)
+                    else if (
+                        rightKey != null
+                        && !ConnectedController.IsButtonPressed(GamePadButton.DPadRight)
+                        && wasRightPressed
+                    )
                     {
                         ReleaseKey(rightKey.Value, rightIsExtended);
                         wasRightPressed = false;
@@ -173,9 +244,7 @@ namespace AppUI.Classes
                 }
 
                 ConnectedController.ReleaseDevice();
-
             });
-
         }
     }
 }

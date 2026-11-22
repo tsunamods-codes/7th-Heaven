@@ -1,6 +1,6 @@
-﻿using AppUI.ViewModels;
+﻿using System.Windows;
 using AppUI;
-using System.Windows;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -20,7 +20,12 @@ namespace AppUI.Windows
             btnOkay.Focus();
         }
 
-        public MessageDialogWindow(string windowTitle, string prompt, MessageBoxButton buttons, MessageBoxImage image)
+        public MessageDialogWindow(
+            string windowTitle,
+            string prompt,
+            MessageBoxButton buttons,
+            MessageBoxImage image
+        )
         {
             InitializeComponent();
 
@@ -57,7 +62,13 @@ namespace AppUI.Windows
             this.DataContext = ViewModel;
         }
 
-        public MessageDialogWindow(string windowTitle, string prompt, string details, MessageBoxButton buttons, MessageBoxImage image)
+        public MessageDialogWindow(
+            string windowTitle,
+            string prompt,
+            string details,
+            MessageBoxButton buttons,
+            MessageBoxImage image
+        )
         {
             InitializeComponent();
 
@@ -69,7 +80,7 @@ namespace AppUI.Windows
                 ImageToDisplay = image,
                 DetailsVisibility = Visibility.Visible,
                 CheckboxVisibility = Visibility.Collapsed,
-                MessageVisibility = Visibility.Collapsed
+                MessageVisibility = Visibility.Collapsed,
             };
 
             this.Height = 300;
@@ -100,8 +111,13 @@ namespace AppUI.Windows
             this.DataContext = ViewModel;
         }
 
-
-        public MessageDialogWindow(string windowTitle, string prompt, MessageBoxButton buttons, string checkText = "Don't ask me again", bool isChecked = false)
+        public MessageDialogWindow(
+            string windowTitle,
+            string prompt,
+            MessageBoxButton buttons,
+            string checkText = "Don't ask me again",
+            bool isChecked = false
+        )
         {
             InitializeComponent();
 
@@ -111,7 +127,7 @@ namespace AppUI.Windows
                 Message = prompt,
                 CheckboxText = checkText,
                 CheckboxVisibility = Visibility.Visible,
-                IsChecked = isChecked
+                IsChecked = isChecked,
             };
 
             if (buttons == MessageBoxButton.YesNo)
@@ -128,22 +144,44 @@ namespace AppUI.Windows
             btnOkay.Focus();
         }
 
-        public static MessageDialogViewModel Show(string prompt, string windowTitle, MessageBoxButton buttons = MessageBoxButton.OK, MessageBoxImage image = MessageBoxImage.None)
+        public static MessageDialogViewModel Show(
+            string prompt,
+            string windowTitle,
+            MessageBoxButton buttons = MessageBoxButton.OK,
+            MessageBoxImage image = MessageBoxImage.None
+        )
         {
             return App.Current.Dispatcher.Invoke(() =>
             {
-                MessageDialogWindow window = new MessageDialogWindow(windowTitle, prompt, buttons, image);
+                MessageDialogWindow window = new MessageDialogWindow(
+                    windowTitle,
+                    prompt,
+                    buttons,
+                    image
+                );
                 window.ShowDialog();
 
                 return window.ViewModel;
             });
         }
 
-        public static MessageDialogViewModel Show(string prompt, string details, string windowTitle, MessageBoxButton buttons = MessageBoxButton.OK, MessageBoxImage image = MessageBoxImage.None)
+        public static MessageDialogViewModel Show(
+            string prompt,
+            string details,
+            string windowTitle,
+            MessageBoxButton buttons = MessageBoxButton.OK,
+            MessageBoxImage image = MessageBoxImage.None
+        )
         {
             return App.Current.Dispatcher.Invoke(() =>
             {
-                MessageDialogWindow window = new MessageDialogWindow(windowTitle, prompt, details, buttons, image);
+                MessageDialogWindow window = new MessageDialogWindow(
+                    windowTitle,
+                    prompt,
+                    details,
+                    buttons,
+                    image
+                );
                 window.ShowDialog();
 
                 return window.ViewModel;

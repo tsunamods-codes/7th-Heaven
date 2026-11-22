@@ -1,10 +1,10 @@
-﻿using Iros.Workshop;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Iros.Workshop;
+using Microsoft.Win32;
 
 namespace AppCore
 {
@@ -14,39 +14,49 @@ namespace AppCore
         RereleaseKeyPath,
         SquareSoftKeyPath,
         FF7AppKeyPath,
-        VirtualStoreKeyPath
+        VirtualStoreKeyPath,
     }
 
     public static class RegistryHelper
     {
-
         private static bool isAtomicTransaction = false;
 
         private static List<string> transaction = new();
 
-        public const string SteamKeyPath64Bit = @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam";
+        public const string SteamKeyPath64Bit =
+            @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam";
 
         public const string SteamKeyPath32Bit = @"HKEY_CURRENT_USER\Software\Valve\Steam";
 
-        public const string FF7SteamKeyPath64Bit = @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam\Apps\39140";
+        public const string FF7SteamKeyPath64Bit =
+            @"HKEY_CURRENT_USER\Software\Wow6432Node\Valve\Steam\Apps\39140";
 
-        public const string FF7SteamKeyPath32Bit = @"HKEY_CURRENT_USER\Software\Valve\Steam\Apps\39140";
+        public const string FF7SteamKeyPath32Bit =
+            @"HKEY_CURRENT_USER\Software\Valve\Steam\Apps\39140";
 
-        public const string RereleaseKeyPath64Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{141B8BA9-BFFD-4635-AF64-078E31010EC3}_is1";
+        public const string RereleaseKeyPath64Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{141B8BA9-BFFD-4635-AF64-078E31010EC3}_is1";
 
-        public const string RereleaseKeyPath32Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{141B8BA9-BFFD-4635-AF64-078E31010EC3}_is1";
+        public const string RereleaseKeyPath32Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{141B8BA9-BFFD-4635-AF64-078E31010EC3}_is1";
 
-        public const string SquareSoftKeyPath64Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Square Soft, Inc.";
+        public const string SquareSoftKeyPath64Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Square Soft, Inc.";
 
-        public const string SquareSoftKeyPath32Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.";
+        public const string SquareSoftKeyPath32Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Square Soft, Inc.";
 
-        public const string FF7AppKeyPath64Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\App Paths\FF7app.exe";
+        public const string FF7AppKeyPath64Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\App Paths\FF7app.exe";
 
-        public const string FF7AppKeyPath32Bit = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\FF7app.exe";
+        public const string FF7AppKeyPath32Bit =
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\FF7app.exe";
 
-        public const string VirtualStoreKeyPath64Bit = @"HKEY_CURRENT_USER\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Square Soft, Inc.";
+        public const string VirtualStoreKeyPath64Bit =
+            @"HKEY_CURRENT_USER\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Square Soft, Inc.";
 
-        public const string VirtualStoreKeyPath32Bit = @"HKEY_CURRENT_USER\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Square Soft, Inc.";
+        public const string VirtualStoreKeyPath32Bit =
+            @"HKEY_CURRENT_USER\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Square Soft, Inc.";
 
         /// <summary>
         /// Returns the path to the Registry Key associated with the given <paramref name="regKey"/> for the correct OS Bitness.
@@ -159,7 +169,11 @@ namespace AppCore
         /// <returns> modified registry key path </returns>
         private static string RemoveBaseKeyFromPath(string fullRegKeyPath)
         {
-            return fullRegKeyPath.Replace(@"HKEY_LOCAL_MACHINE\", "").Replace(@"HKEY_CURRENT_USER\", "").Replace(@"HKEY_CLASSES_ROOT\", ""); ;
+            return fullRegKeyPath
+                .Replace(@"HKEY_LOCAL_MACHINE\", "")
+                .Replace(@"HKEY_CURRENT_USER\", "")
+                .Replace(@"HKEY_CLASSES_ROOT\", "");
+            ;
         }
 
         private static string ReplaceBaseKeyFromPath(string fullRegKeyPath)
@@ -210,7 +224,12 @@ namespace AppCore
         /// <summary>
         /// Sets the name/value pair in the specified Registry Key. Creates the Registry Key if it does not exist already.
         /// </summary>
-        public static bool SetValue(string key, string valueName, object value, RegistryValueKind regKind = RegistryValueKind.String)
+        public static bool SetValue(
+            string key,
+            string valueName,
+            object value,
+            RegistryValueKind regKind = RegistryValueKind.String
+        )
         {
             string regType = String.Empty;
 
@@ -218,7 +237,9 @@ namespace AppCore
             {
                 case RegistryValueKind.Binary:
                     regType = "REG_BINARY";
-                    if (value is Guid) value = $"\"{BitConverter.ToString(((Guid)value).ToByteArray()).ToLower().Replace("-","")}\"";
+                    if (value is Guid)
+                        value =
+                            $"\"{BitConverter.ToString(((Guid)value).ToByteArray()).ToLower().Replace("-", "")}\"";
                     break;
                 case RegistryValueKind.DWord:
                     regType = "REG_DWORD";
@@ -239,8 +260,11 @@ namespace AppCore
                 case RegistryValueKind.String:
                 case RegistryValueKind.Unknown:
                     regType = "REG_SZ";
-                    bool lastCharIsEscape = value.ToString()[value.ToString().Length - 1].Equals('\\');
-                    value = $"\"{value.ToString().Replace("\"", "\"\"").Replace("%", "%%")}{(lastCharIsEscape ? "\\" : "")}\"";
+                    bool lastCharIsEscape = value
+                        .ToString()[value.ToString().Length - 1]
+                        .Equals('\\');
+                    value =
+                        $"\"{value.ToString().Replace("\"", "\"\"").Replace("%", "%%")}{(lastCharIsEscape ? "\\" : "")}\"";
                     break;
             }
 
@@ -259,7 +283,8 @@ namespace AppCore
             else
                 valueName = $"/v \"{valueName}\"";
 
-            return ExecReg($"add \"{key}\" /f {valueName} /d {value} /t {regType}"); ;
+            return ExecReg($"add \"{key}\" /f {valueName} /d {value} /t {regType}");
+            ;
         }
 
         /// <summary>
@@ -284,7 +309,6 @@ namespace AppCore
             {
                 return false;
             }
-
 
             try
             {
@@ -362,15 +386,22 @@ namespace AppCore
         /// Update Registry with new value if it has changed from the current value in the Registry.
         /// Returns true if changed.
         /// </summary>
-        public static bool SetValueIfChanged(string regKeyPath, string regValueName, object newValue, RegistryValueKind valueKind = RegistryValueKind.String)
+        public static bool SetValueIfChanged(
+            string regKeyPath,
+            string regValueName,
+            object newValue,
+            RegistryValueKind valueKind = RegistryValueKind.String
+        )
         {
             object currentValue = GetValue(regKeyPath, regValueName, null);
             bool isValuesEqual;
 
             if (newValue is Guid)
             {
-                bool isCurrentValueValid = currentValue != null && (currentValue as byte[]).Length == 16;
-                isValuesEqual = isCurrentValueValid && new Guid(currentValue as byte[]).Equals(newValue);
+                bool isCurrentValueValid =
+                    currentValue != null && (currentValue as byte[]).Length == 16;
+                isValuesEqual =
+                    isCurrentValueValid && new Guid(currentValue as byte[]).Equals(newValue);
             }
             else
             {
@@ -414,11 +445,12 @@ namespace AppCore
                         Arguments = $"{args} /reg:{bitness}",
                         Verb = "runas",
                         CreateNoWindow = true,
-                        UseShellExecute = true
+                        UseShellExecute = true,
                     };
                     proc = Process.Start(startInfo);
 
-                    if (proc != null) proc.WaitForExit();
+                    if (proc != null)
+                        proc.WaitForExit();
                     return true;
                 }
                 catch (Exception)
@@ -427,7 +459,8 @@ namespace AppCore
                 }
                 finally
                 {
-                    if (proc != null) proc.Dispose();
+                    if (proc != null)
+                        proc.Dispose();
                 }
             }
         }
@@ -441,10 +474,7 @@ namespace AppCore
         {
             string fileName = Path.Combine(Sys.PathToTempFolder, "registry_transaction.bat");
 
-            System.IO.File.WriteAllText(
-                fileName,
-                $"@echo off\n" + String.Join("\n", transaction)
-            );
+            System.IO.File.WriteAllText(fileName, $"@echo off\n" + String.Join("\n", transaction));
 
             if (transaction.Count > 0)
             {
@@ -455,7 +485,7 @@ namespace AppCore
                     {
                         Verb = "runas",
                         CreateNoWindow = true,
-                        UseShellExecute = true
+                        UseShellExecute = true,
                     };
 
                     // Launch process, wait and then save exit code
@@ -468,7 +498,13 @@ namespace AppCore
                 }
                 catch (Exception e)
                 {
-                    Sys.Message(new WMessage() { Text = $"Error while trying to update registry settings", LoggedException = e });
+                    Sys.Message(
+                        new WMessage()
+                        {
+                            Text = $"Error while trying to update registry settings",
+                            LoggedException = e,
+                        }
+                    );
                 }
             }
 

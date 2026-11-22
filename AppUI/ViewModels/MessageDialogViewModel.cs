@@ -1,7 +1,4 @@
-﻿using Iros.Workshop;
-using Microsoft.Win32;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppUI.ViewModels;
+using Iros.Workshop;
+using Microsoft.Win32;
 
 namespace AppUI.ViewModels
 {
@@ -26,10 +26,7 @@ namespace AppUI.ViewModels
 
         public string WindowTitle
         {
-            get
-            {
-                return _windowTitle;
-            }
+            get { return _windowTitle; }
             set
             {
                 _windowTitle = value;
@@ -39,10 +36,7 @@ namespace AppUI.ViewModels
 
         public string Message
         {
-            get
-            {
-                return _message;
-            }
+            get { return _message; }
             set
             {
                 _message = value;
@@ -52,10 +46,7 @@ namespace AppUI.ViewModels
 
         public string Details
         {
-            get
-            {
-                return _details;
-            }
+            get { return _details; }
             set
             {
                 _details = value;
@@ -65,10 +56,7 @@ namespace AppUI.ViewModels
 
         public string CheckboxText
         {
-            get
-            {
-                return _checkboxText;
-            }
+            get { return _checkboxText; }
             set
             {
                 _checkboxText = value;
@@ -78,10 +66,7 @@ namespace AppUI.ViewModels
 
         public Visibility CheckboxVisibility
         {
-            get
-            {
-                return _checkboxVisibility;
-            }
+            get { return _checkboxVisibility; }
             set
             {
                 _checkboxVisibility = value;
@@ -91,10 +76,7 @@ namespace AppUI.ViewModels
 
         public Visibility DetailsVisibility
         {
-            get
-            {
-                return _detailsVisibility;
-            }
+            get { return _detailsVisibility; }
             set
             {
                 _detailsVisibility = value;
@@ -104,10 +86,7 @@ namespace AppUI.ViewModels
 
         public Visibility MessageVisibility
         {
-            get
-            {
-                return _messageVisibility;
-            }
+            get { return _messageVisibility; }
             set
             {
                 _messageVisibility = value;
@@ -117,10 +96,7 @@ namespace AppUI.ViewModels
 
         public bool IsChecked
         {
-            get
-            {
-                return _isChecked;
-            }
+            get { return _isChecked; }
             set
             {
                 _isChecked = value;
@@ -132,10 +108,7 @@ namespace AppUI.ViewModels
 
         public MessageBoxImage ImageToDisplay
         {
-            get
-            {
-                return _imageToDisplay;
-            }
+            get { return _imageToDisplay; }
             set
             {
                 _imageToDisplay = value;
@@ -152,6 +125,5 @@ namespace AppUI.ViewModels
             DetailsVisibility = Visibility.Collapsed;
             CheckboxVisibility = Visibility.Collapsed;
         }
-
     }
 }

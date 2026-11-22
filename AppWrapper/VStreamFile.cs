@@ -3,23 +3,28 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using Iros;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Iros;
 
-namespace AppWrapper {
-    class VStreamFile {
+namespace AppWrapper
+{
+    class VStreamFile
+    {
         private byte[] _source;
         private long _position;
 
-        public VStreamFile(byte[] source) {
+        public VStreamFile(byte[] source)
+        {
             _source = source;
         }
 
-        public long SetPosition(long pos, Win32.EMoveMethod type) {
-            switch (type) {
+        public long SetPosition(long pos, Win32.EMoveMethod type)
+        {
+            switch (type)
+            {
                 case Win32.EMoveMethod.Begin:
                     _position = pos;
                     break;
@@ -34,10 +39,13 @@ namespace AppWrapper {
             return _position;
         }
 
-        public int Read(IntPtr buffer, uint toRead, ref uint read) {
+        public int Read(IntPtr buffer, uint toRead, ref uint read)
+        {
             int willRead = Math.Min((int)toRead, _source.Length - (int)_position);
-            if (willRead == 0) {
-                read = 0; return 1;
+            if (willRead == 0)
+            {
+                read = 0;
+                return 1;
             }
             Util.CopyToIntPtr(_source, buffer, willRead, (int)_position);
             _position += willRead;

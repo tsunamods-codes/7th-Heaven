@@ -1,18 +1,17 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using AppUI.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class MovieImportViewModel : ViewModelBase
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -23,10 +22,7 @@ namespace AppUI.ViewModels
 
         public string ImportStatusMessage
         {
-            get
-            {
-                return _importStatusMessage;
-            }
+            get { return _importStatusMessage; }
             set
             {
                 _importStatusMessage = value;
@@ -36,10 +32,7 @@ namespace AppUI.ViewModels
 
         public bool ImportButtonIsEnabled
         {
-            get
-            {
-                return _importButtonIsEnabled;
-            }
+            get { return _importButtonIsEnabled; }
             set
             {
                 _importButtonIsEnabled = value;
@@ -49,10 +42,7 @@ namespace AppUI.ViewModels
 
         public Visibility ImportProgressVisibility
         {
-            get
-            {
-                return _importProgressVisibility;
-            }
+            get { return _importProgressVisibility; }
             set
             {
                 _importProgressVisibility = value;
@@ -62,10 +52,7 @@ namespace AppUI.ViewModels
 
         public double ImportProgressValue
         {
-            get
-            {
-                return _importProgressValue;
-            }
+            get { return _importProgressValue; }
             set
             {
                 _importProgressValue = value;
@@ -89,34 +76,44 @@ namespace AppUI.ViewModels
             {
                 ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies);
 
-                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.PathToFF7Movies);
+                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(
+                    Sys.PathToFF7Movies
+                );
 
                 if (missingMovies.Count > 0)
                 {
                     List<string> discsToInsert = GetDiscsToInsertForMissingMovies(missingMovies);
 
-                    ImportStatusMessage = string.Format(ResourceHelper.Get(StringKey.InsertAndClickImport), discsToInsert[0]);
+                    ImportStatusMessage = string.Format(
+                        ResourceHelper.Get(StringKey.InsertAndClickImport),
+                        discsToInsert[0]
+                    );
                 }
                 else
                 {
-                    ImportStatusMessage = ResourceHelper.Get(StringKey.AllMovieFilesAlreadyImported);
+                    ImportStatusMessage = ResourceHelper.Get(
+                        StringKey.AllMovieFilesAlreadyImported
+                    );
                 }
             }
             else
             {
-                ImportStatusMessage = ResourceHelper.Get(StringKey.Ff7ExeNotFoundYouMayNeedToConfigure);
+                ImportStatusMessage = ResourceHelper.Get(
+                    StringKey.Ff7ExeNotFoundYouMayNeedToConfigure
+                );
             }
-
-            
         }
 
-        private List<string> GetDiscsToInsertForMissingMovies(Dictionary<string, string[]> missingMovies)
+        private List<string> GetDiscsToInsertForMissingMovies(
+            Dictionary<string, string[]> missingMovies
+        )
         {
             List<string> discsToInsert = new List<string>();
-            missingMovies.Values.GroupBy(s => s)
-                                .Select(g => g.Key)
-                                .ToList()
-                                .ForEach(s => discsToInsert.AddRange(s)); // add all string[] to one List<string> 
+            missingMovies
+                .Values.GroupBy(s => s)
+                .Select(g => g.Key)
+                .ToList()
+                .ForEach(s => discsToInsert.AddRange(s)); // add all string[] to one List<string>
 
             discsToInsert = discsToInsert.Distinct().OrderBy(s => s).ToList();
 
@@ -125,8 +122,16 @@ namespace AppUI.ViewModels
 
         internal void ImportMissingMovies()
         {
-            string warningMessage = string.Format(ResourceHelper.Get(StringKey.ImportMissingMoviesWarningMessage), Sys.PathToFF7Movies);
-            MessageDialogViewModel result = MessageDialogWindow.Show(warningMessage, ResourceHelper.Get(StringKey.Warning), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            string warningMessage = string.Format(
+                ResourceHelper.Get(StringKey.ImportMissingMoviesWarningMessage),
+                Sys.PathToFF7Movies
+            );
+            MessageDialogViewModel result = MessageDialogWindow.Show(
+                warningMessage,
+                ResourceHelper.Get(StringKey.Warning),
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
 
             if (result.Result == MessageBoxResult.No)
             {
@@ -142,7 +147,9 @@ namespace AppUI.ViewModels
 
             Task importTask = Task.Factory.StartNew(() =>
             {
-                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(Sys.PathToFF7Movies);
+                Dictionary<string, string[]> missingMovies = GameConverter.GetMissingMovieFiles(
+                    Sys.PathToFF7Movies
+                );
                 List<string> discsToInsert = GetDiscsToInsertForMissingMovies(missingMovies);
 
                 totalFiles = missingMovies.Count;
@@ -158,14 +165,26 @@ namespace AppUI.ViewModels
 
                         if (driveLetters.Count == 0)
                         {
-                            SetImportStatus(string.Format(ResourceHelper.Get(StringKey.InsertToContinue), disc));
+                            SetImportStatus(
+                                string.Format(ResourceHelper.Get(StringKey.InsertToContinue), disc)
+                            );
 
                             App.Current.Dispatcher.Invoke(() =>
                             {
-                                string discNotFoundMessage = string.Format(ResourceHelper.Get(StringKey.PleaseInsertToContinueCopying), disc);
-                                MessageDialogViewModel insertDiscResult = MessageDialogWindow.Show(discNotFoundMessage, ResourceHelper.Get(StringKey.InsertDisc), MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                                string discNotFoundMessage = string.Format(
+                                    ResourceHelper.Get(StringKey.PleaseInsertToContinueCopying),
+                                    disc
+                                );
+                                MessageDialogViewModel insertDiscResult = MessageDialogWindow.Show(
+                                    discNotFoundMessage,
+                                    ResourceHelper.Get(StringKey.InsertDisc),
+                                    MessageBoxButton.OKCancel,
+                                    MessageBoxImage.Warning
+                                );
 
-                                cancelProcess = (insertDiscResult.Result == MessageBoxResult.Cancel);
+                                cancelProcess = (
+                                    insertDiscResult.Result == MessageBoxResult.Cancel
+                                );
                             });
                         }
 
@@ -173,16 +192,23 @@ namespace AppUI.ViewModels
                         {
                             return;
                         }
-
                     } while (driveLetters.Count == 0);
 
-                    SetImportStatus($"{string.Format(ResourceHelper.Get(StringKey.FoundDiscAt), disc)} {string.Join("  ", driveLetters)} ...");
+                    SetImportStatus(
+                        $"{string.Format(ResourceHelper.Get(StringKey.FoundDiscAt), disc)} {string.Join("  ", driveLetters)} ..."
+                    );
 
                     // loop over missing files on the found disc and copy to data/movies destination
-                    foreach (string movieFile in missingMovies.Where(kv => kv.Value.Any(s => s.Equals(disc, StringComparison.InvariantCultureIgnoreCase)))
-                                                              .Select(kv => kv.Key))
+                    foreach (
+                        string movieFile in missingMovies
+                            .Where(kv =>
+                                kv.Value.Any(s =>
+                                    s.Equals(disc, StringComparison.InvariantCultureIgnoreCase)
+                                )
+                            )
+                            .Select(kv => kv.Key)
+                    )
                     {
-
                         foreach (string drive in driveLetters)
                         {
                             string fullTargetPath = Path.Combine(Sys.PathToFF7Movies, movieFile);
@@ -192,11 +218,15 @@ namespace AppUI.ViewModels
                             {
                                 if (File.Exists(fullTargetPath))
                                 {
-                                    SetImportStatus($"{ResourceHelper.Get(StringKey.Overwriting)} {movieFile} ...");
+                                    SetImportStatus(
+                                        $"{ResourceHelper.Get(StringKey.Overwriting)} {movieFile} ..."
+                                    );
                                 }
                                 else
                                 {
-                                    SetImportStatus($"{ResourceHelper.Get(StringKey.Copying)} {movieFile} ...");
+                                    SetImportStatus(
+                                        $"{ResourceHelper.Get(StringKey.Copying)} {movieFile} ..."
+                                    );
                                 }
 
                                 File.Copy(sourceFilePath, fullTargetPath, true);
@@ -206,41 +236,54 @@ namespace AppUI.ViewModels
                             }
                             else
                             {
-                                SetImportStatus(string.Format(ResourceHelper.Get(StringKey.FailedToFindAt), movieFile, sourceFilePath));
+                                SetImportStatus(
+                                    string.Format(
+                                        ResourceHelper.Get(StringKey.FailedToFindAt),
+                                        movieFile,
+                                        sourceFilePath
+                                    )
+                                );
                             }
                         }
                     }
                 }
             });
 
-            importTask.ContinueWith((taskResult) =>
-            {
-                if (taskResult.IsFaulted)
+            importTask.ContinueWith(
+                (taskResult) =>
                 {
-                    Logger.Error(taskResult.Exception);
-                    SetImportStatus($"{ResourceHelper.Get(StringKey.AnErrorOccurredCopyingMovies)}: {taskResult.Exception.GetBaseException().Message}");
-                }
-                else if (cancelProcess)
-                {
-                    InitImportMovieOption();
-                }
-                else
-                {
-                    if (filesCopied == totalFiles)
+                    if (taskResult.IsFaulted)
                     {
-                        SetImportStatus(ResourceHelper.Get(StringKey.SuccessfullyCopiedMovies));
+                        Logger.Error(taskResult.Exception);
+                        SetImportStatus(
+                            $"{ResourceHelper.Get(StringKey.AnErrorOccurredCopyingMovies)}: {taskResult.Exception.GetBaseException().Message}"
+                        );
+                    }
+                    else if (cancelProcess)
+                    {
+                        InitImportMovieOption();
                     }
                     else
                     {
-                        SetImportStatus(ResourceHelper.Get(StringKey.FinishedCopyingMoviesSomeFailed));
+                        if (filesCopied == totalFiles)
+                        {
+                            SetImportStatus(ResourceHelper.Get(StringKey.SuccessfullyCopiedMovies));
+                        }
+                        else
+                        {
+                            SetImportStatus(
+                                ResourceHelper.Get(StringKey.FinishedCopyingMoviesSomeFailed)
+                            );
+                        }
+
+                        ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(
+                            Sys.PathToFF7Movies
+                        );
+                        ImportProgressValue = 0;
+                        ImportProgressVisibility = Visibility.Hidden;
                     }
-
-                    ImportButtonIsEnabled = !GameConverter.AllMovieFilesExist(Sys.PathToFF7Movies);
-                    ImportProgressValue = 0;
-                    ImportProgressVisibility = Visibility.Hidden;
                 }
-            });
-
+            );
         }
 
         private void SetImportStatus(string message)
@@ -265,6 +308,5 @@ namespace AppUI.ViewModels
                 App.ForceUpdateUI();
             });
         }
-
     }
 }

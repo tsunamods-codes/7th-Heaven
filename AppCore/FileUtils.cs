@@ -1,16 +1,22 @@
-﻿using Iros.Workshop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Iros.Workshop;
 
 namespace AppCore
 {
     public class FileUtils
     {
-        public static List<string> CopyDirectoryRecursively(string sourceDirName, string destDirName, List<string> filesToExclude, List<string> foldersToExclude, bool doContainsSearch)
+        public static List<string> CopyDirectoryRecursively(
+            string sourceDirName,
+            string destDirName,
+            List<string> filesToExclude,
+            List<string> foldersToExclude,
+            bool doContainsSearch
+        )
         {
             List<string> filesCopied = new List<string>();
 
@@ -30,7 +36,7 @@ namespace AppCore
                 CopySubFolders = true,
                 ExcludeFiles = filesToExclude,
                 ExcludeFolders = foldersToExclude,
-                ContainsSearchForFiles = doContainsSearch
+                ContainsSearchForFiles = doContainsSearch,
             };
 
             try
@@ -39,7 +45,9 @@ namespace AppCore
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage(StringKey.FailedToCopyDirectory, WMessageLogLevel.LogOnly, e));
+                Sys.Message(
+                    new WMessage(StringKey.FailedToCopyDirectory, WMessageLogLevel.LogOnly, e)
+                );
             }
 
             return filesCopied;
@@ -51,7 +59,7 @@ namespace AppCore
             {
                 IsMovingFiles = false,
                 CopySubFolders = true,
-                ContainsSearchForFiles = false
+                ContainsSearchForFiles = false,
             };
 
             try
@@ -60,11 +68,19 @@ namespace AppCore
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage(StringKey.FailedToCopyDirectory, WMessageLogLevel.LogOnly, e));
+                Sys.Message(
+                    new WMessage(StringKey.FailedToCopyDirectory, WMessageLogLevel.LogOnly, e)
+                );
             }
         }
 
-        public static void MoveDirectoryRecursively(string sourceDirName, string destDirName, List<string> filesToExclude, List<string> foldersToExclude, bool doContainsSearch)
+        public static void MoveDirectoryRecursively(
+            string sourceDirName,
+            string destDirName,
+            List<string> filesToExclude,
+            List<string> foldersToExclude,
+            bool doContainsSearch
+        )
         {
             if (filesToExclude == null)
             {
@@ -82,7 +98,7 @@ namespace AppCore
                 CopySubFolders = true,
                 ExcludeFiles = filesToExclude,
                 ExcludeFolders = foldersToExclude,
-                ContainsSearchForFiles = doContainsSearch
+                ContainsSearchForFiles = doContainsSearch,
             };
 
             try
@@ -91,7 +107,9 @@ namespace AppCore
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage(StringKey.FailedToMoveDirectory, WMessageLogLevel.LogOnly, e));
+                Sys.Message(
+                    new WMessage(StringKey.FailedToMoveDirectory, WMessageLogLevel.LogOnly, e)
+                );
             }
         }
 
@@ -99,7 +117,7 @@ namespace AppCore
         {
             StringBuilder allFiles = new StringBuilder();
             string tabs = new String(' ', indentLevel * 4);
-            string dashes = new String('-', indentLevel * 4); 
+            string dashes = new String('-', indentLevel * 4);
 
             if (indentLevel == 0)
             {
@@ -111,7 +129,6 @@ namespace AppCore
             {
                 allFiles.AppendLine($"{tabs} {file}");
             }
-
 
             foreach (string dir in Directory.GetDirectories(rootPath).OrderByDescending(s => s)) // order by descending due to recursive nature; output will be ascending order
             {
@@ -128,7 +145,7 @@ namespace AppCore
             {
                 IsMovingFiles = true,
                 CopySubFolders = true,
-                ContainsSearchForFiles = false
+                ContainsSearchForFiles = false,
             };
 
             try
@@ -137,11 +154,18 @@ namespace AppCore
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage(StringKey.FailedToMoveDirectory, WMessageLogLevel.LogOnly, e));
+                Sys.Message(
+                    new WMessage(StringKey.FailedToMoveDirectory, WMessageLogLevel.LogOnly, e)
+                );
             }
         }
 
-        private static void CopyOrMoveDirectoryRecursively(string sourceDirName, string destDirName, CopySettings settings, List<string> copiedFiles = null)
+        private static void CopyOrMoveDirectoryRecursively(
+            string sourceDirName,
+            string destDirName,
+            CopySettings settings,
+            List<string> copiedFiles = null
+        )
         {
             if (copiedFiles == null)
             {
@@ -165,8 +189,8 @@ namespace AppCore
             if (!dir.Exists)
             {
                 throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
+                    "Source directory does not exist or could not be found: " + sourceDirName
+                );
             }
 
             // Get the files in the directory and copy them to the new location.
@@ -215,7 +239,12 @@ namespace AppCore
                     }
 
                     string tempPath = Path.Combine(destDirName, subdir.Name);
-                    CopyOrMoveDirectoryRecursively(subdir.FullName, tempPath, settings, copiedFiles);
+                    CopyOrMoveDirectoryRecursively(
+                        subdir.FullName,
+                        tempPath,
+                        settings,
+                        copiedFiles
+                    );
                 }
             }
         }
@@ -290,7 +319,9 @@ namespace AppCore
             }
             catch (Exception e)
             {
-                Sys.Message(new WMessage(StringKey.FailedToDeleteFiles, WMessageLogLevel.LogOnly, e));
+                Sys.Message(
+                    new WMessage(StringKey.FailedToDeleteFiles, WMessageLogLevel.LogOnly, e)
+                );
                 return false;
             }
         }
@@ -309,7 +340,9 @@ namespace AppCore
             {
                 using (var stream = File.OpenRead(s))
                 {
-                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
+                    return BitConverter
+                        .ToString(md5.ComputeHash(stream))
+                        .Replace("-", string.Empty);
                 }
             }
         }
@@ -321,10 +354,13 @@ namespace AppCore
                 return false;
             }
 
-            List<string> protectedFolders = new List<string>() { Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                                                                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
-                                                                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                                                                 Environment.GetFolderPath(Environment.SpecialFolder.Windows) };
+            List<string> protectedFolders = new List<string>()
+            {
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+            };
 
             return protectedFolders.Any(s => InstallPath.Contains(s));
         }
@@ -350,6 +386,4 @@ namespace AppCore
             }
         }
     }
-
-
 }

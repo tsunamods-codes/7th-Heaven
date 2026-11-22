@@ -1,14 +1,13 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using AppCore;
+using AppUI.Classes;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
     public class SetLanguageViewModel : ViewModelBase
     {
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -18,18 +17,12 @@ namespace AppUI.ViewModels
 
         public List<string> Languages
         {
-            get
-            {
-                return _languagesMap?.Keys.ToList();
-            }
+            get { return _languagesMap?.Keys.ToList(); }
         }
 
         public Dictionary<string, string> LanguagesMap
         {
-            get
-            {
-                return _languagesMap;
-            }
+            get { return _languagesMap; }
             set
             {
                 _languagesMap = value;
@@ -40,10 +33,7 @@ namespace AppUI.ViewModels
 
         public string SelectedLanguage
         {
-            get
-            {
-                return _selectedLanguage;
-            }
+            get { return _selectedLanguage; }
             set
             {
                 _selectedLanguage = value;
@@ -51,30 +41,40 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public SetLanguageViewModel()
         {
             LanguagesMap = new Dictionary<string, string>();
-            LanguagesMap.Add($"{ResourceHelper.Get(StringKey.BrazilianPortuguese)} (Português Brasileiro)", "pt-BR");
+            LanguagesMap.Add(
+                $"{ResourceHelper.Get(StringKey.BrazilianPortuguese)} (Português Brasileiro)",
+                "pt-BR"
+            );
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.English)} (English)", "en");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.French)} (Français)", "fr");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.German)} (Deutsche)", "de");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Greek)} (Ελληνικά)", "gr");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Italian)} (Italiano)", "it");
             LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Spanish)} (Español)", "es");
-            LanguagesMap.Add($"{ResourceHelper.Get(StringKey.SimplifiedChinese)} (\u4e2d\u6587\u7b80\u4f53)", "zh");
+            LanguagesMap.Add(
+                $"{ResourceHelper.Get(StringKey.SimplifiedChinese)} (\u4e2d\u6587\u7b80\u4f53)",
+                "zh"
+            );
             //LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Japanese)} (\u65e5\u672c\u8a9e)", "ja");
-
 
             string defaultLang = Sys.Settings.AppLanguage;
 
             if (string.IsNullOrWhiteSpace(defaultLang))
             {
-                SelectedLanguage = LanguagesMap.Where(kv => kv.Value == "en").Select(k => k.Key).FirstOrDefault();
+                SelectedLanguage = LanguagesMap
+                    .Where(kv => kv.Value == "en")
+                    .Select(k => k.Key)
+                    .FirstOrDefault();
             }
             else if (defaultLang.Length >= 2)
             {
-                SelectedLanguage = LanguagesMap.Where(kv => kv.Value == defaultLang.Substring(0, 2)).Select(k => k.Key).FirstOrDefault();
+                SelectedLanguage = LanguagesMap
+                    .Where(kv => kv.Value == defaultLang.Substring(0, 2))
+                    .Select(k => k.Key)
+                    .FirstOrDefault();
             }
         }
 
@@ -91,7 +91,6 @@ namespace AppUI.ViewModels
                 Logger.Error(e);
                 return false;
             }
-
 
             return true;
         }

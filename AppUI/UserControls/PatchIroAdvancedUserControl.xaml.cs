@@ -1,8 +1,8 @@
-﻿using AppCore;
+﻿using System.Windows;
+using System.Windows.Controls;
+using AppCore;
 using AppUI.Classes;
 using AppUI.ViewModels;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace AppUI.UserControls
 {
@@ -41,7 +41,10 @@ namespace AppUI.UserControls
 
         private void btnBrowseIrop_Click(object sender, RoutedEventArgs e)
         {
-            string saveFile = FileDialogHelper.OpenSaveDialog(".iro patch (.irop)|*.irop", ResourceHelper.Get(StringKey.SaveAsIropTitle));
+            string saveFile = FileDialogHelper.OpenSaveDialog(
+                ".iro patch (.irop)|*.irop",
+                ResourceHelper.Get(StringKey.SaveAsIropTitle)
+            );
 
             if (!string.IsNullOrEmpty(saveFile))
             {

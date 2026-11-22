@@ -1,7 +1,7 @@
-﻿using AppCore;
-using Iros.Workshop;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Serialization;
+using AppCore;
+using Iros.Workshop;
 
 class Program
 {
@@ -25,7 +25,8 @@ class Program
 
             if (validateLinks)
             {
-                (List<ModLinkStatus> warnings, List<ModLinkStatus> errors) = await ValidateDownloadLinksAsync(catalog);
+                (List<ModLinkStatus> warnings, List<ModLinkStatus> errors) =
+                    await ValidateDownloadLinksAsync(catalog);
 
                 if (errors.Count > 0)
                 {
@@ -73,10 +74,14 @@ class Program
             $"Expected a <Catalog> or <Mod> root element without a namespace, but found <{reader.Name}> in namespace '{reader.NamespaceURI}'.",
             null,
             lineInfo?.LineNumber ?? 0,
-            lineInfo?.LinePosition ?? 0);
+            lineInfo?.LinePosition ?? 0
+        );
     }
 
-    private static async Task<(List<ModLinkStatus>, List<ModLinkStatus>)> ValidateDownloadLinksAsync(Catalog catalog)
+    private static async Task<(
+        List<ModLinkStatus>,
+        List<ModLinkStatus>
+    )> ValidateDownloadLinksAsync(Catalog catalog)
     {
         List<ModLinkStatus> warnings = new List<ModLinkStatus>();
         List<ModLinkStatus> errors = new List<ModLinkStatus>();
@@ -95,12 +100,9 @@ class Program
             foreach (string rawLink in mod.LatestVersion.Links)
             {
                 LinkValidationResult result = await DownloadLinkValidator.ValidateAsync(rawLink);
-                linkStatuses.Add(new LinkStatus(
-                    result.IsValid,
-                    rawLink,
-                    result.ValidationTarget,
-                    result.Error
-                ));
+                linkStatuses.Add(
+                    new LinkStatus(result.IsValid, rawLink, result.ValidationTarget, result.Error)
+                );
 
                 if (result.IsValid)
                 {
@@ -125,11 +127,17 @@ class Program
     }
 
     private sealed record LinkStatus(bool IsValid, string Url, string ResolvedTarget, string Error);
+
     private sealed record ModLinkStatus(string ModName, string ModId, List<LinkStatus> Links);
 
-    private static void GenerateResultFiles(string catalogPath, List<ModLinkStatus> warnings, List<ModLinkStatus> errors)
+    private static void GenerateResultFiles(
+        string catalogPath,
+        List<ModLinkStatus> warnings,
+        List<ModLinkStatus> errors
+    )
     {
-        string catalogDirectory = Path.GetDirectoryName(catalogPath) ?? Directory.GetCurrentDirectory();
+        string catalogDirectory = Path.GetDirectoryName(catalogPath)
+            ?? Directory.GetCurrentDirectory();
         string catalogFileName = Path.GetFileNameWithoutExtension(catalogPath);
 
         if (errors.Count > 0)
@@ -153,7 +161,9 @@ class Program
 
     private static void WriteWarningsData(TextWriter writer, List<ModLinkStatus> warnings)
     {
-        writer.WriteLine($"⚠️ Found {warnings.Count} mod(s) with at least one working link, but some didn't resolve correctly:\n");
+        writer.WriteLine(
+            $"⚠️ Found {warnings.Count} mod(s) with at least one working link, but some didn't resolve correctly:\n"
+        );
         foreach (var warning in warnings)
         {
             writer.WriteLine($"» {warning.ModName} ({warning.ModId})");

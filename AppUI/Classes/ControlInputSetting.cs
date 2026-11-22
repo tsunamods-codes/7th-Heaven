@@ -1,5 +1,5 @@
-﻿using AppCore;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using AppCore;
 using static AppUI.Classes.KeyboardInputSender;
 
 namespace AppUI.Classes
@@ -17,7 +17,12 @@ namespace AppUI.Classes
         public string DisplayText { get; set; }
         public StringKey? TranslationKey { get; set; }
 
-        public ControlInputSetting(string displayText, int val, Key keyboardInput, StringKey? translationKey = null)
+        public ControlInputSetting(
+            string displayText,
+            int val,
+            Key keyboardInput,
+            StringKey? translationKey = null
+        )
         {
             DisplayText = displayText;
             ConfigValue = val;
@@ -27,7 +32,12 @@ namespace AppUI.Classes
             GamepadInput = null;
         }
 
-        public ControlInputSetting(string displayText, int val, GamePadButton padInput, StringKey? translationKey = null)
+        public ControlInputSetting(
+            string displayText,
+            int val,
+            GamePadButton padInput,
+            StringKey? translationKey = null
+        )
         {
             DisplayText = displayText;
             ConfigValue = val;
@@ -36,10 +46,5 @@ namespace AppUI.Classes
             TranslationKey = translationKey;
             GamepadInput = padInput;
         }
-
     }
-
 }
-
-
-

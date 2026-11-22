@@ -1,16 +1,16 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Windows;
-using Iros;
-using Iros.Workshop;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using AppCore;
+using AppUI.Classes;
+using AppUI.Windows;
+using Iros;
+using Iros.Workshop;
+using Microsoft.Win32;
 using static System.Resources.ResXFileRef;
 
 namespace AppUI.ViewModels
@@ -53,10 +53,7 @@ namespace AppUI.ViewModels
 
         public string FF7ExePathInput
         {
-            get
-            {
-                return _fF7ExePathInput;
-            }
+            get { return _fF7ExePathInput; }
             set
             {
                 _fF7ExePathInput = value;
@@ -66,10 +63,7 @@ namespace AppUI.ViewModels
 
         public string LibraryPathInput
         {
-            get
-            {
-                return _libraryPathInput;
-            }
+            get { return _libraryPathInput; }
             set
             {
                 _libraryPathInput = value;
@@ -79,10 +73,7 @@ namespace AppUI.ViewModels
 
         public string StatusMessage
         {
-            get
-            {
-                return _statusMessage;
-            }
+            get { return _statusMessage; }
             set
             {
                 _statusMessage = value;
@@ -92,10 +83,7 @@ namespace AppUI.ViewModels
 
         public FFNxUpdateChannelOptions FFNxUpdateChannel
         {
-            get
-            {
-                return _ffnxUpdateChannel;
-            }
+            get { return _ffnxUpdateChannel; }
             set
             {
                 _ffnxUpdateChannel = value;
@@ -105,10 +93,7 @@ namespace AppUI.ViewModels
 
         public AppUpdateChannelOptions AppUpdateChannel
         {
-            get
-            {
-                return _appUpdateChannel;
-            }
+            get { return _appUpdateChannel; }
             set
             {
                 _appUpdateChannel = value;
@@ -118,10 +103,7 @@ namespace AppUI.ViewModels
 
         public bool AutoSortModsByDefault
         {
-            get
-            {
-                return _autoSortModsByDefault;
-            }
+            get { return _autoSortModsByDefault; }
             set
             {
                 _autoSortModsByDefault = value;
@@ -131,10 +113,7 @@ namespace AppUI.ViewModels
 
         public bool AutoUpdateModsByDefault
         {
-            get
-            {
-                return _autoUpdateModsByDefault;
-            }
+            get { return _autoUpdateModsByDefault; }
             set
             {
                 _autoUpdateModsByDefault = value;
@@ -144,10 +123,7 @@ namespace AppUI.ViewModels
 
         public bool ActivateInstalledModsAuto
         {
-            get
-            {
-                return _activateInstalledModsAuto;
-            }
+            get { return _activateInstalledModsAuto; }
             set
             {
                 _activateInstalledModsAuto = value;
@@ -157,10 +133,7 @@ namespace AppUI.ViewModels
 
         public bool ImportLibraryFolderAuto
         {
-            get
-            {
-                return _importLibraryFolderAuto;
-            }
+            get { return _importLibraryFolderAuto; }
             set
             {
                 _importLibraryFolderAuto = value;
@@ -170,10 +143,7 @@ namespace AppUI.ViewModels
 
         public bool CheckForUpdatesAuto
         {
-            get
-            {
-                return _checkForUpdatesAuto;
-            }
+            get { return _checkForUpdatesAuto; }
             set
             {
                 _checkForUpdatesAuto = value;
@@ -183,10 +153,7 @@ namespace AppUI.ViewModels
 
         public bool BypassCompatibilityLocks
         {
-            get
-            {
-                return _bypassCompatibilityLocks;
-            }
+            get { return _bypassCompatibilityLocks; }
             set
             {
                 _bypassCompatibilityLocks = value;
@@ -196,10 +163,7 @@ namespace AppUI.ViewModels
 
         public bool OpenIrosLinks
         {
-            get
-            {
-                return _openIrosLinks;
-            }
+            get { return _openIrosLinks; }
             set
             {
                 _openIrosLinks = value;
@@ -209,10 +173,7 @@ namespace AppUI.ViewModels
 
         public bool OpenModFilesWith7H
         {
-            get
-            {
-                return _openModFilesWith7H;
-            }
+            get { return _openModFilesWith7H; }
             set
             {
                 _openModFilesWith7H = value;
@@ -222,10 +183,7 @@ namespace AppUI.ViewModels
 
         public bool ShowContextMenuInExplorer
         {
-            get
-            {
-                return _showContextMenuInExplorer;
-            }
+            get { return _showContextMenuInExplorer; }
             set
             {
                 _showContextMenuInExplorer = value;
@@ -251,10 +209,7 @@ namespace AppUI.ViewModels
 
         public bool IsSubscriptionPopupOpen
         {
-            get
-            {
-                return _isSubscriptionPopupOpen;
-            }
+            get { return _isSubscriptionPopupOpen; }
             set
             {
                 _isSubscriptionPopupOpen = value;
@@ -284,10 +239,7 @@ namespace AppUI.ViewModels
 
         public string SubscriptionNameHintText
         {
-            get
-            {
-                return _subscriptionNameHintText;
-            }
+            get { return _subscriptionNameHintText; }
             set
             {
                 _subscriptionNameHintText = value;
@@ -297,10 +249,7 @@ namespace AppUI.ViewModels
 
         public bool SubscriptionNameTextBoxIsEnabled
         {
-            get
-            {
-                return _subscriptionNameTextBoxIsEnabled;
-            }
+            get { return _subscriptionNameTextBoxIsEnabled; }
             set
             {
                 _subscriptionNameTextBoxIsEnabled = value;
@@ -310,10 +259,7 @@ namespace AppUI.ViewModels
 
         public bool IsResolvingName
         {
-            get
-            {
-                return _isResolvingName;
-            }
+            get { return _isResolvingName; }
             set
             {
                 _isResolvingName = value;
@@ -324,18 +270,12 @@ namespace AppUI.ViewModels
 
         public bool IsNotResolvingName
         {
-            get
-            {
-                return !IsResolvingName;
-            }
+            get { return !IsResolvingName; }
         }
 
         public string NewUrlText
         {
-            get
-            {
-                return _newUrlText;
-            }
+            get { return _newUrlText; }
             set
             {
                 _newUrlText = value.Trim(new char[] { '\n', ' ', '\r' });
@@ -345,10 +285,7 @@ namespace AppUI.ViewModels
 
         public string NewNameText
         {
-            get
-            {
-                return _newNameText;
-            }
+            get { return _newNameText; }
             set
             {
                 _newNameText = value.Trim(new char[] { '\n', ' ', '\r' });
@@ -378,7 +315,9 @@ namespace AppUI.ViewModels
         {
             AutoDetectSystemPaths(settings);
 
-            SubscriptionList = new ObservableCollection<SubscriptionSettingViewModel>(settings.Subscriptions.Select(s => new SubscriptionSettingViewModel(s.Url, s.Name)));
+            SubscriptionList = new ObservableCollection<SubscriptionSettingViewModel>(
+                settings.Subscriptions.Select(s => new SubscriptionSettingViewModel(s.Url, s.Name))
+            );
             ExtraFolderList = new ObservableCollection<string>(settings.ExtraFolders.ToList());
 
             FF7ExePathInput = settings.FF7Exe;
@@ -395,17 +334,26 @@ namespace AppUI.ViewModels
             BypassCompatibilityLocks = settings.HasOption(GeneralOptions.BypassCompatibility);
             OpenIrosLinks = settings.HasOption(GeneralOptions.OpenIrosLinksWith7H);
             OpenModFilesWith7H = settings.HasOption(GeneralOptions.OpenModFilesWith7H);
-            ShowContextMenuInExplorer = settings.HasOption(GeneralOptions.Show7HInFileExplorerContextMenu);
+            ShowContextMenuInExplorer = settings.HasOption(
+                GeneralOptions.Show7HInFileExplorerContextMenu
+            );
         }
 
         public static void AutoDetectSystemPaths(Settings settings)
         {
             string ff7 = null;
-            bool isRunningInWine = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WINELOADER"));
+            bool isRunningInWine = !string.IsNullOrEmpty(
+                Environment.GetEnvironmentVariable("WINELOADER")
+            );
 
-            if (string.IsNullOrEmpty(settings.FF7Exe) || !File.Exists(settings.FF7Exe) && !isRunningInWine)
+            if (
+                string.IsNullOrEmpty(settings.FF7Exe)
+                || !File.Exists(settings.FF7Exe) && !isRunningInWine
+            )
             {
-                Logger.Info("FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ...");
+                Logger.Info(
+                    "FF7 Exe path is empty or ff7.exe is missing. Auto detecting paths ..."
+                );
 
                 try
                 {
@@ -416,7 +364,9 @@ namespace AppUI.ViewModels
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         ff7 = GameConverter.GetInstallLocation(FF7Version.SteamReRelease);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.SteamReRelease : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.SteamReRelease
+                            : FF7Version.Unknown;
                     }
 
                     // First try to autodetect the Steam installation if any
@@ -424,49 +374,65 @@ namespace AppUI.ViewModels
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.Steam
+                            : FF7Version.Unknown;
                     }
 
                     // If no Steam version detected, attempt to detect the GOG release
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         ff7 = GameConverter.GetInstallLocation(FF7Version.GOG);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.GOG : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.GOG
+                            : FF7Version.Unknown;
                     }
 
                     // If no Steam version detected, attempt to detect the Windows Store release
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         ff7 = GameConverter.GetInstallLocation(FF7Version.WindowsStore);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.WindowsStore : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.WindowsStore
+                            : FF7Version.Unknown;
                     }
 
                     // If no Steam version detected, attempt to detect the Eidos release
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         ff7 = GameConverter.GetInstallLocation(FF7Version.ReRelease);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.Steam
+                            : FF7Version.Unknown;
                     }
 
                     // Finally as a last attempt try to autodetect the 1998 release
                     if (Sys.Settings.FF7InstalledVersion == FF7Version.Unknown)
                     {
                         // Try to detect 1998 game or a "converted" game from the old 7H game converter
-                        string registry_path = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
+                        string registry_path =
+                            $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
                         ff7 = (string)Registry.GetValue(registry_path, "AppPath", null);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Original98 : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.Original98
+                            : FF7Version.Unknown;
 
                         if (!Directory.Exists(ff7))
                         {
-                            Logger.Warn($"Deleting invalid 'AppPath' registry key since path does not exist: {ff7}");
-                            RegistryHelper.DeleteValueFromKey(registry_path, "AppPath"); // delete old paths set 
-                            RegistryHelper.DeleteValueFromKey(registry_path, "DataPath"); // delete old paths set 
-                            RegistryHelper.DeleteValueFromKey(registry_path, "MoviePath"); // delete old paths set 
+                            Logger.Warn(
+                                $"Deleting invalid 'AppPath' registry key since path does not exist: {ff7}"
+                            );
+                            RegistryHelper.DeleteValueFromKey(registry_path, "AppPath"); // delete old paths set
+                            RegistryHelper.DeleteValueFromKey(registry_path, "DataPath"); // delete old paths set
+                            RegistryHelper.DeleteValueFromKey(registry_path, "MoviePath"); // delete old paths set
                             Sys.Settings.FF7InstalledVersion = FF7Version.Unknown; // set back to Unknown to check other registry keys
                         }
                     }
 
-                    string versionStr = Sys.Settings.FF7InstalledVersion == FF7Version.Original98 ? $"{Sys.Settings.FF7InstalledVersion.ToString()} (or Game Converted)" : Sys.Settings.FF7InstalledVersion.ToString();
+                    string versionStr =
+                        Sys.Settings.FF7InstalledVersion == FF7Version.Original98
+                            ? $"{Sys.Settings.FF7InstalledVersion.ToString()} (or Game Converted)"
+                            : Sys.Settings.FF7InstalledVersion.ToString();
 
                     Logger.Info($"FF7Version Detected: {versionStr} with installation path: {ff7}");
 
@@ -475,7 +441,6 @@ namespace AppUI.ViewModels
                         Logger.Warn("Found installation path does not exist. Ignoring...");
                         return;
                     }
-
                 }
                 catch
                 {
@@ -492,10 +457,14 @@ namespace AppUI.ViewModels
             {
                 if (settings.FF7Exe.ToLower().EndsWith("ff7_en.exe"))
                 {
-                    string ff7Launcher = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "FF7_Launcher.exe");
+                    string ff7Launcher = Path.Combine(
+                        Path.GetDirectoryName(settings.FF7Exe),
+                        "FF7_Launcher.exe"
+                    );
 
                     // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
-                    if (File.Exists(ff7Launcher)) Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
+                    if (File.Exists(ff7Launcher))
+                        Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
                 }
                 else if (settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
@@ -503,27 +472,48 @@ namespace AppUI.ViewModels
 
                     // Detect if the installation is a previously Steam converted one
                     if (
-                        !isRunningInWine && // are we on Windows?
+                        !isRunningInWine
+                        && // are we on Windows?
                         (
-                            (Directory.Exists(Path.Combine(ff7path, "music/vgmstream")) && Directory.EnumerateFiles(Path.Combine(ff7path, "music/vgmstream"), "*.ogg").Any()) || // did it inherit the original soundtrack?
-                            Path.Exists(Path.Combine(ff7path, "ff7_en.exe")) || // did it inherit the original Steam exe?
-                            Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf")) || // did it inherit misc Steam files?
+                            (
+                                Directory.Exists(Path.Combine(ff7path, "music/vgmstream"))
+                                && Directory
+                                    .EnumerateFiles(
+                                        Path.Combine(ff7path, "music/vgmstream"),
+                                        "*.ogg"
+                                    )
+                                    .Any()
+                            )
+                            || // did it inherit the original soundtrack?
+                            Path.Exists(Path.Combine(ff7path, "ff7_en.exe"))
+                            || // did it inherit the original Steam exe?
+                            Path.Exists(Path.Combine(ff7path, "firewall_entry.vdf"))
+                            || // did it inherit misc Steam files?
                             Path.Exists(Path.Combine(ff7path, "AF3DN.P")) // did it inherit offical Steam driver?
                         )
                     )
                     {
                         // Clearly not a genuine 1998 installation, try to convert it to Steam
-                        Logger.Info("Previously Steam converted game detected. Attempting to switch back to the native Steam edition...");
+                        Logger.Info(
+                            "Previously Steam converted game detected. Attempting to switch back to the native Steam edition..."
+                        );
 
                         // Try to autodetect the Steam installation if any
                         ff7 = GameConverter.GetInstallLocation(FF7Version.Steam);
-                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Steam : FF7Version.Unknown;
+                        Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7)
+                            ? FF7Version.Steam
+                            : FF7Version.Unknown;
 
                         if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
                             settings.SetPathsFromInstallationPath(ff7);
                         else
                         {
-                            MessageDialogWindow.Show("Looks like you're using a previously converted Steam to 1998 Game Copy. It is suggested to install a fresh copy of the game from Steam and relaunch this app. The application will now close.", "This installation is now unsupported", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                            MessageDialogWindow.Show(
+                                "Looks like you're using a previously converted Steam to 1998 Game Copy. It is suggested to install a fresh copy of the game from Steam and relaunch this app. The application will now close.",
+                                "This installation is now unsupported",
+                                System.Windows.MessageBoxButton.OK,
+                                System.Windows.MessageBoxImage.Error
+                            );
 
                             Application.Current.Shutdown();
                         }
@@ -534,9 +524,18 @@ namespace AppUI.ViewModels
                 }
                 else if (settings.FF7Exe.ToLower().EndsWith("ffvii.exe"))
                 {
-                    string ff7Launcher = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "FFVII_LAUNCHER.exe");
-                    string ff7SteamApi64 = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "steam_api64.dll");
-                    string goggame = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "goggame-1698970154.info");
+                    string ff7Launcher = Path.Combine(
+                        Path.GetDirectoryName(settings.FF7Exe),
+                        "FFVII_LAUNCHER.exe"
+                    );
+                    string ff7SteamApi64 = Path.Combine(
+                        Path.GetDirectoryName(settings.FF7Exe),
+                        "steam_api64.dll"
+                    );
+                    string goggame = Path.Combine(
+                        Path.GetDirectoryName(settings.FF7Exe),
+                        "goggame-1698970154.info"
+                    );
 
                     // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
                     if (File.Exists(ff7Launcher))
@@ -557,25 +556,44 @@ namespace AppUI.ViewModels
 
         public bool EnsureRereleaseGameDirectoryIsReady()
         {
-            string sourceExe = Path.Combine(Sys.InstallPath, "..", "resources", "ff7_1.02", "ff7_en");
-            string sourceExeJp = Path.Combine(Sys.InstallPath, "..", "resources", "ff7_1.02", "ff7_ja");
+            string sourceExe = Path.Combine(
+                Sys.InstallPath,
+                "..",
+                "resources",
+                "ff7_1.02",
+                "ff7_en"
+            );
+            string sourceExeJp = Path.Combine(
+                Sys.InstallPath,
+                "..",
+                "resources",
+                "ff7_1.02",
+                "ff7_ja"
+            );
             string targetExe = Sys.Settings.FF7Exe;
             string targetExeJp = Path.Combine(Path.GetDirectoryName(targetExe), "ff7_ja.exe");
             string targetWindow = Path.Combine(Sys.InstallPath, "data", "kernel", "window.bin");
 
-            if (!File.Exists(targetExe)) File.Copy(sourceExe, targetExe, true);
-            if (!File.Exists(targetExeJp)) File.Copy(sourceExeJp, targetExeJp, true);
+            if (!File.Exists(targetExe))
+                File.Copy(sourceExe, targetExe, true);
+            if (!File.Exists(targetExeJp))
+                File.Copy(sourceExeJp, targetExeJp, true);
 
             if (!File.Exists(targetWindow))
             {
                 Directory.CreateDirectory(Path.Combine(Sys.InstallPath, "data", "kernel"));
-                File.Copy(Path.Combine(Sys.InstallPath, "data", "lang-ja", "kernel", "window.bin"), Path.Combine(Sys.InstallPath, "data", "kernel", "window.bin"), true);
+                File.Copy(
+                    Path.Combine(Sys.InstallPath, "data", "lang-ja", "kernel", "window.bin"),
+                    Path.Combine(Sys.InstallPath, "data", "kernel", "window.bin"),
+                    true
+                );
             }
 
             if (Sys.Settings.FF7InstalledVersion == FF7Version.SteamReRelease)
             {
                 string steamAppIdPath = Path.Combine(Sys.InstallPath, "steam_appid.txt");
-                if (!File.Exists(steamAppIdPath)) File.WriteAllText(steamAppIdPath, "3837340");
+                if (!File.Exists(steamAppIdPath))
+                    File.WriteAllText(steamAppIdPath, "3837340");
             }
 
             return true;
@@ -592,37 +610,72 @@ namespace AppUI.ViewModels
             Sys.Settings.ExtraFolders = ExtraFolderList.Distinct().ToList();
 
             // ensure required folders are always in ExtraFolders list
-            if (!Sys.Settings.ExtraFolders.Contains("direct", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "direct",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("direct");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("music", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "music",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("music");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("sfx", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "sfx",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("sfx");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("voice", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "voice",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("voice");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("ambient", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "ambient",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("ambient");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("widescreen", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "widescreen",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("widescreen");
             }
 
-            if (!Sys.Settings.ExtraFolders.Contains("shaders", StringComparer.InvariantCultureIgnoreCase))
+            if (
+                !Sys.Settings.ExtraFolders.Contains(
+                    "shaders",
+                    StringComparer.InvariantCultureIgnoreCase
+                )
+            )
             {
                 Sys.Settings.ExtraFolders.Add("shaders");
             }
@@ -644,36 +697,51 @@ namespace AppUI.ViewModels
 
             Directory.CreateDirectory(Sys.Settings.LibraryLocation);
 
-            if (!string.IsNullOrWhiteSpace(oldLibraryLocation) &&
-                !oldLibraryLocation.Equals(newLibraryLocation, StringComparison.OrdinalIgnoreCase) &&
-                Directory.Exists(oldLibraryLocation) &&
-                Directory.EnumerateFileSystemEntries(oldLibraryLocation).Any())
+            if (
+                !string.IsNullOrWhiteSpace(oldLibraryLocation)
+                && !oldLibraryLocation.Equals(
+                    newLibraryLocation,
+                    StringComparison.OrdinalIgnoreCase
+                )
+                && Directory.Exists(oldLibraryLocation)
+                && Directory.EnumerateFileSystemEntries(oldLibraryLocation).Any()
+            )
             {
                 var dialogResult = MessageDialogWindow.Show(
                     ResourceHelper.Get(StringKey.PromptMoveModsToNewLibrary),
                     "Library Location Changed",
                     MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+                    MessageBoxImage.Question
+                );
 
                 if (dialogResult.Result == MessageBoxResult.Yes)
                 {
                     try
                     {
                         FileUtils.MoveDirectoryRecursively(oldLibraryLocation, newLibraryLocation);
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.MovedModsToNewLibrary)));
+                        Sys.Message(
+                            new WMessage(ResourceHelper.Get(StringKey.MovedModsToNewLibrary))
+                        );
                     }
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary)));
-                        MessageDialogWindow.Show(ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary), ResourceHelper.Get(StringKey.Error), MessageBoxButton.OK, MessageBoxImage.Error);
+                        Sys.Message(
+                            new WMessage(ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary))
+                        );
+                        MessageDialogWindow.Show(
+                            ResourceHelper.Get(StringKey.FailedToMoveModsToNewLibrary),
+                            ResourceHelper.Get(StringKey.Error),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                     }
                 }
             }
 
             Sys.Message(new WMessage(ResourceHelper.Get(StringKey.GeneralSettingsHaveBeenUpdated)));
 
-            switch(Sys.Settings.FF7InstalledVersion)
+            switch (Sys.Settings.FF7InstalledVersion)
             {
                 case FF7Version.WindowsStore:
                 case FF7Version.GOG:
@@ -688,12 +756,20 @@ namespace AppUI.ViewModels
                 {
                     FFNxDriverUpdater updater = new FFNxDriverUpdater();
 
-                    Sys.Message(new WMessage($"Downloading and extracting the latest FFNx {Sys.Settings.FFNxUpdateChannel} version to {Sys.InstallPath}..."));
+                    Sys.Message(
+                        new WMessage(
+                            $"Downloading and extracting the latest FFNx {Sys.Settings.FFNxUpdateChannel} version to {Sys.InstallPath}..."
+                        )
+                    );
                     updater.DownloadAndExtractLatestVersion(Sys.Settings.FFNxUpdateChannel);
                 }
                 catch (Exception ex)
                 {
-                    Sys.Message(new WMessage($"Something went wrong while attempting to install FFNx. See logs."));
+                    Sys.Message(
+                        new WMessage(
+                            $"Something went wrong while attempting to install FFNx. See logs."
+                        )
+                    );
                     Logger.Error(ex);
                     return false;
                 }
@@ -746,7 +822,10 @@ namespace AppUI.ViewModels
             RegistryHelper.CommitTransaction();
 
             // ensure only applying option if it has changed
-            if (Sys.Settings.HasOption(GeneralOptions.AutoUpdateMods) && Sys.Library.DefaultUpdate == UpdateType.Notify)
+            if (
+                Sys.Settings.HasOption(GeneralOptions.AutoUpdateMods)
+                && Sys.Library.DefaultUpdate == UpdateType.Notify
+            )
             {
                 HasChangedInstalledModUpdateTypes = true;
                 Sys.Library.DefaultUpdate = UpdateType.Install;
@@ -755,9 +834,11 @@ namespace AppUI.ViewModels
                 {
                     item.UpdateType = UpdateType.Install;
                 }
-
             }
-            else if (!Sys.Settings.HasOption(GeneralOptions.AutoUpdateMods) && Sys.Library.DefaultUpdate == UpdateType.Install)
+            else if (
+                !Sys.Settings.HasOption(GeneralOptions.AutoUpdateMods)
+                && Sys.Library.DefaultUpdate == UpdateType.Install
+            )
             {
                 HasChangedInstalledModUpdateTypes = true;
                 Sys.Library.DefaultUpdate = UpdateType.Notify;
@@ -802,7 +883,6 @@ namespace AppUI.ViewModels
 
             if (ShowContextMenuInExplorer)
                 newOptions.Add(GeneralOptions.Show7HInFileExplorerContextMenu);
-
 
             return newOptions;
         }
@@ -850,7 +930,10 @@ namespace AppUI.ViewModels
                 isValid = false;
             }
 
-            if ((Path.GetDirectoryName(FF7ExePathInput) == LibraryPathInput) || Sys._7HFolder == LibraryPathInput)
+            if (
+                (Path.GetDirectoryName(FF7ExePathInput) == LibraryPathInput)
+                || Sys._7HFolder == LibraryPathInput
+            )
             {
                 validationMessage = ResourceHelper.Get(StringKey.LibraryPathCannotBeGameOrApp);
                 isValid = false;
@@ -858,14 +941,24 @@ namespace AppUI.ViewModels
 
             if (showMessage && !isValid)
             {
-                MessageDialogWindow.Show(validationMessage, ResourceHelper.Get(StringKey.SettingsNotValid), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    validationMessage,
+                    ResourceHelper.Get(StringKey.SettingsNotValid),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
 
             return isValid;
         }
 
         [DllImport("shell32.dll")]
-        public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+        public static extern void SHChangeNotify(
+            uint wEventId,
+            uint uFlags,
+            IntPtr dwItem1,
+            IntPtr dwItem2
+        );
 
         /// <summary>
         /// Update Registry to associate .iro mod files with 7H
@@ -878,13 +971,29 @@ namespace AppUI.ViewModels
             {
                 //Associate .iro mod files with 7H's Prog_ID- .IRO extension
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro", "", $"7thHeavenIRO");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.iro\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIRO:\"%1\"");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\.iro\\DefaultIcon",
+                    "",
+                    $"\"{Sys._7HExe}\""
+                );
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\.iro\\shell\\open\\command",
+                    "",
+                    $"\"{Sys._7HExe}\" /OPENIRO:\"%1\""
+                );
 
                 // create registry keys to assocaite .irop files
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop", "", $"7thHeavenIROP");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\.irop\\shell\\open\\command", "", $"\"{Sys._7HExe}\" /OPENIROP:\"%1\"");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\.irop\\DefaultIcon",
+                    "",
+                    $"\"{Sys._7HExe}\""
+                );
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\.irop\\shell\\open\\command",
+                    "",
+                    $"\"{Sys._7HExe}\" /OPENIROP:\"%1\""
+                );
 
                 //Refresh Shell/Explorer so icon cache updates
                 //do this now because we don't care so much about assoc. URL if it fails
@@ -895,7 +1004,11 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToRegisterIroModFilesWith7thHeaven)));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToRegisterIroModFilesWith7thHeaven)
+                    )
+                );
                 return false;
             }
         }
@@ -920,7 +1033,11 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToUnregisterIroModFilesWith7thHeaven)));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToUnregisterIroModFilesWith7thHeaven)
+                    )
+                );
                 return false;
             }
         }
@@ -934,10 +1051,22 @@ namespace AppUI.ViewModels
         {
             try
             {
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\iros", "", $"7H Catalog Subscription");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\iros",
+                    "",
+                    $"7H Catalog Subscription"
+                );
                 RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\iros", "URL Protocol", $"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\iros\\DefaultIcon", "", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\iros\\shell\\open\\command", "", $"\"{Sys._7HExe}\" \"%1\"");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\iros\\DefaultIcon",
+                    "",
+                    $"\"{Sys._7HExe}\""
+                );
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\iros\\shell\\open\\command",
+                    "",
+                    $"\"{Sys._7HExe}\" \"%1\""
+                );
 
                 //Refresh Shell/Explorer so icon cache updates
                 //do this now because we don't care so much about assoc. URL if it fails
@@ -948,7 +1077,11 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToRegisterIrosLinksWith7thHeaven)));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToRegisterIrosLinksWith7thHeaven)
+                    )
+                );
                 return false;
             }
         }
@@ -973,7 +1106,11 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToUnregisterIrosLinksWith7thHeaven)));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToUnregisterIrosLinksWith7thHeaven)
+                    )
+                );
                 return false;
             }
         }
@@ -988,12 +1125,28 @@ namespace AppUI.ViewModels
             try
             {
                 // create registry keys for 'Pack IRO' for folders
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO", "Icon", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO\\command", "", $"\"{Sys._7HExe}\" /PACKIRO:\"%1\"");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO",
+                    "Icon",
+                    $"\"{Sys._7HExe}\""
+                );
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\Directory\\shell\\Pack into IRO\\command",
+                    "",
+                    $"\"{Sys._7HExe}\" /PACKIRO:\"%1\""
+                );
 
                 // create registry keys for 'Unpack IRO' for files
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO", "Icon", $"\"{Sys._7HExe}\"");
-                RegistryHelper.SetValueIfChanged("HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO\\command", "", $"\"{Sys._7HExe}\" /UNPACKIRO:\"%1\"");
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO",
+                    "Icon",
+                    $"\"{Sys._7HExe}\""
+                );
+                RegistryHelper.SetValueIfChanged(
+                    "HKEY_CLASSES_ROOT\\7thHeavenIRO\\shell\\Unpack IRO\\command",
+                    "",
+                    $"\"{Sys._7HExe}\" /UNPACKIRO:\"%1\""
+                );
 
                 SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
 
@@ -1002,7 +1155,13 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToCreate7thHeavenContextMenuEntries), WMessageLogLevel.Error, e));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToCreate7thHeavenContextMenuEntries),
+                        WMessageLogLevel.Error,
+                        e
+                    )
+                );
                 return false;
             }
         }
@@ -1026,7 +1185,13 @@ namespace AppUI.ViewModels
             catch (Exception e)
             {
                 Logger.Error(e);
-                Sys.Message(new WMessage(ResourceHelper.Get(StringKey.FailedToRemove7thHeavenContextMenuEntries), WMessageLogLevel.Error, e));
+                Sys.Message(
+                    new WMessage(
+                        ResourceHelper.Get(StringKey.FailedToRemove7thHeavenContextMenuEntries),
+                        WMessageLogLevel.Error,
+                        e
+                    )
+                );
                 return false;
             }
         }
@@ -1043,7 +1208,9 @@ namespace AppUI.ViewModels
         {
             IsEditingSubscription = false;
             SubscriptionNameTextBoxIsEnabled = false;
-            SubscriptionNameHintText = ResourceHelper.Get(StringKey.CatalogNameWillAutoResolveOnSave);
+            SubscriptionNameHintText = ResourceHelper.Get(
+                StringKey.CatalogNameWillAutoResolveOnSave
+            );
             IsSubscriptionPopupOpen = true;
             string clipboardContent = "";
 
@@ -1052,7 +1219,10 @@ namespace AppUI.ViewModels
                 clipboardContent = Clipboard.GetText(TextDataFormat.Text);
             }
 
-            if (!string.IsNullOrWhiteSpace(clipboardContent) && clipboardContent.StartsWith("iros://"))
+            if (
+                !string.IsNullOrWhiteSpace(clipboardContent)
+                && clipboardContent.StartsWith("iros://")
+            )
             {
                 NewUrlText = clipboardContent;
             }
@@ -1078,7 +1248,9 @@ namespace AppUI.ViewModels
                     NewNameText = resolvedName;
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        SubscriptionList.Add(new SubscriptionSettingViewModel(NewUrlText, NewNameText));
+                        SubscriptionList.Add(
+                            new SubscriptionSettingViewModel(NewUrlText, NewNameText)
+                        );
                         CloseSubscriptionPopup();
                         IsResolvingName = false;
                         ListDataChanged?.Invoke();
@@ -1087,7 +1259,9 @@ namespace AppUI.ViewModels
             }
             else if (IsEditingSubscription)
             {
-                SubscriptionSettingViewModel toEdit = SubscriptionList.FirstOrDefault(s => s.Url == NewUrlText);
+                SubscriptionSettingViewModel toEdit = SubscriptionList.FirstOrDefault(s =>
+                    s.Url == NewUrlText
+                );
                 toEdit.Name = NewNameText;
                 CloseSubscriptionPopup();
                 ListDataChanged?.Invoke();
@@ -1142,7 +1316,7 @@ namespace AppUI.ViewModels
         }
 
         /// <summary>
-        /// Downloads catalog.xml to temp file and gets Name of the catalog. 
+        /// Downloads catalog.xml to temp file and gets Name of the catalog.
         /// resolved name gets passed to delegate method that is called after download
         /// </summary>
         /// <param name="catalogUrl"></param>
@@ -1170,31 +1344,32 @@ namespace AppUI.ViewModels
                 callback("");
             };
 
-            Install.InstallProcedureCallback downloadCallback = new Install.InstallProcedureCallback(e =>
-            {
-                bool success = (e.Error == null && e.Cancelled == false);
-
-                if (success)
+            Install.InstallProcedureCallback downloadCallback =
+                new Install.InstallProcedureCallback(e =>
                 {
-                    try
-                    {
-                        Catalog c = Util.Deserialize<Catalog>(path);
-                        name = c.Name ?? "";
+                    bool success = (e.Error == null && e.Cancelled == false);
 
-                        // delete temp file if it exists
-                        if (File.Exists(path))
+                    if (success)
+                    {
+                        try
                         {
-                            File.Delete(path);
+                            Catalog c = Util.Deserialize<Catalog>(path);
+                            name = c.Name ?? "";
+
+                            // delete temp file if it exists
+                            if (File.Exists(path))
+                            {
+                                File.Delete(path);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Warn($"Failed to deserialize catalog - {ex.Message}");
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.Warn($"Failed to deserialize catalog - {ex.Message}");
-                    }
-                }
 
-                callback(name);
-            });
+                    callback(name);
+                });
             downloadCallback.Error = onError;
 
             DownloadItem download = new DownloadItem()
@@ -1204,7 +1379,7 @@ namespace AppUI.ViewModels
                 Category = DownloadCategory.Catalog,
                 ItemName = $"{ResourceHelper.Get(StringKey.ResolvingCatalogNameFor)} {catalogUrl}",
                 IProc = downloadCallback,
-                OnCancel = onCancel
+                OnCancel = onCancel,
             };
 
             Sys.Downloads.AddToDownloadQueue(download);
@@ -1212,7 +1387,9 @@ namespace AppUI.ViewModels
 
         internal void AddExtraFolder()
         {
-            string initialDir = File.Exists(FF7ExePathInput) ? Path.GetDirectoryName(FF7ExePathInput) : "";
+            string initialDir = File.Exists(FF7ExePathInput)
+                ? Path.GetDirectoryName(FF7ExePathInput)
+                : "";
             string pathToFolder = FileDialogHelper.BrowseForFolder("", initialDir);
 
             if (!string.IsNullOrWhiteSpace(pathToFolder))

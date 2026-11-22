@@ -1,15 +1,15 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
 
 namespace AppUI.ViewModels
 {
@@ -25,10 +25,7 @@ namespace AppUI.ViewModels
 
         public string PathToOutputFolder
         {
-            get
-            {
-                return _pathToOutputFolder;
-            }
+            get { return _pathToOutputFolder; }
             set
             {
                 _pathToOutputFolder = value;
@@ -38,10 +35,7 @@ namespace AppUI.ViewModels
 
         public string PathToIroFile
         {
-            get
-            {
-                return _pathToIroFile;
-            }
+            get { return _pathToIroFile; }
             set
             {
                 _pathToIroFile = value;
@@ -51,10 +45,7 @@ namespace AppUI.ViewModels
 
         public string StatusText
         {
-            get
-            {
-                return _statusText;
-            }
+            get { return _statusText; }
             set
             {
                 _statusText = value;
@@ -64,10 +55,7 @@ namespace AppUI.ViewModels
 
         public int ProgressValue
         {
-            get
-            {
-                return _progressValue;
-            }
+            get { return _progressValue; }
             set
             {
                 _progressValue = value;
@@ -77,10 +65,7 @@ namespace AppUI.ViewModels
 
         public bool IsUnpacking
         {
-            get
-            {
-                return _isUnpacking;
-            }
+            get { return _isUnpacking; }
             set
             {
                 _isUnpacking = value;
@@ -91,12 +76,8 @@ namespace AppUI.ViewModels
 
         public bool IsNotUnpacking
         {
-            get
-            {
-                return !_isUnpacking;
-            }
+            get { return !_isUnpacking; }
         }
-
 
         public UnpackIroViewModel()
         {
@@ -126,7 +107,12 @@ namespace AppUI.ViewModels
             if (!isValid && showErrorMsg)
             {
                 Logger.Warn($"{ResourceHelper.Get(StringKey.InvalidUnpackIroOptions)}: {errorMsg}");
-                MessageDialogWindow.Show(errorMsg, ResourceHelper.Get(StringKey.MissingRequiredInput), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageDialogWindow.Show(
+                    errorMsg,
+                    ResourceHelper.Get(StringKey.MissingRequiredInput),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
 
             return isValid;
@@ -151,27 +137,30 @@ namespace AppUI.ViewModels
 
                         Directory.CreateDirectory(Path.GetDirectoryName(path));
                         File.WriteAllBytes(path, arc.GetBytes(file));
-                        
+
                         count++;
                         IroProgress(1.0 * count / files.Count, file);
                     }
                 }
             });
 
-            unpackTask.ContinueWith((result) =>
-            {
-                IsUnpacking = false;
-                ProgressValue = 0;
-
-                if (result.IsFaulted)
+            unpackTask.ContinueWith(
+                (result) =>
                 {
-                    Logger.Warn(result.Exception.GetBaseException());
-                    StatusText = $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhileUnpacking)}: {result.Exception.GetBaseException().Message}";
-                    return;
-                }
+                    IsUnpacking = false;
+                    ProgressValue = 0;
 
-                StatusText = ResourceHelper.Get(StringKey.UnpackingComplete);
-            });
+                    if (result.IsFaulted)
+                    {
+                        Logger.Warn(result.Exception.GetBaseException());
+                        StatusText =
+                            $"{ResourceHelper.Get(StringKey.AnErrorOccuredWhileUnpacking)}: {result.Exception.GetBaseException().Message}";
+                        return;
+                    }
+
+                    StatusText = ResourceHelper.Get(StringKey.UnpackingComplete);
+                }
+            );
 
             return unpackTask;
         }

@@ -1,7 +1,7 @@
-﻿using AppCore;
-using AppUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AppCore;
+using AppUI;
 
 namespace AppUI.Classes
 {

@@ -1,9 +1,9 @@
-﻿using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppUI.ViewModels;
 
 namespace AppUI.Classes
 {
@@ -26,7 +26,9 @@ namespace AppUI.Classes
         /// Returns <see cref="Tags"/> if <paramref name="tags"/> is null; otherwise returns <paramref name="tags"/>.
         /// if <paramref name="tags"/> is not null then <see cref="Tags"/> will be set.
         /// </summary>
-        public IEnumerable<FilterItemViewModel> SetOrGetPreviousTags(IEnumerable<FilterItemViewModel> tags)
+        public IEnumerable<FilterItemViewModel> SetOrGetPreviousTags(
+            IEnumerable<FilterItemViewModel> tags
+        )
         {
             if (tags == null && Tags != null)
             {
@@ -72,7 +74,9 @@ namespace AppUI.Classes
         /// Returns <see cref="Categories"/> if <paramref name="categories"/> is null; otherwise returns <paramref name="categories"/>.
         /// if <paramref name="categories"/> is not null then <see cref="Categories"/> will be set.
         /// </summary>
-        public IEnumerable<FilterItemViewModel> SetOrGetPreviousCategories(IEnumerable<FilterItemViewModel> categories)
+        public IEnumerable<FilterItemViewModel> SetOrGetPreviousCategories(
+            IEnumerable<FilterItemViewModel> categories
+        )
         {
             if (categories == null && Categories != null)
             {

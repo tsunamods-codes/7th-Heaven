@@ -1,23 +1,23 @@
-﻿using Ae.Dns.Client;
-using Ae.Dns.Protocol;
-using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Html.Parser;
-using Iros.Workshop;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Ae.Dns.Client;
+using Ae.Dns.Protocol;
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
+using Iros.Workshop;
 
 namespace AppCore
 {
     public enum FileDownloadTaskMode
     {
         HTTP = 0,
-        GDRIVE = 1
+        GDRIVE = 1,
     }
 
     /// <summary>
@@ -53,15 +53,18 @@ namespace AppCore
         public long BytesWritten { get; private set; }
         public long ContentLength
         {
-            get
-            {
-                return _contentLength.GetValueOrDefault(-1);
-            }
+            get { return _contentLength.GetValueOrDefault(-1); }
         }
 
-        public bool Done { get { return ContentLength == BytesWritten; } }
+        public bool Done
+        {
+            get { return ContentLength == BytesWritten; }
+        }
 
-        public bool IsPaused { get => !AllowedToRun; }
+        public bool IsPaused
+        {
+            get => !AllowedToRun;
+        }
 
         public bool AllowedToRun
         {
@@ -99,11 +102,21 @@ namespace AppCore
             }
         }
 
-        public bool IsStarted { get => _isStarted; }
+        public bool IsStarted
+        {
+            get => _isStarted;
+        }
 
         public DownloadItem downloadItem { get; set; }
 
-        public FileDownloadTask(string source, string destination, object userState = null, CookieContainer cookies = null, FileDownloadTaskMode fdtMode = default, int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/)
+        public FileDownloadTask(
+            string source,
+            string destination,
+            object userState = null,
+            CookieContainer cookies = null,
+            FileDownloadTaskMode fdtMode = default,
+            int chunkSizeInBytes = 10000 /*Default to 0.01 mb*/
+        )
         {
             AllowedToRun = true;
 
@@ -126,7 +139,11 @@ namespace AppCore
                     // Examples:
                     // - https://docs.google.com/uc?id=0B-Q_AObuWRSXNW9rb3FxS0F1Qk0&export=download
                     // - https://docs.google.com/uc?export=download&confirm=_bQe&id=0B-Q_AObuWRSXNW9rb3FxS0F1Qk0
-                    _sourceUrl = String.Format("https://docs.google.com/uc?id={0}&export=download", source); ;
+                    _sourceUrl = String.Format(
+                        "https://docs.google.com/uc?id={0}&export=download",
+                        source
+                    );
+                    ;
                     break;
             }
         }
@@ -138,7 +155,13 @@ namespace AppCore
 
             try
             {
-                Sys.Message(new WMessage() { Text = $"Starting download using URL: {_sourceUrl}", LogLevel = WMessageLogLevel.Info });
+                Sys.Message(
+                    new WMessage()
+                    {
+                        Text = $"Starting download using URL: {_sourceUrl}",
+                        LogLevel = WMessageLogLevel.Info,
+                    }
+                );
 
                 using (HttpClient client = CreateHttpClient())
                 {
@@ -147,11 +170,14 @@ namespace AppCore
             }
             catch (Exception primaryEx) when (!IsCanceled)
             {
-                Sys.Message(new WMessage()
-                {
-                    Text = $"Primary download failed for {_sourceUrl}, retrying with DoH fallback (Cloudflare + Google): {primaryEx.Message}",
-                    LogLevel = WMessageLogLevel.LogOnly
-                });
+                Sys.Message(
+                    new WMessage()
+                    {
+                        Text =
+                            $"Primary download failed for {_sourceUrl}, retrying with DoH fallback (Cloudflare + Google): {primaryEx.Message}",
+                        LogLevel = WMessageLogLevel.LogOnly,
+                    }
+                );
 
                 try
                 {
@@ -172,19 +198,34 @@ namespace AppCore
                 catch (Exception dohEx)
                 {
                     downloadItem.OnCancel?.Invoke();
-                    throw new Exception("Failed to download - Please report this in the Tsunamods Discord", new AggregateException(primaryEx, dohEx));
+                    throw new Exception(
+                        "Failed to download - Please report this in the Tsunamods Discord",
+                        new AggregateException(primaryEx, dohEx)
+                    );
                 }
             }
 
-            if (AllowedToRun && !IsCanceled && (BytesWritten == ContentLength) || (ContentLength == -1)) // -1 is returned when response doesnt have the content-length
+            if (
+                AllowedToRun && !IsCanceled && (BytesWritten == ContentLength)
+                || (ContentLength == -1)
+            ) // -1 is returned when response doesnt have the content-length
             {
-                DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                DownloadFileCompleted?.Invoke(
+                    this,
+                    new AsyncCompletedEventArgs(null, false, _userState)
+                );
             }
             else if (IsCanceled)
             {
-                DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
+                DownloadFileCompleted?.Invoke(
+                    this,
+                    new AsyncCompletedEventArgs(null, cancelled: true, _userState)
+                );
 
-                DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                DownloadProgressChanged?.Invoke(
+                    this,
+                    new ProgressChangedEventArgs((int)(0), _userState)
+                );
                 File.Delete(_destination); // delete temp file just downloaded
                 BytesWritten = 0;
             }
@@ -203,8 +244,12 @@ namespace AppCore
 
         private HttpClient CreateDohFallbackHttpClient()
         {
-            var cloudflareClient = new DnsHttpClient(new HttpClient { BaseAddress = new Uri("https://cloudflare-dns.com/") });
-            var googleClient = new DnsHttpClient(new HttpClient { BaseAddress = new Uri("https://dns.google/") });
+            var cloudflareClient = new DnsHttpClient(
+                new HttpClient { BaseAddress = new Uri("https://cloudflare-dns.com/") }
+            );
+            var googleClient = new DnsHttpClient(
+                new HttpClient { BaseAddress = new Uri("https://dns.google/") }
+            );
             var racerClient = new DnsRacerClient(cloudflareClient, googleClient);
 
             var dnsHandler = new DnsDelegatingHandler(racerClient)
@@ -213,7 +258,7 @@ namespace AppCore
                 {
                     UseCookies = _cookies != null,
                     CookieContainer = _cookies != null ? _cookies : new CookieContainer(),
-                }
+                },
             };
 
             return CreateHttpClientWithDefaults(dnsHandler);
@@ -223,7 +268,10 @@ namespace AppCore
         {
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.ExpectContinue = false;
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0");
+            client.DefaultRequestHeaders.Add(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+            );
 
             if (Headers != null)
             {
@@ -242,7 +290,10 @@ namespace AppCore
                     request.Headers.Range = new RangeHeaderValue(0, range);
                 }
 
-                HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                HttpResponseMessage response = await client.SendAsync(
+                    request,
+                    HttpCompletionOption.ResponseHeadersRead
+                );
 
                 if (ContentLength == -1 && !_checkedContentRange)
                 {
@@ -260,23 +311,35 @@ namespace AppCore
                     fileMode = FileMode.Create;
                 }
 
-                FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
+                FileStream fs = new FileStream(
+                    _destination,
+                    fileMode,
+                    FileAccess.Write,
+                    FileShare.ReadWrite
+                );
 
                 while (AllowedToRun && !IsCanceled)
                 {
                     _isStarted = true;
                     byte[] buffer = new byte[_chunkSize];
-                    int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                    int bytesRead = await responseStream
+                        .ReadAsync(buffer, 0, buffer.Length)
+                        .ConfigureAwait(false);
 
-                    if (bytesRead == 0) break;
+                    if (bytesRead == 0)
+                        break;
 
                     await fs.WriteAsync(buffer, 0, bytesRead);
                     BytesWritten += bytesRead;
 
                     float prog = (float)BytesWritten / (float)ContentLength;
-                    DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
+                    DownloadProgressChanged?.Invoke(
+                        this,
+                        new ProgressChangedEventArgs((int)(prog * 100), _userState)
+                    );
 
-                    if (IsCanceled) break;
+                    if (IsCanceled)
+                        break;
                 }
 
                 await fs.FlushAsync();
@@ -286,7 +349,10 @@ namespace AppCore
                 switch (_fdtMode)
                 {
                     case FileDownloadTaskMode.GDRIVE:
-                        await EnsureGDriveFile(_destination, response.Content.Headers.ContentType.MediaType);
+                        await EnsureGDriveFile(
+                            _destination,
+                            response.Content.Headers.ContentType.MediaType
+                        );
                         break;
                 }
             }
@@ -316,17 +382,27 @@ namespace AppCore
                 Task downloadTask = Start(BytesWritten);
 
                 // wire up async task to handle exceptions that may occurr does not work because using bloc
-                downloadTask.ContinueWith((result) =>
-                {
-                    if (result.IsFaulted)
+                downloadTask.ContinueWith(
+                    (result) =>
                     {
-                        DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(result.Exception.GetBaseException(), false, _userState));
+                        if (result.IsFaulted)
+                        {
+                            DownloadFileCompleted?.Invoke(
+                                this,
+                                new AsyncCompletedEventArgs(
+                                    result.Exception.GetBaseException(),
+                                    false,
+                                    _userState
+                                )
+                            );
+                        }
                     }
-                });
+                );
 
                 return downloadTask;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw new Exception("Failed to download", ex);
             }
         }
@@ -341,7 +417,10 @@ namespace AppCore
             if (IsPaused)
             {
                 // if the download is paused when cancelling download then invoke the event here since async Start() task is not running to invoke the event
-                DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
+                DownloadFileCompleted?.Invoke(
+                    this,
+                    new AsyncCompletedEventArgs(null, cancelled: true, _userState)
+                );
             }
 
             IsCanceled = true;
@@ -359,11 +438,27 @@ namespace AppCore
                         string html = File.ReadAllText(file);
                         var document = await BrowsingContext.New().OpenAsync(m => m.Content(html));
 
-                        if (document.Title.Contains("Quota exceeded")) throw new Exception(document.Title);
+                        if (document.Title.Contains("Quota exceeded"))
+                            throw new Exception(document.Title);
 
-                        var url = _responseUri + String.Format("&confirm={0}&uuid={1}", document.QuerySelector("input[name=\"confirm\"]").Attributes["value"].Value, document.QuerySelector("input[name=\"uuid\"]").Attributes["value"].Value);
+                        var url =
+                            _responseUri
+                            + String.Format(
+                                "&confirm={0}&uuid={1}",
+                                document
+                                    .QuerySelector("input[name=\"confirm\"]")
+                                    .Attributes["value"]
+                                    .Value,
+                                document
+                                    .QuerySelector("input[name=\"uuid\"]")
+                                    .Attributes["value"]
+                                    .Value
+                            );
 
-                        DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                        DownloadProgressChanged?.Invoke(
+                            this,
+                            new ProgressChangedEventArgs((int)(0), _userState)
+                        );
                         File.Delete(_destination); // delete temp html file just downloaded
                         BytesWritten = 0;
 
@@ -380,15 +475,21 @@ namespace AppCore
 
                         try
                         {
-                            response = await client.SendAsync(new HttpRequestMessage { RequestUri = new Uri(url) }, HttpCompletionOption.ResponseHeadersRead);
+                            response = await client.SendAsync(
+                                new HttpRequestMessage { RequestUri = new Uri(url) },
+                                HttpCompletionOption.ResponseHeadersRead
+                            );
                         }
                         catch (Exception primaryEx) when (!IsCanceled)
                         {
-                            Sys.Message(new WMessage()
-                            {
-                                Text = $"Primary GDrive confirmation download failed for {_sourceUrl}, retrying with DoH fallback (Cloudflare + Google): {primaryEx.Message}",
-                                LogLevel = WMessageLogLevel.LogOnly
-                            });
+                            Sys.Message(
+                                new WMessage()
+                                {
+                                    Text =
+                                        $"Primary GDrive confirmation download failed for {_sourceUrl}, retrying with DoH fallback (Cloudflare + Google): {primaryEx.Message}",
+                                    LogLevel = WMessageLogLevel.LogOnly,
+                                }
+                            );
 
                             if (File.Exists(_destination))
                             {
@@ -406,7 +507,10 @@ namespace AppCore
                             }
 
                             client.DefaultRequestHeaders.Add("Referer", _sourceUrl);
-                            response = await client.SendAsync(new HttpRequestMessage { RequestUri = new Uri(url) }, HttpCompletionOption.ResponseHeadersRead);
+                            response = await client.SendAsync(
+                                new HttpRequestMessage { RequestUri = new Uri(url) },
+                                HttpCompletionOption.ResponseHeadersRead
+                            );
                         }
 
                         _contentLength = response.Content.Headers.ContentLength;
@@ -420,23 +524,35 @@ namespace AppCore
                             fileMode = FileMode.Create;
                         }
 
-                        FileStream fs = new FileStream(_destination, fileMode, FileAccess.Write, FileShare.ReadWrite);
+                        FileStream fs = new FileStream(
+                            _destination,
+                            fileMode,
+                            FileAccess.Write,
+                            FileShare.ReadWrite
+                        );
 
                         while (AllowedToRun && !IsCanceled)
                         {
                             _isStarted = true;
                             byte[] buffer = new byte[_chunkSize];
-                            int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                            int bytesRead = await responseStream
+                                .ReadAsync(buffer, 0, buffer.Length)
+                                .ConfigureAwait(false);
 
-                            if (bytesRead == 0) break;
+                            if (bytesRead == 0)
+                                break;
 
                             await fs.WriteAsync(buffer, 0, bytesRead);
                             BytesWritten += bytesRead;
 
                             float prog = (float)BytesWritten / (float)ContentLength;
-                            DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(prog * 100), _userState));
+                            DownloadProgressChanged?.Invoke(
+                                this,
+                                new ProgressChangedEventArgs((int)(prog * 100), _userState)
+                            );
 
-                            if (IsCanceled) break;
+                            if (IsCanceled)
+                                break;
                         }
 
                         await fs.FlushAsync();
@@ -444,18 +560,30 @@ namespace AppCore
                         responseStream.Close();
                         client.Dispose();
 
-                        if (AllowedToRun && !IsCanceled && (BytesWritten == ContentLength) || (ContentLength == -1)) // -1 is returned when response doesnt have the content-length
+                        if (
+                            AllowedToRun && !IsCanceled && (BytesWritten == ContentLength)
+                            || (ContentLength == -1)
+                        ) // -1 is returned when response doesnt have the content-length
                         {
-                            DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                            DownloadFileCompleted?.Invoke(
+                                this,
+                                new AsyncCompletedEventArgs(null, false, _userState)
+                            );
                         }
                         else if (IsCanceled)
                         {
-                            DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, cancelled: true, _userState));
+                            DownloadFileCompleted?.Invoke(
+                                this,
+                                new AsyncCompletedEventArgs(null, cancelled: true, _userState)
+                            );
                         }
                     }
                     catch (Exception ex)
                     {
-                        DownloadProgressChanged?.Invoke(this, new ProgressChangedEventArgs((int)(0), _userState));
+                        DownloadProgressChanged?.Invoke(
+                            this,
+                            new ProgressChangedEventArgs((int)(0), _userState)
+                        );
                         File.Delete(_destination); // delete temp html file just downloaded
                         BytesWritten = 0;
 
@@ -464,13 +592,19 @@ namespace AppCore
                 }
                 else
                 {
-                    DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                    DownloadFileCompleted?.Invoke(
+                        this,
+                        new AsyncCompletedEventArgs(null, false, _userState)
+                    );
                 }
             }
             else
             {
                 // actual file being downloaded has finished successfully at this point
-                DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, _userState));
+                DownloadFileCompleted?.Invoke(
+                    this,
+                    new AsyncCompletedEventArgs(null, false, _userState)
+                );
             }
         }
     }

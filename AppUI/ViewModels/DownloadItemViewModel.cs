@@ -1,11 +1,9 @@
 ﻿using AppCore;
-using Iros.Workshop;
 using AppUI.Classes;
+using Iros.Workshop;
 
 namespace AppUI.ViewModels
 {
-
-
     public class DownloadItemViewModel : ViewModelBase
     {
         private bool _isSelected;
@@ -15,10 +13,7 @@ namespace AppUI.ViewModels
 
         public string ItemName
         {
-            get
-            {
-                return Download?.ItemName;
-            }
+            get { return Download?.ItemName; }
             set
             {
                 if (value != Download.ItemName)
@@ -31,10 +26,7 @@ namespace AppUI.ViewModels
 
         public double PercentComplete
         {
-            get
-            {
-                return Download.PercentComplete;
-            }
+            get { return Download.PercentComplete; }
             set
             {
                 if (value != Download.PercentComplete)
@@ -47,10 +39,7 @@ namespace AppUI.ViewModels
 
         public string DownloadSpeed
         {
-            get
-            {
-                return Download.DownloadSpeed;
-            }
+            get { return Download.DownloadSpeed; }
             set
             {
                 Download.DownloadSpeed = value;
@@ -60,10 +49,7 @@ namespace AppUI.ViewModels
 
         public string RemainingTime
         {
-            get
-            {
-                return Download.RemainingTime;
-            }
+            get { return Download.RemainingTime; }
             set
             {
                 Download.RemainingTime = value;
@@ -73,10 +59,7 @@ namespace AppUI.ViewModels
 
         public bool IsSelected
         {
-            get
-            {
-                return _isSelected;
-            }
+            get { return _isSelected; }
             set
             {
                 _isSelected = value;
@@ -86,10 +69,7 @@ namespace AppUI.ViewModels
 
         public bool IsCancelling
         {
-            get
-            {
-                return _isCancelling;
-            }
+            get { return _isCancelling; }
             set
             {
                 _isCancelling = value;
@@ -121,21 +101,29 @@ namespace AppUI.ViewModels
         /// </summary>
         private void SetExternalUrlDownloadMessage()
         {
-            Download.ExternalUrlDownloadMessage = ResourceHelper.Get(StringKey.ExternalUrlDownloadMessage2);
+            Download.ExternalUrlDownloadMessage = ResourceHelper.Get(
+                StringKey.ExternalUrlDownloadMessage2
+            );
 
             if (Download.IsModOrPatchDownload && Download.Links.Count == 1)
             {
                 // check that the only link available is external url and set message accordingly
-                if (LocationUtil.TryParse(Download.Links[0], out LocationType downloadType, out string url))
+                if (
+                    LocationUtil.TryParse(
+                        Download.Links[0],
+                        out LocationType downloadType,
+                        out string url
+                    )
+                )
                 {
                     if (downloadType == LocationType.ExternalUrl)
                     {
-                        Download.ExternalUrlDownloadMessage = ResourceHelper.Get(StringKey.ExternalUrlDownloadMessage1);
+                        Download.ExternalUrlDownloadMessage = ResourceHelper.Get(
+                            StringKey.ExternalUrlDownloadMessage1
+                        );
                     }
                 }
             }
-
         }
-
     }
 }

@@ -3,7 +3,6 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +11,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using AppCore;
 
-namespace Iros.Workshop {
-
+namespace Iros.Workshop
+{
     public enum FF7Version
     {
         Unknown = -1,
@@ -23,10 +23,11 @@ namespace Iros.Workshop {
         ReRelease,
         Original98,
         WindowsStore,
-        GOG
+        GOG,
     }
 
-    public enum GeneralOptions {
+    public enum GeneralOptions
+    {
         None = 0,
         KeepOldVersions,
         AutoActiveNewMods,
@@ -38,28 +39,30 @@ namespace Iros.Workshop {
         Show7HInFileExplorerContextMenu,
         WarnAboutModCode, // Retained for compatibility with existing settings; code warnings are mandatory.
         AutoUpdateMods,
-        AutoSortMods
+        AutoSortMods,
     }
 
     public enum AppUpdateChannelOptions
     {
         Stable = 0,
-        Canary
+        Canary,
     }
 
     public enum FFNxUpdateChannelOptions
     {
         Stable = 0,
-        Canary
+        Canary,
     }
 
     [Flags]
-    public enum InterfaceOptions {
+    public enum InterfaceOptions
+    {
         None = 0,
         ProfileCollapse = 0x1,
     }
 
-    public class SavedWindow {
+    public class SavedWindow
+    {
         public int X { get; set; }
         public int Y { get; set; }
         public int W { get; set; }
@@ -67,12 +70,12 @@ namespace Iros.Workshop {
         public WindowState State { get; set; }
     }
 
-    public class Subscription {
+    public class Subscription
+    {
         public DateTime LastSuccessfulCheck { get; set; }
         public int FailureCount { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
-
     }
 
     public class ProgramLaunchInfo
@@ -81,18 +84,28 @@ namespace Iros.Workshop {
         public string ProgramArgs { get; set; }
     }
 
-    public class Settings {
-
-        public IEnumerable<string> VerifySettings() {
+    public class Settings
+    {
+        public IEnumerable<string> VerifySettings()
+        {
             bool validexe = System.IO.File.Exists(FF7Exe);
-            if (!validexe) yield return "FF7 Exe: " + FF7Exe + " not found";
-            foreach (var al in ProgramsToLaunchPrior.Where(s => !String.IsNullOrWhiteSpace(s.PathToProgram)))
-                if (!System.IO.File.Exists(al.PathToProgram)) yield return "AlsoLaunch: " + al.PathToProgram + " not found";
-            if (validexe) {
+            if (!validexe)
+                yield return "FF7 Exe: " + FF7Exe + " not found";
+            foreach (
+                var al in ProgramsToLaunchPrior.Where(s =>
+                    !String.IsNullOrWhiteSpace(s.PathToProgram)
+                )
+            )
+                if (!System.IO.File.Exists(al.PathToProgram))
+                    yield return "AlsoLaunch: " + al.PathToProgram + " not found";
+            if (validexe)
+            {
                 string ff7folder = System.IO.Path.GetDirectoryName(FF7Exe);
-                foreach (string extra in ExtraFolders.Where(s => !String.IsNullOrWhiteSpace(s))) {
+                foreach (string extra in ExtraFolders.Where(s => !String.IsNullOrWhiteSpace(s)))
+                {
                     string path = System.IO.Path.Combine(ff7folder, extra);
-                    if (!System.IO.Directory.Exists(path)) yield return "Extra Folder: " + path + " not found";
+                    if (!System.IO.Directory.Exists(path))
+                        yield return "Extra Folder: " + path + " not found";
                 }
             }
         }
@@ -101,18 +114,16 @@ namespace Iros.Workshop {
 
         public List<string> SubscribedUrls
         {
-            get
-            {
-                return Subscriptions?.Select(s => s.Url).ToList();
-            }
+            get { return Subscriptions?.Select(s => s.Url).ToList(); }
         }
 
         public List<string> ExtraFolders { get; set; }
         public List<Subscription> Subscriptions { get; set; }
 
         public string LibraryLocation { get; set; } = string.Empty;
-        
+
         public string FF7Exe { get; set; }
+
         [System.Xml.Serialization.XmlElement("AlsoLaunch")]
         public List<ProgramLaunchInfo> ProgramsToLaunchPrior { get; set; }
         public FF7Version FF7InstalledVersion { get; set; }
@@ -138,7 +149,8 @@ namespace Iros.Workshop {
 
         public ColumnSettings UserColumnSettings { get; set; }
 
-        public Settings() {
+        public Settings()
+        {
             ExtraFolders = new List<string>();
             ProgramsToLaunchPrior = new List<ProgramLaunchInfo>();
             Subscriptions = new List<Subscription>();
@@ -175,8 +187,22 @@ namespace Iros.Workshop {
             defaultSettings.Options.Add(GeneralOptions.OpenModFilesWith7H);
             defaultSettings.Options.Add(GeneralOptions.CheckForUpdates);
 
-            defaultSettings.Subscriptions.Add(new Subscription() { Url = "iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/qhimm.xml", Name = "Qhimm Catalog" });
-            defaultSettings.Subscriptions.Add(new Subscription() { Url = "iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/sega.xml", Name = "Sega Catalog" });
+            defaultSettings.Subscriptions.Add(
+                new Subscription()
+                {
+                    Url =
+                        "iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/qhimm.xml",
+                    Name = "Qhimm Catalog",
+                }
+            );
+            defaultSettings.Subscriptions.Add(
+                new Subscription()
+                {
+                    Url =
+                        "iros://Url/https$github.com/tsunamods-codes/7th-Heaven-Catalogs/releases/download/canary/sega.xml",
+                    Name = "Sega Catalog",
+                }
+            );
 
             defaultSettings.ExtraFolders.Add("ambient");
             defaultSettings.ExtraFolders.Add("direct");
@@ -217,7 +243,7 @@ namespace Iros.Workshop {
         /// <param name="pathToFf7Install"></param>
         public void SetPathsFromInstallationPath(string pathToFf7Install)
         {
-            switch(Sys.Settings.FF7InstalledVersion)
+            switch (Sys.Settings.FF7InstalledVersion)
             {
                 case FF7Version.Original98:
                     FF7Exe = Path.Combine(pathToFf7Install, "FF7.exe");
@@ -235,7 +261,13 @@ namespace Iros.Workshop {
             if (LibraryLocation == string.Empty)
             {
                 string appLibraryPath = Environment.GetEnvironmentVariable("APP_LIBRARY_PATH");
-                LibraryLocation = appLibraryPath != null ? appLibraryPath : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"7th Heaven");
+                LibraryLocation =
+                    appLibraryPath != null
+                        ? appLibraryPath
+                        : Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                            @"7th Heaven"
+                        );
             }
 
             LogAndCreateFolderIfNotExists(LibraryLocation);
@@ -250,7 +282,12 @@ namespace Iros.Workshop {
         {
             if (!Directory.Exists(pathToFolder))
             {
-                Sys.Message(new WMessage($"directory missing. creating {pathToFolder}", WMessageLogLevel.LogOnly));
+                Sys.Message(
+                    new WMessage(
+                        $"directory missing. creating {pathToFolder}",
+                        WMessageLogLevel.LogOnly
+                    )
+                );
                 Directory.CreateDirectory(pathToFolder);
             }
         }

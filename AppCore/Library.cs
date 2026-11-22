@@ -3,13 +3,13 @@
   The original developer is Iros <irosff@outlook.com>
 */
 
-using AppCore;
-using AppWrapper;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AppCore;
+using AppWrapper;
 
 namespace Iros.Workshop
 {
@@ -21,7 +21,6 @@ namespace Iros.Workshop
         public List<InstalledItem> Items { get; set; }
 
         private object _pendingLock = new object();
-
 
         public List<string> PendingDelete { get; set; }
 
@@ -60,7 +59,6 @@ namespace Iros.Workshop
             return PendingInstall?.Any(d => d.UniqueId == pendingDownload.UniqueId) == true;
         }
 
-
         public void RemovePendingInstall(DownloadItem downloadedItem)
         {
             if (PendingInstall == null || PendingInstall.Count == 0)
@@ -91,10 +89,16 @@ namespace Iros.Workshop
         public void AddInstall(InstalledItem ii)
         {
             var exist = GetItem(ii.ModID); //forces lookup creation
-            if (exist != null) Items.Remove(exist);
+            if (exist != null)
+                Items.Remove(exist);
             Items.Add(ii);
             _lookup[ii.ModID] = ii;
-            PendingDelete.RemoveAll(s => s.Equals(ii.LatestInstalled.InstalledLocation, StringComparison.InvariantCultureIgnoreCase));
+            PendingDelete.RemoveAll(s =>
+                s.Equals(
+                    ii.LatestInstalled.InstalledLocation,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            );
             Sys.SetStatus(ii.ModID, ModStatus.Installed);
             Sys.rebuildVars();
             Sys.SaveLibrary();
@@ -103,7 +107,8 @@ namespace Iros.Workshop
         public void RemoveInstall(InstalledItem ii)
         {
             var exist = GetItem(ii.ModID); //forces lookup creation
-            if (exist != null) Items.Remove(exist);
+            if (exist != null)
+                Items.Remove(exist);
             _lookup.Remove(ii.ModID);
             Sys.SetStatus(ii.ModID, ModStatus.NotInstalled);
             Sys.rebuildVars();
@@ -115,7 +120,10 @@ namespace Iros.Workshop
             DeleteAndRemoveInstall(ii, ii.Versions.Select(v => v.InstalledLocation));
         }
 
-        public void DeleteAndRemoveInstall(InstalledItem ii, IEnumerable<string> versionFilesToDelete)
+        public void DeleteAndRemoveInstall(
+            InstalledItem ii,
+            IEnumerable<string> versionFilesToDelete
+        )
         {
             QueuePendingDelete(versionFilesToDelete);
             RemoveInstall(ii);
@@ -143,16 +151,30 @@ namespace Iros.Workshop
                     }
                     catch (IOException ioex)
                     {
-                        Sys.Message(new WMessage($"File {path} could not be accessed - in use? Leaving in list.", WMessageLogLevel.LogOnly, ioex));
+                        Sys.Message(
+                            new WMessage(
+                                $"File {path} could not be accessed - in use? Leaving in list.",
+                                WMessageLogLevel.LogOnly,
+                                ioex
+                            )
+                        );
                         continue;
                     }
                     catch (Exception ex)
                     {
-                        Sys.Message(new WMessage($"Unknown exception deleting {path} - Leaving in list.", WMessageLogLevel.LogOnly, ex));
+                        Sys.Message(
+                            new WMessage(
+                                $"Unknown exception deleting {path} - Leaving in list.",
+                                WMessageLogLevel.LogOnly,
+                                ex
+                            )
+                        );
                         continue;
                     }
 
-                    Sys.Message(new WMessage($"File {path} successfully deleted.", WMessageLogLevel.LogOnly));
+                    Sys.Message(
+                        new WMessage($"File {path} successfully deleted.", WMessageLogLevel.LogOnly)
+                    );
                     PendingDelete.RemoveAt(i);
                 }
 
@@ -200,7 +222,10 @@ namespace Iros.Workshop
         /// Dictionary to cache ModInfo instances during runtime. This is to avoid having to open .iro or mod.xml file from disk everytime
         /// </summary>
         [System.Xml.Serialization.XmlIgnore]
-        private static Dictionary<string, ModInfo> _infoCache = new Dictionary<string, AppWrapper.ModInfo>(StringComparer.InvariantCultureIgnoreCase);
+        private static Dictionary<string, ModInfo> _infoCache = new Dictionary<
+            string,
+            AppWrapper.ModInfo
+        >(StringComparer.InvariantCultureIgnoreCase);
 
         [System.Xml.Serialization.XmlIgnore]
         private bool? _hasReadMe;
@@ -211,7 +236,10 @@ namespace Iros.Workshop
         public UpdateType UpdateType { get; set; }
 
         public List<InstalledVersion> Versions { get; set; }
-        public InstalledVersion LatestInstalled { get { return Versions.OrderBy(v => v.VersionDetails.Version).Last(); } }
+        public InstalledVersion LatestInstalled
+        {
+            get { return Versions.OrderBy(v => v.VersionDetails.Version).Last(); }
+        }
 
         [System.Xml.Serialization.XmlIgnore]
         public bool HasReadmeFile
@@ -219,14 +247,14 @@ namespace Iros.Workshop
             get
             {
                 if (_hasReadMe == null && LatestInstalled != null)
-                    _hasReadMe = LatestInstalled.HasFile("readme.md") || LatestInstalled.HasFile("readme.html") || LatestInstalled.HasFile("readme.txt");
+                    _hasReadMe =
+                        LatestInstalled.HasFile("readme.md")
+                        || LatestInstalled.HasFile("readme.html")
+                        || LatestInstalled.HasFile("readme.txt");
 
                 return _hasReadMe.GetValueOrDefault(false);
             }
-            set
-            {
-                _hasReadMe = value;
-            }
+            set { _hasReadMe = value; }
         }
 
         [System.Xml.Serialization.XmlIgnore]
@@ -247,20 +275,31 @@ namespace Iros.Workshop
 
         public bool ModExistsOnFileSystem()
         {
-            string fn = Path.Combine(Sys.Settings.LibraryLocation, LatestInstalled.InstalledLocation);
+            string fn = Path.Combine(
+                Sys.Settings.LibraryLocation,
+                LatestInstalled.InstalledLocation
+            );
             return Directory.Exists(fn) || File.Exists(fn);
         }
 
         public ModInfo GetModInfo()
         {
             ModInfo info;
-            string pathToModFileOrFolder = Path.Combine(Sys.Settings.LibraryLocation, LatestInstalled.InstalledLocation);
+            string pathToModFileOrFolder = Path.Combine(
+                Sys.Settings.LibraryLocation,
+                LatestInstalled.InstalledLocation
+            );
 
             try
             {
                 if (!_infoCache.TryGetValue(pathToModFileOrFolder, out info))
                 {
-                    if (pathToModFileOrFolder.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase))
+                    if (
+                        pathToModFileOrFolder.EndsWith(
+                            ".iro",
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                    )
                     {
                         using (IrosArc arc = new IrosArc(pathToModFileOrFolder))
                         {
@@ -285,7 +324,13 @@ namespace Iros.Workshop
             }
             catch (Exception ex)
             {
-                Sys.Message(new WMessage($"WARNING: failed to get mod info due to unknown exception (commonly caused by incorrect xml): {ex.Message}", WMessageLogLevel.LogOnly, ex));
+                Sys.Message(
+                    new WMessage(
+                        $"WARNING: failed to get mod info due to unknown exception (commonly caused by incorrect xml): {ex.Message}",
+                        WMessageLogLevel.LogOnly,
+                        ex
+                    )
+                );
                 return null;
             }
 
@@ -310,7 +355,10 @@ namespace Iros.Workshop
         {
             string path = Path.Combine(Sys.Settings.LibraryLocation, InstalledLocation);
 
-            if (InstalledLocation.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase) && File.Exists(path))
+            if (
+                InstalledLocation.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase)
+                && File.Exists(path)
+            )
             {
                 using (var arc = new AppWrapper.IrosArc(path))
                     return arc.GetData(name);
@@ -337,7 +385,10 @@ namespace Iros.Workshop
         {
             string path = Path.Combine(Sys.Settings.LibraryLocation, InstalledLocation);
 
-            if (InstalledLocation.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase) && File.Exists(path))
+            if (
+                InstalledLocation.EndsWith(".iro", StringComparison.InvariantCultureIgnoreCase)
+                && File.Exists(path)
+            )
             {
                 using (var arc = new AppWrapper.IrosArc(path))
                     return arc.HasFile(name);
@@ -357,6 +408,6 @@ namespace Iros.Workshop
         Installed,
         Updating,
         InfoChanged,
-        PendingInstall
+        PendingInstall,
     }
 }

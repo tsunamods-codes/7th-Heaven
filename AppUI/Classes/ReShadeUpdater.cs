@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using AngleSharp.Dom;
 using AppCore;
 using AppUI.Windows;
@@ -9,17 +14,15 @@ using SevenZipExtractor;
 using SharpCompress.Archives;
 using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace AppUI.Classes
 {
     public class ReShadeUpdater
     {
-        private static readonly string ReShadeCachePath = Path.Combine(Path.GetTempPath(), "ReShade");
+        private static readonly string ReShadeCachePath = Path.Combine(
+            Path.GetTempPath(),
+            "ReShade"
+        );
         private FileVersionInfo _currentReShadeVersion = null;
 
         private string GetUpdateInfoPath()
@@ -83,7 +86,7 @@ namespace AppUI.Classes
                 Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel()) },
                 SaveFilePath = GetUpdateInfoPath(),
                 Category = DownloadCategory.AppUpdate,
-                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} Stable"
+                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} Stable",
             };
 
             download.IProc = new Install.InstallProcedureCallback(e =>
@@ -107,41 +110,87 @@ namespace AppUI.Classes
                         {
                             case 1: // NEWER
                                 if (
-                                    MessageDialogWindow.Show(
-                                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"ReShade - {GetCurrentVersion()}", newVersion.ToString()),
-                                        "See https://reshade.me/ for more information.",
-                                        ResourceHelper.Get(StringKey.NewVersionAvailable),
-                                        System.Windows.MessageBoxButton.YesNo,
-                                        System.Windows.MessageBoxImage.Question
-                                    ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(strVersion), newVersion.ToString());
+                                    MessageDialogWindow
+                                        .Show(
+                                            string.Format(
+                                                ResourceHelper.Get(
+                                                    StringKey.AppUpdateIsAvailableMessage
+                                                ),
+                                                $"ReShade - {GetCurrentVersion()}",
+                                                newVersion.ToString()
+                                            ),
+                                            "See https://reshade.me/ for more information.",
+                                            ResourceHelper.Get(StringKey.NewVersionAvailable),
+                                            System.Windows.MessageBoxButton.YesNo,
+                                            System.Windows.MessageBoxImage.Question
+                                        )
+                                        .Result == System.Windows.MessageBoxResult.Yes
+                                )
+                                    DownloadAndExtract(
+                                        GetUpdateReleaseUrl(strVersion),
+                                        newVersion.ToString()
+                                    );
                                 break;
                             case 0: // SAME
                                 if (manualCheck)
-                                    MessageDialogWindow.Show("ReShade version is up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                                    MessageDialogWindow.Show(
+                                        "ReShade version is up to date!",
+                                        "No update found",
+                                        System.Windows.MessageBoxButton.OK,
+                                        System.Windows.MessageBoxImage.Information
+                                    );
                                 break;
                             case -1: // OLDER
                                 if (
-                                    MessageDialogWindow.Show(
-                                        $"Your ReShade version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
-                                        "Update found!",
-                                        System.Windows.MessageBoxButton.YesNo,
-                                        System.Windows.MessageBoxImage.Question
-                                    ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(strVersion), newVersion.ToString());
+                                    MessageDialogWindow
+                                        .Show(
+                                            $"Your ReShade version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
+                                            "Update found!",
+                                            System.Windows.MessageBoxButton.YesNo,
+                                            System.Windows.MessageBoxImage.Question
+                                        )
+                                        .Result == System.Windows.MessageBoxResult.Yes
+                                )
+                                    DownloadAndExtract(
+                                        GetUpdateReleaseUrl(strVersion),
+                                        newVersion.ToString()
+                                    );
                                 break;
                         }
                     }
                     catch (Exception)
                     {
-                        MessageDialogWindow.Show("Something went wrong while checking for ReShade updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not parse the ReShade release json at {GetUpdateChannel()}", LoggedException = e.Error });
+                        MessageDialogWindow.Show(
+                            "Something went wrong while checking for ReShade updates. Please try again later.",
+                            "Error",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text =
+                                    $"Could not parse the ReShade release json at {GetUpdateChannel()}",
+                                LoggedException = e.Error,
+                            }
+                        );
                     }
                 }
                 else
                 {
-                    MessageDialogWindow.Show("Something went wrong while checking for ReShade updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                    Sys.Message(new WMessage() { Text = $"Could not fetch for ReShade updates at {GetUpdateChannel()}", LoggedException = e.Error });
+                    MessageDialogWindow.Show(
+                        "Something went wrong while checking for ReShade updates. Please try again later.",
+                        "Error",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Error
+                    );
+                    Sys.Message(
+                        new WMessage()
+                        {
+                            Text = $"Could not fetch for ReShade updates at {GetUpdateChannel()}",
+                            LoggedException = e.Error,
+                        }
+                    );
                 }
             });
 
@@ -157,9 +206,12 @@ namespace AppUI.Classes
                 DownloadItem download = new DownloadItem()
                 {
                     Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
-                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
+                    SaveFilePath = Path.Combine(
+                        Sys.PathToTempFolder,
+                        url.Substring(url.LastIndexOf("/") + 1)
+                    ),
                     Category = DownloadCategory.AppUpdate,
-                    ItemName = $"Downloading ReShade Update {url}..."
+                    ItemName = $"Downloading ReShade Update {url}...",
                 };
 
                 download.IProc = new Install.InstallProcedureCallback(e =>
@@ -173,18 +225,27 @@ namespace AppUI.Classes
                         // Extract the ZIP from the PE file
                         using (ArchiveFile archiveFile = new ArchiveFile(download.SaveFilePath))
                         {
-                            archiveFile.Entries.Where(f => f.FileName == "[0]").First().Extract(zipStream);
+                            archiveFile
+                                .Entries.Where(f => f.FileName == "[0]")
+                                .First()
+                                .Extract(zipStream);
                         }
 
                         // Extract ReShade files
                         using (var archive = ZipArchive.OpenArchive(zipStream))
                         {
-                            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                            foreach (
+                                var entry in archive.Entries.Where(entry => !entry.IsDirectory)
+                            )
                             {
-                                entry.WriteToDirectory(Sys.PathToReShadeFolder, new ExtractionOptions() {
-                                    ExtractFullPath = true,
-                                    Overwrite = true
-                                });
+                                entry.WriteToDirectory(
+                                    Sys.PathToReShadeFolder,
+                                    new ExtractionOptions()
+                                    {
+                                        ExtractFullPath = true,
+                                        Overwrite = true,
+                                    }
+                                );
                             }
                         }
 
@@ -192,13 +253,35 @@ namespace AppUI.Classes
 
                         SwitchToModPanel();
 
-                        MessageDialogWindow.Show($"Successfully updated ReShade to version {version}.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        Sys.Message(new WMessage() { Text = $"Successfully extracted the ReShade version {version}. Ready to launch the update." });
+                        MessageDialogWindow.Show(
+                            $"Successfully updated ReShade to version {version}.\n\nEnjoy!",
+                            "Success",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Information
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text =
+                                    $"Successfully extracted the ReShade version {version}. Ready to launch the update.",
+                            }
+                        );
                     }
                     else
                     {
-                        MessageDialogWindow.Show("Something went wrong while downloading the ReShade update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not download the ReShade update {url}", LoggedException = e.Error });
+                        MessageDialogWindow.Show(
+                            "Something went wrong while downloading the ReShade update. Please try again later.",
+                            "Error",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text = $"Could not download the ReShade update {url}",
+                                LoggedException = e.Error,
+                            }
+                        );
                     }
                 });
 
@@ -206,7 +289,12 @@ namespace AppUI.Classes
             }
             else
             {
-                MessageDialogWindow.Show("Something went wrong while downloading the ReShade update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    "Something went wrong while downloading the ReShade update. Please try again later.",
+                    "Error",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error
+                );
             }
         }
 
@@ -221,13 +309,14 @@ namespace AppUI.Classes
                 // Always cleanup these files if present, to avoid conflict with various mods
                 // ================================================================================================
 
-                Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>(){
-                { "dxgi.dll", false },
-                { "d3d11.dll", false },
-                { "d3d12.dll", false },
-                { "opengl32.dll", false },
-                { Path.GetFileName(Sys.PathToReShade), false }
-            };
+                Dictionary<string, bool> pathsToDelete = new Dictionary<string, bool>()
+                {
+                    { "dxgi.dll", false },
+                    { "d3d11.dll", false },
+                    { "d3d12.dll", false },
+                    { "opengl32.dll", false },
+                    { Path.GetFileName(Sys.PathToReShade), false },
+                };
 
                 string entryPath = "";
                 bool entryDeleteRecursive = false;
@@ -240,11 +329,13 @@ namespace AppUI.Classes
                     // Delete recursively
                     if (entryDeleteRecursive)
                     {
-                        if (Directory.Exists(entryPath)) Directory.Delete(entryPath, true);
+                        if (Directory.Exists(entryPath))
+                            Directory.Delete(entryPath, true);
                     }
                     else
                     {
-                        if (File.Exists(entryPath)) File.Delete(entryPath);
+                        if (File.Exists(entryPath))
+                            File.Delete(entryPath);
                     }
                 }
 
@@ -255,9 +346,15 @@ namespace AppUI.Classes
                     case "5":
                         RegistryHelper.BeginTransaction();
                         if (Environment.Is64BitOperatingSystem)
-                            RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                            RegistryHelper.DeleteValueFromKey(
+                                @"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers",
+                                Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json")
+                            );
                         else
-                            RegistryHelper.DeleteValueFromKey(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"));
+                            RegistryHelper.DeleteValueFromKey(
+                                @"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers",
+                                Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json")
+                            );
                         RegistryHelper.CommitTransaction();
                         break;
                 }
@@ -272,7 +369,7 @@ namespace AppUI.Classes
             if (File.Exists(Sys.PathToReShade))
             {
                 // -- ReShade32.dll
-                switch(Sys.FFNxConfig.Get("renderer_backend"))
+                switch (Sys.FFNxConfig.Get("renderer_backend"))
                 {
                     // DirectX 11
                     case "0":
@@ -292,12 +389,25 @@ namespace AppUI.Classes
 
                     // Vulkan
                     case "5":
-                        File.Copy(Sys.PathToReShade, Path.Combine(Sys.InstallPath, Path.GetFileName(Sys.PathToReShade)));
+                        File.Copy(
+                            Sys.PathToReShade,
+                            Path.Combine(Sys.InstallPath, Path.GetFileName(Sys.PathToReShade))
+                        );
                         RegistryHelper.BeginTransaction();
                         if (Environment.Is64BitOperatingSystem)
-                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                            RegistryHelper.SetValue(
+                                @"HKEY_LOCAL_MACHINE\Software\Wow6432Node\Khronos\Vulkan\ImplicitLayers",
+                                Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"),
+                                0,
+                                Microsoft.Win32.RegistryValueKind.DWord
+                            );
                         else
-                            RegistryHelper.SetValue(@"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers", Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"), 0, Microsoft.Win32.RegistryValueKind.DWord);
+                            RegistryHelper.SetValue(
+                                @"HKEY_LOCAL_MACHINE\Software\Khronos\Vulkan\ImplicitLayers",
+                                Path.Combine(Sys.PathToReShadeFolder, "ReShade32.json"),
+                                0,
+                                Microsoft.Win32.RegistryValueKind.DWord
+                            );
                         RegistryHelper.CommitTransaction();
                         break;
 
@@ -334,8 +444,10 @@ namespace AppUI.Classes
             }
 
             // Ensure required sections exist
-            if (!data.Sections.ContainsSection("GENERAL")) data.Sections.AddSection("GENERAL");
-            if (!data.Sections.ContainsSection("OVERLAY")) data.Sections.AddSection("OVERLAY");
+            if (!data.Sections.ContainsSection("GENERAL"))
+                data.Sections.AddSection("GENERAL");
+            if (!data.Sections.ContainsSection("OVERLAY"))
+                data.Sections.AddSection("OVERLAY");
 
             data["GENERAL"]["EffectSearchPaths"] = @".\reshade-shaders\Shaders\**";
             data["GENERAL"]["IntermediateCachePath"] = ReShadeCachePath;

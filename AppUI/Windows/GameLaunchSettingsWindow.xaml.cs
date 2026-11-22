@@ -1,9 +1,9 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -113,7 +113,11 @@ namespace AppUI.Windows
 
         private void btnBrowseProgram_Click(object sender, RoutedEventArgs e)
         {
-            string pathToProgram = FileDialogHelper.BrowseForFile("All files|*.*", ResourceHelper.Get(StringKey.SelectProgramToRunSuchAs), ViewModel.NewProgramPathText);
+            string pathToProgram = FileDialogHelper.BrowseForFile(
+                "All files|*.*",
+                ResourceHelper.Get(StringKey.SelectProgramToRunSuchAs),
+                ViewModel.NewProgramPathText
+            );
 
             ViewModel.IsProgramPopupOpen = true; // opening file dialog closes popup so re-open it
 
@@ -163,12 +167,18 @@ namespace AppUI.Windows
             ViewModel.ChangeProgramOrder((lstPrograms.SelectedItem as ProgramToRunViewModel), -1);
         }
 
-        private void sliderSfxVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderSfxVolume_ValueChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<double> e
+        )
         {
             ShowOrHideToolTip(sliderSfxVolume.ToolTip as ToolTip, true);
         }
 
-        private void sliderSfxVolume_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void sliderSfxVolume_MouseLeftButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             ShowOrHideToolTip(sliderSfxVolume.ToolTip as ToolTip, false);
         }
@@ -181,47 +191,74 @@ namespace AppUI.Windows
             }
         }
 
-        private void sliderMusicVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderMusicVolume_ValueChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<double> e
+        )
         {
             ShowOrHideToolTip(sliderMusicVolume.ToolTip as ToolTip, true);
         }
 
-        private void sliderMusicVolume_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void sliderMusicVolume_PreviewMouseLeftButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             ShowOrHideToolTip(sliderMusicVolume.ToolTip as ToolTip, false);
         }
 
-        private void sliderVoiceVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderVoiceVolume_ValueChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<double> e
+        )
         {
             ShowOrHideToolTip(sliderVoiceVolume.ToolTip as ToolTip, true);
         }
 
-        private void sliderVoiceVolume_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void sliderVoiceVolume_PreviewMouseLeftButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             ShowOrHideToolTip(sliderVoiceVolume.ToolTip as ToolTip, false);
         }
 
-        private void sliderAmbientVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderAmbientVolume_ValueChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<double> e
+        )
         {
             ShowOrHideToolTip(sliderAmbientVolume.ToolTip as ToolTip, true);
         }
 
-        private void sliderAmbientVolume_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void sliderAmbientVolume_PreviewMouseLeftButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             ShowOrHideToolTip(sliderAmbientVolume.ToolTip as ToolTip, false);
         }
 
-        private void sliderMovieVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliderMovieVolume_ValueChanged(
+            object sender,
+            RoutedPropertyChangedEventArgs<double> e
+        )
         {
             ShowOrHideToolTip(sliderMovieVolume.ToolTip as ToolTip, true);
         }
 
-        private void sliderMovieVolume_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void sliderMovieVolume_PreviewMouseLeftButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             ShowOrHideToolTip(sliderMovieVolume.ToolTip as ToolTip, false);
         }
 
-        private void btnMoveProgramUp_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void btnMoveProgramUp_MouseRightButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             if (ViewModel.IsProgramPopupOpen)
             {
@@ -233,10 +270,16 @@ namespace AppUI.Windows
                 return;
             }
 
-            ViewModel.ChangeProgramOrder((lstPrograms.SelectedItem as ProgramToRunViewModel), 0 - lstPrograms.SelectedIndex);
+            ViewModel.ChangeProgramOrder(
+                (lstPrograms.SelectedItem as ProgramToRunViewModel),
+                0 - lstPrograms.SelectedIndex
+            );
         }
 
-        private void btnMoveProgramDown_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void btnMoveProgramDown_MouseRightButtonUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             if (ViewModel.IsProgramPopupOpen)
             {
@@ -248,7 +291,10 @@ namespace AppUI.Windows
                 return;
             }
 
-            ViewModel.ChangeProgramOrder((lstPrograms.SelectedItem as ProgramToRunViewModel), (lstPrograms.Items.Count - 1) - lstPrograms.SelectedIndex);
+            ViewModel.ChangeProgramOrder(
+                (lstPrograms.SelectedItem as ProgramToRunViewModel),
+                (lstPrograms.Items.Count - 1) - lstPrograms.SelectedIndex
+            );
         }
 
         private void btnDefaults_Click(object sender, RoutedEventArgs e)
@@ -277,7 +323,6 @@ namespace AppUI.Windows
                 this.Left -= deltaX / 2;
                 this.Width = newWidth;
             }
-
         }
     }
 }

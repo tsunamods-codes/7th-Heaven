@@ -1,7 +1,4 @@
-﻿using AppCore;
-using AppUI.Classes;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppCore;
+using AppUI.Classes;
+using AppUI.ViewModels;
 
 namespace AppUI.Windows
 {
@@ -58,7 +58,16 @@ namespace AppUI.Windows
 
             string selected = (string)lstProfiles.SelectedItem;
 
-            if (MessageDialogWindow.Show($"{ResourceHelper.Get(StringKey.AreYouSureYouWantToDeleteSelectedProfile)} ({selected})?", ResourceHelper.Get(StringKey.Warning), MessageBoxButton.YesNo, MessageBoxImage.Warning).Result == MessageBoxResult.Yes)
+            if (
+                MessageDialogWindow
+                    .Show(
+                        $"{ResourceHelper.Get(StringKey.AreYouSureYouWantToDeleteSelectedProfile)} ({selected})?",
+                        ResourceHelper.Get(StringKey.Warning),
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning
+                    )
+                    .Result == MessageBoxResult.Yes
+            )
             {
                 ViewModel.DeleteProfile(selected);
             }
@@ -107,12 +116,16 @@ namespace AppUI.Windows
             ViewModel.AttemptDeleteTempFiles();
         }
 
-
         private bool IsProfileSelected()
         {
             if (lstProfiles.SelectedItem == null)
             {
-                MessageDialogWindow.Show(ResourceHelper.Get(StringKey.SelectProfileToContinue), ResourceHelper.Get(StringKey.NoProfileSelected), MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageDialogWindow.Show(
+                    ResourceHelper.Get(StringKey.SelectProfileToContinue),
+                    ResourceHelper.Get(StringKey.NoProfileSelected),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation
+                );
                 return false;
             }
 

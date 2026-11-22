@@ -1,16 +1,16 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros.Workshop;
 
 namespace AppUI.UserControls
 {
@@ -101,7 +101,10 @@ namespace AppUI.UserControls
                 return;
             }
 
-            ViewModel.RaiseSelectedModChanged(sender, (lstMods.SelectedItem as InstalledModViewModel));
+            ViewModel.RaiseSelectedModChanged(
+                sender,
+                (lstMods.SelectedItem as InstalledModViewModel)
+            );
         }
 
         private void btnRefresh_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -109,10 +112,12 @@ namespace AppUI.UserControls
             Sys.ValidateAndRemoveDeletedMods();
             Task t = ViewModel.RefreshModListAsync();
 
-            t.ContinueWith((result) =>
-            {
-                App.Current.Dispatcher.Invoke(() => RecalculateColumnWidths());
-            });
+            t.ContinueWith(
+                (result) =>
+                {
+                    App.Current.Dispatcher.Invoke(() => RecalculateColumnWidths());
+                }
+            );
         }
 
         private void btnDeactivateAll_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -129,14 +134,18 @@ namespace AppUI.UserControls
 
             InstalledModViewModel selected = (lstMods.SelectedItem as InstalledModViewModel);
 
-            MessageDialogWindow messageDialog = new MessageDialogWindow(ResourceHelper.Get(StringKey.UninstallWarning), $"{ResourceHelper.Get(StringKey.AreYouSureYouWantToDelete)} {selected.Name}?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageDialogWindow messageDialog = new MessageDialogWindow(
+                ResourceHelper.Get(StringKey.UninstallWarning),
+                $"{ResourceHelper.Get(StringKey.AreYouSureYouWantToDelete)} {selected.Name}?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
             messageDialog.ShowDialog();
 
             if (messageDialog.ViewModel.Result == MessageBoxResult.Yes)
             {
                 ViewModel.UninstallMod(selected);
             }
-
         }
 
         private void btnMoveUp_Click(object sender, RoutedEventArgs e)
@@ -199,7 +208,11 @@ namespace AppUI.UserControls
                 return;
             }
 
-            if (!IsActiveModSelected(ResourceHelper.Get(StringKey.ModNotActiveOnlyActivatedModsCanBeConfigured)))
+            if (
+                !IsActiveModSelected(
+                    ResourceHelper.Get(StringKey.ModNotActiveOnlyActivatedModsCanBeConfigured)
+                )
+            )
             {
                 return;
             }
@@ -234,11 +247,15 @@ namespace AppUI.UserControls
         /// <summary>
         /// Opens the configure mod window for selected mod (if mod is active)
         /// </summary>
-        private void ListViewItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListViewItem_MouseDoubleClick(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             if ((sender as ListViewItem) != null)
             {
-                InstalledModViewModel viewModel = (sender as ListViewItem).DataContext as InstalledModViewModel;
+                InstalledModViewModel viewModel =
+                    (sender as ListViewItem).DataContext as InstalledModViewModel;
 
                 if (viewModel.IsActive)
                 {
@@ -246,7 +263,14 @@ namespace AppUI.UserControls
                 }
                 else
                 {
-                    Sys.Message(new WMessage(ResourceHelper.Get(StringKey.ModNotActiveOnlyActivatedModsCanBeConfigured), true));
+                    Sys.Message(
+                        new WMessage(
+                            ResourceHelper.Get(
+                                StringKey.ModNotActiveOnlyActivatedModsCanBeConfigured
+                            ),
+                            true
+                        )
+                    );
                 }
             }
         }
@@ -254,13 +278,20 @@ namespace AppUI.UserControls
         /// <summary>
         /// Activates the selected mod on middle click
         /// </summary>
-        private void ListViewItem_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ListViewItem_MouseUp(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
-            if (e.ChangedButton == System.Windows.Input.MouseButton.Middle && e.ButtonState == System.Windows.Input.MouseButtonState.Released)
+            if (
+                e.ChangedButton == System.Windows.Input.MouseButton.Middle
+                && e.ButtonState == System.Windows.Input.MouseButtonState.Released
+            )
             {
                 if ((sender as ListViewItem) != null)
                 {
-                    InstalledModViewModel viewModel = (sender as ListViewItem).DataContext as InstalledModViewModel;
+                    InstalledModViewModel viewModel =
+                        (sender as ListViewItem).DataContext as InstalledModViewModel;
                     ViewModel.ToggleActivateMod(viewModel.InstallInfo.ModID);
                 }
             }
@@ -270,14 +301,15 @@ namespace AppUI.UserControls
         {
             var currentColumnSettings = GetColumnSettings();
 
-            double staticColumnWidth = currentColumnSettings.Where(c => !c.AutoResize).Sum(s => s.Width); // sum of columns with static widths
+            double staticColumnWidth = currentColumnSettings
+                .Where(c => !c.AutoResize)
+                .Sum(s => s.Width); // sum of columns with static widths
             double padding = 8;
 
             if (listWidth == 0)
             {
                 return; // ActualWidth could be zero if list has not been rendered yet
             }
-
 
             // account for the scroll bar being visible and add extra padding
             ScrollViewer sv = FindVisualChild<ScrollViewer>(lstMods);
@@ -287,7 +319,6 @@ namespace AppUI.UserControls
             {
                 padding = 26;
             }
-
 
             double remainingWidth = listWidth - staticColumnWidth - padding;
 
@@ -331,7 +362,10 @@ namespace AppUI.UserControls
 
             bool hasInvalidColumns = columns.Any(c =>
             {
-                ColumnTranslations.TryGetValue((c.Header as GridViewColumnHeader).Content as string, out string translatedName);
+                ColumnTranslations.TryGetValue(
+                    (c.Header as GridViewColumnHeader).Content as string,
+                    out string translatedName
+                );
                 return string.IsNullOrEmpty(translatedName);
             });
 
@@ -342,12 +376,16 @@ namespace AppUI.UserControls
 
             List<string> columnsThatAutoResize = new List<string>() { "Name", "Author" };
 
-            return columns.Select(c => new ColumnInfo()
-            {
-                Name = ColumnTranslations[(c.Header as GridViewColumnHeader).Content as string],
-                Width = c.ActualWidth,
-                AutoResize = columnsThatAutoResize.Contains(ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)])
-            }).ToList();
+            return columns
+                .Select(c => new ColumnInfo()
+                {
+                    Name = ColumnTranslations[(c.Header as GridViewColumnHeader).Content as string],
+                    Width = c.ActualWidth,
+                    AutoResize = columnsThatAutoResize.Contains(
+                        ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)]
+                    ),
+                })
+                .ToList();
         }
 
         /// <summary>
@@ -359,7 +397,11 @@ namespace AppUI.UserControls
         {
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                if (e.OriginalSource is CheckBox || FindVisualParent<ComboBox>((DependencyObject)e.OriginalSource) != null || e.OriginalSource is Button)
+                if (
+                    e.OriginalSource is CheckBox
+                    || FindVisualParent<ComboBox>((DependencyObject)e.OriginalSource) != null
+                    || e.OriginalSource is Button
+                )
                 {
                     return; // do not do drag/drop since user is clicking on checkbox to activate mod or selecting category or clicking one of the misc buttons
                 }
@@ -397,12 +439,17 @@ namespace AppUI.UserControls
                 double halfHeight = targetItem.ActualHeight / 2.0;
 
                 InstalledModViewModel target = targetItem.DataContext as InstalledModViewModel;
-                InstalledModViewModel droppedData = e.Data.GetData(typeof(InstalledModViewModel)) as InstalledModViewModel;
+                InstalledModViewModel droppedData =
+                    e.Data.GetData(typeof(InstalledModViewModel)) as InstalledModViewModel;
 
                 int removedIdx = lstMods.Items.IndexOf(droppedData);
                 int targetIdx = lstMods.Items.IndexOf(target);
 
-                if (mousePos.Y >= halfHeight && removedIdx > targetIdx && (targetIdx + 1) < lstMods.Items.Count)
+                if (
+                    mousePos.Y >= halfHeight
+                    && removedIdx > targetIdx
+                    && (targetIdx + 1) < lstMods.Items.Count
+                )
                 {
                     targetIdx++;
                 }
@@ -459,15 +506,19 @@ namespace AppUI.UserControls
             Point mousePos = e.GetPosition(item);
             double halfHeight = item.ActualHeight / 2.0;
 
-
-            InstalledModViewModel dataToDrop = e.Data.GetData(typeof(InstalledModViewModel)) as InstalledModViewModel;
+            InstalledModViewModel dataToDrop =
+                e.Data.GetData(typeof(InstalledModViewModel)) as InstalledModViewModel;
             InstalledModViewModel hoverOver = (item.DataContext as InstalledModViewModel);
 
             // check if dragging over self - don't show border in this case
             int removedIdx = lstMods.Items.IndexOf(dataToDrop);
             int targetIdx = lstMods.Items.IndexOf(hoverOver);
 
-            if (mousePos.Y >= halfHeight && removedIdx > targetIdx && (targetIdx + 1) < lstMods.Items.Count)
+            if (
+                mousePos.Y >= halfHeight
+                && removedIdx > targetIdx
+                && (targetIdx + 1) < lstMods.Items.Count
+            )
             {
                 targetIdx++;
             }
@@ -481,7 +532,6 @@ namespace AppUI.UserControls
                 hoverOver.BorderThickness = new Thickness(0);
                 return;
             }
-
 
             if (mousePos.Y < halfHeight)
             {
@@ -560,7 +610,9 @@ namespace AppUI.UserControls
             if (e.NewSize.Width < MinColumnWidths[ColumnTranslations[columnName]])
             {
                 e.Handled = true;
-                ((GridViewColumnHeader)sender).Column.Width = MinColumnWidths[ColumnTranslations[columnName]];
+                ((GridViewColumnHeader)sender).Column.Width = MinColumnWidths[
+                    ColumnTranslations[columnName]
+                ];
             }
         }
 
@@ -577,7 +629,12 @@ namespace AppUI.UserControls
             for (int i = 0; i < newColumns.Count; i++)
             {
                 // get the current index of the column
-                int colIndex = columns.ToList().FindIndex(c => ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)] == newColumns[i].Name);
+                int colIndex = columns
+                    .ToList()
+                    .FindIndex(c =>
+                        ColumnTranslations[((c.Header as GridViewColumnHeader).Content as string)]
+                        == newColumns[i].Name
+                    );
 
                 // apply the new width if the column does not auto resize
                 if (!newColumns[i].AutoResize)

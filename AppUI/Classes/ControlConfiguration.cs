@@ -36,7 +36,9 @@ namespace AppUI.Classes
                 return false;
             }
 
-            return GamepadInputs.Values.Any(c => c != null && c.GamepadInput.HasValue && c.GamepadInput.Value == button);
+            return GamepadInputs.Values.Any(c =>
+                c != null && c.GamepadInput.HasValue && c.GamepadInput.Value == button
+            );
         }
 
         internal void SetControllerInput(GameControl control, GamePadButton button)
@@ -57,7 +59,6 @@ namespace AppUI.Classes
         {
             RemoveExistingKeyboardBinding(newSetting.ConfigValue); // check if this key is binded to another control and remove it there first
 
-
             if (KeyboardInputs.ContainsKey(control))
             {
                 KeyboardInputs[control] = newSetting;
@@ -75,7 +76,14 @@ namespace AppUI.Classes
         private void RemoveExistingKeyboardBinding(Key key)
         {
             // 'numpadenter' and 'return' have same key code so exclude 'numpadenter' from this where clause since it is handled differently (see other RemoveExistingBinding method)
-            var existingBinding = KeyboardInputs.Where(kv => kv.Value != null && kv.Value.DisplayText != "NUMPADENTER" && kv.Value.KeyboardKey.HasValue && kv.Value.KeyboardKey.Value == key).FirstOrDefault();
+            var existingBinding = KeyboardInputs
+                .Where(kv =>
+                    kv.Value != null
+                    && kv.Value.DisplayText != "NUMPADENTER"
+                    && kv.Value.KeyboardKey.HasValue
+                    && kv.Value.KeyboardKey.Value == key
+                )
+                .FirstOrDefault();
 
             if (existingBinding.Value != null)
             {
@@ -88,7 +96,13 @@ namespace AppUI.Classes
         /// </summary>
         private void RemoveExistingGamepadBinding(GamePadButton button)
         {
-            var existingBinding = GamepadInputs.Where(kv => kv.Value != null && kv.Value.GamepadInput.HasValue && kv.Value.GamepadInput.Value == button).FirstOrDefault();
+            var existingBinding = GamepadInputs
+                .Where(kv =>
+                    kv.Value != null
+                    && kv.Value.GamepadInput.HasValue
+                    && kv.Value.GamepadInput.Value == button
+                )
+                .FirstOrDefault();
 
             if (existingBinding.Value != null)
             {
@@ -103,15 +117,12 @@ namespace AppUI.Classes
         {
             if (KeyboardInputs.Any(kv => kv.Value != null && kv.Value.ConfigValue == configVal))
             {
-                GameControl existingBinding = KeyboardInputs.Where(kv => kv.Value != null && kv.Value.ConfigValue == configVal)
-                                                            .Select(kv => kv.Key)
-                                                            .FirstOrDefault();
+                GameControl existingBinding = KeyboardInputs
+                    .Where(kv => kv.Value != null && kv.Value.ConfigValue == configVal)
+                    .Select(kv => kv.Key)
+                    .FirstOrDefault();
                 KeyboardInputs[existingBinding] = null;
             }
         }
     }
-
 }
-
-
-

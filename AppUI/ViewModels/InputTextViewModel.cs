@@ -11,10 +11,7 @@ namespace AppUI.ViewModels
 
         public string WindowTitle
         {
-            get
-            {
-                return _windowTitle;
-            }
+            get { return _windowTitle; }
             set
             {
                 _windowTitle = value;
@@ -24,10 +21,7 @@ namespace AppUI.ViewModels
 
         public string Message
         {
-            get
-            {
-                return _message;
-            }
+            get { return _message; }
             set
             {
                 _message = value;
@@ -37,10 +31,7 @@ namespace AppUI.ViewModels
 
         public string TextInput
         {
-            get
-            {
-                return _textInput;
-            }
+            get { return _textInput; }
             set
             {
                 _textInput = value;
@@ -50,23 +41,17 @@ namespace AppUI.ViewModels
 
         public int MaxCharLength
         {
-            get
-            {
-                return _maxCharLength;
-            }
+            get { return _maxCharLength; }
             set
             {
                 _maxCharLength = value;
                 NotifyPropertyChanged();
             }
-
         }
-
 
         public InputTextViewModel()
         {
             MaxCharLength = 255;
         }
-
     }
 }

@@ -23,6 +23,7 @@ namespace Iros.Workshop
         {
             Mods = new List<Mod>();
         }
+
         //https://mega.co.nz/#F!DYQWTZ7B!FWil2nif2HQF_Dr7RxvOLA
 
         public Mod GetMod(Guid modID)
@@ -46,7 +47,10 @@ namespace Iros.Workshop
                 Mod m;
                 if (mods.TryGetValue(mod.ID, out m))
                 {
-                    if (mod.LatestVersion.Version > m.LatestVersion.Version || mod.MetaVersion > m.MetaVersion)
+                    if (
+                        mod.LatestVersion.Version > m.LatestVersion.Version
+                        || mod.MetaVersion > m.MetaVersion
+                    )
                     {
                         mods[mod.ID] = mod;
                         pingIDs.Add(mod.ID);
@@ -72,13 +76,15 @@ namespace Iros.Workshop
     {
         [System.Xml.Serialization.XmlAttribute("VerFrom")]
         public string VerFrom { get; set; }
+
         [System.Xml.Serialization.XmlAttribute("VerTo")]
         public decimal VerTo { get; set; }
+
         [System.Xml.Serialization.XmlText]
         public string Link { get; set; }
+
         [System.Xml.Serialization.XmlAttribute("DownloadSize")]
         public int DownloadSize { get; set; }
-
     }
 
     public enum LocationType
@@ -87,16 +93,18 @@ namespace Iros.Workshop
         Url,
         MegaSharedFolder, //Format: SharedFolderLink,FileIDString,HintFileName
         GDrive,
-        ExternalUrl // iros://ExternalUrl/{url} where {url} can be left blank and it assumes the previous url in the list
+        ExternalUrl, // iros://ExternalUrl/{url} where {url} can be left blank and it assumes the previous url in the list
     }
 
     public static class LocationUtil
     {
         public static bool TryParse(string link, out LocationType type, out string url)
         {
-            if (link.StartsWith("iros://", StringComparison.InvariantCultureIgnoreCase)) link = link.Substring(7);
+            if (link.StartsWith("iros://", StringComparison.InvariantCultureIgnoreCase))
+                link = link.Substring(7);
             string[] parts = link.Split(new[] { '/' }, 2);
-            type = LocationType.INVALID; url = null;
+            type = LocationType.INVALID;
+            url = null;
 
             if (parts.Length < 1)
             {
@@ -153,6 +161,6 @@ namespace Iros.Workshop
         Original = 0x1,
         Rerelease = 0x2,
         Steam = 0x4,
-        All = 0xff
+        All = 0xff,
     }
 }

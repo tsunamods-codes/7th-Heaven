@@ -1,12 +1,12 @@
-﻿using AppWrapper;
-using Iros;
-using Iros.Workshop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
+using AppWrapper;
+using Iros;
+using Iros.Workshop;
 
 namespace AppCore
 {
@@ -36,8 +36,17 @@ namespace AppCore
 
         private static bool TryParseVersionFromXmlDoc(Mod modRef, XmlDocument doc)
         {
-            string versionText = doc.SelectSingleNode("/ModInfo/Version").NodeTextS().Replace(',', '.'); // in-case Xml has "1,7" format then replace with "1.7"
-            if (decimal.TryParse(versionText, System.Globalization.NumberStyles.AllowDecimalPoint, new System.Globalization.CultureInfo(""), out decimal ver))
+            string versionText = doc.SelectSingleNode("/ModInfo/Version")
+                .NodeTextS()
+                .Replace(',', '.'); // in-case Xml has "1,7" format then replace with "1.7"
+            if (
+                decimal.TryParse(
+                    versionText,
+                    System.Globalization.NumberStyles.AllowDecimalPoint,
+                    new System.Globalization.CultureInfo(""),
+                    out decimal ver
+                )
+            )
             {
                 modRef.LatestVersion.Version = ver;
                 return true;
@@ -55,7 +64,9 @@ namespace AppCore
         {
             string parsedName = name;
 
-            Regex regex = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}");
+            Regex regex = new Regex(
+                @"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"
+            );
             Match match = regex.Match(name);
 
             if (match.Success)
@@ -75,7 +86,9 @@ namespace AppCore
         /// <returns> if Guid found then returns guid; other wise returns new guid</returns>
         public static Guid ParseModGuidFromFileOrFolderName(string name)
         {
-            Regex regex = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}");
+            Regex regex = new Regex(
+                @"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"
+            );
             Match match = regex.Match(name);
 
             Guid parsedGuid = Guid.NewGuid();
@@ -92,7 +105,7 @@ namespace AppCore
         }
 
         /// <summary>
-        /// Static method to import mod 
+        /// Static method to import mod
         /// </summary>
         /// <param name="source"> absolute path to .iro or folder to import</param>
         /// <param name="name"> name to give mod </param>
@@ -129,17 +142,24 @@ namespace AppCore
             {
                 if (existingItem.LatestInstalled.VersionDetails.Version >= m.LatestVersion.Version)
                 {
-                    throw new DuplicateModException($"A mod ({existingItem.CachedDetails.Name} v{existingItem.LatestInstalled.VersionDetails.Version}) with the same ID already exists in your library.");
+                    throw new DuplicateModException(
+                        $"A mod ({existingItem.CachedDetails.Name} v{existingItem.LatestInstalled.VersionDetails.Version}) with the same ID already exists in your library."
+                    );
                 }
                 else
                 {
                     // mod is being updated so uninstall current versions
-                    Sys.Library.DeleteAndRemoveInstall(existingItem, existingItem.Versions
-                                                                                 .Where(v => Path.Combine(Sys.Settings.LibraryLocation, v.InstalledLocation) != source) // ensure we are not deleting the mod file we are trying to import (in the case that the new file is already copied to mods library location)
-                                                                                 .Select(v => v.InstalledLocation));
+                    Sys.Library.DeleteAndRemoveInstall(
+                        existingItem,
+                        existingItem
+                            .Versions.Where(v =>
+                                Path.Combine(Sys.Settings.LibraryLocation, v.InstalledLocation)
+                                != source
+                            ) // ensure we are not deleting the mod file we are trying to import (in the case that the new file is already copied to mods library location)
+                            .Select(v => v.InstalledLocation)
+                    );
                 }
             }
-
 
             string destFileName = Path.GetFileName(source);
 
@@ -152,22 +172,37 @@ namespace AppCore
                 {
                     RaiseProgressChanged("Copying .iro file to library", 75);
                     destFileName += ".iro";
-                    File.Copy(source, Path.Combine(Sys.Settings.LibraryLocation, destFileName), true);
+                    File.Copy(
+                        source,
+                        Path.Combine(Sys.Settings.LibraryLocation, destFileName),
+                        true
+                    );
                 }
                 else
                 {
                     int i = 1;
-                    string[] allFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
+                    string[] allFiles = Directory.GetFiles(
+                        source,
+                        "*",
+                        SearchOption.AllDirectories
+                    );
                     foreach (string file in allFiles)
                     {
                         string part = file.Substring(source.Length).Trim('\\', '/');
-                        string absoluteDestinationPath = Path.Combine(Sys.Settings.LibraryLocation, destFileName, part);
+                        string absoluteDestinationPath = Path.Combine(
+                            Sys.Settings.LibraryLocation,
+                            destFileName,
+                            part
+                        );
 
                         Directory.CreateDirectory(Path.GetDirectoryName(absoluteDestinationPath));
                         File.Copy(file, absoluteDestinationPath, true);
 
                         double newProgress = 50.0 + (((double)i / allFiles.Length) * 40); // start at 50 and eventually increment to 90 (i.e. 50 + 40 = 90)
-                        RaiseProgressChanged($"Copying files from folder {i} / {allFiles.Length}", newProgress);
+                        RaiseProgressChanged(
+                            $"Copying files from folder {i} / {allFiles.Length}",
+                            newProgress
+                        );
                         i++;
                     }
                 }
@@ -175,18 +210,35 @@ namespace AppCore
 
             RaiseProgressChanged("Finalizing import", 95);
 
-            Sys.Library.AddInstall(new InstalledItem()
-            {
-                CachedDetails = m,
-                CachePreview = String.Empty,
-                ModID = m.ID,
-                UpdateType = Sys.Library.DefaultUpdate,
-                Versions = new List<InstalledVersion>() { new InstalledVersion() { VersionDetails = m.LatestVersion, InstalledLocation = destFileName } },
-            });
+            Sys.Library.AddInstall(
+                new InstalledItem()
+                {
+                    CachedDetails = m,
+                    CachePreview = String.Empty,
+                    ModID = m.ID,
+                    UpdateType = Sys.Library.DefaultUpdate,
+                    Versions = new List<InstalledVersion>()
+                    {
+                        new InstalledVersion()
+                        {
+                            VersionDetails = m.LatestVersion,
+                            InstalledLocation = destFileName,
+                        },
+                    },
+                }
+            );
 
             if (!Sys.ActiveProfile.HasItem(m.ID))
             {
-                Sys.ActiveProfile.AddItem(new Iros.Workshop.ProfileItem() { ModID = m.ID, Name = m.Name, Settings = new List<ProfileSetting>(), IsModActive = false });
+                Sys.ActiveProfile.AddItem(
+                    new Iros.Workshop.ProfileItem()
+                    {
+                        ModID = m.ID,
+                        Name = m.Name,
+                        Settings = new List<ProfileSetting>(),
+                        IsModActive = false,
+                    }
+                );
             }
 
             RaiseProgressChanged("Import complete", 100);
@@ -214,7 +266,10 @@ namespace AppCore
             {
                 if (!patch.HasFile("mod.xml"))
                 {
-                    RaiseProgressChanged($"Failed to apply patch due to missing mod.xml file in .irop patch", 0);
+                    RaiseProgressChanged(
+                        $"Failed to apply patch due to missing mod.xml file in .irop patch",
+                        0
+                    );
                     return false; // no mod.xml found in patch
                 }
 
@@ -228,22 +283,25 @@ namespace AppCore
                 return false;
             }
 
-
             Mod parsedMod = new Mod();
 
             if (!TryParseIDFromXmlDoc(parsedMod, doc))
             {
-                RaiseProgressChanged($"Failed to apply patch due to Mod ID is missing from mod.xml in patch", 0);
+                RaiseProgressChanged(
+                    $"Failed to apply patch due to Mod ID is missing from mod.xml in patch",
+                    0
+                );
                 return false;
             }
 
             if (!TryParseVersionFromXmlDoc(parsedMod, doc))
             {
-                RaiseProgressChanged($"Failed to apply patch due to Mod Version is missing from mod.xml in patch", 0);
+                RaiseProgressChanged(
+                    $"Failed to apply patch due to Mod Version is missing from mod.xml in patch",
+                    0
+                );
                 return false;
-
             }
-
 
             // if no mod id or mod not installed then error
             InstalledItem installedMod = Sys.Library.GetItem(parsedMod.ID);
@@ -255,11 +313,15 @@ namespace AppCore
             }
 
             // stop patching if patch is older than already installed version
-            if (installedMod.LatestInstalled.VersionDetails.Version >= parsedMod.LatestVersion.Version)
+            if (
+                installedMod.LatestInstalled.VersionDetails.Version
+                >= parsedMod.LatestVersion.Version
+            )
             {
-                throw new DuplicateModException($"A mod ({installedMod.CachedDetails.Name} v{installedMod.LatestInstalled.VersionDetails.Version}) with the same ID already exists in your library.");
+                throw new DuplicateModException(
+                    $"A mod ({installedMod.CachedDetails.Name} v{installedMod.LatestInstalled.VersionDetails.Version}) with the same ID already exists in your library."
+                );
             }
-
 
             // open .iro for patching and apply patch
             RaiseProgressChanged($"Applying patch to '{installedMod.CachedDetails.Name}'", 50);
@@ -279,18 +341,24 @@ namespace AppCore
             }
 
             // update the cached mod details by re-reading the mod.xml
-            RaiseProgressChanged($"Updating cached details of '{installedMod.CachedDetails.Name}'", 75);
+            RaiseProgressChanged(
+                $"Updating cached details of '{installedMod.CachedDetails.Name}'",
+                75
+            );
 
             Mod updatedMod = ParseModXmlFromSource(sourceIro, installedMod.CachedDetails);
 
             installedMod.CachedDetails = updatedMod;
             installedMod.Versions.Clear();
-            installedMod.Versions.Add(new InstalledVersion() { VersionDetails = updatedMod.LatestVersion, InstalledLocation = sourceFileName });
+            installedMod.Versions.Add(
+                new InstalledVersion()
+                {
+                    VersionDetails = updatedMod.LatestVersion,
+                    InstalledLocation = sourceFileName,
+                }
+            );
 
             return true;
-
-
-
         }
 
         /// <summary>
@@ -312,10 +380,9 @@ namespace AppCore
                     Link = String.Empty,
                     DonationLink = String.Empty,
                     Tags = new List<string>(),
-                    Name = ""
+                    Name = "",
                 };
             }
-
 
             Mod parsedMod = Mod.CopyMod(defaultModIfMissing);
 
@@ -336,7 +403,6 @@ namespace AppCore
             string[] musicFiles = FF7FileLister.GetMusicFiles();
             string[] movieFiles = FF7FileLister.GetMovieFiles().Keys.ToArray();
 
-
             if (isIroFile)
             {
                 RaiseProgressChanged("Getting mod.xml data from .iro", 10);
@@ -344,7 +410,10 @@ namespace AppCore
                 arc = new IrosArc(sourceFileOrFolder, patchable: false, (i, fileCount) =>
                 {
                     double newProgress = 10.0 + ((double)i / fileCount) * 30.0;
-                    RaiseProgressChanged($"Scanning .iro archive files {i} / {fileCount}", newProgress);
+                    RaiseProgressChanged(
+                        $"Scanning .iro archive files {i} / {fileCount}",
+                        newProgress
+                    );
                 });
 
                 if (arc.HasFile("mod.xml"))
@@ -356,12 +425,26 @@ namespace AppCore
                 RaiseProgressChanged($"Scanning .iro archive files for movie and music files", 45);
                 foreach (string file in arc.AllFileNames())
                 {
-                    if (musicFiles.Any(f => f.Equals(Path.GetFileName(file), StringComparison.InvariantCultureIgnoreCase)))
+                    if (
+                        musicFiles.Any(f =>
+                            f.Equals(
+                                Path.GetFileName(file),
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        )
+                    )
                     {
                         parsedMod.ContainsMusic = true;
                     }
 
-                    if (movieFiles.Any(f => f.Equals(Path.GetFileName(file), StringComparison.InvariantCultureIgnoreCase)))
+                    if (
+                        movieFiles.Any(f =>
+                            f.Equals(
+                                Path.GetFileName(file),
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        )
+                    )
                     {
                         parsedMod.ContainsMovies = true;
                     }
@@ -386,12 +469,26 @@ namespace AppCore
                 RaiseProgressChanged($"Scanning mod folder for movie and music files", 25);
                 foreach (string file in FileUtils.GetAllFilesInDirectory(sourceFileOrFolder))
                 {
-                    if (musicFiles.Any(f => f.Equals(Path.GetFileName(file), StringComparison.InvariantCultureIgnoreCase)))
+                    if (
+                        musicFiles.Any(f =>
+                            f.Equals(
+                                Path.GetFileName(file),
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        )
+                    )
                     {
                         parsedMod.ContainsMusic = true;
                     }
 
-                    if (movieFiles.Any(f => f.Equals(Path.GetFileName(file), StringComparison.InvariantCultureIgnoreCase)))
+                    if (
+                        movieFiles.Any(f =>
+                            f.Equals(
+                                Path.GetFileName(file),
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        )
+                    )
                     {
                         parsedMod.ContainsMovies = true;
                     }
@@ -403,7 +500,6 @@ namespace AppCore
                 }
             }
 
-
             if (doc != null)
             {
                 RaiseProgressChanged("Parsing information from mod.xml", 50);
@@ -413,7 +509,12 @@ namespace AppCore
 
                 if (!didParseId)
                 {
-                    Sys.Message(new WMessage("Invalid GUID found for Mod ID ... Using guid from file/folder name (or new guid).", WMessageLogLevel.LogOnly));
+                    Sys.Message(
+                        new WMessage(
+                            "Invalid GUID found for Mod ID ... Using guid from file/folder name (or new guid).",
+                            WMessageLogLevel.LogOnly
+                        )
+                    );
                     parsedMod.ID = ParseModGuidFromFileOrFolderName(sourceFileOrFolder);
                 }
 
@@ -453,20 +554,29 @@ namespace AppCore
                     parsedMod.Category = defaultModIfMissing.Category;
                 }
 
-                parsedMod.LatestVersion.ReleaseNotes = doc.SelectSingleNode("/ModInfo/ReleaseNotes").NodeTextS();
+                parsedMod.LatestVersion.ReleaseNotes = doc.SelectSingleNode("/ModInfo/ReleaseNotes")
+                    .NodeTextS();
                 if (string.IsNullOrWhiteSpace(parsedMod.LatestVersion.ReleaseNotes))
                 {
-                    parsedMod.LatestVersion.ReleaseNotes = defaultModIfMissing.LatestVersion.ReleaseNotes;
+                    parsedMod.LatestVersion.ReleaseNotes = defaultModIfMissing
+                        .LatestVersion
+                        .ReleaseNotes;
                 }
 
-
-                if (DateTime.TryParse(doc.SelectSingleNode("/ModInfo/ReleaseDate").NodeTextS(), out DateTime parsedDate))
+                if (
+                    DateTime.TryParse(
+                        doc.SelectSingleNode("/ModInfo/ReleaseDate").NodeTextS(),
+                        out DateTime parsedDate
+                    )
+                )
                 {
                     parsedMod.LatestVersion.ReleaseDate = parsedDate;
                 }
                 else
                 {
-                    parsedMod.LatestVersion.ReleaseDate = defaultModIfMissing.LatestVersion.ReleaseDate;
+                    parsedMod.LatestVersion.ReleaseDate = defaultModIfMissing
+                        .LatestVersion
+                        .ReleaseDate;
                 }
 
                 bool didParse = TryParseVersionFromXmlDoc(parsedMod, doc);
@@ -493,7 +603,8 @@ namespace AppCore
 
                     if (data != null)
                     {
-                        string url = $"iros://Preview/Auto/{parsedMod.ID}_{pv.InnerText.Replace('\\', '_')}";
+                        string url =
+                            $"iros://Preview/Auto/{parsedMod.ID}_{pv.InnerText.Replace('\\', '_')}";
                         parsedMod.LatestVersion.PreviewImage = url;
                         Sys.ImageCache.InsertManual(url, data);
                     }
@@ -517,6 +628,5 @@ namespace AppCore
         {
             ImportProgressChanged?.Invoke(message, percentComplete);
         }
-
     }
 }

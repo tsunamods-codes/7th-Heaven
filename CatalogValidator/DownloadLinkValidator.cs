@@ -1,17 +1,22 @@
+using System.Net;
 using CG.Web.MegaApiClient;
 using Iros.Workshop;
-using System.Net;
 
 namespace AppCore
 {
     public enum ValidationCategory
     {
-        None = 0,      // Single link validation (not categorized)
-        Warning = 1,   // At least one link works (2xx response)
-        Error = 2      // All links don't work (4xx response)
+        None = 0, // Single link validation (not categorized)
+        Warning = 1, // At least one link works (2xx response)
+        Error = 2, // All links don't work (4xx response)
     }
 
-    public sealed record LinkValidationResult(bool IsValid, string ValidationTarget, string Error, ValidationCategory Category = ValidationCategory.None);
+    public sealed record LinkValidationResult(
+        bool IsValid,
+        string ValidationTarget,
+        string Error,
+        ValidationCategory Category = ValidationCategory.None
+    );
 
     public static class DownloadLinkValidator
     {
@@ -19,21 +24,41 @@ namespace AppCore
         {
             if (string.IsNullOrWhiteSpace(rawLink))
             {
-                return new LinkValidationResult(false, string.Empty, "empty link", ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    string.Empty,
+                    "empty link",
+                    ValidationCategory.None
+                );
             }
 
             if (!LocationUtil.TryParse(rawLink, out LocationType type, out string location))
             {
-                return new LinkValidationResult(false, string.Empty, "unable to parse iros link", ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    string.Empty,
+                    "unable to parse iros link",
+                    ValidationCategory.None
+                );
             }
 
             switch (type)
             {
                 case LocationType.Url:
-                    if (!Uri.TryCreate(location, UriKind.Absolute, out Uri? urlUri) ||
-                        (urlUri.Scheme != Uri.UriSchemeHttp && urlUri.Scheme != Uri.UriSchemeHttps))
+                    if (
+                        !Uri.TryCreate(location, UriKind.Absolute, out Uri? urlUri)
+                        || (
+                            urlUri.Scheme != Uri.UriSchemeHttp
+                            && urlUri.Scheme != Uri.UriSchemeHttps
+                        )
+                    )
                     {
-                        return new LinkValidationResult(false, location, "URL link is not a valid HTTP/HTTPS URL", ValidationCategory.None);
+                        return new LinkValidationResult(
+                            false,
+                            location,
+                            "URL link is not a valid HTTP/HTTPS URL",
+                            ValidationCategory.None
+                        );
                     }
 
                     return await CheckHttpResourceExistsAsync(location);
@@ -45,13 +70,28 @@ namespace AppCore
                 case LocationType.ExternalUrl:
                     if (string.IsNullOrWhiteSpace(location))
                     {
-                        return new LinkValidationResult(false, location, "ExternalUrl link is empty and cannot be validated directly", ValidationCategory.None);
+                        return new LinkValidationResult(
+                            false,
+                            location,
+                            "ExternalUrl link is empty and cannot be validated directly",
+                            ValidationCategory.None
+                        );
                     }
 
-                    if (!Uri.TryCreate(location, UriKind.Absolute, out Uri? extUri) ||
-                        (extUri.Scheme != Uri.UriSchemeHttp && extUri.Scheme != Uri.UriSchemeHttps))
+                    if (
+                        !Uri.TryCreate(location, UriKind.Absolute, out Uri? extUri)
+                        || (
+                            extUri.Scheme != Uri.UriSchemeHttp
+                            && extUri.Scheme != Uri.UriSchemeHttps
+                        )
+                    )
                     {
-                        return new LinkValidationResult(false, location, "ExternalUrl is not a valid HTTP/HTTPS URL", ValidationCategory.None);
+                        return new LinkValidationResult(
+                            false,
+                            location,
+                            "ExternalUrl is not a valid HTTP/HTTPS URL",
+                            ValidationCategory.None
+                        );
                     }
 
                     return await CheckHttpResourceExistsAsync(location);
@@ -60,7 +100,12 @@ namespace AppCore
                     return await CheckMegaNodeExistsAsync(location);
 
                 default:
-                    return new LinkValidationResult(false, location, $"unsupported link type {type}", ValidationCategory.None);
+                    return new LinkValidationResult(
+                        false,
+                        location,
+                        $"unsupported link type {type}",
+                        ValidationCategory.None
+                    );
             }
         }
 
@@ -70,20 +115,42 @@ namespace AppCore
             {
                 using HttpClient client = CreateHttpClient();
                 using HttpRequestMessage headRequest = new HttpRequestMessage(HttpMethod.Head, url);
-                using HttpResponseMessage headResponse = await client.SendAsync(headRequest, HttpCompletionOption.ResponseHeadersRead);
+                using HttpResponseMessage headResponse = await client.SendAsync(
+                    headRequest,
+                    HttpCompletionOption.ResponseHeadersRead
+                );
 
-                if (headResponse.StatusCode == HttpStatusCode.MethodNotAllowed || headResponse.StatusCode == HttpStatusCode.NotImplemented)
+                if (
+                    headResponse.StatusCode == HttpStatusCode.MethodNotAllowed
+                    || headResponse.StatusCode == HttpStatusCode.NotImplemented
+                )
                 {
-                    using HttpRequestMessage getRequest = new HttpRequestMessage(HttpMethod.Get, url);
-                    using HttpResponseMessage getResponse = await client.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
+                    using HttpRequestMessage getRequest = new HttpRequestMessage(
+                        HttpMethod.Get,
+                        url
+                    );
+                    using HttpResponseMessage getResponse = await client.SendAsync(
+                        getRequest,
+                        HttpCompletionOption.ResponseHeadersRead
+                    );
                     return IsSuccessStatusCode(getResponse.StatusCode)
                         ? new LinkValidationResult(true, url, string.Empty, ValidationCategory.None)
-                        : new LinkValidationResult(false, url, $"HTTP {(int)getResponse.StatusCode} ({getResponse.StatusCode})", ValidationCategory.None);
+                        : new LinkValidationResult(
+                            false,
+                            url,
+                            $"HTTP {(int)getResponse.StatusCode} ({getResponse.StatusCode})",
+                            ValidationCategory.None
+                        );
                 }
 
                 return IsSuccessStatusCode(headResponse.StatusCode)
                     ? new LinkValidationResult(true, url, string.Empty, ValidationCategory.None)
-                    : new LinkValidationResult(false, url, $"HTTP {(int)headResponse.StatusCode} ({headResponse.StatusCode})", ValidationCategory.None);
+                    : new LinkValidationResult(
+                        false,
+                        url,
+                        $"HTTP {(int)headResponse.StatusCode} ({headResponse.StatusCode})",
+                        ValidationCategory.None
+                    );
             }
             catch (Exception ex)
             {
@@ -102,7 +169,12 @@ namespace AppCore
 
             if (parts.Length < 2)
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder link must contain folder ID and file ID or file name", ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    location,
+                    "MegaSharedFolder link must contain folder ID and file ID or file name",
+                    ValidationCategory.None
+                );
             }
 
             string folderId = parts[0].Trim();
@@ -111,12 +183,22 @@ namespace AppCore
 
             if (string.IsNullOrWhiteSpace(folderId))
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder folder ID is empty", ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    location,
+                    "MegaSharedFolder folder ID is empty",
+                    ValidationCategory.None
+                );
             }
 
             if (string.IsNullOrWhiteSpace(fileId) && string.IsNullOrWhiteSpace(fileName))
             {
-                return new LinkValidationResult(false, location, "MegaSharedFolder must specify file ID or file name", ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    location,
+                    "MegaSharedFolder must specify file ID or file name",
+                    ValidationCategory.None
+                );
             }
 
             MegaApiClient client = new MegaApiClient();
@@ -126,9 +208,20 @@ namespace AppCore
             {
                 await client.LoginAnonymousAsync();
 
-                if (!TryBuildMegaFolderShareUri(folderId, out Uri? folderLink, out string folderUriError))
+                if (
+                    !TryBuildMegaFolderShareUri(
+                        folderId,
+                        out Uri? folderLink,
+                        out string folderUriError
+                    )
+                )
                 {
-                    return new LinkValidationResult(false, resolvedTarget, folderUriError, ValidationCategory.None);
+                    return new LinkValidationResult(
+                        false,
+                        resolvedTarget,
+                        folderUriError,
+                        ValidationCategory.None
+                    );
                 }
 
                 resolvedTarget = string.IsNullOrWhiteSpace(fileName)
@@ -141,16 +234,33 @@ namespace AppCore
 
                 if (fileNode == null && !string.IsNullOrWhiteSpace(fileName))
                 {
-                    fileNode = nodes.FirstOrDefault(x => x.Type == NodeType.File && x.Name == fileName);
+                    fileNode = nodes.FirstOrDefault(x =>
+                        x.Type == NodeType.File && x.Name == fileName
+                    );
                 }
 
                 return fileNode != null
-                    ? new LinkValidationResult(true, resolvedTarget, string.Empty, ValidationCategory.None)
-                    : new LinkValidationResult(false, resolvedTarget, "file not found in MEGA shared folder", ValidationCategory.None);
+                    ? new LinkValidationResult(
+                        true,
+                        resolvedTarget,
+                        string.Empty,
+                        ValidationCategory.None
+                    )
+                    : new LinkValidationResult(
+                        false,
+                        resolvedTarget,
+                        "file not found in MEGA shared folder",
+                        ValidationCategory.None
+                    );
             }
             catch (Exception ex)
             {
-                return new LinkValidationResult(false, resolvedTarget, ex.Message, ValidationCategory.None);
+                return new LinkValidationResult(
+                    false,
+                    resolvedTarget,
+                    ex.Message,
+                    ValidationCategory.None
+                );
             }
             finally
             {
@@ -158,13 +268,15 @@ namespace AppCore
                 {
                     await client.LogoutAsync();
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
-        private static bool TryBuildMegaFolderShareUri(string folderId, out Uri? folderUri, out string error)
+        private static bool TryBuildMegaFolderShareUri(
+            string folderId,
+            out Uri? folderUri,
+            out string error
+        )
         {
             folderUri = null;
             error = string.Empty;
@@ -179,8 +291,13 @@ namespace AppCore
 
             if (Uri.TryCreate(value, UriKind.Absolute, out Uri? absoluteUri))
             {
-                if (absoluteUri.Host.Contains("mega.nz", StringComparison.OrdinalIgnoreCase) &&
-                    absoluteUri.AbsolutePath.StartsWith("/folder/", StringComparison.OrdinalIgnoreCase))
+                if (
+                    absoluteUri.Host.Contains("mega.nz", StringComparison.OrdinalIgnoreCase)
+                    && absoluteUri.AbsolutePath.StartsWith(
+                        "/folder/",
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                 {
                     folderUri = absoluteUri;
                     return true;
@@ -190,9 +307,14 @@ namespace AppCore
                 return false;
             }
 
-            if (value.StartsWith("#F!", StringComparison.OrdinalIgnoreCase) || value.StartsWith("F!", StringComparison.OrdinalIgnoreCase))
+            if (
+                value.StartsWith("#F!", StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith("F!", StringComparison.OrdinalIgnoreCase)
+            )
             {
-                string old = value.StartsWith("#", StringComparison.Ordinal) ? value.Substring(1) : value;
+                string old = value.StartsWith("#", StringComparison.Ordinal)
+                    ? value.Substring(1)
+                    : value;
                 string[] oldParts = old.Split('!', StringSplitOptions.RemoveEmptyEntries);
 
                 if (oldParts.Length >= 3)
@@ -222,7 +344,10 @@ namespace AppCore
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.ExpectContinue = false;
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0");
+            client.DefaultRequestHeaders.Add(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+            );
             return client;
         }
     }

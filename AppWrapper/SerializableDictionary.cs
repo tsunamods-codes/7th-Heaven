@@ -8,17 +8,14 @@ namespace AppWrapper
     // Thanks to Paul Welter, https://weblogs.asp.net/pwelter34/444961
     [XmlRoot("dictionary")]
     [Serializable]
-    public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable, ISerializable
+    public class SerializableDictionary<TKey, TValue>
+        : Dictionary<TKey, TValue>,
+            IXmlSerializable,
+            ISerializable
     {
-        public SerializableDictionary()
-        {
+        public SerializableDictionary() { }
 
-        }
-
-        protected SerializableDictionary(SerializationInfo info, StreamingContext context)
-        {
-
-        }
+        protected SerializableDictionary(SerializationInfo info, StreamingContext context) { }
 
         #region IXmlSerializable Members
         public System.Xml.Schema.XmlSchema GetSchema()

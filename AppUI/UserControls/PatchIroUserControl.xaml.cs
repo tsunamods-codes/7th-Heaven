@@ -1,8 +1,8 @@
-﻿using AppCore;
+﻿using System.Windows;
+using System.Windows.Controls;
+using AppCore;
 using AppUI.Classes;
 using AppUI.ViewModels;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace AppUI.UserControls
 {
@@ -31,7 +31,10 @@ namespace AppUI.UserControls
 
         private void btnBrowseNewIro_Click(object sender, RoutedEventArgs e)
         {
-            string saveFile = FileDialogHelper.BrowseForFile("*.iro|*.iro", ResourceHelper.Get(StringKey.SelectIroFile));
+            string saveFile = FileDialogHelper.BrowseForFile(
+                "*.iro|*.iro",
+                ResourceHelper.Get(StringKey.SelectIroFile)
+            );
 
             if (!string.IsNullOrEmpty(saveFile))
             {
@@ -41,7 +44,10 @@ namespace AppUI.UserControls
 
         private void btnBrowseOriginalIro_Click(object sender, RoutedEventArgs e)
         {
-            string sourceFolder = FileDialogHelper.BrowseForFile("*.iro|*.iro", ResourceHelper.Get(StringKey.SelectIroFile));
+            string sourceFolder = FileDialogHelper.BrowseForFile(
+                "*.iro|*.iro",
+                ResourceHelper.Get(StringKey.SelectIroFile)
+            );
 
             if (!string.IsNullOrEmpty(sourceFolder))
             {
@@ -51,7 +57,10 @@ namespace AppUI.UserControls
 
         private void btnBrowseIrop_Click(object sender, RoutedEventArgs e)
         {
-            string saveFile = FileDialogHelper.OpenSaveDialog(".iro patch (*.irop)|*.irop", ResourceHelper.Get(StringKey.SaveAsIropTitle));
+            string saveFile = FileDialogHelper.OpenSaveDialog(
+                ".iro patch (*.irop)|*.irop",
+                ResourceHelper.Get(StringKey.SaveAsIropTitle)
+            );
 
             if (!string.IsNullOrEmpty(saveFile))
             {

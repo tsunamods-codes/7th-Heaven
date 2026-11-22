@@ -18,8 +18,10 @@ namespace Iros.Workshop
         }
 
         public int DownloadSize { get; set; }
+
         [System.Xml.Serialization.XmlElement("Link")]
         public List<string> Links { get; set; }
+
         [System.Xml.Serialization.XmlElement("ApplyPatch")]
         public List<string> PatchLinks { get; set; }
         public string ExtractSubFolder { get; set; }
@@ -31,6 +33,5 @@ namespace Iros.Workshop
 
         public string PreviewImage { get; set; }
         public string ReleaseNotes { get; set; }
-
     }
 }

@@ -1,9 +1,9 @@
-﻿using Iros.Workshop;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
+using AppUI.ViewModels;
+using Iros.Workshop;
 
 namespace AppUI.Classes
 {
@@ -17,7 +17,9 @@ namespace AppUI.Classes
     {
         public ListSortDirection SortDirection = ListSortDirection.Ascending;
 
-        private CultureInfo culture = CultureInfo.CreateSpecificCulture(Sys.Settings.DateTimeCulture);
+        private CultureInfo culture = CultureInfo.CreateSpecificCulture(
+            Sys.Settings.DateTimeCulture
+        );
 
         public int Compare(DateTime? x, DateTime? y)
         {

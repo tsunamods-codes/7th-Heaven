@@ -17,7 +17,8 @@ namespace AppUI.Classes
             V = v;
         }
 
-        private static Dictionary<string, SupportedResolution> cache = new Dictionary<string, SupportedResolution>();
+        private static Dictionary<string, SupportedResolution> cache =
+            new Dictionary<string, SupportedResolution>();
 
         public static SupportedResolution CreateIfNotExist(UInt32 h, UInt32 v)
         {

@@ -1,10 +1,4 @@
-﻿using AppCore;
-using Iros.Workshop;
-using AppUI.Classes;
-using AppUI.Windows;
-using AppUI;
-using AppUI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,16 +7,22 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AppCore;
+using AppUI;
+using AppUI.Classes;
+using AppUI.ViewModels;
+using AppUI.Windows;
+using Iros.Workshop;
+
 namespace AppUI.ViewModels
 {
-
     public class ControlMappingViewModel : ViewModelBase
     {
         private enum CaptureState
         {
             NotCapturing,
             CaptureKeyboard,
-            CaptureController
+            CaptureController,
         }
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -34,7 +34,7 @@ namespace AppUI.ViewModels
             "1998 KB+PlayStation (Stock)",
             "1998 KB+PlayStation (Swap AB-XO)",
             "unab0mb's Choice+PlayStation (Stock)",
-            "unab0mb's Choice+PlayStation (Swap AB-XO)"
+            "unab0mb's Choice+PlayStation (Swap AB-XO)",
         };
 
         private bool _isCapturing;
@@ -96,10 +96,7 @@ namespace AppUI.ViewModels
 
         public string OkIcon
         {
-            get
-            {
-                return _okIcon;
-            }
+            get { return _okIcon; }
             set
             {
                 _okIcon = value;
@@ -109,10 +106,7 @@ namespace AppUI.ViewModels
 
         public string CancelIcon
         {
-            get
-            {
-                return _cancelIcon;
-            }
+            get { return _cancelIcon; }
             set
             {
                 _cancelIcon = value;
@@ -122,10 +116,7 @@ namespace AppUI.ViewModels
 
         public string MenuIcon
         {
-            get
-            {
-                return _menuIcon;
-            }
+            get { return _menuIcon; }
             set
             {
                 _menuIcon = value;
@@ -135,10 +126,7 @@ namespace AppUI.ViewModels
 
         public string SwitchIcon
         {
-            get
-            {
-                return _switchIcon;
-            }
+            get { return _switchIcon; }
             set
             {
                 _switchIcon = value;
@@ -148,10 +136,7 @@ namespace AppUI.ViewModels
 
         public string PageUpIcon
         {
-            get
-            {
-                return _pageUpIcon;
-            }
+            get { return _pageUpIcon; }
             set
             {
                 _pageUpIcon = value;
@@ -161,10 +146,7 @@ namespace AppUI.ViewModels
 
         public string PageDownIcon
         {
-            get
-            {
-                return _pageDownIcon;
-            }
+            get { return _pageDownIcon; }
             set
             {
                 _pageDownIcon = value;
@@ -174,10 +156,7 @@ namespace AppUI.ViewModels
 
         public string CameraIcon
         {
-            get
-            {
-                return _cameraIcon;
-            }
+            get { return _cameraIcon; }
             set
             {
                 _cameraIcon = value;
@@ -187,10 +166,7 @@ namespace AppUI.ViewModels
 
         public string TargetIcon
         {
-            get
-            {
-                return _targetIcon;
-            }
+            get { return _targetIcon; }
             set
             {
                 _targetIcon = value;
@@ -200,10 +176,7 @@ namespace AppUI.ViewModels
 
         public string AssistIcon
         {
-            get
-            {
-                return _assistIcon;
-            }
+            get { return _assistIcon; }
             set
             {
                 _assistIcon = value;
@@ -213,10 +186,7 @@ namespace AppUI.ViewModels
 
         public string StartIcon
         {
-            get
-            {
-                return _startIcon;
-            }
+            get { return _startIcon; }
             set
             {
                 _startIcon = value;
@@ -226,10 +196,7 @@ namespace AppUI.ViewModels
 
         public string UpIcon
         {
-            get
-            {
-                return _upIcon;
-            }
+            get { return _upIcon; }
             set
             {
                 _upIcon = value;
@@ -239,10 +206,7 @@ namespace AppUI.ViewModels
 
         public string DownIcon
         {
-            get
-            {
-                return _downIcon;
-            }
+            get { return _downIcon; }
             set
             {
                 _downIcon = value;
@@ -252,10 +216,7 @@ namespace AppUI.ViewModels
 
         public string LeftIcon
         {
-            get
-            {
-                return _leftIcon;
-            }
+            get { return _leftIcon; }
             set
             {
                 _leftIcon = value;
@@ -265,10 +226,7 @@ namespace AppUI.ViewModels
 
         public string RightIcon
         {
-            get
-            {
-                return _rightIcon;
-            }
+            get { return _rightIcon; }
             set
             {
                 _rightIcon = value;
@@ -276,14 +234,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
-
         public string OkKeyboardText
         {
-            get
-            {
-                return _okKeyboardText;
-            }
+            get { return _okKeyboardText; }
             set
             {
                 _okKeyboardText = value;
@@ -291,13 +244,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public string CancelKeyboardText
         {
-            get
-            {
-                return _cancelKeyboardText;
-            }
+            get { return _cancelKeyboardText; }
             set
             {
                 _cancelKeyboardText = value;
@@ -307,10 +256,7 @@ namespace AppUI.ViewModels
 
         public string MenuKeyboardText
         {
-            get
-            {
-                return _menuKeyboardText;
-            }
+            get { return _menuKeyboardText; }
             set
             {
                 _menuKeyboardText = value;
@@ -320,10 +266,7 @@ namespace AppUI.ViewModels
 
         public string SwitchKeyboardText
         {
-            get
-            {
-                return _switchKeyboardText;
-            }
+            get { return _switchKeyboardText; }
             set
             {
                 _switchKeyboardText = value;
@@ -333,10 +276,7 @@ namespace AppUI.ViewModels
 
         public string PageUpKeyboardText
         {
-            get
-            {
-                return _pageUpKeyboardText;
-            }
+            get { return _pageUpKeyboardText; }
             set
             {
                 _pageUpKeyboardText = value;
@@ -346,10 +286,7 @@ namespace AppUI.ViewModels
 
         public string PageDownKeyboardText
         {
-            get
-            {
-                return _pageDownKeyboardText;
-            }
+            get { return _pageDownKeyboardText; }
             set
             {
                 _pageDownKeyboardText = value;
@@ -359,10 +296,7 @@ namespace AppUI.ViewModels
 
         public string CameraKeyboardText
         {
-            get
-            {
-                return _cameraKeyboardText;
-            }
+            get { return _cameraKeyboardText; }
             set
             {
                 _cameraKeyboardText = value;
@@ -372,10 +306,7 @@ namespace AppUI.ViewModels
 
         public string TargetKeyboardText
         {
-            get
-            {
-                return _targetKeyboardText;
-            }
+            get { return _targetKeyboardText; }
             set
             {
                 _targetKeyboardText = value;
@@ -385,10 +316,7 @@ namespace AppUI.ViewModels
 
         public string AssistKeyboardText
         {
-            get
-            {
-                return _assistKeyboardText;
-            }
+            get { return _assistKeyboardText; }
             set
             {
                 _assistKeyboardText = value;
@@ -398,10 +326,7 @@ namespace AppUI.ViewModels
 
         public string StartKeyboardText
         {
-            get
-            {
-                return _startKeyboardText;
-            }
+            get { return _startKeyboardText; }
             set
             {
                 _startKeyboardText = value;
@@ -411,10 +336,7 @@ namespace AppUI.ViewModels
 
         public string UpKeyboardText
         {
-            get
-            {
-                return _upKeyboardText;
-            }
+            get { return _upKeyboardText; }
             set
             {
                 _upKeyboardText = value;
@@ -424,10 +346,7 @@ namespace AppUI.ViewModels
 
         public string DownKeyboardText
         {
-            get
-            {
-                return _downKeyboardText;
-            }
+            get { return _downKeyboardText; }
             set
             {
                 _downKeyboardText = value;
@@ -437,10 +356,7 @@ namespace AppUI.ViewModels
 
         public string LeftKeyboardText
         {
-            get
-            {
-                return _leftKeyboardText;
-            }
+            get { return _leftKeyboardText; }
             set
             {
                 _leftKeyboardText = value;
@@ -450,10 +366,7 @@ namespace AppUI.ViewModels
 
         public string RightKeyboardText
         {
-            get
-            {
-                return _rightKeyboardText;
-            }
+            get { return _rightKeyboardText; }
             set
             {
                 _rightKeyboardText = value;
@@ -463,10 +376,7 @@ namespace AppUI.ViewModels
 
         public string OkControllerText
         {
-            get
-            {
-                return _okControllerText;
-            }
+            get { return _okControllerText; }
             set
             {
                 _okControllerText = value;
@@ -474,13 +384,9 @@ namespace AppUI.ViewModels
             }
         }
 
-
         public string CancelControllerText
         {
-            get
-            {
-                return _cancelControllerText;
-            }
+            get { return _cancelControllerText; }
             set
             {
                 _cancelControllerText = value;
@@ -490,10 +396,7 @@ namespace AppUI.ViewModels
 
         public string MenuControllerText
         {
-            get
-            {
-                return _menuControllerText;
-            }
+            get { return _menuControllerText; }
             set
             {
                 _menuControllerText = value;
@@ -503,10 +406,7 @@ namespace AppUI.ViewModels
 
         public string SwitchControllerText
         {
-            get
-            {
-                return _switchControllerText;
-            }
+            get { return _switchControllerText; }
             set
             {
                 _switchControllerText = value;
@@ -516,10 +416,7 @@ namespace AppUI.ViewModels
 
         public string PageUpControllerText
         {
-            get
-            {
-                return _pageUpControllerText;
-            }
+            get { return _pageUpControllerText; }
             set
             {
                 _pageUpControllerText = value;
@@ -529,10 +426,7 @@ namespace AppUI.ViewModels
 
         public string PageDownControllerText
         {
-            get
-            {
-                return _pageDownControllerText;
-            }
+            get { return _pageDownControllerText; }
             set
             {
                 _pageDownControllerText = value;
@@ -542,10 +436,7 @@ namespace AppUI.ViewModels
 
         public string CameraControllerText
         {
-            get
-            {
-                return _cameraControllerText;
-            }
+            get { return _cameraControllerText; }
             set
             {
                 _cameraControllerText = value;
@@ -555,10 +446,7 @@ namespace AppUI.ViewModels
 
         public string TargetControllerText
         {
-            get
-            {
-                return _targetControllerText;
-            }
+            get { return _targetControllerText; }
             set
             {
                 _targetControllerText = value;
@@ -568,10 +456,7 @@ namespace AppUI.ViewModels
 
         public string AssistControllerText
         {
-            get
-            {
-                return _assistControllerText;
-            }
+            get { return _assistControllerText; }
             set
             {
                 _assistControllerText = value;
@@ -581,10 +466,7 @@ namespace AppUI.ViewModels
 
         public string StartControllerText
         {
-            get
-            {
-                return _startControllerText;
-            }
+            get { return _startControllerText; }
             set
             {
                 _startControllerText = value;
@@ -594,10 +476,7 @@ namespace AppUI.ViewModels
 
         public string UpControllerText
         {
-            get
-            {
-                return _upControllerText;
-            }
+            get { return _upControllerText; }
             set
             {
                 _upControllerText = value;
@@ -607,10 +486,7 @@ namespace AppUI.ViewModels
 
         public string DownControllerText
         {
-            get
-            {
-                return _downControllerText;
-            }
+            get { return _downControllerText; }
             set
             {
                 _downControllerText = value;
@@ -620,10 +496,7 @@ namespace AppUI.ViewModels
 
         public string LeftControllerText
         {
-            get
-            {
-                return _leftControllerText;
-            }
+            get { return _leftControllerText; }
             set
             {
                 _leftControllerText = value;
@@ -633,10 +506,7 @@ namespace AppUI.ViewModels
 
         public string RightControllerText
         {
-            get
-            {
-                return _rightControllerText;
-            }
+            get { return _rightControllerText; }
             set
             {
                 _rightControllerText = value;
@@ -646,10 +516,7 @@ namespace AppUI.ViewModels
 
         public bool IsCapturing
         {
-            get
-            {
-                return _isCapturing;
-            }
+            get { return _isCapturing; }
             set
             {
                 _isCapturing = value;
@@ -660,18 +527,12 @@ namespace AppUI.ViewModels
 
         public bool IsNotCapturing
         {
-            get
-            {
-                return !_isCapturing;
-            }
+            get { return !_isCapturing; }
         }
 
         public bool HasUnsavedChanges
         {
-            get
-            {
-                return _hasUnsavedChanges;
-            }
+            get { return _hasUnsavedChanges; }
             set
             {
                 _hasUnsavedChanges = value;
@@ -682,29 +543,19 @@ namespace AppUI.ViewModels
 
         public bool ApplyButtonIsEnabled
         {
-            get
-            {
-                return HasUnsavedChanges && IsCustomConfigOptionSelected;
-            }
+            get { return HasUnsavedChanges && IsCustomConfigOptionSelected; }
         }
-
 
         public List<string> InGameConfigOptions
         {
-            get
-            {
-                return InGameConfigurationMap.Keys.ToList();
-            }
+            get { return InGameConfigurationMap.Keys.ToList(); }
         }
 
         public Dictionary<string, string> InGameConfigurationMap { get; set; }
 
         public string SelectedGameConfigOption
         {
-            get
-            {
-                return _selectedGameConfigOption;
-            }
+            get { return _selectedGameConfigOption; }
             set
             {
                 _selectedGameConfigOption = value;
@@ -724,16 +575,15 @@ namespace AppUI.ViewModels
         {
             get
             {
-                return !_defaultControlNames.Any(s => s.Equals(SelectedGameConfigOption, StringComparison.InvariantCultureIgnoreCase));
+                return !_defaultControlNames.Any(s =>
+                    s.Equals(SelectedGameConfigOption, StringComparison.InvariantCultureIgnoreCase)
+                );
             }
         }
 
         public bool IsPs4SupportChecked
         {
-            get
-            {
-                return _isPs4SupportChecked;
-            }
+            get { return _isPs4SupportChecked; }
             set
             {
                 if (value == _isPs4SupportChecked)
@@ -762,10 +612,7 @@ namespace AppUI.ViewModels
 
         public bool IsInstallingDriver
         {
-            get
-            {
-                return _isInstallingDriver;
-            }
+            get { return _isInstallingDriver; }
             set
             {
                 _isInstallingDriver = value;
@@ -776,18 +623,12 @@ namespace AppUI.ViewModels
 
         public bool IsNotInstallingDriver
         {
-            get
-            {
-                return !_isInstallingDriver;
-            }
+            get { return !_isInstallingDriver; }
         }
 
         public bool IsDpadSupportChecked
         {
-            get
-            {
-                return _isDpadSupportChecked;
-            }
+            get { return _isDpadSupportChecked; }
             set
             {
                 if (value != _isDpadSupportChecked)
@@ -796,14 +637,26 @@ namespace AppUI.ViewModels
                     SetGamepadPollingInLaunchSettings();
 
                     NotifyPropertyChanged();
-                    SetButtonIcon(nameof(UpIcon), LoadedConfiguration.GamepadInputs[GameControl.Up].GamepadInput.Value);
-                    SetButtonIcon(nameof(DownIcon), LoadedConfiguration.GamepadInputs[GameControl.Down].GamepadInput.Value);
-                    SetButtonIcon(nameof(LeftIcon), LoadedConfiguration.GamepadInputs[GameControl.Left].GamepadInput.Value);
-                    SetButtonIcon(nameof(RightIcon), LoadedConfiguration.GamepadInputs[GameControl.Right].GamepadInput.Value);
+                    SetButtonIcon(
+                        nameof(UpIcon),
+                        LoadedConfiguration.GamepadInputs[GameControl.Up].GamepadInput.Value
+                    );
+                    SetButtonIcon(
+                        nameof(DownIcon),
+                        LoadedConfiguration.GamepadInputs[GameControl.Down].GamepadInput.Value
+                    );
+                    SetButtonIcon(
+                        nameof(LeftIcon),
+                        LoadedConfiguration.GamepadInputs[GameControl.Left].GamepadInput.Value
+                    );
+                    SetButtonIcon(
+                        nameof(RightIcon),
+                        LoadedConfiguration.GamepadInputs[GameControl.Right].GamepadInput.Value
+                    );
                 }
 
                 // do not allow both ps4 and dpad options on at same time
-                if (IsDpadSupportChecked) 
+                if (IsDpadSupportChecked)
                 {
                     IsPs4SupportChecked = false;
                 }
@@ -816,16 +669,17 @@ namespace AppUI.ViewModels
 
             InitInGameConfigOptions();
 
-            _selectedGameConfigOption = InGameConfigurationMap.Where(s => s.Value == Sys.Settings.GameLaunchSettings.InGameConfigOption)
-                                                             .Select(c => c.Key)
-                                                             .FirstOrDefault();
+            _selectedGameConfigOption = InGameConfigurationMap
+                .Where(s => s.Value == Sys.Settings.GameLaunchSettings.InGameConfigOption)
+                .Select(c => c.Key)
+                .FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(SelectedGameConfigOption))
             {
                 // default to first option if their previous option is missing
                 _selectedGameConfigOption = InGameConfigOptions[0];
             }
-            
+
             // setting private variables here so code in property setters are not executed (e.g update sys.settings and ui)
             _isPs4SupportChecked = Sys.Settings.GameLaunchSettings.EnablePs4ControllerService;
             _isDpadSupportChecked = Sys.Settings.GameLaunchSettings.EnableGamepadPolling;
@@ -835,7 +689,12 @@ namespace AppUI.ViewModels
 
         private void LoadSelectedConfiguration()
         {
-            LoadedConfiguration = ControlMapper.LoadConfigurationFromFile(Path.Combine(Sys.PathToControlsFolder, InGameConfigurationMap[SelectedGameConfigOption]));
+            LoadedConfiguration = ControlMapper.LoadConfigurationFromFile(
+                Path.Combine(
+                    Sys.PathToControlsFolder,
+                    InGameConfigurationMap[SelectedGameConfigOption]
+                )
+            );
             UpdateAllButtonText();
             UpdateAllButtonIcons();
             HasUnsavedChanges = false;
@@ -851,7 +710,11 @@ namespace AppUI.ViewModels
                 Directory.CreateDirectory(Sys.PathToControlsFolder);
             }
 
-            foreach (string filePath in Directory.GetFiles(Sys.PathToControlsFolder, "*.cfg").OrderBy(s => s))
+            foreach (
+                string filePath in Directory
+                    .GetFiles(Sys.PathToControlsFolder, "*.cfg")
+                    .OrderBy(s => s)
+            )
             {
                 FileInfo info = new FileInfo(filePath);
                 configOptions.Add(Path.GetFileNameWithoutExtension(filePath), info.Name);
@@ -868,7 +731,9 @@ namespace AppUI.ViewModels
         {
             try
             {
-                Sys.Settings.GameLaunchSettings.InGameConfigOption = InGameConfigurationMap[SelectedGameConfigOption];
+                Sys.Settings.GameLaunchSettings.InGameConfigOption = InGameConfigurationMap[
+                    SelectedGameConfigOption
+                ];
                 Sys.SaveSettings();
             }
             catch (Exception e)
@@ -951,7 +816,9 @@ namespace AppUI.ViewModels
                 return false;
             }
 
-            ControlInputSetting numpadEnterSetting = ControlMapper.ControlInputs.Where(c => c.DisplayText == "NUMPADENTER").FirstOrDefault();
+            ControlInputSetting numpadEnterSetting = ControlMapper
+                .ControlInputs.Where(c => c.DisplayText == "NUMPADENTER")
+                .FirstOrDefault();
             LoadedConfiguration.SetKeyboardInput(_controlToCapture, numpadEnterSetting);
 
             UpdateAllButtonText();
@@ -964,7 +831,10 @@ namespace AppUI.ViewModels
 
         internal void UpdateAllButtonIcons()
         {
-            Dictionary<GameControl, string> propertiesToUpdate = new Dictionary<GameControl, string>()
+            Dictionary<GameControl, string> propertiesToUpdate = new Dictionary<
+                GameControl,
+                string
+            >()
             {
                 { GameControl.Ok, nameof(OkIcon) },
                 { GameControl.Cancel, nameof(CancelIcon) },
@@ -984,10 +854,16 @@ namespace AppUI.ViewModels
 
             foreach (var item in propertiesToUpdate)
             {
-                LoadedConfiguration.GamepadInputs.TryGetValue(item.Key, out ControlInputSetting setting);
+                LoadedConfiguration.GamepadInputs.TryGetValue(
+                    item.Key,
+                    out ControlInputSetting setting
+                );
                 if (setting != null)
                 {
-                    SetButtonIcon(item.Value, LoadedConfiguration.GamepadInputs[item.Key].GamepadInput.Value);
+                    SetButtonIcon(
+                        item.Value,
+                        LoadedConfiguration.GamepadInputs[item.Key].GamepadInput.Value
+                    );
                 }
                 else
                 {
@@ -1006,7 +882,10 @@ namespace AppUI.ViewModels
 
         private void UpdateButtonText(GameControl controlToUpdate)
         {
-            Dictionary<GameControl, string> propertiesToUpdate = new Dictionary<GameControl, string>()
+            Dictionary<GameControl, string> propertiesToUpdate = new Dictionary<
+                GameControl,
+                string
+            >()
             {
                 { GameControl.Ok, nameof(OkKeyboardText) },
                 { GameControl.Cancel, nameof(CancelKeyboardText) },
@@ -1024,7 +903,10 @@ namespace AppUI.ViewModels
                 { GameControl.Right, nameof(RightKeyboardText) },
             };
 
-            Dictionary<GameControl, string> gamepadpropertiesToUpdate = new Dictionary<GameControl, string>()
+            Dictionary<GameControl, string> gamepadpropertiesToUpdate = new Dictionary<
+                GameControl,
+                string
+            >()
             {
                 { GameControl.Ok, nameof(OkControllerText) },
                 { GameControl.Cancel, nameof(CancelControllerText) },
@@ -1044,18 +926,39 @@ namespace AppUI.ViewModels
 
             // use reflection to set the correct property based on the control that was updated
 
-            PropertyInfo prop = this.GetType().GetProperty(propertiesToUpdate[controlToUpdate], BindingFlags.Public | BindingFlags.Instance);
-            if (prop?.CanWrite == true && LoadedConfiguration.KeyboardInputs.ContainsKey(controlToUpdate))
+            PropertyInfo prop = this.GetType()
+                .GetProperty(
+                    propertiesToUpdate[controlToUpdate],
+                    BindingFlags.Public | BindingFlags.Instance
+                );
+            if (
+                prop?.CanWrite == true
+                && LoadedConfiguration.KeyboardInputs.ContainsKey(controlToUpdate)
+            )
             {
-                prop.SetValue(this, LoadedConfiguration.KeyboardInputs[controlToUpdate]?.DisplayText, null);
+                prop.SetValue(
+                    this,
+                    LoadedConfiguration.KeyboardInputs[controlToUpdate]?.DisplayText,
+                    null
+                );
             }
 
-            prop = this.GetType().GetProperty(gamepadpropertiesToUpdate[controlToUpdate], BindingFlags.Public | BindingFlags.Instance);
-            if (prop?.CanWrite == true && LoadedConfiguration.GamepadInputs.ContainsKey(controlToUpdate))
+            prop = this.GetType()
+                .GetProperty(
+                    gamepadpropertiesToUpdate[controlToUpdate],
+                    BindingFlags.Public | BindingFlags.Instance
+                );
+            if (
+                prop?.CanWrite == true
+                && LoadedConfiguration.GamepadInputs.ContainsKey(controlToUpdate)
+            )
             {
-                prop.SetValue(this, LoadedConfiguration.GamepadInputs[controlToUpdate]?.DisplayText, null);
+                prop.SetValue(
+                    this,
+                    LoadedConfiguration.GamepadInputs[controlToUpdate]?.DisplayText,
+                    null
+                );
             }
-
         }
 
         internal void StartCapturingKeyboardInput(GameControl controlToCapture)
@@ -1079,7 +982,6 @@ namespace AppUI.ViewModels
         {
             return Task.Factory.StartNew(() =>
             {
-
                 if (ConnectedController == null)
                 {
                     ConnectedController = new GameController();
@@ -1101,17 +1003,21 @@ namespace AppUI.ViewModels
                         continue;
                     }
 
-
                     GamePadButton? pressedButton = ConnectedController.GetPressedButton();
                     if (pressedButton.HasValue)
                     {
                         if (ConnectedController.IsXInputDevice)
                         {
                             // convert game button press to the DInput equivalent
-                            pressedButton = GameController.GetXInputToDInputButton(pressedButton.Value);
+                            pressedButton = GameController.GetXInputToDInputButton(
+                                pressedButton.Value
+                            );
                         }
 
-                        if (pressedButton == GamePadButton.Button11 || pressedButton == GamePadButton.Button12)
+                        if (
+                            pressedButton == GamePadButton.Button11
+                            || pressedButton == GamePadButton.Button12
+                        )
                         {
                             // ignore stick clicks for now (button 11/12 for DInput devices)
                             continue;
@@ -1131,16 +1037,15 @@ namespace AppUI.ViewModels
                         break;
                     }
                 }
-
             });
         }
 
         private bool IsDpadButton(GamePadButton button)
         {
-            return button == GamePadButton.DPadUp ||
-                   button == GamePadButton.DPadDown ||
-                   button == GamePadButton.DPadLeft ||
-                   button == GamePadButton.DPadRight;
+            return button == GamePadButton.DPadUp
+                || button == GamePadButton.DPadDown
+                || button == GamePadButton.DPadLeft
+                || button == GamePadButton.DPadRight;
         }
 
         internal void SaveNewCustomControl()
@@ -1168,14 +1073,24 @@ namespace AppUI.ViewModels
                 if (string.IsNullOrEmpty(controlName))
                 {
                     isValid = false;
-                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ControlNameIsEmpty), ResourceHelper.Get(StringKey.SaveError), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageDialogWindow.Show(
+                        ResourceHelper.Get(StringKey.ControlNameIsEmpty),
+                        ResourceHelper.Get(StringKey.SaveError),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                     continue;
                 }
 
                 if (Path.GetInvalidFileNameChars().Any(c => controlName.Contains(c)))
                 {
                     isValid = false;
-                    MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ControlNameContainsInvalidChars), ResourceHelper.Get(StringKey.SaveError), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageDialogWindow.Show(
+                        ResourceHelper.Get(StringKey.ControlNameContainsInvalidChars),
+                        ResourceHelper.Get(StringKey.SaveError),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                     continue;
                 }
 
@@ -1192,22 +1107,32 @@ namespace AppUI.ViewModels
                     if (File.Exists(pathToFile))
                     {
                         isValid = false;
-                        MessageDialogWindow.Show(ResourceHelper.Get(StringKey.ControlsWithThatNameAlreadyExist), ResourceHelper.Get(StringKey.SaveError), MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageDialogWindow.Show(
+                            ResourceHelper.Get(StringKey.ControlsWithThatNameAlreadyExist),
+                            ResourceHelper.Get(StringKey.SaveError),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                     }
                 }
-
             } while (!isValid);
 
             try
             {
-                string pathToDefaultFile = Path.Combine(Sys.PathToControlsFolder, InGameConfigurationMap[_defaultControlNames[0]]);
+                string pathToDefaultFile = Path.Combine(
+                    Sys.PathToControlsFolder,
+                    InGameConfigurationMap[_defaultControlNames[0]]
+                );
 
-                ControlMapper.CopyConfigurationFileAndSaveAsNew(pathToDefaultFile, $"{controlName}.cfg", LoadedConfiguration);
+                ControlMapper.CopyConfigurationFileAndSaveAsNew(
+                    pathToDefaultFile,
+                    $"{controlName}.cfg",
+                    LoadedConfiguration
+                );
 
                 InitInGameConfigOptions();
                 SelectedGameConfigOption = controlName;
                 //StatusMessage = ResourceHelper.Get(StringKey.SuccessfullyCreatedCustomControls);
-
             }
             catch (Exception e)
             {
@@ -1254,7 +1179,9 @@ namespace AppUI.ViewModels
         {
             string pathToCustomCfg = Path.Combine(Sys.PathToControlsFolder, customFileName);
             string pathToInputCfg = Path.Combine(
-                Sys.Settings.FF7InstalledVersion == FF7Version.Steam ? GameConverter.GetSteamFF7UserPath() : Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                Sys.Settings.FF7InstalledVersion == FF7Version.Steam
+                    ? GameConverter.GetSteamFF7UserPath()
+                    : Path.GetDirectoryName(Sys.Settings.FF7Exe),
                 "ff7input.cfg"
             );
 
@@ -1294,7 +1221,13 @@ namespace AppUI.ViewModels
         {
             try
             {
-                ControlMapper.SaveConfigurationToFile(Path.Combine(Sys.PathToControlsFolder, InGameConfigurationMap[SelectedGameConfigOption]), LoadedConfiguration);
+                ControlMapper.SaveConfigurationToFile(
+                    Path.Combine(
+                        Sys.PathToControlsFolder,
+                        InGameConfigurationMap[SelectedGameConfigOption]
+                    ),
+                    LoadedConfiguration
+                );
                 HasUnsavedChanges = false;
             }
             catch (Exception e)
@@ -1308,53 +1241,146 @@ namespace AppUI.ViewModels
         {
             Dictionary<GamePadButton, string> icons = new Dictionary<GamePadButton, string>()
             {
-                { GamePadButton.Button1, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Square_X.png" },
-                { GamePadButton.Button2, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Cross_A.png" },
-                { GamePadButton.Button3, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Circle_B.png" },
-                { GamePadButton.Button4, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Triangle_Y.png" },
-                { GamePadButton.Button5, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/L1_LB.png" },
-                { GamePadButton.Button6, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/R1_RB.png" },
-                { GamePadButton.Button7, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/L2_LT.png" },
-                { GamePadButton.Button8, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/R2_RT.png" },
-                { GamePadButton.Button9, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Share_Back.png" },
-                { GamePadButton.Button10, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Options_Start.png" },
-                { GamePadButton.Button11, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Click.png" },
-                { GamePadButton.Button12, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_RS_Click.png" },
-                { GamePadButton.Button13, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Home_Guide.png" },
-                { GamePadButton.Button14, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Unknown.png" },
-                { GamePadButton.Up, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Up.png" },
-                { GamePadButton.Down, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Down.png" },
-                { GamePadButton.Left, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Left.png" },
-                { GamePadButton.Right, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Right.png" },
-                { GamePadButton.DPadUp, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Up.png" },
-                { GamePadButton.DPadDown, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Down.png" },
-                { GamePadButton.DPadLeft, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Left.png" },
-                { GamePadButton.DPadRight, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Right.png" },
+                {
+                    GamePadButton.Button1,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Square_X.png"
+                },
+                {
+                    GamePadButton.Button2,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Cross_A.png"
+                },
+                {
+                    GamePadButton.Button3,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Circle_B.png"
+                },
+                {
+                    GamePadButton.Button4,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Triangle_Y.png"
+                },
+                {
+                    GamePadButton.Button5,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/L1_LB.png"
+                },
+                {
+                    GamePadButton.Button6,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/R1_RB.png"
+                },
+                {
+                    GamePadButton.Button7,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/L2_LT.png"
+                },
+                {
+                    GamePadButton.Button8,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/R2_RT.png"
+                },
+                {
+                    GamePadButton.Button9,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Share_Back.png"
+                },
+                {
+                    GamePadButton.Button10,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Options_Start.png"
+                },
+                {
+                    GamePadButton.Button11,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Click.png"
+                },
+                {
+                    GamePadButton.Button12,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_RS_Click.png"
+                },
+                {
+                    GamePadButton.Button13,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Home_Guide.png"
+                },
+                {
+                    GamePadButton.Button14,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/Unknown.png"
+                },
+                {
+                    GamePadButton.Up,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Up.png"
+                },
+                {
+                    GamePadButton.Down,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Down.png"
+                },
+                {
+                    GamePadButton.Left,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Left.png"
+                },
+                {
+                    GamePadButton.Right,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XB_LS_Right.png"
+                },
+                {
+                    GamePadButton.DPadUp,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Up.png"
+                },
+                {
+                    GamePadButton.DPadDown,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Down.png"
+                },
+                {
+                    GamePadButton.DPadLeft,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Left.png"
+                },
+                {
+                    GamePadButton.DPadRight,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/XBOne_DPad_Right.png"
+                },
             };
 
-            Dictionary<GamePadButton, string> directionalIcons = new Dictionary<GamePadButton, string>()
+            Dictionary<GamePadButton, string> directionalIcons = new Dictionary<
+                GamePadButton,
+                string
+            >()
             {
-                { GamePadButton.Up, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Up.png" },
-                { GamePadButton.Down, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Down.png" },
-                { GamePadButton.Left, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Left.png" },
-                { GamePadButton.Right, "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Right.png" },
+                {
+                    GamePadButton.Up,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Up.png"
+                },
+                {
+                    GamePadButton.Down,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Down.png"
+                },
+                {
+                    GamePadButton.Left,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Left.png"
+                },
+                {
+                    GamePadButton.Right,
+                    "/7th Heaven;component/Resources/Icons/PS_Xbox_Icons/LS_DPad_Right.png"
+                },
             };
 
-
-            PropertyInfo prop = this.GetType().GetProperty(propertyToUpdate, BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo prop = this.GetType()
+                .GetProperty(propertyToUpdate, BindingFlags.Public | BindingFlags.Instance);
             if (newButton == null)
             {
                 prop.SetValue(this, null, null);
                 return;
             }
 
-
             GamePadButton button = newButton.Value;
 
-            if (IsDpadSupportChecked && (button == GamePadButton.Up || button == GamePadButton.Down || button == GamePadButton.Left || button == GamePadButton.Right))
+            if (
+                IsDpadSupportChecked
+                && (
+                    button == GamePadButton.Up
+                    || button == GamePadButton.Down
+                    || button == GamePadButton.Left
+                    || button == GamePadButton.Right
+                )
+            )
             {
                 // check if dpad is binded to other controls; if not then display the image of the dpad/leftstick together
-                if (LoadedConfiguration.IsButtonBinded(GamePadButton.DPadUp) || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadDown) || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadLeft) || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadRight))
+                if (
+                    LoadedConfiguration.IsButtonBinded(GamePadButton.DPadUp)
+                    || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadDown)
+                    || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadLeft)
+                    || LoadedConfiguration.IsButtonBinded(GamePadButton.DPadRight)
+                )
                 {
                     prop.SetValue(this, icons[button], null);
                 }
@@ -1371,11 +1397,13 @@ namespace AppUI.ViewModels
 
         internal void LaunchControlPanelGameControllersWindow()
         {
-            Process.Start(new ProcessStartInfo("control.exe")
-            {
-                Arguments = "joy.cpl",
-                UseShellExecute = true,
-            });
+            Process.Start(
+                new ProcessStartInfo("control.exe")
+                {
+                    Arguments = "joy.cpl",
+                    UseShellExecute = true,
+                }
+            );
         }
 
         internal void TurnOffPs4Service()
@@ -1390,7 +1418,12 @@ namespace AppUI.ViewModels
                 if (!DS4ControllerService.IsScpDriverInstalled())
                 {
                     // user must install the driver first before using ds4. prompt user driver will silently install then turn on
-                    var messageResult = MessageDialogWindow.Show("The SCP Virtual Bus Driver is not installed. It is required to enable PS4 controller support.\n\nDo you want to install the driver?", "Missing Required Driver", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var messageResult = MessageDialogWindow.Show(
+                        "The SCP Virtual Bus Driver is not installed. It is required to enable PS4 controller support.\n\nDo you want to install the driver?",
+                        "Missing Required Driver",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question
+                    );
 
                     if (messageResult.Result == MessageBoxResult.No)
                     {
@@ -1398,13 +1431,19 @@ namespace AppUI.ViewModels
                         return;
                     }
 
-                    InstallDriverAsync().ContinueWith((result) => 
-                    {
-                        if (IsPs4SupportChecked && DS4ControllerService.IsScpDriverInstalled())
-                        {
-                            DS4ControllerService.Instance.StartService();
-                        }
-                    });
+                    InstallDriverAsync()
+                        .ContinueWith(
+                            (result) =>
+                            {
+                                if (
+                                    IsPs4SupportChecked
+                                    && DS4ControllerService.IsScpDriverInstalled()
+                                )
+                                {
+                                    DS4ControllerService.Instance.StartService();
+                                }
+                            }
+                        );
                     return;
                 }
 
@@ -1426,7 +1465,7 @@ namespace AppUI.ViewModels
                 {
                     UseShellExecute = true,
                     Verb = "runas",
-                    WorkingDirectory = Sys.PathToVBusDriver // ensure the working directory is where the .exe is located
+                    WorkingDirectory = Sys.PathToVBusDriver, // ensure the working directory is where the .exe is located
                 };
                 Process.Start(startInfo);
 
@@ -1441,19 +1480,31 @@ namespace AppUI.ViewModels
 
                 if (File.Exists(Path.Combine(Sys.PathToVBusDriver, "ScpDriver.log")))
                 {
-                    string logContents = File.ReadAllText(Path.Combine(Sys.PathToVBusDriver, "ScpDriver.log"));
+                    string logContents = File.ReadAllText(
+                        Path.Combine(Sys.PathToVBusDriver, "ScpDriver.log")
+                    );
                     installSuccess = logContents.Contains("Install Succeeded");
                 }
 
                 // show message to user if issues with install or detecting
                 if (installSuccess && !DS4ControllerService.IsScpDriverInstalled())
                 {
-                    MessageDialogWindow.Show("The SCP driver finished installing but could not be detected yet. Wait 5-10 seconds and try again (you may need to reboot for Windows to notice the driver.)", "Driver Installed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageDialogWindow.Show(
+                        "The SCP driver finished installing but could not be detected yet. Wait 5-10 seconds and try again (you may need to reboot for Windows to notice the driver.)",
+                        "Driver Installed",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                     IsPs4SupportChecked = false; // uncheck so user can toggle back on in a few seconds
                 }
                 else if (!installSuccess)
                 {
-                    MessageDialogWindow.Show("The SCP driver failed to install.", "Install Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageDialogWindow.Show(
+                        "The SCP driver failed to install.",
+                        "Install Failed",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                     IsPs4SupportChecked = false; // uncheck so user can toggle back on in a few seconds to try again
                 }
 

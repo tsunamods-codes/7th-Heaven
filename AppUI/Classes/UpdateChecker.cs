@@ -1,16 +1,16 @@
-﻿using AppCore;
-using Iros.Workshop;
-using Newtonsoft.Json.Linq;
-using AppUI.Windows;
-using AppUI;
-using SharpCompress.Archives;
-using SharpCompress.Archives.Zip;
-using SharpCompress.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using AppCore;
+using AppUI;
+using AppUI.Windows;
+using Iros.Workshop;
+using Newtonsoft.Json.Linq;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Zip;
+using SharpCompress.Common;
 
 namespace AppUI.Classes
 {
@@ -92,10 +92,14 @@ namespace AppUI.Classes
         {
             DownloadItem download = new DownloadItem()
             {
-                Links = new List<string>() { LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)) },
+                Links = new List<string>()
+                {
+                    LocationUtil.FormatHttpUrl(GetUpdateChannel(channel)),
+                },
                 SaveFilePath = GetUpdateInfoPath(),
                 Category = DownloadCategory.AppUpdate,
-                ItemName = $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} {channel.ToString()}"
+                ItemName =
+                    $"{ResourceHelper.Get(StringKey.CheckingForUpdatesUsingChannel)} {channel.ToString()}",
             };
 
             download.IProc = new Install.InstallProcedureCallback(e =>
@@ -118,41 +122,88 @@ namespace AppUI.Classes
                         {
                             case 1: // NEWER
                                 if (
-                                    MessageDialogWindow.Show(
-                                        string.Format(ResourceHelper.Get(StringKey.AppUpdateIsAvailableMessage), $"{App.GetAppName()} - {App.GetAppVersion()}", newVersion.ToString()),
-                                        release.body.Value,
-                                        ResourceHelper.Get(StringKey.NewVersionAvailable),
-                                        System.Windows.MessageBoxButton.YesNo,
-                                        System.Windows.MessageBoxImage.Question
-                                    ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(release.assets), newVersion.ToString());
+                                    MessageDialogWindow
+                                        .Show(
+                                            string.Format(
+                                                ResourceHelper.Get(
+                                                    StringKey.AppUpdateIsAvailableMessage
+                                                ),
+                                                $"{App.GetAppName()} - {App.GetAppVersion()}",
+                                                newVersion.ToString()
+                                            ),
+                                            release.body.Value,
+                                            ResourceHelper.Get(StringKey.NewVersionAvailable),
+                                            System.Windows.MessageBoxButton.YesNo,
+                                            System.Windows.MessageBoxImage.Question
+                                        )
+                                        .Result == System.Windows.MessageBoxResult.Yes
+                                )
+                                    DownloadAndExtract(
+                                        GetUpdateReleaseUrl(release.assets),
+                                        newVersion.ToString()
+                                    );
                                 break;
                             case 0: // SAME
                                 if (manualCheck)
-                                    MessageDialogWindow.Show("7th Heaven version is up to date!", "No update found", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                                    MessageDialogWindow.Show(
+                                        "7th Heaven version is up to date!",
+                                        "No update found",
+                                        System.Windows.MessageBoxButton.OK,
+                                        System.Windows.MessageBoxImage.Information
+                                    );
                                 break;
                             case -1: // OLDER
                                 if (
-                                    MessageDialogWindow.Show(
-                                        $"Your 7th Heaven version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
-                                        "Update found!",
-                                        System.Windows.MessageBoxButton.YesNo,
-                                        System.Windows.MessageBoxImage.Question
-                                    ).Result == System.Windows.MessageBoxResult.Yes)
-                                    DownloadAndExtract(GetUpdateReleaseUrl(release.assets), newVersion.ToString());
+                                    MessageDialogWindow
+                                        .Show(
+                                            $"Your 7th Heaven version is newer than the one being offered by your channel management setting.\n\nCurrently installed: {curVersion.ToString()}\nVersion being offered: {newVersion.ToString()}\n\nContinue with the downgrade?",
+                                            "Update found!",
+                                            System.Windows.MessageBoxButton.YesNo,
+                                            System.Windows.MessageBoxImage.Question
+                                        )
+                                        .Result == System.Windows.MessageBoxResult.Yes
+                                )
+                                    DownloadAndExtract(
+                                        GetUpdateReleaseUrl(release.assets),
+                                        newVersion.ToString()
+                                    );
                                 break;
                         }
                     }
                     catch (Exception)
                     {
-                        MessageDialogWindow.Show("Something went wrong while checking for 7th Heaven updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not parse the 7th Heaven release json at {GetUpdateChannel(channel)}", LoggedException = e.Error });
+                        MessageDialogWindow.Show(
+                            "Something went wrong while checking for 7th Heaven updates. Please try again later.",
+                            "Error",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text =
+                                    $"Could not parse the 7th Heaven release json at {GetUpdateChannel(channel)}",
+                                LoggedException = e.Error,
+                            }
+                        );
                     }
                 }
                 else
                 {
-                    MessageDialogWindow.Show("Something went wrong while checking for 7th Heaven updates. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                    Sys.Message(new WMessage() { Text = $"Could not fetch for 7th Heaven updates at {GetUpdateChannel(channel)}", LoggedException = e.Error });
+                    MessageDialogWindow.Show(
+                        "Something went wrong while checking for 7th Heaven updates. Please try again later.",
+                        "Error",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Error
+                    );
+                    Sys.Message(
+                        new WMessage()
+                        {
+                            Text =
+                                $"Could not fetch for 7th Heaven updates at {GetUpdateChannel(channel)}",
+                            LoggedException = e.Error,
+                        }
+                    );
                 }
             });
 
@@ -168,9 +219,12 @@ namespace AppUI.Classes
                 DownloadItem download = new DownloadItem()
                 {
                     Links = new List<string>() { LocationUtil.FormatHttpUrl(url) },
-                    SaveFilePath = Path.Combine(Sys.PathToTempFolder, url.Substring(url.LastIndexOf("/") + 1)),
+                    SaveFilePath = Path.Combine(
+                        Sys.PathToTempFolder,
+                        url.Substring(url.LastIndexOf("/") + 1)
+                    ),
                     Category = DownloadCategory.AppUpdate,
-                    ItemName = $"Downloading 7th Heaven Update {url}..."
+                    ItemName = $"Downloading 7th Heaven Update {url}...",
                 };
 
                 download.IProc = new Install.InstallProcedureCallback(e =>
@@ -181,15 +235,37 @@ namespace AppUI.Classes
                     {
                         SwitchToModPanel();
 
-                        MessageDialogWindow.Show($"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update is completed.\n\nEnjoy!", "Success", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-                        Sys.Message(new WMessage() { Text = $"Successfully extracted the 7th Heaven version {version}. Ready to launch the update." });
+                        MessageDialogWindow.Show(
+                            $"Successfully downloaded version {version}.\n\nWe will now start the update process. 7th Heaven will restart automatically when the update is completed.\n\nEnjoy!",
+                            "Success",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Information
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text =
+                                    $"Successfully extracted the 7th Heaven version {version}. Ready to launch the update.",
+                            }
+                        );
 
                         StartUpdate(download.SaveFilePath);
                     }
                     else
                     {
-                        MessageDialogWindow.Show("Something went wrong while downloading the 7th Heaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                        Sys.Message(new WMessage() { Text = $"Could not download the 7th Heaven update {url}", LoggedException = e.Error });
+                        MessageDialogWindow.Show(
+                            "Something went wrong while downloading the 7th Heaven update. Please try again later.",
+                            "Error",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error
+                        );
+                        Sys.Message(
+                            new WMessage()
+                            {
+                                Text = $"Could not download the 7th Heaven update {url}",
+                                LoggedException = e.Error,
+                            }
+                        );
                     }
                 });
 
@@ -197,7 +273,12 @@ namespace AppUI.Classes
             }
             else
             {
-                MessageDialogWindow.Show("Something went wrong while downloading the 7th Heaven update. Please try again later.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageDialogWindow.Show(
+                    "Something went wrong while downloading the 7th Heaven update. Please try again later.",
+                    "Error",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error
+                );
             }
         }
 
@@ -232,7 +313,7 @@ namespace AppUI.Classes
                 {
                     CreateNoWindow = false,
                     UseShellExecute = true,
-                    Verb = FileUtils.IsLocatedInSystemFolders(fileName) ? "runas" : ""
+                    Verb = FileUtils.IsLocatedInSystemFolders(fileName) ? "runas" : "",
                 };
 
                 // Launch process, wait and then save exit code
@@ -241,9 +322,21 @@ namespace AppUI.Classes
                     temp.WaitForExit();
                 }
             }
-            catch (Exception e) {
-                MessageDialogWindow.Show("Something went wrong while trying to update 7th Heaven. See the error log for more details.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                Sys.Message(new WMessage() { Text = $"Error while trying to update 7th Heaven", LoggedException = e });
+            catch (Exception e)
+            {
+                MessageDialogWindow.Show(
+                    "Something went wrong while trying to update 7th Heaven. See the error log for more details.",
+                    "Error",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error
+                );
+                Sys.Message(
+                    new WMessage()
+                    {
+                        Text = $"Error while trying to update 7th Heaven",
+                        LoggedException = e,
+                    }
+                );
             }
         }
     }

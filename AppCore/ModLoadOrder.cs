@@ -22,7 +22,7 @@ namespace AppCore
         WorldModels,
         WorldTextures,
         ModShaders,
-        Unknown
+        Unknown,
     }
 
     public static class ModLoadOrder
@@ -30,47 +30,51 @@ namespace AppCore
         /// <summary>
         /// Maps the category to the respective load order (also accessible from <see cref="ModCategory"/> enum)
         /// </summary>
-        public static Dictionary<string, int> Orders = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
+        public static Dictionary<string, int> Orders = new Dictionary<string, int>(
+            StringComparer.InvariantCultureIgnoreCase
+        )
         {
-            { "Miscellaneous", 0},
-            { "Animations", 1},
-            { "Battle Models", 2},
-            { "Battle Textures", 3},
-            { "Field Models", 4},
-            { "Field Textures", 5},
-            { "Gameplay", 6},
-            { "Media", 7},
-            { "Minigames", 8},
-            { "Spell Textures", 9},
-            { "User Interface", 10},
-            { "World Models", 11},
-            { "World Textures", 12},
-            { "Shaders", 13},
-            { "Unknown", 14}
+            { "Miscellaneous", 0 },
+            { "Animations", 1 },
+            { "Battle Models", 2 },
+            { "Battle Textures", 3 },
+            { "Field Models", 4 },
+            { "Field Textures", 5 },
+            { "Gameplay", 6 },
+            { "Media", 7 },
+            { "Minigames", 8 },
+            { "Spell Textures", 9 },
+            { "User Interface", 10 },
+            { "World Models", 11 },
+            { "World Textures", 12 },
+            { "Shaders", 13 },
+            { "Unknown", 14 },
         };
 
         /// <summary>
         /// Maps the english category to the respective <see cref="StringKey"/> that is used to translate the category.
         /// </summary>
-        public static Dictionary<string, StringKey> ModCategoryTranslationKeys = new Dictionary<string, StringKey>(StringComparer.InvariantCultureIgnoreCase)
+        public static Dictionary<string, StringKey> ModCategoryTranslationKeys = new Dictionary<
+            string,
+            StringKey
+        >(StringComparer.InvariantCultureIgnoreCase)
         {
-            { "Miscellaneous", StringKey.Miscellaneous},
-            { "Animations", StringKey.Animations},
-            { "Battle Models", StringKey.BattleModels},
-            { "Battle Textures", StringKey.BattleTextures},
-            { "Field Models", StringKey.FieldModels},
-            { "Field Textures", StringKey.FieldTextures},
-            { "Gameplay", StringKey.Gameplay},
-            { "Media", StringKey.Media},
-            { "Minigames", StringKey.Minigames},
-            { "Spell Textures", StringKey.SpellTextures},
-            { "User Interface", StringKey.UserInterface},
-            { "World Models", StringKey.WorldModels},
-            { "World Textures", StringKey.WorldTextures},
+            { "Miscellaneous", StringKey.Miscellaneous },
+            { "Animations", StringKey.Animations },
+            { "Battle Models", StringKey.BattleModels },
+            { "Battle Textures", StringKey.BattleTextures },
+            { "Field Models", StringKey.FieldModels },
+            { "Field Textures", StringKey.FieldTextures },
+            { "Gameplay", StringKey.Gameplay },
+            { "Media", StringKey.Media },
+            { "Minigames", StringKey.Minigames },
+            { "Spell Textures", StringKey.SpellTextures },
+            { "User Interface", StringKey.UserInterface },
+            { "World Models", StringKey.WorldModels },
+            { "World Textures", StringKey.WorldTextures },
             { "Shaders", StringKey.ModShaders },
-            { "Unknown", StringKey.Unknown}
+            { "Unknown", StringKey.Unknown },
         };
-
 
         /// <summary>
         /// Returns the <see cref="StringKey"/> used for translating category. Null/empty string returns 'Unknown'
@@ -79,7 +83,10 @@ namespace AppCore
         /// <returns></returns>
         public static StringKey GetCategoryKey(string englishCategory)
         {
-            if (string.IsNullOrEmpty(englishCategory) || !ModCategoryTranslationKeys.ContainsKey(englishCategory))
+            if (
+                string.IsNullOrEmpty(englishCategory)
+                || !ModCategoryTranslationKeys.ContainsKey(englishCategory)
+            )
             {
                 return StringKey.Unknown;
             }
@@ -98,13 +105,13 @@ namespace AppCore
         /// <summary>
         /// Returns the load order based on the <paramref name="category"/>
         /// </summary>
-        /// <returns> 
-        /// returns an int >= 0 if valid; 
-        /// -1 if not valid category; 
-        /// returns load order of Unknown if <paramref name="category"/> is null or empty string 
+        /// <returns>
+        /// returns an int >= 0 if valid;
+        /// -1 if not valid category;
+        /// returns load order of Unknown if <paramref name="category"/> is null or empty string
         /// </returns>
         public static int Get(string category)
-        {            
+        {
             if (string.IsNullOrWhiteSpace(category))
             {
                 return (int)ModCategory.Unknown;

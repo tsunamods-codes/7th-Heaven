@@ -1,9 +1,9 @@
-﻿using Iros.Workshop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Iros.Workshop;
 using Tomlyn;
 using Tomlyn.Model;
 
@@ -12,8 +12,14 @@ namespace Iros.Workshop.ConfigSettings
     public class FFNxConfigManager
     {
         private string _pathToFFNxToml = Sys.PathToFFNxToml;
-        private string _pathToFFNxTomlBak = Path.Combine(Sys.PathToGameDriverFolder, "FFNx.toml.bak");
-        private string _pathToFFNxTomlTmp = Path.Combine(Sys.PathToGameDriverFolder, "FFNx.toml.tmp");
+        private string _pathToFFNxTomlBak = Path.Combine(
+            Sys.PathToGameDriverFolder,
+            "FFNx.toml.bak"
+        );
+        private string _pathToFFNxTomlTmp = Path.Combine(
+            Sys.PathToGameDriverFolder,
+            "FFNx.toml.tmp"
+        );
         private Exception _lastException = null;
 
         private TomlTable _toml = null;
@@ -37,25 +43,42 @@ namespace Iros.Workshop.ConfigSettings
             try
             {
                 string pathToFFNxToml = Sys.PathToFFNxToml;
-                if (!string.Equals(_pathToFFNxToml, pathToFFNxToml, StringComparison.OrdinalIgnoreCase))
+                if (
+                    !string.Equals(
+                        _pathToFFNxToml,
+                        pathToFFNxToml,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                 {
                     _toml = null;
                     _lastException = null;
                 }
                 _pathToFFNxToml = pathToFFNxToml;
 
-                if (File.Exists(_pathToFFNxToml)) _toml = TomlSerializer.Deserialize<TomlTable>(File.ReadAllText(_pathToFFNxToml));
+                if (File.Exists(_pathToFFNxToml))
+                    _toml = TomlSerializer.Deserialize<TomlTable>(
+                        File.ReadAllText(_pathToFFNxToml)
+                    );
             }
             catch (Exception ex)
             {
                 _lastException = ex;
-                Sys.Message(new WMessage() { Text = $"Something went wrong while parsing \"{_pathToFFNxToml}\"", LoggedException = _lastException, LogLevel = WMessageLogLevel.Error });
+                Sys.Message(
+                    new WMessage()
+                    {
+                        Text = $"Something went wrong while parsing \"{_pathToFFNxToml}\"",
+                        LoggedException = _lastException,
+                        LogLevel = WMessageLogLevel.Error,
+                    }
+                );
             }
         }
 
         public string Get(string key)
         {
-            if (_toml == null) return null;
+            if (_toml == null)
+                return null;
             return _toml[key].ToString();
         }
 
@@ -64,28 +87,28 @@ namespace Iros.Workshop.ConfigSettings
             switch (_toml[key])
             {
                 case string s:
-                    {
-                        _toml[key] = value;
-                        break;
-                    }
+                {
+                    _toml[key] = value;
+                    break;
+                }
                 case bool b:
-                    {
-                        _toml[key] = bool.Parse(value);
-                        break;
-                    }
+                {
+                    _toml[key] = bool.Parse(value);
+                    break;
+                }
                 case double d:
-                    {
-                        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-                        ci.NumberFormat.NumberDecimalSeparator = ".";
+                {
+                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    ci.NumberFormat.NumberDecimalSeparator = ".";
 
-                        _toml[key] = double.Parse(value, NumberStyles.Any, ci);
-                        break;
-                    }
+                    _toml[key] = double.Parse(value, NumberStyles.Any, ci);
+                    break;
+                }
                 case Int64 i:
-                    {
-                        _toml[key] = ParseIntegerSetting(value);
-                        break;
-                    }
+                {
+                    _toml[key] = ParseIntegerSetting(value);
+                    break;
+                }
             }
         }
 
@@ -104,28 +127,32 @@ namespace Iros.Workshop.ConfigSettings
             switch (_toml[key])
             {
                 case string s:
-                    {
-                        if (s != value) return false;
-                        break;
-                    }
+                {
+                    if (s != value)
+                        return false;
+                    break;
+                }
                 case bool b:
-                    {
-                        if (b != bool.Parse(value)) return false;
-                        break;
-                    }
+                {
+                    if (b != bool.Parse(value))
+                        return false;
+                    break;
+                }
                 case double d:
-                    {
-                        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-                        ci.NumberFormat.CurrencyDecimalSeparator = ".";
+                {
+                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    ci.NumberFormat.CurrencyDecimalSeparator = ".";
 
-                        if (d != double.Parse(value, NumberStyles.Any, ci)) return false;
-                        break;
-                    }
+                    if (d != double.Parse(value, NumberStyles.Any, ci))
+                        return false;
+                    break;
+                }
                 case Int64 i:
-                    {
-                        if (i != ParseIntegerSetting(value)) return false;
-                        break;
-                    }
+                {
+                    if (i != ParseIntegerSetting(value))
+                        return false;
+                    break;
+                }
             }
 
             return true;
@@ -133,7 +160,9 @@ namespace Iros.Workshop.ConfigSettings
 
         private static long ParseIntegerSetting(string value)
         {
-            return bool.TryParse(value, out bool booleanValue) ? (booleanValue ? 1L : 0L) : Int64.Parse(value);
+            return bool.TryParse(value, out bool booleanValue)
+                ? (booleanValue ? 1L : 0L)
+                : Int64.Parse(value);
         }
 
         public bool HasKey(string key)
@@ -160,59 +189,63 @@ namespace Iros.Workshop.ConfigSettings
                         switch (node)
                         {
                             case bool b:
-                                {
-                                    _write.Add($"{settingName} = { b.ToString().ToLower() }");
-                                    break;
-                                }
+                            {
+                                _write.Add($"{settingName} = {b.ToString().ToLower()}");
+                                break;
+                            }
                             case string s:
-                                {
-                                    _write.Add($"{settingName} = \"{ s.ToLower() }\"");
-                                    break;
-                                }
+                            {
+                                _write.Add($"{settingName} = \"{s.ToLower()}\"");
+                                break;
+                            }
                             case double d:
-                                {
-                                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-                                    ci.NumberFormat.NumberDecimalSeparator = ".";
+                            {
+                                CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                                ci.NumberFormat.NumberDecimalSeparator = ".";
 
-                                    _write.Add($"{settingName} = {((double)node).ToString("0.0", ci)}");
-                                    break;
-                                }
+                                _write.Add($"{settingName} = {((double)node).ToString("0.0", ci)}");
+                                break;
+                            }
                             case Int64 i:
+                            {
+                                if (settingName == "devtools_hotkey")
                                 {
-                                    if (settingName == "devtools_hotkey")
-                                    {
-                                        _write.Add($"{settingName} = 0x{i.ToString("X")}");
-                                    }
-                                    else
-                                    {
-                                        _write.Add($"{settingName} = {i.ToString()}");
-                                    }
-                                    break;
+                                    _write.Add($"{settingName} = 0x{i.ToString("X")}");
                                 }
+                                else
+                                {
+                                    _write.Add($"{settingName} = {i.ToString()}");
+                                }
+                                break;
+                            }
                             case TomlArray ta:
+                            {
+                                if (ta.Count > 0)
                                 {
-                                    if (ta.Count > 0)
+                                    if (node[0].GetType() == typeof(string))
                                     {
-                                        if (node[0].GetType() == typeof(string))
-                                        {
-                                            _write.Add($"{settingName} = [\"{ string.Join("\", \"", ta.Select(w => w.ToString())) }\"]");
-                                        }
-                                        else
-                                        {
-                                            _write.Add($"{settingName} = [{ string.Join(", ", ta.Select(w => w.ToString())) }]");
-                                        }
+                                        _write.Add(
+                                            $"{settingName} = [\"{string.Join("\", \"", ta.Select(w => w.ToString()))}\"]"
+                                        );
                                     }
                                     else
                                     {
-                                        _write.Add($"{settingName} = []");
+                                        _write.Add(
+                                            $"{settingName} = [{string.Join(", ", ta.Select(w => w.ToString()))}]"
+                                        );
                                     }
-                                    break;
                                 }
-                            default:
+                                else
                                 {
-                                    _write.Add($"{settingName} = {node.ToString()}");
-                                    break;
+                                    _write.Add($"{settingName} = []");
                                 }
+                                break;
+                            }
+                            default:
+                            {
+                                _write.Add($"{settingName} = {node.ToString()}");
+                                break;
+                            }
                         }
                     }
                     else
@@ -232,7 +265,7 @@ namespace Iros.Workshop.ConfigSettings
         public void OverrideInternalKeys(bool debug = false)
         {
             // first launch the Sys Path was not setup correctly yet so _toml is null
-            if(_toml == null)
+            if (_toml == null)
             {
                 _pathToFFNxToml = Sys.PathToFFNxToml;
                 Reload();
@@ -249,7 +282,11 @@ namespace Iros.Workshop.ConfigSettings
             {
                 _toml["external_music_path"] = "music/vgmstream";
 
-                if (Directory.EnumerateFiles(Path.Combine(Sys.InstallPath, "music/vgmstream"), "*.ogg").Any())
+                if (
+                    Directory
+                        .EnumerateFiles(Path.Combine(Sys.InstallPath, "music/vgmstream"), "*.ogg")
+                        .Any()
+                )
                     _toml["use_external_music"] = true;
             }
             _toml["external_music_ext"] = "ogg";
@@ -264,17 +301,27 @@ namespace Iros.Workshop.ConfigSettings
             _toml["override_path"] = "override";
             _toml["trace_all"] = debug;
 
-            string selectedLanguage = AppCore.GameLanguage.Normalize(Sys.Settings.GameLaunchSettings.SelectedGameLanguage);
+            string selectedLanguage = AppCore.GameLanguage.Normalize(
+                Sys.Settings.GameLaunchSettings.SelectedGameLanguage
+            );
             bool isJapaneseLanguage = selectedLanguage == AppCore.GameLanguage.Japanese;
             _toml["game_language"] = AppCore.GameLanguage.GetFFNxLanguageId(selectedLanguage);
 
-            long userConfiguredFieldAutosize = _toml.ContainsKey("ff7_field_autosize_text_box") && _toml["ff7_field_autosize_text_box"] is long currentFieldAutosize ? currentFieldAutosize : 0L;
-            _toml["ff7_field_autosize_text_box"] = isJapaneseLanguage ? 2L : userConfiguredFieldAutosize;
+            long userConfiguredFieldAutosize =
+                _toml.ContainsKey("ff7_field_autosize_text_box")
+                && _toml["ff7_field_autosize_text_box"] is long currentFieldAutosize
+                    ? currentFieldAutosize
+                    : 0L;
+            _toml["ff7_field_autosize_text_box"] = isJapaneseLanguage
+                ? 2L
+                : userConfiguredFieldAutosize;
         }
 
         public void ResetTo7thHeavenDefaults()
         {
-            ConfigSpec gameDriverUISpec = Util.Deserialize<Iros.Workshop.ConfigSettings.ConfigSpec>(Sys.PathToGameDriverUiXml());
+            ConfigSpec gameDriverUISpec = Util.Deserialize<Iros.Workshop.ConfigSettings.ConfigSpec>(
+                Sys.PathToGameDriverUiXml()
+            );
 
             foreach (Setting item in gameDriverUISpec.Settings)
             {
@@ -301,7 +348,8 @@ namespace Iros.Workshop.ConfigSettings
 
             if (File.Exists(_pathToFFNxToml))
             {
-                if (File.Exists(_path)) File.Delete(_path);
+                if (File.Exists(_path))
+                    File.Delete(_path);
 
                 File.Copy(_pathToFFNxToml, _path);
             }
