@@ -66,5 +66,7 @@
     "Microsoft.VisualStudio.Workload.ManagedGame",
     "Microsoft.VisualStudio.Workload.NativeDesktop"
   ],
-  "extensions": []
+  "extensions": [
+    "https://marketplace.visualstudio.com/items?itemName=csharpier.CSharpier"
+  ]
 }

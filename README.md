@@ -36,6 +36,17 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 4. Run: `dotnet run --project AppUI`
 5. Debug: right click on the solution **AppUI** and click `Debug->Start New Instance`
 
+## Formatting
+
+When editing project files:
+
+1. Import [.vsconfig](.vsconfig) in the Visual Studio Installer to install the CSharpier extension.
+2. Run `dotnet tool restore` from the repository root after cloning or updating the formatter.
+3. In Visual Studio, enable **Reformat with CSharpier on Save** under **Tools > Options > CSharpier > General** for C#, XML and XAML.
+4. For C++, use **Format Document** (`Ctrl+K, Ctrl+D`) before saving. Leave Visual Studio's ClangFormat support enabled.
+
+If editing outside Visual Studio, run `dotnet csharpier format .` from the repository root to format C#, XML and XAML before submitting changes.
+
 ## Special thanks
 
 The .NET 7 migration would not have been possibile without the help of these people. The order is purely Alphabetical.

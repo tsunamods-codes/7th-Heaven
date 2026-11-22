@@ -1,0 +1,15 @@
+{
+  "printWidth": 100,
+  "useTabs": false,
+  "indentSize": 4,
+  "endOfLine": "crlf",
+  "overrides": [
+    {
+      "files": "*.{config,csproj,props,slnx,targets,xaml,xml,resx,settings,manifest,vcxproj,filters,build,svg}",
+      "formatter": "xml",
+      "indentSize": 2,
+      "endOfLine": "crlf",
+      "xmlWhitespaceSensitivity": "strict"
+    }
+  ]
+}

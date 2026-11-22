@@ -1,3 +1,5 @@
+Set-StrictMode -Version Latest
+
 if ($env:_BUILD_BRANCH -eq "refs/heads/master" -Or $env:_BUILD_BRANCH -eq "refs/tags/canary") {
   $env:_IS_BUILD_CANARY = "true"
   $env:_IS_GITHUB_RELEASE = "true"
@@ -45,3 +47,14 @@ git -C $vcpkgRoot clean -fxd
 cmd.exe /c "call $vcpkgRoot\bootstrap-vcpkg.bat"
 
 vcpkg integrate install
+
+Write-Output "Restoring formatter..."
+dotnet tool restore
+
+Write-Output "Checking C# and XML/XAML formatting..."
+dotnet csharpier check .
+
+Write-Output "Checking C++ formatting..."
+$vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+$clangFormat = "$vs\VC\Tools\Llvm\x64\bin\clang-format.exe"
+& $clangFormat --dry-run --Werror (Get-ChildItem AppLoader\*.cpp, AppLoader\*.h -File).FullName

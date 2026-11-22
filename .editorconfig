@@ -1,0 +1,28 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{cs,csx}]
+charset = utf-8
+max_line_length = 100
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+csharp_new_line_before_open_brace = all
+
+[*.{config,csproj,props,targets,xaml,xml,resx,settings,manifest,vcxproj,filters,build,svg,json,yml,yaml}]
+indent_size = 2
+
+[*.{config,csproj,props,targets,xaml,xml,resx,settings,manifest,vcxproj,filters,build,svg}]
+# XML text whitespace can be significant; leave its handling to CSharpier.
+trim_trailing_whitespace = false
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{Designer,designer,generated,g,g.i}.cs]
+generated_code = true
