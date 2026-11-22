@@ -1,6 +1,6 @@
 BasedOnStyle: Microsoft
 IndentWidth: 4
-ColumnLimit: 100
+ColumnLimit: 1000
 LineEnding: CRLF
 # Include order is significant for the X-macro headers and Windows APIs.
 SortIncludes: Never
