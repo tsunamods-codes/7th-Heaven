@@ -42,6 +42,12 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <Target Name="InstallIndentationHook" BeforeTargets="PrepareForBuild"
+          Condition="'$(DesignTimeBuild)' != 'true' and '$(CI)' != 'true' and Exists('$(MSBuildProjectDirectory)\..\.git')">
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)\.."
+          Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;.scripts\Install-IndentationHook.ps1&quot;"
+          EnvironmentVariables="IndentationHookDevEnvDir=$(DevEnvDir)" />
+  </Target>
   <PropertyGroup>
     <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>

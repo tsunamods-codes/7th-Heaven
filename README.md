@@ -36,6 +36,10 @@ This is a fork of the original [7th Heaven 2.x](https://github.com/unab0mb/7h) r
 4. Run: `dotnet run --project AppUI`
 5. Debug: right click on the solution **AppUI** and click `Debug->Start New Instance`
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for build setup, indentation checks, and the steps to open a pull request.
+
 ## Special thanks
 
 The .NET 7 migration would not have been possibile without the help of these people. The order is purely Alphabetical.
