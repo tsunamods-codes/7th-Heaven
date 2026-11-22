@@ -1,389 +1,388 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ConfigSpec
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
->
-  <!-- GRAPHICS TAB -->
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Graphics API</Name>
-    <Description>Sets Rendering Software. Auto determines the best choice based on your GPU. Crashes may occur using OpenGL with AMD cards.</Description>
-    <DefaultValue>renderer_backend = 0</DefaultValue>
-    <Option>
-      <Text>Auto</Text>
-      <Settings>renderer_backend = 0</Settings>
-    </Option>
-    <Option>
-      <Text>OpenGL</Text>
-      <Settings>renderer_backend = 1</Settings>
-    </Option>
-    <Option>
-      <Text>DirectX 11</Text>
-      <Settings>renderer_backend = 3</Settings>
-    </Option>
-    <Option>
-      <Text>DirectX 12</Text>
-      <Settings>renderer_backend = 4</Settings>
-    </Option>
-    <Option>
-      <Text>Vulkan</Text>
-      <Settings>renderer_backend = 5</Settings>
-    </Option>
-  </Setting>
+<?xml version="1.0" encoding="utf-8" ?>
+<ConfigSpec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Display</Name>
-    <Description>Sets the preferred display where to run the game.</Description>
-    <DefaultValue>display_index = -1</DefaultValue>
-    <Option>
-      <Text>Primary Display</Text>
-      <Settings>display_index = -1</Settings>
-    </Option>
-  </Setting>
+<!-- GRAPHICS TAB -->
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>グラフィックAPI</Name>
+<Description>グラフィックAPIを設定します。「自動」では、お使いのGPUに基づいて最適なものが自動的に選択されます。AMD製グラフィックカードでOpenGLを使用すると、クラッシュが発生する場合があります</Description>
+<DefaultValue>renderer_backend = 0</DefaultValue>
+<Option>
+<Text>自動</Text>
+<Settings>renderer_backend = 0</Settings>
+</Option>
+<Option>
+<Text>OpenGL</Text>
+<Settings>renderer_backend = 1</Settings>
+</Option>
+<Option>
+<Text>DirectX 11</Text>
+<Settings>renderer_backend = 3</Settings>
+</Option>
+<Option>
+<Text>DirectX 12</Text>
+<Settings>renderer_backend = 4</Settings>
+</Option>
+<Option>
+<Text>Vulkan</Text>
+<Settings>renderer_backend = 5</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Resolution</Name>
-    <Description>Sets the window size for the game. Auto uses game resolution in windowed mode or current desktop resolution in fullscreen mode.</Description>
-    <DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
-    <Option>
-      <Text>Auto</Text>
-      <Settings>window_size_x = 0,window_size_y = 0</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>ディスプレイ</Name>
+<Description>ゲームを実行するディスプレイを設定します</Description>
+<DefaultValue>display_index = -1</DefaultValue>
+<Option>
+<Text>メインディスプレイ</Text>
+<Settings>display_index = -1</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Window Mode</Name>
-    <Description>Display the game in either a standard window, or borderless fullscreen.</Description>
-    <DefaultValue>fullscreen = false,borderless = false</DefaultValue>
-    <Option>
-      <Text>Windowed</Text>
-      <Settings>fullscreen = false,borderless = false</Settings>
-    </Option>
-    <Option>
-      <Text>Fullscreen</Text>
-      <Settings>fullscreen = true,borderless = false</Settings>
-    </Option>
-    <Option>
-      <Text>Borderless</Text>
-      <Settings>fullscreen = false,borderless = true</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>解像度</Name>
+<Description>ゲーム画面のウィンドウサイズを設定します。「自動」では、ウィンドウモードの場合はゲームの解像度、フルスクリーンモードの場合は現在のディスプレイの解像度が使用されます</Description>
+<DefaultValue>window_size_x = 1280,window_size_y = 720</DefaultValue>
+<Option>
+<Text>自動</Text>
+<Settings>window_size_x = 0,window_size_y = 0</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Aspect Ratio</Name>
-    <Description>Preserve aspect ratio adds black borders as needed to preserve a 4:3 aspect ratio.</Description>
-    <DefaultValue>aspect_ratio = 0</DefaultValue>
-    <Option>
-      <Text>Native (4:3)</Text>
-      <Settings>aspect_ratio = 0</Settings>
-    </Option>
-    <Option>
-      <Text>Stretch to Fill</Text>
-      <Settings>aspect_ratio = 1</Settings>
-    </Option>
-    <Option>
-      <Text>Widescreen (16:9)</Text>
-      <Settings>aspect_ratio = 2</Settings>
-    </Option>
-    <Option>
-      <Text>Widescreen (16:10)</Text>
-      <Settings>aspect_ratio = 3</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>ウィンドウモード</Name>
+<Description>ウィンドウ、フルスクリーン、またはボーダーレスフルスクリーンの表示を選択します</Description>
+<DefaultValue>fullscreen = false,borderless = false</DefaultValue>
+<Option>
+<Text>ウィンドウ</Text>
+<Settings>fullscreen = false,borderless = false</Settings>
+</Option>
+<Option>
+<Text>フルスクリーン</Text>
+<Settings>fullscreen = true,borderless = false</Settings>
+</Option>
+<Option>
+<Text>ボーダーレスフルスクリーン</Text>
+<Settings>fullscreen = false,borderless = true</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>Antialiasing</Name>
-    <Description>Applies 2x/4x/8x/16x MSAA filtering. Reduces jagged edges and improves image quality. Can severely impact performance.</Description>
-    <DefaultValue>enable_antialiasing = 0</DefaultValue>
-    <Option>
-      <Text>Off</Text>
-      <Settings>enable_antialiasing = 0</Settings>
-    </Option>
-    <Option>
-      <Text>2x MSAA</Text>
-      <Settings>enable_antialiasing = 2</Settings>
-    </Option>
-    <Option>
-      <Text>4x MSAA</Text>
-      <Settings>enable_antialiasing = 4</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>アスペクト比</Name>
+<Description>「標準（4:3）」では、4:3のアスペクト比を維持するため、必要に応じて黒帯が表示されます</Description>
+<DefaultValue>aspect_ratio = 0</DefaultValue>
+<Option>
+<Text>標準の4:3</Text>
+<Settings>aspect_ratio = 0</Settings>
+</Option>
+<Option>
+<Text>画面全体に引き伸ばす</Text>
+<Settings>aspect_ratio = 1</Settings>
+</Option>
+<Option>
+<Text>16:9のワイドスクリーン</Text>
+<Settings>aspect_ratio = 2</Settings>
+</Option>
+<Option>
+<Text>16:10のワイドスクリーン</Text>
+<Settings>aspect_ratio = 3</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Graphics</Group>
-    <Name>フィールドテキストボックス自動サイズ調整</Name>
-    <Description>FIELD/WORLDMAPの会話枠を自動調整。日本語は幅と高さが既定（MODで変更可能）。</Description>
-    <DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
-    <Option>
-      <Text>オフ</Text>
-      <Settings>ff7_field_autosize_text_box = 0</Settings>
-    </Option>
-    <Option>
-      <Text>幅のみ</Text>
-      <Settings>ff7_field_autosize_text_box = 1</Settings>
-    </Option>
-    <Option>
-      <Text>幅と高さ</Text>
-      <Settings>ff7_field_autosize_text_box = 2</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>アンチエイリアス</Name>
+<Description>2倍または4倍のMSAAを適用します。輪郭のギザギザを軽減し、画質を向上させますが、パフォーマンスが大幅に低下する場合があります</Description>
+<DefaultValue>enable_antialiasing = 0</DefaultValue>
+<Option>
+<Text>オフ</Text>
+<Settings>enable_antialiasing = 0</Settings>
+</Option>
+<Option>
+<Text>2倍のMSAA</Text>
+<Settings>enable_antialiasing = 2</Settings>
+</Option>
+<Option>
+<Text>4倍のMSAA</Text>
+<Settings>enable_antialiasing = 4</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Graphics</Group>
-    <Name>Vertical Uncrop</Name>
-    <Description>Uncrops the image to remove the black bars on the top and bottom of the screen</Description>
-    <DefaultValue>enable_uncrop = true</DefaultValue>
-    <TrueSetting>enable_uncrop = true</TrueSetting>
-    <FalseSetting>enable_uncrop = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>グラフィック</Group>
+<Name>フィールドのテキストウィンドウのサイズを自動調整</Name>
+<Description>フィールドやワールドマップでは、台詞テキストに合わせてウィンドウのサイズを最適化します。日本語では初期設定で幅と高さの両方を調整します。MODによってこの設定を上書きできます</Description>
+<DefaultValue>ff7_field_autosize_text_box = 0</DefaultValue>
+<Option>
+<Text>オフ</Text>
+<Settings>ff7_field_autosize_text_box = 0</Settings>
+</Option>
+<Option>
+<Text>幅のみ</Text>
+<Settings>ff7_field_autosize_text_box = 1</Settings>
+</Option>
+<Option>
+<Text>幅と高さ</Text>
+<Settings>ff7_field_autosize_text_box = 2</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Graphics</Group>
-    <Name>Anisotropic Filtering</Name>
-    <Description>Applies a filter to high resolution textures producing a sharper image. Can impact performance due to increased memory usage</Description>
-    <DefaultValue>enable_anisotropic = true</DefaultValue>
-    <TrueSetting>enable_anisotropic = true</TrueSetting>
-    <FalseSetting>enable_anisotropic = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>グラフィック</Group>
+<Name>垂直方向のクロップを解除</Name>
+<Description>画面の上下にある黒帯を取り除きます</Description>
+<DefaultValue>enable_uncrop = true</DefaultValue>
+<TrueSetting>enable_uncrop = true</TrueSetting>
+<FalseSetting>enable_uncrop = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Graphics</Group>
-    <Name>Vertical Sync</Name>
-    <Description>Sync the frame rate of the game with the monitor refresh rate. May negatively impact performance or break 60 fps mods. Turn on if you experience screen tearing. *Limits Speed Hack!*</Description>
-    <DefaultValue>enable_vsync = false</DefaultValue>
-    <TrueSetting>enable_vsync = true</TrueSetting>
-    <FalseSetting>enable_vsync = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>グラフィック</Group>
+<Name>異方性フィルタリング</Name>
+<Description>高解像度テクスチャにフィルタを適用し、画像をより鮮明にします。メモリ使用量が増加するため、パフォーマンスに影響する場合があります</Description>
+<DefaultValue>enable_anisotropic = true</DefaultValue>
+<TrueSetting>enable_anisotropic = true</TrueSetting>
+<FalseSetting>enable_anisotropic = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Graphics</Group>
-    <Name>Advanced Lighting</Name>
-    <Description>Enable support for realtime lighting. NOTE: This feature requires a MODERN CPU. If you notice slowdows, please DISABLE this flag.</Description>
-    <DefaultValue>enable_lighting = false</DefaultValue>
-    <TrueSetting>enable_lighting = true</TrueSetting>
-    <FalseSetting>enable_lighting = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>グラフィック</Group>
+<Name>垂直同期</Name>
+<Description>ゲームのフレームレートをモニターのリフレッシュレートに同期します。パフォーマンスが低下したり、60fps対応MODが正常に動作しなくなったりする場合があります。スクリーンテアリングが発生する場合はオンにしてください。注意：スピードハックの速度が制限されます！</Description>
+<DefaultValue>enable_vsync = false</DefaultValue>
+<TrueSetting>enable_vsync = true</TrueSetting>
+<FalseSetting>enable_vsync = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Graphics</Group>
-    <Name>NTSC-J Gamut Mode</Name>
-    <Description>Simulate the color gamut of the 1990s Japanese television sets that FF7 was originally designed for.</Description>
-    <DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
-    <TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
-    <FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>グラフィック</Group>
+<Name>高度なライティング</Name>
+<Description>リアルタイムライティングへの対応を有効にします。注意：この機能には近年のCPUが必要です。動作が遅くなる場合は、この設定を無効にしてください</Description>
+<DefaultValue>enable_lighting = false</DefaultValue>
+<TrueSetting>enable_lighting = true</TrueSetting>
+<FalseSetting>enable_lighting = false</FalseSetting>
+</Setting>
 
-  <!-- CHEATS TAB -->
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Random Battles</Name>
-    <Description>Not configurable. Toggle on/off random battle encounters while playing the game.{0}Usage: 'CTRL+B' or 'L3, then Circle'</Description>
-    <DefaultValue></DefaultValue>
-    <Option>
-      <Text>See Description</Text>
-      <Settings></Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>グラフィック</Group>
+<Name>NTSC-Jの色域</Name>
+<Description>FF7の開発当時に想定されていた、1990年代の日本のテレビの色域を再現します</Description>
+<DefaultValue>enable_ntscj_gamut_mode = false</DefaultValue>
+<TrueSetting>enable_ntscj_gamut_mode = true</TrueSetting>
+<FalseSetting>enable_ntscj_gamut_mode = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Auto-Attack</Name>
-    <Description>Not configurable. Toggle on/off auto-attack while playing the game.{0}Usage: 'CTRL+A' or 'L3, then Triangle'</Description>
-    <DefaultValue></DefaultValue>
-    <Option>
-      <Text>See Description</Text>
-      <Settings></Settings>
-    </Option>
-  </Setting>
+<!-- CHEATS TAB -->
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>ランダムエンカウント</Name>
+<Description>設定変更はできません。ゲーム内でランダムエンカウントをオン・オフを切り替えます。{0}使用方法：「CTRL+B」または「L3を押してから〇」</Description>
+<DefaultValue></DefaultValue>
+<Option>
+<Text>説明を参照</Text>
+<Settings></Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Skip Movies</Name>
-    <Description>Not configurable. Immediately skips to end of a movie.{0}Usage: 'CTRL+S' or 'L3, then Square'</Description>
-    <DefaultValue></DefaultValue>
-    <Option>
-      <Text>See Description</Text>
-      <Settings></Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>オートアタック</Name>
+<Description>設定変更はできません。ゲーム内でオートアタックをオン・オフを切り替えます。{0}使用方法：「CTRL+A」または「L3を押してから△」</Description>
+<DefaultValue></DefaultValue>
+<Option>
+<Text>説明を参照</Text>
+<Settings></Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Soft Reset</Name>
-    <Description>Not configurable. Quickly reset the game with a game over. *Do not reset during battle.*{0}Usage: 'CTRL+R' or 'L3, then Select+Start'</Description>
-    <DefaultValue></DefaultValue>
-    <Option>
-      <Text>See Description</Text>
-      <Settings></Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>ムービースキップ</Name>
+<Description>設定変更はできません。ゲーム内でムービーを直ちに最後までスキップします。{0}使用方法：「CTRL+S」または「L3を押してから☐」</Description>
+<DefaultValue></DefaultValue>
+<Option>
+<Text>説明を参照</Text>
+<Settings></Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Speed Hack Stepping</Name>
-    <Description>Amount to increase or decrease speed on each trigger.{0}Usage: 'CTRL+Up/Down' or 'L3, then L1/R1' to change speed, 'CTRL+Left/Right' or 'L3, then L2/R2' to turn on/off.</Description>
-    <DefaultValue>speedhack_step = 0.5</DefaultValue>
-    <Option>
-      <Text>0.5</Text>
-      <Settings>speedhack_step = 0.5</Settings>
-    </Option>
-    <Option>
-      <Text>1.0</Text>
-      <Settings>speedhack_step = 1.0</Settings>
-    </Option>
-    <Option>
-      <Text>2.0</Text>
-      <Settings>speedhack_step = 2.0</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>ソフトリセット</Name>
+<Description>設定変更はできません。ゲーム内で、ゲームオーバーを発生させてゲームをすばやくリセットします。注意：戦闘中はリセットしないでください！{0}使用方法：「CTRL+R」または「L3を押してからSELECT+START」</Description>
+<DefaultValue></DefaultValue>
+<Option>
+<Text>説明を参照</Text>
+<Settings></Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Cheats</Group>
-    <Name>Speed Hack Max</Name>
-    <Description>The maximum speed to set before cycling back to normal speed.</Description>
-    <DefaultValue>speedhack_max = 8.0</DefaultValue>
-    <Option>
-      <Text>2x</Text>
-      <Settings>speedhack_max = 2.0</Settings>
-    </Option>
-    <Option>
-      <Text>4x</Text>
-      <Settings>speedhack_max = 4.0</Settings>
-    </Option>
-    <Option>
-      <Text>6x</Text>
-      <Settings>speedhack_max = 6.0</Settings>
-    </Option>
-    <Option>
-      <Text>8x</Text>
-      <Settings>speedhack_max = 8.0</Settings>
-    </Option>
-    <Option>
-      <Text>10x</Text>
-      <Settings>speedhack_max = 10.0</Settings>
-    </Option>
-    <Option>
-      <Text>12x</Text>
-      <Settings>speedhack_max = 12.0</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>スピードハックの増減幅</Name>
+<Description>スピードハックを操作するごとに、速度を増減させる量を設定します。{0}使用方法：「CTRL+上・下」または「L3を押してからL1・R1」で速度を変更します。「CTRL+左・右」または「L3を押してからL2・R2」でオン・オフを切り替えます</Description>
+<DefaultValue>speedhack_step = 0.5</DefaultValue>
+<Option>
+<Text>0.5</Text>
+<Settings>speedhack_step = 0.5</Settings>
+</Option>
+<Option>
+<Text>1.0</Text>
+<Settings>speedhack_step = 1.0</Settings>
+</Option>
+<Option>
+<Text>2.0</Text>
+<Settings>speedhack_step = 2.0</Settings>
+</Option>
+</Setting>
 
-  <!-- CONTROLS TAB -->
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Analogue Controls</Name>
-    <Description>Enable support for full omni-directional analogue control. This includes two features: Battle Free Camera Movement and Full 360 Degree Analogue Movement for Field.</Description>
-    <DefaultValue>enable_analogue_controls = false</DefaultValue>
-    <TrueSetting>enable_analogue_controls = true</TrueSetting>
-    <FalseSetting>enable_analogue_controls = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="DropDown">
+<Group>チート</Group>
+<Name>スピードハックの最大速度</Name>
+<Description>通常速度に戻る前に設定できる最大速度を指定します</Description>
+<DefaultValue>speedhack_max = 8.0</DefaultValue>
+<Option>
+<Text>2倍</Text>
+<Settings>speedhack_max = 2.0</Settings>
+</Option>
+<Option>
+<Text>4倍</Text>
+<Settings>speedhack_max = 4.0</Settings>
+</Option>
+<Option>
+<Text>6倍</Text>
+<Settings>speedhack_max = 6.0</Settings>
+</Option>
+<Option>
+<Text>8倍</Text>
+<Settings>speedhack_max = 8.0</Settings>
+</Option>
+<Option>
+<Text>10倍</Text>
+<Settings>speedhack_max = 10.0</Settings>
+</Option>
+<Option>
+<Text>12倍</Text>
+<Settings>speedhack_max = 12.0</Settings>
+</Option>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Controls</Group>
-    <Name>Auto run</Name>
-    <Description>Enable the auto run behavior. This will make Cloud automatically run depending on how much the left analog stick is tilted.</Description>
-    <DefaultValue>enable_auto_run = false</DefaultValue>
-    <TrueSetting>enable_auto_run = true</TrueSetting>
-    <FalseSetting>enable_auto_run = false</FalseSetting>
-  </Setting>
+<!-- CONTROLS TAB -->
+<Setting xsi:type="Checkbox">
+<Group>コントロール</Group>
+<Name>アナログ操作</Name>
+<Description>全方向へのアナログ操作に対応します。以下の2つの機能が含まれます：戦闘中のフリーカメラ操作、およびフィールドでの360度全方向アナログ移動</Description>
+<DefaultValue>enable_analogue_controls = false</DefaultValue>
+<TrueSetting>enable_analogue_controls = true</TrueSetting>
+<FalseSetting>enable_analogue_controls = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Controls</Group>
-    <Name>Invert Horizontal Controls</Name>
-    <Description>Enable to invert the camera horizontal movement when controlling the camera in battles.</Description>
-    <DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
-    <TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
-    <FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>コントロール</Group>
+<Name>自動走行</Name>
+<Description>自動走行機能を有効にします。左アナログスティックの傾き具合に応じて、クラウドが自動的に走るようになります</Description>
+<DefaultValue>enable_auto_run = false</DefaultValue>
+<TrueSetting>enable_auto_run = true</TrueSetting>
+<FalseSetting>enable_auto_run = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Controls</Group>
-    <Name>Invert Vertical Controls</Name>
-    <Description>Enable to invert the camera vertical movement when controlling the camera in battles.</Description>
-    <DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
-    <TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
-    <FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>コントロール</Group>
+<Name>水平方向の操作を反転</Name>
+<Description>戦闘中にカメラを操作する時、水平方向のカメラ移動を反転させます</Description>
+<DefaultValue>enable_inverted_horizontal_camera_controls = false</DefaultValue>
+<TrueSetting>enable_inverted_horizontal_camera_controls = true</TrueSetting>
+<FalseSetting>enable_inverted_horizontal_camera_controls = false</FalseSetting>
+</Setting>
 
-  <!-- ADVANCED TAB -->
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Steam Compatibility</Name>
-    <Description>Enable Steam features (Game activity, Controller, and Achievements). REQUIRES Steam to be running.</Description>
-    <DefaultValue>enable_steam_achievements = false</DefaultValue>
-    <TrueSetting>enable_steam_achievements = true</TrueSetting>
-    <FalseSetting>enable_steam_achievements = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>コントロール</Group>
+<Name>垂直方向の操作を反転</Name>
+<Description>戦闘中にカメラを操作する時、垂直方向のカメラ移動を反転させます</Description>
+<DefaultValue>enable_inverted_vertical_camera_controls = false</DefaultValue>
+<TrueSetting>enable_inverted_vertical_camera_controls = true</TrueSetting>
+<FalseSetting>enable_inverted_vertical_camera_controls = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Show Debug Info</Name>
-    <Description>Displays realtime information about the rendering process/performance on an overlay or in the title bar.</Description>
-    <DefaultValue>show_stats = false</DefaultValue>
-    <TrueSetting>show_stats = true</TrueSetting>
-    <FalseSetting>show_stats = false</FalseSetting>
-  </Setting>
+<!-- ADVANCED TAB -->
+<Setting xsi:type="Checkbox">
+<Group>詳細設定</Group>
+<Name>Steam互換性</Name>
+<Description>Steamの機能（最近のアクティビティ、ゲームパッド、実績）を有効にします。Steamが起動している必要があります</Description>
+<DefaultValue>enable_steam_achievements = false</DefaultValue>
+<TrueSetting>enable_steam_achievements = true</TrueSetting>
+<FalseSetting>enable_steam_achievements = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Show Driver Version</Name>
-    <Description>Displays the currently used driver version on an overlay or in the title bar.</Description>
-    <DefaultValue>show_version = false</DefaultValue>
-    <TrueSetting>show_version = true</TrueSetting>
-    <FalseSetting>show_version = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>詳細設定</Group>
+<Name>デバッグ情報を表示</Name>
+<Description>描画処理やパフォーマンスに関するリアルタイム情報を、画面上のオーバーレイまたはタイトルバーに表示します</Description>
+<DefaultValue>show_stats = false</DefaultValue>
+<TrueSetting>show_stats = true</TrueSetting>
+<FalseSetting>show_stats = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Show FPS</Name>
-    <Description>Displays the current Frames Per Second on an overlay or in the title bar.</Description>
-    <DefaultValue>show_fps = false</DefaultValue>
-    <TrueSetting>show_fps = true</TrueSetting>
-    <FalseSetting>show_fps = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>詳細設定</Group>
+<Name>ドライバーバージョンを表示</Name>
+<Description>現在使用しているドライバーのバージョンを、画面上のオーバーレイまたはタイトルバーに表示します</Description>
+<DefaultValue>show_version = false</DefaultValue>
+<TrueSetting>show_version = true</TrueSetting>
+<FalseSetting>show_version = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="Checkbox">
-    <Group>Advanced</Group>
-    <Name>Show Graphics API</Name>
-    <Description>Displays the currently used Graphics API (OpenGL/DirectX11) on an overlay or in the title bar.</Description>
-    <DefaultValue>show_renderer_backend = false</DefaultValue>
-    <TrueSetting>show_renderer_backend = true</TrueSetting>
-    <FalseSetting>show_renderer_backend = false</FalseSetting>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>詳細設定</Group>
+<Name>FPSを表示</Name>
+<Description>現在のフレームレートを、画面上のオーバーレイまたはタイトルバーに表示します</Description>
+<DefaultValue>show_fps = false</DefaultValue>
+<TrueSetting>show_fps = true</TrueSetting>
+<FalseSetting>show_fps = false</FalseSetting>
+</Setting>
 
-  <Setting xsi:type="DropDown">
-    <Group>Advanced</Group>
-    <Name>Internal Resolution Scaler</Name>
-    <Description>Multiply 640x480 internal resolution by following amount. Higher values need more powerful GPU.  Higher values can remove scaling artefacts, * Values are optimal performance quality tradeoff.</Description>
-    <DefaultValue>internal_resolution_scale = 0</DefaultValue>
-    <Option>
-      <Text>Auto</Text>
-      <Settings>internal_resolution_scale = 0</Settings>
-    </Option>
-    <Option>
-      <Text>1x (May cause artefacts)</Text>
-      <Settings>internal_resolution_scale = 1</Settings>
-    </Option>
-    <Option>
-      <Text>2x</Text>
-      <Settings>internal_resolution_scale = 2</Settings>
-    </Option>
-    <Option>
-      <Text>*4x</Text>
-      <Settings>internal_resolution_scale = 4</Settings>
-    </Option>
-    <Option>
-      <Text>*6x</Text>
-      <Settings>internal_resolution_scale = 6</Settings>
-    </Option>
-    <Option>
-      <Text>8x</Text>
-      <Settings>internal_resolution_scale = 8</Settings>
-    </Option>
-  </Setting>
+<Setting xsi:type="Checkbox">
+<Group>詳細設定</Group>
+<Name>グラフィックAPIを表示</Name>
+<Description>現在使用しているグラフィックAPIを、画面上のオーバーレイまたはタイトルバーに表示します</Description>
+<DefaultValue>show_renderer_backend = false</DefaultValue>
+<TrueSetting>show_renderer_backend = true</TrueSetting>
+<FalseSetting>show_renderer_backend = false</FalseSetting>
+</Setting>
+
+<Setting xsi:type="DropDown">
+<Group>詳細設定</Group>
+<Name>内部解像度の倍率</Name>
+<Description>640x480の内部解像度に、以下の倍率を適用します。倍率を高くするほど高性能なGPUが必要になります。また、高い倍率では拡大縮小時のアーティファクトを軽減できます。※の付いた倍率は、パフォーマンスと画質のバランスが最適な値です</Description>
+<DefaultValue>internal_resolution_scale = 0</DefaultValue>
+<Option>
+<Text>自動</Text>
+<Settings>internal_resolution_scale = 0</Settings>
+</Option>
+<Option>
+<Text>1倍（アーティファクトが発生する場合があります）</Text>
+<Settings>internal_resolution_scale = 1</Settings>
+</Option>
+<Option>
+<Text>2倍</Text>
+<Settings>internal_resolution_scale = 2</Settings>
+</Option>
+<Option>
+<Text>※4倍</Text>
+<Settings>internal_resolution_scale = 4</Settings>
+</Option>
+<Option>
+<Text>※6倍</Text>
+<Settings>internal_resolution_scale = 6</Settings>
+</Option>
+<Option>
+<Text>8倍</Text>
+<Settings>internal_resolution_scale = 8</Settings>
+</Option>
+</Setting>
+
 </ConfigSpec>
