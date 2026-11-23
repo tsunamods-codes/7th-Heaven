@@ -58,7 +58,7 @@ namespace AppUI.ViewModels
                 $"{ResourceHelper.Get(StringKey.SimplifiedChinese)} (\u4e2d\u6587\u7b80\u4f53)",
                 "zh"
             );
-            //LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Japanese)} (\u65e5\u672c\u8a9e)", "ja");
+            LanguagesMap.Add($"{ResourceHelper.Get(StringKey.Japanese)} (\u65e5\u672c\u8a9e)", "ja");
 
             string defaultLang = Sys.Settings.AppLanguage;
 

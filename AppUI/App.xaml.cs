@@ -539,6 +539,12 @@ namespace AppUI
                             UriKind.Relative
                         );
                         break;
+                    case "ja":
+                        dict.Source = new Uri(
+                            "Resources\\Languages\\StringResources.ja.xaml",
+                            UriKind.Relative
+                        );
+                        break;
                     case "zh":
                         dict.Source = new Uri(
                             "Resources\\Languages\\StringResources.zh.xaml",
