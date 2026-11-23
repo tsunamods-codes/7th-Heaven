@@ -247,7 +247,6 @@ namespace Iros.Workshop
             if (
                 string.IsNullOrWhiteSpace(appLanguage)
                 || appLanguage.StartsWith("en")
-                || appLanguage.StartsWith("ja")
             )
             {
                 return Path.Combine(Sys._7HFolder, "Resources", "7H_GameDriver_UI.xml");
