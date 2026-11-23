@@ -148,7 +148,8 @@
   <system:String x:Key="ShowOnlyLanguageCompatibleItems"
     >選択したゲームの言語に対応するMODのみ表示</system:String>
 
-  <system:String x:Key="DeleteControlsTooltip">選択したカスタムコントロール設定を削除ます</system:String>
+  <system:String x:Key="DeleteControlsTooltip"
+    >選択したカスタムコントロール設定を削除ます</system:String>
 
   <system:String x:Key="Import">インポート</system:String>
 
@@ -711,8 +712,12 @@
 
   <system:String x:Key="PathsHeader" xml:space="preserve"> パス </system:String>
   <system:String x:Key="ShellIntegrationHeader" xml:space="preserve"> シェル統合 </system:String>
-  <system:String x:Key="CatalogSubscriptionsHeader" xml:space="preserve"> 購読カタログ： </system:String>
-  <system:String x:Key="AdditionalFoldersToMonitorHeader" xml:space="preserve"> 監視する追加フォルダー： </system:String>
+  <system:String
+    x:Key="CatalogSubscriptionsHeader"
+    xml:space="preserve"> 購読カタログ： </system:String>
+  <system:String
+    x:Key="AdditionalFoldersToMonitorHeader"
+    xml:space="preserve"> 監視する追加フォルダー： </system:String>
 
   <system:String x:Key="Url">リンク</system:String>
 
@@ -742,7 +747,8 @@
   <system:String x:Key="PatchIRO">.iroにパッチを適用</system:String>
   <system:String x:Key="PatchIROAdvanced">.iroにパッチを適用（詳細）</system:String>
 
-  <system:String x:Key="AnUnhandledExceptionOccurredAppMustClose">未処理の例外が発生したため、アプリケーションを終了する必要があります</system:String>
+  <system:String x:Key="AnUnhandledExceptionOccurredAppMustClose"
+    >未処理の例外が発生したため、アプリケーションを終了する必要があります</system:String>
 
   <system:String x:Key="SelectLanguage">言語を選択：</system:String>
   <system:String x:Key="English">英語</system:String>
@@ -1073,11 +1079,13 @@
   <system:String x:Key="SourceIro">ソースIRO：</system:String>
 
   <!--CreateModUserControl Strings-->
-  <system:String x:Key="OutputsCurrentModXmlToBelow">現在のmod.xmlを下のテキストエリアに出力します</system:String>
+  <system:String x:Key="OutputsCurrentModXmlToBelow"
+    >現在のmod.xmlを下のテキストエリアに出力します</system:String>
   <system:String x:Key="SaveModXmlToFile">mod.xmlをファイルに保存</system:String>
   <system:String x:Key="LoadModXmlFileToEdit">編集するmod.xmlファイルを読み込む</system:String>
   <system:String x:Key="AddModToCatalog">カタログにMODを追加</system:String>
-  <system:String x:Key="ImportModFromModXmlOrIro">mod.xmlまたは.iroからMODをインポート</system:String>
+  <system:String x:Key="ImportModFromModXmlOrIro"
+    >mod.xmlまたは.iroからMODをインポート</system:String>
 
   <system:String x:Key="GeneralSettingsTitle">一般設定</system:String>
 
@@ -1108,7 +1116,8 @@
   <system:String x:Key="SelectFLevelLgpFile">FLevel.lgpファイルを選択</system:String>
 
   <system:String x:Key="ClickToSelectFf7ExeFile">クリックしてFF7のEXEファイルを選択</system:String>
-  <system:String x:Key="ClickToSelectWhereYourMovieFolderIs">クリックしてMODのライブラリのパスを選択</system:String>
+  <system:String x:Key="ClickToSelectWhereYourMovieFolderIs"
+    >クリックしてMODのライブラリのパスを選択</system:String>
 
   <system:String x:Key="FF7ExeLabel">FF7のEXE：</system:String>
   <system:String x:Key="LibraryLabel">ライブラリ：</system:String>
@@ -1116,13 +1125,17 @@
   <system:String x:Key="AddSubscriptionURL">購読カタログのリンクを追加</system:String>
   <system:String x:Key="RemoveSubscriptionURL">購読カタログのリンクを削除</system:String>
   <system:String x:Key="EditSubscriptionURL">購読カタログのリンク・名前を編集</system:String>
-  <system:String x:Key="MoveSubscriptionUp">購読カタログを上へ移動。右クリックで一番上へ移動します</system:String>
-  <system:String x:Key="MoveSubscriptionDown">購読カタログを下へ移動。右クリックで一番下へ移動します</system:String>
+  <system:String x:Key="MoveSubscriptionUp"
+    >購読カタログを上へ移動。右クリックで一番上へ移動します</system:String>
+  <system:String x:Key="MoveSubscriptionDown"
+    >購読カタログを下へ移動。右クリックで一番下へ移動します</system:String>
 
   <system:String x:Key="AddFolder">フォルダーを追加</system:String>
   <system:String x:Key="RemoveFolder">フォルダーを削除</system:String>
-  <system:String x:Key="MoveFolderUp">フォルダーを上へ移動。右クリックで一番上へ移動します</system:String>
-  <system:String x:Key="MoveFolderDown">フォルダーを下へ移動。右クリックで一番下へ移動します</system:String>
+  <system:String x:Key="MoveFolderUp"
+    >フォルダーを上へ移動。右クリックで一番上へ移動します</system:String>
+  <system:String x:Key="MoveFolderDown"
+    >フォルダーを下へ移動。右クリックで一番下へ移動します</system:String>
   <system:String x:Key="EnterUrlInIrosFormat">iros://形式でリンクを入力してください</system:String>
 
   <system:String x:Key="SelectCustomThemeXmlFile">カスタムテーマの.xmlファイルを選択</system:String>
@@ -1281,7 +1294,8 @@
   <system:String x:Key="ControlsTooltip"
     >ゲーム内のキーボードとゲームパッドのコントロール設定を行います。保存アイコンをクリックすると、上記のキーバインドをカスタム設定として保存できます</system:String>
 
-  <system:String x:Key="StartingPS4ControllerService">PS4コントローラーのサービスを起動中…</system:String>
+  <system:String x:Key="StartingPS4ControllerService"
+    >PS4コントローラーのサービスを起動中…</system:String>
   <system:String x:Key="RetryInstallTooltip">MODのインストールを再試行</system:String>
 
   <system:String x:Key="MovieImporter">ムービーインポーター</system:String>
